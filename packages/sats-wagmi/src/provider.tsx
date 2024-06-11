@@ -5,6 +5,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { LeatherConnector, UnisatConnector, XverseConnector } from './connectors';
 import { SatsConnector } from './connectors/base';
 import { LocalStorageKeys } from './constants';
+import { OKXConnector } from './connectors/okx';
 
 type SatsConfigData = {
   connector?: SatsConnector;
@@ -45,6 +46,10 @@ const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainne
   useEffect(() => {
     const init = () => {
       const readyConnectors: SatsConnector[] = [];
+
+      const okx = new OKXConnector(network);
+
+      readyConnectors.push(okx);
 
       const xverse = new XverseConnector(network);
 
