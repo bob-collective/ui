@@ -1,0 +1,50 @@
+{
+  "name": "@gobob/icons",
+  "version": "0.0.0",
+  "description": "Bob UI library.",
+  "homepage": "https://github.com/bob-collective/bob-ui#readme",
+  "license": "MIT",
+  "keywords": [
+    "bob",
+    "bob ui",
+    "icons",
+    "modern icons",
+    "react icons",
+    "react ui"
+  ],
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bob-collective/bob-ui.git",
+    "directory": "packages/components"
+  },
+  "bugs": {
+    "url": "https://github.com/bob-collective/bob-ui/issues"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "styled-components": ">=6.0.0"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.0.7"
+  },
+  "dependencies": {
+    "@gobob/ui": "workspace:^"
+  }
+}

@@ -1,0 +1,16 @@
+import { forwardRef } from 'react';
+import { Icon, IconProps } from '@gobob/ui';
+
+const BNB = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
+  <Icon ref={ref} fill='none' viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg' {...props}>
+    <rect fill='#F0B90B' height='128' rx='64' width='128' />
+    <path
+      d='m42.063 64-9 9.063L24 64l9.063-9.063 9 9.063ZM64 42.062l15.5 15.5 9.063-9.062-15.5-15.438L64 24l-9.063 9.063L39.5 48.5l9.063 9.063L64 42.063Zm30.938 12.876-9 9.062L95 73.063 104 64l-9.063-9.063ZM64 85.938l-15.5-15.5-9 9.062L55 95l9 9 9.063-9.063 15.5-15.5-9.063-9-15.5 15.5Zm0-12.876L73.063 64 64 54.937 54.937 64 64 73.063Z'
+      fill='#fff'
+    />
+  </Icon>
+));
+
+BNB.displayName = 'BNB';
+
+export { BNB };

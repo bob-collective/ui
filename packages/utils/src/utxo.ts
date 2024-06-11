@@ -1,0 +1,243 @@
+import { DefaultElectrsClient, ElectrsClient, UTXO } from '@gobob/bob-sdk';
+import { DefaultOrdinalsClient, TESTNET_ORD_BASE_PATH } from '@gobob/bob-sdk/dist/ordinal-api';
+import { Transaction, Script, selectUTXO, TEST_NETWORK, NETWORK, p2wpkh, p2sh } from '@scure/btc-signer';
+import { hex } from '@scure/base';
+import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
+
+import { getTxInscriptions, parseInscriptionId } from './inscription';
+import { NetworkType, getBtcNetwork } from './btcNetwork';
+
+// Confirmation target for fee estimation in Bitcoin blocks
+export const CONFIRMATION_TARGET = 6;
+
+interface InscriptionUTXO {
+  value: number;
+  script_pubkey: string;
+  address: string;
+  transaction: string;
+  sat_ranges: string;
+  inscriptions: string[];
+  runes: Record<string, any>;
+}
+
+export interface Input {
+  txid: string;
+  index: number;
+  witness_script?: Uint8Array;
+  redeem_script?: Uint8Array;
+  witnessUtxo?: {
+    script: Uint8Array;
+    amount: bigint;
+  };
+  nonWitnessUtxo?: Uint8Array;
+}
+
+export async function findUtxoForInscriptionId(
+  electrsClient: ElectrsClient,
+  utxos: UTXO[],
+  inscriptionId: string
+): Promise<UTXO | undefined> {
+  // TODO: can we get the current UTXO of the inscription from ord?
+  // we can use the satpoint for this
+  const { txid, index } = parseInscriptionId(inscriptionId);
+
+  for (const utxo of utxos) {
+    if (utxo.confirmed) {
+      const res = await fetch(`${TESTNET_ORD_BASE_PATH}/output/${utxo.txid}:${utxo.vout}`, {
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      const inscriptionUtxo: InscriptionUTXO = await res.json();
+
+      if (inscriptionUtxo.inscriptions && inscriptionUtxo.inscriptions.includes(inscriptionId)) {
+        return utxo;
+      }
+    } else if (txid == utxo.txid) {
+      const inscriptions = await getTxInscriptions(electrsClient, utxo.txid);
+
+      if (typeof inscriptions[index] !== 'undefined') {
+        return utxo;
+      }
+    }
+  }
+
+  return undefined;
+}
+
+export async function findUtxosWithoutInscriptions(network: string, utxos: UTXO[]): Promise<UTXO[]> {
+  const ordinalsClient = new DefaultOrdinalsClient(network);
+
+  const safeUtxos: UTXO[] = [];
+
+  // Exclude UTXOs that are uncomfirmed or have inscriptions
+  await Promise.all([
+    utxos.map(async (utxo) => {
+      if (utxo.confirmed) {
+        const inscription = await ordinalsClient.getInscriptionsFromOutPoint({
+          txid: utxo.txid,
+          vout: utxo.vout
+        });
+
+        if (inscription.inscriptions.length === 0) {
+          safeUtxos.push(utxo);
+        }
+      }
+    })
+  ]);
+
+  return safeUtxos;
+}
+
+export async function createTransferWithOpReturn(
+  network: NetworkType,
+  paymentAddress: string,
+  toAddress: string,
+  amount: number,
+  opReturn: string,
+  publicKey?: string
+): Promise<Transaction> {
+  const addressType = getAddressInfo(paymentAddress).type;
+
+  // Ensure this is not the P2TR address for ordinals (we don't want to spend from it)
+  if (addressType === AddressType.p2tr) {
+    throw new Error('Cannot send from ordinals address');
+  }
+
+  // We need the public key to generate the redeem and witness script to spend the scripts
+  if (addressType === (AddressType.p2sh || AddressType.p2wsh)) {
+    if (!publicKey) {
+      throw new Error('Public key is required to spend from the selected address type');
+    }
+  }
+
+  const electrsClient = new DefaultElectrsClient(network);
+
+  // eslint-disable-next-line no-console
+  console.log('Payment address:', paymentAddress);
+  // eslint-disable-next-line no-console
+  console.log('To address:', toAddress);
+
+  // NOTE: Electrs only returns the 25 most recent UTXOs
+  // TODO: change this to use the pagination API and return all UTXOs
+  const [confirmedUtxos, feeRate] = await Promise.all([
+    electrsClient.getAddressUtxos(paymentAddress),
+    electrsClient.getFeeEstimate(CONFIRMATION_TARGET)
+  ]);
+
+  if (confirmedUtxos.length === 0) {
+    throw new Error('No confirmed UTXOs');
+  }
+
+  // To construct the spending transaction and estimate the fee, we need the transactions for the UTXOs
+  let possibleInputs: Input[] = [];
+
+  await Promise.all(
+    confirmedUtxos.map(async (utxo) => {
+      const hex = await electrsClient.getTransactionHex(utxo.txid);
+
+      const transaction = Transaction.fromRaw(Buffer.from(hex, 'hex'), { allowUnknownOutputs: true });
+
+      const input = getInputFromUtxoAndTransaction(network, utxo, transaction, addressType, publicKey);
+
+      possibleInputs.push(input);
+    })
+  );
+
+  // Strip 0x prefix from opReturn
+  if (opReturn.startsWith('0x')) {
+    opReturn = opReturn.slice(2);
+  }
+  const outputs = [
+    {
+      address: toAddress,
+      amount: BigInt(amount)
+    },
+    {
+      // OP_RETURN https://github.com/paulmillr/scure-btc-signer/issues/26
+      script: Script.encode(['RETURN', hex.decode(opReturn)]),
+      amount: BigInt(0)
+    }
+  ];
+
+  // Outsource UTXO selection to btc-signer
+  // https://github.com/paulmillr/scure-btc-signer?tab=readme-ov-file#utxo-selection
+  // default = exactBiggest/accumBiggest creates tx with smallest fees, but it breaks
+  // big outputs to small ones, which in the end will create a lot of outputs close to dust.
+  const signerNetwork = network === 'mainnet' ? NETWORK : TEST_NETWORK;
+  const transaction = selectUTXO(possibleInputs, outputs, 'default', {
+    changeAddress: paymentAddress, // Refund surplus to the payment address
+    feePerByte: BigInt(Math.ceil(feeRate)), // round up to the nearest integer
+    bip69: true, // Sort inputs and outputs according to BIP69
+    createTx: true, // Create the transaction
+    network: signerNetwork,
+    allowUnknownOutputs: true, // Required for OP_RETURN
+    allowLegacyWitnessUtxo: true // Required for P2SH-P2WPKH
+  });
+
+  if (!transaction || !transaction.tx) {
+    throw new Error('Failed to create transaction. Do you have enough funds?');
+  }
+
+  return transaction.tx;
+}
+
+// Using the UTXO and the transaction, we can construct the input for the transaction
+export function getInputFromUtxoAndTransaction(
+  network: NetworkType,
+  utxo: UTXO,
+  transaction: Transaction,
+  addressType: string,
+  pubKey?: string
+): Input {
+  // The output containts the necessary details to spend the UTXO based on the script type
+  // Under the hood, @scure/btc-signer parses the output and extracts the script and amount
+  const output = transaction.getOutput(utxo.vout);
+
+  // For p2sh, we additionally need the redeem script. This cannot be extracted from the transaction itself
+  // We only support P2SH-P2WPKH
+  // TODO: add support for P2WSH
+  // TODO: add support for P2SH-P2PKH
+  let redeemScript = {};
+
+  if (addressType === AddressType.p2sh) {
+    const inner = p2wpkh(Buffer.from(pubKey!, 'hex'), getBtcNetwork(network));
+
+    redeemScript = p2sh(inner);
+  }
+
+  // For the redeem and witness script, we need to construct the script mixin
+  const scriptMixin = {
+    ...redeemScript
+  };
+
+  // eslint-disable-next-line no-console
+  console.log('Script mixin:', scriptMixin);
+  // eslint-disable-next-line no-console
+  console.log('Output:', output);
+
+  const nonWitnessUtxo = {
+    nonWitnessUtxo: Buffer.from(transaction.hex, 'hex')
+  };
+  const witnessUtxo = {
+    witnessUtxo: {
+      script: output.script!,
+      amount: output.amount!
+    }
+  };
+  const witnessMixin = transaction.hasWitnesses ? witnessUtxo : nonWitnessUtxo;
+
+  // Construct inputs based on the script type
+  const input = {
+    txid: utxo.txid,
+    index: utxo.vout,
+    ...scriptMixin, // Maybe adds the redeemScript and/or witnessScript
+    ...witnessMixin // Adds the witnessUtxo or nonWitnessUtxo
+  };
+
+  // eslint-disable-next-line no-console
+  console.log('Input:', input);
+
+  return input;
+}

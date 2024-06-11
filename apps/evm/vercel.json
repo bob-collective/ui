@@ -1,0 +1,22 @@
+{
+  "functions": {
+    "api/index.js": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/check_access",
+      "destination": "/api/geoblock.js"
+    },
+    {
+      "source": "/(api|onramp-api|btc-api)/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}

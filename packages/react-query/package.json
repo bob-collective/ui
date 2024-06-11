@@ -1,0 +1,45 @@
+{
+  "name": "@gobob/react-query",
+  "version": "0.0.0",
+  "description": "Bob UI React Query",
+  "homepage": "https://github.com/bob-collective/bob-ui#readme",
+  "license": "MIT",
+  "keywords": [
+    "bob",
+    "bob ui",
+    "hooks",
+    "react-query"
+  ],
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bob-collective/bob-ui.git",
+    "directory": "packages/components"
+  },
+  "bugs": {
+    "url": "https://github.com/bob-collective/bob-ui/issues"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.35.1",
+    "@tanstack/react-query-devtools": "^5.35.1"
+  }
+}

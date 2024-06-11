@@ -1,0 +1,45 @@
+{
+  "name": "@gobob/currency",
+  "version": "0.0.0",
+  "description": "Bob UI library.",
+  "homepage": "https://github.com/bob-collective/bob-ui#readme",
+  "license": "MIT",
+  "keywords": [
+    "bob",
+    "currency",
+    "currency amount"
+  ],
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bob-collective/bob-ui.git",
+    "directory": "packages/components"
+  },
+  "bugs": {
+    "url": "https://github.com/bob-collective/bob-ui/issues"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/big.js": "^6.2.0"
+  },
+  "dependencies": {
+    "big.js": "^6.2.1",
+    "decimal.js-light": "^2.5.1",
+    "tiny-invariant": "^1.3.1",
+    "tiny-warning": "^1.0.3",
+    "toformat": "^2.0.0",
+    "viem": "^2.10.2"
+  }
+}

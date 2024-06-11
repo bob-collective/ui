@@ -1,0 +1,169 @@
+{
+  "404": {
+    "title": "404 Error",
+    "content": "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:",
+    "back": "Go Back",
+    "home": "Take 'em home"
+  },
+  "fusion": {
+    "title": "WELCOME TO BOB <highlight>FUSION</highlight>",
+    "content": "Your pledged assets will unlock on the day of the BOB mainnet launch, planned around the Bitcoin Halving in April. Should unforeseen storms delay our arrival, you will be able to unlock your assets back to your Ethereum mainnet address on 15 May 2024 latest.",
+    "status": "Current Status:",
+    "season": "Season 2",
+    "seasonDescription": "The floodgates have opened! Explore and experience BOB’s vast ecosystem and earn massive amounts of Spice while doing so.",
+    "spiceWaitTime": "Spice points typically take 10-15 minutes to display in the user interface. Rest assured, your points are being recorded accurately.",
+    "deposit": {
+      "delayInfo": "Your locked amount and Spice totals will be updated every few minutes",
+      "title": "Deposit & Lock",
+      "content": "Assets remain securely time-locked in the smart contract until the unlock date. You can then transfer them to the BOB L2 network to continue your harvest.",
+      "auditedBy": "Audited by",
+      "depositLabel": "Deposit & Lock",
+      "approveLabel": "Approve"
+    },
+    "earnSpice": "How to Earn Spice",
+    "community": {
+      "title": "Join the Community",
+      "content": "Make sure to <xLink>follow BOB on X</xLink> and <discordLink>join the Discord</discordLink> to participate in BOB Fusion and receive updates, access to quests (coming soon) and other alpha!"
+    },
+    "multipliers": {
+      "title": "Multiplier list",
+      "content": "Certain liquidity generates more Spice. Pay attention to the multipliers outlined below."
+    },
+    "withdrawModal": {
+      "title": "Season 1 has ended - Welcome to Season 2!",
+      "summary": "Congratulations! Your initial contribution to BOB’s growth earned you {{totalSpice}} Spice! This has secured you position {{rank}} on the leaderboard for Season 1.",
+      "share": "<xLink>Share your success with your friends</xLink> and invite them to join the Fusion campaign, earn 15% for every Spice they harvest!",
+      "seasonTwoDescription": "Bridge assets, provide liquidity, transact on-chain, and expand your network through referrals to climb the leaderboard faster than ever.",
+      "lockedFunds": "Locked Funds",
+      "currentSpice": "Current Spice",
+      "bridgeLabel": "Bridge to BOB",
+      "withdrawDescription": "Don't believe in the Bitcoin Renaissance? You can withdraw your funds from the contract to your wallet on Ethereum. You will no longer earn Spice if you withdraw your assets. <strong>You will keep the Spice harvested so far.</strong>",
+      "withdrawLabel": "Withdraw Assets",
+      "smartAccountsWarning": "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
+    },
+    "logIn": {
+      "title": "Log in to View Dashboard",
+      "content": "Set sail on your Season 2 adventure, charting new territories and harvesting Spice along the way.",
+      "label": "Start Harvesting Spice "
+    },
+    "referrals": {
+      "title": "Referrals",
+      "content": "Refer fellow explorers and increase your harvest output by +15% of their collected Spice. Another +7% for Spice of second-level referrals."
+    },
+    "partners": {
+      "title": "Ecosystem",
+      "content": "Explore and interact with BOB Fusion allies to embark on unique adventures and supercharge your Spice accrual.",
+      "alert": "Projects harvest Spice points every hour based on TVL and user activity. Projects are responsible for distributing Spice to their users. Distribution method and frequency may differ from project to project. DYOR."
+    },
+    "challenges": {
+      "title": "Challenges",
+      "content": "Participate in our educational quests to learn more about BOB, leverage your network to spread the word about BOB, get to know the projects. Any successful participation will help you climb the leaderboard even quicker. <galxeLink>View challenges at Galxe</galxeLink>."
+    },
+    "ecosystem": {
+      "title": "Ecosystem",
+      "content": "Explore and engage with BOB's vibrant partner protocols directly on your dashboard—earn Spice by holding assets, making deposits, or actively using these platforms."
+    },
+    "userStats": {
+      "lockedAmount": "Locked Amount",
+      "bridgedAmount": "Bridged Amount",
+      "spice": "Spice",
+      "position": "Leaderboard Position",
+      "code": "Your Referral Code",
+      "lockedCapitalBreakdown": "Locked Capital Breakdown",
+      "revealCodeInfo": "Your referral code will be revealed once you have received your first spice point"
+    }
+  },
+  "home": {
+    "title": "THE FIRST HYBRID L2",
+    "subtitle": "POWERED BY BTC & ETH",
+    "content": "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!",
+    "dashboardLink": "View dashboard",
+    "lockedAmount": "Your locked value",
+    "harvestedSpice": "Your harvested Spice amount",
+    "refCodeLabel": "Enter your code:",
+    "buttonLabel": "Start Harvesting Spice",
+    "loginLabel": "Already harvesting?",
+    "loginButtonText": "Login with wallet",
+    "referralCodePrompt": "Need an access code? <discordLink>Join BOB on Discord</discordLink>",
+    "hero": {
+      "lockedAmount": "Total value locked:",
+      "season_one_tvl": "Season 1 TVL"
+    },
+    "backers": "Some of our backers",
+    "info": {
+      "title": "Ascend the ranks by gathering <highlight>SPICE</highlight>",
+      "content": "Spice (“points”) is needed to kick-start the chain-reaction of BOB Fusion. Spice symbolizes your contributions and achievements in the BOB community.  As you harvest, you shape—and thrive in—the Bitcoin Renaissance.",
+      "exploreLabel": "Explore the Ecosystem",
+      "exploreContent": "Amplify your Spice harvesting by diving into and engaging with our dynamic ecosystem of applications.",
+      "referLabel": "Refer others",
+      "referContent": "Share your invite code with fellow explorers and claim extra Spice harvest.",
+      "questsLabel": "Embark on quests",
+      "questsContent": "Dive deeper into the era of BOB Fusion and climb the ranks by completing quests (Coming soon)."
+    },
+    "partners": {
+      "title": "BOB Fusion Allies",
+      "content": "Explore campaigns of our fellow partners on the path to the Bitcoin Renaissance. Each campaign may have its own rules, benefits but also risks. Do your own research!"
+    }
+  },
+  "leaderboard": {
+    "title": "LEADERBOARD"
+  },
+  "signUp": {
+    "title": "ENTER THE WORLD OF <highlight>BOB Fusion</highlight>",
+    "subtitle": "Your journey starts here!",
+    "content": "Connect your EVM-compatible wallet, Twitter and Discord to participate. Engage with fellow adventurers, dive deep into the lore of BOB, and stay informed on campaign progress.",
+    "connectWallet": "Please connect a wallet",
+    "connect": "Connect",
+    "connected": "Connected",
+    "linkWallet": "Link wallet",
+    "join": "Join",
+    "discord": "Join BOB Discord",
+    "twitterStep": "Connect and follow BOB with your X account.",
+    "discordStep": "Connect and join BOB Discord.",
+    "followBOB": "Follow BOB"
+  },
+  "navigation": {
+    "leaderboard": "Leaderboard",
+    "t_and_c": "T&Cs",
+    "fusion": "Fusion",
+    "bridge": "Bridge",
+    "wallet": "Wallet",
+    "dev": "Dev",
+    "about": "About",
+    "multisig": "Multisig"
+  },
+  "wallet": {
+    "title": "BOB Wallet",
+    "summary": "View a summary of your wallet on the BOB network.",
+    "assets": {
+      "title": "Total Assets",
+      "noAssets": "No assets shown",
+      "connect": "Please connect a wallet",
+      "connectLabel": "Connect Wallet"
+    },
+    "tokenTable": {
+      "asset": "Asset",
+      "balance": "Balance",
+      "connectBtcLabel": "Connect BTC Wallet"
+    },
+    "tooltips": {
+      "bridge": {
+        "label": "Bridge",
+        "ariaLabel": "Navigate to bridge page"
+      },
+      "send": {
+        "label": "Send",
+        "ariaLabel": "Send {{ticker}}"
+      },
+      "receive": {
+        "label": "Receive",
+        "ariaLabel": "Receive {{ticker}}"
+      }
+    }
+  },
+  "bridge": {
+    "alert": {
+      "alex": "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <xLink>announcement</xLink>."
+    }
+  }
+}
