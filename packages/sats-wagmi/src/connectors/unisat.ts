@@ -15,7 +15,7 @@ const getUnisatNetwork = (network: WalletNetwork): Network => {
   switch (network) {
     default:
     case 'mainnet':
-      return 'testnet';
+      return 'livenet';
     case 'testnet':
       return 'testnet';
   }
@@ -103,12 +103,12 @@ class UnisatConnector extends SatsConnector {
       await window.unisat.switchNetwork(expectedNetwork);
     }
 
-    const [accounts, publickKey] = await Promise.all([window.unisat.requestAccounts(), window.unisat.getPublicKey()]);
+    const [accounts, publicKey] = await Promise.all([window.unisat.requestAccounts(), window.unisat.getPublicKey()]);
 
     this.address = accounts[0];
     this.paymentAddress = accounts[0];
     this.ordinalsAddress = accounts[0];
-    this.publicKey = publickKey;
+    this.publicKey = publicKey;
 
     window.unisat.on('accountsChanged', this.changeAccount);
   }

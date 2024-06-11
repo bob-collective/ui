@@ -2,7 +2,7 @@ import { BitcoinNetwork } from '@gobob/types';
 import { FC, ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useLocalStorage } from '@uidotdev/usehooks';
 
-import { LeatherConnector, UnisatConnector, XverseConnector } from './connectors';
+import { LeatherConnector, MMSnapConnector, UnisatConnector, XverseConnector } from './connectors';
 import { SatsConnector } from './connectors/base';
 import { LocalStorageKeys } from './constants';
 
@@ -54,10 +54,9 @@ const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainne
 
       readyConnectors.push(unisat);
 
-      // TODO: to be enabled when metamask snap is tested on mainnet
-      // const mmSnap = new MMSnapConnector(network);
+      const mmSnap = new MMSnapConnector(network);
 
-      // readyConnectors.push(mmSnap);
+      readyConnectors.push(mmSnap);
 
       const leather = new LeatherConnector(network);
 

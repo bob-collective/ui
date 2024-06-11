@@ -126,6 +126,9 @@ export async function createTransferWithOpReturn(
     electrsClient.getFeeEstimate(CONFIRMATION_TARGET)
   ]);
 
+  // eslint-disable-next-line no-console
+  console.log('Fee rate:', feeRate);
+
   if (confirmedUtxos.length === 0) {
     throw new Error('No confirmed UTXOs');
   }
@@ -226,14 +229,14 @@ export function getInputFromUtxoAndTransaction(
       amount: output.amount!
     }
   };
-  const witnessMixin = transaction.hasWitnesses ? witnessUtxo : nonWitnessUtxo;
+  const witnessMixin = transaction.hasWitnesses ? { ...witnessUtxo, ...nonWitnessUtxo } : nonWitnessUtxo;
 
   // Construct inputs based on the script type
   const input = {
     txid: utxo.txid,
     index: utxo.vout,
     ...scriptMixin, // Maybe adds the redeemScript and/or witnessScript
-    ...witnessMixin // Adds the witnessUtxo or nonWitnessUtxo
+    ...witnessMixin // Adds the witnessUtxo and/or nonWitnessUtxo
   };
 
   // eslint-disable-next-line no-console
