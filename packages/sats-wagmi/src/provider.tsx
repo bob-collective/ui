@@ -55,9 +55,13 @@ const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainne
 
       readyConnectors.push(xverse);
 
-      const unisat = new UnisatConnector(network);
+      const unisat = new UnisatConnector(network, 'unisat');
 
       readyConnectors.push(unisat);
+
+      const bitkeep = new UnisatConnector(network, 'bitkeep');
+
+      readyConnectors.push(bitkeep);
 
       // TODO: to be enabled when metamask snap is tested on mainnet
       // const mmSnap = new MMSnapConnector(network);

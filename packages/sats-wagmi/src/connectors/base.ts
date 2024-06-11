@@ -19,11 +19,13 @@ interface PsbtInputAccounts {
 
 abstract class SatsConnector {
   /** Unique connector id */
-  abstract readonly id: string;
+  id: string;
   /** Connector name */
-  abstract readonly name: string;
+  name: string;
   /** Extension or Snap homepage */
-  abstract homepage: string;
+  homepage: string;
+
+  icon?: string;
 
   /** Whether connector is usable */
   ready: boolean = false;
@@ -41,8 +43,12 @@ abstract class SatsConnector {
 
   network: WalletNetwork;
 
-  constructor(network: WalletNetwork) {
+  constructor(network: WalletNetwork, id: string, name: string, homepage: string, icon?: string) {
     this.network = network;
+    this.id = id;
+    this.name = name;
+    this.homepage = homepage;
+    this.icon = icon;
   }
 
   abstract connect(): Promise<void>;
@@ -234,12 +240,27 @@ abstract class SatsConnector {
       throw new Error('Invalid network');
     }
 
+    const addressType = getAddressInfo(this.paymentAddress).type;
+
+    // Ensure this is not the P2TR address for ordinals (we don't want to spend from it)
+    if (addressType === AddressType.p2tr) {
+      throw new Error('Cannot transfer using Taproot (P2TR) address. Please use another address type.');
+    }
+
+    // We need the public key to generate the redeem and witness script to spend the scripts
+    if (addressType === (AddressType.p2sh || AddressType.p2wsh)) {
+      if (!this.publicKey) {
+        throw new Error('Public key is required to spend from the selected address type');
+      }
+    }
+
     const unsignedTransaction = await createTransferWithOpReturn(
       networkType,
       this.paymentAddress,
       toAddress,
       amount,
       opReturn,
+      addressType,
       this.publicKey
     );
 

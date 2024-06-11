@@ -2,7 +2,7 @@ import { DefaultElectrsClient, ElectrsClient, UTXO } from '@gobob/bob-sdk';
 import { DefaultOrdinalsClient, TESTNET_ORD_BASE_PATH } from '@gobob/bob-sdk/dist/ordinal-api';
 import { Transaction, Script, selectUTXO, TEST_NETWORK, NETWORK, p2wpkh, p2sh } from '@scure/btc-signer';
 import { hex } from '@scure/base';
-import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
+import { AddressType } from 'bitcoin-address-validation';
 
 import { getTxInscriptions, parseInscriptionId } from './inscription';
 import { NetworkType, getBtcNetwork } from './btcNetwork';
@@ -96,22 +96,9 @@ export async function createTransferWithOpReturn(
   toAddress: string,
   amount: number,
   opReturn: string,
+  addressType: string,
   publicKey?: string
 ): Promise<Transaction> {
-  const addressType = getAddressInfo(paymentAddress).type;
-
-  // Ensure this is not the P2TR address for ordinals (we don't want to spend from it)
-  if (addressType === AddressType.p2tr) {
-    throw new Error('Cannot send from ordinals address');
-  }
-
-  // We need the public key to generate the redeem and witness script to spend the scripts
-  if (addressType === (AddressType.p2sh || AddressType.p2wsh)) {
-    if (!publicKey) {
-      throw new Error('Public key is required to spend from the selected address type');
-    }
-  }
-
   const electrsClient = new DefaultElectrsClient(network);
 
   // eslint-disable-next-line no-console

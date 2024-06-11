@@ -81,12 +81,8 @@ declare global {
 }
 
 class OKXConnector extends SatsConnector {
-  id = 'OKX Wallet';
-  name = 'OKX Wallet';
-  homepage = 'https://www.okx.com/web3';
-
   constructor(network: WalletNetwork) {
-    super(network);
+    super(network, 'OKX Wallet', 'OKX Wallet', 'https://www.okx.com/web3');
   }
 
   async connect(): Promise<void> {

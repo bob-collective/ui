@@ -69,16 +69,11 @@ const snapId = 'npm:@gobob/bob-snap';
 
 // TODO: distinguish between payment and oridnals address
 class MMSnapConnector extends SatsConnector {
-  id = 'metamask_snap';
-  name = 'MetaMask';
-  // TODO: add when snap is published
-  homepage = 'https://metamask.io/snaps/';
-
   extendedPublicKey: ExtendedPublicKey | undefined;
   snapNetwork: 'main' | 'test' = 'main';
 
   constructor(network: WalletNetwork) {
-    super(network);
+    super(network, 'metamask_snap', 'MetaMask', 'https://snaps.metamask.io/snap/npm/gobob/bob-snap/');
   }
 
   async connect(): Promise<void> {

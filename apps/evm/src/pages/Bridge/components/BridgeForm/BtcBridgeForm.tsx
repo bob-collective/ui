@@ -80,11 +80,7 @@ const BtcBridgeForm = ({
   const balanceCurrencyAmount = useMemo(() => CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0n), [satsBalance]);
 
   const handleError = useCallback((e: any) => {
-    if (e.code === 4001) {
-      toast.error('User rejected the request');
-    } else {
-      toast.error('Something went wrong. Please try again later.');
-    }
+    toast.error(e.message);
   }, []);
 
   const quoteDataEnabled = useMemo(() => {

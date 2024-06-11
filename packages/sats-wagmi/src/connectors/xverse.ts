@@ -25,12 +25,8 @@ declare global {
 }
 
 class XverseConnector extends SatsConnector {
-  id = 'xverse';
-  name = 'Xverse';
-  homepage = 'https://www.xverse.app/';
-
   constructor(network: WalletNetwork) {
-    super(network);
+    super(network, 'xverse', 'Xverse', 'https://www.xverse.app/');
   }
 
   async connect(): Promise<void> {
