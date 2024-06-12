@@ -21,10 +21,10 @@ export default async (request) => {
 
     await fetch(upstream_sentry_url, { method: 'POST', body: envelope });
 
-    return json({}, { status: 200 });
+    return new Response(null, { status: 200 });
   } catch (e) {
     console.error('error tunneling to sentry', e); // eslint-disable-line no-console
 
-    return json({ error: 'error tunneling to sentry' }, { status: 500 });
+    return new Response('error tunneling to sentry', { status: 500 });
   }
 };
