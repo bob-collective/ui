@@ -1,6 +1,10 @@
 const SENTRY_HOST = 'o4504853415329792.ingest.us.sentry.io';
 const SENTRY_PROJECT_IDS = ['4507407322316800'];
 
+export const config = {
+  runtime: 'edge'
+};
+
 export default async (request) => {
   try {
     const envelope = request.body;
