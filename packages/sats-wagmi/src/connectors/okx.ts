@@ -1,3 +1,4 @@
+import { okxLogo } from '../assets/okx';
 import { WalletNetwork } from '../types';
 
 import { PsbtInputAccounts, SatsConnector } from './base';
@@ -82,7 +83,7 @@ declare global {
 
 class OKXConnector extends SatsConnector {
   constructor(network: WalletNetwork) {
-    super(network, 'OKX Wallet', 'OKX Wallet', 'https://www.okx.com/web3');
+    super(network, 'OKX Wallet', 'OKX Wallet', 'https://www.okx.com/web3', okxLogo);
   }
 
   async connect(): Promise<void> {
