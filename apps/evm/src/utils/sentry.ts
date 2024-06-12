@@ -4,6 +4,7 @@ import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType }
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_URL,
+  tunnel: '/tunnel',
   integrations: [
     // See docs for support of different versions of variation of react router
     // https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/
@@ -19,7 +20,7 @@ Sentry.init({
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
-  tracesSampleRate: 1.0,
+  tracesSampleRate: import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE || '0.5',
 
   // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
   tracePropagationTargets: [/^\//, /^https:\/\/gobob\.xyz/],
