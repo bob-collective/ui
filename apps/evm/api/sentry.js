@@ -5,9 +5,22 @@ export const config = {
   runtime: 'edge'
 };
 
+async function extractBody(request) {  
+  const dec = new TextDecoder();
+  const reader = request.body.getReader();
+  let body = ""
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) return body;
+
+    body = body + dec.decode(value)
+  }
+}
+
 export default async (request) => {
   try {
-    const envelope = request.body;
+    const envelope = await extractBody(request);
     const piece = envelope.split('\n')[0];
     const header = JSON.parse(piece);
     const dsn = new URL(header['dsn']);
