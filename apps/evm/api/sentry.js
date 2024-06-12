@@ -3,7 +3,7 @@ const SENTRY_PROJECT_IDS = ['4507050638573568'];
 
 export default async (request) => {
   try {
-    const envelope = await request.text();
+    const envelope = request.body;
     const piece = envelope.split('\n')[0];
     const header = JSON.parse(piece);
     const dsn = new URL(header['dsn']);
