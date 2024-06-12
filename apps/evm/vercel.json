@@ -11,6 +11,10 @@
       "destination": "/api/geoblock.js"
     },
     {
+      "source": "/tunnel",
+      "destination": "/api/sentry.js"
+    },
+    {
       "source": "/(api|onramp-api|btc-api)/(.*)",
       "destination": "/api"
     },
