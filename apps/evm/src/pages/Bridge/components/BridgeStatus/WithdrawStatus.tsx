@@ -4,6 +4,7 @@ import { useAccount } from '@gobob/wagmi';
 import { Flex, FlexProps } from '@gobob/ui';
 import { useMemo } from 'react';
 import { getWithdrawals } from 'viem/op-stack';
+import * as Sentry from '@sentry/react';
 
 import { usePublicClientL1, usePublicClientL2, useWalletClientL1, useWalletClientL2 } from '../../../../hooks';
 import { bridgeKeys } from '../../../../lib/react-query';
@@ -59,7 +60,10 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
       toast.success(`Successfully submitted ${data?.hash} proof`);
       refetchBridgeTxs();
     },
-    onError: () => {
+    onError: (e) => {
+      Sentry.captureException(e);
+      // eslint-disable-next-line no-console
+      console.log('Prove: ', e);
       toast.error('Failed to submit proof.');
     }
   });
@@ -92,6 +96,12 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
     onSuccess: () => {
       toast.success(`Successfully finalized transaction`);
       refetchBridgeTxs();
+    },
+    onError: (e) => {
+      Sentry.captureException(e);
+      // eslint-disable-next-line no-console
+      console.log('Finalize: ', e);
+      toast.error('Failed to finalize.');
     }
   });
 
