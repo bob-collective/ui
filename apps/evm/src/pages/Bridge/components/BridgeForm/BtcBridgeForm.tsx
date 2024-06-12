@@ -83,7 +83,7 @@ const BtcBridgeForm = ({
     if (e.code === 4001) {
       toast.error('User rejected the request');
     } else {
-      toast.error('Something went wrong. Please try again later.');
+      toast.error(e.message);
     }
   }, []);
 
