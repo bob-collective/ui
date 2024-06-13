@@ -4,6 +4,7 @@ import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType }
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_URL,
+  ignoreErrors: ['User rejected the request'],
   tunnel: '/tunnel',
   integrations: [
     // See docs for support of different versions of variation of react router
