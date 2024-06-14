@@ -5,44 +5,47 @@ import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 
 import { EcosystemBanner } from './EcosystemBanner';
-import { StyledCard, StyledSlider } from './BannerCarousel.style';
+import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
 
-const BannerCarousel = () => {
+const settings: Settings = {
+  dots: true,
+  infinite: true,
+  autoplay: true,
+  speed: 500,
+  autoplaySpeed: 10000,
+  cssEase: 'linear',
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  pauseOnHover: true,
+  nextArrow: (
+    <button>
+      <ChevronRight strokeWidth='3' />
+    </button>
+  ),
+  prevArrow: (
+    <button>
+      <ChevronLeft strokeWidth='3' />
+    </button>
+  )
+};
+
+type BannerCarouselProps = {
+  onPressOnrampBanner: () => void;
+  onPressEcosystemBanner: () => void;
+};
+
+const BannerCarousel = ({ onPressOnrampBanner, onPressEcosystemBanner }: BannerCarouselProps) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
 
-  const settings: Settings = {
-    dots: true,
-    fade: true,
-    infinite: true,
-    arrows: isDesktop,
-    autoplay: true,
-    speed: 1000,
-    autoplaySpeed: 10000,
-    cssEase: 'linear',
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    pauseOnHover: true,
-    nextArrow: (
-      <button>
-        <ChevronRight size='lg' strokeWidth='3' />
-      </button>
-    ),
-    prevArrow: (
-      <button>
-        <ChevronLeft strokeWidth='3' />
-      </button>
-    )
-  };
-
   return (
-    <StyledCard aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
-      <StyledSlider {...settings}>
-        <OnrampBanner />
-        <EcosystemBanner />
+    <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
+      <StyledSlider {...settings} arrows={isDesktop}>
+        <OnrampBanner onPress={onPressOnrampBanner} />
+        <EcosystemBanner onPress={onPressEcosystemBanner} />
       </StyledSlider>
-    </StyledCard>
+    </StyledCarouselWrapper>
   );
 };
 

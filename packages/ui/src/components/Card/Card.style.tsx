@@ -32,7 +32,7 @@ const StyledCard = styled(Flex)<StyledCardProps>`
       ${baseCss}
 
       &:focus {
-        ${$isPressable && theme.card.focus}
+        ${$isPressable && $bordered && theme.card.focus}
       }
     `;
   }}

@@ -9,7 +9,7 @@ function getImageUrl(name: string) {
   return new URL(`../../../../assets/${name}`, import.meta.url).href;
 }
 
-const StyledCard = styled(Card)`
+const StyledCarouselWrapper = styled(Card)`
   position: relative;
   text-decoration: none;
   overflow: hidden;
@@ -56,6 +56,7 @@ const StyledSlider = styled(Slider)`
     width: auto;
     height: auto;
     z-index: 1;
+    transition: ${({ theme }) => theme.transition('colors', 'fast')};
 
     &::before {
       content: unset;
@@ -70,7 +71,7 @@ const StyledSlider = styled(Slider)`
   .slick-dots li button:before {
     font-size: 10px;
     color: ${({ theme }) => theme.color('grey-100')};
-    transition: ${({ theme }) => theme.transition('colors', 'normal')};
+    transition: ${({ theme }) => theme.transition('colors', 'fast')};
   }
 
   .slick-dots li {
@@ -86,8 +87,6 @@ const StyledSlider = styled(Slider)`
 `;
 
 const StyledOnrampBanner = styled(Banner)`
-  position: relative;
-
   background-image: url(${getImageUrl('cubs-group.svg')});
   background-repeat: no-repeat;
   background-size: cover;
@@ -120,4 +119,16 @@ const StyledOnrampGraphic = styled(OnrampGraphic)`
   }}
 `;
 
-export { StyledCard, StyledSlider, StyledOnrampBanner, StyledOnrampGraphic, StyledBannerContent, StyledBannerImg };
+const StyledBanner = styled(Card)`
+  position: relative;
+`;
+
+export {
+  StyledCarouselWrapper,
+  StyledSlider,
+  StyledOnrampBanner,
+  StyledOnrampGraphic,
+  StyledBannerContent,
+  StyledBanner,
+  StyledBannerImg
+};

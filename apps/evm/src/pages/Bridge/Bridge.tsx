@@ -1,9 +1,10 @@
 import { Tabs, TabsItem } from '@gobob/ui';
 import { Key, useCallback, useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { ChainId } from '@gobob/chains';
 
 import { Main } from '../../components';
-import { L1_CHAIN, L2_CHAIN } from '../../constants';
+import { L1_CHAIN, L2_CHAIN, RoutesPath } from '../../constants';
 
 import { StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
@@ -17,13 +18,17 @@ const Bridge = () => {
   const location = useLocation();
   const [type, setType] = useState<'deposit' | 'withdraw'>('deposit');
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.INTERNAL);
+  const [chain, setChain] = useState<ChainId | 'BTC'>(L1_CHAIN);
 
   const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams('action=deposit'));
+
+  const navigate = useNavigate();
 
   const handleChangeTab = useCallback(
     (key: any) => {
       setType(key as any);
       setBridgeOrigin(key === 'deposit' ? BridgeOrigin.INTERNAL : BridgeOrigin.EXTERNAL);
+      setChain(L1_CHAIN);
 
       setSearchParams(() => {
         const newParams = new URLSearchParams();
@@ -53,6 +58,23 @@ const Bridge = () => {
 
   const handleChangeOrigin = useCallback((origin: BridgeOrigin) => setBridgeOrigin(origin), []);
 
+  const handleChangeChain = useCallback((chain: ChainId | 'BTC') => setChain(chain), []);
+
+  const handlePressEcosystemBanner = useCallback(
+    () => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const handlePressOnrampBanner = useCallback(
+    () => {
+      setChain('BTC');
+      setBridgeOrigin(BridgeOrigin.INTERNAL);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   useEffect(() => {
     const selectedTabKey = searchParams.get('type') || undefined;
 
@@ -62,7 +84,10 @@ const Bridge = () => {
 
   return (
     <Main maxWidth='5xl' padding='md'>
-      <BannerCarousel />
+      <BannerCarousel
+        onPressEcosystemBanner={handlePressEcosystemBanner}
+        onPressOnrampBanner={handlePressOnrampBanner}
+      />
       <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
         <StyledCard>
           <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
@@ -75,8 +100,10 @@ const Bridge = () => {
           </Tabs>
           <BridgeForm
             bridgeOrigin={bridgeOrigin}
+            chain={chain}
             ticker={location.state?.ticker}
             type={type}
+            onChangeChain={handleChangeChain}
             onChangeNetwork={handleChangeNetwork}
             onChangeOrigin={handleChangeOrigin}
           />
