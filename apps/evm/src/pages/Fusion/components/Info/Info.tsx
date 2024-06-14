@@ -143,6 +143,10 @@ const Info = () => {
           <li>Referrals ({<SpiceMeter isHigh isLow isMedium />})</li>
           <li>Quests and special events ({<SpiceMeter isLow isMedium />})</li>
         </StyledList>
+        <P color='grey-200'>
+          Intract XP converts into Spice in a 1:10 ratio. E.g. if you have 1000 XP from BOB campaigns, it will be
+          converted to 10,000 Spice and added to your BOB Fusion Dashboard.
+        </P>
         <P color='grey-200'>DApps can use the BOB Fusion system to bootstrap their launch on BOB.</P>
         <Accordion defaultExpandedKeys={['2']}>
           <AccordionItem key='1' hasChildItems={false} title='Season 1'>
