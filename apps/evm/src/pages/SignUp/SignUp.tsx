@@ -138,7 +138,7 @@ const SignUp = (): JSX.Element | null => {
       });
     }
 
-    if (chain && !isValidChain(chain?.id)) {
+    if (!chain || (chain && !isValidChain(chain?.id))) {
       await switchChainAsync({ chainId: L1_CHAIN });
     }
 
