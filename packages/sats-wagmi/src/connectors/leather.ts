@@ -78,14 +78,10 @@ declare global {
 }
 
 class LeatherConnector extends SatsConnector {
-  id = 'leather';
-  name = 'Leather';
-  homepage = 'https://leather.io/';
-
   derivationPath: string | undefined;
 
   constructor(network: WalletNetwork) {
-    super(network);
+    super(network, 'leather', 'Leather', 'https://leather.io/');
   }
 
   async connect(): Promise<void> {

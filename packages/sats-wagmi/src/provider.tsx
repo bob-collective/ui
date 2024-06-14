@@ -5,6 +5,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { LeatherConnector, UnisatConnector, XverseConnector } from './connectors';
 import { SatsConnector } from './connectors/base';
 import { LocalStorageKeys } from './constants';
+import { OKXConnector } from './connectors/okx';
 
 type SatsConfigData = {
   connector?: SatsConnector;
@@ -46,13 +47,23 @@ const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainne
     const init = () => {
       const readyConnectors: SatsConnector[] = [];
 
+      if (network === 'mainnet') {
+        const okx = new OKXConnector(network);
+
+        readyConnectors.push(okx);
+      }
+
       const xverse = new XverseConnector(network);
 
       readyConnectors.push(xverse);
 
-      const unisat = new UnisatConnector(network);
+      const unisat = new UnisatConnector(network, 'unisat');
 
       readyConnectors.push(unisat);
+
+      const bitkeep = new UnisatConnector(network, 'bitkeep');
+
+      readyConnectors.push(bitkeep);
 
       // TODO: to be enabled when metamask snap is tested on mainnet
       // const mmSnap = new MMSnapConnector(network);

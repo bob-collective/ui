@@ -124,7 +124,8 @@ const useForm = <Values extends FormikValues = FormikValues>({
         onChange: undefined
       };
     },
-    [getFieldProps, setFieldValue]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [getFieldProps]
   );
 
   const getSelectFieldProps: GetSelectFieldProps = useCallback(
@@ -152,7 +153,8 @@ const useForm = <Values extends FormikValues = FormikValues>({
         onChange: undefined
       };
     },
-    [getFieldProps, setFieldValue]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [getFieldProps]
   );
 
   const getSelectableTokenFieldProps: GetSelectableTokenFieldProps = useCallback(

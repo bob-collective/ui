@@ -226,6 +226,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
                 {btcWalletConnector && btcWalletAddress ? (
                   <ConnectedWalletSection
                     address={btcWalletAddress}
+                    icon={btcWalletConnector.icon}
                     type='btc'
                     wallet={btcWalletConnector.name}
                     onDisconnect={handleBtcWalletDisconnect}

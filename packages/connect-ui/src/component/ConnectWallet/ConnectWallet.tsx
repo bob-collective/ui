@@ -45,7 +45,12 @@ const Label = ({
           ) : (
             <WalletIcon name={evmConnector.name} />
           ))}
-        {btcConnector && <WalletIcon name={btcConnector.name} />}
+        {btcConnector &&
+          (btcConnector.icon ? (
+            <Avatar rounded='none' size='2xl' src={btcConnector.icon} />
+          ) : (
+            <WalletIcon name={btcConnector.name} />
+          ))}
       </StyledWallets>
       <Span size='s' weight='medium'>
         Wallet

@@ -1,9 +1,9 @@
 import { AuthButton } from '@gobob/connect-ui';
 import { Bitcoin, CurrencyAmount, Ether } from '@gobob/currency';
 import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
-import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
+import { BtcAddressType, useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
-import { Avatar, Flex, Input, Item, P, Select, TokenInput, toast, useForm } from '@gobob/ui';
+import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, toast, useForm } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
@@ -55,7 +55,7 @@ const BtcBridgeForm = ({
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
-  const { address: btcAddress, connector } = useSatsAccount();
+  const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
   const { data: satsBalance } = useSatsBalance();
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
@@ -80,11 +80,7 @@ const BtcBridgeForm = ({
   const balanceCurrencyAmount = useMemo(() => CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0n), [satsBalance]);
 
   const handleError = useCallback((e: any) => {
-    if (e.code === 4001) {
-      toast.error('User rejected the request');
-    } else {
-      toast.error('Something went wrong. Please try again later.');
-    }
+    toast.error(e.message);
   }, []);
 
   const quoteDataEnabled = useMemo(() => {
@@ -102,7 +98,8 @@ const BtcBridgeForm = ({
   const {
     data: quoteData,
     isLoading: isFetchingQuote,
-    isError: isQuoteError
+    isError: isQuoteError,
+    error: quoteError
   } = useQuery({
     enabled: quoteDataEnabled,
     queryKey: quoteQueryKey,
@@ -237,7 +234,9 @@ const BtcBridgeForm = ({
 
   const isSubmitDisabled = isFormDisabled(form);
 
-  const isDisabled = isSubmitDisabled || !quoteData || isQuoteError;
+  const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
+
+  const isDisabled = isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress;
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
@@ -288,6 +287,18 @@ const BtcBridgeForm = ({
       </Select>
       {isSmartAccount && (
         <Input label='Recipient' placeholder='Enter destination address' {...form.getFieldProps(BRIDGE_RECIPIENT)} />
+      )}
+      {isTapRootAddress && (
+        <Alert status='warning'>
+          <P size='s'>
+            Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type.
+          </P>
+        </Alert>
+      )}
+      {!!quoteError && (
+        <Alert status='warning'>
+          <P size='s'>BTC bridge is currenlty unavailable. Please try again later.</P>
+        </Alert>
       )}
       <TransactionDetails
         amount={receiveAmount}
