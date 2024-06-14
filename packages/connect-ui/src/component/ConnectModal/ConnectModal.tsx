@@ -129,14 +129,14 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
           await satsConnectAsync({
             connector: satsConnector
           });
-        } catch (e) {
+        } catch (e: any) {
           setPendingSatsConnector(undefined);
 
           if (!satsConnector.ready) {
             return;
           }
 
-          return toast.error(`Failed to connect to ${satsConnector.name}`);
+          return toast.error(e.message || `Failed to connect to ${satsConnector.name}`);
         }
 
         setPendingSatsConnector(undefined);
