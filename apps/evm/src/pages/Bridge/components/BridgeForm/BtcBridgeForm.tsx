@@ -297,7 +297,9 @@ const BtcBridgeForm = ({
       )}
       {!!quoteError && (
         <Alert status='warning'>
-          <P size='s'>BTC bridge is currenlty unavailable. Please try again later.</P>
+          <P size='s'>
+            BTC bridge is currently unavailable. This may be due to: {quoteError.message}. Please try again later.
+          </P>
         </Alert>
       )}
       <TransactionDetails
