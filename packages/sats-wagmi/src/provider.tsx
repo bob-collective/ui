@@ -47,9 +47,11 @@ const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainne
     const init = () => {
       const readyConnectors: SatsConnector[] = [];
 
-      const okx = new OKXConnector(network);
+      if (network === 'mainnet') {
+        const okx = new OKXConnector(network);
 
-      readyConnectors.push(okx);
+        readyConnectors.push(okx);
+      }
 
       const xverse = new XverseConnector(network);
 

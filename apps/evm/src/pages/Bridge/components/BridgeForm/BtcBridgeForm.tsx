@@ -98,7 +98,8 @@ const BtcBridgeForm = ({
   const {
     data: quoteData,
     isLoading: isFetchingQuote,
-    isError: isQuoteError
+    isError: isQuoteError,
+    error: quoteError
   } = useQuery({
     enabled: quoteDataEnabled,
     queryKey: quoteQueryKey,
@@ -292,6 +293,11 @@ const BtcBridgeForm = ({
           <P size='s'>
             Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type.
           </P>
+        </Alert>
+      )}
+      {!!quoteError && (
+        <Alert status='warning'>
+          <P size='s'>BTC bridge is currenlty unavailable. Please try again later.</P>
         </Alert>
       )}
       <TransactionDetails
