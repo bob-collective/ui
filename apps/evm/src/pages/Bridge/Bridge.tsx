@@ -1,10 +1,9 @@
 import { Tabs, TabsItem } from '@gobob/ui';
-import { useLocalStorage } from '@uidotdev/usehooks';
 import { Key, useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { Main } from '../../components';
-import { L1_CHAIN, L2_CHAIN, LocalStorageKey } from '../../constants';
+import { L1_CHAIN, L2_CHAIN } from '../../constants';
 
 import { StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
@@ -18,12 +17,6 @@ const Bridge = () => {
   const location = useLocation();
   const [type, setType] = useState<'deposit' | 'withdraw'>('deposit');
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.INTERNAL);
-
-  const navigate = useNavigate();
-
-  const [isEcosystemBannerHidden, setEcosystemBannerVisibility] = useLocalStorage(
-    LocalStorageKey.HIDE_ECOSYSTEM_BANNER
-  );
 
   const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams('action=deposit'));
 
@@ -70,12 +63,7 @@ const Bridge = () => {
   return (
     <Main maxWidth='5xl' padding='md'>
       <BannerCarousel />
-      <StyledFlex
-        alignItems='flex-start'
-        direction={{ base: 'column', md: 'row' }}
-        gap='2xl'
-        marginTop={isEcosystemBannerHidden ? undefined : 'xl'}
-      >
+      <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
         <StyledCard>
           <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
             <TabsItem key='deposit' title='Deposit'>

@@ -1,9 +1,9 @@
-import { CardProps, Flex } from '@gobob/ui';
+import { Flex, FlexProps } from '@gobob/ui';
 
-type BannerProps = CardProps;
+type BannerProps = FlexProps;
 
 const Banner = (props: BannerProps) => {
-  return <Flex paddingX='2xl' paddingY='4xl' {...props} />;
+  return <Flex paddingX={{ base: '2xl', s: '6xl' }} paddingY='5xl' {...props} />;
 };
 
 export { Banner };
