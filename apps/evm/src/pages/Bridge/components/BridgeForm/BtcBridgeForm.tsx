@@ -116,6 +116,9 @@ const BtcBridgeForm = ({
         atomicAmount
       );
 
+      // means that the call failed
+      if (!fee) return null;
+
       const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, fee);
 
       const btcReceiveAmount = currencyAmount.subtract(feeAmount);
@@ -295,7 +298,7 @@ const BtcBridgeForm = ({
           </P>
         </Alert>
       )}
-      {!!quoteError && (
+      {!!quoteError && !quoteData && (
         <Alert status='warning'>
           <P size='s'>
             BTC bridge is currently unavailable. This may be due to: {quoteError.message}. Please try again later.
