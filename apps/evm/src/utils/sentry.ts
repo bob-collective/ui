@@ -4,7 +4,12 @@ import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType }
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_URL,
-  ignoreErrors: ['User rejected the request'],
+  ignoreErrors: [
+    'User rejected the request',
+    'Talisman extension has not been configured yet',
+    '"MetaMask" does not support programmatic chain switching',
+    'Failed to fetch dynamically imported module'
+  ],
   tunnel: '/tunnel',
   integrations: [
     // See docs for support of different versions of variation of react router
