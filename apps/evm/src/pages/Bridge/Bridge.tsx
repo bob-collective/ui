@@ -91,9 +91,16 @@ const Bridge = () => {
   );
 
   useEffect(() => {
-    const selectedTabKey = searchParams.get('type') || undefined;
+    const paramsType = searchParams.get('type') || undefined;
 
-    setType(selectedTabKey as any);
+    const paramsNetwork = searchParams.get('network') || undefined;
+
+    setType(paramsType as any);
+
+    // TODO: build a mapping between possible keywords and networks
+    if (paramsNetwork === 'bitcoin') {
+      setChain('BTC');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
