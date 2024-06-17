@@ -72,7 +72,8 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
         onValueChange?.(trimmedValue);
       }
     }
-  }, [currency, onValueChange, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currency]);
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
