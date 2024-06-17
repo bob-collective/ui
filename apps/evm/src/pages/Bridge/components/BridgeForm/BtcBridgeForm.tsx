@@ -1,7 +1,12 @@
 import { AuthButton } from '@gobob/connect-ui';
 import { Bitcoin, CurrencyAmount, Ether } from '@gobob/currency';
 import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
-import { BtcAddressType, useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
+import {
+  BtcAddressType,
+  useAccount as useSatsAccount,
+  useBalance as useSatsBalance,
+  useFeeEstimate as useSatsFeeEstimate
+} from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, toast, useForm } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
@@ -57,6 +62,9 @@ const BtcBridgeForm = ({
 
   const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
   const { data: satsBalance } = useSatsBalance();
+  const { data: satsFeeEstimate } = useSatsFeeEstimate();
+
+  console.log(satsFeeEstimate);
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
 
