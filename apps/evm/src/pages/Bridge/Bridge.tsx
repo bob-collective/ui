@@ -1,12 +1,22 @@
-import { Tabs, TabsItem } from '@gobob/ui';
+import { ArrowTopRightOnSquare, Flex, H1, P, Tabs, TabsItem, XMark } from '@gobob/ui';
 import { Key, useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { ChainId } from '@gobob/chains';
+import { useLocalStorage } from '@uidotdev/usehooks';
 
 import { Main } from '../../components';
-import { L1_CHAIN, L2_CHAIN, RoutesPath } from '../../constants';
+import { L1_CHAIN, L2_CHAIN, LocalStorageKey, RoutesPath } from '../../constants';
+import bannerSrc from '../../assets/ecosystem-banner.png';
+import { FeatureFlags, useFeatureFlag } from '../../hooks';
 
-import { StyledCard, StyledFlex } from './Bridge.style';
+import {
+  StyledBanner,
+  StyledBannerCloseBtn,
+  StyledBannerContent,
+  StyledBannerImg,
+  StyledCard,
+  StyledFlex
+} from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
 
 enum BridgeOrigin {
@@ -23,6 +33,11 @@ const Bridge = () => {
   const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams('action=deposit'));
 
   const navigate = useNavigate();
+
+  const [isEcosystemBannerHidden, setEcosystemBannerVisibility] = useLocalStorage(
+    LocalStorageKey.HIDE_ECOSYSTEM_BANNER
+  );
+  const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
 
   const handleChangeTab = useCallback(
     (key: any) => {
@@ -84,10 +99,42 @@ const Bridge = () => {
 
   return (
     <Main maxWidth='5xl' padding='md'>
-      <BannerCarousel
-        onPressEcosystemBanner={handlePressEcosystemBanner}
-        onPressOnrampBanner={handlePressOnrampBanner}
-      />
+      {isBtcOnRampEnabled ? (
+        <BannerCarousel
+          onPressEcosystemBanner={handlePressEcosystemBanner}
+          onPressOnrampBanner={handlePressOnrampBanner}
+        />
+      ) : (
+        !isEcosystemBannerHidden && (
+          <StyledBanner
+            isHoverable
+            isPressable
+            aria-label='navigate to ecosystem section in fusion page'
+            paddingX='2xl'
+            paddingY='4xl'
+            onPress={() => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } })}
+          >
+            <StyledBannerCloseBtn
+              isIconOnly
+              aria-label='close banner'
+              size='s'
+              variant='ghost'
+              onPress={() => setEcosystemBannerVisibility(true)}
+            >
+              <XMark />
+            </StyledBannerCloseBtn>
+            <StyledBannerContent direction='column'>
+              <Flex alignItems='center'>
+                <H1 size='2xl' weight='bold'>
+                  BOB Ecosystem <ArrowTopRightOnSquare size='s' />
+                </H1>
+              </Flex>
+              <P>Discover the most exciting projects on BOB.</P>
+            </StyledBannerContent>
+            <StyledBannerImg alt='BOB ecosystem banner' src={bannerSrc} />
+          </StyledBanner>
+        )
+      )}
       <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
         <StyledCard>
           <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
