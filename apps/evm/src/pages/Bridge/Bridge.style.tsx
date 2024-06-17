@@ -25,11 +25,9 @@ const StyledBannerImg = styled.img`
   top: 0;
   height: 100%;
   opacity: 0.5;
-
   ${({ theme }) => {
     return css`
       transform: scale(4);
-
       @media ${theme.breakpoints.up('s')} {
         transform: scale(6) translateX(-15%);
       }

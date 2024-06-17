@@ -1,7 +1,7 @@
 import { ChainId } from '@gobob/chains';
 import { TBTC } from '@gobob/tokens';
 import { ArrowRight, Divider, Flex, InformationCircle, P, RadioGroup } from '@gobob/ui';
-import { Key, useCallback, useEffect, useMemo, useState } from 'react';
+import { Key, useCallback, useMemo, useState } from 'react';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { FeatureFlags, useFeatureFlag, useTokens } from '../../../../hooks';
@@ -30,11 +30,13 @@ type OnRampTransactionModalState = {
 };
 
 type BridgeFormProps = {
+  chain: ChainId | 'BTC';
   type: 'deposit' | 'withdraw';
   ticker?: string;
   bridgeOrigin?: BridgeOrigin;
   onChangeNetwork?: (network: Key) => void;
   onChangeOrigin?: (origin: BridgeOrigin) => void;
+  onChangeChain?: (chain: ChainId | 'BTC') => void;
 };
 
 const allNetworks = [
@@ -54,8 +56,10 @@ const BridgeForm = ({
   type = 'deposit',
   bridgeOrigin,
   ticker,
+  chain,
   onChangeNetwork,
-  onChangeOrigin
+  onChangeOrigin,
+  onChangeChain
 }: BridgeFormProps): JSX.Element => {
   const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
 
@@ -69,12 +73,6 @@ const BridgeForm = ({
     isOpen: false,
     step: 'confirmation'
   });
-
-  const [chain, setChain] = useState<ChainId | 'BTC'>(L1_CHAIN);
-
-  useEffect(() => {
-    setChain(L1_CHAIN);
-  }, [type]);
 
   const handleStartBridge = (data: L2BridgeData) => {
     setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
@@ -109,11 +107,11 @@ const BridgeForm = ({
     (network: Key) => {
       const parsedNetwork = network === 'BTC' ? network : (Number(network) as ChainId);
 
-      setChain(parsedNetwork);
+      onChangeChain?.(parsedNetwork);
 
       onChangeNetwork?.(parsedNetwork);
     },
-    [onChangeNetwork]
+    [onChangeNetwork, onChangeChain]
   );
 
   const { data: tokens } = useTokens(L2_CHAIN);

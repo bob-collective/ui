@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import { Icon, IconProps } from '../components';
 
-const ChevronRight = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
+const ChevronLeft = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <Icon
     ref={ref}
     fill='none'
@@ -12,10 +12,10 @@ const ChevronRight = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
     xmlns='http://www.w3.org/2000/svg'
     {...props}
   >
-    <path d='M8.25 4.5l7.5 7.5-7.5 7.5' strokeLinecap='round' strokeLinejoin='round' />
+    <path d='M15.75 19.5 8.25 12l7.5-7.5' strokeLinecap='round' strokeLinejoin='round' />
   </Icon>
 ));
 
-ChevronRight.displayName = 'ChevronRight';
+ChevronLeft.displayName = 'ChevronLeft';
 
-export { ChevronRight };
+export { ChevronLeft };
