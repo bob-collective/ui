@@ -333,7 +333,7 @@ const BtcBridgeForm = ({
           </P>
         </Alert>
       )}
-      {!hasLiquidity && (
+      {!hasLiquidity && !isLoadingLiquidity && (
         <Alert status='warning'>
           <P size='s'>There is currently no available liquidity to onramp BTC into {btcToken?.currency.symbol}.</P>
         </Alert>

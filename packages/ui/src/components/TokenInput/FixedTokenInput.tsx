@@ -49,6 +49,7 @@ const FixedTokenInput = forwardRef<HTMLInputElement, FixedTokenInputProps>(
         {...props}
         ref={ref}
         balance={balance}
+        currency={currency}
         endAdornment={<TokenAdornment logoUrl={logoUrl} size={size} ticker={currency.symbol} />}
         id={id}
         isDisabled={isDisabled}
