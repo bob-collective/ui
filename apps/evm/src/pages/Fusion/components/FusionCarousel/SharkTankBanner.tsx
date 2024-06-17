@@ -17,7 +17,7 @@ const SharkTankBanner = () => (
           Bitcoin Shark Tank
         </H1>
       </Flex>
-      <P color='grey-200'>Join us at ETHCC for Bitcoin Shark Tank on June 9th</P>
+      <P color='grey-200'>Pitch your idea to investors during ETHCC</P>
     </StyledBannerContent>
     <StyledBannerImg alt='Bitcoin Shark Tank Logo' src={bannerSrc} />
   </StyledCarouselBanner>
