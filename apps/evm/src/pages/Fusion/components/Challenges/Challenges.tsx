@@ -12,7 +12,13 @@ const Challenges = () => {
       <P color='grey-200'>
         <Trans
           components={{
-            galxeLink: <TextLink external href=' https://app.galxe.com/quest/BOB' size='s' />
+            challengeLink: (
+              <TextLink
+                external
+                href='https://www.intract.io/explore?query=BOB+Summer+Fest&hideCompleted=true&hideExpired=true&sortBy=participation'
+                size='s'
+              />
+            )
           }}
           i18nKey='fusion.challenges.content'
         />
