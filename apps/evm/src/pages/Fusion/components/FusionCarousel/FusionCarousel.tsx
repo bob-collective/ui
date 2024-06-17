@@ -35,7 +35,11 @@ const FusionCarousel = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
 
   return (
-    <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
+    <StyledCarouselWrapper
+      aria-label='navigate to Bitcoin Shark Tank or Intract website'
+      paddingX='none'
+      paddingY='none'
+    >
       <StyledSlider {...settings} arrows={isDesktop}>
         <IntractBanner />
         <SharkTankBanner />
