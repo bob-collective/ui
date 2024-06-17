@@ -96,16 +96,18 @@ const BtcBridgeForm = ({
     }
   });
 
+  const hasLiquidity = useMemo(() => availableLiquidity?.greaterThan(MIN_DEPOSIT_AMOUNT), [availableLiquidity]);
+
   const quoteDataEnabled = useMemo(() => {
     return Boolean(
       currencyAmount &&
         btcToken &&
         evmAddress &&
         btcAddress &&
-        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(0) &&
-        availableLiquidity?.greaterThan(0)
+        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT) &&
+        hasLiquidity
     );
-  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount, availableLiquidity]);
+  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount, hasLiquidity]);
 
   const quoteQueryKey = bridgeKeys.btcQuote(evmAddress, btcAddress, Number(currencyAmount?.numerator));
 
@@ -263,7 +265,8 @@ const BtcBridgeForm = ({
 
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
-  const isDisabled = isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingLiquidity;
+  const isDisabled =
+    isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingLiquidity || !hasLiquidity;
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
@@ -328,6 +331,11 @@ const BtcBridgeForm = ({
           <P size='s'>
             BTC bridge is currently unavailable. This may be due to: {quoteError.message}. Please try again later.
           </P>
+        </Alert>
+      )}
+      {!hasLiquidity && (
+        <Alert status='warning'>
+          <P size='s'>There is currently no available liquidity to onramp BTC into {btcToken?.currency.symbol}.</P>
         </Alert>
       )}
       <TransactionDetails
