@@ -10,6 +10,10 @@ import { NetworkType, getBtcNetwork } from './btcNetwork';
 // Confirmation target for fee estimation in Bitcoin blocks
 export const CONFIRMATION_TARGET = 6;
 
+/// The sequence number that enables replace-by-fee and absolute lock time but
+/// disables relative lock time.
+const ENABLE_RBF_NO_LOCKTIME = 0xfffffffd;
+
 interface InscriptionUTXO {
   value: number;
   script_pubkey: string;
@@ -23,6 +27,7 @@ interface InscriptionUTXO {
 export interface Input {
   txid: string;
   index: number;
+  sequence: number;
   witness_script?: Uint8Array;
   redeem_script?: Uint8Array;
   witnessUtxo?: {
@@ -219,6 +224,7 @@ export function getInputFromUtxoAndTransaction(
   const input = {
     txid: utxo.txid,
     index: utxo.vout,
+    sequence: ENABLE_RBF_NO_LOCKTIME,
     ...scriptMixin, // Maybe adds the redeemScript and/or witnessScript
     ...witnessMixin // Adds the witnessUtxo or nonWitnessUtxo
   };
