@@ -34,7 +34,7 @@ const TokenInputBalance = ({
       <Dl>
         <DlGroup alignItems='center' gap='xs'>
           <Dt color='light' size='xs'>
-            Balance:
+            {label}:
           </Dt>
           <Dd color='primary-500' size='xs'>
             {balance}

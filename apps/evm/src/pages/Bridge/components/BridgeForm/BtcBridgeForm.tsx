@@ -77,11 +77,24 @@ const BtcBridgeForm = ({
     [availableTokens, receiveTicker]
   );
 
-  const balanceCurrencyAmount = useMemo(() => CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0n), [satsBalance]);
-
   const handleError = useCallback((e: any) => {
     toast.error(e.message);
   }, []);
+
+  const { data: availableLiquidity, isLoading: isLoadingLiquidity } = useQuery({
+    enabled: Boolean(btcToken),
+    queryKey: bridgeKeys.btcTotalLiquidity(),
+    refetchInterval: INTERVAL.MINUTE,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      if (!currencyAmount || !btcToken) return;
+
+      const total = await onRampApiClient.getTotalLiquidity(btcToken.raw.address);
+
+      return CurrencyAmount.fromRawAmount(BITCOIN, total);
+    }
+  });
 
   const quoteDataEnabled = useMemo(() => {
     return Boolean(
@@ -89,9 +102,10 @@ const BtcBridgeForm = ({
         btcToken &&
         evmAddress &&
         btcAddress &&
-        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(0)
+        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(0) &&
+        availableLiquidity?.greaterThan(0)
     );
-  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount]);
+  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount, availableLiquidity]);
 
   const quoteQueryKey = bridgeKeys.btcQuote(evmAddress, btcAddress, Number(currencyAmount?.numerator));
 
@@ -206,6 +220,16 @@ const BtcBridgeForm = ({
     }
   };
 
+  const balanceCurrencyAmount = useMemo(() => {
+    const currentBalance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0n);
+
+    if (!availableLiquidity) return currentBalance;
+
+    return currentBalance.greaterThan(availableLiquidity.numerator)
+      ? currentBalance.subtract(availableLiquidity)
+      : currentBalance;
+  }, [satsBalance, availableLiquidity]);
+
   const initialValues = useMemo(
     () => ({
       [BRIDGE_AMOUNT]: '',
@@ -239,7 +263,7 @@ const BtcBridgeForm = ({
 
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
-  const isDisabled = isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress;
+  const isDisabled = isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingLiquidity;
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
@@ -260,6 +284,7 @@ const BtcBridgeForm = ({
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
         balance={balanceCurrencyAmount.toExact()}
+        balanceLabel='Available'
         currency={BITCOIN}
         label='Amount'
         logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'

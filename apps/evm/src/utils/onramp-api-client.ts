@@ -84,6 +84,18 @@ class OnRampApiClient {
 
     return response.json();
   }
+
+  async getTotalLiquidity(assetAddress: Address): Promise<string> {
+    const response = await fetch(`${this.baseUrl}/total/${assetAddress.toLowerCase()}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    });
+
+    return response.json();
+  }
 }
 
 export const onRampApiClient = new OnRampApiClient('/onramp-api');

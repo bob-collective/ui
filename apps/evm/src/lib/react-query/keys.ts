@@ -43,6 +43,7 @@ export const bridgeKeys = {
   proveTransaction: (address: Address | undefined, hash: Address) => [address, hash, 'prove'],
   relayTransaction: (address: Address | undefined, hash: Address) => [address, hash, 'relay'],
   btc: (address: Address | undefined, btcAddress: string | undefined) => ['btc', address, btcAddress],
+  btcTotalLiquidity: () => ['btc-total-liquidity'],
   btcQuote: (address: Address | undefined, btcAddress: string | undefined, atomicAmount: number | undefined) => [
     ...bridgeKeys.btc(address, btcAddress),
     atomicAmount,
