@@ -1,7 +1,12 @@
 import { AuthButton } from '@gobob/connect-ui';
 import { Bitcoin, CurrencyAmount, Ether } from '@gobob/currency';
 import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
-import { BtcAddressType, useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
+import {
+  BtcAddressType,
+  useAccount as useSatsAccount,
+  useBalance as useSatsBalance,
+  useFeeEstimate as useSatsFeeEstimate
+} from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, toast, useForm } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
@@ -57,6 +62,7 @@ const BtcBridgeForm = ({
 
   const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
   const { data: satsBalance } = useSatsBalance();
+  const { data: satsFeeEstimate } = useSatsFeeEstimate();
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
 
@@ -222,15 +228,32 @@ const BtcBridgeForm = ({
     }
   };
 
-  const balanceCurrencyAmount = useMemo(() => {
-    const currentBalance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0n);
+  const { balanceAmount, humanBalanceAmount } = useMemo(() => {
+    if (!satsFeeEstimate || !availableLiquidity) {
+      return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
+    }
 
-    if (!availableLiquidity) return currentBalance;
+    const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0);
 
-    return currentBalance.greaterThan(availableLiquidity.numerator)
-      ? currentBalance.subtract(availableLiquidity)
-      : currentBalance;
-  }, [satsBalance, availableLiquidity]);
+    const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, satsFeeEstimate);
+
+    if (balance.lessThan(feeAmount)) {
+      return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
+    }
+
+    const availableBalance = balance.subtract(feeAmount);
+
+    if (availableBalance.greaterThan(availableLiquidity)) {
+      return {
+        balanceAmount: availableLiquidity
+      };
+    }
+
+    return {
+      humanBalanceAmount: balance,
+      balanceAmount: availableBalance
+    };
+  }, [satsBalance, availableLiquidity, satsFeeEstimate]);
 
   const initialValues = useMemo(
     () => ({
@@ -245,7 +268,7 @@ const BtcBridgeForm = ({
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
       minAmount: currencyAmount && new Big(MIN_DEPOSIT_AMOUNT / 10 ** currencyAmount?.currency.decimals),
-      maxAmount: new Big(balanceCurrencyAmount.toExact())
+      maxAmount: new Big(balanceAmount.toExact())
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount
   };
@@ -286,9 +309,10 @@ const BtcBridgeForm = ({
   return (
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
-        balance={balanceCurrencyAmount.toExact()}
+        balance={balanceAmount.toExact()}
         balanceLabel='Available'
         currency={BITCOIN}
+        humanBalance={humanBalanceAmount?.toExact()}
         label='Amount'
         logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
         size='lg'

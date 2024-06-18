@@ -3,6 +3,7 @@ import { DefaultOrdinalsClient, TESTNET_ORD_BASE_PATH } from '@gobob/bob-sdk/dis
 import { Transaction, Script, selectUTXO, TEST_NETWORK, NETWORK, p2wpkh, p2sh } from '@scure/btc-signer';
 import { hex } from '@scure/base';
 import { AddressType } from 'bitcoin-address-validation';
+import * as bitcoin from 'bitcoinjs-lib';
 
 import { getTxInscriptions, parseInscriptionId } from './inscription';
 import { NetworkType, getBtcNetwork } from './btcNetwork';
@@ -233,4 +234,21 @@ export function getInputFromUtxoAndTransaction(
   console.log('Input:', input);
 
   return input;
+}
+
+export function estimateTxFee(feeRate: number, numInputs: number = 1) {
+  const tx = new bitcoin.Transaction();
+
+  for (let i = 0; i < numInputs; i++) {
+    tx.addInput(Buffer.alloc(32, 0), 0, 0xfffffffd, Buffer.alloc(0));
+  }
+  // https://github.com/interlay/interbtc-clients/blob/6bd3e81d695b93180c5aeae4f33910ad4395ff1a/bitcoin/src/light/wallet.rs#L80
+  tx.ins.map((tx_input) => (tx_input.witness = [Buffer.alloc(33 + 32 + 7, 0), Buffer.alloc(33, 0)]));
+  tx.addOutput(Buffer.alloc(22, 0), 1000); // P2WPKH
+  tx.addOutput(Buffer.alloc(22, 0), 1000); // P2WPKH (change)
+  tx.addOutput(bitcoin.script.compile([bitcoin.opcodes.OP_RETURN, Buffer.alloc(20, 0)]), 0);
+  const vsize = tx.virtualSize();
+  const satoshis = feeRate * vsize;
+
+  return satoshis;
 }
