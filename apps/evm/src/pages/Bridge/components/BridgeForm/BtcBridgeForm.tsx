@@ -64,8 +64,6 @@ const BtcBridgeForm = ({
   const { data: satsBalance } = useSatsBalance();
   const { data: satsFeeEstimate } = useSatsFeeEstimate();
 
-  console.log(satsFeeEstimate);
-
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
 
   const { refetchOnRampTxs } = useGetTransactions();
@@ -230,15 +228,36 @@ const BtcBridgeForm = ({
     }
   };
 
-  const balanceCurrencyAmount = useMemo(() => {
-    const currentBalance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0n);
+  const { balanceAmount, humanBalanceAmount } = useMemo(() => {
+    if (!satsFeeEstimate || !availableLiquidity) {
+      return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
+    }
 
-    if (!availableLiquidity) return currentBalance;
+    const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0);
 
-    return currentBalance.greaterThan(availableLiquidity.numerator)
-      ? currentBalance.subtract(availableLiquidity)
-      : currentBalance;
-  }, [satsBalance, availableLiquidity]);
+    const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, satsFeeEstimate);
+
+    const isBalanceGreaterThanFee = balance.greaterThan(feeAmount);
+
+    if (!isBalanceGreaterThanFee) {
+      return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
+    }
+
+    const availableBalance = balance.subtract(feeAmount);
+
+    const isBalanceGreaterThanLiquidity = availableBalance.greaterThan(availableLiquidity);
+
+    if (isBalanceGreaterThanLiquidity) {
+      return {
+        balanceAmount: availableLiquidity
+      };
+    }
+
+    return {
+      humanBalanceAmount: balance,
+      balanceAmount: availableBalance
+    };
+  }, [satsBalance, availableLiquidity, satsFeeEstimate]);
 
   const initialValues = useMemo(
     () => ({
@@ -253,7 +272,7 @@ const BtcBridgeForm = ({
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
       minAmount: currencyAmount && new Big(MIN_DEPOSIT_AMOUNT / 10 ** currencyAmount?.currency.decimals),
-      maxAmount: new Big(balanceCurrencyAmount.toExact())
+      maxAmount: new Big(balanceAmount.toExact())
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount
   };
@@ -294,9 +313,10 @@ const BtcBridgeForm = ({
   return (
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
-        balance={balanceCurrencyAmount.toExact()}
+        balance={balanceAmount.toExact()}
         balanceLabel='Available'
         currency={BITCOIN}
+        humanBalance={humanBalanceAmount?.toExact()}
         label='Amount'
         logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
         size='lg'

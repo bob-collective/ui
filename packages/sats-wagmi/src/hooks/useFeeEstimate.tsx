@@ -17,7 +17,7 @@ const useFeeEstimate = ({ query }: UseFeeEstimateProps = {}) => {
     enabled: Boolean(feeRate),
     queryKey: ['sats-fee-estimate', network, feeRate?.toString()],
     queryFn: async () => {
-      const feeEstimate = estimateTxFee(Number(estimateTxFee));
+      const feeEstimate = estimateTxFee(Number(feeRate));
 
       return BigInt(feeEstimate);
     },

@@ -246,29 +246,3 @@ export function estimateTxFee(feeRate: number, numInputs: number = 1) {
 
   return satoshis;
 }
-
-export function estimateTxFeeConst(feeRate: number, numInputs: number = 1) {
-  // hash (32 bytes)
-  // + index (4 bytes)
-  // + [scriptsig] length (1 byte)
-  // + sequence (4 bytes)
-  // + [witness] item count (1 byte)
-  // + [witness] signature length (1 byte)
-  // + [witness] signature (71 or 72 bytes)
-  // + [witness] pubkey length (1 byte)
-  // + [witness] pubkey (33 bytes)
-  const inputSize = 32 + 4 + 1 + 4 + (1 + 1 + 72 + 1 + 33) / 4;
-  // nValue (8 bytes)
-  // + scriptPubKey length (...)
-  // + scriptPubKey (P2WPKH = 22 bytes)
-  const outputSize = 8 + 1 + 22;
-  const opReturnSize = 8 + 1 + 1 + 20;
-  // nVersion (4 bytes)
-  // + input(s)
-  // + output(s)
-  // + nLockTime (4 bytes)
-  const vsize = 4 + 1 + inputSize * numInputs + 1 + outputSize + outputSize + opReturnSize + 4 + 1;
-  const satoshis = feeRate * vsize;
-
-  return satoshis;
-}

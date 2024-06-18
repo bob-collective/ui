@@ -40,7 +40,7 @@ export const WBTC = {
   [ChainId.ETHEREUM]: WBTC_ETH,
   [ChainId.SEPOLIA]: new ERC20Token(
     ChainId.SEPOLIA,
-    '0x2347e58e68ff44c6ce4860bb7004ea531d357244',
+    '0xbAFE2EB73b81A5b4eC85D632b79B6DeE79f1Cbdf',
     8,
     'WBTC',
     'Wrapped BTC'

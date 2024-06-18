@@ -17,9 +17,9 @@ const useFeeRate = ({ query, confirmations = CONFIRMATION_TARGET }: UseFeeRatePr
     queryFn: async () => {
       const electrsClient = new DefaultElectrsClient(network);
 
-      const feeRate = (await electrsClient.getFeeEstimate(confirmations)) as unknown as Record<string, number>;
+      const feeRate = await electrsClient.getFeeEstimate(confirmations);
 
-      return BigInt(feeRate[confirmations.toString()]);
+      return BigInt(Math.ceil(feeRate));
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
