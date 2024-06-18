@@ -106,10 +106,11 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
     { name: '', id: TokenTableColumns.ACTION }
   ];
 
-  const handlePressBridge = useCallback(
-    (ticker: string) => navigate(RoutesPath.BRIDGE, { state: { ticker } }),
-    [navigate]
-  );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handlePressBridge = useCallback((ticker: string) => navigate(RoutesPath.HOME, { state: { ticker } }), []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handlePressBtcBridge = useCallback(() => navigate(`${RoutesPath.HOME}?network=bitcoin`), []);
 
   const btcRow: TokenTableRow = useMemo(() => {
     const amountCurrency = satsAmount ? CurrencyAmount.fromRawAmount(BITCOIN, satsAmount) : undefined;
@@ -127,15 +128,14 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
           connectLabel={t('wallet.tokenTable.connectBtcLabel')}
           showOnlyConnect={!btcAddress}
           ticker={BITCOIN.symbol}
-          // TODO: to be enabled when onramp is implemented
-          // onPressBridge={() => handlePressBridge(BITCOIN.symbol)}
+          onPressBridge={handlePressBtcBridge}
           onPressConnect={() => open()}
           onPressReceive={() => setReceiveModalState({ isOpen: true, token: 'btc' })}
           onPressSend={() => setSendModalState({ isOpen: true, token: 'btc' })}
         />
       )
     };
-  }, [btcAddress, formatUSD, getUsdValue, open, satsAmount, t]);
+  }, [btcAddress, formatUSD, getUsdValue, handlePressBtcBridge, open, satsAmount, t]);
 
   const tokenRows: TokenTableRow[] = useMemo(
     () =>
