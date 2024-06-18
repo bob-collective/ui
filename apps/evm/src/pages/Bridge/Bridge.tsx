@@ -1,7 +1,7 @@
 import { ArrowTopRightOnSquare, Flex, H1, P, Tabs, TabsItem, XMark } from '@gobob/ui';
-import { Key, useCallback, useEffect, useState } from 'react';
+import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { ChainId } from '@gobob/chains';
+import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { useLocalStorage } from '@uidotdev/usehooks';
 
 import { Main } from '../../components';
@@ -26,11 +26,28 @@ enum BridgeOrigin {
 
 const Bridge = () => {
   const location = useLocation();
-  const [type, setType] = useState<'deposit' | 'withdraw'>('deposit');
-  const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.INTERNAL);
-  const [chain, setChain] = useState<ChainId | 'BTC'>(L1_CHAIN);
 
-  const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams('action=deposit'));
+  const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
+
+  const [type, setType] = useState<'deposit' | 'withdraw'>((searchParams.get('type') as 'deposit') || 'deposit');
+  const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.INTERNAL);
+
+  const initialChain = useMemo(() => {
+    const network = searchParams.get('network');
+
+    if (!network) {
+      return L1_CHAIN;
+    }
+
+    if (network === 'bitcoin') {
+      return 'BTC';
+    }
+
+    return getChainIdByChainName(network) || L1_CHAIN;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [chain, setChain] = useState<ChainId | 'BTC'>(initialChain);
 
   const navigate = useNavigate();
 
@@ -39,22 +56,11 @@ const Bridge = () => {
   );
   const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
 
-  const handleChangeTab = useCallback(
-    (key: any) => {
-      setType(key as any);
-      setBridgeOrigin(key === 'deposit' ? BridgeOrigin.INTERNAL : BridgeOrigin.EXTERNAL);
-      setChain(L1_CHAIN);
-
-      setSearchParams(() => {
-        const newParams = new URLSearchParams();
-
-        newParams.set('type', key as string);
-
-        return newParams;
-      });
-    },
-    [setSearchParams]
-  );
+  const handleChangeTab = useCallback((key: any) => {
+    setType(key as any);
+    setBridgeOrigin(key === 'deposit' ? BridgeOrigin.INTERNAL : BridgeOrigin.EXTERNAL);
+    setChain(L1_CHAIN);
+  }, []);
 
   const handleChangeNetwork = useCallback(
     (network: Key) => {
@@ -81,28 +87,30 @@ const Bridge = () => {
     []
   );
 
-  const handlePressOnrampBanner = useCallback(
-    () => {
-      setChain('BTC');
-      setBridgeOrigin(BridgeOrigin.INTERNAL);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  const handlePressOnrampBanner = useCallback(() => {
+    setChain('BTC');
+    setBridgeOrigin(BridgeOrigin.INTERNAL);
+  }, []);
 
   useEffect(() => {
-    const paramsType = searchParams.get('type') || undefined;
+    const searchParams = new URLSearchParams(window.location.search);
 
-    const paramsNetwork = searchParams.get('network') || undefined;
+    searchParams.set('type', type);
+    navigate({ search: searchParams.toString() }, { replace: true });
 
-    setType(paramsType as any);
-
-    // TODO: build a mapping between possible keywords and networks
-    if (paramsNetwork === 'bitcoin') {
-      setChain('BTC');
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [type]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
+
+    searchParams.set('network', network);
+    navigate({ search: searchParams.toString() }, { replace: true });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chain]);
 
   return (
     <Main maxWidth='5xl' padding='md'>
