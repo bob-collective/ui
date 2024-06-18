@@ -237,17 +237,13 @@ const BtcBridgeForm = ({
 
     const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, satsFeeEstimate);
 
-    const isBalanceGreaterThanFee = balance.greaterThan(feeAmount);
-
-    if (!isBalanceGreaterThanFee) {
+    if (balance.lessThan(feeAmount)) {
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
 
     const availableBalance = balance.subtract(feeAmount);
 
-    const isBalanceGreaterThanLiquidity = availableBalance.greaterThan(availableLiquidity);
-
-    if (isBalanceGreaterThanLiquidity) {
+    if (availableBalance.greaterThan(availableLiquidity)) {
       return {
         balanceAmount: availableLiquidity
       };
