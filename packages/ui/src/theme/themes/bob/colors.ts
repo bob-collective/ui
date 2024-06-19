@@ -1,4 +1,14 @@
-import { Palette, GreyColors, PrimaryColors, color as baseColor, BlueColors, GreenColors, RedColors } from '../../core';
+import {
+  Palette,
+  GreyColors,
+  PrimaryColors,
+  color as baseColor,
+  BlueColors,
+  GreenColors,
+  RedColors,
+  NewGreyColors,
+  NewPrimaryColors
+} from '../../core';
 
 const primary: PrimaryColors = {
   'primary-50': '#ffefe6',
@@ -24,6 +34,32 @@ const grey: GreyColors = {
   'grey-700': '#10131b',
   'grey-800': '#0c0f15',
   'grey-900': '#090b10'
+};
+
+const newprimary: NewPrimaryColors = {
+  'new-primary-50': '#feefe6',
+  'new-primary-100': '#fbcdb0',
+  'new-primary-200': '#f9b48a',
+  'new-primary-300': '#f79254',
+  'new-primary-400': '#f57d33',
+  'new-primary-500': '#f35d00',
+  'new-primary-600': '#dd5500',
+  'new-primary-700': '#ad4200',
+  'new-primary-800': '#863300',
+  'new-primary-900': '#662700'
+};
+
+const newgrey: NewGreyColors = {
+  'new-grey-50': '#e8e8e9',
+  'new-grey-100': '#B6BFC8',
+  'new-grey-200': '#94969b',
+  'new-grey-300': '#63666e',
+  'new-grey-400': '#313743',
+  'new-grey-500': '#161B26',
+  'new-grey-600': '#141923',
+  'new-grey-700': '#11141C',
+  'new-grey-800': '#0c0f15',
+  'new-grey-900': '#090b10'
 };
 
 const blue: BlueColors = {
@@ -72,7 +108,9 @@ const colors: Palette = {
   ...grey,
   ...blue,
   ...green,
-  ...red
+  ...red,
+  ...newprimary,
+  ...newgrey
 };
 
 const color = baseColor(colors);
