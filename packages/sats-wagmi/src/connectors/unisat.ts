@@ -137,22 +137,34 @@ class UnisatConnector extends SatsConnector {
     this.paymentAddress = accounts[0];
     this.ordinalsAddress = accounts[0];
     this.publicKey = publickKey;
-
-    walletSource.on('accountsChanged', this.changeAccount);
   }
 
   disconnect() {
     this.address = undefined;
     this.publicKey = undefined;
-
-    this.getSource().removeListener('accountsChanged', this.changeAccount);
   }
 
   signMessage(message: string) {
     return this.getSource().signMessage(message);
   }
 
-  async changeAccount([account]: string[]) {
+  on(callback: (account: string) => void): void {
+    this.getSource().on('accountsChanged', ([account]) => {
+      callback(account);
+
+      this.changeAccount(account);
+    });
+  }
+
+  removeListener(callback: (account: string) => void): void {
+    this.getSource().removeListener('accountsChanged', ([account]) => {
+      callback(account);
+
+      this.changeAccount(account);
+    });
+  }
+
+  async changeAccount(account: string) {
     this.address = account;
     this.publicKey = await this.getSource().getPublicKey();
   }

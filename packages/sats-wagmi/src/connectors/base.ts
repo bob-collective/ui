@@ -113,6 +113,10 @@ abstract class SatsConnector {
     return this.publicKey;
   }
 
+  abstract on(callback: (account: string) => void): void;
+
+  abstract removeListener(callback: (account: string) => void): void;
+
   // TODO: verify if this works on mainnet
   async sendInscription(): Promise<string> {
     throw new Error('Not implemented');

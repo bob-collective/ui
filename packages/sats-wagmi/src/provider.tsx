@@ -36,7 +36,6 @@ type SatsWagmiConfigProps = {
   network?: BitcoinNetwork;
 };
 
-// TODO: implement auto-connect
 const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainnet' }) => {
   const [connectors, setConnectors] = useState<SatsConnector[]>([]);
   const [connector, setCurrentConnector] = useState<SatsConnector>();
