@@ -1,3 +1,4 @@
+'use client';
 import { useButton } from '@react-aria/button';
 import { mergeProps } from '@react-aria/utils';
 import React, { Children, cloneElement, ElementType, ReactNode, RefObject } from 'react';

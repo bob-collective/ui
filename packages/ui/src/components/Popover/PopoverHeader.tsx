@@ -1,3 +1,4 @@
+'use client';
 import { DialogHeader, DialogHeaderProps } from '../Dialog';
 
 type PopoverHeaderProps = DialogHeaderProps;

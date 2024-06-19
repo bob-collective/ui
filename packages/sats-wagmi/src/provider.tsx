@@ -1,3 +1,4 @@
+'use client';
 import { BitcoinNetwork } from '@gobob/types';
 import { FC, ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useLocalStorage } from '@uidotdev/usehooks';

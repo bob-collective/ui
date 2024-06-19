@@ -1,3 +1,4 @@
+'use client';
 import { AriaAccordionProps, useAccordion } from '@react-aria/accordion';
 import { mergeProps } from '@react-aria/utils';
 import { useTreeState } from '@react-stately/tree';

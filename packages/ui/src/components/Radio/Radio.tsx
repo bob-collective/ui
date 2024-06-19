@@ -1,3 +1,4 @@
+'use client';
 import { useHover } from '@react-aria/interactions';
 import { AriaRadioProps, useRadio } from '@react-aria/radio';
 import { HTMLAttributes, forwardRef, useRef } from 'react';

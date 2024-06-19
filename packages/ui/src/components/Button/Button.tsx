@@ -1,3 +1,4 @@
+'use client';
 import { useFocusRing } from '@react-aria/focus';
 import { mergeProps } from '@react-aria/utils';
 import { PressEvent } from '@react-types/shared';

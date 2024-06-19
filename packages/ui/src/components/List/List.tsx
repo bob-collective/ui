@@ -1,3 +1,4 @@
+'use client';
 import { AriaGridListOptions, useGridList } from '@react-aria/gridlist';
 import { mergeProps } from '@react-aria/utils';
 import { ListProps as StatelyListProps, useListState } from '@react-stately/list';

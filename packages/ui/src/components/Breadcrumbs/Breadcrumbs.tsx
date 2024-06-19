@@ -1,3 +1,4 @@
+'use client';
 import { AriaBreadcrumbsProps, useBreadcrumbs } from '@react-aria/breadcrumbs';
 import { Children, forwardRef, HTMLAttributes, isValidElement, ReactElement } from 'react';
 

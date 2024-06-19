@@ -1,3 +1,4 @@
+'use client';
 import { useSelect } from '@react-aria/select';
 import { mergeProps, useId } from '@react-aria/utils';
 import { VisuallyHidden } from '@react-aria/visually-hidden';

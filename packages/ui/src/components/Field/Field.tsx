@@ -1,3 +1,4 @@
+'use client';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import { CSSProperties } from 'styled-components';
 

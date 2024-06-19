@@ -1,3 +1,4 @@
+'use client';
 import { Cell, Column, Row, TableBody, TableHeader } from '@react-stately/table';
 import { ReactNode, forwardRef } from 'react';
 

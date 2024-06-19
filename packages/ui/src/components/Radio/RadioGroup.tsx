@@ -1,3 +1,4 @@
+'use client';
 import { AriaRadioGroupProps, useRadioGroup } from '@react-aria/radio';
 import { ChangeEvent, forwardRef } from 'react';
 import { useRadioGroupState } from '@react-stately/radio';

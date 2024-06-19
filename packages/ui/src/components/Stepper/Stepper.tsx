@@ -1,3 +1,4 @@
+'use client';
 import { forwardRef } from 'react';
 import { useCollection } from '@react-stately/collections';
 import { ListCollection } from '@react-stately/list';

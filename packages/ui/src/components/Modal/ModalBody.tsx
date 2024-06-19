@@ -1,3 +1,4 @@
+'use client';
 import { DialogBodyProps } from '../Dialog';
 
 import { StyledDialogBody } from './Modal.style';

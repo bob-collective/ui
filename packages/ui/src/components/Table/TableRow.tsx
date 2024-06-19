@@ -1,3 +1,4 @@
+'use client';
 import { useHover } from '@react-aria/interactions';
 import { useTableRow } from '@react-aria/table';
 import { mergeProps } from '@react-aria/utils';

@@ -1,3 +1,4 @@
+'use client';
 import { AriaProgressBarProps, useProgressBar } from '@react-aria/progress';
 import { CSSProperties } from 'react';
 

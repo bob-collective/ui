@@ -1,3 +1,4 @@
+'use client';
 import { useSeparator } from '@react-aria/separator';
 import { mergeProps } from '@react-aria/utils';
 import { forwardRef, HTMLAttributes } from 'react';

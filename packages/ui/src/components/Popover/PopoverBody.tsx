@@ -1,3 +1,4 @@
+'use client';
 import { DialogBody, DialogBodyProps } from '../Dialog';
 
 type PopoverBodyProps = DialogBodyProps;
