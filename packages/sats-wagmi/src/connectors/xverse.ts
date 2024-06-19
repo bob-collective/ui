@@ -74,6 +74,10 @@ class XverseConnector extends SatsConnector {
     });
   }
 
+  on(): void {}
+
+  removeListener(): void {}
+
   async isReady() {
     this.ready = !!window.XverseProviders;
 

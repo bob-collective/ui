@@ -1,5 +1,6 @@
 import { useQuery } from '@gobob/react-query';
 import { getAddressInfo } from 'bitcoin-address-validation';
+import { useEffect } from 'react';
 
 import { useSatsWagmi } from '../provider';
 import { SatsConnector } from '../connectors';
@@ -12,7 +13,7 @@ const useAccount = ({ onConnect }: UseAccountProps = {}) => {
   const { connector } = useSatsWagmi();
 
   const { data, error, isError, isLoading, isSuccess, refetch } = useQuery({
-    queryKey: ['account', connector],
+    queryKey: ['sats-account', connector],
     queryFn: () => {
       if (!connector) return undefined;
 
@@ -26,6 +27,16 @@ const useAccount = ({ onConnect }: UseAccountProps = {}) => {
     },
     enabled: !!connector
   });
+
+  useEffect(() => {
+    if (!connector) return;
+
+    connector.on(() => refetch());
+
+    return () => {
+      connector.removeListener(() => refetch());
+    };
+  }, [connector, refetch]);
 
   return {
     connector,

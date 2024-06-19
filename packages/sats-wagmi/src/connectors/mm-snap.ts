@@ -113,6 +113,10 @@ class MMSnapConnector extends SatsConnector {
     return Object.keys(snaps || {}).includes(snapId);
   }
 
+  on(): void {}
+
+  removeListener(): void {}
+
   async getExtendedPublicKey() {
     if (this.extendedPublicKey) {
       return this.extendedPublicKey;

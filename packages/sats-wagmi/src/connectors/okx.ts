@@ -111,6 +111,16 @@ class OKXConnector extends SatsConnector {
     return window.okxwallet.bitcoin.signMessage(message);
   }
 
+  on(callback: (account: string) => void): void {
+    window.okxwallet.bitcoin.on('accountChanged', ({ address, publicKey, compressedPublicKey }) => {
+      callback(address);
+
+      this.changeAccount({ address, publicKey, compressedPublicKey });
+    });
+  }
+
+  removeListener(): void {}
+
   async changeAccount({ address, publicKey }: AccountChangeEventParams) {
     this.address = address;
     this.publicKey = publicKey;

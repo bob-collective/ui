@@ -105,6 +105,10 @@ class LeatherConnector extends SatsConnector {
     this.derivationPath = paymentAccount.derivationPath;
   }
 
+  on(): void {}
+
+  removeListener(): void {}
+
   async isReady() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.ready = !!(window as any).LeatherProvider;
