@@ -2,7 +2,7 @@ export const config = {
   runtime: 'edge'
 };
 
-export default async (request, response) => {
+export default async (request) => {
   console.log('URL', request.url)
   const url = 'https://api.coingecko.com/api/v3/simple/price?' + new URL(request.url).searchParams
   const cgResp = await fetch(url, { headers: { "accept": "application/json" } })
@@ -12,9 +12,11 @@ export default async (request, response) => {
   }
 
   const data = await cgResp.json()
-  return response
-    .status(200)
-    .setHeader("content-type", "application/json")
-    .setHeader("cache-control", "public, max-age=120, s-maxage=120, stale-while-revalidate=300, stale-if-error=300")
-    .json(data)
+  return new Response(JSON.stringify(data), {
+    status: 200,
+    headers: {
+      "content-type": "application/json",
+      "cache-control": "public, max-age=120, s-maxage=120, stale-while-revalidate=300, stale-if-error=300"
+    }
+  })
 };
