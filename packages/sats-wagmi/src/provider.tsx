@@ -1,7 +1,7 @@
 'use client';
 import { BitcoinNetwork } from '@gobob/types';
 import { FC, ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { useLocalStorage } from '@gobob/hooks';
 
 import { LeatherConnector, UnisatConnector, XverseConnector } from './connectors';
 import { SatsConnector } from './connectors/base';
@@ -41,7 +41,10 @@ const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainne
   const [connectors, setConnectors] = useState<SatsConnector[]>([]);
   const [connector, setCurrentConnector] = useState<SatsConnector>();
 
-  const [storedConnector, setStoredConnector] = useLocalStorage<string | undefined>(LocalStorageKeys.CONNECTOR);
+  const [storedConnector, setStoredConnector] = useLocalStorage<string | undefined>(
+    LocalStorageKeys.CONNECTOR,
+    undefined
+  );
 
   useEffect(() => {
     const init = () => {

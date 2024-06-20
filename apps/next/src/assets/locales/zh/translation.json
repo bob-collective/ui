@@ -1,0 +1,169 @@
+{
+  "404": {
+    "title": "404 错误",
+    "content": "抱歉，这个页面有误或已经不存在，也许这些链接可以帮助到您",
+    "back": "返回",
+    "home": "回到主页"
+  },
+  "fusion": {
+    "title": "欢迎来到 BOB <highlight>FUSION</highlight>",
+    "content": "用户质押资产将于 BOB 主网启动之日解锁。主网计划在四月份比特币减半期间上线。如果意外情况延迟了主网上线，最晚可以在2024年5月15日前收到资产，资产将会到用户的以太坊主网地址。",
+    "status": "目前阶段：",
+    "season": "第二季",
+    "seasonDescription": "水门已开！探索并体验 BOB 庞大的生态系统，同时赚取大量的 Spice。",
+    "spiceWaitTime": "Spice 积分通常需要 10 - 15 分钟才会显示在用户界面上。请您放心，您的积分会正确地累积并记录在系统上。",
+    "deposit": {
+      "delayInfo": "您的锁定金额和Spice总数将每隔几分钟更新一次",
+      "title": "存款与锁定",
+      "content": "资产将被安全地锁定在智能合约中，直到解锁日期。然后，用户可以将它们转移到 BOB L2 网络以继续收获Spice。",
+      "auditedBy": "审计",
+      "depositLabel": "存款与锁定",
+      "approveLabel": "通过"
+    },
+    "earnSpice": "如何赚取 Spice",
+    "community": {
+      "title": "加入BOB社区",
+      "content": " <xLink> 关注 BOB 官方推特 </xLink> 并 <discordLink> 加入BOB Discord </discordLink> 以参与 BOB Fusion，接收及时的项目更新，参与任务并获得其他先行信息！"
+    },
+    "multipliers": {
+      "title": "倍数列表",
+      "content": "存入特定资产会获得更多的Spice，关注以下列出的不同资产加成倍数情况。"
+    },
+    "withdrawModal": {
+      "title": "第一季已结束 - 欢迎来到第二季！",
+      "summary": "恭喜！您对 BOB 成长的初步贡献为您赢得了 {{totalSpice}} Spice！您在第一季排行榜上排名为 {{rank}}。",
+      "share": "<xLink>与您的朋友分享您的成功</xLink>邀请他们参与Fuision，并赚取他们收获的 Spice 的15%！",
+      "seasonTwoDescription": "桥接资产，提供流动性，进行链上交易，并通过推荐扩展您的网络，飞速攀升排行榜。",
+      "lockedFunds": "锁定资金",
+      "currentSpice": "当前 Spice",
+      "bridgeLabel": "桥接到 BOB",
+      "withdrawDescription": "对比特币的文艺复新没有信心吗？您可以从合约中将您的资产取回您以太坊主网的钱包。如果将资产取出，您将不再继续赚取Spice。<strong>您得以保留已经赚取的Spice。</strong>",
+      "withdrawLabel": "提取资产",
+      "smartAccountsWarning": "遗憾的是，使用智能账户无法桥接到 BOB。我们正在努力在不久的将来添加此项支持，请继续关注我们的最新动态。"
+    },
+    "logIn": {
+      "title": "登录查看仪表板",
+      "content": "启航您的第二季冒险之旅，探索新领域并沿途收获 Spice。",
+      "label": "开始收获 Spice"
+    },
+    "referrals": {
+      "title": "邀请码",
+      "content": "邀请别的同伴探险家，用户可以获得被邀请人收获Spice数额的15%作为奖励。第二级推荐的 Spice 再增加7%。邀请带来的积分将稍后显示。"
+    },
+    "partners": {
+      "title": "生态系统",
+      "content": "探索并与 BOB Fusion 盟友互动，开启独特的冒险并大幅加速您的 Spice 积累。",
+      "alert": "第二季度香料采集已启动！每个加入Spice系统的项目，其香料分数将会展示。如果您已在BOB上使用dApps，您的新香料分数已经开始累计。"
+    },
+    "challenges": {
+      "title": "挑战",
+      "content": "欢迎您参与我们的教育任务，了解更多关于 BOB 的信息，利用您的网络传播关于BOB的知识，学习了解BOB生态中的项目。成功参与到BOB生态的项目中将帮助您更快地攀升排行榜。<challengeLink>在 Intract 查看挑战</challengeLink>。"
+    },
+    "ecosystem": {
+      "title": "BOB 生态",
+      "content": "直接在您的仪表板上探索并参与到 BOB生态中充满活力的合作平台 — 通过持有资产、进行存款或积极使用这些平台来赚取 Spice。"
+    },
+    "userStats": {
+      "lockedAmount": "锁定金额",
+      "bridgedAmount": "桥接金额",
+      "spice": "Spice",
+      "position": "排行榜位置",
+      "code": "您的邀请码",
+      "lockedCapitalBreakdown": "锁定资本明细",
+      "revealCodeInfo": "您的推荐码将在您收到第一个 Spice 积分后显示"
+    }
+  },
+  "home": {
+    "title": "首个混合型二层",
+    "subtitle": "比特币 + 以太坊共同驱动",
+    "content": "结合比特币和以太坊的流动性和安全性。= 主网已上线！。",
+    "dashboardLink": "查看仪表盘",
+    "lockedAmount": "您的锁定金额",
+    "harvestedSpice": "您收获的香料量",
+    "refCodeLabel": "输入参与码:",
+    "buttonLabel": "开始收集Spice",
+    "loginLabel": "已经在收集了？",
+    "loginButtonText": "用钱包登陆",
+    "referralCodePrompt": "需要获取参与码？<discordLink>加入BOB Discord!</discordLink>",
+    "hero": {
+      "lockedAmount": "总锁定价值",
+      "season_one_tvl": "第 1 季 TVL"
+    },
+    "backers": "一些我们的支持者",
+    "info": {
+      "title": "根据获取量排名<highlight>SPICE</highlight>",
+      "content": "Spice（也理解为“积分”）是启动BOB Fusion的驱动器。Spice代表你在BOB社区的贡献和成就。随着你不断收集Spice，你也在塑造比特币复兴（“Bitcoin Renaissance”）这一运动并随之发展。",
+      "exploreLabel": "探索BOB生态",
+      "exploreContent": "深入探索我们百花齐放的应用生态，积累更多 Spice ！",
+      "referLabel": "邀请他人",
+      "referContent": "分享你的邀请码给其他冒险者们，可获得额外Spice。",
+      "questsLabel": "开始任务",
+      "questsContent": "进入BOB Fusion 新纪元，通过不断完成任务登上排名榜 (即将到来)."
+    },
+    "partners": {
+      "title": "BOB Fusion联盟",
+      "content": "此处可探索其他项目的任务，贡献比特币复兴运动。每个活动可能有自身的规则、福利但也存在可能的风险。请做好研究（DYOR）！"
+    }
+  },
+  "leaderboard": {
+    "title": "排行榜"
+  },
+  "signUp": {
+    "title": "进入 <highlight>BOB Fusion</highlight> 世界",
+    "subtitle": "旅程从这里开始",
+    "content": "连接您的 EVM 兼容钱包，连接Twitter 和 Discord 来参与活动，与其他冒险者互动，深入了解 BOB 的传说，并及时了解活动进展。",
+    "connectWallet": "请连接钱包",
+    "connect": "连接",
+    "connected": "已连接",
+    "linkWallet": "链接钱包",
+    "join": "加入",
+    "discord": "BOB Discord",
+    "twitterStep": "使用您的 X 帐户连接并关注 BOB.",
+    "discordStep": "连接并加入 BOB Discord.",
+    "followBOB": "跟随 BOB"
+  },
+  "navigation": {
+    "leaderboard": "排行榜",
+    "t_and_c": "条款与条件",
+    "fusion": "Fusion",
+    "bridge": "桥",
+    "wallet": "钱包",
+    "dev": "开发者",
+    "about": "关于",
+    "multisig": "多签"
+  },
+  "wallet": {
+    "title": "BOB 钱包",
+    "summary": "查看您在 BOB 网络上的钱包概况。",
+    "assets": {
+      "title": "总资产",
+      "noAssets": "未显示的资产",
+      "connect": "请连接一个钱包",
+      "connectLabel": "连接钱包"
+    },
+    "tokenTable": {
+      "asset": "资产",
+      "balance": "余额",
+      "connectBtcLabel": "连接比特币钱包"
+    },
+    "tooltips": {
+      "bridge": {
+        "label": "桥接",
+        "ariaLabel": "导航至桥接页面"
+      },
+      "send": {
+        "label": "发送",
+        "ariaLabel": "发送 {{ticker}}"
+      },
+      "receive": {
+        "label": "接收",
+        "ariaLabel": "接收 {{ticker}}"
+      }
+    }
+  },
+  "bridge": {
+    "alert": {
+      "alex": "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <xLink>公告</xLink>。"
+    }
+  }
+}
