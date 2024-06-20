@@ -3,7 +3,6 @@ export const config = {
 };
 
 export default async (request) => {
-  console.log('URL', request.url)
   const url = 'https://api.coingecko.com/api/v3/simple/price?' + new URL(request.url).searchParams
   const cgResp = await fetch(url, { headers: { "accept": "application/json" } })
   if (!cgResp.ok) {
