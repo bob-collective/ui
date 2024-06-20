@@ -2,15 +2,16 @@ export const config = {
   runtime: 'edge'
 };
 
-export default async (request) => {
+export default async (request, response) => {
+  console.log('URL', request.url)
   const url = 'https://api.coingecko.com/api/v3/simple/price?' + new URL(request.url).searchParams
-  const response = await fetch(url, { headers: { "accept": "application/json" } })
-  if (!response.ok) {
-    const errMsg = await response.text()
+  const cgResp = await fetch(url, { headers: { "accept": "application/json" } })
+  if (!cgResp.ok) {
+    const errMsg = await cgResp.text()
     throw new Error(errMsg)
   }
 
-  const data = await response.json()
+  const data = await cgResp.json()
   return response
     .status(200)
     .setHeader("content-type", "application/json")
