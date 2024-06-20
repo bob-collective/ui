@@ -3,7 +3,7 @@ export const config = {
 };
 
 export default async (request) => {
-  const url = 'https://api.coingecko.com/api/v3/simple/price?' + new URLSearchParams(request.query)
+  const url = 'https://api.coingecko.com/api/v3/simple/price?' + new URL(request.url).searchParams
   const response = await fetch(url, { headers: { "accept": "application/json" } })
   if (!response.ok) {
     const errMsg = await response.text()
@@ -15,5 +15,5 @@ export default async (request) => {
     .status(200)
     .setHeader("content-type", "application/json")
     .setHeader("cache-control", "public, max-age=120, s-maxage=120, stale-while-revalidate=300, stale-if-error=300")
-    .json(resp)
+    .json(data)
 };
