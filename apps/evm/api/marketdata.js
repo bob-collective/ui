@@ -5,11 +5,12 @@ export const config = {
 export default async (request) => {
   const url = 'https://api.coingecko.com/api/v3/simple/price?' + new URLSearchParams(request.query)
   const response = await fetch(url, { headers: { "accept": "application/json" } })
-  const data = await response.json()
   if (!response.ok) {
-    throw new Error(data)
+    const errMsg = await response.text()
+    throw new Error(errMsg)
   }
 
+  const data = await response.json()
   return response
     .status(200)
     .setHeader("content-type", "application/json")
