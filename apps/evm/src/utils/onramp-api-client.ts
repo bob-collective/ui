@@ -29,8 +29,8 @@ class OnRampApiClient {
     this.baseUrl = baseUrl;
   }
 
-  async getQuote(address: string, atomicAmount: number | string): Promise<OnRampQuote> {
-    const response = await fetch(`${this.baseUrl}/quote/${address}/${atomicAmount}`, {
+  async getQuote(address: string, atomicAmount?: number | string): Promise<OnRampQuote> {
+    const response = await fetch(`${this.baseUrl}/quote/${address}/${atomicAmount || ''}`, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
@@ -75,18 +75,6 @@ class OnRampApiClient {
 
   async getOrders(userAddress: Address): Promise<OnRampOrderResponse[]> {
     const response = await fetch(`${this.baseUrl}/orders/${userAddress}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
-    });
-
-    return response.json();
-  }
-
-  async getTotalLiquidity(assetAddress: Address): Promise<string> {
-    const response = await fetch(`${this.baseUrl}/total/${assetAddress.toLowerCase()}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
