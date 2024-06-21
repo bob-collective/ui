@@ -1,13 +1,10 @@
 import { Card, Flex } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
+import Image from 'next/image';
 
 import { Banner } from './Banner';
 import { OnrampGraphic } from './OnrampGraphic';
-
-function getImageUrl(name: string) {
-  return new URL(`../../../../assets/${name}`, import.meta.url).href;
-}
 
 const StyledCarouselWrapper = styled(Card)`
   position: relative;
@@ -19,19 +16,18 @@ const StyledBannerContent = styled(Flex)`
   z-index: 1;
 `;
 
-const StyledBannerImg = styled.img`
+const StyledBannerImg = styled(Image)`
   position: absolute;
   right: 0;
   top: 0;
-  height: 100%;
   opacity: 0.5;
 
   ${({ theme }) => {
     return css`
-      transform: scale(4);
+      transform: scale(0.9) translate(50%, -50%);
 
       @media ${theme.breakpoints.up('s')} {
-        transform: scale(6) translateX(-15%);
+        transform: translate(30%, -50%);
       }
     `;
   }}
@@ -87,7 +83,8 @@ const StyledSlider = styled(Slider)`
 `;
 
 const StyledOnrampBanner = styled(Banner)`
-  /* background-repeat: no-repeat;
+  background-image: url('/cubs-group.svg');
+  background-repeat: no-repeat;
   background-size: cover;
 
   ${({ theme }) => {
@@ -98,7 +95,7 @@ const StyledOnrampBanner = styled(Banner)`
         background-position: 0% 50%;
       }
     `;
-  }} */
+  }}
 `;
 
 const StyledOnrampGraphic = styled(OnrampGraphic)`

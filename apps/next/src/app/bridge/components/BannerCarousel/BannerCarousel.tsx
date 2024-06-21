@@ -11,9 +11,9 @@ import { OnrampBanner } from './OnrampBanner';
 const settings: Settings = {
   dots: true,
   infinite: true,
-  autoplay: true,
+  // autoplay: true,
   speed: 500,
-  autoplaySpeed: 10000,
+  // autoplaySpeed: 10000,
   cssEase: 'linear',
   slidesToShow: 1,
   slidesToScroll: 1,
