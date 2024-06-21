@@ -87,8 +87,7 @@ const StyledSlider = styled(Slider)`
 `;
 
 const StyledOnrampBanner = styled(Banner)`
-  background-image: url(${getImageUrl('cubs-group.svg')});
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat;
   background-size: cover;
 
   ${({ theme }) => {
@@ -99,7 +98,7 @@ const StyledOnrampBanner = styled(Banner)`
         background-position: 0% 50%;
       }
     `;
-  }}
+  }} */
 `;
 
 const StyledOnrampGraphic = styled(OnrampGraphic)`
