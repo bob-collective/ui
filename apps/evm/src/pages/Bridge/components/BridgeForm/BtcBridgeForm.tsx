@@ -41,8 +41,6 @@ type BtcBridgeFormProps = {
   onFailOnRamp: () => void;
 };
 
-const MIN_DEPOSIT_AMOUNT = 40000;
-
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
 const nativeToken = Ether.onChain(L2_CHAIN);
@@ -87,22 +85,30 @@ const BtcBridgeForm = ({
     toast.error(e.message);
   }, []);
 
-  const { data: availableLiquidity, isLoading: isLoadingLiquidity } = useQuery({
+  const { data: maxQuoteData, isLoading: isLoadingMaxQuote } = useQuery({
     enabled: Boolean(btcToken),
-    queryKey: bridgeKeys.btcTotalLiquidity(),
+    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, 'max'),
     refetchInterval: INTERVAL.MINUTE,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
       if (!currencyAmount || !btcToken) return;
 
-      const total = await onRampApiClient.getTotalLiquidity(btcToken.raw.address);
+      const maxQuoteData = await onRampApiClient.getQuote(btcToken.raw.address);
 
-      return CurrencyAmount.fromRawAmount(BITCOIN, total);
+      return {
+        availableLiquidity: CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis),
+        minDepositAmount: maxQuoteData.dust_threshold
+      };
     }
   });
 
-  const hasLiquidity = useMemo(() => availableLiquidity?.greaterThan(MIN_DEPOSIT_AMOUNT), [availableLiquidity]);
+  const { availableLiquidity, minDepositAmount } = maxQuoteData || {};
+
+  const hasLiquidity = useMemo(
+    () => availableLiquidity?.greaterThan(minDepositAmount || 0),
+    [availableLiquidity, minDepositAmount]
+  );
 
   const quoteDataEnabled = useMemo(() => {
     return Boolean(
@@ -110,10 +116,10 @@ const BtcBridgeForm = ({
         btcToken &&
         evmAddress &&
         btcAddress &&
-        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT) &&
+        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(minDepositAmount || 0) &&
         hasLiquidity
     );
-  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount, hasLiquidity]);
+  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount, minDepositAmount, hasLiquidity]);
 
   const quoteQueryKey = bridgeKeys.btcQuote(evmAddress, btcAddress, Number(currencyAmount?.numerator));
 
@@ -267,7 +273,10 @@ const BtcBridgeForm = ({
 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
-      minAmount: currencyAmount && new Big(MIN_DEPOSIT_AMOUNT / 10 ** currencyAmount?.currency.decimals),
+      minAmount:
+        currencyAmount && minDepositAmount
+          ? new Big(minDepositAmount / 10 ** currencyAmount?.currency.decimals)
+          : undefined,
       maxAmount: new Big(balanceAmount.toExact())
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount
@@ -289,7 +298,7 @@ const BtcBridgeForm = ({
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
   const isDisabled =
-    isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingLiquidity || !hasLiquidity;
+    isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingMaxQuote || !hasLiquidity;
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
@@ -361,7 +370,7 @@ const BtcBridgeForm = ({
           </P>
         </Alert>
       )}
-      {!hasLiquidity && !isLoadingLiquidity && (
+      {!hasLiquidity && !isLoadingMaxQuote && (
         <Alert status='warning'>
           <P size='s'>There is currently no available liquidity to onramp BTC into {btcToken?.currency.symbol}.</P>
         </Alert>
