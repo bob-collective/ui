@@ -52,6 +52,7 @@ const PartnerCard = ({
 
   return (
     <StyledPartnerCard
+      // NOTE: onPress used here to prevent popover triggering navigation
       onPress={() => window.open(url, '_blank', 'noreferrer')}
       {...props}
       style={{ textDecoration: 'none', width: '100%' }}
