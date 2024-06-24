@@ -52,7 +52,7 @@ const PartnerCard = ({
 
   return (
     <StyledPartnerCard
-      onPress={() => (window.location.href = url)}
+      onPress={() => window.open(url, '_blank', 'noreferrer')}
       {...props}
       style={{ textDecoration: 'none', width: '100%' }}
     >
