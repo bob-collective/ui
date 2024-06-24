@@ -52,8 +52,8 @@ const PartnerCard = ({
 
   return (
     <StyledPartnerCard
+      onPress={() => (window.location.href = url)}
       {...props}
-      {...{ href: url, target: '_blank', rel: 'noreferrer' }}
       style={{ textDecoration: 'none', width: '100%' }}
     >
       <StyledLiveTag
