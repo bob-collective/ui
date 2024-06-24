@@ -17,7 +17,6 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { ReactNode } from 'react';
-import { t } from 'i18next';
 import { useTheme } from 'styled-components';
 
 import { StyledCategoryTag, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
@@ -109,7 +108,10 @@ const PartnerCard = ({
                     </PopoverContent>
                   </Popover>
                 ) : (
-                  <Tooltip color='primary' label={<P size='s'>{t('fusion.userStats.revealCodeInfo')}</P>}>
+                  <Tooltip
+                    color='primary'
+                    label={<P size='s'>This is the average amount of spice distributed by the project per hour.</P>}
+                  >
                     <QuestionMarkCircle color='grey-200' size='s' />
                   </Tooltip>
                 )}
