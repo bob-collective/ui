@@ -1,5 +1,24 @@
-import { CardProps, Dd, Dl, DlGroup, Dt, Flex, H3, P } from '@gobob/ui';
+import {
+  Button,
+  CardProps,
+  Dd,
+  Dl,
+  DlGroup,
+  Dt,
+  Flex,
+  H3,
+  P,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+  QuestionMarkCircle,
+  Tooltip,
+  useMediaQuery
+} from '@gobob/ui';
 import { ReactNode } from 'react';
+import { t } from 'i18next';
+import { useTheme } from 'styled-components';
 
 import { StyledCategoryTag, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
 
@@ -8,9 +27,7 @@ type Props = {
   logoSrc: string | ReactNode;
   name: string;
   url: string;
-  totalSpice?: string;
   distributedSpice?: string;
-  percentageDistributed?: string;
   harvest?: string;
   isLive?: boolean;
 };
@@ -26,13 +43,14 @@ const PartnerCard = ({
   logoSrc,
   name,
   url,
-  totalSpice,
   distributedSpice,
-  percentageDistributed,
   harvest,
   isLive,
   ...props
 }: PartnerCardProps): JSX.Element => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <StyledPartnerCard
       {...props}
@@ -74,15 +92,31 @@ const PartnerCard = ({
         </StyledCategoryTag>
         <Dl direction='column' gap='s' justifyContent='space-between'>
           <DlGroup alignItems='flex-start' direction='row' justifyContent='space-between'>
-            <Dt size='s'>Total Spice:</Dt>
+            <Dt size='s'>
+              <Flex alignItems='center' gap='s'>
+                Spice Distributed per Hour:
+                {isMobile ? (
+                  <Popover>
+                    <PopoverTrigger>
+                      <Button isIconOnly size='s' variant='ghost'>
+                        <QuestionMarkCircle color='grey-200' size='s' />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverBody>
+                        <P size='s'>This is the average amount of spice distributed by the project per hour.</P>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                ) : (
+                  <Tooltip color='primary' label={<P size='s'>{t('fusion.userStats.revealCodeInfo')}</P>}>
+                    <QuestionMarkCircle color='grey-200' size='s' />
+                  </Tooltip>
+                )}
+              </Flex>
+            </Dt>
             <Dd size='s' weight='bold'>
-              {totalSpice}
-            </Dd>
-          </DlGroup>
-          <DlGroup alignItems='flex-start' direction='row' justifyContent='space-between'>
-            <Dt size='s'>Distributed:</Dt>
-            <Dd size='s' weight='bold'>
-              {distributedSpice} ({percentageDistributed})
+              {distributedSpice}
             </Dd>
           </DlGroup>
           <DlGroup alignItems='flex-start' direction='row' justifyContent='space-between'>
