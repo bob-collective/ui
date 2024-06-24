@@ -25,7 +25,9 @@ const PartnersSection = () => {
     queryFn: async () => {
       const partners = await apiClient.getPartners();
 
-      return partners.partners.sort((a, b) => Number(b.total_points) - Number(a.total_points));
+      return partners.partners.sort(
+        (a, b) => Number(b.points_distributed_per_hour) - Number(a.points_distributed_per_hour)
+      );
     },
     refetchOnWindowFocus: false,
     gcTime: INTERVAL.HOUR,
@@ -43,21 +45,6 @@ const PartnersSection = () => {
         : '-';
     },
     [locale, user]
-  );
-
-  const getPercentageDistributed = useCallback(
-    (total: string, distributed: string) => {
-      const percentageDistributed = Number(distributed) / Number(total);
-
-      // If a project has 0 total and 0 distributed the result will be NaN
-      return isNaN(percentageDistributed)
-        ? '-'
-        : Intl.NumberFormat(locale, {
-            style: 'percent',
-            maximumFractionDigits: 2
-          }).format(percentageDistributed);
-    },
-    [locale]
   );
 
   return (
@@ -87,7 +74,7 @@ const PartnersSection = () => {
               isPressable
               category={item?.category}
               distributedSpice={Intl.NumberFormat(locale, { maximumFractionDigits: 2, notation: 'compact' }).format(
-                Number(item.total_distributed_points)
+                Number(item.points_distributed_per_hour)
               )}
               elementType='a'
               gap='md'
@@ -95,10 +82,6 @@ const PartnersSection = () => {
               isLive={item.live}
               logoSrc={getImageUrl(item.name)}
               name={item.name}
-              percentageDistributed={getPercentageDistributed(item.total_points, item.total_distributed_points)}
-              totalSpice={Intl.NumberFormat(locale, { maximumFractionDigits: 2, notation: 'compact' }).format(
-                Number(item.total_points)
-              )}
               url={item?.project_url}
             />
           ))}

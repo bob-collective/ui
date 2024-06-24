@@ -32,16 +32,18 @@ type PartnersResponse = {
 };
 
 type Partner = {
-  name: string;
-  ref_code: string;
   category: string;
-  project_url: string;
-  total_distributed_points: string;
-  total_deposit_points: string;
-  total_referral_points: string;
-  total_points: string;
   current_points: string;
   live: boolean;
+  name: string;
+  points_distributed_per_hour: string;
+  project_url: string;
+  ref_code: string;
+  total_deposit_points: string;
+  total_distributed_points: string;
+  total_points: string;
+  total_points_distributed_in_time_window: string;
+  total_referral_points: string;
 };
 
 type LeaderboardItem = {
