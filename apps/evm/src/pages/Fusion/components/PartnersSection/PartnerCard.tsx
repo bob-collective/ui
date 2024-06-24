@@ -105,7 +105,7 @@ const PartnerCard = ({
                     <PopoverContent>
                       <PopoverBody>
                         <P size='s'>
-                          This is the average amount of spice distributed to all users by the project per hour.
+                          This is the average amount of spice distributed by the project per hour over the last 7 days.
                         </P>
                       </PopoverBody>
                     </PopoverContent>
@@ -115,7 +115,7 @@ const PartnerCard = ({
                     color='primary'
                     label={
                       <P size='s'>
-                        This is the average amount of spice distributed to all users by the project per hour.
+                        This is the average amount of spice distributed by the project per hour over the last 7 days.
                       </P>
                     }
                   >
