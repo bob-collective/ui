@@ -94,7 +94,7 @@ const PartnerCard = ({
           <DlGroup alignItems='flex-start' direction='row' justifyContent='space-between'>
             <Dt size='s'>
               <Flex alignItems='center' gap='s'>
-                Spice Distributed per Hour:
+                Spice per Hour:
                 {isMobile ? (
                   <Popover>
                     <PopoverTrigger>
@@ -104,14 +104,20 @@ const PartnerCard = ({
                     </PopoverTrigger>
                     <PopoverContent>
                       <PopoverBody>
-                        <P size='s'>This is the average amount of spice distributed by the project per hour.</P>
+                        <P size='s'>
+                          This is the average amount of spice distributed to all users by the project per hour.
+                        </P>
                       </PopoverBody>
                     </PopoverContent>
                   </Popover>
                 ) : (
                   <Tooltip
                     color='primary'
-                    label={<P size='s'>This is the average amount of spice distributed by the project per hour.</P>}
+                    label={
+                      <P size='s'>
+                        This is the average amount of spice distributed to all users by the project per hour.
+                      </P>
+                    }
                   >
                     <QuestionMarkCircle color='grey-200' size='s' />
                   </Tooltip>
