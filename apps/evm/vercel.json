@@ -15,6 +15,10 @@
       "destination": "/api/sentry.js"
     },
     {
+      "source": "/marketdata/v1",
+      "destination": "/api/marketdata.js"
+    },
+    {
       "source": "/(api|onramp-api|btc-api)/(.*)",
       "destination": "/api"
     },
