@@ -15,7 +15,11 @@ const Spice = () => {
   const { data: user } = useGetUser();
 
   useEffect(() => {
-    const spiceAnimation = new CountUp(spiceCountRef.current as any, user?.leaderboardRank?.total_reward_points || 0);
+    if (!user) return;
+
+    const spiceAnimation = new CountUp(spiceCountRef.current as any, user.leaderboardRank?.total_reward_points || 0, {
+      decimalPlaces: 2
+    });
 
     spiceAnimation.start();
   }, [user]);
