@@ -119,9 +119,7 @@ const BridgeForm = ({
   const btcTokens = useMemo(
     () =>
       tokens?.filter(
-        (token) => token.currency.symbol === TBTC[L2_CHAIN].symbol
-        // TODO: enable WBTC when supported
-        // || token.currency.symbol === WBTC[L2_CHAIN].symbol
+        (token) => token.currency.symbol === TBTC[L2_CHAIN].symbol || token.currency.symbol === WBTC[L2_CHAIN].symbol
       ),
     [tokens]
   );
