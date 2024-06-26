@@ -1,5 +1,5 @@
 import { ChainId } from '@gobob/chains';
-import { TBTC } from '@gobob/tokens';
+import { TBTC, WBTC } from '@gobob/tokens';
 import { ArrowRight, Divider, Flex, InformationCircle, P, RadioGroup } from '@gobob/ui';
 import { Key, useCallback, useMemo, useState } from 'react';
 
