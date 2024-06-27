@@ -7,6 +7,9 @@ import {
   Dt,
   Flex,
   H3,
+  MedalBronze,
+  MedalGold,
+  MedalSilver,
   P,
   Popover,
   PopoverBody,
@@ -19,7 +22,7 @@ import {
 import { ReactNode } from 'react';
 import { useTheme } from 'styled-components';
 
-import { StyledCategoryTag, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
+import { StyledCategoryTag, StyledIconWrapper, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
 
 type Props = {
   category: string;
@@ -52,6 +55,30 @@ const PartnerCard = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+  const getMedalIcon = () => {
+    const medalIcon = medal === 'gold' ? <MedalGold /> : medal === 'silver' ? <MedalSilver /> : <MedalBronze />;
+    const capitalisedMedalName = medal.charAt(0).toUpperCase() + medal.slice(1);
+
+    return isMobile ? (
+      <Popover>
+        <PopoverTrigger>
+          <Button isIconOnly size='s' variant='ghost'>
+            {medalIcon}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverBody>
+            <P size='s'>{capitalisedMedalName} harvester.</P>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    ) : (
+      <Tooltip color='primary' label={<P size='s'>{capitalisedMedalName} harvester.</P>}>
+        {medalIcon}
+      </Tooltip>
+    );
+  };
+
   return (
     <StyledPartnerCard
       // NOTE: onPress used here to prevent popover triggering navigation
@@ -72,7 +99,7 @@ const PartnerCard = ({
       </StyledLiveTag>
       <Flex direction='column' gap='md'>
         <Flex alignItems='center' direction='row' gap='md'>
-          {medal && <P>{medal}</P>}
+          {medal && <StyledIconWrapper>{getMedalIcon()}</StyledIconWrapper>}
           {typeof logoSrc === 'string' ? (
             <img
               alt={name}

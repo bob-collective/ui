@@ -73,12 +73,6 @@ const PartnersSection = () => {
         {t('fusion.partners.title')}
       </H2>
       <P color='grey-200'> {t('fusion.partners.content')}</P>
-      <StyledCard alignItems='center' direction='row' gap='md'>
-        <InformationCircle />
-        <P size='s' weight='semibold'>
-          {t('fusion.partners.alert')}
-        </P>
-      </StyledCard>
       {isLoading ? (
         <Flex direction='row' justifyContent='center' marginTop='8xl'>
           <Spinner size='36' thickness={5} />
@@ -86,7 +80,7 @@ const PartnersSection = () => {
       ) : (
         <>
           <H3 size='lg' weight='semibold'>
-            Top Harvesters by Hour
+            Top Harvesters
           </H3>
           <StyledGrid>
             {topHarvesters?.map((item, idx) => (
@@ -110,7 +104,7 @@ const PartnersSection = () => {
             ))}
           </StyledGrid>
           <H3 size='lg' weight='semibold'>
-            Other Projects
+            Other Harvesters
           </H3>
           <StyledGrid>
             {otherProjects?.map((item, idx) => (
@@ -134,6 +128,12 @@ const PartnersSection = () => {
           </StyledGrid>
         </>
       )}
+      <StyledCard alignItems='center' direction='row' gap='md'>
+        <InformationCircle />
+        <P size='s' weight='semibold'>
+          {t('fusion.partners.alert')}
+        </P>
+      </StyledCard>
     </Flex>
   );
 };
