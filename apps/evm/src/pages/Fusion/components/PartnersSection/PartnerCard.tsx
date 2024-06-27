@@ -19,7 +19,7 @@ import {
   Tooltip,
   useMediaQuery
 } from '@gobob/ui';
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { useTheme } from 'styled-components';
 
 import { StyledCategoryTag, StyledIconWrapper, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
@@ -55,7 +55,7 @@ const PartnerCard = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const getMedalIcon = () => {
+  const getMedalIcon = useCallback(() => {
     if (!medal) return;
 
     const medalIcon = medal === 'gold' ? <MedalGold /> : medal === 'silver' ? <MedalSilver /> : <MedalBronze />;
@@ -79,7 +79,7 @@ const PartnerCard = ({
         {medalIcon}
       </Tooltip>
     );
-  };
+  }, [isMobile, medal]);
 
   return (
     <StyledPartnerCard
