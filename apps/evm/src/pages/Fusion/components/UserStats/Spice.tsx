@@ -1,7 +1,7 @@
 import { useLocale } from '@gobob/ui';
 import { DlGroup, Dt, Dd } from '@gobob/ui';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { CountUp } from 'countup.js';
 
 import { useGetUser } from '../../../../hooks';
@@ -10,19 +10,23 @@ const Spice = () => {
   const { locale } = useLocale();
   const { t } = useTranslation();
 
-  let spiceCountRef = useRef(null);
+  const spiceCountRef = useRef(null);
 
   const { data: user } = useGetUser();
 
-  useEffect(() => {
-    if (!user) return;
+  const totalRewardPoints = useMemo(
+    () => user?.leaderboardRank?.total_reward_points || 0,
 
-    const spiceAnimation = new CountUp(spiceCountRef.current as any, user.leaderboardRank?.total_reward_points || 0, {
+    [user]
+  );
+
+  useEffect(() => {
+    const spiceAnimation = new CountUp(spiceCountRef.current as any, totalRewardPoints, {
       decimalPlaces: 2
     });
 
     spiceAnimation.start();
-  }, [user]);
+  }, [totalRewardPoints]);
 
   return (
     <DlGroup alignItems='flex-start' direction='column'>
@@ -30,7 +34,7 @@ const Spice = () => {
         {t('fusion.userStats.spice')}
       </Dt>
       <Dd ref={spiceCountRef} weight='bold'>
-        {Intl.NumberFormat(locale).format(user?.leaderboardRank?.total_reward_points ?? 0)}
+        {Intl.NumberFormat(locale).format(totalRewardPoints)}
       </Dd>
     </DlGroup>
   );
