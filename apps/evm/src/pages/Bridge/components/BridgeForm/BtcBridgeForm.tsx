@@ -41,7 +41,7 @@ type BtcBridgeFormProps = {
   onFailOnRamp: () => void;
 };
 
-const MIN_DEPOSIT_AMOUNT = 200000;
+const MIN_DEPOSIT_AMOUNT = 40000;
 
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
