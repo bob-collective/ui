@@ -27,7 +27,7 @@ const PartnersSection = () => {
 
       return (
         partnerData.partners
-          // NOTE: Remove category check when showing quest projects
+          // NOTE: Remove category check when adding quest project cards
           .filter((result) => result.show_on_app_store && result.category !== 'Quest')
           .sort((a, b) => Number(b.points_distributed_per_hour) - Number(a.points_distributed_per_hour))
       );
@@ -41,7 +41,7 @@ const PartnersSection = () => {
   const topHarvesters = useMemo(() => partners?.slice(0, 3), [partners]);
 
   // Return remaining projects
-  const otherProjects = useMemo(() => partners?.slice(3), [partners]);
+  const otherHavesters = useMemo(() => partners?.slice(3), [partners]);
 
   const getHarvest = useCallback(
     (refCode: string) => {
@@ -57,6 +57,7 @@ const PartnersSection = () => {
   );
 
   const getMedal = (position: number) => {
+    // NOTE: Projects are sorted so this is a check against the index
     switch (position) {
       case 0:
         return 'gold';
@@ -107,7 +108,7 @@ const PartnersSection = () => {
             Other Harvesters
           </H3>
           <StyledGrid>
-            {otherProjects?.map((item, idx) => (
+            {otherHavesters?.map((item, idx) => (
               <PartnerCard
                 key={idx}
                 isHoverable
