@@ -1,7 +1,7 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Flex, H2, InformationCircle, P, Spinner, useLocale } from '@gobob/ui';
+import { Flex, H2, H3, InformationCircle, P, Spinner, useLocale } from '@gobob/ui';
 import { useTranslation } from 'react-i18next';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useGetUser } from '../../../../hooks';
 import { apiClient } from '../../../../utils';
@@ -23,16 +23,25 @@ const PartnersSection = () => {
   const { data: partners, isLoading } = useQuery({
     queryKey: ['partners'],
     queryFn: async () => {
-      const partners = await apiClient.getPartners();
+      const partnerData = await apiClient.getPartners();
 
-      return partners.partners.sort(
-        (a, b) => Number(b.points_distributed_per_hour) - Number(a.points_distributed_per_hour)
+      return (
+        partnerData.partners
+          // NOTE: Remove category check when showing quest projects
+          .filter((result) => result.show_on_app_store && result.category !== 'Quest')
+          .sort((a, b) => Number(b.points_distributed_per_hour) - Number(a.points_distributed_per_hour))
       );
     },
     refetchOnWindowFocus: false,
     gcTime: INTERVAL.HOUR,
     refetchOnMount: false
   });
+
+  // Return top 3 projects
+  const topHarvesters = useMemo(() => partners?.slice(0, 3), [partners]);
+
+  // Return remaining projects
+  const otherProjects = useMemo(() => partners?.slice(3), [partners]);
 
   const getHarvest = useCallback(
     (refCode: string) => {
@@ -64,28 +73,54 @@ const PartnersSection = () => {
           <Spinner size='36' thickness={5} />
         </Flex>
       ) : (
-        <StyledGrid>
-          {partners?.map((item, idx) => (
-            // TODO: host these remotely and return an image url from the api
-            // so that we don't need to update the UI when a project is added
-            <PartnerCard
-              key={idx}
-              isHoverable
-              isPressable
-              category={item?.category}
-              distributedSpice={Intl.NumberFormat(locale, { maximumFractionDigits: 2, notation: 'compact' }).format(
-                Number(item.points_distributed_per_hour)
-              )}
-              elementType='a'
-              gap='md'
-              harvest={getHarvest(item.ref_code)}
-              isLive={item.live}
-              logoSrc={getImageUrl(item.name)}
-              name={item.name}
-              url={item?.project_url}
-            />
-          ))}
-        </StyledGrid>
+        <>
+          <H3 size='lg' weight='semibold'>
+            Top Harvesters
+          </H3>
+          <StyledGrid>
+            {topHarvesters?.map((item, idx) => (
+              <PartnerCard
+                key={idx}
+                isHoverable
+                isPressable
+                category={item?.category}
+                distributedSpice={Intl.NumberFormat(locale, { maximumFractionDigits: 2, notation: 'compact' }).format(
+                  Number(item.points_distributed_per_hour)
+                )}
+                elementType='a'
+                gap='md'
+                harvest={getHarvest(item.ref_code)}
+                isLive={item.live}
+                logoSrc={getImageUrl(item.name)}
+                name={item.name}
+                url={item?.project_url}
+              />
+            ))}
+          </StyledGrid>
+          <H3 size='lg' weight='semibold'>
+            Other Projects
+          </H3>
+          <StyledGrid>
+            {otherProjects?.map((item, idx) => (
+              <PartnerCard
+                key={idx}
+                isHoverable
+                isPressable
+                category={item?.category}
+                distributedSpice={Intl.NumberFormat(locale, { maximumFractionDigits: 2, notation: 'compact' }).format(
+                  Number(item.points_distributed_per_hour)
+                )}
+                elementType='a'
+                gap='md'
+                harvest={getHarvest(item.ref_code)}
+                isLive={item.live}
+                logoSrc={getImageUrl(item.name)}
+                name={item.name}
+                url={item?.project_url}
+              />
+            ))}
+          </StyledGrid>
+        </>
       )}
     </Flex>
   );

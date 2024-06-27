@@ -39,6 +39,7 @@ type Partner = {
   points_distributed_per_hour: string;
   project_url: string;
   ref_code: string;
+  show_on_app_store: boolean;
   total_deposit_points: string;
   total_distributed_points: string;
   total_points: string;
