@@ -56,6 +56,8 @@ const PartnerCard = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const getMedalIcon = () => {
+    if (!medal) return;
+
     const medalIcon = medal === 'gold' ? <MedalGold /> : medal === 'silver' ? <MedalSilver /> : <MedalBronze />;
     const capitalisedMedalName = medal.charAt(0).toUpperCase() + medal.slice(1);
 
