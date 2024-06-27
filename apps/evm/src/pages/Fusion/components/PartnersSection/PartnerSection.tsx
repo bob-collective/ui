@@ -75,7 +75,7 @@ const PartnersSection = () => {
       ) : (
         <>
           <H3 size='lg' weight='semibold'>
-            Top Harvesters
+            Top Harvesters by Hour
           </H3>
           <StyledGrid>
             {topHarvesters?.map((item, idx) => (
