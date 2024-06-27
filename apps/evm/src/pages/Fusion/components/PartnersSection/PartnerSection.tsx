@@ -56,6 +56,17 @@ const PartnersSection = () => {
     [locale, user]
   );
 
+  const getMedal = (position: number) => {
+    switch (position) {
+      case 0:
+        return 'gold';
+      case 1:
+        return 'silver';
+      case 2:
+        return 'bronze';
+    }
+  };
+
   return (
     <Flex direction='column' gap='xl' marginTop='4xl'>
       <H2 id='ecosystem' size='2xl' weight='semibold'>
@@ -92,6 +103,7 @@ const PartnersSection = () => {
                 harvest={getHarvest(item.ref_code)}
                 isLive={item.live}
                 logoSrc={getImageUrl(item.name)}
+                medal={getMedal(idx)}
                 name={item.name}
                 url={item?.project_url}
               />

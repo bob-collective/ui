@@ -29,6 +29,7 @@ type Props = {
   distributedSpice?: string;
   harvest?: string;
   isLive?: boolean;
+  medal?: 'gold' | 'silver' | 'bronze';
 };
 
 type PartnerCardProps = Props & Omit<CardProps, keyof Props>;
@@ -45,6 +46,7 @@ const PartnerCard = ({
   distributedSpice,
   harvest,
   isLive,
+  medal,
   ...props
 }: PartnerCardProps): JSX.Element => {
   const theme = useTheme();
@@ -70,6 +72,7 @@ const PartnerCard = ({
       </StyledLiveTag>
       <Flex direction='column' gap='md'>
         <Flex alignItems='center' direction='row' gap='md'>
+          {medal && <P>{medal}</P>}
           {typeof logoSrc === 'string' ? (
             <img
               alt={name}
