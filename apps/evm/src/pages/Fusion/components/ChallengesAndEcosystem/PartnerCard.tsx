@@ -19,7 +19,7 @@ import {
 import { ReactNode } from 'react';
 import { useTheme } from 'styled-components';
 
-import { StyledCategoryTag, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
+import { StyledCategoryTag, StyledLiveTag, StyledPartnerCard } from './ChallengesAndEcosystem.style';
 
 type Props = {
   category: string;

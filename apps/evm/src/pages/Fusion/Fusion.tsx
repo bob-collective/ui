@@ -6,7 +6,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { Geoblock, Main } from '../../components';
 import { LocalStorageKey } from '../../constants';
 
-import { Challenges, Dashboard, Info, Leaderboard, PartnersSection } from './components';
+import { Dashboard, Info, Leaderboard, PartnersSection } from './components';
 import { StyledUpdateMark } from './Fusion.style';
 import { FusionCarousel } from './components/FusionCarousel';
 
@@ -54,7 +54,6 @@ const Fusion = () => {
             <Flex direction='column' gap='2xl'>
               <Dashboard />
               <FusionCarousel />
-              <Challenges />
               <PartnersSection />
             </Flex>
           </TabsItem>

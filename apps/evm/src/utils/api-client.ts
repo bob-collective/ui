@@ -34,11 +34,13 @@ type PartnersResponse = {
 type Partner = {
   category: string;
   current_points: string;
+  is_quest: boolean;
   live: boolean;
   name: string;
   points_distributed_per_hour: string;
   project_url: string;
   ref_code: string;
+  show_on_app_store: boolean;
   total_deposit_points: string;
   total_distributed_points: string;
   total_points: string;
