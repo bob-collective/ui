@@ -7,6 +7,9 @@ import {
   Dt,
   Flex,
   H3,
+  MedalBronze,
+  MedalGold,
+  MedalSilver,
   P,
   Popover,
   PopoverBody,
@@ -16,10 +19,10 @@ import {
   Tooltip,
   useMediaQuery
 } from '@gobob/ui';
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { useTheme } from 'styled-components';
 
-import { StyledCategoryTag, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
+import { StyledCategoryTag, StyledIconWrapper, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
 
 type Props = {
   category: string;
@@ -29,6 +32,7 @@ type Props = {
   distributedSpice?: string;
   harvest?: string;
   isLive?: boolean;
+  medal?: 'gold' | 'silver' | 'bronze';
 };
 
 type PartnerCardProps = Props & Omit<CardProps, keyof Props>;
@@ -45,10 +49,37 @@ const PartnerCard = ({
   distributedSpice,
   harvest,
   isLive,
+  medal,
   ...props
 }: PartnerCardProps): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const getMedalIcon = useCallback(() => {
+    if (!medal) return;
+
+    const medalIcon = medal === 'gold' ? <MedalGold /> : medal === 'silver' ? <MedalSilver /> : <MedalBronze />;
+    const capitalisedMedalName = medal.charAt(0).toUpperCase() + medal.slice(1);
+
+    return isMobile ? (
+      <Popover>
+        <PopoverTrigger>
+          <Button isIconOnly size='s' variant='ghost'>
+            {medalIcon}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverBody>
+            <P size='s'>{capitalisedMedalName} harvester.</P>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+    ) : (
+      <Tooltip color='primary' label={<P size='s'>{capitalisedMedalName} harvester.</P>}>
+        {medalIcon}
+      </Tooltip>
+    );
+  }, [isMobile, medal]);
 
   return (
     <StyledPartnerCard
@@ -70,6 +101,7 @@ const PartnerCard = ({
       </StyledLiveTag>
       <Flex direction='column' gap='md'>
         <Flex alignItems='center' direction='row' gap='md'>
+          {medal && <StyledIconWrapper>{getMedalIcon()}</StyledIconWrapper>}
           {typeof logoSrc === 'string' ? (
             <img
               alt={name}

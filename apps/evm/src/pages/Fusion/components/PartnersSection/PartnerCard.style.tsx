@@ -48,4 +48,10 @@ const StyledLiveTag = styled(Card)`
   top: ${({ theme }) => theme.spacing('s')};
 `;
 
-export { StyledCategoryTag, StyledGrid, StyledCard, StyledPartnerCard, StyledLiveTag };
+const StyledIconWrapper = styled('div')`
+  position: absolute;
+  top: 4px;
+  left: 4px;
+`;
+
+export { StyledCategoryTag, StyledGrid, StyledCard, StyledPartnerCard, StyledLiveTag, StyledIconWrapper };
