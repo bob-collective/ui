@@ -1,3 +1,4 @@
+'use client';
 import { SVGAttributes, forwardRef } from 'react';
 
 import { Color, IconsSizes } from '../../theme';

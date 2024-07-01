@@ -1,3 +1,4 @@
+'use client';
 import { mergeProps } from '@react-aria/utils';
 import { ElementType } from 'react';
 

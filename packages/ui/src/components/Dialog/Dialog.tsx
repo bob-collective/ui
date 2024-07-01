@@ -1,3 +1,4 @@
+'use client';
 import { AriaDialogProps, useDialog } from '@react-aria/dialog';
 import { mergeProps } from '@react-aria/utils';
 import { PressEvent } from '@react-types/shared';

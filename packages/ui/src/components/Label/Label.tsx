@@ -1,3 +1,4 @@
+'use client';
 import { forwardRef, LabelHTMLAttributes } from 'react';
 
 import { LabelPosition } from '../../theme';

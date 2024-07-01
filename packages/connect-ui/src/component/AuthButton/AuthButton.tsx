@@ -1,3 +1,4 @@
+'use client';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Button, ButtonProps } from '@gobob/ui';

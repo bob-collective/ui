@@ -1,3 +1,4 @@
+'use client';
 import { Flex, FlexProps } from '../../Flex';
 
 type DlGroupProps = FlexProps;

@@ -1,3 +1,4 @@
+'use client';
 import { DialogFooter, DialogFooterProps } from '../Dialog';
 
 type ModalFooterProps = DialogFooterProps;

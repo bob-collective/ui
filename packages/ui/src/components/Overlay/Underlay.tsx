@@ -1,3 +1,4 @@
+'use client';
 import { HTMLAttributes } from 'react';
 
 import { StyledUnderlay } from './Overlay.style';

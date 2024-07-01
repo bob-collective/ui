@@ -1,3 +1,4 @@
+'use client';
 import { truncateEthAddress } from '@gobob/utils';
 import { Flex, FlexProps, Span } from '@gobob/ui';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';

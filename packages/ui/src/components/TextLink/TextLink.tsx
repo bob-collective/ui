@@ -1,3 +1,4 @@
+'use client';
 import { AriaLinkOptions, useLink } from '@react-aria/link';
 import { mergeProps } from '@react-aria/utils';
 import { AnchorHTMLAttributes, forwardRef } from 'react';

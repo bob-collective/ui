@@ -1,3 +1,4 @@
+'use client';
 import { forwardRef, ReactNode, useRef } from 'react';
 
 import { useDOMRef } from '../../hooks';

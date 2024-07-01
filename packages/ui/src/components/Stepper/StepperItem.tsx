@@ -1,3 +1,4 @@
+'use client';
 import { Node } from '@react-types/shared';
 
 import { Span } from '../Text';

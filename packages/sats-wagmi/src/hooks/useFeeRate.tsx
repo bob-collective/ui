@@ -1,3 +1,4 @@
+'use client';
 import { DefaultElectrsClient } from '@gobob/bob-sdk';
 import { CONFIRMATION_TARGET } from '@gobob/utils';
 import { INTERVAL, UndefinedInitialDataOptions, useQuery } from '@gobob/react-query';

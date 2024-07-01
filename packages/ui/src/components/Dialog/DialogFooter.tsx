@@ -1,3 +1,4 @@
+'use client';
 import { FlexProps } from '../Flex';
 
 import { StyledDialogFooter } from './Dialog.style';

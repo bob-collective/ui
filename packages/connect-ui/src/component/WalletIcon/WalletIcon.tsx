@@ -1,3 +1,4 @@
+'use client';
 import { ChevronDown, IconProps } from '@gobob/ui';
 import {
   CoinbaseWallet,

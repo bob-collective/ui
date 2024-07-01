@@ -1,3 +1,4 @@
+'use client';
 import { UseQueryOptions, useQuery } from '@gobob/react-query';
 import { useMemo } from 'react';
 

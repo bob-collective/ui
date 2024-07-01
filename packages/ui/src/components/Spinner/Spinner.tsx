@@ -1,3 +1,4 @@
+'use client';
 import { HTMLAttributes } from 'react';
 
 import { SpinnerColors, SpinnerSizes } from '../../theme';

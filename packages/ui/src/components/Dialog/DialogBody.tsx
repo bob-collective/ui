@@ -1,3 +1,4 @@
+'use client';
 import { Spacing } from '../../theme';
 import { FlexProps } from '../Flex';
 

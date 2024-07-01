@@ -1,3 +1,4 @@
+'use client';
 import { useOverlayTrigger } from '@react-aria/overlays';
 import { OverlayTriggerProps, useOverlayTriggerState } from '@react-stately/overlays';
 import { ReactNode, forwardRef, useRef } from 'react';

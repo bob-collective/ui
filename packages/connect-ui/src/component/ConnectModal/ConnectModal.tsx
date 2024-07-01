@@ -1,3 +1,4 @@
+'use client';
 import { Button, Flex, Modal, ModalBody, ModalFooter, ModalHeader, ModalProps, P, toast, ArrowLeft } from '@gobob/ui';
 import { Address, Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from '@gobob/wagmi';
 import {

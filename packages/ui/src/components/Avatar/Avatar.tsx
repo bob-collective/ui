@@ -1,3 +1,4 @@
+'use client';
 import { ImgHTMLAttributes } from 'react';
 
 import { Color, Rounded, Spacing } from '../../theme';

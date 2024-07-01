@@ -1,3 +1,4 @@
+'use client';
 import { ForwardRefExoticComponent, ReactNode } from 'react';
 
 import { AlertStatus, AlertVariant, Rounded } from '../../theme';

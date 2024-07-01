@@ -1,3 +1,4 @@
+'use client';
 import { estimateTxFee } from '@gobob/utils';
 import { INTERVAL, UndefinedInitialDataOptions, useQuery } from '@gobob/react-query';
 

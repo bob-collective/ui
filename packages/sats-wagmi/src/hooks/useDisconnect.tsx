@@ -1,3 +1,4 @@
+'use client';
 import { useMutation } from '@gobob/react-query';
 
 import { useSatsWagmi } from '../provider';

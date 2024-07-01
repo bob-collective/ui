@@ -1,3 +1,4 @@
+'use client';
 /* eslint-disable @typescript-eslint/ban-types */
 import { useFocusRing } from '@react-aria/focus';
 import { useGridListItem } from '@react-aria/gridlist';

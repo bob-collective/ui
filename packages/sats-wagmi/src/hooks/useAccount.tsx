@@ -1,3 +1,4 @@
+'use client';
 import { useQuery } from '@gobob/react-query';
 import { getAddressInfo } from 'bitcoin-address-validation';
 import { useEffect } from 'react';
