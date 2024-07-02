@@ -21,3 +21,5 @@ export { BNB } from './BNB';
 export { Optimism } from './Optimism';
 export { Base } from './Base';
 export { Moonbeam } from './Moonbeam';
+export { Galxe } from './Galxe';
+export { Intract } from './Intract';

@@ -61,6 +61,9 @@ const Fusion = () => {
           <TabsItem key='leaderboard' title='Leaderboard'>
             <Leaderboard />
           </TabsItem>
+          <TabsItem key='quest-leaderboard' title='Quest Leaderboard'>
+            <Leaderboard />
+          </TabsItem>
           <TabsItem
             key='info'
             title={
