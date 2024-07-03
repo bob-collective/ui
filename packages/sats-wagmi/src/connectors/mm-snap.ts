@@ -174,7 +174,7 @@ class MMSnapConnector extends SatsConnector {
   //     throw new Error('Public key missing');
   //   }
 
-  //   const electrsClient = new DefaultElectrsClient(this.network as string);
+  //   const electrsClient = new DefaultEsploraClient(this.network as string);
 
   //   const libNetwork = await this.getNetwork();
   //   const network = this.network.toString();
@@ -271,7 +271,7 @@ class MMSnapConnector extends SatsConnector {
   // const libNetwork = await this.getNetwork();
   // const senderAddress = bitcoin.payments.p2wpkh({ pubkey, network: libNetwork }).address!;
 
-  // const electrsClient = new DefaultElectrsClient(this.network as string);
+  // const electrsClient = new DefaultEsploraClient(this.network as string);
 
   // const utxos = await electrsClient.getAddressUtxos(senderAddress);
   // const inscriptionUtxo = await findUtxoForInscriptionId(electrsClient, utxos, inscriptionId);

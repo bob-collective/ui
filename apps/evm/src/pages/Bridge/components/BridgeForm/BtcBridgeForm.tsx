@@ -28,10 +28,10 @@ import {
   bridgeSchema
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
-import { onRampApiClient } from '../../../../utils';
 import { useGetTransactions } from '../../hooks';
 import { OnRampData } from '../../types';
 import { bridgeKeys } from '../../../../lib/react-query';
+import { gatewayClient } from '../../../../lib/bob-sdk';
 
 type BtcBridgeFormProps = {
   type: 'deposit' | 'withdraw';
@@ -94,7 +94,7 @@ const BtcBridgeForm = ({
     queryFn: async () => {
       if (!currencyAmount || !btcToken) return;
 
-      const maxQuoteData = await onRampApiClient.getQuote(btcToken.raw.address);
+      const maxQuoteData = await gatewayClient.getQuote(btcToken.raw.address);
 
       return {
         availableLiquidity: CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis),
@@ -139,7 +139,7 @@ const BtcBridgeForm = ({
 
       const atomicAmount = currencyAmount.numerator.toString();
 
-      const { fee, onramp_address, bitcoin_address, gratuity } = await onRampApiClient.getQuote(
+      const { fee, onramp_address, bitcoin_address, gratuity } = await gatewayClient.getQuote(
         btcToken.raw.address,
         atomicAmount
       );
@@ -191,12 +191,12 @@ const BtcBridgeForm = ({
 
       const atomicAmount = Number(currencyAmount.numerator);
 
-      const orderId = await onRampApiClient.createOrder(onrampAddress, evmAddress, atomicAmount);
+      const orderId = await gatewayClient.createOrder(onrampAddress, evmAddress, atomicAmount);
 
       const tx = await connector.createTxWithOpReturn(bitcoinAddress, atomicAmount, evmAddress);
 
       // NOTE: relayer should broadcast the tx
-      await onRampApiClient.updateOrder(orderId, tx.toHex());
+      await gatewayClient.updateOrder(orderId, tx.toHex());
 
       return { ...data, txid: tx.getId() };
     },
@@ -226,7 +226,7 @@ const BtcBridgeForm = ({
 
     if (type === 'deposit') {
       return depositMutation.mutate({
-        onrampAddress: quoteData.onrampAddress,
+        onrampAddress: quoteData.onrampAddress as Address,
         bitcoinAddress: quoteData.bitcoinAddress,
         evmAddress: (data[BRIDGE_RECIPIENT] as Address) || evmAddress,
         currencyAmount
