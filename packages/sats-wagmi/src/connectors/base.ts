@@ -1,4 +1,4 @@
-import { DefaultElectrsClient, RemoteSigner } from '@gobob/bob-sdk';
+import { DefaultEsploraClient, RemoteSigner } from '@gobob/bob-sdk';
 import { Network as LibNetwork, Psbt, Transaction, networks } from 'bitcoinjs-lib';
 import * as bitcoin from 'bitcoinjs-lib';
 import retry from 'async-retry';
@@ -126,7 +126,7 @@ abstract class SatsConnector {
 
     // const network = await this.getNetwork();
 
-    // const electrsClient = new DefaultElectrsClient(this.network as string);
+    // const electrsClient = new DefaultEsploraClient(this.network as string);
 
     // const utxos = await electrsClient.getAddressUtxos(this.ordinalsAddress);
 
@@ -176,7 +176,7 @@ abstract class SatsConnector {
   }
 
   async getTransaction(txId: string): Promise<Transaction> {
-    const electrsClient = new DefaultElectrsClient(this.network as string);
+    const electrsClient = new DefaultEsploraClient(this.network as string);
 
     return retry(
       async (bail) => {
@@ -205,7 +205,7 @@ abstract class SatsConnector {
     //   throw new Error('Something went wrong while connecting');
     // }
 
-    // const electrsClient = new DefaultElectrsClient(this.network as string);
+    // const electrsClient = new DefaultEsploraClient(this.network as string);
 
     // let inscription;
 

@@ -28,10 +28,10 @@ import {
   bridgeSchema
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
-import { onRampApiClient } from '../../../../utils';
 import { useGetTransactions } from '../../hooks';
 import { OnRampData } from '../../types';
 import { bridgeKeys } from '../../../../lib/react-query';
+import { gatewayClient } from '../../../../lib/bob-sdk';
 
 type BtcBridgeFormProps = {
   type: 'deposit' | 'withdraw';
@@ -41,7 +41,7 @@ type BtcBridgeFormProps = {
   onFailOnRamp: () => void;
 };
 
-const MIN_DEPOSIT_AMOUNT = 40000;
+const MIN_DEPOSIT_AMOUNT = 4000;
 
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
@@ -87,18 +87,18 @@ const BtcBridgeForm = ({
     toast.error(e.message);
   }, []);
 
-  const { data: availableLiquidity, isLoading: isLoadingLiquidity } = useQuery({
+  const { data: availableLiquidity, isLoading: isLoadingMaxQuote } = useQuery({
     enabled: Boolean(btcToken),
-    queryKey: bridgeKeys.btcTotalLiquidity(),
+    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, 'max'),
     refetchInterval: INTERVAL.MINUTE,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
       if (!currencyAmount || !btcToken) return;
 
-      const total = await onRampApiClient.getTotalLiquidity(btcToken.raw.address);
+      const maxQuoteData = await gatewayClient.getQuote(btcToken.raw.address);
 
-      return CurrencyAmount.fromRawAmount(BITCOIN, total);
+      return CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis);
     }
   });
 
@@ -133,7 +133,7 @@ const BtcBridgeForm = ({
 
       const atomicAmount = currencyAmount.numerator.toString();
 
-      const { fee, onramp_address, bitcoin_address, gratuity } = await onRampApiClient.getQuote(
+      const { fee, onramp_address, bitcoin_address, gratuity } = await gatewayClient.getQuote(
         btcToken.raw.address,
         atomicAmount
       );
@@ -185,12 +185,12 @@ const BtcBridgeForm = ({
 
       const atomicAmount = Number(currencyAmount.numerator);
 
-      const orderId = await onRampApiClient.createOrder(onrampAddress, evmAddress, atomicAmount);
+      const orderId = await gatewayClient.createOrder(onrampAddress, evmAddress, atomicAmount);
 
       const tx = await connector.createTxWithOpReturn(bitcoinAddress, atomicAmount, evmAddress);
 
       // NOTE: relayer should broadcast the tx
-      await onRampApiClient.updateOrder(orderId, tx.toHex());
+      await gatewayClient.updateOrder(orderId, tx.toHex());
 
       return { ...data, txid: tx.getId() };
     },
@@ -220,7 +220,7 @@ const BtcBridgeForm = ({
 
     if (type === 'deposit') {
       return depositMutation.mutate({
-        onrampAddress: quoteData.onrampAddress,
+        onrampAddress: quoteData.onrampAddress as Address,
         bitcoinAddress: quoteData.bitcoinAddress,
         evmAddress: (data[BRIDGE_RECIPIENT] as Address) || evmAddress,
         currencyAmount
@@ -267,7 +267,10 @@ const BtcBridgeForm = ({
 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
-      minAmount: currencyAmount && new Big(MIN_DEPOSIT_AMOUNT / 10 ** currencyAmount?.currency.decimals),
+      minAmount:
+        currencyAmount && MIN_DEPOSIT_AMOUNT
+          ? new Big(MIN_DEPOSIT_AMOUNT / 10 ** currencyAmount?.currency.decimals)
+          : undefined,
       maxAmount: new Big(balanceAmount.toExact())
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount
@@ -289,7 +292,7 @@ const BtcBridgeForm = ({
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
   const isDisabled =
-    isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingLiquidity || !hasLiquidity;
+    isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingMaxQuote || !hasLiquidity;
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
@@ -361,7 +364,7 @@ const BtcBridgeForm = ({
           </P>
         </Alert>
       )}
-      {!hasLiquidity && !isLoadingLiquidity && (
+      {!hasLiquidity && !isLoadingMaxQuote && (
         <Alert status='warning'>
           <P size='s'>There is currently no available liquidity to onramp BTC into {btcToken?.currency.symbol}.</P>
         </Alert>

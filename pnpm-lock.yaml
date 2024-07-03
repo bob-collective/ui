@@ -180,6 +180,9 @@ importers:
       '@ethersproject/providers':
         specifier: ^5.7.2
         version: 5.7.2
+      '@gobob/bob-sdk':
+        specifier: 1.3.0
+        version: 1.3.0
       '@gobob/chains':
         specifier: workspace:^
         version: link:../../packages/chains
@@ -441,8 +444,8 @@ importers:
         specifier: ^2.2.3
         version: 2.2.3
       '@gobob/bob-sdk':
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.3.0
+        version: 1.3.0
       '@gobob/react-query':
         specifier: workspace:^
         version: link:../react-query
@@ -680,8 +683,8 @@ importers:
   packages/utils:
     dependencies:
       '@gobob/bob-sdk':
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.3.0
+        version: 1.3.0
       '@scure/base':
         specifier: ^1.1.6
         version: 1.1.6
@@ -3517,9 +3520,12 @@ packages:
       ts-interface-checker: 0.1.13
     dev: true
 
-  /@gobob/bob-sdk@1.2.0:
-    resolution: {integrity: sha512-qugfTrYMqM5AAK10+E6qgCZgxEtp6xvY8+q9FPh/HL0e2JP5SBTeyG4jzherCvxYP+nuz08TwSqQW2yihw46+g==}
+  /@gobob/bob-sdk@1.3.0:
+    resolution: {integrity: sha512-NFrkl8cqgK7vFYnXdijkr3kTP2ZVWVMWeawUKRJHljZT6QB/P170kObI6jF88Z+oDM8u5dchbf1nmTne2lGLEA==}
     dependencies:
+      '@scure/base': 1.1.7
+      '@scure/btc-signer': 1.3.2
+      bitcoin-address-validation: 2.2.3
       bitcoinjs-lib: 6.1.6
     dev: false
 
@@ -4159,7 +4165,7 @@ packages:
       '@ethereumjs/tx': 4.2.0
       '@metamask/superstruct': 3.0.0
       '@noble/hashes': 1.4.0
-      '@scure/base': 1.1.6
+      '@scure/base': 1.1.7
       '@types/debug': 4.1.12
       debug: 4.3.5(supports-color@8.1.1)
       pony-cause: 2.1.11
@@ -6437,6 +6443,10 @@ packages:
   /@scure/base@1.1.6:
     resolution: {integrity: sha512-ok9AWwhcgYuGG3Zfhyqg+zwl+Wn5uE+dwC0NV/2qQkx4dABbb/bx96vWu8NSj+BNjjSjno+JRYRjle1jV08k3g==}
 
+  /@scure/base@1.1.7:
+    resolution: {integrity: sha512-PPNYBslrLNNUQ/Yad37MHYsNQtK67EhWb6WtSvNLLPo7SdVZgkUjD6Dg+5On7zNwmskf8OX7I7Nx5oN+MIWE0g==}
+    dev: false
+
   /@scure/bip32@1.3.2:
     resolution: {integrity: sha512-N1ZhksgwD3OBlwTv3R6KFEcPojl/W4ElJOeCZdi+vuI5QmTFwLq3OFf2zd2ROpKvxFdgZ6hUpb0dx9bVNEwYCA==}
     dependencies:
@@ -6449,7 +6459,7 @@ packages:
     dependencies:
       '@noble/curves': 1.4.0
       '@noble/hashes': 1.4.0
-      '@scure/base': 1.1.6
+      '@scure/base': 1.1.7
     dev: false
 
   /@scure/bip39@1.2.1:
@@ -6462,7 +6472,7 @@ packages:
     resolution: {integrity: sha512-disdg7gHuTDZtY+ZdkmLpPCk7fxZSu3gBiEGuoC1XYxv9cGx3Z6cpTggCgW6odSOOIXCiDjuGejW+aJKCY/pIQ==}
     dependencies:
       '@noble/hashes': 1.4.0
-      '@scure/base': 1.1.6
+      '@scure/base': 1.1.7
     dev: false
 
   /@scure/btc-signer@1.3.2:
@@ -16862,7 +16872,7 @@ packages:
   /micro-packed@0.6.3:
     resolution: {integrity: sha512-VmVkyc7lIzAq/XCPFuLc/CwQ7Ehs5XDK3IwqsZHiBIDttAI9Gs7go6Lv4lNRuAIKrGKcRTtthFKUNyHS0S4wJQ==}
     dependencies:
-      '@scure/base': 1.1.6
+      '@scure/base': 1.1.7
     dev: false
 
   /micromatch@4.0.5:
