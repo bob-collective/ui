@@ -1,6 +1,34 @@
 import styled, { css } from 'styled-components';
 
-import { InputSizes, Spacing } from '../../theme';
+import { InputSizes, Spacing, Theme } from '../../theme';
+
+const sizeCSS = (theme: Theme, size: InputSizes) =>
+  ({
+    s: {
+      ...theme.typography('s'),
+      fontWeight: theme.fontWeight('normal'),
+      paddingLeft: theme.spacing('s'),
+      paddingRight: theme.spacing('s'),
+      paddingTop: theme.spacing('xs'),
+      paddingBottom: theme.spacing('xs')
+    },
+    md: {
+      ...theme.typography('md'),
+      fontWeight: theme.fontWeight('medium'),
+      paddingLeft: theme.spacing('lg'),
+      paddingRight: theme.spacing('lg'),
+      paddingTop: theme.spacing('4xl'),
+      paddingBottom: theme.spacing('md')
+    },
+    lg: {
+      ...theme.typography('xl'),
+      fontWeight: theme.fontWeight('medium'),
+      paddingLeft: theme.spacing('lg'),
+      paddingRight: theme.spacing('lg'),
+      paddingTop: theme.spacing('md'),
+      paddingBottom: theme.spacing('md')
+    }
+  })[size];
 
 type BaseInputProps = {
   $size: InputSizes;
@@ -27,42 +55,37 @@ const StyledBaseInput = styled.input<BaseInputProps>`
     $minHeight ? theme.spacing($minHeight) : as === 'textarea' && theme.spacing('7xl')};
   resize: ${({ as }) => as === 'textarea' && 'vertical'};
 
-  ${({ theme, $size, $adornments, $hasError }) => {
-    const { paddingRight, paddingTop, paddingBottom, paddingLeft, ...sizeCss } = theme.input.size[$size];
+  ${({ theme, $size, $adornments, $hasError }) => css`
+    border-radius: ${theme.rounded('md')};
+    border-style: solid;
+    border-width: 1px;
 
-    // MEMO: adding `spacing6` is a hacky solution because
-    // the `endAdornmentWidth` does not update width correctly
-    // after fonts are loaded. Instead of falling back to a more
-    // complex solution, an extra offset does the job of not allowing
-    // the input overlap the adornment.
-    return css`
-      padding-top: ${paddingTop};
-      padding-bottom: ${paddingBottom};
-      padding-left: ${$adornments.left ? theme.spacing('5xl') : paddingLeft};
-      padding-right: ${$adornments.right ? theme.spacing('5xl') : paddingRight};
+    ${theme.transition('common', 'normal')}
 
-      ${sizeCss}
-      ${theme.input.base}
-      ${$hasError && theme.input.error.base}
+    ${sizeCSS(theme, $size)}
+      padding-left: ${$adornments.left && theme.spacing('5xl')};
+    padding-right: ${$adornments.right && theme.spacing('5xl')};
+
+    ${theme.input.base}
+    ${$hasError && theme.input.error.base}
 
 
       &:hover:not(:disabled):not(:focus) {
-        ${$hasError ? theme.input.error.hover : theme.input.hover}
-      }
+      ${$hasError ? theme.input.error.hover : theme.input.hover}
+    }
 
-      &:focus:not(:disabled) {
-        ${$hasError ? theme.input.error.focus : theme.input.focus}
-      }
+    &:focus:not(:disabled) {
+      ${$hasError ? theme.input.error.focus : theme.input.focus}
+    }
 
-      &::placeholder {
-        ${theme.input.placeholder}
-      }
+    &::placeholder {
+      ${theme.input.placeholder}
+    }
 
-      &:disabled {
-        ${theme.input.disabled}
-      }
-    `;
-  }}
+    &:disabled {
+      ${theme.input.disabled}
+    }
+  `}
 
   /* MEMO: inspired by https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
   /* Chrome, Safari, Edge, Opera */

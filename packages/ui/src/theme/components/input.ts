@@ -12,7 +12,6 @@ type InputTheme = {
     focus: StyledObject<object>;
   };
   disabled: StyledObject<object>;
-  size: Record<InputSizes, StyledObject<object>>;
   placeholder: StyledObject<object>;
   adornment: StyledObject<object>;
 };

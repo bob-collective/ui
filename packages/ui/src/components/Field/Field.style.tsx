@@ -1,6 +1,7 @@
-import styled, { CSSProperties } from 'styled-components';
+import styled, { CSSProperties, css } from 'styled-components';
 
 import { Flex } from '../Flex';
+import { Label } from '../Label';
 
 type StyledFieldProps = {
   $maxWidth?: CSSProperties['maxWidth'];
@@ -17,6 +18,18 @@ const StyledFieldElWrapper = styled.div`
 const StyledField = styled(Flex)<StyledFieldProps>`
   max-width: ${({ $maxWidth }) => $maxWidth};
   width: ${({ $fullWidth, $maxWidth }) => ($fullWidth || $maxWidth) && '100%'};
+  position: relative;
 `;
 
-export { StyledField, StyledFieldElWrapper };
+const StyledLabel = styled(Label)`
+  ${({ position, theme }) =>
+    position === 'inside' &&
+    css`
+      position: absolute;
+      z-index: 10;
+      top: ${theme.spacing('s')};
+      left: calc(${theme.spacing('lg')} + 2px);
+    `}
+`;
+
+export { StyledField, StyledFieldElWrapper, StyledLabel };

@@ -13,7 +13,7 @@ type NativeAttrs = Omit<LabelHTMLAttributes<unknown>, keyof Props>;
 type LabelProps = Props & NativeAttrs;
 
 const Label = forwardRef<HTMLLabelElement, LabelProps>(
-  ({ children, position = 'top', ...props }, ref): JSX.Element => (
+  ({ children, position = 'inside', ...props }, ref): JSX.Element => (
     <StyledLabel {...props} ref={ref} $position={position} as='label'>
       {children}
     </StyledLabel>

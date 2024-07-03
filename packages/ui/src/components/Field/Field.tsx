@@ -4,10 +4,10 @@ import { CSSProperties } from 'styled-components';
 import { LabelPosition } from '../../theme';
 import { Flex, FlexProps } from '../Flex';
 import { HelperText, HelperTextProps } from '../HelperText';
-import { Label, LabelProps } from '../Label';
+import { LabelProps } from '../Label';
 import { hasError } from '../utils/input';
 
-import { StyledField, StyledFieldElWrapper } from './Field.style';
+import { StyledField, StyledFieldElWrapper, StyledLabel } from './Field.style';
 
 type Props = {
   label?: ReactNode;
@@ -27,7 +27,7 @@ const Field = forwardRef<HTMLDivElement, FieldProps>(
   (
     {
       label,
-      labelPosition = 'top',
+      labelPosition = 'inside',
       labelProps,
       errorMessage,
       errorMessageProps,
@@ -62,20 +62,20 @@ const Field = forwardRef<HTMLDivElement, FieldProps>(
         ref={ref}
         $fullWidth={fullWidth}
         $maxWidth={maxWidth}
-        direction={labelPosition === 'top' ? 'column' : 'row'}
+        direction={labelPosition === 'outside-left' ? 'row' : 'column'}
         {...props}
       >
         {label && (
-          <Label {...labelProps} position={labelPosition}>
+          <StyledLabel {...labelProps} position={labelPosition}>
             {label}
-          </Label>
+          </StyledLabel>
         )}
-        {labelPosition === 'top' ? (
-          element
-        ) : (
+        {labelPosition === 'outside-left' ? (
           <Flex alignItems='flex-end' direction='column'>
             {element}
           </Flex>
+        ) : (
+          element
         )}
       </StyledField>
     );
