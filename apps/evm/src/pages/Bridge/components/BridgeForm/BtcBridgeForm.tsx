@@ -41,6 +41,8 @@ type BtcBridgeFormProps = {
   onFailOnRamp: () => void;
 };
 
+const MIN_DEPOSIT_AMOUNT = 4000;
+
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
 const nativeToken = Ether.onChain(L2_CHAIN);
@@ -85,7 +87,7 @@ const BtcBridgeForm = ({
     toast.error(e.message);
   }, []);
 
-  const { data: maxQuoteData, isLoading: isLoadingMaxQuote } = useQuery({
+  const { data: availableLiquidity, isLoading: isLoadingMaxQuote } = useQuery({
     enabled: Boolean(btcToken),
     queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, 'max'),
     refetchInterval: INTERVAL.MINUTE,
@@ -96,19 +98,11 @@ const BtcBridgeForm = ({
 
       const maxQuoteData = await gatewayClient.getQuote(btcToken.raw.address);
 
-      return {
-        availableLiquidity: CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis),
-        minDepositAmount: maxQuoteData.dust_threshold
-      };
+      return CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis);
     }
   });
 
-  const { availableLiquidity, minDepositAmount } = maxQuoteData || {};
-
-  const hasLiquidity = useMemo(
-    () => availableLiquidity?.greaterThan(minDepositAmount || 0),
-    [availableLiquidity, minDepositAmount]
-  );
+  const hasLiquidity = useMemo(() => availableLiquidity?.greaterThan(MIN_DEPOSIT_AMOUNT), [availableLiquidity]);
 
   const quoteDataEnabled = useMemo(() => {
     return Boolean(
@@ -116,10 +110,10 @@ const BtcBridgeForm = ({
         btcToken &&
         evmAddress &&
         btcAddress &&
-        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(minDepositAmount || 0) &&
+        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT) &&
         hasLiquidity
     );
-  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount, minDepositAmount, hasLiquidity]);
+  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount, hasLiquidity]);
 
   const quoteQueryKey = bridgeKeys.btcQuote(evmAddress, btcAddress, Number(currencyAmount?.numerator));
 
@@ -274,8 +268,8 @@ const BtcBridgeForm = ({
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
       minAmount:
-        currencyAmount && minDepositAmount
-          ? new Big(minDepositAmount / 10 ** currencyAmount?.currency.decimals)
+        currencyAmount && MIN_DEPOSIT_AMOUNT
+          ? new Big(MIN_DEPOSIT_AMOUNT / 10 ** currencyAmount?.currency.decimals)
           : undefined,
       maxAmount: new Big(balanceAmount.toExact())
     },
