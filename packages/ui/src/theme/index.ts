@@ -14,7 +14,9 @@ export type {
   TokenInputSize,
   TabsSize,
   SwitchSize,
-  RadioSize
+  RadioSize,
+  FieldSizes,
+  LabelSizes
 } from './components';
 export type {
   IconsSizes,

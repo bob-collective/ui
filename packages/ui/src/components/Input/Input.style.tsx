@@ -7,17 +7,17 @@ const sizeCSS = (theme: Theme, size: InputSizes) =>
     s: {
       ...theme.typography('s'),
       fontWeight: theme.fontWeight('normal'),
-      paddingLeft: theme.spacing('s'),
-      paddingRight: theme.spacing('s'),
-      paddingTop: theme.spacing('xs'),
-      paddingBottom: theme.spacing('xs')
+      paddingLeft: theme.spacing('md'),
+      paddingRight: theme.spacing('md'),
+      paddingTop: '1.75rem',
+      paddingBottom: theme.spacing('s')
     },
     md: {
       ...theme.typography('md'),
       fontWeight: theme.fontWeight('medium'),
       paddingLeft: theme.spacing('lg'),
       paddingRight: theme.spacing('lg'),
-      paddingTop: theme.spacing('4xl'),
+      paddingTop: '1.75rem',
       paddingBottom: theme.spacing('md')
     },
     lg: {

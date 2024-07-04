@@ -12,7 +12,8 @@ const input: InputTheme = {
     borderColor: color('grey-300')
   },
   focus: {
-    borderColor: color('light')
+    borderColor: color('light'),
+    boxShadow: `0 0 0 1px ${color('light')}`
   },
   placeholder: {
     color: color('grey-50')
@@ -22,13 +23,14 @@ const input: InputTheme = {
   },
   error: {
     base: {
-      borderColor: color('red-500')
+      borderColor: color('red-500'),
+      color: color('red-500')
     },
     hover: {
       borderColor: color('red-500')
     },
     focus: {
-      borderColor: color('light')
+      boxShadow: `0 0 0 1px ${color('red-500')}`
     }
   },
   adornment: {
