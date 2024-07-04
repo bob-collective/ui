@@ -162,7 +162,7 @@ const Bridge = () => {
         {!isFaultProofNoticeHidden && (
           <Alert marginTop='xl' status='info' onClose={handleCloseFaultProofNotice}>
             <P size='s'>
-              <Strong size='inherit'>NOTICE: Fault Proofs are coming to BOB.</Strong> Withdrawals claims starting on
+              <Strong size='inherit'>NOTICE: Fault Proofs are coming to BOB.</Strong> Withdrawals starting on
               July 4 will need to be proven again after July 10, requiring at least 7 days to be finalised. Consider
               waiting until the upgrade is complete or using 3rd Party bridge for withdrawals during this period.{' '}
               <TextLink external icon href={`${DocsLinks.OP_STACK}#settlement`} size='inherit'>
