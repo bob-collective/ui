@@ -1,6 +1,8 @@
 import { Button, ButtonProps, Flex, FlexProps } from '@gobob/ui';
 import { Discord, Twitter } from '@gobob/icons';
 
+import { DocsLinks } from '../../constants';
+
 type Props = {
   showDocs?: boolean;
   variant?: ButtonProps['variant'];
@@ -20,7 +22,7 @@ const SocialsGroup = ({
   <Flex gap={gap} justifyContent={justifyContent} {...props}>
     {showDocs && (
       <Button asChild isIconOnly size='s' variant={variant}>
-        <a href='https://docs.gobob.xyz/' rel='noreferrer' target='_blank'>
+        <a href={DocsLinks.HOME} rel='noreferrer' target='_blank'>
           Docs
         </a>
       </Button>
