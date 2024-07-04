@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'styled-components';
 
-import { RoutesPath } from '../../constants';
+import { DocsLinks, RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
 
@@ -78,7 +78,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
                     >
                       {t('navigation.t_and_c')}
                     </NavItem>
-                    <NavItem isExternal size='s' to='https://docs.gobob.xyz/'>
+                    <NavItem isExternal size='s' to={DocsLinks.HOME}>
                       {t('navigation.dev')}
                     </NavItem>
                     <NavItem isExternal size='s' to='https://gobob.xyz/'>

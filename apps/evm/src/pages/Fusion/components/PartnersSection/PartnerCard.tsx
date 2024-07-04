@@ -7,9 +7,6 @@ import {
   Dt,
   Flex,
   H3,
-  MedalBronze,
-  MedalGold,
-  MedalSilver,
   P,
   Popover,
   PopoverBody,
@@ -21,6 +18,7 @@ import {
 } from '@gobob/ui';
 import { ReactNode, useCallback } from 'react';
 import { useTheme } from 'styled-components';
+import { MedalBronze, MedalGold, MedalSilver } from '@gobob/icons';
 
 import { StyledCategoryTag, StyledIconWrapper, StyledLiveTag, StyledPartnerCard } from './PartnerCard.style';
 

@@ -2,7 +2,7 @@ import { Button, Flex, XMark, useMediaQuery } from '@gobob/ui';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'styled-components';
 
-import { RoutesPath } from '../../constants';
+import { DocsLinks, RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
 
@@ -48,7 +48,7 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
               >
                 {t('navigation.t_and_c')}
               </NavItem>
-              <NavItem isExternal to='https://docs.gobob.xyz/'>
+              <NavItem isExternal to={DocsLinks.HOME}>
                 {t('navigation.dev')}
               </NavItem>
               <NavItem isExternal to='https://gobob.xyz/'>

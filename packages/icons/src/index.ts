@@ -21,3 +21,6 @@ export { BNB } from './BNB';
 export { Optimism } from './Optimism';
 export { Base } from './Base';
 export { Moonbeam } from './Moonbeam';
+export { MedalBronze } from './MedalBronze';
+export { MedalGold } from './MedalGold';
+export { MedalSilver } from './MedalSilver';
