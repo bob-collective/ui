@@ -335,7 +335,7 @@ const BtcBridgeForm = ({
         size='lg'
         type='modal'
         {...mergeProps(form.getSelectFieldProps(BRIDGE_TICKER), {
-          onValueChange: (value: string) => setReceiveTicker(value)
+          onSelectionChange: (value: string) => setReceiveTicker(value)
         })}
       >
         {(data) => (
