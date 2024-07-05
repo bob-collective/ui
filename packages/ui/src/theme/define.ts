@@ -32,7 +32,8 @@ import {
   TableTheme,
   TabsTheme,
   StepperTheme,
-  LabelTheme
+  LabelTheme,
+  HelperTextTheme
 } from './components';
 
 const baseTheme = {
@@ -68,6 +69,7 @@ type ThemeParams = {
   table: TableTheme;
   stepper: StepperTheme;
   label: LabelTheme;
+  helperText: HelperTextTheme;
 };
 
 const defineTheme = ({ colors, ...theme }: ThemeParams) => ({

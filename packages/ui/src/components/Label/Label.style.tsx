@@ -4,7 +4,7 @@ import { LabelPosition, LabelSizes, Theme } from '../../theme';
 
 const sizeCSS = (theme: Theme, size: LabelSizes) =>
   ({
-    s: theme.typography('xs'),
+    s: theme.typography('s'),
     md: theme.typography('s'),
     lg: theme.typography('md')
   })[size];

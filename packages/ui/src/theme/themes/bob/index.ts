@@ -8,6 +8,7 @@ import { colors } from './colors';
 import { dialog } from './dialog';
 import { divider } from './divider';
 import { drawer } from './drawer';
+import { helperText } from './helper-text';
 import { input } from './input';
 import { label } from './label';
 import { list } from './list';
@@ -41,7 +42,8 @@ const bobTheme = defineTheme({
   table,
   tabs,
   stepper,
-  label
+  label,
+  helperText
 });
 
 export { bobTheme };

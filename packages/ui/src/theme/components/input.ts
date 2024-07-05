@@ -4,14 +4,16 @@ type InputSizes = 's' | 'md' | 'lg';
 
 type InputTheme = {
   base: StyledObject<object>;
-  hover: StyledObject<object>;
-  focus: StyledObject<object>;
+  wrapper: StyledObject<object>;
+  hover: { wapper: StyledObject<object> };
+  focus: { wrapper: StyledObject<object> };
   error: {
     base: StyledObject<object>;
-    hover: StyledObject<object>;
-    focus: StyledObject<object>;
+    wrapper: StyledObject<object>;
+    hover: { wapper: StyledObject<object> };
+    focus: { wrapper: StyledObject<object> };
   };
-  disabled: StyledObject<object>;
+  disabled: { wrapper: StyledObject<object> };
   placeholder: StyledObject<object>;
   adornment: StyledObject<object>;
 };

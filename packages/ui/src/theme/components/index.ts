@@ -18,3 +18,4 @@ export * from './table';
 export * from './stepper';
 export * from './field';
 export * from './label';
+export * from './helper-text';

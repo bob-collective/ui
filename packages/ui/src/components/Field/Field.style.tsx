@@ -8,7 +8,7 @@ const sizeCSS = (theme: Theme, size: FieldSizes) =>
   ({
     s: {
       top: theme.spacing('s'),
-      left: `calc(${theme.spacing('md')} + 2px)`
+      left: `calc(${theme.spacing('lg')} + 2px)`
     },
     md: {
       top: theme.spacing('md'),
@@ -16,7 +16,7 @@ const sizeCSS = (theme: Theme, size: FieldSizes) =>
     },
     lg: {
       top: theme.spacing('md'),
-      left: `calc(${theme.spacing('xl')} + 2px)`
+      left: `calc(${theme.spacing('lg')} + 2px)`
     }
   })[size];
 
