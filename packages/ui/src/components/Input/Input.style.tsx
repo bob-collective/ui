@@ -9,7 +9,7 @@ const sizeCSS = (theme: Theme, size: InputSizes) =>
       fontWeight: theme.fontWeight('normal'),
       paddingLeft: theme.spacing('md'),
       paddingRight: theme.spacing('md'),
-      paddingTop: '1.75rem',
+      paddingTop: theme.spacing('3xl'),
       paddingBottom: theme.spacing('s')
     },
     md: {
@@ -17,16 +17,16 @@ const sizeCSS = (theme: Theme, size: InputSizes) =>
       fontWeight: theme.fontWeight('medium'),
       paddingLeft: theme.spacing('lg'),
       paddingRight: theme.spacing('lg'),
-      paddingTop: '1.75rem',
+      paddingTop: theme.spacing('4xl'),
       paddingBottom: theme.spacing('md')
     },
     lg: {
       ...theme.typography('xl'),
       fontWeight: theme.fontWeight('medium'),
-      paddingLeft: theme.spacing('lg'),
-      paddingRight: theme.spacing('lg'),
-      paddingTop: theme.spacing('md'),
-      paddingBottom: theme.spacing('md')
+      paddingLeft: theme.spacing('xl'),
+      paddingRight: theme.spacing('xl'),
+      paddingTop: theme.spacing('5xl'),
+      paddingBottom: theme.spacing('lg')
     }
   })[size];
 

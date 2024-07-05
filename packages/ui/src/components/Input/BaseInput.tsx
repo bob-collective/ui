@@ -55,7 +55,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
     const error = hasError({ isInvalid, errorMessage: props.errorMessage });
 
     return (
-      <Field {...fieldProps}>
+      <Field size={size} {...fieldProps}>
         {startAdornment && <StyledAdornmentLeft $size={size}>{startAdornment}</StyledAdornmentLeft>}
         <StyledBaseInput
           ref={ref as any}

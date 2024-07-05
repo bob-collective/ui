@@ -1,17 +1,25 @@
 import styled, { css } from 'styled-components';
 
-import { LabelPosition } from '../../theme';
+import { LabelPosition, LabelSizes, Theme } from '../../theme';
+
+const sizeCSS = (theme: Theme, size: LabelSizes) =>
+  ({
+    s: theme.typography('xs'),
+    md: theme.typography('s'),
+    lg: theme.typography('md')
+  })[size];
 
 type StyledLabelProps = {
   $position: LabelPosition;
-  $error: boolean;
+  $error?: boolean;
+  $size: LabelSizes;
 };
 
 const StyledLabel = styled.label<StyledLabelProps>`
-  ${({ theme, $position, $error }) => css`
-    ${theme.typography('s')}
+  ${({ theme, $position, $error, $size }) => css`
+    ${sizeCSS(theme, $size)}
     ${theme.label.base}
-    ${$error && theme.label.error}
+    ${$error && theme.label.error.base}
 
     font-weight: ${theme.fontWeight('medium')};
     align-self: flex-start;

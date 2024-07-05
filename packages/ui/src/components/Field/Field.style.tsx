@@ -2,6 +2,23 @@ import styled, { CSSProperties, css } from 'styled-components';
 
 import { Flex } from '../Flex';
 import { Label } from '../Label';
+import { FieldSizes, Theme } from '../../theme';
+
+const sizeCSS = (theme: Theme, size: FieldSizes) =>
+  ({
+    s: {
+      top: theme.spacing('s'),
+      left: `calc(${theme.spacing('md')} + 2px)`
+    },
+    md: {
+      top: theme.spacing('md'),
+      left: `calc(${theme.spacing('lg')} + 2px)`
+    },
+    lg: {
+      top: theme.spacing('md'),
+      left: `calc(${theme.spacing('xl')} + 2px)`
+    }
+  })[size];
 
 type StyledFieldProps = {
   $maxWidth?: CSSProperties['maxWidth'];
@@ -22,13 +39,13 @@ const StyledField = styled(Flex)<StyledFieldProps>`
 `;
 
 const StyledLabel = styled(Label)`
-  ${({ position, theme }) =>
+  ${({ position, theme, size = 'md' }) =>
     position === 'inside' &&
     css`
       position: absolute;
       z-index: 10;
-      top: ${theme.spacing('s')};
-      left: calc(${theme.spacing('lg')} + 2px);
+
+      ${sizeCSS(theme, size)}
     `}
 `;
 

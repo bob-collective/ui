@@ -1,7 +1,7 @@
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import { CSSProperties } from 'styled-components';
 
-import { LabelPosition } from '../../theme';
+import { FieldSizes, LabelPosition } from '../../theme';
 import { Flex, FlexProps } from '../Flex';
 import { HelperText, HelperTextProps } from '../HelperText';
 import { LabelProps } from '../Label';
@@ -15,6 +15,7 @@ type Props = {
   labelProps?: LabelProps;
   maxWidth?: CSSProperties['maxWidth'];
   fullWidth?: boolean;
+  size?: FieldSizes;
 };
 
 type NativeAttrs = Omit<HTMLAttributes<unknown>, keyof Props>;
@@ -36,6 +37,7 @@ const Field = forwardRef<HTMLDivElement, FieldProps>(
       children,
       maxWidth,
       fullWidth,
+      size = 'md',
       ...props
     },
     ref
@@ -66,7 +68,7 @@ const Field = forwardRef<HTMLDivElement, FieldProps>(
         {...props}
       >
         {label && (
-          <StyledLabel {...labelProps} position={labelPosition}>
+          <StyledLabel error={error} position={labelPosition} size={size} {...labelProps}>
             {label}
           </StyledLabel>
         )}
