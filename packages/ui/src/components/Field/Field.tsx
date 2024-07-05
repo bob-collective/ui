@@ -16,6 +16,7 @@ type Props = {
   maxWidth?: CSSProperties['maxWidth'];
   fullWidth?: boolean;
   size?: FieldSizes;
+  disabled?: boolean;
 };
 
 type NativeAttrs = Omit<HTMLAttributes<unknown>, keyof Props>;
@@ -38,6 +39,7 @@ const Field = forwardRef<HTMLDivElement, FieldProps>(
       maxWidth,
       fullWidth,
       size = 'md',
+      disabled,
       ...props
     },
     ref
@@ -62,6 +64,7 @@ const Field = forwardRef<HTMLDivElement, FieldProps>(
     return (
       <StyledField
         ref={ref}
+        $disabled={disabled}
         $fullWidth={fullWidth}
         $maxWidth={maxWidth}
         direction={labelPosition === 'outside-left' ? 'row' : 'column'}

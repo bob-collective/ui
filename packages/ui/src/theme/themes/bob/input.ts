@@ -24,11 +24,6 @@ const input: InputTheme = {
   placeholder: {
     color: color('grey-50')
   },
-  disabled: {
-    wrapper: {
-      opacity: 0.5
-    }
-  },
   error: {
     base: {
       color: color('red-500')

@@ -13,7 +13,6 @@ type InputTheme = {
     hover: { wapper: StyledObject<object> };
     focus: { wrapper: StyledObject<object> };
   };
-  disabled: { wrapper: StyledObject<object> };
   placeholder: StyledObject<object>;
   adornment: StyledObject<object>;
 };

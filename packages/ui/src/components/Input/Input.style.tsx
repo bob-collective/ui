@@ -10,7 +10,7 @@ const sizeCSS = (theme: Theme, size: InputSizes) =>
       fontWeight: theme.fontWeight('normal'),
       paddingLeft: theme.spacing('lg'),
       paddingRight: theme.spacing('lg'),
-      paddingTop: theme.spacing('3xl'),
+      paddingTop: theme.spacing('s'),
       paddingBottom: theme.spacing('s')
     },
     md: {
@@ -18,7 +18,7 @@ const sizeCSS = (theme: Theme, size: InputSizes) =>
       fontWeight: theme.fontWeight('medium'),
       paddingLeft: theme.spacing('lg'),
       paddingRight: theme.spacing('lg'),
-      paddingTop: theme.spacing('4xl'),
+      paddingTop: theme.spacing('md'),
       paddingBottom: theme.spacing('md')
     },
     lg: {
@@ -26,14 +26,16 @@ const sizeCSS = (theme: Theme, size: InputSizes) =>
       fontWeight: theme.fontWeight('medium'),
       paddingLeft: theme.spacing('lg'),
       paddingRight: theme.spacing('lg'),
-      paddingTop: theme.spacing('4xl'),
-      paddingBottom: theme.spacing('lg')
+      paddingTop: '0.625rem',
+      paddingBottom: '0.625rem'
     }
   })[size];
 
 type BaseInputProps = {
   $minHeight?: Spacing;
   $error: boolean;
+  $hasStartAdornment: boolean;
+  $hasEndAdornment: boolean;
 };
 
 type StyledAdornmentProps = {
@@ -45,11 +47,17 @@ type StyledWrapperProps = {
   $isFocused: boolean;
   $size: InputSizes;
   $error: boolean;
-  $isDisabled: boolean;
+  $isTextArea: boolean;
+};
+
+type StyledFieldProps = {
+  $disabled: boolean;
 };
 
 const StyledWrapper = styled(Flex)<StyledWrapperProps>`
-  ${({ theme, $size, $error, $isFocused, $isHovered, $isDisabled }) => css`
+  ${({ theme, $size, $error, $isFocused, $isHovered, $isTextArea }) => css`
+    width: 100%;
+    height: 100%;
     border-radius: ${theme.rounded('md')};
     border-style: solid;
     border-width: 1px;
@@ -57,21 +65,18 @@ const StyledWrapper = styled(Flex)<StyledWrapperProps>`
     ${theme.transition('common', 'normal')}
 
     ${sizeCSS(theme, $size)}
-
-    
+    height: ${$isTextArea && 'auto'};
 
     ${theme.input.wrapper}
     ${$error && theme.input.error.wrapper}
     ${$isHovered ? ($error ? theme.input.error.hover.wapper : theme.input.hover.wapper) : undefined}
     ${$isFocused ? ($error ? theme.input.error.focus.wrapper : theme.input.focus.wrapper) : undefined}
-    ${$isDisabled && theme.input.disabled.wrapper}
   `}
 `;
 
 const StyledBaseInput = styled.input<BaseInputProps>`
   display: block;
   width: 100%;
-  height: 100%;
 
   outline: none;
   font: inherit;
@@ -82,15 +87,21 @@ const StyledBaseInput = styled.input<BaseInputProps>`
 
   border: none;
 
+  margin: 0;
+  padding: 0;
+
   // Properties for textarea
   min-height: ${({ $minHeight, theme, as }) =>
     $minHeight ? theme.spacing($minHeight) : as === 'textarea' && theme.spacing('7xl')};
   resize: ${({ as }) => as === 'textarea' && 'vertical'};
 
-  ${({ theme, $error }) => css`
+  ${({ theme, $error, $hasEndAdornment, $hasStartAdornment }) => css`
     ${theme.input.base}
     ${$error && theme.input.error.wrapper}
-  
+
+    padding-inline-start: ${$hasStartAdornment && '.375rem'};
+    padding-inline-end: ${$hasEndAdornment && '.375rem'};
+
     &::placeholder {
       ${theme.input.placeholder}
     }
@@ -111,15 +122,15 @@ const StyledBaseInput = styled.input<BaseInputProps>`
 
 const StyledAdornment = styled.div<StyledAdornmentProps>`
   display: inline-flex;
-  align-items: center;
+  align-items: flex-end;
   // to not allow adornment to take more than 50% of the input. We might want to reduce this in the future.
   max-width: 50%;
   pointer-events: none;
   ${({ theme }) => theme.input.adornment};
 `;
 
-const StyledAdornmentRight = styled(StyledAdornment)``;
+const StyledField = styled(Flex)<StyledFieldProps>`
+  opacity: ${({ $disabled }) => $disabled && '.5'};
+`;
 
-const StyledAdornmentLeft = styled(StyledAdornment)``;
-
-export { StyledAdornmentLeft, StyledAdornmentRight, StyledBaseInput, StyledWrapper };
+export { StyledAdornment, StyledBaseInput, StyledWrapper, StyledField };

@@ -61,19 +61,19 @@ export const WithErrorMessage: StoryObj<InputProps> = {
 // };
 
 export const Adornments: StoryFn<InputProps> = (args) => (
-  <Flex direction='column'>
-    <Input {...args} label='Start Adornment' startAdornment={<InformationCircle />} />
-    <Input {...args} endAdornment={<InformationCircle />} label='End Adornment' />
+  <Flex direction='column' gap='md'>
+    <Input {...args} label='Start Adornment' startAdornment={<InformationCircle size='s' />} />
+    <Input {...args} endAdornment={<InformationCircle size='s' />} label='End Adornment' />
   </Flex>
 );
 
-// export const Sizes: StoryFn<InputProps> = (args) => (
-//   <Flex direction='column'>
-//     <Input {...args} label='Small' size='small' />
-//     <Input {...args} label='Medium' />
-//     <Input {...args} label='Large' size='large' />
-//   </Flex>
-// );
+export const Sizes: StoryFn<InputProps> = (args) => (
+  <Flex direction='column' gap='md'>
+    <Input {...args} label='Small' size='s' />
+    <Input {...args} label='Medium' />
+    <Input {...args} label='Large' size='lg' />
+  </Flex>
+);
 
 export const Placeholder: StoryObj<InputProps> = {
   args: {

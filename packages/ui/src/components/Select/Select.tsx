@@ -7,8 +7,9 @@ import { ForwardedRef, ReactNode, forwardRef, useRef } from 'react';
 
 import { useDOMRef } from '../../hooks';
 import { InputSizes } from '../../theme';
-import { Field, FieldProps, useFieldProps } from '../Field';
+import { FieldProps, useFieldProps } from '../Field';
 import { hasError } from '../utils/input';
+import { Flex } from '../Flex';
 
 import { SelectModal, SelectModalProps } from './SelectModal';
 import { SelectTrigger } from './SelectTrigger';
@@ -127,7 +128,7 @@ const Select = <T extends SelectObject = SelectObject>(
         );
 
   return (
-    <Field {...fieldProps}>
+    <Flex>
       <VisuallyHidden aria-hidden='true'>
         <input
           ref={inputRef}
@@ -167,7 +168,7 @@ const Select = <T extends SelectObject = SelectObject>(
           state={state}
         />
       )}
-    </Field>
+    </Flex>
   );
 };
 

@@ -7,22 +7,23 @@ import { FieldSizes, Theme } from '../../theme';
 const sizeCSS = (theme: Theme, size: FieldSizes) =>
   ({
     s: {
-      top: theme.spacing('s'),
-      left: `calc(${theme.spacing('lg')} + 2px)`
+      top: theme.spacing('xs'),
+      left: `calc(${theme.spacing('lg')} + 1px)`
     },
     md: {
-      top: theme.spacing('md'),
-      left: `calc(${theme.spacing('lg')} + 2px)`
+      top: theme.spacing('s'),
+      left: `calc(${theme.spacing('lg')} + 1px)`
     },
     lg: {
       top: theme.spacing('md'),
-      left: `calc(${theme.spacing('lg')} + 2px)`
+      left: `calc(${theme.spacing('lg')} + 1px)`
     }
   })[size];
 
 type StyledFieldProps = {
   $maxWidth?: CSSProperties['maxWidth'];
   $fullWidth?: boolean;
+  $disabled?: boolean;
 };
 
 const StyledFieldElWrapper = styled.div`
@@ -36,6 +37,7 @@ const StyledField = styled(Flex)<StyledFieldProps>`
   max-width: ${({ $maxWidth }) => $maxWidth};
   width: ${({ $fullWidth, $maxWidth }) => ($fullWidth || $maxWidth) && '100%'};
   position: relative;
+  opacity: ${({ $disabled }) => $disabled && '.5'};
 `;
 
 const StyledLabel = styled(Label)`
@@ -44,6 +46,8 @@ const StyledLabel = styled(Label)`
     css`
       position: absolute;
       z-index: 10;
+      // TODO: figure something out because this is not safe (added because it prevented hover)
+      pointer-events: none;
 
       ${sizeCSS(theme, size)}
     `}

@@ -14,7 +14,13 @@ type Props = {
 
 type InheritAttrs = Omit<
   BaseInputProps,
-  keyof Props | 'errorMessageProps' | 'descriptionProps' | 'inputProps' | 'elementType'
+  | keyof Props
+  | 'errorMessageProps'
+  | 'descriptionProps'
+  | 'inputProps'
+  | 'elementType'
+  | 'endAdornment'
+  | 'startAdornment'
 >;
 
 type AriaAttrs = Omit<AriaTextFieldOptions<'textarea'>, (keyof Props & InheritAttrs) | 'onChange'>;
