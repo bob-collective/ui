@@ -4,7 +4,7 @@ import { Flex, Spinner } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { useLocale } from '@gobob/ui';
 
-import { apiClient } from '../../../../utils';
+import { QuestRefCodes, apiClient } from '../../../../utils';
 import { useGetUser } from '../../../../hooks';
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 
@@ -59,8 +59,8 @@ const Leaderboard = (): JSX.Element => {
           [LeaderboardColumns.NAME]: item.username,
           [LeaderboardColumns.QUESTS]: item.quests_breakdown && (
             <Flex gap='xxs'>
-              {item.quests_breakdown['itxc9y'] && <QuestOwnerIcon name='galxe' />}
-              {/* <QuestOwnerIcon name='intract' /> */}
+              {item.quests_breakdown[QuestRefCodes.GALXE] && <QuestOwnerIcon name='galxe' />}
+              {item.quests_breakdown[QuestRefCodes.INTRACT] && <QuestOwnerIcon name='intract' />}
             </Flex>
           ),
           [LeaderboardColumns.SPICE]: Intl.NumberFormat(locale).format(Number(item.total_points))
@@ -82,8 +82,8 @@ const Leaderboard = (): JSX.Element => {
               spice: Intl.NumberFormat().format(user.leaderboardRank?.total_reward_points || 0),
               quests: user.quests_breakdown && (
                 <Flex gap='xxs'>
-                  {user.quests_breakdown['itxc9y'] && <QuestOwnerIcon name='galxe' />}
-                  {/* <QuestOwnerIcon name='intract' /> */}
+                  {user.quests_breakdown[QuestRefCodes.GALXE] && <QuestOwnerIcon name='galxe' />}
+                  {user.quests_breakdown[QuestRefCodes.INTRACT] && <QuestOwnerIcon name='intract' />}
                 </Flex>
               ),
               rank: <Flex paddingY='md'>{user.leaderboardRank?.rank || '-'}</Flex>

@@ -1,6 +1,11 @@
 import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
 
+export enum QuestRefCodes {
+  GALXE = 'itxc9y',
+  INTRACT = 'tbc'
+}
+
 export type UserResponse = {
   id: number;
   username: string;
