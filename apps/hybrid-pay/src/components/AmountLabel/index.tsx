@@ -1,0 +1,1 @@
+export { AmountLabel } from './AmountLabel';
