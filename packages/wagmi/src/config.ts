@@ -1,13 +1,14 @@
 import { createConfig, http } from 'wagmi';
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
 import { ChainId } from '@gobob/chains';
+import { baseSepolia } from 'viem/chains';
 
 import { Config } from './types';
 import { bob, bobSepolia } from './bob';
 import { mainnet } from './mainnet';
 import { sepolia } from './sepolia';
 
-const testnetChains = [bobSepolia, sepolia];
+const testnetChains = [bobSepolia, sepolia, baseSepolia];
 
 const prodChains = [mainnet, bob];
 
@@ -41,11 +42,13 @@ const getConfig = ({ isProd }: Config) => {
 
   return createConfig({
     chains: (isProd ? prodChains : allChains) as any,
+    multiInjectedProviderDiscovery: false,
     transports: {
       [mainnet.id]: http(),
       [sepolia.id]: http(),
       [bob.id]: http(),
-      [bobSepolia.id]: http()
+      [bobSepolia.id]: http(),
+      [baseSepolia.id]: http()
     },
     connectors
   });
