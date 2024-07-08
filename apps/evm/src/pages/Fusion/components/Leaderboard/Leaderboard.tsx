@@ -57,10 +57,10 @@ const Leaderboard = (): JSX.Element => {
           [LeaderboardColumns.RANK]: <Flex paddingY='md'>{item.rank}</Flex>,
           [LeaderboardColumns.INVITED_BY]: item.referred_by || '-',
           [LeaderboardColumns.NAME]: item.username,
-          [LeaderboardColumns.QUESTS]: (
+          [LeaderboardColumns.QUESTS]: item.quests_breakdown && (
             <Flex gap='xxs'>
-              <QuestOwnerIcon name='galxe' />
-              <QuestOwnerIcon name='intract' />
+              {item.quests_breakdown['itxc9y'] && <QuestOwnerIcon name='galxe' />}
+              {/* <QuestOwnerIcon name='intract' /> */}
             </Flex>
           ),
           [LeaderboardColumns.SPICE]: Intl.NumberFormat(locale).format(Number(item.total_points))
@@ -80,10 +80,10 @@ const Leaderboard = (): JSX.Element => {
               invitedBy: user.referred_by,
               name: user.username,
               spice: Intl.NumberFormat().format(user.leaderboardRank?.total_reward_points || 0),
-              quests: (
+              quests: user.quests_breakdown && (
                 <Flex gap='xxs'>
-                  <QuestOwnerIcon name='galxe' />
-                  <QuestOwnerIcon name='intract' />
+                  {user.quests_breakdown['itxc9y'] && <QuestOwnerIcon name='galxe' />}
+                  {/* <QuestOwnerIcon name='intract' /> */}
                 </Flex>
               ),
               rank: <Flex paddingY='md'>{user.leaderboardRank?.rank || '-'}</Flex>

@@ -19,6 +19,7 @@ export type UserResponse = {
   totalUsdDeposited: number;
   withdrawStats: any[];
   harvested: { partner_name: string; partner_refcode: string; total_points: 'string' }[];
+  quests_breakdown: Record<string, number>;
 };
 
 type LeaderboardResponse = {
@@ -53,6 +54,7 @@ type LeaderboardItem = {
   total_points: string;
   username: string;
   referred_by?: string;
+  quests_breakdown: Record<string, number>;
 };
 
 type TVLStats = {
