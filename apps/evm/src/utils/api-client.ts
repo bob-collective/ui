@@ -165,6 +165,12 @@ class ApiClient {
     return await response.json();
   }
 
+  async getQuestLeaderboard(limit: number, offset: number): Promise<LeaderboardResponse> {
+    const response = await fetch(`${this.baseUrl}/quest-leaderboard?limit=${limit}&offset=${offset}`);
+
+    return await response.json();
+  }
+
   async getTvlStats(): Promise<TVLStats> {
     const response = await fetch(`${this.baseUrl}/tvlStats`);
 
