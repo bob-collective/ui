@@ -58,9 +58,11 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         data-invalid={hasError ? true : null}
         name={name}
       >
-        <StyledTriggerValue {...valueProps} $isDisabled={disabled} $isSelected={!!children}>
-          {children || placeholder}
-        </StyledTriggerValue>
+        <Flex>
+          <StyledTriggerValue {...valueProps} $isDisabled={disabled} $isSelected={!!children}>
+            {children || placeholder}
+          </StyledTriggerValue>
+        </Flex>
         <StyledChevronDown size='xs' />
       </Comp>
     );

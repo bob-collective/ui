@@ -1,35 +1,8 @@
 import styled, { css } from 'styled-components';
 
-import { InputSizes, Spacing, Theme } from '../../theme';
+import { InputSizes, Spacing } from '../../theme';
 import { Flex } from '../Flex';
-
-const sizeCSS = (theme: Theme, size: InputSizes) =>
-  ({
-    s: {
-      ...theme.typography('s'),
-      fontWeight: theme.fontWeight('normal'),
-      paddingLeft: theme.spacing('lg'),
-      paddingRight: theme.spacing('lg'),
-      paddingTop: theme.spacing('s'),
-      paddingBottom: theme.spacing('s')
-    },
-    md: {
-      ...theme.typography('s'),
-      fontWeight: theme.fontWeight('medium'),
-      paddingLeft: theme.spacing('lg'),
-      paddingRight: theme.spacing('lg'),
-      paddingTop: theme.spacing('md'),
-      paddingBottom: theme.spacing('md')
-    },
-    lg: {
-      ...theme.typography('md'),
-      fontWeight: theme.fontWeight('medium'),
-      paddingLeft: theme.spacing('lg'),
-      paddingRight: theme.spacing('lg'),
-      paddingTop: '0.625rem',
-      paddingBottom: '0.625rem'
-    }
-  })[size];
+import { inputSizeTheme } from '../utils/input';
 
 type BaseInputProps = {
   $minHeight?: Spacing;
@@ -64,7 +37,7 @@ const StyledWrapper = styled(Flex)<StyledWrapperProps>`
 
     ${theme.transition('common', 'normal')}
 
-    ${sizeCSS(theme, $size)}
+    ${inputSizeTheme(theme, $size)}
     height: ${$isTextArea && 'auto'};
 
     ${theme.input.wrapper}

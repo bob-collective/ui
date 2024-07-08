@@ -1,9 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { ChevronDown } from '../../icons';
 import { InputSizes } from '../../theme';
 import { List } from '../List';
 import { Span } from '../Text';
+import { Flex } from '../Flex';
 
 type StyledTriggerProps = {
   $isOpen?: boolean;
@@ -16,6 +17,10 @@ type StyledTriggerProps = {
 type StyledTriggerValueProps = {
   $isDisabled?: boolean;
   $isSelected?: boolean;
+};
+
+type StyledFieldProps = {
+  $disabled?: boolean;
 };
 
 const StyledTrigger = styled.button<StyledTriggerProps>`
@@ -32,37 +37,6 @@ const StyledTrigger = styled.button<StyledTriggerProps>`
   text-align: left;
 
   cursor: ${({ $isDisabled }) => !$isDisabled && 'pointer'};
-
-  ${({ theme, $size, $hasError, $hasValue }) => {
-    const { paddingRight, paddingTop, paddingBottom, paddingLeft, ...sizeCss } = theme.input.size[$size];
-    const { color, ...baseCss } = theme.input.base;
-
-    return css`
-      padding-top: ${paddingTop};
-      padding-bottom: ${paddingBottom};
-      padding-left: ${paddingLeft};
-      padding-right: ${paddingRight};
-
-      color: ${$hasValue ? color : theme.input.placeholder.color};
-
-      ${sizeCss}
-      ${baseCss}
-      ${$hasError && theme.input.error.base}
-
-
-      &:hover:not(:disabled):not(:focus) {
-        ${$hasError ? theme.input.error.hover : theme.input.hover}
-      }
-
-      &:focus:not(:disabled) {
-        ${$hasError ? theme.input.error.focus : theme.input.focus}
-      }
-
-      &:disabled {
-        ${theme.input.disabled}
-      }
-    `;
-  }}
 `;
 
 const StyledTriggerValue = styled(Span)<StyledTriggerValueProps>`
@@ -90,4 +64,8 @@ const StyledChevronDown = styled(ChevronDown)`
   margin-left: ${({ theme }) => theme.spacing('md')};
 `;
 
-export { StyledChevronDown, StyledList, StyledTrigger, StyledTriggerValue };
+const StyledField = styled(Flex)<StyledFieldProps>`
+  opacity: ${({ $disabled }) => $disabled && '.5'};
+`;
+
+export { StyledField, StyledChevronDown, StyledList, StyledTrigger, StyledTriggerValue };

@@ -9,10 +9,10 @@ import { useDOMRef } from '../../hooks';
 import { InputSizes } from '../../theme';
 import { FieldProps, useFieldProps } from '../Field';
 import { hasError } from '../utils/input';
-import { Flex } from '../Flex';
 
 import { SelectModal, SelectModalProps } from './SelectModal';
 import { SelectTrigger } from './SelectTrigger';
+import { StyledField } from './Select.style';
 
 type SelectObject = Record<any, any>;
 
@@ -71,6 +71,9 @@ const Select = <T extends SelectObject = SelectObject>(
     items,
     disabledKeys,
     children,
+    className,
+    hidden,
+    style,
     ...props
   }: SelectProps<T>,
   ref: ForwardedRef<HTMLInputElement>
@@ -128,7 +131,7 @@ const Select = <T extends SelectObject = SelectObject>(
         );
 
   return (
-    <Flex>
+    <StyledField $disabled={disabled} className={className} direction='column' hidden={hidden} style={style}>
       <VisuallyHidden aria-hidden='true'>
         <input
           ref={inputRef}
@@ -168,7 +171,7 @@ const Select = <T extends SelectObject = SelectObject>(
           state={state}
         />
       )}
-    </Flex>
+    </StyledField>
   );
 };
 
