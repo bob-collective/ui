@@ -10,9 +10,11 @@ type UseBalanceProps = Omit<
   'initialData' | 'queryFn' | 'queryKey' | 'enabled'
 >;
 
-const useBalance = (props: UseBalanceProps = {}) => {
+const useBalance = ({ address: addressProp, ...props }: UseBalanceProps & { address?: string } = {}) => {
   const { network } = useSatsWagmi();
-  const { address } = useAccount();
+  const account = useAccount();
+
+  const address = addressProp || account.address;
 
   const apiUrl = useMemo(
     () => (network === 'mainnet' ? 'https://btc-mainnet.gobob.xyz' : 'https://btc-testnet.gobob.xyz'),

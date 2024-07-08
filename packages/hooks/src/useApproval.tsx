@@ -9,8 +9,7 @@ import { USDTAbi } from './abis/USDT.abi';
 
 const UINT_256_MAX = BigInt(2 ** 256) - BigInt(1);
 
-export const useGetApprovalData = (amount: CurrencyAmount<Token> | undefined, spender?: Address) => {
-  const { address } = useAccount();
+export const useGetApprovalData = (amount: CurrencyAmount<Token> | undefined, address?: Address, spender?: Address) => {
   const { allowance, refetch } = useTokenAllowance({ token: amount?.currency, owner: address, spender });
 
   const isRevokeRequired = useMemo((): boolean => {
@@ -50,7 +49,7 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
 
   const tokenAmount = (amount?.currency?.isToken ? amount : undefined) as CurrencyAmount<Token> | undefined;
 
-  const { isRevokeRequired, isApproveRequired, allowance, refetch } = useGetApprovalData(tokenAmount, spender);
+  const { isRevokeRequired, isApproveRequired, allowance, refetch } = useGetApprovalData(tokenAmount, address, spender);
 
   const abi = useMemo(
     () => (tokenAmount?.currency.symbol === USDT_ETH.symbol ? USDTAbi : erc20Abi) as typeof erc20Abi,
