@@ -5,16 +5,17 @@ export const config = {
   runtime: 'edge'
 };
 
-async function extractBody(request) {  
+async function extractBody(request) {
   const dec = new TextDecoder();
   const reader = request.body.getReader();
-  let body = ""
+  let body = '';
 
   while (true) {
     const { done, value } = await reader.read();
+
     if (done) return body;
 
-    body = body + dec.decode(value)
+    body = body + dec.decode(value);
   }
 }
 
