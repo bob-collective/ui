@@ -8,7 +8,10 @@ Sentry.init({
     'User rejected the request',
     'Talisman extension has not been configured yet',
     '"MetaMask" does not support programmatic chain switching',
-    'Failed to fetch dynamically imported module'
+    'Failed to fetch dynamically imported module',
+    // Sentry recommend filtering out the following
+    // https://blog.sentry.io/making-your-javascript-projects-less-noisy/
+    "Failed to execute 'removeChild' on 'Node'"
   ],
   tunnel: '/tunnel',
   integrations: [
@@ -21,7 +24,19 @@ Sentry.init({
       createRoutesFromChildren,
       matchRoutes
     }),
-    Sentry.replayIntegration()
+    Sentry.replayIntegration(),
+    Sentry.thirdPartyErrorFilterIntegration({
+      // Specify the application keys that you specified in the Sentry bundler plugin
+      filterKeys: ['bob-ui-application-key'],
+
+      // Defines how to handle errors that contain third party stack frames.
+      // Possible values are:
+      // - 'drop-error-if-contains-third-party-frames'
+      // - 'drop-error-if-exclusively-contains-third-party-frames'
+      // - 'apply-tag-if-contains-third-party-frames'
+      // - 'apply-tag-if-exclusively-contains-third-party-frames'
+      behaviour: 'drop-error-if-contains-third-party-frames'
+    })
   ],
 
   // Set tracesSampleRate to 1.0 to capture 100%

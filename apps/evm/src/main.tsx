@@ -1,4 +1,4 @@
-import './utils/sentry';
+import '../sentry';
 import { ConnectProvider } from '@gobob/connect-ui';
 import { QueryClientProvider } from '@gobob/react-query';
 import { SatsWagmiConfig } from '@gobob/sats-wagmi';
