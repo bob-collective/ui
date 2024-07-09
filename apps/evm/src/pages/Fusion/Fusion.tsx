@@ -6,9 +6,10 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { Geoblock, Main } from '../../components';
 import { LocalStorageKey } from '../../constants';
 
-import { Challenges, Dashboard, Info, Leaderboard, PartnersSection } from './components';
+import { Challenges, Dashboard, Info, PartnersSection } from './components';
 import { StyledUpdateMark } from './Fusion.style';
 import { FusionCarousel } from './components/FusionCarousel';
+import { AllUsersLeaderboard, QuestUsersLeaderboard } from './components/Leaderboard';
 
 const Fusion = () => {
   const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams('tab=dashboard'));
@@ -59,10 +60,10 @@ const Fusion = () => {
             </Flex>
           </TabsItem>
           <TabsItem key='leaderboard' title='Leaderboard'>
-            <Leaderboard />
+            <AllUsersLeaderboard />
           </TabsItem>
           <TabsItem key='quest-leaderboard' title='Quest Leaderboard'>
-            <Leaderboard />
+            <QuestUsersLeaderboard />
           </TabsItem>
           <TabsItem
             key='info'

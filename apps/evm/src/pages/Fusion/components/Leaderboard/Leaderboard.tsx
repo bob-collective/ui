@@ -1,16 +1,8 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
-import { ReactNode, useId, useMemo } from 'react';
-import { Flex, Spinner } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
-import { useLocale } from '@gobob/ui';
-
-import { QuestRefCodes, apiClient } from '../../../../utils';
-import { useGetUser } from '../../../../hooks';
-import { QuestOwnerIcon } from '../QuestOwnerAvatar';
+import { ReactNode } from 'react';
 
 import { StyledTable } from './Leaderboard.style';
 
-enum LeaderboardColumns {
+export enum LeaderboardColumns {
   RANK = 'rank',
   NAME = 'name',
   INVITED_BY = 'invitedBy',
@@ -18,7 +10,7 @@ enum LeaderboardColumns {
   SPICE = 'spice'
 }
 
-type LeaderboardRow = {
+export type LeaderboardRow = {
   id: string;
   [LeaderboardColumns.RANK]: ReactNode;
   [LeaderboardColumns.NAME]: ReactNode;
@@ -27,95 +19,38 @@ type LeaderboardRow = {
   [LeaderboardColumns.SPICE]: ReactNode;
 };
 
-// const fetchSize = 50;
+const columns = [
+  { name: 'Rank', id: LeaderboardColumns.RANK },
+  { name: 'Name', id: LeaderboardColumns.NAME },
+  { name: 'Invited By', id: LeaderboardColumns.INVITED_BY },
+  { name: 'Quests', id: LeaderboardColumns.QUESTS },
+  { name: 'Spice', id: LeaderboardColumns.SPICE }
+];
+
+type Props = {
+  id: string;
+  rows: LeaderboardRow[];
+};
+
+type LeaderboardProps = Props;
 
 const userRankKey = 'userRankKey';
 
-const Leaderboard = (): JSX.Element => {
-  const { address } = useAccount();
-  const id = useId();
-  const { locale } = useLocale();
-
-  const { data: user } = useGetUser();
-
-  const columns = [
-    { name: 'Rank', id: LeaderboardColumns.RANK },
-    { name: 'Name', id: LeaderboardColumns.NAME },
-    { name: 'Invited By', id: LeaderboardColumns.INVITED_BY },
-    { name: 'Quests', id: LeaderboardColumns.QUESTS },
-    { name: 'Spice', id: LeaderboardColumns.SPICE }
-  ];
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['leaderboard'],
-    queryFn: async () => {
-      const fetchedData = await apiClient.getLeaderboard(100, 0);
-
-      return fetchedData.leaderboard.map((item, idx) => {
-        return {
-          id: `${item.deposit_owner}${idx}`,
-          [LeaderboardColumns.RANK]: <Flex paddingY='md'>{item.rank}</Flex>,
-          [LeaderboardColumns.INVITED_BY]: item.referred_by || '-',
-          [LeaderboardColumns.NAME]: item.username,
-          [LeaderboardColumns.QUESTS]: item.quests_breakdown && (
-            <Flex gap='xxs'>
-              {item.quests_breakdown[QuestRefCodes.GALXE] && <QuestOwnerIcon name='galxe' />}
-              {item.quests_breakdown[QuestRefCodes.INTRACT] && <QuestOwnerIcon name='intract' />}
-            </Flex>
-          ),
-          [LeaderboardColumns.SPICE]: Intl.NumberFormat(locale).format(Number(item.total_points))
-        };
-      });
-    },
-    refetchOnWindowFocus: false,
-    refetchInterval: INTERVAL.MINUTE
-  });
-
-  const flatData: LeaderboardRow[] = useMemo(() => {
-    const userData =
-      address && user
-        ? [
-            {
-              id: userRankKey,
-              invitedBy: user.referred_by,
-              name: user.username,
-              spice: Intl.NumberFormat().format(user.leaderboardRank?.total_reward_points || 0),
-              quests: user.quests_breakdown && (
-                <Flex gap='xxs'>
-                  {user.quests_breakdown[QuestRefCodes.GALXE] && <QuestOwnerIcon name='galxe' />}
-                  {user.quests_breakdown[QuestRefCodes.INTRACT] && <QuestOwnerIcon name='intract' />}
-                </Flex>
-              ),
-              rank: <Flex paddingY='md'>{user.leaderboardRank?.rank || '-'}</Flex>
-            }
-          ]
-        : [];
-
-    return [...userData, ...(data || [])];
-  }, [data, address, user]);
-
+const Leaderboard = ({ id, rows }: LeaderboardProps): JSX.Element => {
   return (
-    <>
-      {isLoading ? (
-        <Flex justifyContent='center' marginTop='8xl'>
-          <Spinner size='36' thickness={5} />
-        </Flex>
-      ) : (
-        <StyledTable
-          isStickyHeader
-          aria-labelledby={id}
-          columns={columns}
-          rows={flatData || []}
-          selectedKeys={[userRankKey]}
-          selectionMode='single'
-          wrapperProps={
-            {
-              marginTop: '4xl'
-            } as any
-          }
-        />
-      )}
-    </>
+    <StyledTable
+      isStickyHeader
+      aria-labelledby={id}
+      columns={columns}
+      rows={rows}
+      selectedKeys={[userRankKey]}
+      selectionMode='single'
+      wrapperProps={
+        {
+          marginTop: '4xl'
+        } as any
+      }
+    />
   );
 };
 
