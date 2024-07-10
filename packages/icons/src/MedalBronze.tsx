@@ -52,6 +52,6 @@ const MedalBronze = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   </Icon>
 ));
 
-MedalBronze.displayName = 'Bronze Medal';
+MedalBronze.displayName = 'BronzeMedal';
 
 export { MedalBronze };
