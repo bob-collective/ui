@@ -225,11 +225,19 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               </P>
               <P size='s'>
                 By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the{' '}
-                <TextLink external href={PolicyLinks.T_AND_C} size='inherit'>
+                <TextLink
+                  external
+                  href='https://assets-global.website-files.com/64e85c2f3609488b3ed725f4/662a1cdc27ef55b556ce1aa6_GoBob_-_Terms_of_Service.pdf'
+                  size='inherit'
+                >
                   Terms of Service
                 </TextLink>{' '}
                 and that you have read and understood our{' '}
-                <TextLink external href={PolicyLinks.PRIVACY} size='inherit'>
+                <TextLink
+                  external
+                  href='https://assets-global.website-files.com/64e85c2f3609488b3ed725f4/6581e374998f316bd9c6f684_gobob.xyz%20-%20Website%20Privacy%20policy.pdf'
+                  size='inherit'
+                >
                   Privacy policy
                 </TextLink>
                 .
