@@ -74,7 +74,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
                     <NavItem
                       isExternal
                       size='s'
-                      to='https://assets-global.website-files.com/64e85c2f3609488b3ed725f4/662a1cdc27ef55b556ce1aa6_GoBob_-_Terms_of_Service.pdf'
+                      to='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
                     >
                       {t('navigation.t_and_c')}
                     </NavItem>
