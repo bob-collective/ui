@@ -1,4 +1,16 @@
-import { Button, Flex, Modal, ModalBody, ModalFooter, ModalHeader, ModalProps, P, toast, ArrowLeft } from '@gobob/ui';
+import {
+  Button,
+  Flex,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalProps,
+  P,
+  toast,
+  ArrowLeft,
+  TextLink
+} from '@gobob/ui';
 import { Address, Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from '@gobob/wagmi';
 import {
   useAccount as useSatsAccount,
@@ -210,6 +222,25 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               <P size='s'>
                 On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it&apos;s
                 advised to connect wallets from both networks.
+              </P>
+              <P size='s'>
+                By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the{' '}
+                <TextLink
+                  external
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
+                  size='inherit'
+                >
+                  Terms of Service
+                </TextLink>{' '}
+                and that you have read and understood our{' '}
+                <TextLink
+                  external
+                  href='https://assets-global.website-files.com/64e85c2f3609488b3ed725f4/6581e374998f316bd9c6f684_gobob.xyz%20-%20Website%20Privacy%20policy.pdf'
+                  size='inherit'
+                >
+                  Privacy policy
+                </TextLink>
+                .
               </P>
               <Flex direction='column' gap='lg'>
                 {connector && address ? (
