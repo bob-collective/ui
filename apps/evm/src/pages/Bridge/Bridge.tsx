@@ -1,11 +1,11 @@
-import { Alert, ArrowTopRightOnSquare, Flex, H1, P, Strong, Tabs, TabsItem, TextLink, XMark } from '@gobob/ui';
+import { ArrowTopRightOnSquare, Flex, H1, P, Tabs, TabsItem, XMark } from '@gobob/ui';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { useLocalStorage } from '@uidotdev/usehooks';
 
 import { Main } from '../../components';
-import { L1_CHAIN, L2_CHAIN, LocalStorageKey, DocsLinks, RoutesPath } from '../../constants';
+import { L1_CHAIN, L2_CHAIN, LocalStorageKey, RoutesPath } from '../../constants';
 import bannerSrc from '../../assets/ecosystem-banner.png';
 import { FeatureFlags, useFeatureFlag } from '../../hooks';
 
@@ -56,9 +56,9 @@ const Bridge = () => {
   );
   const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
 
-  const [isFaultProofNoticeHidden, setFaultProofNoticeHidden] = useLocalStorage(
-    LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
-  );
+  // const [isFaultProofNoticeHidden, setFaultProofNoticeHidden] = useLocalStorage(
+  //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
+  // );
 
   const handleChangeTab = useCallback((key: any) => {
     setType(key as any);
@@ -96,9 +96,9 @@ const Bridge = () => {
     setBridgeOrigin(BridgeOrigin.INTERNAL);
   }, []);
 
-  const handleCloseFaultProofNotice = useCallback(() => {
-    setFaultProofNoticeHidden(true);
-  }, [setFaultProofNoticeHidden]);
+  // const handleCloseFaultProofNotice = useCallback(() => {
+  //   setFaultProofNoticeHidden(true);
+  // }, [setFaultProofNoticeHidden]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -159,7 +159,7 @@ const Bridge = () => {
             </StyledBanner>
           )
         )}
-        {!isFaultProofNoticeHidden && (
+        {/* {!isFaultProofNoticeHidden && (
           <Alert marginTop='xl' status='info' onClose={handleCloseFaultProofNotice}>
             <P size='s'>
               <Strong size='inherit'>NOTICE: Fault Proofs are coming to BOB.</Strong> Withdrawals starting on July 4
@@ -170,7 +170,7 @@ const Bridge = () => {
               </TextLink>
             </P>
           </Alert>
-        )}
+        )} */}
         <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
           <StyledCard>
             <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
