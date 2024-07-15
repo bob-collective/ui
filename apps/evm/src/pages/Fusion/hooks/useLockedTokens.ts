@@ -23,20 +23,22 @@ const useLockedTokens = () => {
     queryFn: async () => {
       const lockedTokens = (
         await Promise.all(
-          l1Tokens!.map(async (token) => {
-            try {
-              const amount = await publicClient!.readContract({
-                abi: FusionLockAbi,
-                address: lockContract.address,
-                functionName: 'deposits',
-                args: [address!, token.raw.address]
-              });
+          l1Tokens!
+            .filter((token) => !token.raw.bridgeDisabled)
+            .map(async (token) => {
+              try {
+                const amount = await publicClient!.readContract({
+                  abi: FusionLockAbi,
+                  address: lockContract.address,
+                  functionName: 'deposits',
+                  args: [address!, token.raw.address]
+                });
 
-              return amount > 0n ? token : undefined;
-            } catch (e) {
-              return undefined;
-            }
-          })
+                return amount > 0n ? token : undefined;
+              } catch (e) {
+                return undefined;
+              }
+            })
         )
       ).filter(Boolean);
 
