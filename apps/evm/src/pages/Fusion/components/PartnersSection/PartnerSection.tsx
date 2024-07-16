@@ -29,7 +29,12 @@ const PartnersSection = () => {
         partnerData.partners
           // NOTE: Remove category check when adding quest project cards
           .filter((result) => result.show_on_app_store && result.category.toLowerCase() !== 'quest')
-          .sort((a, b) => Number(b.points_distributed_per_hour) - Number(a.points_distributed_per_hour))
+          .sort(
+            (a, b) =>
+              // partner.live property is a boolean
+              Number(!!b.live) - Number(!!a.live) ||
+              Number(b.points_distributed_per_hour) - Number(a.points_distributed_per_hour)
+          )
       );
     },
     refetchOnWindowFocus: false,
