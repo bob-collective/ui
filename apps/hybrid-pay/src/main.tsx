@@ -11,7 +11,6 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import { queryClient } from './lib/react-query';
-import { isProd } from './constants';
 import './index.css';
 import './utils/sentry';
 
@@ -23,7 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         walletConnectors: [EthereumWalletConnectors, BitcoinWalletConnectors, ZeroDevSmartWalletConnectors]
       }}
     >
-      <WagmiProvider isProd={isProd}>
+      <WagmiProvider isProd={false}>
         <QueryClientProvider client={queryClient}>
           <DynamicWagmiConnector>
             <BOBUIProvider>
