@@ -6,7 +6,6 @@ import {
   Dt,
   Flex,
   H2,
-  InformationCircle,
   Modal,
   ModalBody,
   ModalHeader,
@@ -22,7 +21,6 @@ import { useMemo } from 'react';
 import { useGetUser } from '../../../../hooks';
 import { WithdrawForm } from '../WithdrawForm';
 import { DepositedAssets } from '../UserStats/DepositedAssets';
-import { StyledCard } from '../PartnersSection/PartnerCard.style';
 
 type Props = {
   isSmartAccount?: boolean;
@@ -55,17 +53,6 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
         </Flex>
       </ModalHeader>
       <ModalBody gap='lg'>
-        <StyledCard alignItems='center' direction='row' gap='md'>
-          <InformationCircle />
-          <P color='grey-200' size='s'>
-            Due to an exploit involving the XLink bridge, Alex Lab has disabled bridging and withdrawing ALEX. If you
-            possess ALEX tokens from Fusion Season 1, you can migrate them to ALEX V2. For additional details see the{' '}
-            <TextLink external href='https://x.com/ALEXLabBTC/status/1790815791832498291' size='inherit'>
-              announcement from ALEX Lab
-            </TextLink>
-            .
-          </P>
-        </StyledCard>
         <P color='grey-200' size='s'>
           <Trans
             i18nKey='fusion.withdrawModal.summary'
@@ -89,6 +76,9 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
             }}
             i18nKey='fusion.withdrawModal.share'
           />
+        </P>
+        <P color='grey-200' size='s'>
+          {t('fusion.withdrawModal.seasonTwoDescription')}
         </P>
         <Dl justifyContent='space-between'>
           <DepositedAssets />
