@@ -6,9 +6,18 @@ import wasm from 'vite-plugin-wasm';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd());
+  // Load env file based on `mode` in the current working directory.
+  // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
+  const env = loadEnv(mode, process.cwd(), '');
 
   return {
+    define: {
+      __APP_ENV__: JSON.stringify(env.APP_ENV)
+    },
+    build: {
+      target: 'esnext',
+      sourcemap: true // Source map generation must be turned on
+    },
     plugins: [
       react(),
       nodePolyfills(),
@@ -20,10 +29,6 @@ export default defineConfig(({ mode }) => {
         authToken: process.env.SENTRY_AUTH_TOKEN
       })
     ],
-    build: {
-      target: 'esnext',
-      sourcemap: true // Source map generation must be turned on
-    },
     server: {
       proxy: {
         '/api': {
