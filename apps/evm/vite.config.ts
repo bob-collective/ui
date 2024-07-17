@@ -14,10 +14,6 @@ export default defineConfig(({ mode }) => {
     define: {
       __APP_ENV__: JSON.stringify(env.APP_ENV)
     },
-    build: {
-      target: 'esnext',
-      sourcemap: true // Source map generation must be turned on
-    },
     plugins: [
       react(),
       nodePolyfills(),
@@ -29,6 +25,10 @@ export default defineConfig(({ mode }) => {
         project: 'bob-ui'
       })
     ],
+    build: {
+      target: 'esnext',
+      sourcemap: true // Source map generation must be turned on
+    },
     server: {
       proxy: {
         '/api': {
