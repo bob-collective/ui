@@ -14,10 +14,10 @@ export default defineConfig(({ mode }) => {
       nodePolyfills(),
       wasm(),
       sentryVitePlugin({
-        applicationKey: 'bob-ui-application-key',
-        authToken: env.VITE_SENTRY_AUTH_TOKEN,
         org: 'distributed-crafts',
-        project: 'bob-ui'
+        project: 'bob-ui',
+        applicationKey: 'bob-ui-application-key',
+        authToken: process.env.SENTRY_AUTH_TOKEN
       })
     ],
     build: {
