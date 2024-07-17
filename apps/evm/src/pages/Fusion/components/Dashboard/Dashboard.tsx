@@ -21,6 +21,8 @@ const Dashboard = () => {
 
   const hasAlex = useMemo(() => haltedLockedTokens?.find((token) => token.raw.symbol === 'ALEX'), [haltedLockedTokens]);
 
+  console.log('haltedLockedTokens', haltedLockedTokens, 'hasAlex', hasAlex);
+
   return (
     <Flex direction='column' gap='xl' marginTop='3xl'>
       <StyledCard alignItems='center' direction='row' gap='md'>
