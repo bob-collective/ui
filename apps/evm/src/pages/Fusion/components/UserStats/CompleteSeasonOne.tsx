@@ -1,5 +1,5 @@
 import { Button } from '@gobob/ui';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 
 import { WithdrawModal } from '../WithdrawModal';
@@ -9,12 +9,6 @@ const CompleteSeasonOne = () => {
   const { isContract: isSmartAccount } = useIsContract({ address });
 
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (typeof isSmartAccount === 'boolean') {
-      setIsWithdrawModalOpen(true);
-    }
-  }, [isSmartAccount]);
 
   return (
     <>
