@@ -59,7 +59,7 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
           <InformationCircle />
           <P color='grey-200' size='s'>
             Due to an exploit involving the XLink bridge, Alex Lab has disabled bridging and withdrawing ALEX. If you
-            possess ALEX tokens from Fusion Season 1, you can migrate them to Alex V2. For additional details see the{' '}
+            possess ALEX tokens from Fusion Season 1, you can migrate them to ALEX V2. For additional details see the{' '}
             <TextLink external href='https://x.com/ALEXLabBTC/status/1790815791832498291' size='inherit'>
               announcement from ALEX Lab
             </TextLink>
