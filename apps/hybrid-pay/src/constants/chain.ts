@@ -1,9 +1,9 @@
-import { ChainId, getChainIdByChainName } from '@gobob/chains';
+import { ChainId } from '@gobob/chains';
 
-const CHAIN = getChainIdByChainName(import.meta.env.VITE_CHAIN_NAME) as ChainId;
+const CHAIN = Number(import.meta.env.VITE_CHAIN_ID) as ChainId;
 
 if (!CHAIN) {
-  throw new Error('Missing L1 chain');
+  throw new Error('Missing chain');
 }
 
 export { CHAIN };

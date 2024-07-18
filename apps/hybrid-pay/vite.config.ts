@@ -34,6 +34,11 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       proxy: {
+        '/api': {
+          target: env.VITE_API_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '')
+        },
         '/dynamic-api': {
           target: env.VITE_DYNAMIC_API_URL,
           changeOrigin: true,
