@@ -57,18 +57,18 @@ const useKernelClient = (gasToken?: Currency) => {
         middleware: {
           gasPrice: async () => (await bundlerClient.getUserOperationGasPrice()).fast,
           // MEMO: uncomment for fully sponsored tx
-          // sponsorUserOperation: async ({ userOperation }) => {
-          //   const paymaster = createPimlicoPaymasterClient({
-          //     chain,
-          //     entryPoint: ENTRYPOINT_ADDRESS_V07,
-          //     // Get this RPC from ZeroDev dashboard
-          //     transport: http(getBundlerByChainId(chain.id))
-          //   });
-
-          //   return paymaster.sponsorUserOperation({
-          //     userOperation
-          //   });
-          // }
+          //           sponsorUserOperation: async ({ userOperation }) => {
+          //             const paymaster = createPimlicoPaymasterClient({
+          //               chain,
+          //               entryPoint: ENTRYPOINT_ADDRESS_V07,
+          //               // Get this RPC from ZeroDev dashboard
+          //               transport: http(getBundlerByChainId(chain.id))
+          //             });
+          //
+          //             return paymaster.sponsorUserOperation({
+          //               userOperation
+          //             });
+          //           }
           sponsorUserOperation: async (args) => {
             const gasEstimates = await bundlerClient.estimateUserOperationGas({
               userOperation: {
@@ -77,9 +77,31 @@ const useKernelClient = (gasToken?: Currency) => {
               }
             });
 
+            // We need to estimate gas prior to adding paymaster data, since the guarantor signs the gas limits.
+            // However, adding the guarantor actually increases the required gas. As a workaround, we add fixed
+            // amounts of gas here to account for the guarantor gas usage
+            gasEstimates.paymasterVerificationGasLimit! += 25000n; // observed increase was 13992
+            gasEstimates.paymasterPostOpGasLimit! += 20000n; // observed increase was 10678
+
+            const fullUserOp = {
+              paymaster,
+              ...args.userOperation,
+              ...gasEstimates
+            };
+
+            // can't json-serialize bigints - convert them to strings
+            BigInt.prototype['toJSON'] = function () {
+              return this.toString();
+            };
+            const body = JSON.stringify(fullUserOp);
+
+            const rawData = await fetch('/fusion-api/guarantor', { method: 'POST', body });
+            const paymasterData = (await rawData.json()).paymasterData;
+
             return {
               ...gasEstimates,
-              paymaster
+              paymaster,
+              paymasterData
             };
           }
         }
