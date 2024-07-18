@@ -39,6 +39,11 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/dynamic-api/, '')
         },
+        '/fusion-api': {
+          target: env.VITE_FUSION_API,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '')
+        },
         '/onramp-api': {
           target: env.VITE_ONRAMP_API_URL,
           changeOrigin: true,
