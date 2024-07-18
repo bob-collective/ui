@@ -1,15 +1,11 @@
-import { Bars3, Button, Flex, FlexProps, useMediaQuery } from '@gobob/ui';
-import { useTheme } from 'styled-components';
-import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
+import { DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { ArrowLeft, Button, Flex, FlexProps, Span } from '@gobob/ui';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
-import { SocialsGroup } from '../SocialsGroup';
+import { RoutesPath } from '../../constants';
 
 import { StyledHeader, StyledLogoWrapper } from './Layout.style';
-import { useLayoutContext } from './LayoutContext';
-import { Nav } from './Nav';
-import { NavItem } from './NavItem';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 
@@ -17,35 +13,28 @@ type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 
 type HeaderProps = Props & InheritAttrs;
 
-const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => {
-  const { setSidebarOpen } = useLayoutContext();
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+const Header = ({ ...props }: HeaderProps): JSX.Element => {
+  const { isAuthenticated } = useDynamicContext();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>
       <StyledLogoWrapper alignItems='center' gap='md'>
-        {isMobile && (
-          <Button isIconOnly aria-label='open drawer' variant='ghost' onPress={() => setSidebarOpen(true)}>
-            <Bars3 size='lg' />
-          </Button>
+        {pathname === RoutesPath.HOME ? (
+          <Logo to={RoutesPath.HOME} />
+        ) : (
+          <Flex alignItems='center'>
+            <Button size='s' variant='ghost' onPress={() => navigate(RoutesPath.HOME)}>
+              <ArrowLeft size='s' strokeWidth={2} />
+            </Button>
+            <Span size='lg' weight='bold'>
+              {pathname === RoutesPath.SEND ? 'Send' : 'Recieve'}
+            </Span>
+          </Flex>
         )}
-        {!isMobile && <Logo isFusion={isFusion} isTestnet={isTestnet} />}
       </StyledLogoWrapper>
-      <Flex alignItems='center' elementType='nav' gap='xl' justifyContent='flex-end'>
-        {!isMobile && (
-          <>
-            <Nav>
-              <NavItem size='s' to={RoutesPath.HOME}>
-                Home
-              </NavItem>
-            </Nav>
-            <SocialsGroup variant='ghost' />
-          </>
-        )}
-        <DynamicWidget />
-      </Flex>
+      {isAuthenticated && <DynamicWidget />}
     </StyledHeader>
   );
 };

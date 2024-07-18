@@ -66,7 +66,7 @@ const useBalances = (chainId: ChainId) => {
 
   const getBalance = useCallback((symbol: string) => balances?.[symbol], [balances]);
 
-  return { ...queryResult, balances, getBalance, refetch: chain(refetch, refetchErc20) };
+  return { ...queryResult, balances, erc20Balances, getBalance, refetch: chain(refetch, refetchErc20) };
 };
 
 export { useBalances };
