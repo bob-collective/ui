@@ -1,5 +1,7 @@
 const RoutesPath = {
-  HOME: '/'
+  HOME: '/',
+  SEND: '/send',
+  RECIEVE: '/recieve'
 };
 
 export { RoutesPath };

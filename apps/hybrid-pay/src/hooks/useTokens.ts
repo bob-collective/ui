@@ -16,6 +16,16 @@ const useTokens = (chainId: ChainId) => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR,
+    initialData: () =>
+      tokens
+        .filter((token) => token.chainId === chainId)
+        .map((token) => ({
+          raw: token,
+          currency:
+            token.symbol === NATIVE[chainId].symbol
+              ? Ether.onChain(chainId)
+              : new ERC20Token(chainId, token.address, token.decimals, token.symbol, token.name)
+        })),
     queryFn: async () =>
       tokens
         .filter((token) => token.chainId === chainId)

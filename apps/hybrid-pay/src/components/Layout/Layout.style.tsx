@@ -1,6 +1,4 @@
-import { MaxWidth, ResponsiveProp, Spacing, Span } from '@gobob/ui';
-import { Drawer, Flex } from '@gobob/ui';
-import { NavLink } from 'react-router-dom';
+import { Flex, MaxWidth, ResponsiveProp, Spacing } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
 type StyledMainProps = {
@@ -28,10 +26,6 @@ const StyledLogoWrapper = styled(Flex)`
   padding-left: ${({ theme }) => theme.spacing('3xl')};
 `;
 
-const StyledDrawer = styled(Drawer)`
-  height: 100%;
-`;
-
 const StyledMain = styled.main<StyledMainProps>`
   width: 100%;
   overflow-x: hidden;
@@ -52,44 +46,4 @@ const StyledMain = styled.main<StyledMainProps>`
   min-height: calc(100vh - 4.75rem);
 `;
 
-// TODO: to be removed
-const StyledContent = styled.div`
-  position: relative;
-`;
-
-type StyledNavLinkProps = {
-  $isActive?: boolean;
-};
-
-const StyledNativeNavLink = styled(NavLink)<StyledNavLinkProps>`
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledNavLink = styled(Span)<StyledNavLinkProps>`
-  ${({ theme }) => theme.transition('common', 'normal')}
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const StyledAnchor = styled.a`
-  text-decoration: none;
-  font: inherit;
-  color: inherit;
-`;
-
-export {
-  StyledDrawer,
-  StyledHeader,
-  StyledNativeNavLink,
-  StyledNavLink,
-  StyledAnchor,
-  StyledContent,
-  StyledLogoWrapper,
-  StyledLayout,
-  StyledMain
-};
+export { StyledHeader, StyledLayout, StyledLogoWrapper, StyledMain };
