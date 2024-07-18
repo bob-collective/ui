@@ -21,6 +21,7 @@ const Dashboard = () => {
 
   const hasAlex = useMemo(() => haltedLockedTokens?.find((token) => token.raw.symbol === 'ALEX'), [haltedLockedTokens]);
 
+  // eslint-disable-next-line no-console
   console.log('haltedLockedTokens', haltedLockedTokens, 'hasAlex', hasAlex);
 
   return (
