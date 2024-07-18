@@ -9,6 +9,7 @@ import { useMemo } from 'react';
 import { Address, http } from 'viem';
 import { useAccount } from 'wagmi';
 
+import { CHAIN } from '../constants';
 import { getBundlerByChainId } from '../lib/account-abstraction/bundler';
 
 type Paymasters = Partial<Record<ChainId, Record<string, Address>>>;
@@ -42,7 +43,7 @@ const useKernelClient = (gasToken?: Currency) => {
     return;
   }
 
-  const paymaster = gasToken ? paymasters?.[chain?.id as ChainId]?.[gasToken.symbol] : undefined;
+  const paymaster = gasToken ? paymasters?.[CHAIN]?.[gasToken.symbol] : undefined;
 
   const dynamicAccountProvider = connector.getAccountAbstractionProvider();
 
@@ -95,7 +96,7 @@ const useKernelClient = (gasToken?: Currency) => {
             };
             const body = JSON.stringify(fullUserOp);
 
-            const rawData = await fetch('/fusion-api/guarantor', { method: 'POST', body });
+            const rawData = await fetch('/api/guarantor', { method: 'POST', body });
             const paymasterData = (await rawData.json()).paymasterData;
 
             return {
