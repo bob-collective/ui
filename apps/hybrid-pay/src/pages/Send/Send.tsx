@@ -2,7 +2,7 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { useMutation, usePrices } from '@gobob/react-query';
-import { Button, Flex, Input, toast, TokenInput, useForm } from '@gobob/ui';
+import { Button, Flex, toast, TokenInput, useForm } from '@gobob/ui';
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
@@ -27,6 +27,7 @@ import { CHAIN } from '../../constants';
 import { Main } from '../../components';
 
 import { TokenButtonGroup } from './components';
+import { StyledInput } from './Send.style';
 
 const getAddress = async (recipient: string) => {
   const isRecipientAddress = isAddress(recipient);
@@ -315,7 +316,7 @@ const Send = ({}: SendProps): JSX.Element => {
   return (
     <Main maxWidth='s' padding='md'>
       <Flex direction='column' elementType='form' gap='xl' marginX='md' onSubmit={form.handleSubmit as any}>
-        <Input
+        <StyledInput
           label='Recipient'
           placeholder='pay@gobob.xyz'
           size='lg'

@@ -1,4 +1,3 @@
-import { BitcoinWalletConnectors } from '@dynamic-labs/bitcoin';
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
 import { ZeroDevSmartWalletConnectors } from '@dynamic-labs/ethereum-aa';
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
@@ -19,7 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <DynamicContextProvider
       settings={{
         environmentId: import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID,
-        walletConnectors: [EthereumWalletConnectors, BitcoinWalletConnectors, ZeroDevSmartWalletConnectors]
+        walletConnectors: [EthereumWalletConnectors, ZeroDevSmartWalletConnectors]
       }}
     >
       <WagmiProvider isProd={false}>
