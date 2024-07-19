@@ -40,3 +40,4 @@ const useTokens = (chainId: ChainId) => {
 };
 
 export { useTokens };
+export type { TokenData };

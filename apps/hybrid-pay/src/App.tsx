@@ -1,8 +1,9 @@
 import { useAccount, useReconnect } from '@gobob/wagmi';
 import { ReactNode, Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { DynamicEmbeddedWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { usePrices } from '@gobob/react-query';
+import { Card, Flex } from '@gobob/ui';
 
 import { Header, Layout, Main } from './components';
 import { CHAIN, RoutesPath } from './constants';
@@ -29,7 +30,15 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated } = useDynamicContext();
 
   if (!isAuthenticated) {
-    return <Navigate replace to={RoutesPath.HOME} />;
+    return (
+      <Main maxWidth='5xl' padding='md'>
+        <Flex alignItems='flex-start' gap='2xl' marginTop='xl' style={{ width: '100%' }}>
+          <Card bordered={false} padding='none' style={{ width: '100%' }}>
+            <DynamicEmbeddedWidget background='none' />
+          </Card>
+        </Flex>
+      </Main>
+    );
   }
 
   return children;
@@ -79,7 +88,14 @@ function App() {
         <Header />
         <Suspense fallback={<Fallback />}>
           <Routes>
-            <Route element={<Wallet />} path={RoutesPath.HOME} />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <Wallet />
+                </ProtectedRoute>
+              }
+              path={RoutesPath.HOME}
+            />
             <Route
               element={
                 <ProtectedRoute>

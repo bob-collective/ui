@@ -22,7 +22,7 @@ const Hero = ({}: HeroProps): JSX.Element => {
     navigate(RoutesPath.SEND);
   };
 
-  const handleRecieve = () => {
+  const handleReceive = () => {
     navigate(RoutesPath.RECIEVE);
   };
 
@@ -56,8 +56,8 @@ const Hero = ({}: HeroProps): JSX.Element => {
         <Button fullWidth aria-label='navigate to send page' size='xl' onPress={handleSend}>
           Send
         </Button>
-        <Button fullWidth aria-label='navigate to recieve page' size='xl' onPress={handleRecieve}>
-          Recieve
+        <Button fullWidth aria-label='navigate to receive page' size='xl' onPress={handleReceive}>
+          Receive
         </Button>
       </Flex>
     </Flex>
