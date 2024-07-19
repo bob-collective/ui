@@ -57,12 +57,14 @@ const Send = ({}: SendProps): JSX.Element => {
 
   const { user } = useDynamicContext();
 
-  const [ticker, setTicker] = useState(CHAIN === ChainId.BASE_SEPOLIA ? 'USDC' : searchParams.get('token') || 'WBTC');
+  const defaultTicker = CHAIN === ChainId.BASE_SEPOLIA ? 'USDC' : searchParams.get('token') || 'WBTC';
+
+  const [ticker, setTicker] = useState(defaultTicker);
   const [amount, setAmount] = useState('');
   const [isGroupAmount, setGroupAmount] = useState(false);
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
-  const { getBalance } = useBalances(CHAIN);
+  const { getBalance, balances, isPending } = useBalances(CHAIN);
 
   const { data: tokens } = useTokens(CHAIN);
 
@@ -146,10 +148,6 @@ const Send = ({}: SendProps): JSX.Element => {
     error: eoaTransferError
   } = useMutation({
     mutationKey: ['eoa-transfer', amount, form.values[TRANSFER_TOKEN_RECIPIENT]],
-    onSuccess: () => {
-      form.resetForm();
-      setAmount('');
-    },
     mutationFn: async ({
       recipient,
       currencyAmount
@@ -183,6 +181,11 @@ const Send = ({}: SendProps): JSX.Element => {
   useEffect(() => {
     if (eoaTransferTransactionReceipt?.status === 'success') {
       toast.success(`Successfully sent ${amount} ${token?.currency.symbol}`);
+
+      form.resetForm();
+      setAmount('');
+      setGroupAmount(false);
+      setTicker(defaultTicker);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eoaTransferTransactionReceipt]);
@@ -207,12 +210,13 @@ const Send = ({}: SendProps): JSX.Element => {
       }
 
       toast.success(
-        `Successfully transfered ${variables.currencyAmount.numerator} ${variables.currencyAmount.currency.symbol}`
+        `Successfully transfered ${variables.currencyAmount.toExact()} ${variables.currencyAmount.currency.symbol}`
       );
 
       form.resetForm();
       setAmount('');
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setGroupAmount(false);
+      setTicker(defaultTicker);
     },
     mutationFn: async ({
       recipient,
@@ -278,6 +282,13 @@ const Send = ({}: SendProps): JSX.Element => {
     }
   }, [smartAccountTransferError]);
 
+  useEffect(() => {
+    if (!isPending) {
+      form.validateField(TRANSFER_TOKEN_AMOUNT);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [balances, isPending]);
+
   const tokenInputItems = useMemo(
     () =>
       tokens?.map((token) => {
@@ -332,9 +343,10 @@ const Send = ({}: SendProps): JSX.Element => {
           currency={token.currency}
           isSelected={isGroupAmount}
           onSelectionChange={(currencyAmount) => {
-            form.setFieldValue(TRANSFER_TOKEN_AMOUNT, currencyAmount.toSignificant(), true);
+            form.setFieldValue(TRANSFER_TOKEN_AMOUNT, currencyAmount.toSignificant());
             form.setFieldTouched(TRANSFER_TOKEN_AMOUNT, true);
             setGroupAmount(true);
+            setTimeout(() => form.validateField(TRANSFER_TOKEN_AMOUNT), 0);
           }}
         />
         <Button color='primary' disabled={isSubmitDisabled} loading={isTransferLoading} size='xl' type='submit'>

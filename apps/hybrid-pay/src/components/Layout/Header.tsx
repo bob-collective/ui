@@ -21,7 +21,7 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
   return (
     <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>
       <StyledLogoWrapper alignItems='center' gap='md'>
-        {pathname === RoutesPath.HOME ? (
+        {pathname === RoutesPath.HOME || !isAuthenticated ? (
           <Logo to={RoutesPath.HOME} />
         ) : (
           <Flex alignItems='center'>

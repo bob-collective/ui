@@ -43,7 +43,7 @@ const useKernelClient = (gasToken?: Currency) => {
     return;
   }
 
-  const paymaster = gasToken ? paymasters?.[CHAIN]?.[gasToken.symbol] : undefined;
+  const paymaster = gasToken ? paymasters?.[CHAIN as ChainId.BOB]?.[gasToken.symbol] : undefined;
 
   const dynamicAccountProvider = connector.getAccountAbstractionProvider();
 
@@ -91,6 +91,7 @@ const useKernelClient = (gasToken?: Currency) => {
             };
 
             // can't json-serialize bigints - convert them to strings
+            // @ts-ignore
             BigInt.prototype['toJSON'] = function () {
               return this.toString();
             };

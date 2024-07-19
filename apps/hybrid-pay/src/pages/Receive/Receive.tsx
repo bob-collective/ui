@@ -5,8 +5,9 @@ import { useAccount } from 'wagmi';
 import { truncateEthAddress } from '@gobob/utils';
 
 import { Main } from '../../components';
+import { RoutesPath } from '../../constants';
 
-const Recieve = () => {
+const Receive = () => {
   const { user } = useDynamicContext();
   const { address } = useAccount();
 
@@ -35,7 +36,7 @@ const Recieve = () => {
           fgColor='#ffffff'
           size={256}
           style={{ height: 'auto', maxWidth: '100%', width: '100%', background: 'transparent' }}
-          value={address!}
+          value={`${window.location.host}${RoutesPath.SEND}?to=${user?.email || address}`}
           viewBox={`0 0 256 256`}
         />
       </Flex>
@@ -43,4 +44,4 @@ const Recieve = () => {
   );
 };
 
-export { Recieve };
+export { Receive };
