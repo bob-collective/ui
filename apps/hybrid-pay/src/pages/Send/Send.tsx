@@ -35,6 +35,7 @@ const getAddress = async (recipient: string) => {
     return recipient;
   }
   const walletData = await dynamicApiClient.createEmbeddedWallet(recipient);
+
   const smartAccount = walletData.user.verifiedCredentials.find(
     (credentials) => credentials.wallet_provider === 'smartContractWallet'
   );
