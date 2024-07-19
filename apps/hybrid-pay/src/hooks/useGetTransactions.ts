@@ -1,5 +1,5 @@
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { useQuery } from '@gobob/react-query';
+import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Address, useAccount } from '@gobob/wagmi';
 import request, { gql } from 'graphql-request';
 import { isAddressEqual } from 'viem';
@@ -109,8 +109,8 @@ const useGetTransactions = () => {
       );
     },
     enabled: Boolean(address),
-    // refetchInterval: INTERVAL.SECONDS_30,
-    // gcTime: INTERVAL.MINUTE,
+    refetchInterval: INTERVAL.SECONDS_30,
+    gcTime: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,
     refetchOnMount: false
   });

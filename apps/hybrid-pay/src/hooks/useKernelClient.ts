@@ -57,19 +57,6 @@ const useKernelClient = (gasToken?: Currency) => {
         entryPoint: ENTRYPOINT_ADDRESS_V07,
         middleware: {
           gasPrice: async () => (await bundlerClient.getUserOperationGasPrice()).fast,
-          // MEMO: uncomment for fully sponsored tx
-          //           sponsorUserOperation: async ({ userOperation }) => {
-          //             const paymaster = createPimlicoPaymasterClient({
-          //               chain,
-          //               entryPoint: ENTRYPOINT_ADDRESS_V07,
-          //               // Get this RPC from ZeroDev dashboard
-          //               transport: http(getBundlerByChainId(chain.id))
-          //             });
-          //
-          //             return paymaster.sponsorUserOperation({
-          //               userOperation
-          //             });
-          //           }
           sponsorUserOperation: async (args) => {
             const gasEstimates = await bundlerClient.estimateUserOperationGas({
               userOperation: {
