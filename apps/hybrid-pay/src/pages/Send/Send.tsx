@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Address, encodeFunctionData, erc20Abi, isAddress, isAddressEqual } from 'viem';
 import { useGetApprovalData } from '@gobob/hooks';
 import { MaxUint256 } from '@gobob/currency/src/constants';
+import { useSearchParams } from 'react-router-dom';
 
 import { paymasters, useBalances, useKernelClient, useTokens } from '../../hooks';
 import {
@@ -50,11 +51,13 @@ type Props = {};
 type SendProps = Props;
 
 const Send = ({}: SendProps): JSX.Element => {
+  const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
+
   const { address } = useAccount();
 
   const { user } = useDynamicContext();
 
-  const [ticker, setTicker] = useState(CHAIN === ChainId.BASE_SEPOLIA ? 'USDC' : 'WBTC');
+  const [ticker, setTicker] = useState(CHAIN === ChainId.BASE_SEPOLIA ? 'USDC' : searchParams.get('token') || 'WBTC');
   const [amount, setAmount] = useState('');
   const [isGroupAmount, setGroupAmount] = useState(false);
 
@@ -89,7 +92,7 @@ const Send = ({}: SendProps): JSX.Element => {
   const initialValues = useMemo(
     () => ({
       [TRANSFER_TOKEN_AMOUNT]: '',
-      [TRANSFER_TOKEN_RECIPIENT]: '',
+      [TRANSFER_TOKEN_RECIPIENT]: searchParams.get('to') || '',
       [TRANSFER_TOKEN_TICKER]: ticker
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
