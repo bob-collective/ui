@@ -104,7 +104,9 @@ const useGetTransactions = () => {
     queryFn: async (): Promise<TransactionData[]> => {
       const { receive, sent } = await request<TransactionsResponse>(transactionsUrl, getTransactions, { address });
 
-      return [...transformData(receive, tokens, 'receive'), ...transformData(sent, tokens, 'send')];
+      return [...transformData(receive, tokens, 'receive'), ...transformData(sent, tokens, 'send')].sort(
+        (a, b) => b.date.getTime() - a.date.getTime()
+      );
     },
     enabled: Boolean(address),
     // refetchInterval: INTERVAL.SECONDS_30,

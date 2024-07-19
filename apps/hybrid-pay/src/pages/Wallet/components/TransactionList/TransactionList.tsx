@@ -1,6 +1,4 @@
 import { Card, Flex, P, Spinner } from '@gobob/ui';
-import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
 
 import { useGetTransactions } from '../../../../hooks';
 
@@ -11,29 +9,15 @@ type Props = {};
 type TransactionListProps = Props;
 
 const TransactionList = ({}: TransactionListProps): JSX.Element => {
-  const { address } = useAccount();
-  const { data: transactions, isLoading } = useGetTransactions();
-  const [isInitialLoading, setInitialLoading] = useState(isLoading);
-
-  useEffect(() => {
-    if (isInitialLoading) {
-      setInitialLoading(isLoading);
-    }
-  }, [isLoading, isInitialLoading]);
-
-  useEffect(() => {
-    if (address) {
-      setInitialLoading(isLoading);
-    }
-  }, [address, isLoading]);
+  const { data: transactions, isPending } = useGetTransactions();
 
   return (
     <Card bordered={false} gap='md' marginTop='5xl' marginX='xl'>
-      {isInitialLoading ? (
+      {isPending ? (
         <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
           <Spinner size='16' thickness={2} />
           <P align='center' size='xs'>
-            Fetching bridging operations...
+            Loading transactions...
           </P>
         </Flex>
       ) : (
@@ -43,7 +27,7 @@ const TransactionList = ({}: TransactionListProps): JSX.Element => {
           ) : (
             <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
               <P align='center' size='xs'>
-                No bridging operations found
+                No transactions found
               </P>
             </Flex>
           )}
