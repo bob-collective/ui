@@ -22,7 +22,6 @@ type TransferTokenFormValues = {
 
 type TransferTokenFormValidationParams = {
   [TRANSFER_TOKEN_AMOUNT]: MaxAmountValidationParams & MinAmountValidationParams;
-  [TRANSFER_TOKEN_RECIPIENT]?: 'evm' | 'email';
 };
 
 const transferTokenSchema = (params: TransferTokenFormValidationParams) => {

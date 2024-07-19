@@ -7,10 +7,6 @@
   },
   "rewrites": [
     {
-      "source": "/check_access",
-      "destination": "/api/geoblock.js"
-    },
-    {
       "source": "/tunnel",
       "destination": "/api/sentry.js"
     },
@@ -19,7 +15,7 @@
       "destination": "/api/marketdata.js"
     },
     {
-      "source": "/(dynamic-api|onramp-api|btc-api)/(.*)",
+      "source": "/(dynamic-api|api)/(.*)",
       "destination": "/api"
     },
     {

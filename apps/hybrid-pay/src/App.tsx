@@ -23,7 +23,7 @@ const ScrollToTop = () => {
 
 const Wallet = lazy(() => import('./pages/Wallet'));
 const Send = lazy(() => import('./pages/Send'));
-const Recieve = lazy(() => import('./pages/Recieve'));
+const Receive = lazy(() => import('./pages/Receive'));
 const Custom404 = lazy(() => import('./pages/404'));
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
@@ -107,7 +107,7 @@ function App() {
             <Route
               element={
                 <ProtectedRoute>
-                  <Recieve />
+                  <Receive />
                 </ProtectedRoute>
               }
               path={RoutesPath.RECIEVE}

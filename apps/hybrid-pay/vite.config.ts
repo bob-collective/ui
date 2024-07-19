@@ -43,16 +43,6 @@ export default defineConfig(({ mode }) => {
           target: env.VITE_DYNAMIC_API_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/dynamic-api/, '')
-        },
-        '/onramp-api': {
-          target: env.VITE_ONRAMP_API_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/onramp-api/, '')
-        },
-        '/btc-api': {
-          target: env.VITE_BTC_API_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/btc-api/, '')
         }
       }
     }
