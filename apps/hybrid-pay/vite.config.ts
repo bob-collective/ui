@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
           }),
           NodeModulesPolyfillPlugin()
         ]
-      }
+      } as any
     },
     server: {
       proxy: {
