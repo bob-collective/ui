@@ -16,5 +16,6 @@ export const tokens = {
   [ChainId.OPBNB]: [],
   [ChainId.POLYGON]: [],
   [ChainId.POLYGON_ZKEVM]: [],
-  [ChainId.MOONBEAM]: []
+  [ChainId.MOONBEAM]: [],
+  [ChainId.BASE_SEPOLIA]: []
 };
