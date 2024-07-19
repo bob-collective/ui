@@ -96,7 +96,14 @@ const useKernelClient = (gasToken?: Currency) => {
             };
             const body = JSON.stringify(fullUserOp);
 
-            const rawData = await fetch('/api/guarantor', { method: 'POST', body });
+            const rawData = await fetch('/api/guarantor', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+              },
+              body
+            });
             const paymasterData = (await rawData.json()).paymasterData;
 
             return {
