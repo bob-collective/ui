@@ -15,7 +15,8 @@ const chainLogo: Record<ChainId, any> = {
   [ChainId.OPBNB]: BNB,
   [ChainId.POLYGON_ZKEVM]: Polygon,
   [ChainId.POLYGON]: Polygon,
-  [ChainId.MOONBEAM]: Moonbeam
+  [ChainId.MOONBEAM]: Moonbeam,
+  [ChainId.BASE_SEPOLIA]: Base
 };
 
 type Props = {
