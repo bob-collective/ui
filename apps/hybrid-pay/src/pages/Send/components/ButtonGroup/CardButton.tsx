@@ -21,6 +21,8 @@ const CardButton = ({ ...props }: CardButtonProps): JSX.Element => {
       isHoverable
       isPressable
       alignItems='center'
+      background='grey-500'
+      bordered={'transparent' as any}
       flex={1}
       justifyContent='center'
       padding='md'
