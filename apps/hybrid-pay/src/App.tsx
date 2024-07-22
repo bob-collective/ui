@@ -1,13 +1,10 @@
-import { useAccount, useReconnect } from '@gobob/wagmi';
 import { ReactNode, Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { DynamicEmbeddedWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
-import { usePrices } from '@gobob/react-query';
-import { Card, Flex } from '@gobob/ui';
+import { Card, Flex, H1 } from '@gobob/ui';
 
 import { Header, Layout, Main } from './components';
-import { CHAIN, RoutesPath } from './constants';
-import { useBalances, useTokens } from './hooks';
+import { RoutesPath } from './constants';
 
 const ScrollToTop = () => {
   // Extracts pathname property(key) from an object
@@ -58,28 +55,30 @@ const Fallback = () => {
 };
 
 function App() {
-  const { reconnect } = useReconnect();
-  const { walletConnector } = useDynamicContext();
-  const { chain } = useAccount();
+  // const { reconnect } = useReconnect();
+  // const { walletConnector } = useDynamicContext();
+  // const { chain } = useAccount();
 
-  useEffect(() => {
-    reconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   reconnect();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
-  useBalances(CHAIN);
-  useTokens(CHAIN);
+  // usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
+  // useBalances(CHAIN);
+  // useTokens(CHAIN);
 
-  useEffect(() => {
-    const switchChain = () => {
-      walletConnector!.switchNetwork({ networkChainId: CHAIN });
-    };
+  // useEffect(() => {
+  //   const switchChain = () => {
+  //     walletConnector!.switchNetwork({ networkChainId: CHAIN });
+  //   };
 
-    if (walletConnector && chain && CHAIN !== chain.id) {
-      switchChain();
-    }
-  }, [chain, walletConnector]);
+  //   if (walletConnector && chain && CHAIN !== chain.id) {
+  //     switchChain();
+  //   }
+  // }, [chain, walletConnector]);
+
+  return <H1>Test</H1>;
 
   return (
     <BrowserRouter>
