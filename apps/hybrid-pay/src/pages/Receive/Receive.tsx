@@ -13,6 +13,10 @@ const Receive = () => {
   const { address } = useAccount();
   const [, copy] = useCopyToClipboard();
 
+  if (!user || !address) {
+    return null;
+  }
+
   return (
     <Main maxWidth='md' padding='md'>
       <Flex
@@ -25,11 +29,11 @@ const Receive = () => {
       >
         <Flex direction='column'>
           <H1 align='center' size='2xl' weight='bold'>
-            {user?.email ? user?.email : truncateEthAddress(address!)}
+            {user?.email ? user?.email : truncateEthAddress(address)}
           </H1>
           {user?.email && (
             <H2 align='center' color='grey-100' size='xl' weight='bold'>
-              ({truncateEthAddress(address!)})
+              ({truncateEthAddress(address)})
             </H2>
           )}
         </Flex>
@@ -41,7 +45,7 @@ const Receive = () => {
           value={`https://${window.location.host}${RoutesPath.SEND}?to=${encodeURIComponent(user?.email || address || '')}`}
           viewBox={`0 0 256 256`}
         />
-        <Button color='primary' size='lg' onPress={() => copy(address || '')}>
+        <Button color='primary' size='lg' onPress={() => copy(address)}>
           Copy Address
         </Button>
       </Flex>
