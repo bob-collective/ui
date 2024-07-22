@@ -1,12 +1,12 @@
 import { Avatar, Flex, FlexProps, P, Span, useLocale } from '@gobob/ui';
 import { usePrices } from '@gobob/react-query';
 import { truncateEthAddress } from '@gobob/utils';
-import { formatDistanceToNow } from 'date-fns';
+import { format } from 'date-fns';
 
 import { TransactionData } from '../../../../hooks';
 import { calculateAmountUSD } from '../../../../utils';
 
-import { StyledGrid } from './TransactionItem.style';
+import { StyledAvatarAdornment, StyledAvatarWrapper } from './TransactionItem.style';
 
 type Props = { transaction: TransactionData };
 
@@ -22,31 +22,36 @@ const TransactionItem = ({ transaction, ...props }: TransactionItemProps): JSX.E
 
   const amountPrice =
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', maximumFractionDigits: 4 }).format(
-      calculateAmountUSD(transaction.amount, price)
-    );
+    Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 4,
+      notation: 'compact'
+    }).format(calculateAmountUSD(transaction.amount, price));
 
-  // const stasAmount = calculateSats(transaction.amount, price);
+  const symbol = transaction.type === 'send' ? '-' : '+';
 
   return (
-    <StyledGrid {...props}>
-      <Flex alignItems='center' gap='md'>
-        <Avatar size='3xl' src={transaction.tokenUrl} />
+    <Flex alignItems='center' justifyContent='space-between' {...props}>
+      <Flex gap='lg'>
+        <Flex alignItems='center' gap='md'>
+          <StyledAvatarWrapper $type={transaction.type}>
+            <Avatar size='4xl' src={transaction.tokenUrl} />
+            <StyledAvatarAdornment $type={transaction.type}>{symbol}</StyledAvatarAdornment>
+          </StyledAvatarWrapper>
+        </Flex>
         <Flex direction='column'>
-          <Span color={transaction.type === 'send' ? 'red-500' : 'green-500'} size='xs'>
-            {transaction.type === 'send' ? '-' : '+'}
-            {amountPrice}
-          </Span>
-          {/* {stasAmount && <Span size='xs'>{stasAmount}</Span>} */}
+          <P size='s'>{truncateEthAddress(transaction.type === 'receive' ? transaction.from : transaction.to)}</P>
+          <P color='grey-200' size='xs' weight='semibold'>
+            {format(transaction.date, 'MMM d, k:m')}
+          </P>
         </Flex>
       </Flex>
-      <Flex alignItems='center'>
-        <P size='xs'>{truncateEthAddress(transaction.type === 'receive' ? transaction.from : transaction.to)}</P>
-      </Flex>
-      <Flex alignItems='center'>
-        <P size='xs'>{formatDistanceToNow(transaction.date)} ago</P>
-      </Flex>
-    </StyledGrid>
+      <Span color={transaction.type === 'send' ? 'red-500' : 'green-500'} size='md' weight='semibold'>
+        {symbol}
+        {amountPrice}
+      </Span>
+    </Flex>
   );
 };
 
