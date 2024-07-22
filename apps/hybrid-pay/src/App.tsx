@@ -111,7 +111,7 @@ function App() {
                   <Receive />
                 </ProtectedRoute>
               }
-              path={RoutesPath.RECIEVE}
+              path={RoutesPath.RECEIVE}
             />
             <Route element={<Custom404 />} path='*' />
           </Routes>
