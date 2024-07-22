@@ -29,7 +29,7 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
               <ArrowLeft size='s' strokeWidth={2} />
             </Button>
             <Span size='lg' weight='bold'>
-              {pathname === RoutesPath.SEND ? 'Send' : 'Recieve'}
+              {pathname === RoutesPath.SEND ? 'Send' : 'Receive'}
             </Span>
           </Flex>
         )}
