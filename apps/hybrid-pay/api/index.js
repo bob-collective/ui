@@ -1,7 +1,6 @@
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const proxyMiddleware = createProxyMiddleware({
-  target: 'https://app.gobob.xyz/api',
   router: {
     '/api': 'https://app.gobob.xyz/api',
     '/dynamic-api': 'https://app.dynamicauth.com/api/v0'
