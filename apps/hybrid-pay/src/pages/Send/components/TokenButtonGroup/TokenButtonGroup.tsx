@@ -20,7 +20,7 @@ type HeaderProps = Props;
 const TokenButtonGroup = ({ isSelected, currency, onSelectionChange }: HeaderProps): JSX.Element => {
   const { locale } = useLocale();
   const format = useCurrencyFormatter();
-  const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
+  const { getPrice, data: pricesData } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
 
   const [key, setKey] = useState<string>();
 
@@ -35,14 +35,14 @@ const TokenButtonGroup = ({ isSelected, currency, onSelectionChange }: HeaderPro
       return usdItems.map((usd) =>
         CurrencyAmount.fromRawAmount(
           currency,
-          new Big(100000000).mul(usd).div(getPrice(currency.symbol)).round(0, 0).toNumber()
+          pricesData ? new Big(100000000).mul(usd).div(getPrice(currency.symbol)).round(0, 0).toNumber() : 0
         )
       );
     }
 
     return usdItems.map((usd) => CurrencyAmount.fromBaseAmount(currency, usd));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currency]);
+  }, [currency, pricesData]);
 
   const handleSelectionChange = (key: any) => {
     const [selectedKey] = [...key];

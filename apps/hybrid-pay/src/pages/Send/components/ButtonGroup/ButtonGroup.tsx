@@ -13,9 +13,9 @@ type InheritAttrs = Omit<FlexProps, (keyof Props & AriaAttrs) | 'children'>;
 
 type HeaderProps = Props & AriaAttrs & InheritAttrs;
 
-const ButtonGroup = ({ onSelectionChange, selectionMode, ...props }: HeaderProps): JSX.Element => {
+const ButtonGroup = ({ onSelectionChange, selectionMode, selectedKeys, ...props }: HeaderProps): JSX.Element => {
   const domRef = useDOMRef<HTMLDivElement>(null);
-  let state = useListState({ ...props, onSelectionChange, selectionMode });
+  let state = useListState({ ...props, onSelectionChange, selectionMode, selectedKeys });
   let { gridProps } = useTagGroup(props, state, domRef);
 
   return (
