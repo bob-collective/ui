@@ -12,25 +12,28 @@ import App from './App';
 import { queryClient } from './lib/react-query';
 import './index.css';
 import './utils/sentry';
+import { MyComponent } from './Test';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <DynamicContextProvider
-      settings={{
-        environmentId: import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID,
-        walletConnectors: [EthereumWalletConnectors, ZeroDevSmartWalletConnectors]
-      }}
-    >
-      <WagmiProvider isProd={false}>
-        <QueryClientProvider client={queryClient}>
-          <DynamicWagmiConnector>
-            <BOBUIProvider>
-              <CSSReset />
-              <App />
-            </BOBUIProvider>
-          </DynamicWagmiConnector>
-        </QueryClientProvider>
-      </WagmiProvider>
-    </DynamicContextProvider>
+    <MyComponent>
+      <DynamicContextProvider
+        settings={{
+          environmentId: import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID,
+          walletConnectors: [EthereumWalletConnectors, ZeroDevSmartWalletConnectors]
+        }}
+      >
+        <WagmiProvider isProd={false}>
+          <QueryClientProvider client={queryClient}>
+            <DynamicWagmiConnector>
+              <BOBUIProvider>
+                <CSSReset />
+                <App />
+              </BOBUIProvider>
+            </DynamicWagmiConnector>
+          </QueryClientProvider>
+        </WagmiProvider>
+      </DynamicContextProvider>
+    </MyComponent>
   </React.StrictMode>
 );
