@@ -19,7 +19,7 @@ const Hero = ({}: HeroProps): JSX.Element => {
   };
 
   const handleReceive = () => {
-    navigate(RoutesPath.RECIEVE);
+    navigate(RoutesPath.RECEIVE);
   };
 
   return (
