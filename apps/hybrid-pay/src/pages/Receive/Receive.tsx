@@ -38,7 +38,7 @@ const Receive = () => {
           fgColor='#ffffff'
           size={256}
           style={{ height: 'auto', maxWidth: '100%', width: '100%', background: 'transparent' }}
-          value={`${window.location.host}${RoutesPath.SEND}?to=${user?.email || address}`}
+          value={`https://${window.location.host}${RoutesPath.SEND}?to=${user?.email || address}`}
           viewBox={`0 0 256 256`}
         />
         <Button color='primary' size='lg' onPress={() => copy(address || '')}>
