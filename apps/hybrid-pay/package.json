@@ -38,6 +38,7 @@
     "@zerodev/sdk": "^5.3.4",
     "big.js": "^6.2.1",
     "date-fns": "^3.2.0",
+    "esbuild-plugin-polyfill-node": "^0.3.0",
     "graphql-request": "6.1.0",
     "permissionless": "0.1.20",
     "react": "^18.2.0",
@@ -47,6 +48,7 @@
     "react-use": "^17.5.1",
     "styled-components": "^6.0.8",
     "viem": "2.9.25",
+    "vite-plugin-node-polyfills": "^0.15.0",
     "wagmi": "^2.8.1",
     "yup": "^0.32.11"
   },
