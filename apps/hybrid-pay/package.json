@@ -13,10 +13,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dynamic-labs/ethereum": "^v3.0.0-alpha.23",
-    "@dynamic-labs/ethereum-aa": "^v3.0.0-alpha.23",
-    "@dynamic-labs/sdk-react-core": "^v3.0.0-alpha.23",
-    "@dynamic-labs/wagmi-connector": "^v3.0.0-alpha.23",
+    "@dynamic-labs/ethereum": "^v3.0.0-alpha.24",
+    "@dynamic-labs/ethereum-aa": "^v3.0.0-alpha.24",
+    "@dynamic-labs/sdk-react-core": "^v3.0.0-alpha.24",
+    "@dynamic-labs/wagmi-connector": "^v3.0.0-alpha.24",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@gobob/chains": "workspace:^",
