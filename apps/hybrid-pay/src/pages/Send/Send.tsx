@@ -330,7 +330,10 @@ const Send = ({}: SendProps): JSX.Element => {
           size='lg'
           type='selectable'
           valueUSD={calculateAmountUSD(currencyAmount, getPrice(token.currency.symbol))}
-          onChangeCurrency={(currency) => setTicker(currency.symbol)}
+          onChangeCurrency={(currency) => {
+            setTicker(currency.symbol);
+            setGroupAmount(false);
+          }}
           {...mergeProps(
             form.getSelectableTokenFieldProps({ amount: TRANSFER_TOKEN_AMOUNT, currency: TRANSFER_TOKEN_TICKER }),
             {
