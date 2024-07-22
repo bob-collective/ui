@@ -79,9 +79,6 @@
     "turbo": "latest",
     "typescript": "5.4.5"
   },
-  "resolutions": {
-    "permissionless": "^0.1.41"
-  },
   "pnpm": {
     "overrides": {
       "react": "^18.2.0",
