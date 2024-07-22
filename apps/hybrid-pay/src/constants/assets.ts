@@ -1,5 +1,5 @@
 import { ChainId } from '@gobob/chains';
-import { USDC, USDT } from '@gobob/tokens';
+import { USDT } from '@gobob/tokens';
 import { Address } from 'viem';
 
 export type RawToken = {
@@ -75,15 +75,15 @@ const bobAssets: RawToken[] = [
       'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png',
     apiId: 'wrapped-btc'
   },
-  {
-    chainId: ChainId.BOB,
-    address: USDC[ChainId.BOB].address,
-    name: USDC[ChainId.BOB].name!,
-    symbol: USDC[ChainId.BOB].symbol!,
-    decimals: USDC[ChainId.BOB].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
-    apiId: 'usd-coin'
-  },
+  // {
+  //   chainId: ChainId.BOB,
+  //   address: USDC[ChainId.BOB].address,
+  //   name: USDC[ChainId.BOB].name!,
+  //   symbol: USDC[ChainId.BOB].symbol!,
+  //   decimals: USDC[ChainId.BOB].decimals,
+  //   logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
+  //   apiId: 'usd-coin'
+  // },
   {
     chainId: ChainId.BOB,
     address: USDT[ChainId.BOB].address,
