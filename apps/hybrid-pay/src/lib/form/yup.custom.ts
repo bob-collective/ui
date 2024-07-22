@@ -8,7 +8,7 @@ import { isAddress } from 'viem';
 
 yup.addMethod<yup.StringSchema>(yup.string, 'requiredAmount', function (action: string, customMessage?: string) {
   return this.transform((value) => (isNaN(value) ? undefined : value)).test('requiredAmount', (value, ctx) => {
-    if (value === undefined) {
+    if (value === undefined || value === '') {
       const message = customMessage || `Please enter the amount to ${action}`;
 
       return ctx.createError({ message });
@@ -27,7 +27,7 @@ yup.addMethod<yup.StringSchema>(
   'maxAmount',
   function ({ maxAmount }: MaxAmountValidationParams, action?: string, customMessage?: string) {
     return this.test('maxAmount', (value, ctx) => {
-      if (value === undefined) return true;
+      if (value === undefined || value === '') return true;
 
       const amount = new Big(value);
 
@@ -51,7 +51,7 @@ yup.addMethod<yup.StringSchema>(
   'minAmount',
   function ({ minAmount }: MinAmountValidationParams = {}, action: string, customMessage?: string) {
     return this.test('balance', (value, ctx) => {
-      if (value === undefined) return true;
+      if (value === undefined || value === '') return true;
 
       const amount = new Big(value);
 
