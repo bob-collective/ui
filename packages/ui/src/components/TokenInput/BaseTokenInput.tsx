@@ -74,7 +74,7 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       isInvalid,
       size = 'md',
       defaultValue,
-      inputMode,
+      inputMode = 'decimal',
       value = '',
       endAdornment,
       currency,
@@ -124,7 +124,11 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
     const hasLabel = !!label || !!balance;
 
     // FIXME: move this into Field
-    const { fieldProps: styleFieldProps } = useFieldProps({ ...props, descriptionProps, errorMessageProps } as any);
+    const { fieldProps: styleFieldProps } = useFieldProps({
+      ...props,
+      descriptionProps,
+      errorMessageProps
+    });
 
     const error = hasError({ isInvalid, errorMessage: props.errorMessage } as any);
 

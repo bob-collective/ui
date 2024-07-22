@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const StyledInput = styled(Input)`
   input {
     padding: ${({ theme }) => `${theme.spacing('xl')} ${theme.spacing('lg')}`};
-    font-size: ${({ theme }) => theme.fontSize('s')};
+    font-size: ${({ theme }) => theme.fontSize('md')};
   }
 `;
 
