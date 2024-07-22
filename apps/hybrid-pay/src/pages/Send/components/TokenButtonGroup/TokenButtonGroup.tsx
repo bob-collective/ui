@@ -58,6 +58,7 @@ const TokenButtonGroup = ({ isSelected, currency, onSelectionChange }: HeaderPro
 
   return (
     <ButtonGroup
+      aria-label='send amount options'
       flex={1}
       gap='md'
       justifyContent='space-between'
@@ -80,23 +81,6 @@ const TokenButtonGroup = ({ isSelected, currency, onSelectionChange }: HeaderPro
           )}
         </Item>
       ))}
-
-      {/* <Item textValue='1'>
-        <Flex direction='column'>
-          <Span size='s'>{Intl.NumberFormat(locale).format(16000)}</Span>
-          <Span color='grey-200' size='s'>
-            {format(10)}
-          </Span>
-        </Flex>
-      </Item>
-      <Item textValue='2'>
-        <Flex direction='column'>
-          <Span size='s'>{Intl.NumberFormat(locale).format(32000)}</Span>
-          <Span color='grey-200' size='s'>
-            {format(20)}
-          </Span>
-        </Flex>
-      </Item> */}
     </ButtonGroup>
   );
 };
