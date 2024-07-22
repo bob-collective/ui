@@ -12,7 +12,7 @@ const TransactionList = ({}: TransactionListProps): JSX.Element => {
   const { data: transactions, isPending } = useGetTransactions();
 
   return (
-    <Card bordered={false} gap='md' marginTop='5xl' marginX='xl'>
+    <Card bordered={false} gap='lg' marginTop='5xl' marginX='xl' rounded='s'>
       {isPending ? (
         <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
           <Spinner size='16' thickness={2} />

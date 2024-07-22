@@ -61,6 +61,7 @@ const TokenButtonGroup = ({ isSelected, currency, onSelectionChange }: HeaderPro
       flex={1}
       gap='md'
       justifyContent='space-between'
+      marginTop='s'
       selectedKeys={key ? [key] : []}
       selectionMode='single'
       onSelectionChange={handleSelectionChange}

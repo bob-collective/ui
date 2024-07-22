@@ -1,8 +1,9 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
-import { Flex, H1, H2 } from '@gobob/ui';
+import { Button, Flex, H1, H2 } from '@gobob/ui';
 import QRCode from 'react-qr-code';
 import { useAccount } from 'wagmi';
 import { truncateEthAddress } from '@gobob/utils';
+import { useCopyToClipboard } from 'react-use';
 
 import { Main } from '../../components';
 import { RoutesPath } from '../../constants';
@@ -10,9 +11,10 @@ import { RoutesPath } from '../../constants';
 const Receive = () => {
   const { user } = useDynamicContext();
   const { address } = useAccount();
+  const [, copy] = useCopyToClipboard();
 
   return (
-    <Main maxWidth='s' padding='md'>
+    <Main maxWidth='md' padding='md'>
       <Flex
         alignItems='center'
         direction='column'
@@ -39,6 +41,9 @@ const Receive = () => {
           value={`${window.location.host}${RoutesPath.SEND}?to=${user?.email || address}`}
           viewBox={`0 0 256 256`}
         />
+        <Button color='primary' size='lg' onPress={() => copy(address || '')}>
+          Copy Address
+        </Button>
       </Flex>
     </Main>
   );

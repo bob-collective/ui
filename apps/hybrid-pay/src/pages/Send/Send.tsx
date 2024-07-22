@@ -314,8 +314,8 @@ const Send = ({}: SendProps): JSX.Element => {
   const isSubmitDisabled = isFormDisabled(form);
 
   return (
-    <Main maxWidth='s' padding='md'>
-      <Flex direction='column' elementType='form' gap='xl' marginX='md' onSubmit={form.handleSubmit as any}>
+    <Main maxWidth='md' padding='md'>
+      <Flex direction='column' elementType='form' gap='md' marginX='md' onSubmit={form.handleSubmit as any}>
         <StyledInput
           label='Recipient'
           placeholder='pay@gobob.xyz'
@@ -351,7 +351,14 @@ const Send = ({}: SendProps): JSX.Element => {
             setTimeout(() => form.validateField(TRANSFER_TOKEN_AMOUNT), 0);
           }}
         />
-        <Button color='primary' disabled={isSubmitDisabled} loading={isTransferLoading} size='xl' type='submit'>
+        <Button
+          color='primary'
+          disabled={isSubmitDisabled}
+          loading={isTransferLoading}
+          size='xl'
+          style={{ marginTop: '.5rem' }}
+          type='submit'
+        >
           Send
         </Button>
       </Flex>

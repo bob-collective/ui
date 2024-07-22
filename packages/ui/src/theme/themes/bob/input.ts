@@ -6,8 +6,8 @@ import { color } from './colors';
 const input: InputTheme = {
   base: {
     color: color('light'),
-    backgroundColor: color('grey-700'),
-    border: `1px solid ${color('grey-400')}`,
+    backgroundColor: color('grey-500'),
+    border: `1px solid transparent`,
     borderRadius: rounded('md'),
     ...transition('common', 'normal')
   },
@@ -21,7 +21,7 @@ const input: InputTheme = {
       paddingBottom: spacing('xs')
     },
     md: {
-      ...typography('md'),
+      ...typography('lg'),
       fontWeight: fontWeight('medium'),
       paddingLeft: spacing('md'),
       paddingRight: spacing('md'),
@@ -38,7 +38,7 @@ const input: InputTheme = {
     }
   },
   hover: {
-    border: `1px solid ${color('grey-300')}`
+    border: `1px solid transparent`
   },
   focus: {
     border: `1px solid ${color('light')}`,
