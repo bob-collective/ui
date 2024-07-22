@@ -46,6 +46,6 @@
     "@gobob/chains": "workspace:^",
     "@wagmi/core": "^2.9.1",
     "wagmi": "^2.8.1",
-    "viem": "2.9.25"
+    "viem": "^2.10.2"
   }
 }

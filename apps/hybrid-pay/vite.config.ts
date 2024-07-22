@@ -16,7 +16,6 @@ export default defineConfig(({ mode }) => {
         project: 'bob-ui'
       }),
       nodePolyfills({
-        // To add only specific polyfills, add them here. If no option is passed, adds all polyfills
         include: ['path'],
         // To exclude specific polyfills, add them to this list. Note: if include is provided, this has no effect
         exclude: [
