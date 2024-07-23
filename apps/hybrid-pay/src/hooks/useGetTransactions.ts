@@ -1,6 +1,6 @@
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Address, useAccount } from '@gobob/wagmi';
+import { Address } from '@gobob/wagmi';
 import request, { gql } from 'graphql-request';
 import { isAddressEqual } from 'viem';
 import { ChainId } from '@gobob/chains';
@@ -9,6 +9,7 @@ import { CHAIN } from '../constants';
 
 import { TokenData, useTokens } from './useTokens';
 import { paymasters } from './useKernelClient';
+import { useDynamicAddress } from './useDynamicAddress';
 
 type TransactionItemResponse = {
   from: Address;
@@ -96,7 +97,7 @@ const transformData = (transactions: TransactionItemResponse[], tokens: TokenDat
     .filter(Boolean) as TransactionData[];
 
 const useGetTransactions = () => {
-  const { address } = useAccount();
+  const address = useDynamicAddress();
   const { data: tokens } = useTokens(CHAIN);
 
   return useQuery({

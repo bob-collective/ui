@@ -1,18 +1,19 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { useAccount, useBalance, usePublicClient } from '@gobob/wagmi';
+import { useBalance, usePublicClient } from '@gobob/wagmi';
 import { chain } from '@react-aria/utils';
 import { useCallback, useMemo } from 'react';
 import { erc20Abi } from 'viem';
 
 import { useTokens } from './useTokens';
+import { useDynamicAddress } from './useDynamicAddress';
 
 type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
 const useBalances = (chainId: ChainId) => {
   const publicClient = usePublicClient({ chainId });
-  const { address } = useAccount();
+  const address = useDynamicAddress();
 
   const { data: ethBalance, refetch } = useBalance({ address, chainId });
 

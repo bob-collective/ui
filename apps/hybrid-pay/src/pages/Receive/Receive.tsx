@@ -1,16 +1,16 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { Button, Flex, H1, H2 } from '@gobob/ui';
 import QRCode from 'react-qr-code';
-import { useAccount } from 'wagmi';
 import { truncateEthAddress } from '@gobob/utils';
 import { useCopyToClipboard } from 'react-use';
 
 import { Main } from '../../components';
 import { RoutesPath } from '../../constants';
+import { useDynamicAddress } from '../../hooks';
 
 const Receive = () => {
   const { user } = useDynamicContext();
-  const { address } = useAccount();
+  const address = useDynamicAddress();
   const [, copy] = useCopyToClipboard();
 
   if (!user || !address) {
