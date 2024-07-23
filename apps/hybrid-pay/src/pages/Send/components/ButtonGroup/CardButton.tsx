@@ -24,6 +24,7 @@ const CardButton = ({ ...props }: CardButtonProps): JSX.Element => {
       background='grey-500'
       bordered={'transparent' as any}
       flex={1}
+      isDisabled={!!rowProps['aria-disabled']}
       justifyContent='center'
       padding='md'
       {...rowProps}

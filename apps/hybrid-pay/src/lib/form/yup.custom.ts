@@ -31,6 +31,12 @@ yup.addMethod<yup.StringSchema>(
 
       const amount = new Big(value);
 
+      if (amount.gt(0) && maxAmount && maxAmount.eq(0)) {
+        const message = customMessage || `Insufficient balance`;
+
+        return ctx.createError({ message });
+      }
+
       if (amount.gt(maxAmount)) {
         const message = customMessage || `Amount to ${action} must be at most ${maxAmount.toFixed()}`;
 
@@ -52,7 +58,6 @@ yup.addMethod<yup.StringSchema>(
   function ({ minAmount }: MinAmountValidationParams = {}, action: string, customMessage?: string) {
     return this.test('balance', (value, ctx) => {
       if (value === undefined || value === '') return true;
-
       const amount = new Big(value);
 
       if (!minAmount && !amount.gt(0)) {
