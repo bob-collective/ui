@@ -54,6 +54,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         ref={cardRef}
         $background={background}
         $bordered={bordered}
+        $isDisabled={isDisabled}
         $isHoverable={isHoverable}
         $isPressable={isPressable}
         $rounded={rounded}

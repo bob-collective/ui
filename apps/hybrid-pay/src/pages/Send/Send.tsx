@@ -345,12 +345,16 @@ const Send = ({}: SendProps): JSX.Element => {
           )}
         />
         <TokenButtonGroup
+          balance={tokenBalance}
           currency={token.currency}
           isSelected={isGroupAmount}
           onSelectionChange={(currencyAmount) => {
-            form.setFieldValue(TRANSFER_TOKEN_AMOUNT, currencyAmount.toSignificant());
-            form.setFieldTouched(TRANSFER_TOKEN_AMOUNT, true);
+            const amountValue = currencyAmount.toSignificant();
+
+            form.setFieldValue(TRANSFER_TOKEN_AMOUNT, amountValue);
             setGroupAmount(true);
+            setAmount(amountValue);
+            setTimeout(() => form.setFieldTouched(TRANSFER_TOKEN_AMOUNT, true), 0);
             setTimeout(() => form.validateField(TRANSFER_TOKEN_AMOUNT), 0);
           }}
         />
