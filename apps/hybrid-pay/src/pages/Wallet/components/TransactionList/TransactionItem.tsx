@@ -26,6 +26,7 @@ const TransactionItem = ({ transaction, ...props }: TransactionItemProps): JSX.E
       style: 'currency',
       currency: 'USD',
       maximumFractionDigits: 4,
+      minimumFractionDigits: 2,
       notation: 'compact'
     }).format(calculateAmountUSD(transaction.amount, price));
 
