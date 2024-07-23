@@ -15,7 +15,7 @@ const useTotalBalance = (chainId: ChainId) => {
     ? Object.values(erc20Balances).reduce((acc, amount) => {
         return acc.add(calculateAmountUSD(amount, getPrice(amount.currency.symbol)));
       }, new Big(0))
-    : new Big(0);
+    : undefined;
 };
 
 export { useTotalBalance };
