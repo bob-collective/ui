@@ -20,7 +20,6 @@
     "@gobob/chains": "workspace:^",
     "@gobob/currency": "workspace:^",
     "@gobob/hooks": "workspace:^",
-    "@gobob/icons": "workspace:^",
     "@gobob/react-query": "workspace:^",
     "@gobob/tokens": "workspace:^",
     "@gobob/types": "workspace:^",

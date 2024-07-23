@@ -35,9 +35,9 @@ const TransactionItem = ({ transaction, ...props }: TransactionItemProps): JSX.E
     <Flex alignItems='center' justifyContent='space-between' {...props}>
       <Flex gap='lg'>
         <Flex alignItems='center' gap='md'>
-          <StyledAvatarWrapper $type={transaction.type}>
+          <StyledAvatarWrapper>
             <Avatar size='4xl' src={transaction.tokenUrl} />
-            <StyledAvatarAdornment $type={transaction.type}>{symbol}</StyledAvatarAdornment>
+            <StyledAvatarAdornment type={transaction.type} />
           </StyledAvatarWrapper>
         </Flex>
         <Flex direction='column'>
