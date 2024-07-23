@@ -25,18 +25,11 @@ const Hero = ({}: HeroProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} gap='6xl' justifyContent='center' marginY='xl' paddingX='xl'>
       <Flex alignItems='center' direction='column' flex={1} justifyContent='center'>
-        {/* {isPending ? (
-          <Skeleton
-            baseColor='rgba(255, 255, 255, 0.13)'
-            height='3.75rem'
-            highlightColor='rgba(255, 255, 255, 0.13)'
-            width={150}
-          />
-        ) : ( */}
         <H1 size='5xl' weight='bold'>
-          {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' }).format(totalBalance?.toNumber() || 0)}
+          {totalBalance
+            ? Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' }).format(totalBalance?.toNumber())
+            : '-'}
         </H1>
-        {/* )} */}
       </Flex>
       <Flex flex={1} gap='xl' justifyContent='center'>
         <Button fullWidth aria-label='navigate to send page' size='xl' onPress={handleSend}>
