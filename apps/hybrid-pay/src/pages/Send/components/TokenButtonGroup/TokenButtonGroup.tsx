@@ -7,17 +7,18 @@ import Big from 'big.js';
 
 import { ButtonGroup } from '../ButtonGroup';
 
-const usdItems = [5, 10, 15];
+const usdItems = [1, 2, 5];
 
 type Props = {
   isSelected: boolean;
   currency: Currency;
   onSelectionChange: (amount: CurrencyAmount<Currency>) => void;
+  balance?: CurrencyAmount<Currency>;
 };
 
 type HeaderProps = Props;
 
-const TokenButtonGroup = ({ isSelected, currency, onSelectionChange }: HeaderProps): JSX.Element => {
+const TokenButtonGroup = ({ isSelected, currency, balance, onSelectionChange }: HeaderProps): JSX.Element => {
   const { locale } = useLocale();
   const format = useCurrencyFormatter();
   const { getPrice, data: pricesData } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
@@ -44,6 +45,19 @@ const TokenButtonGroup = ({ isSelected, currency, onSelectionChange }: HeaderPro
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency, pricesData]);
 
+  const disabledKeys = useMemo(() => {
+    if (!pricesData) {
+      return amounts.map((_, idx) => idx.toString());
+    }
+
+    return balance
+      ? amounts.reduce(
+          (acc, amount, idx) => (amount.greaterThan(balance) ? [...acc, idx.toString()] : acc),
+          [] as string[]
+        )
+      : [];
+  }, [amounts, pricesData, balance]);
+
   const handleSelectionChange = (key: any) => {
     const [selectedKey] = [...key];
 
@@ -59,6 +73,7 @@ const TokenButtonGroup = ({ isSelected, currency, onSelectionChange }: HeaderPro
   return (
     <ButtonGroup
       aria-label='send amount options'
+      disabledKeys={disabledKeys}
       flex={1}
       gap='md'
       justifyContent='space-between'

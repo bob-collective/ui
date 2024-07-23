@@ -35,8 +35,8 @@ const transferTokenSchema = (params: TransferTokenFormValidationParams) => {
     [TRANSFER_TOKEN_AMOUNT]: yup
       .string()
       .requiredAmount('transfer')
-      .maxAmount(params[TRANSFER_TOKEN_AMOUNT], 'transfer')
-      .minAmount(params[TRANSFER_TOKEN_AMOUNT], 'transfer'),
+      .minAmount(params[TRANSFER_TOKEN_AMOUNT], 'transfer')
+      .maxAmount(params[TRANSFER_TOKEN_AMOUNT], 'transfer'),
     [TRANSFER_TOKEN_TICKER]: yup.string()
   });
 };
