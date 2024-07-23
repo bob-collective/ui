@@ -343,9 +343,6 @@ importers:
       '@gobob/hooks':
         specifier: workspace:^
         version: link:../../packages/hooks
-      '@gobob/icons':
-        specifier: workspace:^
-        version: link:../../packages/icons
       '@gobob/react-query':
         specifier: workspace:^
         version: link:../../packages/react-query
