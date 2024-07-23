@@ -1,4 +1,4 @@
-import { DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { DynamicWidget, useDynamicContext, useDynamicEvents } from '@dynamic-labs/sdk-react-core';
 import { ArrowLeft, Button, Flex, FlexProps, Span } from '@gobob/ui';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,10 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
   const { isAuthenticated } = useDynamicContext();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  useDynamicEvents('logout', async () => {
+    navigate(RoutesPath.HOME);
+  });
 
   return (
     <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>

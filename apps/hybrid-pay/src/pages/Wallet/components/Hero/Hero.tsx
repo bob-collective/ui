@@ -10,7 +10,7 @@ type HeroProps = Props;
 
 const Hero = ({}: HeroProps): JSX.Element => {
   const { locale } = useLocale();
-  const { data: accountBalance } = useTotalBalance(CHAIN);
+  const totalBalance = useTotalBalance(CHAIN);
 
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ const Hero = ({}: HeroProps): JSX.Element => {
           />
         ) : ( */}
         <H1 size='5xl' weight='bold'>
-          {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' }).format(accountBalance?.toNumber() || 0)}
+          {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' }).format(totalBalance?.toNumber() || 0)}
         </H1>
         {/* )} */}
       </Flex>
