@@ -10,7 +10,7 @@ import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
 import { useGetUser, useLogin, useLogout, useTokens } from './hooks';
 import { useBalances } from './hooks/useBalances';
 import { apiClient } from './utils';
-import { useLockedTokens } from './pages/Fusion/hooks';
+import { useHaltedLockedTokens, useLockedTokens } from './pages/Fusion/hooks';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
@@ -175,6 +175,7 @@ function App() {
   useBalances(chainId);
   useTokens(chainId);
   useLockedTokens();
+  useHaltedLockedTokens();
 
   const { reconnect } = useReconnect();
 
