@@ -1,13 +1,12 @@
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { useMutation, usePrices } from '@gobob/react-query';
 import { Button, Flex, toast, TokenInput, useForm } from '@gobob/ui';
-import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
+import { useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
-import { Address, encodeFunctionData, erc20Abi, isAddress, isAddressEqual } from 'viem';
+import { encodeFunctionData, erc20Abi, isAddress } from 'viem';
 import { useGetApprovalData } from '@gobob/hooks';
 import { MaxUint256 } from '@gobob/currency/src/constants';
 import { useSearchParams } from 'react-router-dom';
@@ -25,6 +24,7 @@ import { isFormDisabled } from '../../lib/form/utils';
 import { calculateAmountUSD, dynamicApiClient } from '../../utils';
 import { CHAIN } from '../../constants';
 import { Main } from '../../components';
+import { useIsDynamicSmartAccount } from '../../hooks';
 
 import { TokenButtonGroup } from './components';
 import { StyledInput } from './Send.style';
@@ -48,16 +48,8 @@ const getAddress = async (recipient: string) => {
   return smartAccount?.address;
 };
 
-type Props = {};
-
-type SendProps = Props;
-
-const Send = ({}: SendProps): JSX.Element => {
+const Send = (): JSX.Element => {
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
-
-  const { address } = useAccount();
-
-  const { user } = useDynamicContext();
 
   const defaultTicker = CHAIN === ChainId.BASE_SEPOLIA ? 'USDC' : searchParams.get('token') || 'WBTC';
 
@@ -80,18 +72,7 @@ const Send = ({}: SendProps): JSX.Element => {
     [token, amount]
   );
 
-  const isSmartAccount = useMemo(
-    () =>
-      !!(
-        address &&
-        user?.verifiedCredentials.find(
-          (credentials) =>
-            credentials.walletProvider === 'smartContractWallet' &&
-            isAddressEqual(credentials.address as Address, address)
-        )
-      ),
-    [address, user?.verifiedCredentials]
-  );
+  const isSmartAccount = useIsDynamicSmartAccount();
 
   const initialValues = useMemo(
     () => ({
