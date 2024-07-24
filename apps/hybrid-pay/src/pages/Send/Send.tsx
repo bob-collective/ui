@@ -2,11 +2,11 @@ import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { useMutation, usePrices } from '@gobob/react-query';
 import { Button, Flex, toast, TokenInput, useForm } from '@gobob/ui';
-import { useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
+import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
-import { encodeFunctionData, erc20Abi, isAddress } from 'viem';
+import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
 import { useGetApprovalData } from '@gobob/hooks';
 import { MaxUint256 } from '@gobob/currency/src/constants';
 import { useSearchParams } from 'react-router-dom';
@@ -29,11 +29,11 @@ import { useIsDynamicSmartAccount } from '../../hooks';
 import { TokenButtonGroup } from './components';
 import { StyledInput } from './Send.style';
 
-const getAddress = async (recipient: string) => {
+const getAddressData = async (recipient: string) => {
   const isRecipientAddress = isAddress(recipient);
 
   if (isRecipientAddress) {
-    return recipient;
+    return { isAddress: isRecipientAddress, recipientAddress: recipient };
   }
   const walletData = await dynamicApiClient.createEmbeddedWallet(recipient);
 
@@ -45,7 +45,7 @@ const getAddress = async (recipient: string) => {
     throw new Error('Smart Account Not Found');
   }
 
-  return smartAccount?.address;
+  return { isAddress: false, recipientAddress: smartAccount?.address };
 };
 
 const Send = (): JSX.Element => {
@@ -66,6 +66,8 @@ const Send = (): JSX.Element => {
   const gasToken = token;
 
   const kernelClient = useKernelClient(token.currency);
+
+  const { address } = useAccount();
 
   const currencyAmount = useMemo(
     () => CurrencyAmount.fromBaseAmount(token.currency, amount !== '' && !isNaN(amount as any) ? amount : 0),
@@ -138,7 +140,7 @@ const Send = (): JSX.Element => {
       recipient: string;
       currencyAmount: CurrencyAmount<Ether | ERC20Token>;
     }) => {
-      const recipientAddress = await getAddress(recipient);
+      const { recipientAddress } = await getAddressData(recipient);
 
       if (currencyAmount.currency.isNative) {
         return sendTransactionAsync({
@@ -208,10 +210,12 @@ const Send = (): JSX.Element => {
       recipient: string;
       currencyAmount: CurrencyAmount<Ether | ERC20Token>;
     }) => {
-      const recipientAddress = await getAddress(recipient);
+      const { isAddress: isRecipientAddress, recipientAddress } = await getAddressData(recipient);
+
+      let userOpHash: Address | undefined;
 
       if (paymasterApprovalData.isApproveRequired) {
-        return kernelClient?.sendUserOperation({
+        userOpHash = await kernelClient?.sendUserOperation({
           account: kernelClient?.account!,
           userOperation: {
             callData: await kernelClient?.account!.encodeCallData([
@@ -236,24 +240,47 @@ const Send = (): JSX.Element => {
             ])
           }
         });
+      } else {
+        userOpHash = await kernelClient?.sendUserOperation({
+          account: kernelClient?.account!,
+          userOperation: {
+            callData: await kernelClient?.account!.encodeCallData([
+              {
+                to: (currencyAmount.currency as Token).address,
+                data: encodeFunctionData({
+                  abi: erc20Abi,
+                  args: [recipientAddress, currencyAmount.numerator],
+                  functionName: 'transfer'
+                }),
+                value: BigInt(0)
+              }
+            ])
+          }
+        });
       }
 
-      return kernelClient?.sendUserOperation({
-        account: kernelClient?.account!,
-        userOperation: {
-          callData: await kernelClient?.account!.encodeCallData([
-            {
-              to: (currencyAmount.currency as Token).address,
-              data: encodeFunctionData({
-                abi: erc20Abi,
-                args: [recipientAddress, currencyAmount.numerator],
-                functionName: 'transfer'
-              }),
-              value: BigInt(0)
-            }
-          ])
-        }
+      if (!userOpHash) {
+        throw new Error('Failed to submit transaction');
+      }
+
+      // Record the tx in the db so that we can check for intract whether someone has sent to an email.
+      // The same data could be used to provide a better tx history to the user, where we can show the
+      // destination email address rather than the evm address.
+      fetch('/api/bob-pay-insert-transaction', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          receiverEmail: isRecipientAddress ? '' : recipient, // for now, also submit when transferring to evm address
+          sender: address,
+          receiver: recipientAddress,
+          userOperationHash: userOpHash
+        })
       });
+
+      return userOpHash;
     }
   });
 
