@@ -280,10 +280,7 @@ const Send = (): JSX.Element => {
         })
       });
 
-      return {
-        userOpHash,
-        recipientAddress
-      };
+      return userOpHash;
     }
   });
 
