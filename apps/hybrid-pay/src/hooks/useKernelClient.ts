@@ -12,10 +12,9 @@ import { useAccount } from 'wagmi';
 import { CHAIN } from '../constants';
 import { getBundlerByChainId } from '../lib/account-abstraction/bundler';
 
-type Paymasters = Record<ChainId.BASE_SEPOLIA | ChainId.BOB, Record<string, Address>>;
+type Paymasters = Record<ChainId.BOB, Record<string, Address>>;
 
 const paymasters: Paymasters = {
-  [ChainId.BASE_SEPOLIA]: { USDC: '0x00000000002E3A39aFEf1132214fEee5a55ce127' },
   [ChainId.BOB]: {
     WBTC: '0x000000003CE83Ad13E6A53658Eb03179a37411AE',
     USDC: '0x00000000D00a8A2AdA5EE8c162C90B6e7A05e970',

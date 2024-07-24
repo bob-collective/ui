@@ -14,7 +14,7 @@ export type RawToken = {
 };
 
 // const ETH: Record<
-//   ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA | ChainId.BASE_SEPOLIA,
+//   ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA ,
 //   RawToken
 // > = {
 //   [ChainId.ETHEREUM]: {
@@ -53,15 +53,6 @@ export type RawToken = {
 //     logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
 //     apiId: 'ethereum'
 //   },
-//   [ChainId.BASE_SEPOLIA]: {
-//     chainId: ChainId.BASE_SEPOLIA,
-//     address: '0x0000000000000000000000000000000000000000',
-//     name: 'Ether',
-//     symbol: 'ETH',
-//     decimals: 18,
-//     logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
-//     apiId: 'ethereum'
-//   }
 // };
 
 const bobAssets: RawToken[] = [
@@ -95,16 +86,4 @@ const bobAssets: RawToken[] = [
   }
 ];
 
-const baseSepoliaAssets: RawToken[] = [
-  {
-    chainId: ChainId.BASE_SEPOLIA,
-    address: '0x036CbD53842c5426634e7929541eC2318f3dCF7e',
-    name: 'USD Coin',
-    symbol: 'USDC',
-    decimals: 6,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
-    apiId: 'usd-coin'
-  }
-];
-
-export const tokens: RawToken[] = [...baseSepoliaAssets, ...bobAssets];
+export const tokens: RawToken[] = [...bobAssets];
