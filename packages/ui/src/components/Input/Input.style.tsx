@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 
 import { InputSizes, Spacing } from '../../theme';
 import { Flex } from '../Flex';
-import { inputSizeTheme } from '../utils/input';
 
 type BaseInputProps = {
   $minHeight?: Spacing;
@@ -37,7 +36,7 @@ const StyledWrapper = styled(Flex)<StyledWrapperProps>`
 
     ${theme.transition('common', 'normal')}
 
-    ${inputSizeTheme(theme, $size)}
+    ${theme.input.sizes[$size]}
     height: ${$isTextArea && 'auto'};
 
     ${theme.input.wrapper}
@@ -70,7 +69,7 @@ const StyledBaseInput = styled.input<BaseInputProps>`
 
   ${({ theme, $error, $hasEndAdornment, $hasStartAdornment }) => css`
     ${theme.input.base}
-    ${$error && theme.input.error.wrapper}
+    ${$error && theme.input.error.base}
 
     padding-inline-start: ${$hasStartAdornment && '.375rem'};
     padding-inline-end: ${$hasEndAdornment && '.375rem'};

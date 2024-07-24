@@ -1,3 +1,4 @@
+import { fontWeight, spacing, typography } from '../../core';
 import { InputTheme } from '../../components';
 
 import { color } from './colors';
@@ -44,6 +45,32 @@ const input: InputTheme = {
   },
   adornment: {
     color: color('grey-300')
+  },
+  sizes: {
+    s: {
+      ...typography('s'),
+      fontWeight: fontWeight('normal'),
+      paddingLeft: spacing('lg'),
+      paddingRight: spacing('lg'),
+      paddingTop: spacing('s'),
+      paddingBottom: spacing('s')
+    },
+    md: {
+      ...typography('s'),
+      fontWeight: fontWeight('medium'),
+      paddingLeft: spacing('lg'),
+      paddingRight: spacing('lg'),
+      paddingTop: spacing('md'),
+      paddingBottom: spacing('md')
+    },
+    lg: {
+      ...typography('md'),
+      fontWeight: fontWeight('medium'),
+      paddingLeft: spacing('lg'),
+      paddingRight: spacing('lg'),
+      paddingTop: '0.625rem',
+      paddingBottom: '0.625rem'
+    }
   }
 };
 

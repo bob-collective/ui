@@ -14,7 +14,6 @@ import { useDOMRef } from '../../hooks';
 import { Spacing, InputSizes } from '../../theme';
 import { HelperText, HelperTextProps } from '../HelperText';
 import { Label, LabelProps } from '../Label';
-import { hasError } from '../utils/input';
 import { ElementTypeProp } from '../utils/types';
 import { Flex } from '../Flex';
 
@@ -75,7 +74,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   ): JSX.Element => {
     const domRef = useDOMRef(ref);
 
-    const error = hasError({ isInvalid, errorMessage: errorMessage });
+    const error = isInvalid || !!errorMessage;
 
     const isDisabled = !!inputProps?.disabled;
 

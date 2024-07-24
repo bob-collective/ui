@@ -1,10 +1,15 @@
 import { useButton } from '@react-aria/button';
 import { PressEvent } from '@react-types/shared';
 import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
+import { useHover } from '@react-aria/interactions';
+import { useFocusRing } from '@react-aria/focus';
+import { mergeProps } from '@react-aria/utils';
 
 import { useDOMRef } from '../../hooks';
 import { InputSizes } from '../../theme';
 import { TextProps } from '../Text';
+import { Flex } from '../Flex';
+import { Label, LabelProps } from '../Label';
 
 import { StyledChevronDown, StyledTrigger, StyledTriggerValue } from './Select.style';
 
@@ -15,6 +20,8 @@ type Props = {
   hasError?: boolean;
   placeholder?: ReactNode;
   valueProps?: TextProps<unknown>;
+  label?: ReactNode;
+  labelProps?: LabelProps;
   onPress?: (e: PressEvent) => void;
 };
 
@@ -27,13 +34,16 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
   (
     {
       as,
-      size = 'medium',
+      size = 'md',
       hasError = false,
       isOpen,
       children,
       valueProps,
       placeholder = 'Select an option',
       name,
+      autoFocus,
+      label,
+      labelProps,
       ...props
     },
     ref
@@ -44,26 +54,39 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
 
     const { buttonProps } = useButton({ ...props, isDisabled: disabled }, buttonRef);
 
+    const { hoverProps, isHovered } = useHover({ isDisabled: disabled });
+
+    const { isFocused, focusProps } = useFocusRing({
+      autoFocus
+    });
+
     const Comp = as || StyledTrigger;
 
     return (
       <Comp
-        {...buttonProps}
+        {...mergeProps(buttonProps, hoverProps, focusProps)}
         ref={buttonRef}
         $hasError={hasError}
         $hasValue={!!children}
         $isDisabled={!!disabled}
+        $isFocused={isFocused}
+        $isHovered={isHovered}
         $isOpen={isOpen}
         $size={size}
         data-invalid={hasError ? true : null}
         name={name}
       >
-        <Flex>
+        <Flex direction='column' style={{ flex: 1, width: '100%' }}>
+          {label && (
+            <Label error={hasError} size={size} {...labelProps}>
+              {label}
+            </Label>
+          )}
           <StyledTriggerValue {...valueProps} $isDisabled={disabled} $isSelected={!!children}>
             {children || placeholder}
           </StyledTriggerValue>
         </Flex>
-        <StyledChevronDown size='xs' />
+        <StyledChevronDown color='inherit' size='xs' />
       </Comp>
     );
   }

@@ -1,15 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { ChevronDown } from '../../icons';
-import { InputSizes } from '../../theme';
+import { InputSizes, Spacing } from '../../theme';
 import { List } from '../List';
 import { Span } from '../Text';
 import { Flex } from '../Flex';
+import { ChevronDown } from '../../icons';
 
 type StyledTriggerProps = {
   $isOpen?: boolean;
   $size: InputSizes;
   $isDisabled: boolean;
+  $isHovered: boolean;
+  $isFocused: boolean;
   $hasError: boolean;
   $hasValue: boolean;
 };
@@ -21,6 +23,7 @@ type StyledTriggerValueProps = {
 
 type StyledFieldProps = {
   $disabled?: boolean;
+  $maxWidth?: Spacing;
 };
 
 const StyledTrigger = styled.button<StyledTriggerProps>`
@@ -37,6 +40,26 @@ const StyledTrigger = styled.button<StyledTriggerProps>`
   text-align: left;
 
   cursor: ${({ $isDisabled }) => !$isDisabled && 'pointer'};
+
+  ${({ theme, $size, $hasError, $isFocused, $isHovered }) => css`
+    width: 100%;
+    height: 100%;
+    border-radius: ${theme.rounded('md')};
+    border-style: solid;
+    border-width: 1px;
+
+    ${theme.transition('common', 'normal')}
+
+    ${theme.input.sizes[$size]}
+
+    ${theme.input.base}
+    ${$hasError && theme.input.error.base}
+
+    ${theme.input.wrapper}
+    ${$hasError && theme.input.error.wrapper}
+    ${$isHovered ? ($hasError ? theme.input.error.hover.wapper : theme.input.hover.wapper) : undefined}
+    ${$isFocused ? ($hasError ? theme.input.error.focus.wrapper : theme.input.focus.wrapper) : undefined}
+  `};
 `;
 
 const StyledTriggerValue = styled(Span)<StyledTriggerValueProps>`
@@ -66,6 +89,7 @@ const StyledChevronDown = styled(ChevronDown)`
 
 const StyledField = styled(Flex)<StyledFieldProps>`
   opacity: ${({ $disabled }) => $disabled && '.5'};
+  max-width: ${({ $maxWidth, theme }) => $maxWidth && theme.spacing($maxWidth)};
 `;
 
-export { StyledField, StyledChevronDown, StyledList, StyledTrigger, StyledTriggerValue };
+export { StyledField, StyledList, StyledTrigger, StyledChevronDown, StyledTriggerValue };

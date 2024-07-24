@@ -15,6 +15,7 @@ type InputTheme = {
   };
   placeholder: StyledObject<object>;
   adornment: StyledObject<object>;
+  sizes: Record<InputSizes, StyledObject<object>>;
 };
 
 export type { InputSizes, InputTheme };

@@ -1,14 +1,13 @@
-import { useSelect } from '@react-aria/select';
+import { useSelect, AriaSelectOptions } from '@react-aria/select';
 import { mergeProps, useId } from '@react-aria/utils';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
-import { SelectProps as AriaSelectProps, useSelectState } from '@react-stately/select';
+import { SelectProps as StatelySelectProps, useSelectState } from '@react-stately/select';
 import { CollectionBase, Key, Node } from '@react-types/shared';
 import { ForwardedRef, ReactNode, forwardRef, useRef } from 'react';
 
 import { useDOMRef } from '../../hooks';
-import { InputSizes } from '../../theme';
-import { FieldProps, useFieldProps } from '../Field';
-import { hasError } from '../utils/input';
+import { InputSizes, Spacing } from '../../theme';
+import { HelperText } from '../HelperText';
 
 import { SelectModal, SelectModalProps } from './SelectModal';
 import { SelectTrigger } from './SelectTrigger';
@@ -24,6 +23,7 @@ type Props<T = SelectObject> = {
   asSelectTrigger?: any;
   renderValue?: (item: Node<T>) => ReactNode;
   placeholder?: ReactNode;
+  maxWidth?: Spacing;
 };
 
 type ListboxAttrs = { type?: 'listbox' };
@@ -33,10 +33,8 @@ type ModalAttrs = {
   modalProps?: { ref?: React.Ref<HTMLDivElement> } & Omit<SelectModalProps, 'state' | 'isOpen' | 'onClose' | 'id'>;
 };
 
-// type ConditionalAttrs = ListboxAttrs | ModalAttrs;
-
 type InheritAttrs<T = SelectObject> = Omit<
-  CollectionBase<T> & Omit<FieldProps, 'children'> & AriaSelectProps<T>,
+  CollectionBase<T> & AriaSelectOptions<T> & StatelySelectProps<T>,
   keyof Props<T> | 'isDisabled' | 'isLoading' | 'isOpen' | 'isRequired' | 'selectedKey' | 'defaultSelectedKey'
 >;
 
@@ -61,6 +59,7 @@ const Select = <T extends SelectObject = SelectObject>(
     open,
     required,
     label,
+    description,
     errorMessage,
     size = 'md',
     placeholder = 'Select an option',
@@ -74,6 +73,7 @@ const Select = <T extends SelectObject = SelectObject>(
     className,
     hidden,
     style,
+    maxWidth,
     ...props
   }: SelectProps<T>,
   ref: ForwardedRef<HTMLInputElement>
@@ -82,7 +82,7 @@ const Select = <T extends SelectObject = SelectObject>(
   const buttonRef = useRef<HTMLButtonElement>(null);
   const modalId = useId();
 
-  const ariaProps: AriaSelectProps<T> = {
+  const ariaProps: StatelySelectProps<T> = {
     isDisabled: disabled,
     isOpen: open,
     isRequired: required,
@@ -105,17 +105,7 @@ const Select = <T extends SelectObject = SelectObject>(
     buttonRef
   );
 
-  const { fieldProps, elementProps } = useFieldProps(
-    mergeProps(props, {
-      descriptionProps: mergeProps(descriptionProps, props.descriptionProps || {}),
-      errorMessageProps: mergeProps(errorMessageProps, props.errorMessageProps || {}),
-      errorMessage,
-      labelProps: mergeProps(labelProps, props.labelProps || {}),
-      label
-    })
-  );
-
-  const error = hasError({ errorMessage, isInvalid });
+  const error = isInvalid || !!errorMessage;
 
   const selectTriggerProps =
     type === 'listbox'
@@ -131,7 +121,14 @@ const Select = <T extends SelectObject = SelectObject>(
         );
 
   return (
-    <StyledField $disabled={disabled} className={className} direction='column' hidden={hidden} style={style}>
+    <StyledField
+      $disabled={disabled}
+      $maxWidth={maxWidth}
+      className={className}
+      direction='column'
+      hidden={hidden}
+      style={style}
+    >
       <VisuallyHidden aria-hidden='true'>
         <input
           ref={inputRef}
@@ -143,13 +140,15 @@ const Select = <T extends SelectObject = SelectObject>(
         />
       </VisuallyHidden>
       <SelectTrigger
-        {...mergeProps(elementProps, selectTriggerProps)}
+        {...mergeProps(selectTriggerProps)}
         ref={buttonRef}
         aria-controls={modalId}
         aria-expanded={state.isOpen}
         as={asSelectTrigger}
         disabled={disabled}
         hasError={error}
+        label={label}
+        labelProps={labelProps}
         name={name}
         placeholder={placeholder}
         size={size}
@@ -169,6 +168,15 @@ const Select = <T extends SelectObject = SelectObject>(
             disabledKeys
           })}
           state={state}
+        />
+      )}
+
+      {(description || errorMessage) && (
+        <HelperText
+          description={description}
+          descriptionProps={descriptionProps}
+          errorMessage={errorMessage as ReactNode}
+          errorMessageProps={errorMessageProps}
         />
       )}
     </StyledField>
