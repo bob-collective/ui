@@ -18,7 +18,7 @@ import {
   useConnect as useSatsConnect,
   SatsConnector
 } from '@gobob/sats-wagmi';
-import { forwardRef, useCallback, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { ConnectType, WalletType } from '../../types';
 
@@ -54,6 +54,19 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 
     const [pendingConnector, setPendingConnector] = useState<Connector>();
     const [pendingSatsConnector, setPendingSatsConnector] = useState<SatsConnector>();
+
+    // override properties set by OverlayProvider provider in ui/src/system
+    useEffect(() => {
+      if (pendingConnector?.id === 'walletConnect') {
+        const modals = document.querySelectorAll('wcm-modal');
+
+        // Set the aria-hidden attribute to true for each wcm-modal element
+        modals.forEach((modal) => {
+          modal.setAttribute('data-react-aria-top-layer', 'true');
+          modal.removeAttribute('aria-hidden');
+        });
+      }
+    }, [pendingConnector]);
 
     useAccountEffect({
       onConnect: (data) => {
