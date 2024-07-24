@@ -212,10 +212,10 @@ const Send = (): JSX.Element => {
     }) => {
       const { isAddress: isRecipientAddress, recipientAddress } = await getAddressData(recipient);
 
-      let txHash: Address | undefined;
+      let userOpHash: Address | undefined;
 
       if (paymasterApprovalData.isApproveRequired) {
-        txHash = await kernelClient?.sendUserOperation({
+        userOpHash = await kernelClient?.sendUserOperation({
           account: kernelClient?.account!,
           userOperation: {
             callData: await kernelClient?.account!.encodeCallData([
@@ -241,7 +241,7 @@ const Send = (): JSX.Element => {
           }
         });
       } else {
-        txHash = await kernelClient?.sendUserOperation({
+        userOpHash = await kernelClient?.sendUserOperation({
           account: kernelClient?.account!,
           userOperation: {
             callData: await kernelClient?.account!.encodeCallData([
@@ -259,24 +259,29 @@ const Send = (): JSX.Element => {
         });
       }
 
-      if (!txHash) {
+      if (!userOpHash) {
         throw new Error('Failed to submit transaction');
       }
 
-      if (!isRecipientAddress) {
-        const senderEvmAddress = address;
-        const recipientEvmAddress = recipientAddress;
-        const recipientEmail = recipient;
-        const tx = txHash;
-
-        // eslint-disable-next-line no-console
-        console.log(senderEvmAddress, recipientEvmAddress, recipientEmail, tx);
-
-        /// DO BACKEND CALL HERE
-      }
+      // Record the tx in the db so that we can check for intract whether someone has sent to an email.
+      // The same data could be used to provide a better tx history to the user, where we can show the
+      // destination email address rather than the evm address.
+      fetch('/api/bob-pay-insert-transaction', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          receiverEmail: isRecipientAddress ? '' : recipient, // for now, also submit when transferring to evm address
+          sender: address,
+          receiver: recipientAddress,
+          userOperationHash: userOpHash
+        })
+      });
 
       return {
-        txHash,
+        userOpHash,
         recipientAddress
       };
     }
