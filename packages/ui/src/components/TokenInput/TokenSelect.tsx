@@ -1,21 +1,13 @@
 import { mergeProps } from '@react-aria/utils';
 
-import { Span } from '../Text';
-import { Flex } from '../Flex';
 import { Item, ModalSelectProps, Select } from '../Select';
 
-import { StyledTicker, StyledTokenImg, StyledTokenSelect } from './TokenInput.style';
+import { StyledTokenSelect } from './TokenInput.style';
 import { TokenListItem } from './TokenListItem';
-
-const Value = ({ data }: { data: TokenData }) => (
-  <Flex alignItems='center' gap='xs' justifyContent='space-evenly'>
-    <StyledTokenImg $size='md' alt={data.currency.symbol} src={data.logoUrl} />
-    <StyledTicker>{data.currency.symbol}</StyledTicker>
-  </Flex>
-);
+import { Token } from './Token';
 
 type TokenData = {
-  currency: any;
+  currency: { decimals: number; symbol: string };
   logoUrl: string;
   balance: string | number;
   balanceUSD: number;
@@ -31,12 +23,10 @@ const TokenSelect = ({ modalProps, size, ...props }: TokenSelectProps): JSX.Elem
       aria-label='select token'
       asSelectTrigger={StyledTokenSelect}
       modalProps={mergeProps({ title: 'Select Token', listProps: { maxHeight: '32rem' } }, modalProps)}
-      placeholder={
-        <Span color='inherit' size='s'>
-          Select token
-        </Span>
+      placeholder='Select token'
+      renderValue={({ value }) =>
+        value ? <Token logoUrl={value.logoUrl} symbol={value.currency.symbol} /> : undefined
       }
-      renderValue={(item) => <Value data={item.value as TokenData} />}
       size={size === 'lg' ? 'md' : size}
       type='modal'
     >

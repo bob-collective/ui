@@ -135,7 +135,7 @@ const Select = <T extends SelectObject = SelectObject>(
           disabled={disabled}
           name={name}
           tabIndex={-1}
-          value={onChange ? state.selectedKey.toString() || '' : undefined}
+          value={onChange ? state.selectedKey?.toString() || '' : undefined}
           onChange={onChange}
         />
       </VisuallyHidden>
@@ -152,6 +152,7 @@ const Select = <T extends SelectObject = SelectObject>(
         name={name}
         placeholder={placeholder}
         size={size}
+        value={state.selectedKey?.toString()}
         valueProps={valueProps}
       >
         {state.selectedItem && renderValue(state.selectedItem)}

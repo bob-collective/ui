@@ -22,6 +22,7 @@ type Props = {
   valueProps?: TextProps<unknown>;
   label?: ReactNode;
   labelProps?: LabelProps;
+  value?: string;
   onPress?: (e: PressEvent) => void;
 };
 
@@ -44,6 +45,7 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
       autoFocus,
       label,
       labelProps,
+      value,
       ...props
     },
     ref
@@ -74,6 +76,7 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         $isOpen={isOpen}
         $size={size}
         data-invalid={hasError ? true : null}
+        data-value={value}
         name={name}
       >
         <Flex direction='column' style={{ flex: 1, width: '100%' }}>

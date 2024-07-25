@@ -1,16 +1,11 @@
-import { ReactNode, forwardRef } from 'react';
+import { forwardRef } from 'react';
 
-import { TokenAdornment } from './TokenAdornment';
+import { Token } from './Token';
 import { BaseTokenInput, BaseTokenInputProps } from './BaseTokenInput';
-import { TokenInputBalance } from './TokenInputBalance';
 
 type Props = {
-  currency: any;
-  balance?: string;
-  humanBalance?: string | number;
-  balanceLabel?: ReactNode;
-  onClickBalance?: (balance: string | number) => void;
   logoUrl: string;
+  currency: { symbol: string; decimals: number };
 };
 
 type InheritAttrs = Omit<BaseTokenInputProps, keyof Props | 'endAdornment'>;
@@ -18,42 +13,18 @@ type InheritAttrs = Omit<BaseTokenInputProps, keyof Props | 'endAdornment'>;
 type FixedTokenInputProps = Props & InheritAttrs;
 
 const FixedTokenInput = forwardRef<HTMLInputElement, FixedTokenInputProps>(
-  (
-    {
-      balance: balanceProp,
-      humanBalance,
-      balanceLabel,
-      onClickBalance,
-      logoUrl,
-      isDisabled,
-      id,
-      size = 'md',
-      currency,
-      ...props
-    },
-    ref
-  ): JSX.Element => {
-    const balance = balanceProp !== undefined && (
-      <TokenInputBalance
-        balance={balanceProp}
-        balanceHuman={humanBalance}
-        inputId={id}
-        isDisabled={isDisabled}
-        label={balanceLabel}
-        onClickBalance={onClickBalance}
-      />
-    );
-
+  ({ balance, humanBalance, onClickBalance, logoUrl, isDisabled, id, currency, ...props }, ref): JSX.Element => {
     return (
       <BaseTokenInput
         {...props}
         ref={ref}
         balance={balance}
         currency={currency}
-        endAdornment={<TokenAdornment logoUrl={logoUrl} size={size} ticker={currency.symbol} />}
+        endAdornment={<Token logoUrl={logoUrl} symbol={currency.symbol} />}
+        humanBalance={humanBalance}
         id={id}
         isDisabled={isDisabled}
-        size={size}
+        onClickBalance={onClickBalance}
       />
     );
   }

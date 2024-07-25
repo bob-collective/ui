@@ -8,7 +8,7 @@ const input: InputTheme = {
     color: color('light')
   },
   wrapper: {
-    backgroundColor: color('grey-700'),
+    backgroundColor: color('grey-600'),
     borderColor: 'transparent'
   },
   hover: {

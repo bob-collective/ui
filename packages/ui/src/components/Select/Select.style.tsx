@@ -31,8 +31,6 @@ const StyledTrigger = styled.button<StyledTriggerProps>`
   letter-spacing: inherit;
   background: none;
 
-  overflow: hidden;
-
   display: inline-flex;
   align-items: center;
   justify-content: space-between;

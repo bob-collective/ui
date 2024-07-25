@@ -1,19 +1,11 @@
 import { chain, useId } from '@react-aria/utils';
-import { Key, ReactNode, forwardRef, useCallback } from 'react';
-
-import { HelperText } from '../HelperText';
+import { Key, forwardRef, useCallback } from 'react';
 
 import { BaseTokenInput, BaseTokenInputProps } from './BaseTokenInput';
-import { TokenInputBalance } from './TokenInputBalance';
 import { TokenData, TokenSelect, TokenSelectProps } from './TokenSelect';
 
 type Props = {
-  balance?: string;
-  humanBalance?: string | number;
-  balanceLabel?: ReactNode;
-  currency?: any;
   items?: TokenData[];
-  onClickBalance?: (balance: string) => void;
   onChangeCurrency?: (currency?: any) => void;
   selectProps?: Omit<TokenSelectProps, 'label' | 'helperTextId' | 'items'>;
 };
@@ -29,16 +21,14 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
       errorMessage,
       description,
       label,
-      balance: balanceProp,
+      balance,
       id,
       isDisabled,
-      balanceLabel,
       humanBalance,
       currency,
       items,
       onClickBalance,
       onChangeCurrency,
-      size,
       ...props
     },
     ref
@@ -71,20 +61,8 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
         errorMessage={undefined}
         isInvalid={isInvalid}
         items={items}
-        size={size}
         value={currency?.symbol}
         onSelectionChange={chain(onSelectionChange, handleSelectionChange)}
-      />
-    );
-
-    const balance = balanceProp !== undefined && (
-      <TokenInputBalance
-        balance={currency ? balanceProp : '0'}
-        balanceHuman={humanBalance}
-        inputId={id}
-        isDisabled={isDisabled || !currency}
-        label={balanceLabel}
-        onClickBalance={onClickBalance}
       />
     );
 
@@ -96,19 +74,21 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
         description={description}
         endAdornment={endAdornment}
         errorMessage={errorMessage}
+        humanBalance={humanBalance}
         id={id}
         isDisabled={isDisabled}
         label={label}
+        onClickBalance={onClickBalance}
         {...props}
-      >
-        {shouldDisplayHelperText && (
+      />
+      // TODO: need to pass this into base token input
+      /* {shouldDisplayHelperText && (
           <HelperText
             description={selectProps?.description}
             errorMessage={selectProps?.errorMessage}
             id={selectHelperTextId}
           />
-        )}
-      </BaseTokenInput>
+        )} */
     );
   }
 );

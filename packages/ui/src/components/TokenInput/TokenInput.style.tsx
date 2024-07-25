@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { TokenInputSize } from '../../theme';
-import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { StyledTrigger } from '../Select/Select.style';
 import { Span } from '../Text';
@@ -10,33 +8,18 @@ type StyledListItemSelectedLabelProps = {
   $isSelected: boolean;
 };
 
-type StyledTokenAdornmentProps = {
-  $size: TokenInputSize;
-};
-
-const StyledTicker = styled.span`
-  color: inherit;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const StyledTokenAdornment = styled(Flex)<StyledTokenAdornmentProps>`
-  ${({ theme, $size }) => css`
-    ${theme.tokenInput.addorment.token.base}
-    ${theme.tokenInput.size[$size].addornment.token.base}
-  `}
-`;
-
-const StyledTokenImg = styled.img<StyledTokenAdornmentProps>`
-  ${({ theme, $size }) => theme.tokenInput.size[$size].addornment.token.img}
+const StyledTokenImg = styled.img`
+  ${({ theme }) => theme.tokenInput.token.img}
   border-radius: ${({ theme }) => theme.rounded('full')};
 `;
 
 const StyledTokenSelect = styled(StyledTrigger)`
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  overflow: hidden;
-  margin-left: -1px;
+  border-radius: ${({ theme }) => theme.rounded('full')};
+  ${({ theme, ...props }) => css`
+    ${theme.tokenInput.token.base}
+    ${!(props as any)['data-value'] && theme.tokenInput.token.placeholder}
+    height: 2.5rem;
+  `}
 `;
 
 const StyledListItemLabel = styled(Span)<StyledListItemSelectedLabelProps>`
@@ -67,26 +50,4 @@ const StyledListTokenWrapper = styled(Flex)`
   overflow: hidden;
 `;
 
-const StyledBalance = styled(Flex)`
-  max-height: 1.625rem;
-  ${({ theme }) => theme.tokenInput.balance}
-`;
-
-const StyledMaxButton = styled(Button)`
-  height: ${({ theme }) => theme.spacing('2xl')};
-  padding: 0 ${({ theme }) => theme.spacing('s')};
-  ${({ theme }) => ({ ...theme.typography('xs') })}
-  font-weight: ${({ theme }) => theme.fontWeight('medium')};
-`;
-
-export {
-  StyledListItemLabel,
-  StyledListTokenWrapper,
-  StyledTicker,
-  StyledBalance,
-  StyledTokenAdornment,
-  StyledTokenSelect,
-  StyledTokenImg,
-  StyledListItemUsd,
-  StyledMaxButton
-};
+export { StyledListItemLabel, StyledListTokenWrapper, StyledTokenSelect, StyledTokenImg, StyledListItemUsd };

@@ -1,23 +1,26 @@
 import styled, { css } from 'styled-components';
 
-import { InputSizes, TokenInputSize } from '../../theme';
 import { Flex } from '../Flex';
+import { Button } from '../Button';
 
 type StyledUSDAdornmentProps = {
   $isDisabled?: boolean;
-  $size: TokenInputSize;
 };
 
 type StyledBaseInputProps = {
-  $adornmentBottom: boolean;
-  $hasError: boolean;
-  $size: InputSizes;
+  $isInvalid: boolean;
+};
+
+type StyledFieldProps = {
+  $isHovered: boolean;
+  $isFocused: boolean;
+  $isInvalid: boolean;
+  $isDisabled?: boolean;
 };
 
 const StyledBaseInput = styled.input<StyledBaseInputProps>`
   display: block;
   width: 100%;
-  height: 100%;
 
   outline: none;
   font: inherit;
@@ -26,97 +29,68 @@ const StyledBaseInput = styled.input<StyledBaseInputProps>`
 
   text-overflow: ellipsis;
 
-  ${({ theme, $size, $adornmentBottom, $hasError }) => {
-    const { paddingRight, paddingTop, paddingBottom, paddingLeft, ...sizeCss } = theme.input.size[$size];
+  border: none;
 
-    // MEMO: adding `spacing6` is a hacky solution because
-    // the `endAdornmentWidth` does not update width correctly
-    // after fonts are loaded. Instead of falling back to a more
-    // complex solution, an extra offset does the job of not allowing
-    // the input overlap the adornment.
-    return css`
-      padding-top: ${paddingTop};
-      padding-bottom: ${$adornmentBottom ? theme.spacing('3xl') : paddingBottom};
-      padding-left: ${paddingLeft};
-      padding-right: ${paddingRight};
+  margin: 0;
+  padding: 0;
 
-      position: relative;
+  ${({ theme, $isInvalid }) => css`
+    ${theme.tokenInput.base}
+    ${$isInvalid && theme.input.error.base}
 
-      ${sizeCss}
-      ${theme.input.base}
-      ${$hasError && theme.input.error.base}
-
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-
-      &:hover:not(:disabled):not(:focus) {
-        ${$hasError ? theme.input.error.hover : theme.input.hover}
-      }
-
-      &:focus:not(:disabled) {
-        ${$hasError ? theme.input.error.focus : theme.input.focus}
-      }
-
-      &::placeholder {
-        ${theme.input.placeholder}
-      }
-
-      &:disabled {
-        ${theme.input.disabled}
-      }
-    `;
-  }}
+    &::placeholder {
+      ${theme.tokenInput.placeholder}
+    }
+  `}
 `;
 
-const StyledUSDAdornment = styled.span<StyledUSDAdornmentProps>`
-  display: block;
-  white-space: nowrap;
-  align-self: flex-start;
-  overflow: hidden;
-  max-width: -webkit-fill-available;
-  text-overflow: ellipsis;
-  ${({ theme }) => theme.tokenInput.addorment.usd}
-`;
-
-type StyledAdornmentProps = {
-  $size: InputSizes;
-};
-
-const StyledAdornment = styled.div<StyledAdornmentProps>`
+const StyledAdornment = styled.div`
   display: inline-flex;
   align-items: center;
   position: absolute;
   // to not allow adornment to take more than 50% of the input. We might want to reduce this in the future.
-  left: ${({ theme, $size }) => theme.input.size[$size].paddingLeft};
   bottom: ${({ theme }) => theme.spacing('s')};
   overflow: hidden;
-  max-width: ${({ theme, $size }) => `calc(100% - (2 *${theme.input.size[$size].paddingLeft}))`};
   z-index: 1;
   z-index: 5;
 
   pointer-events: none;
 `;
 
-const StyledGroupInputWrapper = styled(Flex)`
-  input:focus,
-  button:focus {
-    z-index: 5;
-  }
+const StyledField = styled(Flex)<StyledFieldProps>`
+  opacity: ${({ $isDisabled }) => $isDisabled && '.5'};
+  ${({ theme, $isInvalid, $isFocused, $isHovered }) => css`
+    width: 100%;
+    height: 100%;
+    border-radius: ${theme.rounded('md')};
+    border-style: solid;
+    border-width: 1px;
 
-  input[aria-invalid='true'],
-  button[data-invalid='true'] {
-    z-index: 4;
-  }
+    ${theme.transition('common', 'normal')}
 
-  input:hover:not(:focus),
-  button:hover:not(:focus) {
-    z-index: 3;
-  }
+    ${theme.tokenInput.wrapper}
+    ${$isInvalid && theme.tokenInput.error.wrapper}
+    ${$isHovered ? ($isInvalid ? theme.tokenInput.error.hover.wapper : theme.tokenInput.hover.wapper) : undefined}
+    ${$isFocused ? ($isInvalid ? theme.tokenInput.error.focus.wrapper : theme.tokenInput.focus.wrapper) : undefined}
+  `}
 `;
 
-const StyledNumberInputWrapper = styled.div`
-  position: relative;
-  width: 100%;
+const StyledBalanceButton = styled(Button)`
+  ${({ theme }) => css`
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.spacing('xxs')};
+    height: auto;
+    ${theme.tokenInput.balance}
+  `}
 `;
 
-export { StyledBaseInput, StyledAdornment, StyledUSDAdornment, StyledNumberInputWrapper, StyledGroupInputWrapper };
+const StyledUSDAdornment = styled.span<StyledUSDAdornmentProps>`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  ${({ theme }) => theme.tokenInput.usd}
+`;
+
+export { StyledBaseInput, StyledAdornment, StyledField, StyledBalanceButton, StyledUSDAdornment };

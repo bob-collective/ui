@@ -1,23 +1,17 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { mergeProps } from '@react-aria/utils';
-import { ChangeEventHandler, FocusEvent, forwardRef, ReactNode, useCallback } from 'react';
+import { ChangeEventHandler, FocusEvent, forwardRef, MouseEventHandler, ReactNode, useCallback } from 'react';
+import { useHover } from '@react-aria/interactions';
+import { useFocusRing } from '@react-aria/focus';
 
 import { useCurrencyFormatter, useDOMRef } from '../../hooks';
-import { Spacing, TokenInputSize } from '../../theme';
-import { HelperTextProps } from '../HelperText';
-import { LabelProps } from '../Label';
-import { Field, FieldProps, useFieldProps } from '../Field';
+import { Spacing } from '../../theme';
+import { Label, LabelProps } from '../Label';
 import { Flex } from '../Flex';
-import { hasError } from '../utils/input';
+import { Divider } from '../Divider';
+import { BankNotes } from '../../icons';
 
-import {
-  StyledAdornment,
-  StyledBaseInput,
-  StyledGroupInputWrapper,
-  StyledNumberInputWrapper,
-  StyledUSDAdornment
-} from './BaseTokenInput.style';
-import { TokenInputLabel } from './TokenInputLabel';
+import { StyledBalanceButton, StyledBaseInput, StyledField, StyledUSDAdornment } from './BaseTokenInput.style';
 
 const escapeRegExp = (string: string): string => {
   // $& means the whole matched string
@@ -32,47 +26,48 @@ const hasCorrectDecimals = (value: string, decimals: number) => {
 
 type Props = {
   valueUSD?: number;
-  balance?: ReactNode;
   label?: ReactNode;
   labelProps?: LabelProps;
   endAdornment: ReactNode;
-  size?: TokenInputSize;
   isInvalid?: boolean;
   minHeight?: Spacing;
   value?: string;
   defaultValue?: string;
   // TODO: use Currency from bob-ui
-  currency?: { decimals: number };
+  currency?: { symbol: string; decimals: number };
+  balance?: string;
+  humanBalance?: string | number;
+  onClickBalance?: (balance: string) => void;
   onValueChange?: (value: string | number) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: FocusEvent<Element>) => void;
   onBlur?: (e: FocusEvent<Element>) => void;
 };
 
-type InheritAttrs = Omit<
-  HelperTextProps &
-    Pick<
-      FieldProps,
-      'label' | 'labelPosition' | 'labelProps' | 'maxWidth' | 'justifyContent' | 'alignItems' | 'fullWidth'
-    >,
-  keyof Props
->;
+// type InheritAttrs = Omit<
+//   HelperTextProps &
+//     Pick<
+//       FieldProps,
+//       'label' | 'labelPosition' | 'labelProps' | 'maxWidth' | 'justifyContent' | 'alignItems' | 'fullWidth'
+//     >,
+//   keyof Props
+// >;
 
-type AriaAttrs = Omit<AriaTextFieldOptions<'input'>, (keyof Props & InheritAttrs) | 'onChange'>;
+type AriaAttrs = Omit<AriaTextFieldOptions<'input'>, keyof Props | 'onChange'>;
 
-type BaseTokenInputProps = Props & AriaAttrs & InheritAttrs;
+type BaseTokenInputProps = Props & AriaAttrs;
 
 const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
   (
     {
       label,
       placeholder = '0.00',
-      balance,
-      children,
-      valueUSD,
+      balance = '0.00',
+      humanBalance,
+      onClickBalance,
+      valueUSD = 0,
       isDisabled,
-      isInvalid,
-      size = 'md',
+      isInvalid: isInvalidProp,
       defaultValue,
       inputMode,
       value = '',
@@ -88,12 +83,12 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
 
     const format = useCurrencyFormatter();
 
-    const { inputProps, descriptionProps, errorMessageProps, labelProps } = useTextField(
+    const { inputProps, descriptionProps, errorMessageProps, labelProps, isInvalid } = useTextField(
       {
         ...props,
         label,
         inputMode,
-        isInvalid: isInvalid || !!props.errorMessage,
+        isInvalid: isInvalidProp || !!props.errorMessage,
         value,
         onChange: () => {},
         defaultValue,
@@ -121,44 +116,60 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       [onChange, onValueChange, currency]
     );
 
+    const handleClickWrapper: MouseEventHandler<unknown> = (e) => {
+      if (inputRef.current && e.currentTarget === e.target) {
+        inputRef.current.focus();
+      }
+    };
+
+    const { hoverProps, isHovered } = useHover({ isDisabled });
+
+    const { isFocused, focusProps } = useFocusRing({
+      autoFocus: inputProps.autoFocus,
+      isTextInput: true
+    });
+
     const hasLabel = !!label || !!balance;
 
-    // FIXME: move this into Field
-    const { fieldProps: styleFieldProps } = useFieldProps({ ...props, descriptionProps, errorMessageProps } as any);
-
-    const error = hasError({ isInvalid, errorMessage: props.errorMessage } as any);
-
-    const bottomAdornment = valueUSD !== undefined && (
-      <StyledUSDAdornment $isDisabled={isDisabled} $size={size}>
-        {format(valueUSD)}
-      </StyledUSDAdornment>
-    );
-
     return (
-      <Field {...styleFieldProps}>
-        <Flex direction='column' flex={1}>
-          {hasLabel && (
-            <TokenInputLabel {...labelProps} balance={balance}>
-              {label}
-            </TokenInputLabel>
-          )}
-          <StyledGroupInputWrapper>
-            <StyledNumberInputWrapper>
-              <StyledBaseInput
-                ref={inputRef}
-                $adornmentBottom={!!bottomAdornment}
-                $hasError={error}
-                $size={size}
-                placeholder={placeholder}
-                {...mergeProps(inputProps, { onChange: handleChange })}
-              />
-              <StyledAdornment $size={size}>{bottomAdornment}</StyledAdornment>
-            </StyledNumberInputWrapper>
-            {endAdornment}
-          </StyledGroupInputWrapper>
-          {children}
+      <StyledField
+        $isDisabled={isDisabled}
+        $isFocused={isFocused}
+        $isHovered={isHovered}
+        $isInvalid={isInvalid}
+        direction='column'
+        onClick={handleClickWrapper}
+        {...mergeProps(hoverProps, focusProps)}
+      >
+        <Flex alignItems='flex-end'>
+          <Flex direction='column' flex={1}>
+            {hasLabel && <Label {...labelProps}>{label}</Label>}
+            <StyledBaseInput
+              ref={inputRef}
+              $isInvalid={isInvalid}
+              placeholder={placeholder}
+              {...mergeProps(inputProps, focusProps, { onChange: handleChange })}
+            />
+          </Flex>
+          {endAdornment}
         </Flex>
-      </Field>
+        <Divider marginY='s' />
+        <Flex gap='md' justifyContent='space-between'>
+          <StyledUSDAdornment $isDisabled={isDisabled}>{format(valueUSD)}</StyledUSDAdornment>
+          <StyledBalanceButton
+            aria-controls={inputProps.id}
+            aria-label={typeof label === 'string' ? `apply max ${label}` : 'apply max'}
+            color='primary'
+            disabled={isDisabled || Number(balance) === 0}
+            size='s'
+            variant='ghost'
+            onPress={() => onClickBalance?.(balance)}
+          >
+            <BankNotes color='inherit' size='xs' />
+            {humanBalance || balance}
+          </StyledBalanceButton>
+        </Flex>
+      </StyledField>
     );
   }
 );
