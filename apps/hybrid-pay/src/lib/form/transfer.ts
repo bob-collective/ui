@@ -10,6 +10,10 @@ const validateEmail = (email: string) => {
     );
 };
 
+const validateTelegram = (handle: string) => {
+  return handle.startsWith('@');
+};
+
 const TRANSFER_TOKEN_RECIPIENT = 'transfer-token-recipient';
 const TRANSFER_TOKEN_AMOUNT = 'transfer-token-amount';
 const TRANSFER_TOKEN_TICKER = 'transfer-token-ticker';
@@ -29,8 +33,10 @@ const transferTokenSchema = (params: TransferTokenFormValidationParams) => {
     [TRANSFER_TOKEN_RECIPIENT]: yup
       .string()
       .required('Recipient is required field')
-      .test('is-emails-or-address', 'Recipient must be a valid EVM/email address', (value) =>
-        value ? !!validateEmail(value) || isAddress(value) : false
+      .test(
+        'is-emails-or-tg-or-address',
+        'Recipient must be an EVM address, Telegram handle starting with a "@", or email address',
+        (value) => (value ? !!validateEmail(value) || validateTelegram(value) || isAddress(value) : false)
       ),
     [TRANSFER_TOKEN_AMOUNT]: yup
       .string()
