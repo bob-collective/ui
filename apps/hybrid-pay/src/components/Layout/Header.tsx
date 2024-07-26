@@ -1,11 +1,11 @@
 import { DynamicWidget, useDynamicContext, useDynamicEvents } from '@dynamic-labs/sdk-react-core';
-import { ArrowLeft, Button, Flex, FlexProps, Span } from '@gobob/ui';
+import { ArrowLeft, Flex, FlexProps, Span } from '@gobob/ui';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Logo } from '../Logo';
 import { RoutesPath } from '../../constants';
 
-import { StyledHeader, StyledLogoWrapper } from './Layout.style';
+import { StyledBackButton, StyledHeader, StyledLogoWrapper } from './Layout.style';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 
@@ -29,12 +29,12 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
           <Logo to={RoutesPath.HOME} />
         ) : (
           <Flex alignItems='center'>
-            <Button size='s' variant='ghost' onPress={() => navigate(RoutesPath.HOME)}>
+            <StyledBackButton onPress={() => navigate(RoutesPath.HOME)}>
               <ArrowLeft size='s' strokeWidth={2} />
-            </Button>
-            <Span size='lg' weight='bold'>
-              {pathname === RoutesPath.SEND ? 'Send' : 'Receive'}
-            </Span>
+              <Span size='lg' weight='bold'>
+                {pathname === RoutesPath.SEND ? 'Send' : 'Receive'}
+              </Span>
+            </StyledBackButton>
           </Flex>
         )}
       </StyledLogoWrapper>
