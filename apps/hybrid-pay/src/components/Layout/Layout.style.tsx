@@ -1,4 +1,4 @@
-import { Flex, MaxWidth, ResponsiveProp, Spacing } from '@gobob/ui';
+import { Flex, MaxWidth, ResponsiveProp, Spacing, UnstyledButton } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
 type StyledMainProps = {
@@ -46,4 +46,12 @@ const StyledMain = styled.main<StyledMainProps>`
   min-height: calc(100vh - 4.75rem);
 `;
 
-export { StyledHeader, StyledLayout, StyledLogoWrapper, StyledMain };
+const StyledBackButton = styled(UnstyledButton)`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing('md')};
+  cursor: pointer;
+  padding: ${({ theme }) => theme.spacing('lg')} 0;
+`;
+
+export { StyledHeader, StyledLayout, StyledBackButton, StyledLogoWrapper, StyledMain };

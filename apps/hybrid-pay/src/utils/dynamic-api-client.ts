@@ -19,7 +19,19 @@ class DynamicApiClient {
     this.baseUrl = baseUrl;
   }
 
-  async createEmbeddedWallet(email: string): Promise<WalletData> {
+  async createEmbeddedWallet(identifier: string): Promise<WalletData> {
+    let type;
+    let socialProvider;
+
+    if (identifier.startsWith('@')) {
+      socialProvider = 'telegram';
+      type = 'socialUsername';
+      identifier = identifier.substring(1); // strip the @
+    } else {
+      socialProvider = 'emailOnly';
+      type = 'email';
+    }
+
     const response = await fetch(
       `${this.baseUrl}/environments/${import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID}/embeddedWallets`,
       {
@@ -28,7 +40,7 @@ class DynamicApiClient {
           Authorization: `Bearer ${import.meta.env.VITE_DYNAMIC_API_KEY}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ type: 'email', identifier: email, chain: 'EVM', socialProvider: 'emailOnly' })
+        body: JSON.stringify({ type, identifier, chain: 'EVM', socialProvider })
       }
     );
 

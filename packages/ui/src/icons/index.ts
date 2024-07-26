@@ -6,13 +6,16 @@ export { ArrowPathRoundedSquare } from './ArrowPathRoundedSquare';
 export { ArrowRight } from './ArrowRight';
 export { ArrowRightCircle } from './ArrowRightCircle';
 export { ArrowRightLeft } from './ArrowRightLeft';
+export { ArrowsUpDown } from './ArrowsUpDown';
 export { ArrowTopRightOnSquare } from './ArrowTopRightOnSquare';
 export { ArrowTrendingUp } from './ArrowTrendingUp';
 export { ArrowUp } from './ArrowUp';
-export { ArrowsUpDown } from './ArrowsUpDown';
-export { BLogo } from './BLogo';
 export { Bars3 } from './Bars3';
+<<<<<<< HEAD
 export { BankNotes } from './BankNotes';
+=======
+export { BLogo } from './BLogo';
+>>>>>>> 24190e7 (feat: add telegram (#81))
 export { Bolt } from './Bolt';
 export { ChatBubbleLeftRight } from './ChatBubbleLeftRight';
 export { Check } from './Check';
@@ -34,6 +37,7 @@ export { PlusCircle } from './PlusCircle';
 export { Power } from './Power';
 export { PresentationChartBar } from './PresentationChartBar';
 export { PuzzlePiece } from './PuzzlePiece';
+export { QRCode } from './QRCode';
 export { QuestionMarkCircle } from './QuestionMarkCircle';
 export { StickyNote } from './StickyNote';
 export { Twitter } from './Twitter';

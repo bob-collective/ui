@@ -13,10 +13,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dynamic-labs/ethereum": "^v3.0.0-alpha.24",
-    "@dynamic-labs/ethereum-aa": "^v3.0.0-alpha.24",
-    "@dynamic-labs/sdk-react-core": "^v3.0.0-alpha.24",
-    "@dynamic-labs/wagmi-connector": "^v3.0.0-alpha.24",
+    "@dynamic-labs/ethereum": "^v3.0.0-alpha.29",
+    "@dynamic-labs/ethereum-aa": "^v3.0.0-alpha.29",
+    "@dynamic-labs/sdk-react-core": "^v3.0.0-alpha.29",
+    "@dynamic-labs/wagmi-connector": "^v3.0.0-alpha.29",
     "@gobob/chains": "workspace:^",
     "@gobob/currency": "workspace:^",
     "@gobob/hooks": "workspace:^",
@@ -32,6 +32,7 @@
     "@react-stately/list": "^3.9.1",
     "@sentry/react": "^8.8.0",
     "@sentry/vite-plugin": "^2.18.0",
+    "@yudiel/react-qr-scanner": "^2.0.4",
     "@zerodev/sdk": "^5.3.4",
     "big.js": "^6.2.1",
     "date-fns": "^3.2.0",
