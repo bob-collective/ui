@@ -1,7 +1,7 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { useMutation, usePrices } from '@gobob/react-query';
-import { Button, Flex, toast, TokenInput, useForm } from '@gobob/ui';
+import { Button, Flex, QRCode, toast, TokenInput, useForm } from '@gobob/ui';
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
@@ -53,7 +53,7 @@ const Send = (): JSX.Element => {
 
   const defaultTicker = CHAIN === ChainId.BASE_SEPOLIA ? 'USDC' : searchParams.get('token') || 'WBTC';
 
-  // const [isScanModalOpen, setScanModalOpen] = useState(false);
+  const [isScanModalOpen, setScanModalOpen] = useState(false);
 
   const [ticker, setTicker] = useState(defaultTicker);
   const [amount, setAmount] = useState('');
@@ -327,18 +327,17 @@ const Send = (): JSX.Element => {
     <Main maxWidth='md' padding='md'>
       <Flex direction='column' elementType='form' gap='md' marginX='md' onSubmit={form.handleSubmit as any}>
         <StyledInput
-          // endAdornment={
-          //   <Button
-          //     isIconOnly
-          //     variant='ghost'
-          //     onPress={async () => {
-          //       getVideoStream();
-          //       setScanModalOpen(true);
-          //     }}
-          //   >
-          //     <QRCode />
-          //   </Button>
-          // }
+          endAdornment={
+            <Button
+              isIconOnly
+              variant='ghost'
+              onPress={async () => {
+                setScanModalOpen(true);
+              }}
+            >
+              <QRCode />
+            </Button>
+          }
           label='Recipient'
           placeholder='pay@gobob.xyz'
           size='lg'
@@ -392,11 +391,10 @@ const Send = (): JSX.Element => {
         </Button>
       </Flex>
       <ScannerModal
-        isOpen={false}
-        // onClose={() => setScanModalOpen(false)}
-        onClose={() => {}}
+        isOpen={isScanModalOpen}
+        onClose={() => setScanModalOpen(false)}
         onScan={([scan]) => {
-          // setScanModalOpen(false);
+          setScanModalOpen(false);
 
           const url = new URL(scan.rawValue);
 

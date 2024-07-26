@@ -16,7 +16,7 @@ const ScannerModal = ({ onScan, ...props }: ScannerModal): JSX.Element => {
   return (
     <Modal {...props}>
       <ModalHeader>Scan QR Code</ModalHeader>
-      <ModalBody>
+      <ModalBody marginBottom='lg'>
         <Scanner onScan={onScan} />
       </ModalBody>
     </Modal>
