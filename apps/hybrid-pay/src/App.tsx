@@ -7,7 +7,8 @@ import { Card, Flex } from '@gobob/ui';
 
 import { Header, Layout, Main } from './components';
 import { CHAIN, RoutesPath } from './constants';
-import { useBalances, useTokens } from './hooks';
+import { useTokens } from './hooks';
+import { BalanceProvider } from './providers';
 
 const ScrollToTop = () => {
   // Extracts pathname property(key) from an object
@@ -69,7 +70,6 @@ function App() {
   }, []);
 
   usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
-  useBalances(CHAIN);
   useTokens(CHAIN);
 
   useEffect(() => {
@@ -83,41 +83,43 @@ function App() {
   }, [chain, walletConnector]);
 
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Layout>
-        <Header />
-        <Suspense fallback={<Fallback />}>
-          <Routes>
-            <Route
-              element={
-                <ProtectedRoute>
-                  <Wallet />
-                </ProtectedRoute>
-              }
-              path={RoutesPath.HOME}
-            />
-            <Route
-              element={
-                <ProtectedRoute>
-                  <Send />
-                </ProtectedRoute>
-              }
-              path={RoutesPath.SEND}
-            />
-            <Route
-              element={
-                <ProtectedRoute>
-                  <Receive />
-                </ProtectedRoute>
-              }
-              path={RoutesPath.RECEIVE}
-            />
-            <Route element={<Custom404 />} path='*' />
-          </Routes>
-        </Suspense>
-      </Layout>
-    </BrowserRouter>
+    <BalanceProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Layout>
+          <Header />
+          <Suspense fallback={<Fallback />}>
+            <Routes>
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <Wallet />
+                  </ProtectedRoute>
+                }
+                path={RoutesPath.HOME}
+              />
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <Send />
+                  </ProtectedRoute>
+                }
+                path={RoutesPath.SEND}
+              />
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <Receive />
+                  </ProtectedRoute>
+                }
+                path={RoutesPath.RECEIVE}
+              />
+              <Route element={<Custom404 />} path='*' />
+            </Routes>
+          </Suspense>
+        </Layout>
+      </BrowserRouter>
+    </BalanceProvider>
   );
 }
 

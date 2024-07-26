@@ -9,10 +9,10 @@ import { useBalances } from './useBalances';
 const useTotalBalance = (chainId: ChainId) => {
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
 
-  const { erc20Balances } = useBalances(chainId);
+  const { balances } = useBalances(chainId);
 
-  return erc20Balances
-    ? Object.values(erc20Balances).reduce((acc, amount) => {
+  return balances
+    ? Object.values(balances).reduce((acc, amount) => {
         return acc.add(calculateAmountUSD(amount, getPrice(amount.currency.symbol)));
       }, new Big(0))
     : undefined;
