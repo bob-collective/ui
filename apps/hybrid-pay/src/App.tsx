@@ -3,7 +3,7 @@ import { ReactNode, Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { DynamicEmbeddedWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { usePrices } from '@gobob/react-query';
-import { Card, Flex } from '@gobob/ui';
+import { Card, Flex, P, TextLink } from '@gobob/ui';
 
 import { Header, Layout, Main } from './components';
 import { CHAIN, RoutesPath } from './constants';
@@ -33,9 +33,33 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   if (!isAuthenticated) {
     return (
       <Main maxWidth='md' padding='md'>
-        <Flex alignItems='flex-start' gap='2xl' marginTop='xl' style={{ width: '100%' }}>
+        <Flex alignItems='center' direction='column' gap='2xl' marginTop='xl' style={{ width: '100%' }}>
           <Card bordered={false} padding='none' style={{ width: '100%' }}>
             <DynamicEmbeddedWidget background='none' />
+            <Flex justifyContent='center' paddingBottom='s'>
+              <P
+                align='center'
+                size='xs'
+                style={{
+                  color: 'var(--dynamic-text-tertiary)',
+                  fontFamily: 'var(--dynamic-font-family-primary)',
+                  marginTop: '-0.5rem'
+                }}
+              >
+                By logging in, you agree to our{' '}
+                <TextLink
+                  external
+                  color='inherit'
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
+                  size='inherit'
+                  style={{
+                    fontFamily: 'inherit'
+                  }}
+                >
+                  Terms and Conditions.
+                </TextLink>
+              </P>
+            </Flex>
           </Card>
         </Flex>
       </Main>
