@@ -17,7 +17,7 @@ const extractHandle = (user: UserProfile | undefined) => {
   const credentials = user?.verifiedCredentials.find((x) => x.oauthProvider == 'telegram');
 
   if (credentials) {
-    return '@' + credentials.oauthUsername;
+    return `@${credentials.oauthUsername}`;
   }
 
   return undefined;

@@ -33,10 +33,8 @@ const transferTokenSchema = (params: TransferTokenFormValidationParams) => {
     [TRANSFER_TOKEN_RECIPIENT]: yup
       .string()
       .required('Recipient is required field')
-      .test(
-        'is-emails-or-tg-or-address',
-        'Recipient must be an EVM address, Telegram handle starting with a "@", or email address',
-        (value) => (value ? !!validateEmail(value) || validateTelegram(value) || isAddress(value) : false)
+      .test('is-emails-or-tg-or-address', 'Recipient must be a valid Telegram handle or EVM/email address', (value) =>
+        value ? !!validateEmail(value) || validateTelegram(value) || isAddress(value) : false
       ),
     [TRANSFER_TOKEN_AMOUNT]: yup
       .string()
