@@ -36,7 +36,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
         <Flex alignItems='center' direction='column' gap='2xl' marginTop='xl' style={{ width: '100%' }}>
           <Card bordered={false} padding='none' style={{ width: '100%' }}>
             <DynamicEmbeddedWidget background='none' />
-            <Flex justifyContent='center' paddingBottom='s'>
+            <Flex justifyContent='center' paddingBottom='lg'>
               <P
                 align='center'
                 size='xs'
