@@ -26,7 +26,7 @@ import { CHAIN } from '../../constants';
 import { Main } from '../../components';
 import { useIsDynamicSmartAccount } from '../../hooks';
 
-import { TokenButtonGroup } from './components';
+import { ScannerModal, TokenButtonGroup } from './components';
 import { StyledInput } from './Send.style';
 
 const getAddressData = async (recipient: string) => {
@@ -53,12 +53,14 @@ const Send = (): JSX.Element => {
 
   const defaultTicker = CHAIN === ChainId.BASE_SEPOLIA ? 'USDC' : searchParams.get('token') || 'WBTC';
 
+  // const [isScanModalOpen, setScanModalOpen] = useState(false);
+
   const [ticker, setTicker] = useState(defaultTicker);
   const [amount, setAmount] = useState('');
   const [isGroupAmount, setGroupAmount] = useState(false);
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
-  const { getBalance, balances, isPending } = useBalances(CHAIN);
+  const { getBalance, isPending } = useBalances(CHAIN);
 
   const { data: tokens } = useTokens(CHAIN);
 
@@ -86,7 +88,7 @@ const Send = (): JSX.Element => {
     []
   );
 
-  const tokenBalance = useMemo(() => token && getBalance(token.currency.symbol), [getBalance, token]);
+  const tokenBalance = useMemo(() => token && getBalance(token.raw.address), [getBalance, token]);
 
   const params: TransferTokenFormValidationParams = {
     [TRANSFER_TOKEN_AMOUNT]: {
@@ -297,12 +299,12 @@ const Send = (): JSX.Element => {
       form.validateField(TRANSFER_TOKEN_AMOUNT);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [balances, isPending]);
+  }, [isPending]);
 
   const tokenInputItems = useMemo(
     () =>
       tokens?.map((token) => {
-        const balance = getBalance(token.currency.symbol);
+        const balance = getBalance(token.raw.address);
 
         return {
           balance: balance?.toExact() || 0,
@@ -325,6 +327,18 @@ const Send = (): JSX.Element => {
     <Main maxWidth='md' padding='md'>
       <Flex direction='column' elementType='form' gap='md' marginX='md' onSubmit={form.handleSubmit as any}>
         <StyledInput
+          // endAdornment={
+          //   <Button
+          //     isIconOnly
+          //     variant='ghost'
+          //     onPress={async () => {
+          //       getVideoStream();
+          //       setScanModalOpen(true);
+          //     }}
+          //   >
+          //     <QRCode />
+          //   </Button>
+          // }
           label='Recipient'
           placeholder='pay@gobob.xyz'
           size='lg'
@@ -377,6 +391,18 @@ const Send = (): JSX.Element => {
           Send
         </Button>
       </Flex>
+      <ScannerModal
+        isOpen={false}
+        // onClose={() => setScanModalOpen(false)}
+        onClose={() => {}}
+        onScan={([scan]) => {
+          // setScanModalOpen(false);
+
+          const url = new URL(scan.rawValue);
+
+          form.setFieldValue(TRANSFER_TOKEN_RECIPIENT, url.searchParams.get('to'));
+        }}
+      />
     </Main>
   );
 };

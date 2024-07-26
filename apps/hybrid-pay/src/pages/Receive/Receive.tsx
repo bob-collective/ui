@@ -1,4 +1,4 @@
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { useDynamicContext, UserProfile } from '@dynamic-labs/sdk-react-core';
 import { Button, Flex, H1, H2 } from '@gobob/ui';
 import QRCode from 'react-qr-code';
 import { truncateEthAddress } from '@gobob/utils';
@@ -8,6 +8,21 @@ import { Main } from '../../components';
 import { RoutesPath } from '../../constants';
 import { useDynamicAddress } from '../../hooks';
 
+const extractHandle = (user: UserProfile | undefined) => {
+  if (user?.email) {
+    return user?.email;
+  }
+
+  // look for tg handle
+  const credentials = user?.verifiedCredentials.find((x) => x.oauthProvider == 'telegram');
+
+  if (credentials) {
+    return `@${credentials.oauthUsername}`;
+  }
+
+  return undefined;
+};
+
 const Receive = () => {
   const { user } = useDynamicContext();
   const address = useDynamicAddress();
@@ -16,6 +31,8 @@ const Receive = () => {
   if (!user || !address) {
     return null;
   }
+
+  const handle = extractHandle(user);
 
   return (
     <Main maxWidth='md' padding='md'>
@@ -29,9 +46,9 @@ const Receive = () => {
       >
         <Flex direction='column'>
           <H1 align='center' size='2xl' weight='bold'>
-            {user?.email ? user?.email : truncateEthAddress(address)}
+            {handle || truncateEthAddress(address)}
           </H1>
-          {user?.email && (
+          {handle && (
             <H2 align='center' color='grey-100' size='xl' weight='bold'>
               ({truncateEthAddress(address)})
             </H2>
@@ -42,7 +59,7 @@ const Receive = () => {
           fgColor='#ffffff'
           size={256}
           style={{ height: 'auto', maxWidth: '100%', width: '100%', background: 'transparent' }}
-          value={`https://${window.location.host}${RoutesPath.SEND}?to=${encodeURIComponent(user?.email || address || '')}`}
+          value={`https://${window.location.host}${RoutesPath.SEND}?to=${encodeURIComponent(handle || address || '')}`}
           viewBox={`0 0 256 256`}
         />
         <Button color='primary' size='lg' onPress={() => copy(address)}>
