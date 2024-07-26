@@ -30,7 +30,7 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
         ) : (
           <Flex alignItems='center'>
             <StyledBackButton onPress={() => navigate(RoutesPath.HOME)}>
-              <ArrowLeft size='s' strokeWidth={2} />
+              <ArrowLeft color='light' size='s' strokeWidth={2} />
               <Span size='lg' weight='bold'>
                 {pathname === RoutesPath.SEND ? 'Send' : 'Receive'}
               </Span>
