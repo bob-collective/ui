@@ -5,6 +5,7 @@ const StyledInput = styled(Input)`
   input {
     padding: ${({ theme }) => `${theme.spacing('xl')} ${theme.spacing('lg')}`};
     font-size: ${({ theme }) => theme.fontSize('md')};
+    padding-right: ${({ theme }) => theme.spacing('5xl')};
   }
 `;
 
