@@ -81,7 +81,7 @@ export type { TextAreaProps } from './TextArea';
 export { TextLink } from './TextLink';
 export type { TextLinkProps } from './TextLink';
 export { TokenInput, TokenListItem } from './TokenInput';
-export type { TokenData, TokenInputProps, TokenListItemProps, TokenSelectProps } from './TokenInput';
+export type { TokenSelectItemProps, TokenInputProps, TokenListItemProps, TokenSelectProps } from './TokenInput';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 export { UnstyledButton } from './UnstyledButton';

@@ -1,12 +1,13 @@
 import { chain, useId } from '@react-aria/utils';
 import { Key, forwardRef, useCallback } from 'react';
+import { Currency } from '@gobob/currency';
 
 import { BaseTokenInput, BaseTokenInputProps } from './BaseTokenInput';
-import { TokenData, TokenSelect, TokenSelectProps } from './TokenSelect';
+import { TokenSelectItemProps, TokenSelect, TokenSelectProps } from './TokenSelect';
 
 type Props = {
-  items?: TokenData[];
-  onChangeCurrency?: (currency?: any) => void;
+  items?: TokenSelectItemProps[];
+  onChangeCurrency?: (currency?: Currency) => void;
   selectProps?: Omit<TokenSelectProps, 'label' | 'helperTextId' | 'items'>;
 };
 
@@ -37,7 +38,7 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
 
     const handleSelectionChange = useCallback(
       (ticker: Key) => {
-        const tokenData = (items as TokenData[]).find((item) => item.currency.symbol === ticker);
+        const tokenData = (items as TokenSelectItemProps[]).find((item) => item.currency.symbol === ticker);
 
         onChangeCurrency?.(tokenData?.currency);
       },
@@ -81,14 +82,6 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
         onClickBalance={onClickBalance}
         {...props}
       />
-      // TODO: need to pass this into base token input
-      /* {shouldDisplayHelperText && (
-          <HelperText
-            description={selectProps?.description}
-            errorMessage={selectProps?.errorMessage}
-            id={selectHelperTextId}
-          />
-        )} */
     );
   }
 );

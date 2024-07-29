@@ -4,14 +4,25 @@ import { TokenInputTheme } from '../../components';
 import { color } from './colors';
 import { input } from './input';
 
-// TODO: handle different sizes
 const tokenInput: TokenInputTheme = {
   wrapper: {
     backgroundColor: color('grey-600'),
-    borderColor: 'transparent',
+    borderColor: 'transparent'
+  },
+  inputWrapper: {
     paddingLeft: spacing('lg'),
     paddingRight: spacing('lg'),
     paddingTop: '0.625rem',
+    paddingBottom: spacing('md')
+  },
+  divider: {
+    marginLeft: spacing('lg'),
+    marginRight: spacing('lg'),
+    marginBottom: spacing('md')
+  },
+  bottomWrapper: {
+    paddingLeft: spacing('lg'),
+    paddingRight: spacing('lg'),
     paddingBottom: '0.625rem'
   },
   hover: input.hover,
@@ -27,7 +38,7 @@ const tokenInput: TokenInputTheme = {
   error: input.error,
   usd: {
     ...typography('md'),
-    color: color('grey-100')
+    color: color('grey-50')
   },
   balance: {
     fontWeight: fontWeight('medium'),
@@ -59,17 +70,13 @@ const tokenInput: TokenInputTheme = {
         ...typography('md')
       },
       usd: {
-        color: color('grey-300'),
+        color: color('grey-50'),
         fontWeight: fontWeight('medium'),
         ...typography('s')
       },
-      selected: {
-        ticker: {
-          color: color('dark')
-        },
-        usd: {
-          color: color('grey-300')
-        }
+      img: {
+        height: spacing('4xl'),
+        width: spacing('4xl')
       }
     }
   }

@@ -54,11 +54,12 @@ const button: ButtonTheme = {
             backgroundColor: color('grey-400')
           },
           active: {
-            backgroundColor: color('grey-300')
+            // TODO: wait on Jay final review
+            // backgroundColor: color('grey-300')
           },
-          focus: {
-            boxShadow: '0px 0px 0px 4px #4040403D, 0px 1px 2px 0px #1018280D'
-          },
+          // focus: {
+          //   boxShadow: '0px 0px 0px 4px #4040403D, 0px 1px 2px 0px #1018280D'
+          // },
           disabled: {
             opacity: 0.5
           }
@@ -72,11 +73,11 @@ const button: ButtonTheme = {
             backgroundColor: color('primary-600')
           },
           active: {
-            backgroundColor: color('primary-700')
+            // backgroundColor: color('primary-700')
           },
-          focus: {
-            boxShadow: '0px 0px 0px 4px #FA45163D, 0px 1px 2px 0px #1018280D'
-          },
+          // focus: {
+          //   boxShadow: '0px 0px 0px 4px #FA45163D, 0px 1px 2px 0px #1018280D'
+          // },
           disabled: {
             opacity: 0.5
           }
@@ -87,18 +88,18 @@ const button: ButtonTheme = {
       color: {
         default: {
           base: {
-            border: `1px solid ${color('grey-400')}`,
+            border: `1px solid ${color('grey-500')}`,
             color: color('light')
           },
           hover: {
             backgroundColor: color('grey-600')
           },
           active: {
-            backgroundColor: color('grey-300')
+            // backgroundColor: color('grey-300')
           },
-          focus: {
-            boxShadow: '0px 0px 0px 4px #98A2B324, 0px 1px 2px 0px #1018280D'
-          },
+          // focus: {
+          //   boxShadow: '0px 0px 0px 4px #98A2B324, 0px 1px 2px 0px #1018280D'
+          // },
           disabled: {
             opacity: 0.5
           }
@@ -112,11 +113,11 @@ const button: ButtonTheme = {
             backgroundColor: color('grey-300')
           },
           active: {
-            backgroundColor: color('grey-300')
+            // backgroundColor: color('grey-300')
           },
-          focus: {
-            boxShadow: '0px 0px 0px 4px #D92D2040, 0px 1px 2px 0px #1018280D'
-          },
+          // focus: {
+          //   boxShadow: '0px 0px 0px 4px #D92D2040, 0px 1px 2px 0px #1018280D'
+          // },
           disabled: {
             opacity: 0.5
           }
@@ -133,11 +134,11 @@ const button: ButtonTheme = {
             backgroundColor: hexToRgba(color('grey-300'), 20)
           },
           active: {
-            backgroundColor: hexToRgba(color('grey-300'), 30)
+            // backgroundColor: hexToRgba(color('grey-300'), 30)
           },
-          focusVisible: {
-            boxShadow: '0px 0px 0px 4px #98A2B324, 0px 1px 2px 0px #1018280D'
-          },
+          // focusVisible: {
+          //   boxShadow: '0px 0px 0px 4px #98A2B324, 0px 1px 2px 0px #1018280D'
+          // },
           disabled: {
             opacity: 0.5
           }
@@ -150,11 +151,11 @@ const button: ButtonTheme = {
             backgroundColor: hexToRgba(color('primary-500'), 20)
           },
           active: {
-            backgroundColor: hexToRgba(color('primary-500'), 30)
+            // backgroundColor: hexToRgba(color('primary-500'), 30)
           },
-          focusVisible: {
-            boxShadow: '0px 0px 0px 4px #D92D2040, 0px 1px 2px 0px #1018280D'
-          },
+          // focusVisible: {
+          //   boxShadow: '0px 0px 0px 4px #D92D2040, 0px 1px 2px 0px #1018280D'
+          // },
           disabled: {
             opacity: 0.5
           }

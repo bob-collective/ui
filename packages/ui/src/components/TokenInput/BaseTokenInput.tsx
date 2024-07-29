@@ -3,15 +3,25 @@ import { mergeProps } from '@react-aria/utils';
 import { ChangeEventHandler, FocusEvent, forwardRef, MouseEventHandler, ReactNode, useCallback } from 'react';
 import { useHover } from '@react-aria/interactions';
 import { useFocusRing } from '@react-aria/focus';
+import { Currency } from '@gobob/currency';
 
 import { useCurrencyFormatter, useDOMRef } from '../../hooks';
 import { Spacing } from '../../theme';
 import { Label, LabelProps } from '../Label';
 import { Flex } from '../Flex';
-import { Divider } from '../Divider';
 import { BankNotes } from '../../icons';
+import { Span } from '../Text';
+import { HelperText, HelperTextProps } from '../HelperText';
 
-import { StyledBalanceButton, StyledBaseInput, StyledField, StyledUSDAdornment } from './BaseTokenInput.style';
+import {
+  StyledBalanceButton,
+  StyledBaseInput,
+  StyledBaseTokenInputWrapper,
+  StyledBottomWrapper,
+  StyledDivider,
+  StyledInputWrapper,
+  StyledUSDAdornment
+} from './TokenInput.style';
 
 const escapeRegExp = (string: string): string => {
   // $& means the whole matched string
@@ -33,8 +43,7 @@ type Props = {
   minHeight?: Spacing;
   value?: string;
   defaultValue?: string;
-  // TODO: use Currency from bob-ui
-  currency?: { symbol: string; decimals: number };
+  currency?: Currency;
   balance?: string;
   humanBalance?: string | number;
   onClickBalance?: (balance: string) => void;
@@ -44,18 +53,11 @@ type Props = {
   onBlur?: (e: FocusEvent<Element>) => void;
 };
 
-// type InheritAttrs = Omit<
-//   HelperTextProps &
-//     Pick<
-//       FieldProps,
-//       'label' | 'labelPosition' | 'labelProps' | 'maxWidth' | 'justifyContent' | 'alignItems' | 'fullWidth'
-//     >,
-//   keyof Props
-// >;
+type AriaAttrs = Omit<AriaTextFieldOptions<'input'>, keyof Props | 'onChange' | 'errorMessage' | 'description'>;
 
-type AriaAttrs = Omit<AriaTextFieldOptions<'input'>, keyof Props | 'onChange'>;
+type InheritAttrs = Omit<HelperTextProps, keyof (Props & AriaAttrs)>;
 
-type BaseTokenInputProps = Props & AriaAttrs;
+type BaseTokenInputProps = Props & InheritAttrs & AriaAttrs;
 
 const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
   (
@@ -75,6 +77,8 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       currency,
       onChange,
       onValueChange,
+      description,
+      errorMessage,
       ...props
     },
     ref
@@ -83,12 +87,14 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
 
     const format = useCurrencyFormatter();
 
-    const { inputProps, descriptionProps, errorMessageProps, labelProps, isInvalid } = useTextField(
+    const { inputProps, descriptionProps, errorMessageProps, labelProps, isInvalid } = useTextField<'input'>(
       {
         ...props,
+        errorMessage,
+        description,
         label,
         inputMode,
-        isInvalid: isInvalidProp || !!props.errorMessage,
+        isInvalid: isInvalidProp || !!errorMessage,
         value,
         onChange: () => {},
         defaultValue,
@@ -131,45 +137,59 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
 
     const hasLabel = !!label || !!balance;
 
+    const isBalanceDisabled = !currency || isDisabled || Number(balance) === 0;
+
+    const hasHelpText = !!description || !!errorMessage;
+
     return (
-      <StyledField
-        $isDisabled={isDisabled}
-        $isFocused={isFocused}
-        $isHovered={isHovered}
-        $isInvalid={isInvalid}
-        direction='column'
-        onClick={handleClickWrapper}
-        {...mergeProps(hoverProps, focusProps)}
-      >
-        <Flex alignItems='flex-end'>
-          <Flex direction='column' flex={1}>
-            {hasLabel && <Label {...labelProps}>{label}</Label>}
-            <StyledBaseInput
-              ref={inputRef}
-              $isInvalid={isInvalid}
-              placeholder={placeholder}
-              {...mergeProps(inputProps, focusProps, { onChange: handleChange })}
-            />
-          </Flex>
-          {endAdornment}
-        </Flex>
-        <Divider marginY='s' />
-        <Flex gap='md' justifyContent='space-between'>
-          <StyledUSDAdornment $isDisabled={isDisabled}>{format(valueUSD)}</StyledUSDAdornment>
-          <StyledBalanceButton
-            aria-controls={inputProps.id}
-            aria-label={typeof label === 'string' ? `apply max ${label}` : 'apply max'}
-            color='primary'
-            disabled={isDisabled || Number(balance) === 0}
-            size='s'
-            variant='ghost'
-            onPress={() => onClickBalance?.(balance)}
-          >
-            <BankNotes color='inherit' size='xs' />
-            {humanBalance || balance}
-          </StyledBalanceButton>
-        </Flex>
-      </StyledField>
+      <Flex direction='column'>
+        <StyledBaseTokenInputWrapper
+          $isDisabled={isDisabled}
+          $isFocused={isFocused}
+          $isHovered={isHovered}
+          $isInvalid={isInvalid}
+          direction='column'
+        >
+          <StyledInputWrapper alignItems='flex-end' onClick={handleClickWrapper}>
+            <Flex direction='column' flex={1} onClick={handleClickWrapper} {...mergeProps(hoverProps, focusProps)}>
+              {hasLabel && <Label {...labelProps}>{label}</Label>}
+              <StyledBaseInput
+                ref={inputRef}
+                $isInvalid={isInvalid}
+                placeholder={placeholder}
+                {...mergeProps(inputProps, focusProps, { onChange: handleChange })}
+              />
+            </Flex>
+            {endAdornment}
+          </StyledInputWrapper>
+          <StyledDivider />
+          <StyledBottomWrapper gap='md' justifyContent='space-between'>
+            <StyledUSDAdornment>{format(valueUSD)}</StyledUSDAdornment>
+            <StyledBalanceButton
+              aria-controls={inputProps.id}
+              aria-label={`apply max balance${typeof label === 'string' ? ` to ${label}` : ''}`}
+              color='primary'
+              disabled={isBalanceDisabled}
+              size='s'
+              variant='ghost'
+              onPress={() => onClickBalance?.(balance)}
+            >
+              <BankNotes color='inherit' size='xs' />
+              <Span color='inherit' lineHeight='normal'>
+                {isBalanceDisabled ? humanBalance || balance : 0}
+              </Span>
+            </StyledBalanceButton>
+          </StyledBottomWrapper>
+        </StyledBaseTokenInputWrapper>
+        {hasHelpText && (
+          <HelperText
+            description={description}
+            descriptionProps={descriptionProps}
+            errorMessage={errorMessage}
+            errorMessageProps={errorMessageProps}
+          />
+        )}
+      </Flex>
     );
   }
 );

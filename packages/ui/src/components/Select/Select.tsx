@@ -171,7 +171,6 @@ const Select = <T extends SelectObject = SelectObject>(
           state={state}
         />
       )}
-
       {(description || errorMessage) && (
         <HelperText
           description={description}

@@ -6,6 +6,9 @@ type TokenInputSize = InputSizes;
 
 type TokenInputTheme = {
   wrapper: StyledObject<object>;
+  inputWrapper: StyledObject<object>;
+  divider: StyledObject<object>;
+  bottomWrapper: StyledObject<object>;
   base: StyledObject<object>;
   placeholder: StyledObject<object>;
   error: {
@@ -24,10 +27,7 @@ type TokenInputTheme = {
     item: {
       ticker: StyledObject<object>;
       usd: StyledObject<object>;
-      selected: {
-        ticker: StyledObject<object>;
-        usd: StyledObject<object>;
-      };
+      img: StyledObject<object>;
     };
   };
 };

@@ -1,4 +1,5 @@
 import { mergeProps } from '@react-aria/utils';
+import { Currency } from '@gobob/currency';
 
 import { Item, ModalSelectProps, Select } from '../Select';
 
@@ -6,19 +7,18 @@ import { StyledTokenSelect } from './TokenInput.style';
 import { TokenListItem } from './TokenListItem';
 import { Token } from './Token';
 
-type TokenData = {
-  currency: { decimals: number; symbol: string };
+type TokenSelectItemProps = {
+  currency: Currency;
   logoUrl: string;
   balance: string | number;
   balanceUSD: number;
 };
 
-type TokenSelectProps = Omit<ModalSelectProps<TokenData>, 'children' | 'type'>;
+type TokenSelectProps = Omit<ModalSelectProps<TokenSelectItemProps>, 'children' | 'type'>;
 
-// TODO: value control from currency object
 const TokenSelect = ({ modalProps, size, ...props }: TokenSelectProps): JSX.Element => {
   return (
-    <Select<TokenData>
+    <Select<TokenSelectItemProps>
       {...props}
       aria-label='select token'
       asSelectTrigger={StyledTokenSelect}
@@ -30,7 +30,7 @@ const TokenSelect = ({ modalProps, size, ...props }: TokenSelectProps): JSX.Elem
       size={size === 'lg' ? 'md' : size}
       type='modal'
     >
-      {(data: TokenData) => (
+      {(data: TokenSelectItemProps) => (
         <Item key={data.currency.symbol} textValue={data.currency.symbol}>
           <TokenListItem {...data} />
         </Item>
@@ -40,4 +40,4 @@ const TokenSelect = ({ modalProps, size, ...props }: TokenSelectProps): JSX.Elem
 };
 
 export { TokenSelect };
-export type { TokenData, TokenSelectProps };
+export type { TokenSelectItemProps, TokenSelectProps };

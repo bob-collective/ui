@@ -7,7 +7,6 @@ export type {
   InputSizes,
   DividerSizes,
   DialogSize,
-  AccordionVariants,
   ProgressBarSize,
   AlertStatus,
   AlertVariant,

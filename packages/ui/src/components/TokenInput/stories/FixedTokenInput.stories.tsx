@@ -59,13 +59,6 @@ export const WithHumanBalance: StoryObj<TokenInputProps> = {
   }
 };
 
-export const WithCustomBalanceLabel: StoryObj<TokenInputProps> = {
-  args: {
-    balance: '10',
-    balanceLabel: 'Available'
-  }
-};
-
 export const WithDescription: StoryObj<TokenInputProps> = {
   args: {
     description: 'Please enter your amount'

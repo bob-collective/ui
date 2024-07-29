@@ -1,5 +1,6 @@
 import { mergeProps, useId } from '@react-aria/utils';
 import { ChangeEvent, FocusEvent, forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
+import { Currency } from '@gobob/currency';
 
 import { useDOMRef } from '../../hooks';
 import { trimDecimals } from '../utils';
@@ -31,6 +32,7 @@ type InheritAttrs = ({ type?: 'fixed' } & FixedAttrs) | ({ type?: 'selectable' }
 
 type TokenInputProps = Props & InheritAttrs;
 
+// TODO: use address as base value instead of ticker
 const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): JSX.Element => {
   const { defaultValue, value: valueProp, onValueChange, balance, onBlur, ...otherProps } = props;
 
@@ -39,7 +41,7 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
   const [value, setValue] = useState(defaultValue);
 
   const defaultCurrency = useMemo(() => getDefaultCurrency(props), [props]);
-  const [currency, setCurrency] = useState<any | undefined>(defaultCurrency);
+  const [currency, setCurrency] = useState<Currency | undefined>(defaultCurrency);
 
   const inputId = useId();
 
@@ -116,7 +118,7 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
     [inputId, onBlur]
   );
 
-  const handleChangeCurrency = useCallback((currency: any) => setCurrency(currency), []);
+  const handleChangeCurrency = useCallback((currency: Currency) => setCurrency(currency), []);
 
   const numberInputProps: Partial<TokenInputProps> =
     balance !== undefined
@@ -144,7 +146,7 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
     );
   }
 
-  return <FixedTokenInput {...mergeProps(otherProps, commonProps)} currency={currency} />;
+  return <FixedTokenInput {...mergeProps(otherProps, commonProps)} currency={currency as Currency} />;
 });
 
 TokenInput.displayName = 'TokenInput';

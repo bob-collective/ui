@@ -43,10 +43,11 @@ const StyledButton = styled(UnstyledButton)<StyledButtonProps>`
 
       &:active:not([disabled]) {
         ${active}
+        transform: scale(0.97);
       }
 
       &:focus:not([disabled]) {
-        ${focus}
+        ${focus};
       }
 
       &[aria-disabled='true'],
