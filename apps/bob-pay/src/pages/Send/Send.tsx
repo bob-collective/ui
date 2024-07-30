@@ -142,21 +142,42 @@ const Send = (): JSX.Element => {
       recipient: string;
       currencyAmount: CurrencyAmount<Ether | ERC20Token>;
     }) => {
-      const { recipientAddress } = await getAddressData(recipient);
+      const { isAddress: isRecipientAddress, recipientAddress } = await getAddressData(recipient);
+
+      let txid;
 
       if (currencyAmount.currency.isNative) {
-        return sendTransactionAsync({
+        txid = await sendTransactionAsync({
           to: recipientAddress,
           value: currencyAmount.numerator
         });
+      } else {
+        txid = await writeTransferErc20Async({
+          address: (currencyAmount.currency as Token).address,
+          abi: erc20Abi,
+          functionName: 'transfer',
+          args: [recipientAddress, currencyAmount.numerator]
+        });
       }
 
-      return writeTransferErc20Async({
-        address: (currencyAmount.currency as Token).address,
-        abi: erc20Abi,
-        functionName: 'transfer',
-        args: [recipientAddress, currencyAmount.numerator]
+      // Record the tx in the db so that we can check for intract whether someone has sent to an email.
+      // The same data could be used to provide a better tx history to the user, where we can show the
+      // destination email address rather than the evm address.
+      fetch('/api/bob-pay-insert-transaction', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          receiverEmail: isRecipientAddress ? '' : recipient, // for now, also submit when transferring to evm address
+          sender: address,
+          receiver: recipientAddress,
+          userOperationHash: txid
+        })
       });
+
+      return txid;
     }
   });
 
