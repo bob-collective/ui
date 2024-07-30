@@ -51,7 +51,7 @@ const getAddressData = async (recipient: string) => {
 const Send = (): JSX.Element => {
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
-  const defaultTicker = CHAIN === ChainId.BASE_SEPOLIA ? 'USDC' : searchParams.get('token') || 'WBTC';
+  const defaultTicker = searchParams.get('token') || 'WBTC';
 
   const [isScanModalOpen, setScanModalOpen] = useState(false);
 
@@ -100,7 +100,7 @@ const Send = (): JSX.Element => {
   const paymasterApprovalData = useGetApprovalData(
     currencyAmount.currency.isToken ? (currencyAmount as CurrencyAmount<Token>) : undefined,
     isSmartAccount ? kernelClient?.account?.address : undefined,
-    paymasters?.[CHAIN as ChainId.BASE_SEPOLIA]?.[gasToken.currency.symbol]
+    paymasters?.[CHAIN as ChainId.BOB]?.[gasToken.currency.symbol]
   );
 
   const handleSubmit = async (data: TransferTokenFormValues) => {
@@ -225,7 +225,7 @@ const Send = (): JSX.Element => {
                 to: (currencyAmount.currency as Token).address,
                 data: encodeFunctionData({
                   abi: erc20Abi,
-                  args: [paymasters?.[CHAIN as ChainId.BASE_SEPOLIA]?.[gasToken.currency.symbol]!, MaxUint256],
+                  args: [paymasters?.[CHAIN as ChainId.BOB]?.[gasToken.currency.symbol]!, MaxUint256],
                   functionName: 'approve'
                 }),
                 value: BigInt(0)
