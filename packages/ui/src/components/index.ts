@@ -78,8 +78,8 @@ export type {
 } from './Text';
 export { TextArea } from './TextArea';
 export type { TextAreaProps } from './TextArea';
-export { TextLink } from './TextLink';
-export type { TextLinkProps } from './TextLink';
+export { Link } from './Link';
+export type { LinkProps } from './Link';
 export { TokenInput, TokenListItem } from './TokenInput';
 export type { TokenSelectItemProps, TokenInputProps, TokenListItemProps, TokenSelectProps } from './TokenInput';
 export { Tooltip } from './Tooltip';

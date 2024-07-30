@@ -1,4 +1,4 @@
-import { Card, Flex, InformationCircle, P, TextLink } from '@gobob/ui';
+import { Card, Flex, InformationCircle, P, Link } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
@@ -29,9 +29,9 @@ const Dashboard = () => {
           <P size='s' weight='semibold'>
             Due to an exploit involving the XLink bridge, Alex Lab has disabled bridging and withdrawing ALEX. You can
             migrate the ALEX tokens that you have in Fusion Season 1 to ALEX V2. For additional details see the{' '}
-            <TextLink external href='https://x.com/ALEXLabBTC/status/1790815791832498291' size='inherit'>
+            <Link external href='https://x.com/ALEXLabBTC/status/1790815791832498291' size='inherit'>
               announcement from ALEX Lab
-            </TextLink>
+            </Link>
             .
           </P>
         ) : (

@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Alert, Card, Flex, H1, H2, P, Span, Table, TextLink } from '@gobob/ui';
+import { Accordion, AccordionItem, Alert, Card, Flex, H1, H2, P, Span, Table, Link } from '@gobob/ui';
 import { ReactNode } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -269,8 +269,8 @@ const Info = () => {
         <P color='grey-200'>
           <Trans
             components={{
-              xLink: <TextLink external href='https://twitter.com/build_on_bob' />,
-              discordLink: <TextLink external href='https://discord.gg/gobob' />
+              xLink: <Link external href='https://twitter.com/build_on_bob' />,
+              discordLink: <Link external href='https://discord.gg/gobob' />
             }}
             i18nKey='fusion.community.content'
           />
@@ -283,16 +283,16 @@ const Info = () => {
         <P color='grey-200'>
           Reach out to the team on{' '}
           {
-            <TextLink external href={SocialLinks.TELEGRAM}>
+            <Link external href={SocialLinks.TELEGRAM}>
               Telegram
-            </TextLink>
+            </Link>
           }{' '}
           to learn more about the opportunities for builders to grow their project with our BOB Fusion campaign or read
           our{' '}
           {
-            <TextLink external href={NotionLinks.LAUNCH_PARTNERS_CHECKLIST}>
+            <Link external href={NotionLinks.LAUNCH_PARTNERS_CHECKLIST}>
               project checklist
-            </TextLink>
+            </Link>
           }{' '}
           that includes information about how to whitelist your dApp or add custom assets to the BOB Fusion campaign.
         </P>

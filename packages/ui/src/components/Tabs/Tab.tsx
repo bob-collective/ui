@@ -3,6 +3,7 @@ import { TabListState } from '@react-stately/tabs';
 import { AriaTabProps } from '@react-types/tabs';
 import { HTMLAttributes, ReactNode, useRef } from 'react';
 import { mergeProps } from '@react-aria/utils';
+import { useFocusRing } from '@react-aria/focus';
 
 import { TabsSize } from '../../theme';
 
@@ -33,8 +34,17 @@ const Tab = <T extends Record<string, unknown>>({
   const ref = useRef<HTMLDivElement>(null);
   const { tabProps, isDisabled } = useTab(item, state, ref);
 
+  const { isFocusVisible, focusProps } = useFocusRing();
+
   return (
-    <StyledTab {...mergeProps(tabProps, props)} ref={ref} $fullWidth={fullWidth} $isDisabled={isDisabled} $size={size}>
+    <StyledTab
+      {...mergeProps(tabProps, focusProps, props)}
+      ref={ref}
+      $fullWidth={fullWidth}
+      $isDisabled={isDisabled}
+      $isFocusVisible={isFocusVisible}
+      $size={size}
+    >
       {item.rendered}
     </StyledTab>
   );

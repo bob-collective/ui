@@ -4,15 +4,14 @@ import { HTMLAttributes, forwardRef, useRef } from 'react';
 import { useTheme } from 'styled-components';
 
 import { useDOMRef } from '../../hooks';
-import { Placement } from '../../theme';
-import { Span, TextProps } from '../Text';
+import { Span } from '../Text';
+import { LabelProps } from '../Label';
 
 import { StyledButton, StyledInput, StyledLabel } from './Radio.style';
 import { useRadioProvider } from './RadioContext';
 
 type Props = {
-  labelProps?: TextProps;
-  labelPlacement?: Extract<Placement, 'left' | 'right'>;
+  labelProps?: LabelProps;
   flex?: string | number | boolean;
 };
 
@@ -22,7 +21,6 @@ type InheritAttrs = Omit<AriaRadioProps, keyof Props>;
 
 type RadioProps = Props & NativeAttrs & InheritAttrs;
 
-// TODO: determine if isInvalid is necessary
 const Radio = forwardRef<HTMLLabelElement, RadioProps>(
   ({ labelProps, isDisabled: isDisabledProp, children, className, style, flex, ...props }, ref): JSX.Element => {
     let { hoverProps, isHovered } = useHover({ isDisabled: isDisabledProp });
@@ -51,11 +49,16 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>(
         $flex={flex}
         $isDisabled={isDisabled}
         className={className}
+        error={state.isInvalid}
         style={style}
       >
         <StyledInput {...inputProps} ref={inputRef} />
-        <StyledButton $isHovered={isHovered} $isSelected={isSelected} $size={size} />
-        {children && <Span size={radio.size[size].label}>{children}</Span>}
+        <StyledButton $isHovered={isHovered} $isInvalid={state.isInvalid} $isSelected={isSelected} $size={size} />
+        {children && (
+          <Span color='inherit' size={radio.size[size].label}>
+            {children}
+          </Span>
+        )}
       </StyledLabel>
     );
   }

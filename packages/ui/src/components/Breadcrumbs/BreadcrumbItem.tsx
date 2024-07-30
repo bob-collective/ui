@@ -3,7 +3,7 @@ import { mergeProps } from '@react-aria/utils';
 import { AnchorHTMLAttributes, Fragment, useRef } from 'react';
 
 import { ChevronRight } from '../../icons';
-import { TextLinkProps } from '../TextLink';
+import { LinkProps } from '../Link';
 
 import { StyledLinkBreadcrumb, StyledSpanBreadcrumb } from './Breadcrumbs.style';
 
@@ -30,7 +30,7 @@ const BreadcrumbItem = ({ children, isDisabled, isCurrent, href, ...props }: Bre
     ref
   );
 
-  const commonProps: Pick<TextLinkProps, 'size' | 'color'> = {
+  const commonProps: Pick<LinkProps, 'size' | 'color'> = {
     size: 's',
     color: isCurrent ? 'light' : 'green-300'
   };

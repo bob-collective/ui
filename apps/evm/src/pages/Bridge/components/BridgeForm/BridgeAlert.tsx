@@ -1,4 +1,4 @@
-import { Alert, P, TextLink } from '@gobob/ui';
+import { Alert, P, Link } from '@gobob/ui';
 import { Trans } from 'react-i18next';
 
 import { BridgeToken } from '../../hooks';
@@ -12,9 +12,9 @@ const assetMessage: Record<string, JSX.Element> = {
     <Trans
       components={{
         xLink: (
-          <TextLink external href='https://x.com/ALEXLabBTC/status/1790815791832498291' size='s'>
+          <Link external href='https://x.com/ALEXLabBTC/status/1790815791832498291' size='s'>
             announcement
-          </TextLink>
+          </Link>
         )
       }}
       i18nKey='bridge.alert.alex'

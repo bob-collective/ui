@@ -21,6 +21,7 @@ import { table } from './table';
 import { tabs } from './tabs';
 import { tokenInput } from './token-input';
 import { tooltip } from './tooltip';
+import { link } from './link';
 
 const bobTheme = defineTheme({
   colors,
@@ -32,6 +33,7 @@ const bobTheme = defineTheme({
   divider,
   drawer,
   input,
+  link,
   list,
   radio,
   spinner,

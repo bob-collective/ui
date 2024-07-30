@@ -15,10 +15,15 @@ type StyledLabelProps = {
   $flex?: number | string | boolean;
 };
 
+type StyledFieldProps = {
+  $isDisabled?: boolean;
+};
+
 type StyledButtonProps = {
   $size: RadioSize;
   $isSelected: boolean;
   $isHovered: boolean;
+  $isInvalid: boolean;
 };
 
 const StyledRadioGroup = styled(Flex)<StyledRadioGroupProps>`
@@ -37,6 +42,10 @@ const StyledLabel = styled(Label)<StyledLabelProps>`
   align-items: center;
   opacity: ${({ $isDisabled }) => $isDisabled && 0.5};
   flex: ${({ $flex }) => (typeof $flex === 'boolean' ? '1' : $flex)};
+  ${({ theme, error }) => css`
+    ${theme.radio.base}
+    ${error && theme.radio.error.base}
+  `}
 `;
 
 const StyledInput = styled.input`
@@ -51,14 +60,15 @@ const StyledButton = styled.span<StyledButtonProps>`
   border-radius: 50%;
   opacity: ${({ $isHovered }) => $isHovered && 0.9};
 
-  ${({ theme, $size, $isSelected }) => {
-    const { button, selected, size } = theme.radio;
+  ${({ theme, $size, $isSelected, $isInvalid }) => {
+    const { button, selected, size, error } = theme.radio;
     const { button: buttonSize, selected: selectedSize } = size[$size];
 
     return css`
       ${button.base}
       ${buttonSize.base}
       ${$isSelected && selected.button.base}
+      ${$isInvalid && error.button.base}
       
       &::after {
         content: '';
@@ -72,10 +82,15 @@ const StyledButton = styled.span<StyledButtonProps>`
 
         ${button.inside}
         ${$isSelected && selected.button.inside}
+        ${$isInvalid && error.button.inside}
         ${$isSelected && selectedSize.button.inside}
       }
     `;
   }}
 `;
 
-export { StyledLabel, StyledRadioGroup, StyledButton, StyledInput };
+const StyledField = styled(Flex)<StyledFieldProps>`
+  opacity: ${({ $isDisabled }) => $isDisabled && '.5'};
+`;
+
+export { StyledLabel, StyledRadioGroup, StyledButton, StyledField, StyledInput };

@@ -1,4 +1,4 @@
-import { Spinner, TextLink } from '@gobob/ui';
+import { Spinner, Link } from '@gobob/ui';
 import { P } from '@gobob/ui';
 import styled from 'styled-components';
 import { AuthButton } from '@gobob/connect-ui';
@@ -9,7 +9,7 @@ type StyledPillProps = {
   $status: BridgeStepStatus;
 };
 
-const StyledPill = styled(TextLink)<StyledPillProps>`
+const StyledPill = styled(Link)<StyledPillProps>`
   display: inline-flex;
   width: min-content;
   white-space: nowrap;

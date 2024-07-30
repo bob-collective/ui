@@ -4,10 +4,11 @@ import { useRadioGroupState } from '@react-stately/radio';
 
 import { useDOMRef } from '../../hooks';
 import { Orientation, RadioSize, Spacing } from '../../theme';
-import { Field, FieldProps, useFieldProps } from '../Field';
+import { Label } from '../Label';
+import { HelperText, HelperTextProps } from '../HelperText';
 
 import { RadioContext } from './RadioContext';
-import { StyledRadioGroup } from './Radio.style';
+import { StyledField, StyledRadioGroup } from './Radio.style';
 
 type Props = {
   gap?: Spacing;
@@ -17,29 +18,51 @@ type Props = {
   onValueChange?: (value: string) => void;
 };
 
-type InheritAttrs = Omit<AriaRadioGroupProps, keyof Props | 'errorMessage' | 'description'>;
+type AriaAttrs = Omit<AriaRadioGroupProps, keyof Props | 'errorMessage' | 'description'>;
 
-type FieldAttrs = Omit<FieldProps, keyof (Props & InheritAttrs)>;
+type InheritAttrs = Omit<HelperTextProps, keyof (Props & AriaAttrs)>;
 
-type RadioGroupProps = Props & FieldAttrs & InheritAttrs;
+type RadioGroupProps = Props & InheritAttrs & AriaAttrs;
 
 const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
-  ({ orientation = 'vertical', children, onValueChange, onChange, gap, size = 'md', ...props }, ref): JSX.Element => {
-    const { fieldProps } = useFieldProps(props as Omit<RadioGroupProps, 'defaultValue'>);
-
+  (
+    {
+      orientation = 'vertical',
+      children,
+      onValueChange,
+      onChange,
+      gap,
+      size = 'md',
+      label,
+      errorMessage,
+      description,
+      isInvalid,
+      isDisabled,
+      ...props
+    },
+    ref
+  ): JSX.Element => {
     let domRef = useDOMRef(ref);
-    let state = useRadioGroupState({ onChange: onValueChange, ...props });
-    let { radioGroupProps, labelProps, descriptionProps, errorMessageProps } = useRadioGroup(props, state);
+    let state = useRadioGroupState({
+      onChange: onValueChange,
+      errorMessage,
+      description,
+      isInvalid: !!errorMessage || isInvalid,
+      isDisabled,
+      ...props
+    });
+    let { radioGroupProps, labelProps, descriptionProps, errorMessageProps } = useRadioGroup(
+      { label, errorMessage, description, isDisabled, isInvalid, ...props },
+      state
+    );
 
     return (
-      <Field
-        {...fieldProps}
-        ref={domRef}
-        descriptionProps={descriptionProps}
-        elementType='span'
-        errorMessageProps={errorMessageProps}
-        labelProps={labelProps}
-      >
+      <StyledField ref={domRef} $isDisabled={isDisabled} direction='column'>
+        {label && (
+          <Label error={!!errorMessage} size={size} {...labelProps}>
+            {label}
+          </Label>
+        )}
         <StyledRadioGroup
           {...radioGroupProps}
           $gap={orientation === 'horizontal' ? gap || 'md' : gap}
@@ -49,7 +72,15 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
         >
           <RadioContext.Provider value={{ state, size }}>{children}</RadioContext.Provider>
         </StyledRadioGroup>
-      </Field>
+        {(description || errorMessage) && (
+          <HelperText
+            description={description}
+            descriptionProps={descriptionProps}
+            errorMessage={errorMessage}
+            errorMessageProps={errorMessageProps}
+          />
+        )}
+      </StyledField>
     );
   }
 );

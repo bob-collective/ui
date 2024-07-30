@@ -1,18 +1,4 @@
-import {
-  Dd,
-  Divider,
-  Dl,
-  DlGroup,
-  Dt,
-  Flex,
-  H2,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  ModalProps,
-  P,
-  TextLink
-} from '@gobob/ui';
+import { Dd, Divider, Dl, DlGroup, Dt, Flex, H2, Modal, ModalBody, ModalHeader, ModalProps, P, Link } from '@gobob/ui';
 import { useLocale } from '@gobob/ui';
 import { t } from 'i18next';
 import { Trans } from 'react-i18next';
@@ -66,7 +52,7 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
           <Trans
             components={{
               xLink: (
-                <TextLink
+                <Link
                   external
                   className='twitter-share-button'
                   href={`https://twitter.com/intent/tweet?text=${twitterMessage}`}

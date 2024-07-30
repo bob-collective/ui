@@ -8,6 +8,7 @@ import { useDOMRef } from '../../hooks';
 import { ButtonVariants, ButtonSizes, ButtonColors, SpinnerSizes, SpinnerColors } from '../../theme';
 import { Flex } from '../Flex';
 import { Spinner } from '../Spinner';
+import { ElementTypeProp } from '../utils/types';
 
 import { StyledButton } from './Button.style';
 
@@ -46,7 +47,7 @@ type Props = {
 
 type NativeAttrs = Omit<ButtonHTMLAttributes<unknown>, keyof Props>;
 
-type ButtonProps = Props & NativeAttrs;
+type ButtonProps = Props & NativeAttrs & ElementTypeProp;
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -60,6 +61,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       fullWidth,
       isIconOnly,
       asChild,
+      elementType,
       ...props
     },
     ref
@@ -79,6 +81,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         $isIconOnly={isIconOnly}
         $size={size}
         $variant={variant}
+        as={elementType}
         asChild={asChild}
         disabled={isDisabled}
         {...mergeProps(props, focusProps)}

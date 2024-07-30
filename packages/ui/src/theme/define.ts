@@ -1,40 +1,41 @@
 import type { Palette } from './core';
 
 import {
-  fontSize,
-  typography,
-  fontWeight,
-  lineHeight,
-  rounded,
-  spacing,
-  breakpoints,
-  transition,
-  color,
-  icon,
-  maxWidth
-} from './core';
-import {
-  ButtonTheme,
-  InputTheme,
   AccordionTheme,
   AlertTheme,
+  ButtonTheme,
   CardTheme,
   DialogTheme,
   DividerTheme,
   DrawerTheme,
+  HelperTextTheme,
+  InputTheme,
+  LabelTheme,
+  LinkTheme,
   ListTheme,
-  RadioTheme,
-  SwitchTheme,
-  SpinnerTheme,
   ProgressBarTheme,
-  TooltipTheme,
-  TokenInputTheme,
+  RadioTheme,
+  SpinnerTheme,
+  StepperTheme,
+  SwitchTheme,
   TableTheme,
   TabsTheme,
-  StepperTheme,
-  LabelTheme,
-  HelperTextTheme
+  TokenInputTheme,
+  TooltipTheme
 } from './components';
+import {
+  breakpoints,
+  color,
+  fontSize,
+  fontWeight,
+  icon,
+  lineHeight,
+  maxWidth,
+  rounded,
+  spacing,
+  transition,
+  typography
+} from './core';
 
 const baseTheme = {
   fontSize,
@@ -58,6 +59,7 @@ type ThemeParams = {
   divider: DividerTheme;
   drawer: DrawerTheme;
   input: InputTheme;
+  link: LinkTheme;
   list: ListTheme;
   radio: RadioTheme;
   switch: SwitchTheme;
