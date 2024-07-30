@@ -7,7 +7,7 @@ const config = {
     'apps/evm/api/**',
     'packages/currency/src/constants.ts',
     '.storybook/vite.config.ts',
-    'apps/hybrid-pay/api/**'
+    'apps/bob-pay/api/**'
   ]
 };
 

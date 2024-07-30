@@ -157,6 +157,136 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
 
+  apps/bob-pay:
+    dependencies:
+      '@dynamic-labs/ethereum':
+        specifier: ^v3.0.0-alpha.29
+        version: 3.0.0-alpha.29(@dynamic-labs/logger@3.0.0-alpha.29)(@dynamic-labs/rpc-providers@3.0.0-alpha.29)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(viem@2.17.5)
+      '@dynamic-labs/ethereum-aa':
+        specifier: ^v3.0.0-alpha.29
+        version: 3.0.0-alpha.29(@dynamic-labs/rpc-providers@3.0.0-alpha.29)(@types/react@18.3.3)(@zerodev/webauthn-key@5.3.1)(eventemitter3@5.0.1)(react-dom@18.3.1)(react@18.3.1)(viem@2.17.5)
+      '@dynamic-labs/sdk-react-core':
+        specifier: ^v3.0.0-alpha.29
+        version: 3.0.0-alpha.29(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.3)(react@18.3.1)
+      '@dynamic-labs/wagmi-connector':
+        specifier: ^v3.0.0-alpha.29
+        version: 3.0.0-alpha.29(@dynamic-labs/logger@3.0.0-alpha.29)(@dynamic-labs/rpc-providers@3.0.0-alpha.29)(@dynamic-labs/sdk-react-core@3.0.0-alpha.29)(@dynamic-labs/types@3.0.0-alpha.29)(@dynamic-labs/wallet-connector-core@3.0.0-alpha.29)(@wagmi/core@2.12.2)(eventemitter3@5.0.1)(react@18.3.1)(viem@2.17.5)(wagmi@2.11.2)
+      '@gobob/chains':
+        specifier: workspace:^
+        version: link:../../packages/chains
+      '@gobob/currency':
+        specifier: workspace:^
+        version: link:../../packages/currency
+      '@gobob/hooks':
+        specifier: workspace:^
+        version: link:../../packages/hooks
+      '@gobob/react-query':
+        specifier: workspace:^
+        version: link:../../packages/react-query
+      '@gobob/tokens':
+        specifier: workspace:^
+        version: link:../../packages/tokens
+      '@gobob/types':
+        specifier: workspace:^
+        version: link:../../packages/types
+      '@gobob/ui':
+        specifier: workspace:^
+        version: link:../../packages/ui
+      '@gobob/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
+      '@gobob/wagmi':
+        specifier: workspace:^
+        version: link:../../packages/wagmi
+      '@react-aria/tag':
+        specifier: ^3.4.1
+        version: 3.4.1(react-dom@18.3.1)(react@18.3.1)
+      '@react-aria/utils':
+        specifier: ^3.23.2
+        version: 3.24.1(react@18.3.1)
+      '@react-stately/collections':
+        specifier: ^3.10.0
+        version: 3.10.7(react@18.3.1)
+      '@react-stately/list':
+        specifier: ^3.9.1
+        version: 3.10.5(react@18.3.1)
+      '@sentry/react':
+        specifier: ^8.8.0
+        version: 8.19.0(react@18.3.1)
+      '@sentry/vite-plugin':
+        specifier: ^2.18.0
+        version: 2.21.1
+      '@yudiel/react-qr-scanner':
+        specifier: ^2.0.4
+        version: 2.0.4(react-dom@18.3.1)(react@18.3.1)
+      '@zerodev/sdk':
+        specifier: ^5.3.4
+        version: 5.3.4(permissionless@0.1.41)(viem@2.17.5)
+      big.js:
+        specifier: ^6.2.1
+        version: 6.2.1
+      date-fns:
+        specifier: ^3.2.0
+        version: 3.6.0
+      graphql-request:
+        specifier: 6.1.0
+        version: 6.1.0(graphql@16.9.0)
+      permissionless:
+        specifier: ^0.1.41
+        version: 0.1.41(viem@2.17.5)
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+      react-qr-code:
+        specifier: ^2.0.12
+        version: 2.0.15(react@18.3.1)
+      react-router-dom:
+        specifier: ^6.16.0
+        version: 6.25.1(react-dom@18.3.1)(react@18.3.1)
+      react-use:
+        specifier: ^17.5.1
+        version: 17.5.1(react-dom@18.3.1)(react@18.3.1)
+      styled-components:
+        specifier: ^6.0.8
+        version: 6.1.12(react-dom@18.3.1)(react@18.3.1)
+      viem:
+        specifier: ^2.17.3
+        version: 2.17.5(typescript@5.4.5)(zod@3.23.8)
+      vite-plugin-node-polyfills:
+        specifier: ^0.15.0
+        version: 0.15.0(vite@4.5.3)
+      wagmi:
+        specifier: ^2.8.1
+        version: 2.11.2(@tanstack/react-query@5.51.9)(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.3)(react@18.3.1)(typescript@5.4.5)(viem@2.17.5)(zod@3.23.8)
+      yup:
+        specifier: ^0.32.11
+        version: 0.32.11
+    devDependencies:
+      '@gobob/test-utils':
+        specifier: workspace:^
+        version: link:../../packages/test-utils
+      '@types/big.js':
+        specifier: ^6.2.0
+        version: 6.2.2
+      '@types/react':
+        specifier: ^18.2.15
+        version: 18.3.3
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.3.0
+      '@vitejs/plugin-react':
+        specifier: ^4.0.3
+        version: 4.3.1(vite@4.5.3)
+      eslint:
+        specifier: ^8.45.0
+        version: 8.57.0
+      vite:
+        specifier: ^4.4.5
+        version: 4.5.3(@types/node@20.14.11)
+
   apps/e2e:
     devDependencies:
       '@synthetixio/synpress':
@@ -319,136 +449,6 @@ importers:
       vite-plugin-wasm:
         specifier: ^3.3.0
         version: 3.3.0(vite@4.5.3)
-
-  apps/hybrid-pay:
-    dependencies:
-      '@dynamic-labs/ethereum':
-        specifier: ^v3.0.0-alpha.29
-        version: 3.0.0-alpha.29(@dynamic-labs/logger@3.0.0-alpha.29)(@dynamic-labs/rpc-providers@3.0.0-alpha.29)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)(viem@2.17.5)
-      '@dynamic-labs/ethereum-aa':
-        specifier: ^v3.0.0-alpha.29
-        version: 3.0.0-alpha.29(@dynamic-labs/rpc-providers@3.0.0-alpha.29)(@types/react@18.3.3)(@zerodev/webauthn-key@5.3.1)(eventemitter3@5.0.1)(react-dom@18.3.1)(react@18.3.1)(viem@2.17.5)
-      '@dynamic-labs/sdk-react-core':
-        specifier: ^v3.0.0-alpha.29
-        version: 3.0.0-alpha.29(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.3)(react@18.3.1)
-      '@dynamic-labs/wagmi-connector':
-        specifier: ^v3.0.0-alpha.29
-        version: 3.0.0-alpha.29(@dynamic-labs/logger@3.0.0-alpha.29)(@dynamic-labs/rpc-providers@3.0.0-alpha.29)(@dynamic-labs/sdk-react-core@3.0.0-alpha.29)(@dynamic-labs/types@3.0.0-alpha.29)(@dynamic-labs/wallet-connector-core@3.0.0-alpha.29)(@wagmi/core@2.12.2)(eventemitter3@5.0.1)(react@18.3.1)(viem@2.17.5)(wagmi@2.11.2)
-      '@gobob/chains':
-        specifier: workspace:^
-        version: link:../../packages/chains
-      '@gobob/currency':
-        specifier: workspace:^
-        version: link:../../packages/currency
-      '@gobob/hooks':
-        specifier: workspace:^
-        version: link:../../packages/hooks
-      '@gobob/react-query':
-        specifier: workspace:^
-        version: link:../../packages/react-query
-      '@gobob/tokens':
-        specifier: workspace:^
-        version: link:../../packages/tokens
-      '@gobob/types':
-        specifier: workspace:^
-        version: link:../../packages/types
-      '@gobob/ui':
-        specifier: workspace:^
-        version: link:../../packages/ui
-      '@gobob/utils':
-        specifier: workspace:^
-        version: link:../../packages/utils
-      '@gobob/wagmi':
-        specifier: workspace:^
-        version: link:../../packages/wagmi
-      '@react-aria/tag':
-        specifier: ^3.4.1
-        version: 3.4.1(react-dom@18.3.1)(react@18.3.1)
-      '@react-aria/utils':
-        specifier: ^3.23.2
-        version: 3.24.1(react@18.3.1)
-      '@react-stately/collections':
-        specifier: ^3.10.0
-        version: 3.10.7(react@18.3.1)
-      '@react-stately/list':
-        specifier: ^3.9.1
-        version: 3.10.5(react@18.3.1)
-      '@sentry/react':
-        specifier: ^8.8.0
-        version: 8.19.0(react@18.3.1)
-      '@sentry/vite-plugin':
-        specifier: ^2.18.0
-        version: 2.21.1
-      '@yudiel/react-qr-scanner':
-        specifier: ^2.0.4
-        version: 2.0.4(react-dom@18.3.1)(react@18.3.1)
-      '@zerodev/sdk':
-        specifier: ^5.3.4
-        version: 5.3.4(permissionless@0.1.41)(viem@2.17.5)
-      big.js:
-        specifier: ^6.2.1
-        version: 6.2.1
-      date-fns:
-        specifier: ^3.2.0
-        version: 3.6.0
-      graphql-request:
-        specifier: 6.1.0
-        version: 6.1.0(graphql@16.9.0)
-      permissionless:
-        specifier: ^0.1.41
-        version: 0.1.41(viem@2.17.5)
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-      react-qr-code:
-        specifier: ^2.0.12
-        version: 2.0.15(react@18.3.1)
-      react-router-dom:
-        specifier: ^6.16.0
-        version: 6.25.1(react-dom@18.3.1)(react@18.3.1)
-      react-use:
-        specifier: ^17.5.1
-        version: 17.5.1(react-dom@18.3.1)(react@18.3.1)
-      styled-components:
-        specifier: ^6.0.8
-        version: 6.1.12(react-dom@18.3.1)(react@18.3.1)
-      viem:
-        specifier: ^2.17.3
-        version: 2.17.5(typescript@5.4.5)(zod@3.23.8)
-      vite-plugin-node-polyfills:
-        specifier: ^0.15.0
-        version: 0.15.0(vite@4.5.3)
-      wagmi:
-        specifier: ^2.8.1
-        version: 2.11.2(@tanstack/react-query@5.51.9)(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.3)(react@18.3.1)(typescript@5.4.5)(viem@2.17.5)(zod@3.23.8)
-      yup:
-        specifier: ^0.32.11
-        version: 0.32.11
-    devDependencies:
-      '@gobob/test-utils':
-        specifier: workspace:^
-        version: link:../../packages/test-utils
-      '@types/big.js':
-        specifier: ^6.2.0
-        version: 6.2.2
-      '@types/react':
-        specifier: ^18.2.15
-        version: 18.3.3
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.3.0
-      '@vitejs/plugin-react':
-        specifier: ^4.0.3
-        version: 4.3.1(vite@4.5.3)
-      eslint:
-        specifier: ^8.45.0
-        version: 8.57.0
-      vite:
-        specifier: ^4.4.5
-        version: 4.5.3(@types/node@20.14.11)
 
   packages/chains: {}
 
