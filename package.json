@@ -18,7 +18,7 @@
     "build:sb": "storybook build",
     "test": "jest --verbose --config ./jest.config.js packages/ui",
     "start:evm": "pnpm run --filter bob-evm dev --port 5050",
-    "start:hybrid-pay": "pnpm run --filter bob-hybrid-pay dev --port 5050",
+    "start:bob-pay": "pnpm run --filter bob-pay dev --port 5050",
     "test:e2e": "start-server-and-test 'pnpm start:bridge' http-get://localhost:3000 'cd apps/e2e && pnpm synpress:run'",
     "test:e2e:ci": "cd apps/e2e && pnpm synpress:run",
     "postinstall": "husky install",
