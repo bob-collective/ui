@@ -13,7 +13,7 @@ class USDCBridgeAdapter extends StandardBridgeAdapter {
   async supportsTokenPair(l1Token: AddressLike, l2Token: AddressLike): Promise<boolean> {
     return (
       isAddressEqual(l1Token as Address, USDC[L1_CHAIN as ChainId.ETHEREUM].address) &&
-      isAddressEqual(l2Token as Address, USDC[L2_CHAIN].address)
+      isAddressEqual(l2Token as Address, USDC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA].address)
     );
   }
 }
@@ -22,13 +22,13 @@ class WSTETHBridgeAdapter extends StandardBridgeAdapter {
   async supportsTokenPair(l1Token: AddressLike, l2Token: AddressLike): Promise<boolean> {
     return (
       isAddressEqual(l1Token as Address, wstETH[L1_CHAIN as ChainId.ETHEREUM].address) &&
-      isAddressEqual(l2Token as Address, wstETH[L2_CHAIN].address)
+      isAddressEqual(l2Token as Address, wstETH[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA].address)
     );
   }
 }
 
 const configConduit = {
-  [ChainId.ETHEREUM]: {
+  [ChainId.SEPOLIA]: {
     AddressManager: '0xF2dc77c697e892542cC53336178a78Bb313DFDC7',
     BondManager: '0x0000000000000000000000000000000000000000',
     CanonicalTransactionChain: '0x0000000000000000000000000000000000000000',
@@ -38,7 +38,7 @@ const configConduit = {
     OptimismPortal: '0x8AdeE124447435fE03e3CD24dF3f4cAE32E65a3E',
     StateCommitmentChain: '0x0000000000000000000000000000000000000000'
   },
-  [ChainId.SEPOLIA]: {
+  [ChainId.OLD_BOB_SEPOLIA]: {
     AddressManager: '0x92B5c849AE767d2D64E9460dD15cC7d19D70084C',
     BondManager: '0x0000000000000000000000000000000000000000',
     CanonicalTransactionChain: '0x0000000000000000000000000000000000000000',
@@ -47,16 +47,26 @@ const configConduit = {
     L2OutputOracle: '0x14D0069452b4AE2b250B395b8adAb771E4267d2f',
     OptimismPortal: '0x867B1Aa872b9C8cB5E9F7755feDC45BB24Ad0ae4',
     StateCommitmentChain: '0x0000000000000000000000000000000000000000'
+  },
+  [ChainId.BOB_SEPOLIA]: {
+    AddressManager: '0x98Ba8b9cF38732db65c7E556617135A0E6669F57',
+    BondManager: '0x0000000000000000000000000000000000000000',
+    CanonicalTransactionChain: '0x0000000000000000000000000000000000000000',
+    L1CrossDomainMessenger: '0xB88164eE7669f1C736A55121160daB9c82b62d55',
+    L1StandardBridge: '0x75f48FE4DeAB3F9043EE995c3C84D6a2303D9a2F',
+    L2OutputOracle: '0xd1cBBC06213B7E14e99aDFfFeF1C249E6f9537e0',
+    OptimismPortal: '0xBAAf3BAfdbd660380938b27d21c31bB7D072a799',
+    StateCommitmentChain: '0x0000000000000000000000000000000000000000'
   }
 };
 
 export const USDCCrossBridgeConfig = {
-  [ChainId.ETHEREUM]: {
+  [ChainId.SEPOLIA]: {
     Adapter: USDCBridgeAdapter,
     l1Bridge: '0x450D55a4B4136805B0e5A6BB59377c71FC4FaCBb',
     l2Bridge: '0xe497788F8Fcc30B773C9A181a0FFE2e60645cE90'
   },
-  [ChainId.SEPOLIA]: {
+  [ChainId.OLD_BOB_SEPOLIA]: {
     Adapter: USDCBridgeAdapter,
     l1Bridge: '0x0032303Dd587d74f79BFa3070A6293cb7cD5a4E7',
     l2Bridge: '0xc10C96F93eE4AB710C97b7c058C3DAca6b665eF7'
@@ -64,12 +74,12 @@ export const USDCCrossBridgeConfig = {
 };
 
 const wstETHCrossBridgeConfig = {
-  [ChainId.ETHEREUM]: {
+  [ChainId.SEPOLIA]: {
     Adapter: WSTETHBridgeAdapter,
     l1Bridge: '0x091dF5E1284E49fA682407096aD34cfD42B95B72',
     l2Bridge: '0xd1559523374D93972E0F7fE1AA98642754f5c4d1'
   },
-  [ChainId.SEPOLIA]: {
+  [ChainId.OLD_BOB_SEPOLIA]: {
     Adapter: WSTETHBridgeAdapter,
     l1Bridge: '0x633464fF59E3FC760728d268BD4747d08D343D27',
     l2Bridge: '0x91a55b1294e63347AbeA88011f3B80E8643E56B3'
@@ -77,7 +87,7 @@ const wstETHCrossBridgeConfig = {
 };
 
 const getCrossChainConfig = () => {
-  const config = (configConduit as any)[L1_CHAIN];
+  const config = (configConduit as any)[L2_CHAIN];
 
   return {
     l1ChainId: L1_CHAIN,
@@ -97,8 +107,8 @@ const getCrossChainConfig = () => {
         l1Bridge: config.L1StandardBridge,
         l2Bridge: '0x4200000000000000000000000000000000000010' // Pre-deploy
       },
-      USDC: (USDCCrossBridgeConfig as any)[L1_CHAIN],
-      wstETH: (wstETHCrossBridgeConfig as any)[L1_CHAIN]
+      USDC: (USDCCrossBridgeConfig as any)[L2_CHAIN],
+      wstETH: (wstETHCrossBridgeConfig as any)[L2_CHAIN]
     },
     bedrock: true
   } as const;

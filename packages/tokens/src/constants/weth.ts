@@ -28,8 +28,8 @@ export const WETH9 = {
     'https://weth.io'
   ),
   // TODO: add correct contract
-  [ChainId.BOB_SEPOLIA]: new ERC20Token(
-    ChainId.BOB_SEPOLIA,
+  [ChainId.OLD_BOB_SEPOLIA]: new ERC20Token(
+    ChainId.OLD_BOB_SEPOLIA,
     '0x4200000000000000000000000000000000000006',
     18,
     'WETH',

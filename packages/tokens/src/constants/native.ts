@@ -7,6 +7,7 @@ export const WNATIVE = {
   [ChainId.ETHEREUM]: WETH9[ChainId.ETHEREUM],
   [ChainId.SEPOLIA]: WETH9[ChainId.SEPOLIA],
   [ChainId.BOB]: '' as any,
+  [ChainId.OLD_BOB_SEPOLIA]: '' as any,
   [ChainId.BOB_SEPOLIA]: '' as any,
   [ChainId.ARBITRUM_ONE]: '' as any,
   [ChainId.BASE]: '' as any,
@@ -33,6 +34,11 @@ export const NATIVE = {
     decimals: 18
   },
   [ChainId.BOB_SEPOLIA]: {
+    name: 'BOB Ether',
+    symbol: 'ETH',
+    decimals: 18
+  },
+  [ChainId.OLD_BOB_SEPOLIA]: {
     name: 'BOB Ether',
     symbol: 'ETH',
     decimals: 18
