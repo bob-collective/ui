@@ -20,3 +20,4 @@ export * from './table';
 export * from './tabs';
 export * from './token-input';
 export * from './tooltip';
+export * from './chip';

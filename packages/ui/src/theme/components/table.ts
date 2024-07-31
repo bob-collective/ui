@@ -6,14 +6,8 @@ type TableTheme = {
   cell: StyledObject<object>;
   headerRow: StyledObject<object>;
   row: {
-    odd: {
-      base: StyledObject<object>;
-      hover: StyledObject<object>;
-    };
-    even: {
-      base: StyledObject<object>;
-      hover: StyledObject<object>;
-    };
+    base: StyledObject<object>;
+    hover: StyledObject<object>;
     selected: StyledObject<object>;
   };
 };

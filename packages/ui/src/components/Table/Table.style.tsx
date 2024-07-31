@@ -44,16 +44,11 @@ const StyledTableRow = styled.tr<StyledTableRowProps>`
   cursor: ${({ $isDisabled, $isHovered }) => !$isDisabled && $isHovered && 'pointer'};
 
   ${({ theme, $isHovered, $isSelected }) => {
-    const { even, odd, selected } = theme.table.row;
+    const { hover, selected } = theme.table.row;
 
     return css`
-      &:nth-child(odd) {
-        ${$isSelected ? selected : $isHovered ? odd.hover : odd.base};
-      }
-
-      &:nth-child(even) {
-        ${$isSelected ? selected : $isHovered ? even.hover : even.base};
-      }
+      ${$isHovered && hover};
+      ${$isSelected && selected}
     `;
   }};
 `;

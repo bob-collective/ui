@@ -24,7 +24,6 @@ type InheritAttrs = Omit<TextProps, keyof Props & AriaAttrs & NativeAttrs>;
 
 type LinkProps = Props & NativeAttrs & InheritAttrs & AriaAttrs;
 
-// TODO: add missing colors to button and allow Link component to work through system using react router
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ color = 'light', external, underlined = 'none', icon, children, href, className, ...props }, ref): JSX.Element => {
     const linkRef = useDOMRef(ref);

@@ -11,6 +11,8 @@ export type { ButtonProps } from './Button';
 export { CSSReset } from './CSSReset';
 export { Card } from './Card';
 export type { CardProps } from './Card';
+export { Chip } from './Chip';
+export type { ChipProps } from './Chip';
 export { Divider } from './Divider';
 export type { DividerProps } from './Divider';
 export { Drawer } from './Drawer';

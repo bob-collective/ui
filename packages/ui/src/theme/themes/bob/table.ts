@@ -1,5 +1,5 @@
 import { hexToRgba } from '../../utils';
-import { fontWeight, spacing, typography } from '../../core';
+import { fontWeight, rounded, spacing, typography } from '../../core';
 import { TableTheme } from '../../components';
 
 import { color } from './colors';
@@ -13,9 +13,16 @@ const table: TableTheme = {
     color: color('light'),
     fontWeight: fontWeight('bold'),
     ...typography('xs'),
+    '&:first-of-type': {
+      paddingRight: spacing('lg'),
+      borderTopLeftRadius: rounded('md'),
+      borderBottomLeftRadius: rounded('md')
+    },
     '&:last-of-type': {
       textAlign: 'right',
-      paddingRight: spacing('lg')
+      paddingRight: spacing('lg'),
+      borderTopRightRadius: rounded('md'),
+      borderBottomRightRadius: rounded('md')
     }
   },
   cell: {
@@ -24,33 +31,29 @@ const table: TableTheme = {
     paddingBottom: spacing('md'),
     color: color('light'),
     ...typography('s'),
+    '&:first-of-type': {
+      borderTopLeftRadius: rounded('md'),
+      borderBottomLeftRadius: rounded('md')
+    },
     '&:last-of-type': {
       textAlign: 'right',
-      paddingRight: spacing('md')
+      paddingRight: spacing('md'),
+      borderTopRightRadius: rounded('md'),
+      borderBottomRightRadius: rounded('md')
     }
   },
   headerRow: {
-    backgroundColor: color('grey-800')
+    backgroundColor: color('grey-600')
   },
   row: {
-    odd: {
-      base: {
-        backgroundColor: color('grey-500')
-      },
-      hover: {
-        backgroundColor: hexToRgba(color('grey-500'), 70)
-      }
+    base: {
+      // backgroundColor: color('grey-700')
     },
-    even: {
-      base: {
-        backgroundColor: color('grey-700')
-      },
-      hover: {
-        backgroundColor: hexToRgba(color('grey-700'), 70)
-      }
+    hover: {
+      backgroundColor: hexToRgba(color('grey-600'), 40)
     },
     selected: {
-      backgroundColor: hexToRgba(color('primary-500'), 50)
+      backgroundColor: color('grey-600')
     }
   }
 };

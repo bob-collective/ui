@@ -2,14 +2,11 @@ import { StyledObject } from 'styled-components/dist/types';
 
 type ButtonSizes = 's' | 'md' | 'lg' | 'xl' | '2xl';
 
-type ButtonColors = 'default' | 'primary';
+type ButtonColors = 'default' | 'primary' | 'light';
 
 type ButtonColorsParams = {
   base: StyledObject<object>;
   hover: StyledObject<object>;
-  active: StyledObject<object>;
-  focus?: StyledObject<object>;
-  focusVisible?: StyledObject<object>;
   disabled: StyledObject<object>;
 };
 

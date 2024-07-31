@@ -19,6 +19,7 @@ import {
   StepperTheme,
   SwitchTheme,
   TableTheme,
+  ChipTheme,
   TabsTheme,
   TokenInputTheme,
   TooltipTheme
@@ -55,6 +56,7 @@ type ThemeParams = {
   alert: AlertTheme;
   button: ButtonTheme;
   card: CardTheme;
+  chip: ChipTheme;
   dialog: DialogTheme;
   divider: DividerTheme;
   drawer: DrawerTheme;

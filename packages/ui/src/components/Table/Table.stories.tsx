@@ -40,12 +40,6 @@ const rows: RowProps[] = [
 export default {
   title: 'Collections/Table',
   component: Table,
-  parameters: {
-    layout: 'centered'
-  },
-  args: {
-    style: { minWidth: 300 }
-  },
   render: (args) => <Table {...args} aria-label='story table' columns={columns} rows={rows} />
 } as Meta<typeof Table>;
 
@@ -70,5 +64,11 @@ export const StickyHeader: StoryObj<TableProps> = {
     style: {
       maxHeight: 300
     }
+  }
+};
+
+export const WithoutWrapper: StoryObj<TableProps> = {
+  args: {
+    removeWrapper: true
   }
 };

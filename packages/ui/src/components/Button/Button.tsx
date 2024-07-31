@@ -30,6 +30,11 @@ const spinnerColorMap: Record<ButtonColors, Record<ButtonVariants, SpinnerColors
     ghost: 'primary',
     outline: 'primary',
     solid: 'default'
+  },
+  light: {
+    ghost: 'primary',
+    outline: 'primary',
+    solid: 'default'
   }
 };
 

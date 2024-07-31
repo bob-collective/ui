@@ -64,6 +64,12 @@ const BaseTable = forwardRef<HTMLTableElement, BaseTableProps>(
               ))}
             </TableHeaderRow>
           ))}
+          <tr
+            aria-hidden='true'
+            className='w-px h-px block'
+            style={{ display: 'block', height: 1, width: 1, marginLeft: '0.25rem', marginTop: '0.25rem' }}
+            tabIndex={-1}
+          />
         </TableRowGroup>
         <TableRowGroup elementType='tbody'>
           {[...collection].map((row) => (

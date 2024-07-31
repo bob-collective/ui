@@ -4,6 +4,7 @@ import { accordion } from './accordion';
 import { alert } from './alert';
 import { button } from './button';
 import { card } from './card';
+import { chip } from './chip';
 import { colors } from './colors';
 import { dialog } from './dialog';
 import { divider } from './divider';
@@ -29,6 +30,7 @@ const bobTheme = defineTheme({
   alert,
   button,
   card,
+  chip,
   dialog,
   divider,
   drawer,

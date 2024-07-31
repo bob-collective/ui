@@ -16,6 +16,7 @@ const StyledCard = styled(Flex)<StyledCardProps>`
   border-radius: ${({ $rounded, theme }) => theme.rounded($rounded)};
   cursor: ${({ $isPressable }) => $isPressable && 'pointer'};
   outline: none;
+  overflow: hidden;
 
   // TODO: add isHoverable
   ${({ $bordered, $isPressable, $shadowed, $background, theme }) => {
