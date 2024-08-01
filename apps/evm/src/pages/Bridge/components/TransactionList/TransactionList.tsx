@@ -91,10 +91,10 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
         <Divider />
       </StyledTransactionListWrapper>
       <StyledViewTransactions href={txsUrl} rel='noreferrer' target='_blank'>
-        <Span color='grey-300' size='s'>
+        <Span color='grey-50' size='s'>
           View All Transactions
         </Span>
-        <ArrowTopRightOnSquare color='grey-300' size='s' />
+        <ArrowTopRightOnSquare color='grey-50' size='s' />
       </StyledViewTransactions>
     </StyledSection>
   );

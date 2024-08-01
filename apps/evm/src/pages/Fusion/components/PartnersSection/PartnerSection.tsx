@@ -78,7 +78,7 @@ const PartnersSection = () => {
       <H2 id='ecosystem' size='2xl' weight='semibold'>
         {t('fusion.partners.title')}
       </H2>
-      <P color='grey-200'> {t('fusion.partners.content')}</P>
+      <P color='grey-50'> {t('fusion.partners.content')}</P>
       {isLoading ? (
         <Flex direction='row' justifyContent='center' marginTop='8xl'>
           <Spinner size='36' thickness={5} />

@@ -10,8 +10,7 @@ type StyledMainProps = {
 
 const StyledLayout = styled(Flex)`
   min-height: 100vh;
-  // TODO: figure this out
-  background-color: #0d1017;
+  background-color: ${({ theme }) => theme.color('grey-900')};
 `;
 
 const StyledHeader = styled(Flex)`

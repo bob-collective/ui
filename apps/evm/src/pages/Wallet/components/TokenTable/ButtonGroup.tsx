@@ -44,7 +44,7 @@ const ButtonGroup = ({
         <PopoverContent>
           <PopoverBody>
             {showOnlyConnect ? (
-              <Button size='s' onPress={onPressConnect}>
+              <Button color='primary' size='s' onPress={onPressConnect}>
                 {connectLabel}
               </Button>
             ) : (
@@ -62,7 +62,7 @@ const ButtonGroup = ({
 
   if (showOnlyConnect) {
     return (
-      <Button size='s' variant='outline' onPress={onPressConnect}>
+      <Button color='primary' size='s' onPress={onPressConnect}>
         {connectLabel}
       </Button>
     );
@@ -76,7 +76,7 @@ const ButtonGroup = ({
             isIconOnly
             aria-label={t('wallet.tooltips.bridge.ariaLabel')}
             size='s'
-            variant='outline'
+            variant='ghost'
             onPress={onPressBridge}
           >
             <ArrowsUpDown size='xs' strokeWidth={2} />
@@ -88,7 +88,7 @@ const ButtonGroup = ({
           isIconOnly
           aria-label={t('wallet.tooltips.send.ariaLabel', { ticker: ticker })}
           size='s'
-          variant='outline'
+          variant='ghost'
           onPress={onPressSend}
         >
           <ArrowUp size='xs' strokeWidth={2} />
@@ -99,7 +99,7 @@ const ButtonGroup = ({
           isIconOnly
           aria-label={t('wallet.tooltips.receive.ariaLabel', { ticker: ticker })}
           size='s'
-          variant='outline'
+          variant='ghost'
           onPress={onPressReceive}
         >
           <ArrowDown size='xs' strokeWidth={2} />

@@ -43,7 +43,7 @@ const ConnectedWalletSection = ({ type, icon, onDisconnect, address, wallet }: C
           </UnstyledButton>
         </Flex>
       </Flex>
-      <Button isIconOnly size='s' variant='outline' onPress={onDisconnect}>
+      <Button isIconOnly size='s' variant='ghost' onPress={onDisconnect}>
         <Power size='s' />
       </Button>
     </Card>

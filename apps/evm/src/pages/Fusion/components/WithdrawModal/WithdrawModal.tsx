@@ -39,7 +39,7 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
         </Flex>
       </ModalHeader>
       <ModalBody gap='lg'>
-        <P color='grey-200' size='s'>
+        <P color='grey-50' size='s'>
           <Trans
             i18nKey='fusion.withdrawModal.summary'
             values={{
@@ -48,7 +48,7 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
             }}
           />
         </P>
-        <P color='grey-200' size='s'>
+        <P color='grey-50' size='s'>
           <Trans
             components={{
               xLink: (
@@ -63,7 +63,7 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
             i18nKey='fusion.withdrawModal.share'
           />
         </P>
-        <P color='grey-200' size='s'>
+        <P color='grey-50' size='s'>
           {t('fusion.withdrawModal.seasonTwoDescription')}
         </P>
         <Dl justifyContent='space-between'>

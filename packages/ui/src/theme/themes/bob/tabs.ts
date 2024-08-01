@@ -6,7 +6,7 @@ import { color } from './colors';
 
 const tabs: TabsTheme = {
   wrapper: {
-    backgroundColor: color('grey-600'),
+    backgroundColor: color('grey-800'),
     borderRadius: rounded('md'),
     padding: spacing('xs')
   },
@@ -23,7 +23,7 @@ const tabs: TabsTheme = {
     selected: {
       top: spacing('xs'),
       bottom: spacing('xs'),
-      backgroundColor: color('grey-300'),
+      backgroundColor: color('grey-400'),
       transition: 'transform 150ms, width 100ms',
       willChange: 'transform, width'
     }

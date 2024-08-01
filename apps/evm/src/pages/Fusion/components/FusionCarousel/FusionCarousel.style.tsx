@@ -3,7 +3,6 @@ import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
 import { Banner } from './Banner';
-import { OnrampGraphic } from './OnrampGraphic';
 
 function getImageUrl(name: string) {
   return new URL(`../../../../assets/${name}`, import.meta.url).href;
@@ -20,18 +19,16 @@ const StyledBannerContent = styled(Flex)`
 `;
 
 const StyledBannerImg = styled.img`
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  opacity: 0.5;
-
   ${({ theme }) => {
     return css`
-      transform: scale(4);
+      height: 4rem;
 
-      @media ${theme.breakpoints.up('s')} {
-        transform: scale(6) translateX(-15%);
+      @media ${theme.breakpoints.down('s')} {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.2;
       }
     `;
   }}
@@ -86,10 +83,12 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const StyledOnrampBanner = styled(Banner)`
+const StyledCarouselBanner = styled(Banner)`
   background-image: url(${getImageUrl('cubs-group.svg')});
   background-repeat: no-repeat;
   background-size: cover;
+
+  position: relative;
 
   ${({ theme }) => {
     return css`
@@ -102,23 +101,6 @@ const StyledOnrampBanner = styled(Banner)`
   }}
 `;
 
-const StyledOnrampGraphic = styled(OnrampGraphic)`
-  ${({ theme }) => {
-    return css`
-      height: 4rem;
-
-      @media ${theme.breakpoints.down('s')} {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        /* height: 3rem; */
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 const StyledBanner = styled(Card)`
   position: relative;
 `;
@@ -126,9 +108,8 @@ const StyledBanner = styled(Card)`
 export {
   StyledCarouselWrapper,
   StyledSlider,
-  StyledOnrampBanner,
-  StyledOnrampGraphic,
   StyledBannerContent,
   StyledBanner,
+  StyledCarouselBanner,
   StyledBannerImg
 };

@@ -16,7 +16,7 @@ const EcosystemBanner = ({ onPress }: EcosystemBannerProps) => (
         BOB Ecosystem
       </H1>
     </Flex>
-    <P color='grey-200'>Discover the most exciting projects on BOB.</P>
+    <P color='grey-50'>Discover the most exciting projects on BOB.</P>
     <StyledBannerImg alt='BOB ecosystem banner' src={bannerSrc} />
   </Banner>
 );

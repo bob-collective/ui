@@ -19,12 +19,12 @@ const StyledPill = styled(Link)<StyledPillProps>`
   border-radius: ${({ theme }) => theme.rounded('full')};
   background-color: ${({ theme, $status }) =>
     $status === 'complete'
-      ? theme.color('grey-400')
+      ? theme.color('grey-800')
       : $status === 'ongoing'
         ? theme.color('green-300')
         : $status === 'failed'
           ? theme.color('red-800')
-          : theme.color('grey-400')};
+          : theme.color('grey-800')};
   opacity: ${({ $status }) => ($status === 'idle' ? '.7' : '1')};
   color: ${({ $status, theme }) => ($status === 'ongoing' ? theme.color('dark') : theme.color('light'))};
 

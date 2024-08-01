@@ -11,20 +11,20 @@ const ButtonGroupMobile = ({ onPressBridge, onPressReceive, onPressSend }: Butto
   return (
     <Flex direction='column' gap='s'>
       {onPressBridge && (
-        <Button size='s' variant='outline' onPress={onPressBridge}>
+        <Button size='s' variant='ghost' onPress={onPressBridge}>
           <Flex alignItems='center' flex={1} gap='s' justifyContent='flex-start'>
             <ArrowsUpDown size='xs' strokeWidth={2} />
             Bridge
           </Flex>
         </Button>
       )}
-      <Button size='s' variant='outline' onPress={onPressSend}>
+      <Button size='s' variant='ghost' onPress={onPressSend}>
         <Flex alignItems='center' flex={1} gap='s' justifyContent='flex-start'>
           <ArrowUp size='xs' strokeWidth={2} />
           Send
         </Flex>
       </Button>
-      <Button size='s' variant='outline' onPress={onPressReceive}>
+      <Button size='s' variant='ghost' onPress={onPressReceive}>
         <Flex alignItems='center' flex={1} gap='s' justifyContent='flex-start'>
           <ArrowDown size='xs' strokeWidth={2} />
           Receive

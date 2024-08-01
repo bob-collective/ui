@@ -6,7 +6,7 @@ import { input } from './input';
 
 const tokenInput: TokenInputTheme = {
   wrapper: {
-    backgroundColor: color('grey-600'),
+    backgroundColor: color('grey-800'),
     borderColor: 'transparent'
   },
   inputWrapper: {
@@ -47,7 +47,7 @@ const tokenInput: TokenInputTheme = {
   token: {
     base: {
       borderColor: color('grey-300'),
-      backgroundColor: color('grey-700'),
+      backgroundColor: color('grey-500'),
       padding: `0 ${spacing('md')}`,
       fontSize: fontSize('md', 'rem')
     },

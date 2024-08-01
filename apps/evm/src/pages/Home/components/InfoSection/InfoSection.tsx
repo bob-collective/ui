@@ -15,7 +15,7 @@ const InfoSection = (): JSX.Element => {
         <StyledAboutTitle align='center' fontFamily='eurostar'>
           <Trans components={{ highlight: <HighlightText /> }} i18nKey='home.info.title' />
         </StyledAboutTitle>
-        <P align='center' color='grey-200' size='lg'>
+        <P align='center' color='grey-50' size='lg'>
           {t('home.info.content')}
         </P>
       </Flex>
@@ -25,7 +25,7 @@ const InfoSection = (): JSX.Element => {
             <StyledLeftHighlight as={H4} fontFamily='eurostar' size='4xl'>
               {t('home.info.exploreLabel')}
             </StyledLeftHighlight>
-            <P color='grey-200' size='lg'>
+            <P color='grey-50' size='lg'>
               {t('home.info.exploreContent')}
             </P>
           </Flex>
@@ -33,7 +33,7 @@ const InfoSection = (): JSX.Element => {
             <StyledLeftHighlight as={H4} fontFamily='eurostar' size='4xl'>
               {t('home.info.referLabel')}
             </StyledLeftHighlight>
-            <P color='grey-200' size='lg'>
+            <P color='grey-50' size='lg'>
               {t('home.info.referContent')}
             </P>
           </Flex>
@@ -41,7 +41,7 @@ const InfoSection = (): JSX.Element => {
             <StyledLeftHighlight as={H4} fontFamily='eurostar' size='4xl'>
               {t('home.info.questsLabel')}
             </StyledLeftHighlight>
-            <P color='grey-200' size='lg'>
+            <P color='grey-50' size='lg'>
               {t('home.info.questsContent')}
             </P>
           </Flex>
