@@ -1,5 +1,4 @@
 import { Card, Flex } from '@gobob/ui';
-import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
 import { Banner } from './Banner';
@@ -34,54 +33,54 @@ const StyledBannerImg = styled.img`
   }}
 `;
 
-const StyledSlider = styled(Slider)`
-  .slick-prev {
-    left: 10px;
-  }
+// const StyledSlider = styled(Slider)`
+//   .slick-prev {
+//     left: 10px;
+//   }
 
-  .slick-next {
-    right: 10px;
-  }
+//   .slick-next {
+//     right: 10px;
+//   }
 
-  .slick-dots {
-    bottom: 0;
-  }
+//   .slick-dots {
+//     bottom: 0;
+//   }
 
-  .slick-prev,
-  .slick-next {
-    color: ${({ theme }) => theme.color('grey-300')};
-    width: auto;
-    height: auto;
-    z-index: 1;
-    transition: ${({ theme }) => theme.transition('colors', 'fast')};
+//   .slick-prev,
+//   .slick-next {
+//     color: ${({ theme }) => theme.color('grey-300')};
+//     width: auto;
+//     height: auto;
+//     z-index: 1;
+//     transition: ${({ theme }) => theme.transition('colors', 'fast')};
 
-    &::before {
-      content: unset;
-    }
-  }
+//     &::before {
+//       content: unset;
+//     }
+//   }
 
-  .slick-dots li.slick-active button:before {
-    color: ${({ theme }) => theme.color('primary-500')};
-    opacity: 1;
-  }
+//   .slick-dots li.slick-active button:before {
+//     color: ${({ theme }) => theme.color('primary-500')};
+//     opacity: 1;
+//   }
 
-  .slick-dots li button:before {
-    font-size: 10px;
-    color: ${({ theme }) => theme.color('grey-100')};
-    transition: ${({ theme }) => theme.transition('colors', 'fast')};
-  }
+//   .slick-dots li button:before {
+//     font-size: 10px;
+//     color: ${({ theme }) => theme.color('grey-100')};
+//     transition: ${({ theme }) => theme.transition('colors', 'fast')};
+//   }
 
-  .slick-dots li {
-    margin: 0 3px;
-  }
+//   .slick-dots li {
+//     margin: 0 3px;
+//   }
 
-  .slick-prev:hover,
-  .slick-prev:focus,
-  .slick-next:hover,
-  .slick-next:focus {
-    color: ${({ theme }) => theme.color('grey-200')};
-  }
-`;
+//   .slick-prev:hover,
+//   .slick-prev:focus,
+//   .slick-next:hover,
+//   .slick-next:focus {
+//     color: ${({ theme }) => theme.color('grey-200')};
+//   }
+// `;
 
 const StyledCarouselBanner = styled(Banner)`
   background-image: url(${getImageUrl('cubs-group.svg')});
@@ -107,7 +106,7 @@ const StyledBanner = styled(Card)`
 
 export {
   StyledCarouselWrapper,
-  StyledSlider,
+  // StyledSlider,
   StyledBannerContent,
   StyledBanner,
   StyledCarouselBanner,
