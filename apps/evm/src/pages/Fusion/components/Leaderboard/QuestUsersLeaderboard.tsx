@@ -26,7 +26,7 @@ const QuestUsersLeaderboard = (): JSX.Element => {
 
       return fetchedData.leaderboard.map((item, idx) => {
         return {
-          id: `${item.deposit_owner}${idx}`,
+          id: `${item.username}${idx}`,
           [LeaderboardColumns.RANK]: <Flex paddingY='md'>{item.rank}</Flex>,
           [LeaderboardColumns.INVITED_BY]: item.referred_by || '-',
           [LeaderboardColumns.NAME]: item.username,
