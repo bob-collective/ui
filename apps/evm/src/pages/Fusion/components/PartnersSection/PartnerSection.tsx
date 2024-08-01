@@ -54,7 +54,7 @@ const PartnersSection = () => {
   const topHarvesters = useMemo(() => otherPartners?.slice(0, 3), [otherPartners]);
 
   // Return remaining projects
-  const otherHavesters = useMemo(() => otherPartners?.slice(3), [otherPartners]);
+  const otherHarvesters = useMemo(() => otherPartners?.slice(3), [otherPartners]);
 
   const getHarvest = useCallback(
     (refCode: string) => {
@@ -144,7 +144,7 @@ const PartnersSection = () => {
             Other Harvesters
           </H3>
           <StyledGrid>
-            {otherHavesters?.map((item, idx) => (
+            {otherHarvesters?.map((item, idx) => (
               <PartnerCard
                 key={idx}
                 isHoverable
