@@ -25,7 +25,7 @@ const StyledChip = styled.div<StyledChipProps>`
   ${({ theme, $size, $rounded, $background, $borderColor }) => css`
     border-radius: ${$rounded && theme.rounded($rounded)};
     background-color: ${$background && theme.color($background)};
-    border: ${$borderColor && `1px solid ${$borderColor}`};
+    border: ${$borderColor && `1px solid ${theme.color($borderColor)}`};
 
     ${theme.chip.base}
     ${theme.chip.size[$size].base}
@@ -33,7 +33,8 @@ const StyledChip = styled.div<StyledChipProps>`
 `;
 
 const StyledContent = styled(Span)<Pick<StyledChipProps, '$size'>>`
-  ${({ theme, $size }) => theme.chip.size[$size].base}
+  flex: 1 1 0%;
+  ${({ theme, $size }) => theme.chip.size[$size].content}
 `;
 
 export { StyledChip, StyledContent };

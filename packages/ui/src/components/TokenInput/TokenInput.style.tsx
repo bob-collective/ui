@@ -45,19 +45,6 @@ const StyledBaseInput = styled.input<StyledBaseInputProps>`
   `}
 `;
 
-const StyledAdornment = styled.div`
-  display: inline-flex;
-  align-items: center;
-  position: absolute;
-  // to not allow adornment to take more than 50% of the input. We might want to reduce this in the future.
-  bottom: ${({ theme }) => theme.spacing('s')};
-  overflow: hidden;
-  z-index: 1;
-  z-index: 5;
-
-  pointer-events: none;
-`;
-
 const StyledBaseTokenInputWrapper = styled(Flex)<StyledFieldProps>`
   opacity: ${({ $isDisabled }) => $isDisabled && '.5'};
   ${({ theme, $isInvalid, $isFocused, $isHovered }) => css`
@@ -164,7 +151,6 @@ export {
   StyledTokenImg,
   StyledListItemUsd,
   StyledBaseInput,
-  StyledAdornment,
   StyledBaseTokenInputWrapper,
   StyledBalanceButton,
   StyledUSDAdornment,
