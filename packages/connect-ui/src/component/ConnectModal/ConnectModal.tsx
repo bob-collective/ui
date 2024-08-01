@@ -1,4 +1,16 @@
-import { Button, Flex, Modal, ModalBody, ModalFooter, ModalHeader, ModalProps, P, toast, ArrowLeft } from '@gobob/ui';
+import {
+  Button,
+  Flex,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalProps,
+  P,
+  toast,
+  ArrowLeft,
+  TextLink
+} from '@gobob/ui';
 import { Address, Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from '@gobob/wagmi';
 import {
   useAccount as useSatsAccount,
@@ -6,7 +18,7 @@ import {
   useConnect as useSatsConnect,
   SatsConnector
 } from '@gobob/sats-wagmi';
-import { forwardRef, useCallback, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { ConnectType, WalletType } from '../../types';
 
@@ -42,6 +54,19 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 
     const [pendingConnector, setPendingConnector] = useState<Connector>();
     const [pendingSatsConnector, setPendingSatsConnector] = useState<SatsConnector>();
+
+    // override properties set by OverlayProvider provider in ui/src/system
+    useEffect(() => {
+      if (pendingConnector?.id === 'walletConnect') {
+        const modals = document.querySelectorAll('wcm-modal');
+
+        // Set the aria-hidden attribute to true for each wcm-modal element
+        modals.forEach((modal) => {
+          modal.setAttribute('data-react-aria-top-layer', 'true');
+          modal.removeAttribute('aria-hidden');
+        });
+      }
+    }, [pendingConnector]);
 
     useAccountEffect({
       onConnect: (data) => {
@@ -210,6 +235,25 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               <P size='s'>
                 On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it&apos;s
                 advised to connect wallets from both networks.
+              </P>
+              <P size='s'>
+                By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the{' '}
+                <TextLink
+                  external
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
+                  size='inherit'
+                >
+                  Terms of Service
+                </TextLink>{' '}
+                and that you have read and understood our{' '}
+                <TextLink
+                  external
+                  href='https://uploads-ssl.webflow.com/6620e8932695794632789d89/66aa4eac1074934d060d127c_20240731%20-%20BOB%20Foundation%20-%20Privacy%20Policy.pdf'
+                  size='inherit'
+                >
+                  Privacy policy
+                </TextLink>
+                .
               </P>
               <Flex direction='column' gap='lg'>
                 {connector && address ? (

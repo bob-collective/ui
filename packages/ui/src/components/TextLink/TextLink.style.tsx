@@ -26,8 +26,9 @@ const BaseTextLink = styled.a<BaseTextLinkProps>`
 
 const StyledIcon = styled(ArrowTopRightOnSquare)`
   margin-left: ${({ theme }) => theme.spacing('s')};
-  width: 1em;
-  height: 1em;
+  // FIXME: remove important
+  width: 1em !important;
+  height: 1em !important;
   color: inherit;
 `;
 

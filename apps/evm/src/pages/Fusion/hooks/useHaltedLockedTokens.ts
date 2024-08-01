@@ -6,7 +6,7 @@ import { ContractType, L1_CHAIN, getContract } from '../../../constants';
 import { TokenData, useTokens } from '../../../hooks';
 import { FusionLockAbi } from '../../../abis/FusionLock.abi';
 
-const useLockedTokens = () => {
+const useHaltedLockedTokens = () => {
   const { address } = useAccount();
   const publicClient = usePublicClient({ chainId: L1_CHAIN });
 
@@ -17,14 +17,14 @@ const useLockedTokens = () => {
   return useQuery({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    queryKey: ['locked-tokens', address],
+    queryKey: ['halted-locked-tokens', address],
     enabled: Boolean(l1Tokens && address && publicClient),
     refetchInterval: (query) => (query.state.data && query.state.data.length > 0 ? INTERVAL.SECONDS_15 : false),
     queryFn: async () => {
-      const lockedTokens = (
+      const haltedLockedTokens = (
         await Promise.all(
           l1Tokens!
-            .filter((token) => !token.raw.bridgeDisabled)
+            .filter((token) => token.raw.bridgeDisabled)
             .map(async (token) => {
               try {
                 const amount = await publicClient!.readContract({
@@ -42,9 +42,9 @@ const useLockedTokens = () => {
         )
       ).filter(Boolean);
 
-      return lockedTokens as TokenData[];
+      return haltedLockedTokens as TokenData[];
     }
   });
 };
 
-export { useLockedTokens };
+export { useHaltedLockedTokens };

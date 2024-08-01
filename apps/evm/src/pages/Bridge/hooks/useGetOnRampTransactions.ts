@@ -6,9 +6,10 @@ import { Address, isAddressEqual } from 'viem';
 
 import { L2_CHAIN } from '../../../constants';
 import { FeatureFlags, TokenData, useFeatureFlag, useTokens } from '../../../hooks';
-import { electrsClient, onRampApiClient } from '../../../utils';
+import { electrsClient } from '../../../utils';
 import { OnRampDepositSteps } from '../constants';
 import { TransactionType } from '../types';
+import { gatewayClient } from '../../../lib/bob-sdk';
 
 type OnRampTransaction = {
   status: OnRampDepositSteps;
@@ -21,12 +22,12 @@ type OnRampTransaction = {
 };
 
 const getOnRampTransactions = async (address: Address, l2Tokens: TokenData[]): Promise<OnRampTransaction[]> => {
-  const [orders, latestBlock] = await Promise.all([onRampApiClient.getOrders(address), electrsClient.getLatestBlock()]);
+  const [orders, latestBlock] = await Promise.all([gatewayClient.getOrders(address), electrsClient.getLatestBlock()]);
 
   return (
     await Promise.all(
       orders.map(async (order): Promise<OnRampTransaction | undefined> => {
-        const token = l2Tokens.find((token) => isAddressEqual(token.raw.address, order.token_address));
+        const token = l2Tokens.find((token) => isAddressEqual(token.raw.address, order.token_address as Address));
 
         if (!token) return undefined;
 

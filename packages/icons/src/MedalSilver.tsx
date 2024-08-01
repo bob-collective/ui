@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
-
-import { Icon, IconProps } from '../components';
+import { Icon, IconProps } from '@gobob/ui';
 
 const MedalSilver = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   <Icon ref={ref} fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
@@ -52,6 +51,6 @@ const MedalSilver = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
   </Icon>
 ));
 
-MedalSilver.displayName = 'Silver Medal';
+MedalSilver.displayName = 'SilverMedal';
 
 export { MedalSilver };

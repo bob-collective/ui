@@ -56,6 +56,10 @@ const Bridge = () => {
   );
   const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
 
+  // const [isFaultProofNoticeHidden, setFaultProofNoticeHidden] = useLocalStorage(
+  //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
+  // );
+
   const handleChangeTab = useCallback((key: any) => {
     setType(key as any);
     setBridgeOrigin(key === 'deposit' ? BridgeOrigin.INTERNAL : BridgeOrigin.EXTERNAL);
@@ -92,6 +96,10 @@ const Bridge = () => {
     setBridgeOrigin(BridgeOrigin.INTERNAL);
   }, []);
 
+  // const handleCloseFaultProofNotice = useCallback(() => {
+  //   setFaultProofNoticeHidden(true);
+  // }, [setFaultProofNoticeHidden]);
+
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
 
@@ -113,66 +121,80 @@ const Bridge = () => {
   }, [chain]);
 
   return (
-    <Main maxWidth='5xl' padding='md'>
-      {isBtcOnRampEnabled ? (
-        <BannerCarousel
-          onPressEcosystemBanner={handlePressEcosystemBanner}
-          onPressOnrampBanner={handlePressOnrampBanner}
-        />
-      ) : (
-        !isEcosystemBannerHidden && (
-          <StyledBanner
-            isHoverable
-            isPressable
-            aria-label='navigate to ecosystem section in fusion page'
-            paddingX='2xl'
-            paddingY='4xl'
-            onPress={() => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } })}
-          >
-            <StyledBannerCloseBtn
-              isIconOnly
-              aria-label='close banner'
-              size='s'
-              variant='ghost'
-              onPress={() => setEcosystemBannerVisibility(true)}
-            >
-              <XMark />
-            </StyledBannerCloseBtn>
-            <StyledBannerContent direction='column'>
-              <Flex alignItems='center'>
-                <H1 size='2xl' weight='bold'>
-                  BOB Ecosystem <ArrowTopRightOnSquare size='s' />
-                </H1>
-              </Flex>
-              <P>Discover the most exciting projects on BOB.</P>
-            </StyledBannerContent>
-            <StyledBannerImg alt='BOB ecosystem banner' src={bannerSrc} />
-          </StyledBanner>
-        )
-      )}
-      <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
-        <StyledCard>
-          <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
-            <TabsItem key='deposit' title='Deposit'>
-              <></>
-            </TabsItem>
-            <TabsItem key='withdraw' title='Withdraw'>
-              <></>
-            </TabsItem>
-          </Tabs>
-          <BridgeForm
-            bridgeOrigin={bridgeOrigin}
-            chain={chain}
-            ticker={location.state?.ticker}
-            type={type}
-            onChangeChain={handleChangeChain}
-            onChangeNetwork={handleChangeNetwork}
-            onChangeOrigin={handleChangeOrigin}
+    <>
+      <Main maxWidth='5xl' padding='md'>
+        {isBtcOnRampEnabled ? (
+          <BannerCarousel
+            onPressEcosystemBanner={handlePressEcosystemBanner}
+            onPressOnrampBanner={handlePressOnrampBanner}
           />
-        </StyledCard>
-        <TransactionList />
-      </StyledFlex>
-    </Main>
+        ) : (
+          !isEcosystemBannerHidden && (
+            <StyledBanner
+              isHoverable
+              isPressable
+              aria-label='navigate to ecosystem section in fusion page'
+              paddingX='2xl'
+              paddingY='4xl'
+              onPress={() => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } })}
+            >
+              <StyledBannerCloseBtn
+                isIconOnly
+                aria-label='close banner'
+                size='s'
+                variant='ghost'
+                onPress={() => setEcosystemBannerVisibility(true)}
+              >
+                <XMark />
+              </StyledBannerCloseBtn>
+              <StyledBannerContent direction='column'>
+                <Flex alignItems='center'>
+                  <H1 size='2xl' weight='bold'>
+                    BOB Ecosystem <ArrowTopRightOnSquare size='s' />
+                  </H1>
+                </Flex>
+                <P>Discover the most exciting projects on BOB.</P>
+              </StyledBannerContent>
+              <StyledBannerImg alt='BOB ecosystem banner' src={bannerSrc} />
+            </StyledBanner>
+          )
+        )}
+        {/* {!isFaultProofNoticeHidden && (
+          <Alert marginTop='xl' status='info' onClose={handleCloseFaultProofNotice}>
+            <P size='s'>
+              <Strong size='inherit'>NOTICE: Fault Proofs are coming to BOB.</Strong> Withdrawals starting on July 4
+              will need to be proven again after July 10, requiring at least 7 days to be finalised. Consider waiting
+              until the upgrade is complete or using 3rd Party bridge for withdrawals during this period.{' '}
+              <TextLink external icon href={`${DocsLinks.OP_STACK}#settlement--fraud-proofs`} size='inherit'>
+                Click here for more info.
+              </TextLink>
+            </P>
+          </Alert>
+        )} */}
+        <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
+          <StyledCard>
+            <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
+              <TabsItem key='deposit' title='Deposit'>
+                <></>
+              </TabsItem>
+              <TabsItem key='withdraw' title='Withdraw'>
+                <></>
+              </TabsItem>
+            </Tabs>
+            <BridgeForm
+              bridgeOrigin={bridgeOrigin}
+              chain={chain}
+              ticker={location.state?.ticker}
+              type={type}
+              onChangeChain={handleChangeChain}
+              onChangeNetwork={handleChangeNetwork}
+              onChangeOrigin={handleChangeOrigin}
+            />
+          </StyledCard>
+          <TransactionList />
+        </StyledFlex>
+      </Main>
+    </>
   );
 };
 

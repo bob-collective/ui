@@ -1,4 +1,4 @@
-import { DefaultElectrsClient, ElectrsClient, UTXO } from '@gobob/bob-sdk';
+import { DefaultEsploraClient, EsploraClient, UTXO } from '@gobob/bob-sdk';
 import { DefaultOrdinalsClient, TESTNET_ORD_BASE_PATH } from '@gobob/bob-sdk/dist/ordinal-api';
 import { Transaction, Script, selectUTXO, TEST_NETWORK, NETWORK, p2wpkh, p2sh } from '@scure/btc-signer';
 import { hex } from '@scure/base';
@@ -39,7 +39,7 @@ export interface Input {
 }
 
 export async function findUtxoForInscriptionId(
-  electrsClient: ElectrsClient,
+  esploraClient: EsploraClient,
   utxos: UTXO[],
   inscriptionId: string
 ): Promise<UTXO | undefined> {
@@ -61,7 +61,7 @@ export async function findUtxoForInscriptionId(
         return utxo;
       }
     } else if (txid == utxo.txid) {
-      const inscriptions = await getTxInscriptions(electrsClient, utxo.txid);
+      const inscriptions = await getTxInscriptions(esploraClient, utxo.txid);
 
       if (typeof inscriptions[index] !== 'undefined') {
         return utxo;
@@ -105,7 +105,7 @@ export async function createTransferWithOpReturn(
   addressType: string,
   publicKey?: string
 ): Promise<Transaction> {
-  const electrsClient = new DefaultElectrsClient(network);
+  const electrsClient = new DefaultEsploraClient(network);
 
   // eslint-disable-next-line no-console
   console.log('Payment address:', paymentAddress);

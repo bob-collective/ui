@@ -1,4 +1,4 @@
-import { DefaultElectrsClient } from '@gobob/bob-sdk';
+import { DefaultEsploraClient } from '@gobob/bob-sdk';
 import { CONFIRMATION_TARGET } from '@gobob/utils';
 import { INTERVAL, UndefinedInitialDataOptions, useQuery } from '@gobob/react-query';
 
@@ -15,7 +15,7 @@ const useFeeRate = ({ query, confirmations = CONFIRMATION_TARGET }: UseFeeRatePr
   return useQuery({
     queryKey: ['sats-fee-rate', network],
     queryFn: async () => {
-      const electrsClient = new DefaultElectrsClient(network);
+      const electrsClient = new DefaultEsploraClient(network);
 
       const feeRate = await electrsClient.getFeeEstimate(confirmations);
 

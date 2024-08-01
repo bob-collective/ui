@@ -1,4 +1,4 @@
-import { ElectrsClient } from '@gobob/bob-sdk';
+import { EsploraClient } from '@gobob/bob-sdk';
 import * as bitcoin from 'bitcoinjs-lib';
 import { InscriptionId } from '@gobob/bob-sdk/dist/ordinal-api';
 
@@ -92,8 +92,8 @@ export function parseInscriptions(tx: bitcoin.Transaction) {
   return inscriptions;
 }
 
-export async function getTxInscriptions(electrsClient: ElectrsClient, txid: string) {
-  const txHex = await electrsClient.getTransactionHex(txid);
+export async function getTxInscriptions(esploraClient: EsploraClient, txid: string) {
+  const txHex = await esploraClient.getTransactionHex(txid);
   const tx = bitcoin.Transaction.fromHex(txHex);
 
   return parseInscriptions(tx);
@@ -116,9 +116,9 @@ export function createImageInscription(image: Buffer) {
   return { contentType, content: image };
 }
 
-export async function getInscriptionFromId(electrsClient: ElectrsClient, inscriptionId: string) {
+export async function getInscriptionFromId(esploraClient: EsploraClient, inscriptionId: string) {
   const { txid, index } = InscriptionId.fromString(inscriptionId);
-  const inscriptions = await getTxInscriptions(electrsClient, txid);
+  const inscriptions = await getTxInscriptions(esploraClient, txid);
 
   return inscriptions[index];
 }
