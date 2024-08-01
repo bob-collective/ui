@@ -11,7 +11,7 @@ const IntractBanner = () => (
     justifyContent='space-between'
     onPress={() =>
       (window.location.href =
-        'https://www.intract.io/explore?query=BOB+Summer+Fest&hideCompleted=true&hideExpired=true&sortBy=participation')
+        'https://www.intract.io/explore?query=BOB+Summer+Fest&sortBy=launchDate&entity_type=CAMPAIGN&chainId=60808&hideExpired=true')
     }
   >
     <StyledBannerContent direction='column'>
