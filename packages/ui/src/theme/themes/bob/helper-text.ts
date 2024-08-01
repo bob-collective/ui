@@ -1,8 +1,8 @@
-import { LabelTheme } from '../../components';
+import { HelperTextTheme } from '../../components';
 
 import { color } from './colors';
 
-const helperText: LabelTheme = {
+const helperText: HelperTextTheme = {
   base: {
     color: color('grey-50')
   },

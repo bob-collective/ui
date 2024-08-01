@@ -114,26 +114,12 @@ describe('TokenInput', () => {
   });
 
   describe('balance', () => {
-    it('should render', () => {
+    it('should render human value', () => {
       render(
         <TokenInput balance='10' currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />
       );
 
-      expect(screen.getByRole('definition')).toHaveTextContent('10');
-    });
-
-    it('should render human value', () => {
-      render(
-        <TokenInput
-          balance='10'
-          currency={{ decimals: 6, symbol: 'BTC' } as Currency}
-          humanBalance={11}
-          label='label'
-          logoUrl=''
-        />
-      );
-
-      expect(screen.getByRole('definition')).toHaveTextContent('11');
+      expect(screen.getByRole('button')).toHaveTextContent('10');
     });
 
     it('should update input when applying max', async () => {
@@ -144,7 +130,7 @@ describe('TokenInput', () => {
         <TokenInput
           balance='10'
           currency={{ decimals: 6, symbol: 'BTC' } as Currency}
-          humanBalance={11}
+          humanBalance='11'
           label='label'
           logoUrl=''
           onClickBalance={handleClickBalance}
@@ -152,7 +138,7 @@ describe('TokenInput', () => {
         />
       );
 
-      await userEvent.click(screen.getByRole('button', { name: /max/i }));
+      await userEvent.click(screen.getByRole('button', { name: /10/i }));
 
       await waitFor(() => {
         expect(screen.getByRole('textbox', { name: /label/i })).toHaveValue('10');

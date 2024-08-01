@@ -11,7 +11,7 @@ import { TextProps } from '../Text';
 import { Flex } from '../Flex';
 import { Label, LabelProps } from '../Label';
 
-import { StyledChevronDown, StyledTrigger, StyledTriggerValue } from './Select.style';
+import { StyledChevronDown, StyledTrigger, StyledTriggerInner, StyledTriggerValue } from './Select.style';
 
 type Props = {
   as?: any;
@@ -58,7 +58,7 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
 
     const { hoverProps, isHovered } = useHover({ isDisabled: disabled });
 
-    const { isFocused, focusProps } = useFocusRing({
+    const { isFocused, isFocusVisible, focusProps } = useFocusRing({
       autoFocus
     });
 
@@ -71,6 +71,7 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         $hasError={hasError}
         $hasValue={!!children}
         $isDisabled={!!disabled}
+        $isFocusVisible={isFocusVisible}
         $isFocused={isFocused}
         $isHovered={isHovered}
         $isOpen={isOpen}
@@ -79,17 +80,19 @@ const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
         data-value={value}
         name={name}
       >
-        <Flex direction='column' style={{ flex: 1, width: '100%' }}>
-          {label && (
-            <Label error={hasError} size={size} {...labelProps}>
-              {label}
-            </Label>
-          )}
-          <StyledTriggerValue {...valueProps} $isDisabled={disabled} $isSelected={!!children}>
-            {children || placeholder}
-          </StyledTriggerValue>
-        </Flex>
-        <StyledChevronDown color='inherit' size='xs' />
+        <StyledTriggerInner $hasError={hasError} alignItems='center' flex={1} justifyContent='space-between'>
+          <Flex direction='column' flex={1}>
+            {label && (
+              <Label error={hasError} size={size} {...labelProps}>
+                {label}
+              </Label>
+            )}
+            <StyledTriggerValue {...valueProps} $isDisabled={disabled} $isSelected={!!children}>
+              {children || placeholder}
+            </StyledTriggerValue>
+          </Flex>
+          <StyledChevronDown color='inherit' size='xs' />
+        </StyledTriggerInner>
       </Comp>
     );
   }

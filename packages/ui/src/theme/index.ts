@@ -12,6 +12,7 @@ export type {
   LabelSizes,
   ProgressBarSize,
   RadioSize,
+  SelectSizes,
   SpinnerColors,
   SpinnerSizes,
   SwitchSize,

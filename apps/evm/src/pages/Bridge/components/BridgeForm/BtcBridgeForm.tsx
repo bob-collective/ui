@@ -8,7 +8,7 @@ import {
   useFeeEstimate as useSatsFeeEstimate
 } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
-import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, Tooltip, toast, useForm } from '@gobob/ui';
+import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, toast, useForm } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
@@ -318,16 +318,11 @@ const BtcBridgeForm = ({
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
         balance={balanceAmount.toExact()}
-        balanceLabel={
-          <Tooltip label='Your available balance may differ from your wallet balance due to network fees and available liquidity'>
-            Available
-          </Tooltip>
-        }
+        balanceHelper='Your available balance may differ from your wallet balance due to network fees and available liquidity'
         currency={BITCOIN}
         humanBalance={humanBalanceAmount?.toExact()}
         label='Amount'
         logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
-        size='lg'
         valueUSD={valueUSD}
         {...mergeProps(form.getTokenFieldProps(BRIDGE_AMOUNT), {
           onValueChange: (value: string) => setAmount(value)

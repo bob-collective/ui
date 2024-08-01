@@ -1,13 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { LabelSizes, Theme } from '../../theme';
-
-const sizeCSS = (theme: Theme, size: LabelSizes) =>
-  ({
-    s: theme.typography('s'),
-    md: theme.typography('s'),
-    lg: theme.typography('md')
-  })[size];
+import { LabelSizes } from '../../theme';
 
 type StyledLabelProps = {
   $error?: boolean;
@@ -16,13 +9,9 @@ type StyledLabelProps = {
 
 const StyledLabel = styled.label<StyledLabelProps>`
   ${({ theme, $error, $size }) => css`
-    ${sizeCSS(theme, $size)}
     ${theme.label.base}
+    ${theme.label.size[$size]}
     ${$error && theme.label.error.base}
-
-    font-weight: ${theme.fontWeight('medium')};
-    align-self: flex-start;
-    padding-right: ${theme.spacing('xs')};
   `}
 `;
 

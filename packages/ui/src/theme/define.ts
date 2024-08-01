@@ -5,6 +5,7 @@ import {
   AlertTheme,
   ButtonTheme,
   CardTheme,
+  ChipTheme,
   DialogTheme,
   DividerTheme,
   DrawerTheme,
@@ -15,11 +16,11 @@ import {
   ListTheme,
   ProgressBarTheme,
   RadioTheme,
+  SelectTheme,
   SpinnerTheme,
   StepperTheme,
   SwitchTheme,
   TableTheme,
-  ChipTheme,
   TabsTheme,
   TokenInputTheme,
   TooltipTheme
@@ -65,6 +66,7 @@ type ThemeParams = {
   list: ListTheme;
   radio: RadioTheme;
   switch: SwitchTheme;
+  select: SelectTheme;
   spinner: SpinnerTheme;
   progressBar: ProgressBarTheme;
   tooltip: TooltipTheme;

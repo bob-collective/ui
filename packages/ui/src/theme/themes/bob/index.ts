@@ -12,9 +12,11 @@ import { drawer } from './drawer';
 import { helperText } from './helper-text';
 import { input } from './input';
 import { label } from './label';
+import { link } from './link';
 import { list } from './list';
 import { progressBar } from './progress-bar';
 import { radio } from './radio';
+import { select } from './select';
 import { spinner } from './spinner';
 import { stepper } from './stepper';
 import { _switch } from './switch';
@@ -22,7 +24,6 @@ import { table } from './table';
 import { tabs } from './tabs';
 import { tokenInput } from './token-input';
 import { tooltip } from './tooltip';
-import { link } from './link';
 
 const bobTheme = defineTheme({
   colors,
@@ -45,6 +46,7 @@ const bobTheme = defineTheme({
   tokenInput,
   table,
   tabs,
+  select,
   stepper,
   label,
   helperText

@@ -17,8 +17,6 @@ export { Divider } from './Divider';
 export type { DividerProps } from './Divider';
 export { Drawer } from './Drawer';
 export type { DrawerProps } from './Drawer';
-export { Field, useFieldProps } from './Field';
-export type { FieldProps } from './Field';
 export { Flex } from './Flex';
 export type { FlexProps } from './Flex';
 export { Icon } from './Icon';

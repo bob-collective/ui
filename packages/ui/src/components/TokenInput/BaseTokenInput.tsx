@@ -1,6 +1,6 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { mergeProps } from '@react-aria/utils';
-import { ChangeEventHandler, FocusEvent, forwardRef, MouseEventHandler, ReactNode, useCallback } from 'react';
+import React, { ChangeEventHandler, FocusEvent, forwardRef, MouseEventHandler, ReactNode, useCallback } from 'react';
 import { useHover } from '@react-aria/interactions';
 import { useFocusRing } from '@react-aria/focus';
 import { Currency } from '@gobob/currency';
@@ -12,6 +12,7 @@ import { Flex } from '../Flex';
 import { BankNotes } from '../../icons';
 import { Span } from '../Text';
 import { HelperText, HelperTextProps } from '../HelperText';
+import { Tooltip } from '../Tooltip';
 
 import {
   StyledBalanceButton,
@@ -45,6 +46,7 @@ type Props = {
   defaultValue?: string;
   currency?: Currency;
   balance?: string;
+  balanceHelper?: ReactNode;
   humanBalance?: string | number;
   onClickBalance?: (balance: string) => void;
   onValueChange?: (value: string | number) => void;
@@ -66,6 +68,7 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       placeholder = '0.00',
       balance = '0.00',
       humanBalance,
+      balanceHelper,
       onClickBalance,
       valueUSD = 0,
       isDisabled,
@@ -163,22 +166,25 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
             {endAdornment}
           </StyledInputWrapper>
           <StyledDivider />
+
           <StyledBottomWrapper gap='md' justifyContent='space-between'>
             <StyledUSDAdornment>{format(valueUSD)}</StyledUSDAdornment>
-            <StyledBalanceButton
-              aria-controls={inputProps.id}
-              aria-label={`apply max balance${typeof label === 'string' ? ` to ${label}` : ''}`}
-              color='primary'
-              disabled={isBalanceDisabled}
-              size='s'
-              variant='ghost'
-              onPress={() => onClickBalance?.(balance)}
-            >
-              <BankNotes color='inherit' size='xs' />
-              <Span color='inherit' lineHeight='normal'>
-                {isBalanceDisabled ? humanBalance || balance : 0}
-              </Span>
-            </StyledBalanceButton>
+            <Tooltip isDisabled={!balanceHelper} label={balanceHelper}>
+              <StyledBalanceButton
+                aria-controls={inputProps.id}
+                aria-label={`apply ${balance}${currency ? ` ${currency.symbol}` : ''} ${typeof label === 'string' ? ` to ${label}` : ''}`}
+                color='primary'
+                disabled={isBalanceDisabled}
+                size='s'
+                variant='ghost'
+                onPress={() => onClickBalance?.(balance)}
+              >
+                <BankNotes color='inherit' size='xs' />
+                <Span color='inherit' lineHeight='normal'>
+                  {isBalanceDisabled ? 0 : humanBalance || balance}
+                </Span>
+              </StyledBalanceButton>
+            </Tooltip>
           </StyledBottomWrapper>
         </StyledBaseTokenInputWrapper>
         {hasHelpText && (

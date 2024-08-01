@@ -1,11 +1,12 @@
 import { useButton } from '@react-aria/button';
 import { mergeProps } from '@react-aria/utils';
 import { PressEvent } from '@react-types/shared';
-import { forwardRef } from 'react';
+import { forwardRef, JSXElementConstructor } from 'react';
 
 import { useDOMRef } from '../../hooks';
 import { Color, Rounded } from '../../theme';
 import { FlexProps } from '../Flex';
+import { ElementTypeProp } from '../utils/types';
 
 import { StyledCard } from './Card.style';
 
@@ -22,7 +23,7 @@ type Props = {
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
-type CardProps = Props & InheritAttrs;
+type CardProps = Props & InheritAttrs & ElementTypeProp;
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
   (
@@ -45,7 +46,12 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
   ): JSX.Element => {
     const cardRef = useDOMRef(ref);
     const { buttonProps } = useButton(
-      { elementType: elementType || 'div', isDisabled: !isPressable || isDisabled, onPress, ...props },
+      {
+        elementType: (elementType as JSXElementConstructor<any>) || 'div',
+        isDisabled: !isPressable || isDisabled,
+        onPress,
+        ...props
+      },
       cardRef
     );
 

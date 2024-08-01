@@ -5,9 +5,16 @@ import { color } from './colors';
 import { input } from './input';
 
 const tokenInput: TokenInputTheme = {
-  wrapper: {
-    backgroundColor: color('grey-800'),
-    borderColor: 'transparent'
+  wrapper: input.wrapper,
+  placeholder: input.placeholder,
+  hover: input.hover,
+  focus: input.focus,
+  error: input.error,
+  disabled: input.disabled,
+  base: {
+    ...input.base,
+    ...typography('2xl'),
+    fontWeight: fontWeight('medium')
   },
   inputWrapper: {
     paddingLeft: spacing('lg'),
@@ -25,17 +32,6 @@ const tokenInput: TokenInputTheme = {
     paddingRight: spacing('lg'),
     paddingBottom: '0.625rem'
   },
-  hover: input.hover,
-  focus: input.focus,
-  base: {
-    ...typography('2xl'),
-    color: color('light'),
-    fontWeight: fontWeight('medium')
-  },
-  placeholder: {
-    color: color('grey-50')
-  },
-  error: input.error,
   usd: {
     ...typography('md'),
     color: color('grey-50')

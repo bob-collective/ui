@@ -1,5 +1,3 @@
-import { useFocusRing } from '@react-aria/focus';
-import { mergeProps } from '@react-aria/utils';
 import { PressEvent } from '@react-types/shared';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { Slottable } from '@radix-ui/react-slot';
@@ -75,21 +73,18 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const isDisabled = disabled || loading;
 
-    const { focusProps, isFocusVisible } = useFocusRing(props);
-
     return (
       <StyledButton
         ref={domRef}
         $color={color}
         $fullWidth={fullWidth}
-        $isFocusVisible={isFocusVisible}
         $isIconOnly={isIconOnly}
         $size={size}
         $variant={variant}
         as={elementType}
         asChild={asChild}
         disabled={isDisabled}
-        {...mergeProps(props, focusProps)}
+        {...props}
       >
         {loading && (
           <Flex elementType='span' marginRight={isIconOnly ? undefined : 's'}>

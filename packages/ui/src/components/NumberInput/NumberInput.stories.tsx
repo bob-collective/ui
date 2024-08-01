@@ -55,12 +55,6 @@ export const WithMultipleErrorMessage: StoryObj<NumberInputProps> = {
   }
 };
 
-export const SideLabel: StoryObj<NumberInputProps> = {
-  args: {
-    labelPosition: 'side'
-  }
-};
-
 export const Adornments: StoryFn<NumberInputProps> = (args) => (
   <Flex direction='column'>
     <NumberInput {...args} label='Start Adornment' startAdornment={<InformationCircle />} />
@@ -88,8 +82,6 @@ export const Sizes: StoryFn<NumberInputProps> = (args) => (
 export const MaxWidth: StoryObj<NumberInputProps> = {
   args: {
     maxWidth: 'xl',
-    labelPosition: 'side',
-    justifyContent: 'space-between',
     style: { width: 150 },
     description: 'Please enter your amount'
   }

@@ -7,6 +7,7 @@ type InputTheme = {
   wrapper: StyledObject<object>;
   hover: { wapper: StyledObject<object> };
   focus: { wrapper: StyledObject<object> };
+  disabled: { wrapper: StyledObject<object> };
   error: {
     base: StyledObject<object>;
     wrapper: StyledObject<object>;
@@ -15,7 +16,7 @@ type InputTheme = {
   };
   placeholder: StyledObject<object>;
   adornment: StyledObject<object>;
-  sizes: Record<InputSizes, StyledObject<object>>;
+  sizes: Record<InputSizes, { wrapper: StyledObject<object> }>;
 };
 
 export type { InputSizes, InputTheme };

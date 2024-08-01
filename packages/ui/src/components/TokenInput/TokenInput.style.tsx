@@ -20,21 +20,6 @@ type StyledFieldProps = {
 };
 
 const StyledBaseInput = styled.input<StyledBaseInputProps>`
-  display: block;
-  width: 100%;
-
-  outline: none;
-  font: inherit;
-  letter-spacing: inherit;
-  background: none;
-
-  text-overflow: ellipsis;
-
-  border: none;
-
-  margin: 0;
-  padding: 0;
-
   ${({ theme, $isInvalid }) => css`
     ${theme.tokenInput.base}
     ${$isInvalid && theme.input.error.base}
@@ -46,20 +31,12 @@ const StyledBaseInput = styled.input<StyledBaseInputProps>`
 `;
 
 const StyledBaseTokenInputWrapper = styled(Flex)<StyledFieldProps>`
-  opacity: ${({ $isDisabled }) => $isDisabled && '.5'};
-  ${({ theme, $isInvalid, $isFocused, $isHovered }) => css`
-    width: 100%;
-    height: 100%;
-    border-radius: ${theme.rounded('md')};
-    border-style: solid;
-    border-width: 1px;
-
-    ${theme.transition('common', 'normal')}
-
+  ${({ theme, $isInvalid, $isFocused, $isHovered, $isDisabled }) => css`
     ${theme.tokenInput.wrapper}
     ${$isInvalid && theme.tokenInput.error.wrapper}
     ${$isHovered ? ($isInvalid ? theme.tokenInput.error.hover.wapper : theme.tokenInput.hover.wapper) : undefined}
     ${$isFocused ? ($isInvalid ? theme.tokenInput.error.focus.wrapper : theme.tokenInput.focus.wrapper) : undefined}
+    ${$isDisabled && theme.input.disabled.wrapper}
   `}
 `;
 

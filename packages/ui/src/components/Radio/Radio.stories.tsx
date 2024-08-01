@@ -43,12 +43,6 @@ export const Horizontal: StoryObj<RadioGroupProps> = {
   }
 };
 
-export const SideLabel: StoryObj<RadioGroupProps> = {
-  args: {
-    labelPosition: 'side'
-  }
-};
-
 export const Disabled: StoryObj<RadioGroupProps> = {
   args: {
     isDisabled: true

@@ -7,6 +7,7 @@ type LabelTheme = {
   error: {
     base: StyledObject<object>;
   };
+  size: Record<LabelSizes, StyledObject<object>>;
 };
 
 export type { LabelSizes, LabelTheme };

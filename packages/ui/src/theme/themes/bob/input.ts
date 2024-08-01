@@ -1,15 +1,31 @@
-import { fontWeight, spacing, typography } from '../../core';
+import { fontWeight, rounded, spacing, typography, transition } from '../../core';
 import { InputTheme } from '../../components';
 
 import { color } from './colors';
 
 const input: InputTheme = {
   base: {
+    display: 'block',
+    width: '100%',
+    outline: 'none',
+    font: 'inherit',
+    letterSpacing: 'inherit',
+    background: 'none',
+    textOverflow: 'ellipsis',
+    border: 'none',
+    margin: 0,
+    padding: 0,
     color: color('light')
   },
   wrapper: {
+    width: '100%',
+    height: '100%',
+    borderRadius: rounded('md'),
+    borderStyle: 'solid',
+    borderWidth: '1px',
     backgroundColor: color('grey-800'),
-    borderColor: 'transparent'
+    borderColor: 'transparent',
+    ...transition('common', 'normal')
   },
   hover: {
     wapper: {
@@ -20,6 +36,11 @@ const input: InputTheme = {
     wrapper: {
       borderColor: color('light'),
       boxShadow: `0 0 0 1px ${color('light')}`
+    }
+  },
+  disabled: {
+    wrapper: {
+      opacity: 0.5
     }
   },
   placeholder: {
@@ -48,28 +69,34 @@ const input: InputTheme = {
   },
   sizes: {
     s: {
-      ...typography('s'),
-      fontWeight: fontWeight('normal'),
-      paddingLeft: spacing('lg'),
-      paddingRight: spacing('lg'),
-      paddingTop: spacing('s'),
-      paddingBottom: spacing('s')
+      wrapper: {
+        ...typography('s'),
+        fontWeight: fontWeight('normal'),
+        paddingLeft: spacing('lg'),
+        paddingRight: spacing('lg'),
+        paddingTop: spacing('s'),
+        paddingBottom: spacing('s')
+      }
     },
     md: {
-      ...typography('s'),
-      fontWeight: fontWeight('medium'),
-      paddingLeft: spacing('lg'),
-      paddingRight: spacing('lg'),
-      paddingTop: spacing('md'),
-      paddingBottom: spacing('md')
+      wrapper: {
+        ...typography('s'),
+        fontWeight: fontWeight('medium'),
+        paddingLeft: spacing('lg'),
+        paddingRight: spacing('lg'),
+        paddingTop: spacing('md'),
+        paddingBottom: spacing('md')
+      }
     },
     lg: {
-      ...typography('md'),
-      fontWeight: fontWeight('medium'),
-      paddingLeft: spacing('lg'),
-      paddingRight: spacing('lg'),
-      paddingTop: '0.625rem',
-      paddingBottom: '0.625rem'
+      wrapper: {
+        ...typography('md'),
+        fontWeight: fontWeight('medium'),
+        paddingLeft: spacing('lg'),
+        paddingRight: spacing('lg'),
+        paddingTop: '0.625rem',
+        paddingBottom: '0.625rem'
+      }
     }
   }
 };

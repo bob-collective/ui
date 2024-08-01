@@ -1,5 +1,5 @@
-import { ElementType } from 'react';
+import { StyledTarget } from 'styled-components/dist/types';
 
 export interface ElementTypeProp {
-  elementType?: ElementType;
+  elementType?: StyledTarget<any>;
 }

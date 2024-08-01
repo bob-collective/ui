@@ -7,7 +7,7 @@ import { TokenSelectItemProps, TokenSelect, TokenSelectProps } from './TokenSele
 
 type Props = {
   items?: TokenSelectItemProps[];
-  onChangeCurrency?: (currency?: Currency) => void;
+  onChangeCurrency?: (currency: Currency) => void;
   selectProps?: Omit<TokenSelectProps, 'label' | 'helperTextId' | 'items'>;
 };
 
@@ -38,9 +38,11 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
 
     const handleSelectionChange = useCallback(
       (ticker: Key) => {
-        const tokenData = (items as TokenSelectItemProps[]).find((item) => item.currency.symbol === ticker);
+        const item = items?.find((item) => item.currency.symbol === ticker);
 
-        onChangeCurrency?.(tokenData?.currency);
+        if (item) {
+          onChangeCurrency?.(item.currency);
+        }
       },
       [items, onChangeCurrency]
     );

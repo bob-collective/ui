@@ -42,6 +42,7 @@ type Props = {
   size?: InputSizes;
   isInvalid?: boolean;
   minHeight?: Spacing;
+  maxWidth?: Spacing;
   onFocus?: (e: FocusEvent<Element>) => void;
   onBlur?: (e: FocusEvent<Element>) => void;
 } & (HTMLInputProps | HTMLTextAreaProps);
@@ -59,6 +60,7 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       isInvalid,
       inputProps,
       minHeight,
+      maxWidth,
       elementType = 'input',
       label,
       labelProps,
@@ -94,9 +96,10 @@ const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
     };
 
     return (
-      <StyledField $disabled={isDisabled} className={className} direction='column' hidden={hidden} style={style}>
+      <StyledField $maxWidth={maxWidth} className={className} direction='column' hidden={hidden} style={style}>
         <StyledWrapper
           $error={error}
+          $isDisabled={isDisabled}
           $isFocused={isFocused}
           $isHovered={isHovered}
           $isTextArea={elementType === 'textarea'}

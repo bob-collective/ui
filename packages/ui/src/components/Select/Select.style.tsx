@@ -10,6 +10,7 @@ type StyledTriggerProps = {
   $isOpen?: boolean;
   $size: InputSizes;
   $isDisabled: boolean;
+  $isFocusVisible: boolean;
   $isHovered: boolean;
   $isFocused: boolean;
   $hasError: boolean;
@@ -27,36 +28,24 @@ type StyledFieldProps = {
 };
 
 const StyledTrigger = styled.button<StyledTriggerProps>`
-  outline: none;
-  letter-spacing: inherit;
-  background: none;
+  ${({ theme, $size, $hasError, $isFocused, $isHovered, $isDisabled, $isFocusVisible }) => css`
+    outline: ${!$isFocusVisible && 'none'};
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  text-align: left;
+    ${theme.select.wrapper}
+    ${theme.select.sizes[$size].wrapper}
+    ${$hasError && theme.select.error.wrapper}
+    ${$isHovered ? ($hasError ? theme.select.error.hover.wapper : theme.select.hover.wapper) : undefined}
+    ${$isFocused ? ($hasError ? theme.select.error.focus.wrapper : theme.select.focus.wrapper) : undefined}
+    ${$isDisabled && theme.select.disabled.wrapper}
+  `};
+`;
 
-  cursor: ${({ $isDisabled }) => !$isDisabled && 'pointer'};
-
-  ${({ theme, $size, $hasError, $isFocused, $isHovered }) => css`
+const StyledTriggerInner = styled(Flex)<Pick<StyledTriggerProps, '$hasError'>>`
+  ${({ theme, $hasError }) => css`
     width: 100%;
-    height: 100%;
-    border-radius: ${theme.rounded('md')};
-    border-style: solid;
-    border-width: 1px;
 
-    ${theme.transition('common', 'normal')}
-
-    ${theme.input.sizes[$size]}
-
-    ${theme.input.base}
-    ${$hasError && theme.input.error.base}
-
-    ${theme.input.wrapper}
-    ${$hasError && theme.input.error.wrapper}
-    ${$isHovered ? ($hasError ? theme.input.error.hover.wapper : theme.input.hover.wapper) : undefined}
-    ${$isFocused ? ($hasError ? theme.input.error.focus.wrapper : theme.input.focus.wrapper) : undefined}
+    ${theme.select.base}
+    ${$hasError && theme.select.error.base}
   `};
 `;
 
@@ -90,4 +79,4 @@ const StyledField = styled(Flex)<StyledFieldProps>`
   max-width: ${({ $maxWidth, theme }) => $maxWidth && theme.spacing($maxWidth)};
 `;
 
-export { StyledField, StyledList, StyledTrigger, StyledChevronDown, StyledTriggerValue };
+export { StyledField, StyledList, StyledTrigger, StyledChevronDown, StyledTriggerInner, StyledTriggerValue };

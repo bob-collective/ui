@@ -17,51 +17,30 @@ type StyledAdornmentProps = {
 type StyledWrapperProps = {
   $isHovered: boolean;
   $isFocused: boolean;
+  $isDisabled: boolean;
   $size: InputSizes;
   $error: boolean;
   $isTextArea: boolean;
 };
 
 type StyledFieldProps = {
-  $disabled: boolean;
+  $maxWidth?: Spacing;
 };
 
 const StyledWrapper = styled(Flex)<StyledWrapperProps>`
-  ${({ theme, $size, $error, $isFocused, $isHovered, $isTextArea }) => css`
-    width: 100%;
-    height: 100%;
-    border-radius: ${theme.rounded('md')};
-    border-style: solid;
-    border-width: 1px;
-
-    ${theme.transition('common', 'normal')}
-
-    ${theme.input.sizes[$size]}
+  ${({ theme, $size, $error, $isFocused, $isHovered, $isTextArea, $isDisabled }) => css`
     height: ${$isTextArea && 'auto'};
 
     ${theme.input.wrapper}
+    ${theme.input.sizes[$size].wrapper}
     ${$error && theme.input.error.wrapper}
     ${$isHovered ? ($error ? theme.input.error.hover.wapper : theme.input.hover.wapper) : undefined}
     ${$isFocused ? ($error ? theme.input.error.focus.wrapper : theme.input.focus.wrapper) : undefined}
+    ${$isDisabled && theme.input.disabled.wrapper}
   `}
 `;
 
 const StyledBaseInput = styled.input<BaseInputProps>`
-  display: block;
-  width: 100%;
-
-  outline: none;
-  font: inherit;
-  letter-spacing: inherit;
-  background: none;
-
-  text-overflow: ellipsis;
-
-  border: none;
-
-  margin: 0;
-  padding: 0;
-
   // Properties for textarea
   min-height: ${({ $minHeight, theme, as }) =>
     $minHeight ? theme.spacing($minHeight) : as === 'textarea' && theme.spacing('7xl')};
@@ -102,7 +81,7 @@ const StyledAdornment = styled.div<StyledAdornmentProps>`
 `;
 
 const StyledField = styled(Flex)<StyledFieldProps>`
-  opacity: ${({ $disabled }) => $disabled && '.5'};
+  max-width: ${({ $maxWidth, theme }) => $maxWidth && theme.spacing($maxWidth)};
 `;
 
 export { StyledAdornment, StyledBaseInput, StyledWrapper, StyledField };
