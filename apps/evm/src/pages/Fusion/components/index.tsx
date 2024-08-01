@@ -2,7 +2,7 @@ export * from './Challenges';
 export * from './Dashboard';
 export * from './Info';
 export * from './Leaderboard';
-export * from './FusionCarousel';
+export * from './IntractBanner';
 export * from './LoginSignUp';
 export * from './PartnersSection';
 export * from './ProjectStatus';

@@ -10,8 +10,8 @@ import {
   AllUsersLeaderboard,
   Challenges,
   Dashboard,
-  FusionCarousel,
   Info,
+  IntractBanner,
   PartnersSection,
   QuestUsersLeaderboard
 } from './components';
@@ -60,7 +60,7 @@ const Fusion = () => {
           <TabsItem key='dashboard' title='Dashboard'>
             <Flex direction='column' gap='2xl'>
               <Dashboard />
-              <FusionCarousel />
+              <IntractBanner />
               <Challenges />
               <PartnersSection />
             </Flex>
