@@ -25,16 +25,11 @@ const PartnersSection = () => {
     queryFn: async () => {
       const partnerData = await apiClient.getPartners();
 
-      return (
-        partnerData.partners
-          // NOTE: Remove category check when adding quest project cards
-          .filter((result) => result.show_on_app_store && result.category.toLowerCase() !== 'quests')
-          .sort(
-            (a, b) =>
-              // partner.live property is a boolean
-              Number(!!b.live) - Number(!!a.live) ||
-              Number(b.points_distributed_per_hour) - Number(a.points_distributed_per_hour)
-          )
+      return partnerData.partners.sort(
+        (a, b) =>
+          // partner.live property is a boolean
+          Number(!!b.live) - Number(!!a.live) ||
+          Number(b.points_distributed_per_hour) - Number(a.points_distributed_per_hour)
       );
     },
     refetchOnWindowFocus: false,
@@ -42,11 +37,24 @@ const PartnersSection = () => {
     refetchOnMount: false
   });
 
+  // Return quest projects
+  const questPartners = useMemo(
+    () =>
+      partners?.filter((result) => result.show_on_app_store && result.category.toLowerCase() === 'quests').slice(0, 3),
+    [partners]
+  );
+
+  // Return all other projects
+  const otherPartners = useMemo(
+    () => partners?.filter((result) => result.show_on_app_store && result.category.toLowerCase() !== 'quests'),
+    [partners]
+  );
+
   // Return top 3 projects
-  const topHarvesters = useMemo(() => partners?.slice(0, 3), [partners]);
+  const topHarvesters = useMemo(() => otherPartners?.slice(0, 3), [otherPartners]);
 
   // Return remaining projects
-  const otherHavesters = useMemo(() => partners?.slice(3), [partners]);
+  const otherHavesters = useMemo(() => otherPartners?.slice(3), [otherPartners]);
 
   const getHarvest = useCallback(
     (refCode: string) => {
@@ -85,6 +93,29 @@ const PartnersSection = () => {
         </Flex>
       ) : (
         <>
+          <H3 size='lg' weight='semibold'>
+            Quest Projects
+          </H3>
+          <StyledGrid>
+            {questPartners?.map((item, idx) => (
+              <PartnerCard
+                key={idx}
+                isHoverable
+                isPressable
+                category={item?.category}
+                distributedSpice={Intl.NumberFormat(locale, { maximumFractionDigits: 2, notation: 'compact' }).format(
+                  Number(item.points_distributed_per_hour)
+                )}
+                elementType='a'
+                gap='md'
+                harvest={getHarvest(item.ref_code)}
+                isLive={item.live}
+                logoSrc={getImageUrl(item.name)}
+                name={item.name}
+                url={item?.project_url}
+              />
+            ))}
+          </StyledGrid>
           <H3 size='lg' weight='semibold'>
             Top Harvesters
           </H3>
