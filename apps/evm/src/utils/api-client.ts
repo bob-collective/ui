@@ -3,7 +3,7 @@ import { SiweMessage } from 'siwe';
 
 export enum QuestRefCodes {
   GALXE = 'itxc9y',
-  INTRACT = 'tbc'
+  INTRACT = '6y2pac'
 }
 
 export type UserResponse = {
