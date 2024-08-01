@@ -8,7 +8,7 @@ import { LocalStorageKey } from '../../constants';
 
 import { Challenges, Dashboard, Info, Leaderboard, PartnersSection } from './components';
 import { StyledUpdateMark } from './Fusion.style';
-import { FusionCarousel } from './components/FusionCarousel';
+import { IntractBanner } from './components/IntractBanner';
 
 const Fusion = () => {
   const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams('tab=dashboard'));
@@ -53,7 +53,7 @@ const Fusion = () => {
           <TabsItem key='dashboard' title='Dashboard'>
             <Flex direction='column' gap='2xl'>
               <Dashboard />
-              <FusionCarousel />
+              <IntractBanner />
               <Challenges />
               <PartnersSection />
             </Flex>
