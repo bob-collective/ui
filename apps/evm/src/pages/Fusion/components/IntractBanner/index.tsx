@@ -1,0 +1,1 @@
+export { IntractBanner } from './IntractBanner';
