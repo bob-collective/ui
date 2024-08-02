@@ -165,7 +165,7 @@ describe('TokenInput', () => {
         />
       );
 
-      await userEvent.click(screen.getByRole('button', { name: /max/i }));
+      await userEvent.click(screen.getByRole('button', { name: /apply/i }));
 
       await waitFor(() => {
         expect(screen.getByRole('textbox', { name: /label/i })).toHaveValue('0.167345554041665262');
@@ -188,7 +188,7 @@ describe('TokenInput', () => {
         />
       );
 
-      await userEvent.click(screen.getByRole('button', { name: /max/i }));
+      await userEvent.click(screen.getByRole('button', { name: /apply/i }));
 
       await waitFor(() => {
         expect(screen.getByRole('textbox', { name: /label/i })).toHaveValue('0.16734555');
@@ -218,7 +218,7 @@ describe('TokenInput', () => {
         expect(screen.getByRole('textbox', { name: /label/i })).toHaveValue('1');
       });
 
-      await userEvent.click(screen.getByRole('button', { name: /max/i }));
+      await userEvent.click(screen.getByRole('button', { name: /apply/i }));
 
       await waitFor(() => {
         expect(screen.getByRole('textbox', { name: /label/i })).toHaveValue('10');
@@ -245,7 +245,7 @@ describe('TokenInput', () => {
         />
       );
 
-      expect(screen.getByRole('button', { name: /max/i })).toBeDisabled();
+      expect(screen.getByRole('button', { name: /apply/i })).toBeDisabled();
     });
 
     it('should have max btn disabled when input is disabled', async () => {
@@ -262,7 +262,7 @@ describe('TokenInput', () => {
         />
       );
 
-      expect(screen.getByRole('button', { name: /max/i })).toBeDisabled();
+      expect(screen.getByRole('button', { name: /apply/i })).toBeDisabled();
     });
   });
 
@@ -408,7 +408,7 @@ describe('TokenInput', () => {
         />
       );
 
-      const selectBtn = screen.getByRole('button', { name: /ETH/i });
+      const selectBtn = screen.getByRole('button', { name: /ETH select token/i });
 
       await userEvent.click(selectBtn);
 

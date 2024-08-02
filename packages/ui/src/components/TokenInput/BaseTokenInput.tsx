@@ -82,6 +82,8 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       onValueChange,
       description,
       errorMessage,
+      descriptionProps: descriptionPropsProp,
+      errorMessageProps: errorMessagePropsProp,
       ...props
     },
     ref
@@ -190,9 +192,9 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
         {hasHelpText && (
           <HelperText
             description={description}
-            descriptionProps={descriptionProps}
+            descriptionProps={descriptionPropsProp || descriptionProps}
             errorMessage={errorMessage}
-            errorMessageProps={errorMessageProps}
+            errorMessageProps={errorMessagePropsProp || errorMessageProps}
           />
         )}
       </Flex>

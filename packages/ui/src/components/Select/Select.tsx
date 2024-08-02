@@ -7,7 +7,7 @@ import { ForwardedRef, ReactNode, forwardRef, useRef } from 'react';
 
 import { useDOMRef } from '../../hooks';
 import { InputSizes, Spacing } from '../../theme';
-import { HelperText } from '../HelperText';
+import { HelperText, HelperTextProps } from '../HelperText';
 
 import { SelectModal, SelectModalProps } from './SelectModal';
 import { SelectTrigger } from './SelectTrigger';
@@ -33,14 +33,24 @@ type ModalAttrs = {
   modalProps?: { ref?: React.Ref<HTMLDivElement> } & Omit<SelectModalProps, 'state' | 'isOpen' | 'onClose' | 'id'>;
 };
 
-type InheritAttrs<T = SelectObject> = Omit<
+type AriaAttrs<T = SelectObject> = Omit<
   CollectionBase<T> & AriaSelectOptions<T> & StatelySelectProps<T>,
-  keyof Props<T> | 'isDisabled' | 'isLoading' | 'isOpen' | 'isRequired' | 'selectedKey' | 'defaultSelectedKey'
+  | keyof Props<T>
+  | 'isDisabled'
+  | 'isLoading'
+  | 'isOpen'
+  | 'isRequired'
+  | 'selectedKey'
+  | 'defaultSelectedKey'
+  | 'description'
+  | 'errorMessage'
 >;
+
+type InheritAttrs<T = SelectObject> = Omit<HelperTextProps, (keyof Props<T> & AriaAttrs<T>) | 'children'>;
 
 type NativeAttrs<T = SelectObject> = Omit<React.InputHTMLAttributes<Element>, keyof Props<T> | 'children'>;
 
-type CommonProps<T = SelectObject> = Props<T> & NativeAttrs<T> & InheritAttrs<T>;
+type CommonProps<T = SelectObject> = Props<T> & NativeAttrs<T> & InheritAttrs<T> & AriaAttrs<T>;
 
 type ListboxSelectProps<T = SelectObject> = CommonProps<T> & ListboxAttrs;
 
