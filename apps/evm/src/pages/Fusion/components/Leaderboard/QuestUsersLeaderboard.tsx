@@ -9,6 +9,7 @@ import { useGetUser } from '../../../../hooks';
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 
 import { Leaderboard, LeaderboardColumns, LeaderboardRow } from './Leaderboard';
+import { StyledGrid } from './Leaderboard.style';
 
 const userRankKey = 'userRankKey';
 
@@ -31,10 +32,14 @@ const QuestUsersLeaderboard = (): JSX.Element => {
           [LeaderboardColumns.INVITED_BY]: item.referred_by || '-',
           [LeaderboardColumns.NAME]: item.username,
           [LeaderboardColumns.QUESTS]: item.points_breakdown && (
-            <Flex gap='xxs'>
-              {item.points_breakdown[QuestRefCodes.GALXE] && <QuestOwnerIcon name='galxe' />}
-              {item.points_breakdown[QuestRefCodes.INTRACT] && <QuestOwnerIcon name='intract' />}
-            </Flex>
+            <StyledGrid>
+              {item.points_breakdown[QuestRefCodes.GALXE] && (
+                <QuestOwnerIcon name='galxe' style={{ gridColumn: '1' }} />
+              )}
+              {item.points_breakdown[QuestRefCodes.INTRACT] && (
+                <QuestOwnerIcon name='intract' style={{ gridColumn: '2' }} />
+              )}
+            </StyledGrid>
           ),
           [LeaderboardColumns.SPICE]: Intl.NumberFormat(locale).format(Number(item.total_points))
         };
