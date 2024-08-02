@@ -34,18 +34,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     return (
       <Main maxWidth='md' padding='md'>
         <Alert status='info' variant='outlined'>
-          BOB Pay is currently unsupported. Please use it at your own risk. If you are interested in more information
-          please contact us at{' '}
-          <TextLink
-            color='inherit'
-            href='mailto:dev@gobob.xyz'
-            size='inherit'
-            style={{
-              fontFamily: 'inherit'
-            }}
-          >
-            dev@gobob.xyz
-          </TextLink>
+          BOB Pay is currently in testing. Please try it at your own risk.
         </Alert>
         <Flex alignItems='center' direction='column' gap='2xl' marginTop='xl' style={{ width: '100%' }}>
           <Card bordered={false} padding='none' style={{ width: '100%' }}>
