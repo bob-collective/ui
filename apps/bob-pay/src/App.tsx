@@ -3,7 +3,7 @@ import { ReactNode, Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { DynamicEmbeddedWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { usePrices } from '@gobob/react-query';
-import { Card, Flex, P, TextLink } from '@gobob/ui';
+import { Alert, Card, Flex, P, TextLink } from '@gobob/ui';
 
 import { Header, Layout, Main } from './components';
 import { CHAIN, RoutesPath } from './constants';
@@ -33,6 +33,20 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   if (!isAuthenticated) {
     return (
       <Main maxWidth='md' padding='md'>
+        <Alert status='info' variant='outlined'>
+          BOB Pay is currently unsupported. Please use it at your own risk. If you are interested in more information
+          please contact us at{' '}
+          <TextLink
+            color='inherit'
+            href='mailto:dev@gobob.xyz'
+            size='inherit'
+            style={{
+              fontFamily: 'inherit'
+            }}
+          >
+            dev@gobob.xyz
+          </TextLink>
+        </Alert>
         <Flex alignItems='center' direction='column' gap='2xl' marginTop='xl' style={{ width: '100%' }}>
           <Card bordered={false} padding='none' style={{ width: '100%' }}>
             <DynamicEmbeddedWidget background='none' />
