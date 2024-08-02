@@ -180,7 +180,7 @@ const SignUp = (): JSX.Element | null => {
                   variant='solid'
                   onPress={() => setTwitterVisited(true)}
                 >
-                  <a href='https://twitter.com/build_on_bob' rel='noreferrer' target='_blank'>
+                  <a href='https://x.com/intent/follow?screen_name=build_on_bob' rel='noreferrer' target='_blank'>
                     <Flex alignItems='center' elementType='span' gap='md'>
                       {t('signUp.followBOB')} <Twitter color='light' />
                     </Flex>
