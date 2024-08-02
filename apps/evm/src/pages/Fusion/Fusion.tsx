@@ -50,7 +50,7 @@ const Fusion = () => {
       <Main hasBackgroundImg maxWidth='4xl'>
         <Tabs selectedKey={selectedTabKey} onSelectionChange={handleSelectionChange}>
           <TabsItem key='dashboard' title='Dashboard'>
-            <Flex direction='column' gap='2xl'>
+            <Flex direction='column'>
               <Dashboard />
               <PartnersAndChallenges />
             </Flex>
