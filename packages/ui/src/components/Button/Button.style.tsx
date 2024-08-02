@@ -16,7 +16,6 @@ const StyledButton = styled(UnstyledButton)<StyledButtonProps>`
   align-items: center;
   justify-content: center;
   width: ${(props) => (props.$fullWidth ? '100%' : 'auto')};
-  outline: transparent solid 2px;
   border: 0px solid;
 
   user-select: none;

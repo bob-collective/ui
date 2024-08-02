@@ -1,6 +1,7 @@
 import { AriaLinkOptions, useLink } from '@react-aria/link';
 import { mergeProps } from '@react-aria/utils';
 import { AnchorHTMLAttributes, forwardRef } from 'react';
+import { useFocusRing } from '@react-aria/focus';
 
 import { useDOMRef } from '../../hooks';
 import { Color } from '../../theme';
@@ -25,7 +26,7 @@ type InheritAttrs = Omit<TextProps, keyof Props & AriaAttrs & NativeAttrs>;
 type LinkProps = Props & NativeAttrs & InheritAttrs & AriaAttrs;
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ color = 'light', external, underlined = 'none', icon, children, href, className, ...props }, ref): JSX.Element => {
+  ({ external, underlined = 'none', icon, children, href, className, ...props }, ref): JSX.Element => {
     const linkRef = useDOMRef(ref);
 
     const elementType = href ? 'a' : 'span';
@@ -41,14 +42,16 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 
     const { linkProps } = useLink(ariaProps, linkRef);
 
+    const { focusProps, isFocusVisible } = useFocusRing(props);
+
     return (
       <StyledLink
         ref={linkRef}
+        $isFocusVisible={isFocusVisible}
         $underlined={href ? underlined : 'none'}
         as={elementType}
         className={className}
-        color={color}
-        {...mergeProps(linkProps, externalProps, mapTextProps(props))}
+        {...mergeProps(linkProps, focusProps, externalProps, mapTextProps(props))}
       >
         {children}
         {icon && <StyledIcon color='inherit' height='1em' width='1em' />}

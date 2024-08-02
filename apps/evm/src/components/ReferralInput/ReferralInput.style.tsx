@@ -5,31 +5,19 @@ type BaseInputProps = {
 };
 
 const StyledBaseInput = styled.input<BaseInputProps>`
-  display: block;
-  width: 100%;
-  height: 100%;
-
-  outline: none;
-  font: inherit;
-  letter-spacing: inherit;
-  background: none;
-
-  text-overflow: ellipsis;
-
   ${({ theme, $hasError }) => {
     return css`
-      padding: ${theme.spacing('md')};
-
       ${theme.input.base}
 
+      padding: ${theme.spacing('md')};
       ${$hasError && theme.input.error.base}
 
       &:hover:not(:disabled):not(:focus) {
-        ${$hasError ? theme.input.error.hover : theme.input.hover}
+        ${$hasError ? theme.input.error.hover.wapper : theme.input.hover.wapper}
       }
 
       &:focus:not(:disabled) {
-        ${$hasError ? theme.input.error.focus : theme.input.focus}
+        ${$hasError ? theme.input.error.focus.wrapper : theme.input.focus.wrapper}
       }
 
       &::placeholder {

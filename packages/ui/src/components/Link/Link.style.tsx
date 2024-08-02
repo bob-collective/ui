@@ -5,21 +5,19 @@ import { Text } from '../Text/style';
 
 type LinkProps = {
   $underlined?: 'none' | 'hover' | 'always';
+  $isFocusVisible?: boolean;
 };
 
 const StyledLink = styled(Text)<LinkProps>`
-  display: inline-flex;
-  align-items: center;
   ${({ theme }) => theme.link.base};
-  cursor: pointer;
+  outline: ${({ $isFocusVisible }) => !$isFocusVisible && 'none'};
 
   &[aria-disabled] {
-    cursor: default;
-    opacity: 0.5;
+    ${({ theme }) => theme.link.disabled};
   }
 
   &:hover:not([aria-disabled='true']) {
-    opacity: 0.75;
+    ${({ theme }) => theme.link.hover};
   }
 
   ${({ $underlined }) => {

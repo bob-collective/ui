@@ -72,11 +72,9 @@ const AuthCard = ({
 
   return (
     <StyledAuthCard
-      background='grey-700'
       gap='4xl'
       paddingX={{ base: '2xl', s: '2xl', md: '2xl' }}
       paddingY={{ base: '4xl', md: '6xl' }}
-      rounded='s'
       {...props}
     >
       <Flex alignItems='center' direction='column' gap='2xl' justifyContent='center'>

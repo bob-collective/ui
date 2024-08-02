@@ -108,7 +108,7 @@ const SignUp = (): JSX.Element | null => {
 
   if (!hasReferralCode) {
     return (
-      <Main hasBackgroundImg maxWidth='3xl'>
+      <Main maxWidth='3xl'>
         <Flex alignItems='center' flex={1} justifyContent='center' marginTop='4xl'>
           <AuthCard isLoadingReferralCode={isLoadingOnboarding} onValidReferralCode={() => refectOnboarding()} />
         </Flex>
@@ -147,7 +147,7 @@ const SignUp = (): JSX.Element | null => {
 
   return (
     <Geoblock>
-      <Main hasBackgroundImg maxWidth='3xl'>
+      <Main maxWidth='3xl'>
         <Flex direction='column' gap='2xl' justifyContent='center'>
           <H1 align='center' fontFamily='eurostar' size='5xl' weight='bold'>
             <Trans components={{ highlight: <HighlightText /> }} i18nKey='signUp.title' />

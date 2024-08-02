@@ -1,4 +1,4 @@
-import { ArrowTopRightOnSquare, CardProps, Divider, Flex, H2, P, Span, Spinner } from '@gobob/ui';
+import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { Fragment, useMemo } from 'react';
 
@@ -12,8 +12,7 @@ import {
   StyledSpan,
   StyledSpinnerWrapper,
   StyledTransactionList,
-  StyledTransactionListWrapper,
-  StyledViewTransactions
+  StyledTransactionListWrapper
 } from './TransactionList.style';
 
 type TransactionListProps = CardProps;
@@ -90,12 +89,9 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
         </StyledTransactionList>
         <Divider />
       </StyledTransactionListWrapper>
-      <StyledViewTransactions href={txsUrl} rel='noreferrer' target='_blank'>
-        <Span color='grey-50' size='s'>
-          View All Transactions
-        </Span>
-        <ArrowTopRightOnSquare color='grey-50' size='s' />
-      </StyledViewTransactions>
+      <Link external icon color='grey-50' href={txsUrl} size='s'>
+        View All Transactions
+      </Link>
     </StyledSection>
   );
 };

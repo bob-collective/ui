@@ -44,5 +44,9 @@ export const Disabled: StoryObj<LinkProps> = {
 };
 
 export const Polymorphic: StoryObj<LinkProps> = {
-  render: () => <Button elementType={Link}>Polymorphic</Button>
+  render: () => (
+    <Button elementType={Link} {...{ href: '#' }}>
+      Polymorphic
+    </Button>
+  )
 };

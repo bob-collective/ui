@@ -58,7 +58,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       cardRef
     );
 
-    const { isFocusVisible, focusProps } = useFocusRing();
+    const { isFocusVisible, focusProps } = useFocusRing(props);
 
     return (
       <StyledCard
