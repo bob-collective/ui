@@ -6,7 +6,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { Geoblock, Main } from '../../components';
 import { LocalStorageKey } from '../../constants';
 
-import { AllUsersLeaderboard, Challenges, Dashboard, Info, PartnersSection, QuestUsersLeaderboard } from './components';
+import { AllUsersLeaderboard, Dashboard, Info, PartnersAndChallenges, QuestUsersLeaderboard } from './components';
 import { StyledUpdateMark } from './Fusion.style';
 
 const Fusion = () => {
@@ -52,8 +52,7 @@ const Fusion = () => {
           <TabsItem key='dashboard' title='Dashboard'>
             <Flex direction='column' gap='2xl'>
               <Dashboard />
-              <Challenges />
-              <PartnersSection />
+              <PartnersAndChallenges />
             </Flex>
           </TabsItem>
           <TabsItem key='leaderboard' title='Leaderboard'>
