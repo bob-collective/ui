@@ -17,7 +17,6 @@ const BackersCard = (): JSX.Element => (
     <StyledBackersCard
       alignItems='center'
       background='grey-700'
-      bordered={false}
       gap='4xl'
       padding={{ base: '2xl', md: '3xl' }}
       paddingBottom={{ base: '2xl', md: '4xl' }}

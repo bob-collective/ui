@@ -67,7 +67,6 @@ const HeroSection = (): JSX.Element => {
             alignItems='center'
             alignSelf='normal'
             background='grey-700'
-            bordered={false}
             gap='2xl'
             marginTop='2xl'
             paddingX={{ base: '2xl', s: '2xl', md: '2xl' }}

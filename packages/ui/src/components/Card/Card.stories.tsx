@@ -31,12 +31,6 @@ export default {
 
 export const Default: StoryObj<CardProps> = {};
 
-export const Hoverable: StoryObj<CardProps> = {
-  args: {
-    isHoverable: true
-  }
-};
-
 export const Pressable: StoryObj<CardProps> = {
   args: {
     isPressable: true

@@ -43,7 +43,7 @@ const ReceiveTokenModal = ({ token, onClose, ...props }: ReceiveTokenModalProps)
           <Card
             alignItems='center'
             background='red-900'
-            bordered='red-500'
+            borderColor='red-500'
             direction='row'
             gap='md'
             padding='md'

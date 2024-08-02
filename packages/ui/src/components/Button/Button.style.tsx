@@ -22,7 +22,7 @@ const StyledButton = styled(UnstyledButton)<StyledButtonProps>`
   user-select: none;
 
   ${({ theme, $size, $variant, $color, $isIconOnly }) => {
-    const { disabled, hover } = theme.button.variant[$variant].color[$color];
+    const { hover } = theme.button.variant[$variant].color[$color];
 
     return css`
       ${theme.button.base}
@@ -40,14 +40,14 @@ const StyledButton = styled(UnstyledButton)<StyledButtonProps>`
       }
 
       &:active:not([disabled]) {
-        transform: scale(0.97);
+        ${theme.button.active}
       }
 
       &[aria-disabled='true'],
       &[disabled] {
         pointer-events: none;
         cursor: not-allowed;
-        ${disabled}
+        ${theme.button.disabled}
       }
     `;
   }}

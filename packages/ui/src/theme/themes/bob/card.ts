@@ -6,14 +6,15 @@ import { color } from './colors';
 const card: CardTheme = {
   base: {
     color: color('light'),
-    border: `1px solid ${color('grey-300')}`,
     boxShadow: '0px 1px 3px 0px #0000001a, 0px 1px 2px 0px #0000000f',
     backgroundColor: color('grey-400'),
     ...transition('common', 'normal')
   },
-  focus: {
-    border: `1px solid ${color('light')}`,
-    boxShadow: `0 0 0 1px ${color('light')}`
+  active: {
+    transform: 'scale(0.97)'
+  },
+  disabled: {
+    opacity: 0.5
   }
 };
 

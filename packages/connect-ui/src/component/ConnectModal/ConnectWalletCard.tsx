@@ -13,7 +13,6 @@ type ConnectWalletCardProps = Props & InheritAttrs;
 const ConnectWalletCard = ({ label, isDisabled, ...props }: ConnectWalletCardProps) => {
   return (
     <StyledConnectWalletCard
-      isHoverable
       isPressable
       $isDisabled={isDisabled}
       background='grey-800'

@@ -131,7 +131,6 @@ const Bridge = () => {
         ) : (
           !isEcosystemBannerHidden && (
             <StyledBanner
-              isHoverable
               isPressable
               aria-label='navigate to ecosystem section in fusion page'
               paddingX='2xl'

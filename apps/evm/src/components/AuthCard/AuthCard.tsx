@@ -73,7 +73,6 @@ const AuthCard = ({
   return (
     <StyledAuthCard
       background='grey-700'
-      bordered={false}
       gap='4xl'
       paddingX={{ base: '2xl', s: '2xl', md: '2xl' }}
       paddingY={{ base: '4xl', md: '6xl' }}

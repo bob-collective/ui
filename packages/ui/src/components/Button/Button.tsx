@@ -36,7 +36,6 @@ const spinnerColorMap: Record<ButtonColors, Record<ButtonVariants, SpinnerColors
   }
 };
 
-// TODO: add height prop?
 type Props = {
   variant?: ButtonVariants;
   fullWidth?: boolean;

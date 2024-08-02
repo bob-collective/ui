@@ -88,7 +88,7 @@ const PartnerCard = ({
     >
       <StyledLiveTag
         background={isLive ? 'primary-700' : 'grey-900'}
-        bordered={isLive ? 'primary-500' : 'grey-400'}
+        borderColor={isLive ? 'primary-500' : 'grey-400'}
         paddingX='xs'
         paddingY='xxs'
         rounded='md'

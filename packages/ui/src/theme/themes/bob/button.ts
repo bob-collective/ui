@@ -42,6 +42,12 @@ const button: ButtonTheme = {
       padding: `0 ${spacing('3xl')}`
     }
   },
+  active: {
+    transform: 'scale(0.97)'
+  },
+  disabled: {
+    opacity: 0.5
+  },
   variant: {
     solid: {
       color: {
@@ -52,9 +58,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: color('grey-400')
-          },
-          disabled: {
-            opacity: 0.5
           }
         },
         primary: {
@@ -64,9 +67,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: color('primary-600')
-          },
-          disabled: {
-            opacity: 0.5
           }
         },
         light: {
@@ -76,9 +76,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: hexToRgba(color('light'), 80)
-          },
-          disabled: {
-            opacity: 0.5
           }
         }
       }
@@ -92,9 +89,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: hexToRgba(color('grey-500'), 10)
-          },
-          disabled: {
-            opacity: 0.5
           }
         },
         primary: {
@@ -104,9 +98,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: hexToRgba(color('primary-500'), 10)
-          },
-          disabled: {
-            opacity: 0.5
           }
         },
         light: {
@@ -116,9 +107,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: hexToRgba(color('light'), 10)
-          },
-          disabled: {
-            opacity: 0.5
           }
         }
       }
@@ -131,9 +119,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: hexToRgba(color('grey-300'), 20)
-          },
-          disabled: {
-            opacity: 0.5
           }
         },
         primary: {
@@ -142,9 +127,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: hexToRgba(color('primary-500'), 20)
-          },
-          disabled: {
-            opacity: 0.5
           }
         },
         light: {
@@ -153,9 +135,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: hexToRgba(color('light'), 20)
-          },
-          disabled: {
-            opacity: 0.5
           }
         }
       }

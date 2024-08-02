@@ -4,36 +4,49 @@ import { Color, Rounded } from '../../theme';
 import { Flex } from '../Flex';
 
 type StyledCardProps = {
-  $bordered: boolean | Color;
-  $rounded: Rounded;
+  $borderColor?: Color;
+  $rounded?: Rounded;
   $shadowed: boolean;
   $background?: Color;
-  $isHoverable?: boolean;
+  $isFocusVisible?: boolean;
   $isPressable?: boolean;
+  $isDisabled?: boolean;
+  $isHoverable?: boolean;
+  $disableAnimation?: boolean;
 };
 
 const StyledCard = styled(Flex)<StyledCardProps>`
-  border-radius: ${({ $rounded, theme }) => theme.rounded($rounded)};
-  cursor: ${({ $isPressable }) => $isPressable && 'pointer'};
-  outline: none;
-  overflow: hidden;
-
-  // TODO: add isHoverable
-  ${({ $bordered, $isPressable, $shadowed, $background, theme }) => {
-    const { border, boxShadow, backgroundColor, ...baseCss } = theme.card.base;
-
+  ${({
+    $borderColor,
+    $isPressable,
+    $isHoverable,
+    $isDisabled,
+    $shadowed,
+    $background,
+    $isFocusVisible,
+    $disableAnimation,
+    $rounded,
+    theme
+  }) => {
     return css`
-      border: ${typeof $bordered === 'boolean'
-        ? $bordered
-          ? border
-          : undefined
-        : `1px solid ${theme.color($bordered)}`};
-      box-shadow: ${$shadowed && boxShadow};
-      background-color: ${$background ? theme.color($background) : backgroundColor};
-      ${baseCss}
+      ${theme.card.base}
 
-      &:focus {
-        ${$isPressable && $bordered && theme.card.focus}
+      border-radius: ${$rounded && theme.rounded($rounded)};
+      overflow: hidden;
+      border: ${$borderColor && `1px solid ${$borderColor}`};
+      box-shadow: ${!$shadowed && 'none'};
+      background-color: ${$background && theme.color($background)};
+      outline: ${!$isFocusVisible && 'none'};
+      cursor: ${$isPressable && 'pointer'};
+
+      ${$isDisabled && theme.card.disabled}
+
+      &:hover:not([disabled]) {
+        ${$isHoverable && !$disableAnimation && theme.card.active}
+      }
+
+      &:active:not([disabled]) {
+        ${$isPressable && !$disableAnimation && theme.card.active}
       }
     `;
   }}

@@ -7,7 +7,6 @@ type ButtonColors = 'default' | 'primary' | 'light';
 type ButtonColorsParams = {
   base: StyledObject<object>;
   hover: StyledObject<object>;
-  disabled: StyledObject<object>;
 };
 
 type ButtonVariantParams = {
@@ -19,6 +18,8 @@ type ButtonVariants = 'solid' | 'outline' | 'ghost';
 type ButtonTheme = {
   base: StyledObject<object>;
   size: Record<ButtonSizes, StyledObject<object>>;
+  active: StyledObject<object>;
+  disabled: StyledObject<object>;
   variant: Record<ButtonVariants, ButtonVariantParams>;
 };
 

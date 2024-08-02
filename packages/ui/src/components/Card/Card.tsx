@@ -2,6 +2,7 @@ import { useButton } from '@react-aria/button';
 import { mergeProps } from '@react-aria/utils';
 import { PressEvent } from '@react-types/shared';
 import { forwardRef, JSXElementConstructor } from 'react';
+import { useFocusRing } from '@react-aria/focus';
 
 import { useDOMRef } from '../../hooks';
 import { Color, Rounded } from '../../theme';
@@ -15,9 +16,10 @@ type Props = {
   isPressable?: boolean;
   isDisabled?: boolean;
   background?: Color;
-  bordered?: boolean | Color;
+  borderColor?: Color;
   rounded?: Rounded;
   shadowed?: boolean;
+  disableAnimation?: boolean;
   onPress?: (e: PressEvent) => void;
 };
 
@@ -38,7 +40,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       rounded = 'xl',
       padding = 'xl',
       shadowed = false,
-      bordered = false,
+      borderColor,
+      disableAnimation,
       onPress,
       ...props
     },
@@ -55,11 +58,16 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       cardRef
     );
 
+    const { isFocusVisible, focusProps } = useFocusRing();
+
     return (
       <StyledCard
         ref={cardRef}
         $background={background}
-        $bordered={bordered}
+        $borderColor={borderColor}
+        $disableAnimation={disableAnimation}
+        $isDisabled={isDisabled}
+        $isFocusVisible={isFocusVisible}
         $isHoverable={isHoverable}
         $isPressable={isPressable}
         $rounded={rounded}
@@ -67,7 +75,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         direction={direction}
         elementType={elementType}
         padding={padding}
-        {...mergeProps(props, isPressable ? buttonProps : {})}
+        {...mergeProps(props, isPressable ? mergeProps(buttonProps, focusProps) : {})}
       >
         {children}
       </StyledCard>

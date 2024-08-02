@@ -1,12 +1,11 @@
 import { ChainId } from '@gobob/chains';
 import { TBTC, WBTC } from '@gobob/tokens';
-import { ArrowRight, Divider, Flex, InformationCircle, P, RadioGroup } from '@gobob/ui';
+import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
 import { Key, useCallback, useMemo, useState } from 'react';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { FeatureFlags, useFeatureFlag, useTokens } from '../../../../hooks';
 import { BridgeOrigin } from '../../Bridge';
-import { StyledCard } from '../../Bridge.style';
 import { useGetTransactions } from '../../hooks';
 import { L2BridgeData, OnRampData } from '../../types';
 import { ChainSelect } from '../ChainSelect';
@@ -191,13 +190,10 @@ const BridgeForm = ({
           </StyledRadio>
         </RadioGroup>
         {type === 'withdraw' && bridgeOrigin === BridgeOrigin.INTERNAL && (
-          <StyledCard alignItems='center' direction='row' gap='md' marginTop='2xl'>
-            <InformationCircle />
-            <P size='s' weight='semibold'>
-              Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
-              bridge.
-            </P>
-          </StyledCard>
+          <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
+            Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
+            bridge.
+          </Alert>
         )}
         {bridgeOrigin === BridgeOrigin.INTERNAL ? (
           chain === 'BTC' && btcTokens?.length ? (

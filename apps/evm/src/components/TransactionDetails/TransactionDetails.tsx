@@ -75,7 +75,7 @@ const TransactionDetails = ({
   const gasEstimate = gasEstimateProp || gasEstimatePlaceholder;
 
   return (
-    <Card background='grey-700' bordered={false} rounded='md'>
+    <Card background='grey-700' rounded='md'>
       <Dl direction='column' gap='none' {...props}>
         {amount && (
           <StyledDlGroup wrap alignItems='flex-start' gap='xs' justifyContent='space-between'>
