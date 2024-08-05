@@ -1,1 +1,2 @@
-export { Leaderboard } from './Leaderboard';
+export { AllUsersLeaderboard } from './AllUsersLeaderboard';
+export { QuestUsersLeaderboard } from './QuestUsersLeaderboard';

@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 
 import { useGetUser } from '../../../../hooks';
 import { LoginSignUp } from '../LoginSignUp';
-import { StyledCard } from '../PartnersSection/PartnerCard.style';
+import { StyledCard } from '../PartnersAndChallenges/PartnerCard.style';
 import { ProjectStatus } from '../ProjectStatus';
 import { UserStats } from '../UserStats';
 import { useHaltedLockedTokens } from '../../hooks';

@@ -1,0 +1,1 @@
+export { PartnersAndChallenges } from './PartnersAndChallenges';

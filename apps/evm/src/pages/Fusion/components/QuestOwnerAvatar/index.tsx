@@ -1,0 +1,1 @@
+export { QuestOwnerIcon } from './QuestOwnerAvatar';

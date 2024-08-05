@@ -2,7 +2,7 @@ import { Flex, H1, P } from '@gobob/ui';
 
 import bannerSrc from '../../../../assets/intract-logo.png';
 
-import { StyledBannerImg, StyledPressableBanner } from './IntractBanner.style';
+import { StyledIntractBannerImg, StyledPressableBanner } from './BannerCarousel.style';
 
 const IntractBanner = () => (
   <StyledPressableBanner
@@ -22,7 +22,7 @@ const IntractBanner = () => (
       </Flex>
       <P color='grey-200'>Complete quests to boost your Spice earnings</P>
     </Flex>
-    <StyledBannerImg alt='Intract Logo' src={bannerSrc} />
+    <StyledIntractBannerImg alt='Intract Logo' src={bannerSrc} />
   </StyledPressableBanner>
 );
 
