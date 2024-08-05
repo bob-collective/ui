@@ -7,7 +7,7 @@ To access user deposit transactions from Layer 1 (L1) to Layer 2 (L2), utilize t
 ### GQL Endpoints:
 
 - **Old Testnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/bridge-deposits-sepolia/1.0/gn`
-- **New Testnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/testnet-bridge-deposits-sepolia/prod/gn`
+- **New Testnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/testnet-bridge-deposits-sepolia/test/gn`
 - **Mainnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/bridge-deposits-mainnet/1.0/gn`
 
 ### Get All ERC20 Deposits by Address
@@ -51,7 +51,7 @@ For accessing user withdrawal transactions from Layer 2 (L2) to Layer 1 (L1), us
 ### GQL Endpoints:
 
 - **Old Testnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/bridge-withdraws-bob-testnet/1.0/gn`
-- **New Testnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/testnet-bridge-withdraws-bob-sepolia/prod/gn`
+- **New Testnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/testnet-bridge-withdraws-bob-sepolia/test/gn`
 - **Mainnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/bridge-withdraws-bob/1.0/gn`
 
 ### Get All ERC20 Withdrawals by Address
