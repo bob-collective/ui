@@ -152,10 +152,10 @@ const SignUp = (): JSX.Element | null => {
           <H1 align='center' fontFamily='eurostar' size='5xl' weight='bold'>
             <Trans components={{ highlight: <HighlightText /> }} i18nKey='signUp.title' />
           </H1>
-          <P align='center' color='grey-100'>
+          <P align='center' color='grey-50'>
             {t('signUp.subtitle')}
           </P>
-          <P align='center' color='grey-100'>
+          <P align='center' color='grey-50'>
             {t('signUp.content')}
           </P>
         </Flex>

@@ -23,7 +23,7 @@ const input: InputTheme = {
     borderRadius: rounded('md'),
     borderStyle: 'solid',
     borderWidth: '1px',
-    backgroundColor: color('grey-800'),
+    backgroundColor: color('grey-600'),
     borderColor: 'transparent',
     ...transition('common', 'normal')
   },

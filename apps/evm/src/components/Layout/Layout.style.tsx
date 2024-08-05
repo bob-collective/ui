@@ -10,7 +10,7 @@ type StyledMainProps = {
 
 const StyledLayout = styled(Flex)`
   min-height: 100vh;
-  background-color: ${({ theme }) => theme.color('grey-900')};
+  background-color: ${({ theme }) => theme.color('grey-600')};
 `;
 
 const StyledHeader = styled(Flex)`
@@ -18,7 +18,6 @@ const StyledHeader = styled(Flex)`
   padding-right: ${({ theme }) => theme.spacing('3xl')};
   overflow-x: hidden;
   z-index: 20;
-  max-width: ${({ theme }) => theme.maxWidth('7xl')};
   margin: 0 auto;
 `;
 

@@ -15,7 +15,7 @@ const ConnectWalletCard = ({ label, isDisabled, ...props }: ConnectWalletCardPro
     <StyledConnectWalletCard
       isPressable
       $isDisabled={isDisabled}
-      background='grey-800'
+      background='grey-600'
       direction='row'
       isDisabled={isDisabled}
       justifyContent='space-between'

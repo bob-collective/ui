@@ -59,7 +59,7 @@ const ExternalBridgeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Elem
     <Card
       {...{ external: true, href: typeHref }}
       alignItems='center'
-      background='grey-700'
+      background='grey-600'
       direction='row'
       elementType={Link}
       isDisabled={disabled}

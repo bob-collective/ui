@@ -19,7 +19,7 @@ const ConnectedWalletSection = ({ type, icon, onDisconnect, address, wallet }: C
   return (
     <Card
       alignItems='center'
-      background='grey-800'
+      background='grey-600'
       direction='row'
       gap='s'
       justifyContent='space-between'

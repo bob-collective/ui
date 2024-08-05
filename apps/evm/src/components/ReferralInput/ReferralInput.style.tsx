@@ -8,6 +8,7 @@ const StyledBaseInput = styled.input<BaseInputProps>`
   ${({ theme, $hasError }) => {
     return css`
       ${theme.input.base}
+      ${theme.input.wrapper}
 
       padding: ${theme.spacing('md')};
       ${$hasError && theme.input.error.base}

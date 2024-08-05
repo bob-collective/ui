@@ -174,18 +174,10 @@ const BridgeForm = ({
           value={bridgeOrigin}
           onValueChange={(value) => onChangeOrigin?.(value as BridgeOrigin)}
         >
-          <StyledRadio
-            $isSelected={bridgeOrigin === BridgeOrigin.INTERNAL}
-            isDisabled={isBobBridgeDisabled}
-            value={BridgeOrigin.INTERNAL}
-          >
+          <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.INTERNAL}>
             BOB Bridge
           </StyledRadio>
-          <StyledRadio
-            $isSelected={bridgeOrigin === BridgeOrigin.EXTERNAL}
-            isDisabled={isExternalBridgeDisabled}
-            value={BridgeOrigin.EXTERNAL}
-          >
+          <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.EXTERNAL}>
             3rd Party
           </StyledRadio>
         </RadioGroup>

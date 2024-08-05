@@ -20,7 +20,7 @@ const IntractBanner = () => (
           Intract: BOB Summer Fest
         </H1>
       </Flex>
-      <P color='grey-200'>Complete quests to boost your Spice earnings</P>
+      <P color='grey-50'>Complete quests to boost your Spice earnings</P>
     </Flex>
     <StyledBannerImg alt='Intract Logo' src={bannerSrc} />
   </StyledPressableBanner>

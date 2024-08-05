@@ -7,7 +7,7 @@ import { color } from './colors';
 const button: ButtonTheme = {
   base: {
     borderRadius: rounded('md'),
-    fontWeight: fontWeight('semibold'),
+    fontWeight: fontWeight('normal'),
     ...transition('common', 'normal')
   },
   size: {
@@ -84,11 +84,11 @@ const button: ButtonTheme = {
       color: {
         default: {
           base: {
-            border: `1px solid ${color('grey-500')}`,
+            border: `1px solid ${color('grey-300')}`,
             color: color('light')
           },
           hover: {
-            backgroundColor: hexToRgba(color('grey-500'), 10)
+            backgroundColor: color('grey-300')
           }
         },
         primary: {
@@ -97,7 +97,8 @@ const button: ButtonTheme = {
             color: color('primary-500')
           },
           hover: {
-            backgroundColor: hexToRgba(color('primary-500'), 10)
+            backgroundColor: color('primary-500'),
+            color: color('light')
           }
         },
         light: {
@@ -106,7 +107,8 @@ const button: ButtonTheme = {
             color: color('light')
           },
           hover: {
-            backgroundColor: hexToRgba(color('light'), 10)
+            backgroundColor: color('light'),
+            color: color('dark')
           }
         }
       }
@@ -118,7 +120,7 @@ const button: ButtonTheme = {
             color: color('light')
           },
           hover: {
-            backgroundColor: hexToRgba(color('grey-300'), 20)
+            backgroundColor: hexToRgba(color('grey-300'), 50)
           }
         },
         primary: {

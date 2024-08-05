@@ -1,11 +1,10 @@
-import { Card, Flex, InformationCircle, P, Link } from '@gobob/ui';
+import { Card, Flex, P, Link, Alert } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 
 import { useGetUser } from '../../../../hooks';
 import { LoginSignUp } from '../LoginSignUp';
-import { StyledCard } from '../PartnersSection/PartnerCard.style';
 import { ProjectStatus } from '../ProjectStatus';
 import { UserStats } from '../UserStats';
 import { useHaltedLockedTokens } from '../../hooks';
@@ -23,8 +22,7 @@ const Dashboard = () => {
 
   return (
     <Flex direction='column' gap='xl' marginTop='3xl'>
-      <StyledCard alignItems='center' direction='row' gap='md'>
-        <InformationCircle />
+      <Alert status='info' variant='outlined'>
         {hasAlex ? (
           <P size='s' weight='semibold'>
             Due to an exploit involving the XLink bridge, Alex Lab has disabled bridging and withdrawing ALEX. You can
@@ -39,7 +37,7 @@ const Dashboard = () => {
             {t('fusion.spiceWaitTime')}
           </P>
         )}
-      </StyledCard>
+      </Alert>
       <Flex direction={{ base: 'column', md: 'row' }} gap='3xl'>
         <Card flex={0.55} gap='lg' padding='3xl'>
           <ProjectStatus />

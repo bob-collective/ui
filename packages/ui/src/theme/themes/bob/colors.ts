@@ -26,11 +26,11 @@ const primary: PrimaryColors = {
 };
 
 const grey: GreyColors = {
-  'grey-50': '#9DAAC6',
+  'grey-50': '#B6B7B9',
   'grey-100': '#677186',
   'grey-200': '#4C5466',
   'grey-300': '#313846',
-  'grey-400': '#161B26',
+  'grey-400': '#1e2430',
   'grey-500': '#12161E',
   'grey-600': '#0D1017',
   'grey-700': '#090B0F',

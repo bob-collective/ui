@@ -76,7 +76,7 @@ const ButtonGroup = ({
             isIconOnly
             aria-label={t('wallet.tooltips.bridge.ariaLabel')}
             size='s'
-            variant='ghost'
+            variant='outline'
             onPress={onPressBridge}
           >
             <ArrowsUpDown size='xs' strokeWidth={2} />
@@ -88,7 +88,7 @@ const ButtonGroup = ({
           isIconOnly
           aria-label={t('wallet.tooltips.send.ariaLabel', { ticker: ticker })}
           size='s'
-          variant='ghost'
+          variant='outline'
           onPress={onPressSend}
         >
           <ArrowUp size='xs' strokeWidth={2} />
@@ -99,7 +99,7 @@ const ButtonGroup = ({
           isIconOnly
           aria-label={t('wallet.tooltips.receive.ariaLabel', { ticker: ticker })}
           size='s'
-          variant='ghost'
+          variant='outline'
           onPress={onPressReceive}
         >
           <ArrowDown size='xs' strokeWidth={2} />

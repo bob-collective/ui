@@ -53,10 +53,22 @@ const StyledSlider = styled(Slider)`
   .slick-prev,
   .slick-next {
     color: ${({ theme }) => theme.color('grey-200')};
-    width: auto;
-    height: auto;
+    width: ${({ theme }) => theme.spacing('4xl')};
+    height: ${({ theme }) => theme.spacing('4xl')};
     z-index: 1;
     transition: ${({ theme }) => theme.transition('colors', 'fast')};
+    border-radius: ${({ theme }) => theme.rounded('md')};
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: ${({ theme }) => theme.color('grey-600')};
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
 
     &::before {
       content: unset;

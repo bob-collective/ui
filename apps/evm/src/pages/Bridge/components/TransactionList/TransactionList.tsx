@@ -89,7 +89,7 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
         </StyledTransactionList>
         <Divider />
       </StyledTransactionListWrapper>
-      <Link external icon color='grey-50' href={txsUrl} size='s'>
+      <Link external icon href={txsUrl} size='s'>
         View All Transactions
       </Link>
     </StyledSection>

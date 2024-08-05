@@ -34,7 +34,7 @@ const ChainSelect = ({ chainId, selectProps }: ChainSelectProps): JSX.Element =>
   return (
     <Card
       alignSelf='stretch'
-      background='grey-800'
+      background='grey-600'
       direction='row'
       flex='1 1 45%'
       gap='s'

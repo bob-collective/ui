@@ -37,15 +37,15 @@ const StyledCard = styled(Flex)<StyledCardProps>`
       box-shadow: ${!$shadowed && 'none'};
       background-color: ${$background && theme.color($background)};
       outline: ${!$isFocusVisible && 'none'};
-      cursor: ${$isPressable && 'pointer'};
+      cursor: ${$isPressable && !$isDisabled && 'pointer'};
 
       ${$isDisabled && theme.card.disabled}
 
-      &:hover:not([disabled]) {
+      &:hover:not([aria-disabled]) {
         ${$isHoverable && !$disableAnimation && theme.card.active}
       }
 
-      &:active:not([disabled]) {
+      &:active:not([aria-disabled]) {
         ${$isPressable && !$disableAnimation && theme.card.active}
       }
     `;
