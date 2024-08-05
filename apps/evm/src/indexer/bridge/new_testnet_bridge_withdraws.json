@@ -2,16 +2,28 @@
   "version": "1",
   "name": "testnet-bridge-withdraws",
   "abis": {
-    "l2-standard-bridge": {
+    "bridge": {
       "path": "./L2BridgeABI.json"
     }
   },
   "chains": ["bob-sepolia"],
   "instances": [
     {
-      "abi": "l2-standard-bridge",
+      "abi": "bridge",
       "address": "0x4200000000000000000000000000000000000010",
       "startBlock": 0,
+      "chain": "bob-sepolia"
+    },
+    {
+      "abi": "bridge",
+      "address": "0x5C2A45A35ba99d8Ee58c4bB96e2Ce30dA86C530b",
+      "startBlock": 253101,
+      "chain": "bob-sepolia"
+    },
+    {
+      "abi": "bridge",
+      "address": "0x087EB402f82b23b368f6a7d1ed606E8371c79CBE",
+      "startBlock": 257214,
       "chain": "bob-sepolia"
     }
   ]

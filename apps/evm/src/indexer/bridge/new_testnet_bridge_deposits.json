@@ -2,16 +2,28 @@
   "version": "1",
   "name": "testnet-bridge-deposits",
   "abis": {
-    "l1-standard-bridge": {
+    "bridge": {
       "path": "./L1BridgeABI.json"
     }
   },
   "chains": ["sepolia"],
   "instances": [
     {
-      "abi": "l1-standard-bridge",
+      "abi": "bridge",
       "address": "0x75f48FE4DeAB3F9043EE995c3C84D6a2303D9a2F",
       "startBlock": 6404317,
+      "chain": "sepolia"
+    },
+    {
+      "abi": "bridge",
+      "address": "0xA932eD4b73972c37DC4a691E8eC6f2C8a13951BE",
+      "startBlock": 6441278,
+      "chain": "sepolia"
+    },
+    {
+      "abi": "bridge",
+      "address": "0x6fD5030EBa8399E791492721b20932A60875E32D",
+      "startBlock": 6442089,
       "chain": "sepolia"
     }
   ]
