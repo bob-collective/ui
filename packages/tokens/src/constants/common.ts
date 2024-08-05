@@ -25,6 +25,13 @@ export const USDC = {
     6,
     'USDC',
     'USD Coin'
+  ),
+  [ChainId.BOB_SEPOLIA]: new ERC20Token(
+    ChainId.BOB_SEPOLIA,
+    '0x2c1f73d37e7cdba2792156139b0d35a765d595c5',
+    6,
+    'USDC',
+    'USD Coin'
   )
 };
 

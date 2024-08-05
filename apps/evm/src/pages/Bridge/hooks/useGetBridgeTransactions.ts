@@ -7,7 +7,7 @@ import { TransactionReceipt, isAddressEqual } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
 import { ChainId } from '@gobob/chains';
 
-import { L1_CHAIN, L2_CHAIN, isProd } from '../../../constants';
+import { L1_CHAIN, L2_CHAIN } from '../../../constants';
 import { usePublicClientL1, usePublicClientL2 } from '../../../hooks';
 import { bridgeKeys, queryClient } from '../../../lib/react-query';
 import { MessageDirection, MessageStatus, TransactionType } from '../types';
@@ -118,12 +118,21 @@ const getWithdrawBridgeTransactions = gql`
   }
 `;
 
-const indexerNetworkL1 = isProd ? 'mainnet' : 'sepolia';
-const indexerNetworkL2 = isProd ? 'bob' : 'bob-testnet';
+const { deposit: depositUrlPath, withdraw: withdrawUrlPath } = {
+  [ChainId.BOB]: { deposit: 'bridge-deposits-mainnet/1.0/gn', withdraw: 'bridge-withdraws-bob/1.0/gn' },
+  [ChainId.OLD_BOB_SEPOLIA]: {
+    deposit: 'bridge-deposits-sepolia/1.0',
+    withdraw: 'bridge-withdraws-bob-testnet/1.0/gn'
+  },
+  [ChainId.BOB_SEPOLIA]: {
+    deposit: 'testnet-bridge-deposits-sepolia/test/gn',
+    withdraw: 'testnet-bridge-withdraws-bob-sepolia/test/gn'
+  }
+}[L2_CHAIN];
 
-const depositsUrl = `${import.meta.env.VITE_INDEXER_URL}/bridge-deposits-${indexerNetworkL1}/1.0/gn`;
+const depositsUrl = `${import.meta.env.VITE_INDEXER_URL}/${depositUrlPath}`;
 
-const withdrawUrl = `${import.meta.env.VITE_INDEXER_URL}/bridge-withdraws-${indexerNetworkL2}/1.0/gn`;
+const withdrawUrl = `${import.meta.env.VITE_INDEXER_URL}/${withdrawUrlPath}`;
 
 const mapStatus = {
   'waiting-to-prove': MessageStatus.STATE_ROOT_NOT_PUBLISHED,

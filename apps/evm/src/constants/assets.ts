@@ -64,7 +64,10 @@ export const ETH: Record<
   }
 };
 
-export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.OLD_BOB_SEPOLIA, RawToken> = {
+export const wstETH: Record<
+  ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA | ChainId.OLD_BOB_SEPOLIA,
+  RawToken
+> = {
   [ChainId.ETHEREUM]: {
     chainId: ChainId.ETHEREUM,
     address: '0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0',
@@ -92,6 +95,15 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | C
     logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
     apiId: 'wrapped-steth'
   },
+  [ChainId.BOB_SEPOLIA]: {
+    chainId: ChainId.BOB_SEPOLIA,
+    address: '0x1f512b534F541424912AD78075d5A0a01C43C0CB',
+    name: 'Wrapped liquid staked Ether 2.0',
+    symbol: 'wstETH',
+    decimals: 18,
+    logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
+    apiId: 'wrapped-steth'
+  },
   [ChainId.OLD_BOB_SEPOLIA]: {
     chainId: ChainId.OLD_BOB_SEPOLIA,
     address: '0x7363C130e10031344b813FAcd99f91e42864df3c',
@@ -103,7 +115,10 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | C
   }
 };
 
-const usdc: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.OLD_BOB_SEPOLIA, RawToken> = {
+const usdc: Record<
+  ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA | ChainId.OLD_BOB_SEPOLIA,
+  RawToken
+> = {
   [ChainId.ETHEREUM]: {
     chainId: ChainId.ETHEREUM,
     address: USDC[ChainId.ETHEREUM].address,
@@ -128,6 +143,15 @@ const usdc: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.OL
     name: USDC[ChainId.SEPOLIA].name!,
     symbol: USDC[ChainId.SEPOLIA].symbol!,
     decimals: USDC[ChainId.SEPOLIA].decimals,
+    logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
+    apiId: 'usd-coin'
+  },
+  [ChainId.BOB_SEPOLIA]: {
+    chainId: ChainId.BOB_SEPOLIA,
+    address: USDC[ChainId.BOB_SEPOLIA].address,
+    name: USDC[ChainId.BOB_SEPOLIA].name!,
+    symbol: USDC[ChainId.BOB_SEPOLIA].symbol!,
+    decimals: USDC[ChainId.BOB_SEPOLIA].decimals,
     logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
     apiId: 'usd-coin'
   },
@@ -436,6 +460,8 @@ const bobAssets: RawToken[] = [
   }
 ];
 
+const bobSepoliaAssets: RawToken[] = [ETH[ChainId.BOB_SEPOLIA], usdc[ChainId.BOB_SEPOLIA], wstETH[ChainId.BOB_SEPOLIA]];
+
 const oldBobSepoliaAssets: RawToken[] = [
   ETH[ChainId.OLD_BOB_SEPOLIA],
   {
@@ -460,4 +486,10 @@ const oldBobSepoliaAssets: RawToken[] = [
   wstETH[ChainId.OLD_BOB_SEPOLIA]
 ];
 
-export const tokens: RawToken[] = [...ethereumAssets, ...sepoliaAssets, ...bobAssets, ...oldBobSepoliaAssets];
+export const tokens: RawToken[] = [
+  ...ethereumAssets,
+  ...sepoliaAssets,
+  ...bobAssets,
+  ...bobSepoliaAssets,
+  ...oldBobSepoliaAssets
+];

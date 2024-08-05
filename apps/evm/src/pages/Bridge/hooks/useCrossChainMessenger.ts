@@ -12,8 +12,8 @@ import { wstETH } from '../../../constants/assets';
 class USDCBridgeAdapter extends StandardBridgeAdapter {
   async supportsTokenPair(l1Token: AddressLike, l2Token: AddressLike): Promise<boolean> {
     return (
-      isAddressEqual(l1Token as Address, USDC[L1_CHAIN as ChainId.ETHEREUM].address) &&
-      isAddressEqual(l2Token as Address, USDC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA].address)
+      isAddressEqual(l1Token as Address, USDC[L1_CHAIN].address) &&
+      isAddressEqual(l2Token as Address, USDC[L2_CHAIN].address)
     );
   }
 }
@@ -21,8 +21,8 @@ class USDCBridgeAdapter extends StandardBridgeAdapter {
 class WSTETHBridgeAdapter extends StandardBridgeAdapter {
   async supportsTokenPair(l1Token: AddressLike, l2Token: AddressLike): Promise<boolean> {
     return (
-      isAddressEqual(l1Token as Address, wstETH[L1_CHAIN as ChainId.ETHEREUM].address) &&
-      isAddressEqual(l2Token as Address, wstETH[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA].address)
+      isAddressEqual(l1Token as Address, wstETH[L1_CHAIN].address) &&
+      isAddressEqual(l2Token as Address, wstETH[L2_CHAIN].address)
     );
   }
 }
@@ -66,6 +66,11 @@ export const USDCCrossBridgeConfig = {
     l1Bridge: '0x450D55a4B4136805B0e5A6BB59377c71FC4FaCBb',
     l2Bridge: '0xe497788F8Fcc30B773C9A181a0FFE2e60645cE90'
   },
+  [ChainId.BOB_SEPOLIA]: {
+    Adapter: USDCBridgeAdapter,
+    l1Bridge: '0xA932eD4b73972c37DC4a691E8eC6f2C8a13951BE',
+    l2Bridge: '0x5C2A45A35ba99d8Ee58c4bB96e2Ce30dA86C530b'
+  },
   [ChainId.OLD_BOB_SEPOLIA]: {
     Adapter: USDCBridgeAdapter,
     l1Bridge: '0x0032303Dd587d74f79BFa3070A6293cb7cD5a4E7',
@@ -78,6 +83,11 @@ const wstETHCrossBridgeConfig = {
     Adapter: WSTETHBridgeAdapter,
     l1Bridge: '0x091dF5E1284E49fA682407096aD34cfD42B95B72',
     l2Bridge: '0xd1559523374D93972E0F7fE1AA98642754f5c4d1'
+  },
+  [ChainId.BOB_SEPOLIA]: {
+    Adapter: WSTETHBridgeAdapter,
+    l1Bridge: '0x6fD5030EBa8399E791492721b20932A60875E32D',
+    l2Bridge: '0x087EB402f82b23b368f6a7d1ed606E8371c79CBE'
   },
   [ChainId.OLD_BOB_SEPOLIA]: {
     Adapter: WSTETHBridgeAdapter,

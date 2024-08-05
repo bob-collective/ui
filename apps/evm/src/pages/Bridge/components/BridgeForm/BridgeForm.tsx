@@ -118,7 +118,9 @@ const BridgeForm = ({
   const btcTokens = useMemo(
     () =>
       tokens?.filter(
-        (token) => token.currency.symbol === TBTC[L2_CHAIN].symbol || token.currency.symbol === WBTC[L2_CHAIN].symbol
+        (token) =>
+          token.currency.symbol === TBTC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA]?.symbol ||
+          token.currency.symbol === WBTC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA]?.symbol
       ),
     [tokens]
   );
