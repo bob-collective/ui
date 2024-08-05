@@ -1,0 +1,18 @@
+{
+  "version": "1",
+  "name": "testnet-bridge-withdraws",
+  "abis": {
+    "l2-standard-bridge": {
+      "path": "./L2BridgeABI.json"
+    }
+  },
+  "chains": ["bob-sepolia"],
+  "instances": [
+    {
+      "abi": "l2-standard-bridge",
+      "address": "0x4200000000000000000000000000000000000010",
+      "startBlock": 0,
+      "chain": "bob-sepolia"
+    }
+  ]
+}

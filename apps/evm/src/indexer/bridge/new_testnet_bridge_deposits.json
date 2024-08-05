@@ -1,0 +1,18 @@
+{
+  "version": "1",
+  "name": "testnet-bridge-deposits",
+  "abis": {
+    "l1-standard-bridge": {
+      "path": "./L1BridgeABI.json"
+    }
+  },
+  "chains": ["sepolia"],
+  "instances": [
+    {
+      "abi": "l1-standard-bridge",
+      "address": "0x75f48FE4DeAB3F9043EE995c3C84D6a2303D9a2F",
+      "startBlock": 6404317,
+      "chain": "sepolia"
+    }
+  ]
+}
