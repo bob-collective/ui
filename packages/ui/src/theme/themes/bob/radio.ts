@@ -4,6 +4,10 @@ import { RadioTheme } from '../../components';
 import { color } from './colors';
 
 const radio: RadioTheme = {
+  base: {
+    color: color('light'),
+    ...transition('common', 'normal')
+  },
   button: {
     base: {
       marginTop: spacing('xs'),
@@ -26,6 +30,19 @@ const radio: RadioTheme = {
       },
       inside: {
         backgroundColor: color('primary-500')
+      }
+    }
+  },
+  error: {
+    base: {
+      color: color('red-500')
+    },
+    button: {
+      base: {
+        borderColor: color('red-500')
+      },
+      inside: {
+        backgroundColor: color('red-500')
       }
     }
   },

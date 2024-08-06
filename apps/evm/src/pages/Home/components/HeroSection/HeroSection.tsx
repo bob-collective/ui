@@ -47,7 +47,7 @@ const HeroSection = (): JSX.Element => {
         />
         {!isMobile && displayTvl && (
           <StyledLockedAmount>
-            <Span color='grey-200' size='xl'>
+            <Span color='grey-50' size='xl'>
               {t('home.hero.season_one_tvl')}:
             </Span>
             <Span fontFamily='eurostar' size='2xl'>
@@ -67,14 +67,13 @@ const HeroSection = (): JSX.Element => {
             alignItems='center'
             alignSelf='normal'
             background='grey-700'
-            bordered={false}
             gap='2xl'
             marginTop='2xl'
             paddingX={{ base: '2xl', s: '2xl', md: '2xl' }}
             paddingY={{ base: '4xl', md: '6xl' }}
             rounded='s'
           >
-            <Span color='grey-200' size='xl'>
+            <Span color='grey-50' size='xl'>
               {t('home.hero.season_one_tvl')}
             </Span>
             <Span fontFamily='eurostar' size='2xl'>

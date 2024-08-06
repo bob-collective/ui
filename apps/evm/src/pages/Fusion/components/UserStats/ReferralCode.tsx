@@ -30,7 +30,7 @@ const ReferralCode = () => {
           <Popover>
             <PopoverTrigger>
               <Button isIconOnly size='s' variant='ghost'>
-                <QuestionMarkCircle color='grey-200' size='s' />
+                <QuestionMarkCircle color='grey-50' size='s' />
               </Button>
             </PopoverTrigger>
             <PopoverContent>
@@ -41,7 +41,7 @@ const ReferralCode = () => {
           </Popover>
         ) : (
           <Tooltip color='primary' label={<P size='s'>{t('fusion.userStats.revealCodeInfo')}</P>}>
-            <QuestionMarkCircle color='grey-200' size='s' />
+            <QuestionMarkCircle color='grey-50' size='s' />
           </Tooltip>
         )}
       </StyledDt>

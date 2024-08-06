@@ -4,6 +4,7 @@ import { DialogSize, Spacing } from '../../theme';
 import { Flex } from '../Flex';
 import { H3 } from '../Text';
 import { Button } from '../Button';
+import { Divider } from '../Divider';
 
 type StyledDialogProps = {
   $size: DialogSize;
@@ -52,4 +53,8 @@ const StyledDialogFooter = styled(Flex)`
   ${({ theme }) => theme.dialog.footer};
 `;
 
-export { StyledCloseBtn, StyledDialog, StyledDialogBody, StyledDialogFooter, StyledDialogHeader };
+const StyledDivider = styled(Divider)`
+  ${({ theme }) => theme.dialog.divider};
+`;
+
+export { StyledCloseBtn, StyledDialog, StyledDialogBody, StyledDialogFooter, StyledDialogHeader, StyledDivider };

@@ -1,5 +1,5 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Flex, H2, H3, InformationCircle, P, Spinner, useLocale } from '@gobob/ui';
+import { Alert, Flex, H2, H3, P, Spinner, useLocale } from '@gobob/ui';
 import { useTranslation } from 'react-i18next';
 import { useCallback, useMemo } from 'react';
 
@@ -7,7 +7,7 @@ import { useGetUser } from '../../../../hooks';
 import { apiClient } from '../../../../utils';
 
 import { PartnerCard } from './PartnerCard';
-import { StyledCard, StyledGrid } from './PartnerCard.style';
+import { StyledGrid } from './PartnerCard.style';
 
 function getImageUrl(name: string) {
   return new URL(`../../../../assets/partners/${name.split(' ').join('').toLowerCase()}.png`, import.meta.url).href;
@@ -78,7 +78,7 @@ const PartnersSection = () => {
       <H2 id='ecosystem' size='2xl' weight='semibold'>
         {t('fusion.partners.title')}
       </H2>
-      <P color='grey-200'> {t('fusion.partners.content')}</P>
+      <P color='grey-50'> {t('fusion.partners.content')}</P>
       {isLoading ? (
         <Flex direction='row' justifyContent='center' marginTop='8xl'>
           <Spinner size='36' thickness={5} />
@@ -134,12 +134,11 @@ const PartnersSection = () => {
           </StyledGrid>
         </>
       )}
-      <StyledCard alignItems='center' direction='row' gap='md'>
-        <InformationCircle />
+      <Alert status='info' variant='outlined'>
         <P size='s' weight='semibold'>
           {t('fusion.partners.alert')}
         </P>
-      </StyledCard>
+      </Alert>
     </Flex>
   );
 };

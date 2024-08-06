@@ -1,4 +1,4 @@
-import { DlGroup, Dt, Select, TokenData } from '@gobob/ui';
+import { DlGroup, Dt, Select, TokenSelectItemProps } from '@gobob/ui';
 import styled from 'styled-components';
 
 type StyledDtProps = {
@@ -14,7 +14,7 @@ const StyledDt = styled(Dt)<StyledDtProps>`
   line-height: ${({ $hasExtendedHeight = true }) => $hasExtendedHeight && '1.875rem'};
 `;
 
-const StyledSelect = styled(Select<TokenData>)`
+const StyledSelect = styled(Select<TokenSelectItemProps>)`
   button {
     background-color: ${({ theme }) => theme.color('grey-600')};
   }

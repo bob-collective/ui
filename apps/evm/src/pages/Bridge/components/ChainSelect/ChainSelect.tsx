@@ -34,12 +34,12 @@ const ChainSelect = ({ chainId, selectProps }: ChainSelectProps): JSX.Element =>
   return (
     <Card
       alignSelf='stretch'
-      background='grey-800'
+      background='grey-600'
       direction='row'
-      flex='1 1 45%'
       gap='s'
-      padding='lg'
-      style={{ overflow: 'hidden', maxWidth: '45%' }}
+      paddingX='lg'
+      rounded='md'
+      style={{ overflow: 'hidden', paddingTop: '0.625rem', paddingBottom: '0.625rem' }}
     >
       <Chain chainId={chainId} />
     </Card>

@@ -1,18 +1,4 @@
-import {
-  Dd,
-  Divider,
-  Dl,
-  DlGroup,
-  Dt,
-  Flex,
-  H2,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  ModalProps,
-  P,
-  TextLink
-} from '@gobob/ui';
+import { Dd, Divider, Dl, DlGroup, Dt, Flex, H2, Modal, ModalBody, ModalHeader, ModalProps, P, Link } from '@gobob/ui';
 import { useLocale } from '@gobob/ui';
 import { t } from 'i18next';
 import { Trans } from 'react-i18next';
@@ -53,7 +39,7 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
         </Flex>
       </ModalHeader>
       <ModalBody gap='lg'>
-        <P color='grey-200' size='s'>
+        <P color='grey-50' size='s'>
           <Trans
             i18nKey='fusion.withdrawModal.summary'
             values={{
@@ -62,11 +48,11 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
             }}
           />
         </P>
-        <P color='grey-200' size='s'>
+        <P color='grey-50' size='s'>
           <Trans
             components={{
               xLink: (
-                <TextLink
+                <Link
                   external
                   className='twitter-share-button'
                   href={`https://twitter.com/intent/tweet?text=${twitterMessage}`}
@@ -77,7 +63,7 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
             i18nKey='fusion.withdrawModal.share'
           />
         </P>
-        <P color='grey-200' size='s'>
+        <P color='grey-50' size='s'>
           {t('fusion.withdrawModal.seasonTwoDescription')}
         </P>
         <Dl justifyContent='space-between'>

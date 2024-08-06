@@ -14,14 +14,13 @@ const list: ListTheme = {
       ...transition('common', 'normal')
     },
     hover: {
-      backgroundColor: hexToRgba(color('grey-300'), 20)
-    },
-    active: {
       backgroundColor: hexToRgba(color('grey-300'), 30)
     },
+    active: {
+      backgroundColor: hexToRgba(color('grey-300'), 40)
+    },
     selected: {
-      backgroundColor: color('light'),
-      color: color('dark')
+      backgroundColor: hexToRgba(color('grey-300'), 60)
     }
   }
 };

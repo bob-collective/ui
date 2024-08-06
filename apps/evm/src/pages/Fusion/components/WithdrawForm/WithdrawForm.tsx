@@ -158,13 +158,13 @@ const WithdrawForm = ({ isSmartAccount, onWithdrawalMutationComplete }: Withdraw
   return (
     <>
       {isOthersWithdrawNeeded && isUSDTWithdrawNeeded && (
-        <P color='grey-200' size='s' weight='semibold'>
+        <P color='grey-50' size='s' weight='semibold'>
           USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to
           bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum
         </P>
       )}
       {!isOthersWithdrawNeeded && isUSDTWithdrawNeeded && (
-        <P color='grey-200' size='s' weight='semibold'>
+        <P color='grey-50' size='s' weight='semibold'>
           USDT can only be withdrawn to Ethereum.
         </P>
       )}
@@ -179,9 +179,9 @@ const WithdrawForm = ({ isSmartAccount, onWithdrawalMutationComplete }: Withdraw
           {t('fusion.withdrawModal.bridgeLabel')}
         </AuthButton>
       )}
-      <P color='grey-200' size='s'>
+      <P color='grey-50' size='s'>
         <Trans
-          components={{ strong: <Span color='grey-200' size='s' weight='semibold' /> }}
+          components={{ strong: <Span color='grey-50' size='s' weight='semibold' /> }}
           i18nKey='fusion.withdrawModal.withdrawDescription'
         />
       </P>

@@ -3,20 +3,18 @@ import { StyledObject } from 'styled-components';
 type TabsSize = 's' | 'md' | 'lg';
 
 type TabsTheme = {
-  base: StyledObject<object>;
-  item: {
+  wrapper: StyledObject<object>;
+  tab: {
     base: StyledObject<object>;
     hover: StyledObject<object>;
-    focus: StyledObject<object>;
     selected: StyledObject<object>;
-    focusVisible: StyledObject<object>;
   };
   size: Record<
     TabsSize,
     {
-      base: StyledObject<object>;
-      item: StyledObject<object>;
-      focusVisible: StyledObject<object>;
+      tab: {
+        base: StyledObject<object>;
+      };
     }
   >;
 };

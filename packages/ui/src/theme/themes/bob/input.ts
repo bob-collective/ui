@@ -5,64 +5,99 @@ import { color } from './colors';
 
 const input: InputTheme = {
   base: {
-    color: color('light'),
-    backgroundColor: color('grey-700'),
-    border: `1px solid ${color('grey-400')}`,
+    display: 'block',
+    width: '100%',
+    outline: 'none',
+    font: 'inherit',
+    letterSpacing: 'inherit',
+    background: 'none',
+    textOverflow: 'ellipsis',
+    border: 'none',
+    margin: 0,
+    padding: 0,
+    color: color('light')
+  },
+  wrapper: {
+    width: '100%',
+    height: '100%',
     borderRadius: rounded('md'),
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    backgroundColor: color('grey-600'),
+    borderColor: 'transparent',
     ...transition('common', 'normal')
   },
-  size: {
-    s: {
-      ...typography('s'),
-      fontWeight: fontWeight('normal'),
-      paddingLeft: spacing('s'),
-      paddingRight: spacing('s'),
-      paddingTop: spacing('xs'),
-      paddingBottom: spacing('xs')
-    },
-    md: {
-      ...typography('md'),
-      fontWeight: fontWeight('medium'),
-      paddingLeft: spacing('md'),
-      paddingRight: spacing('md'),
-      paddingTop: spacing('s'),
-      paddingBottom: spacing('s')
-    },
-    lg: {
-      ...typography('xl'),
-      fontWeight: fontWeight('medium'),
-      paddingLeft: spacing('lg'),
-      paddingRight: spacing('lg'),
-      paddingTop: spacing('md'),
-      paddingBottom: spacing('md')
+  hover: {
+    wapper: {
+      borderColor: color('grey-300')
     }
   },
-  hover: {
-    border: `1px solid ${color('grey-300')}`
-  },
   focus: {
-    border: `1px solid ${color('light')}`,
-    boxShadow: `0 0 0 1px ${color('light')}`
-  },
-  placeholder: {
-    color: color('grey-300')
+    wrapper: {
+      borderColor: color('light'),
+      boxShadow: `0 0 0 1px ${color('light')}`
+    }
   },
   disabled: {
-    opacity: 0.5
+    wrapper: {
+      opacity: 0.5
+    }
+  },
+  placeholder: {
+    color: color('grey-50')
   },
   error: {
     base: {
-      border: `1px solid ${color('red-500')}`
+      color: color('red-500')
+    },
+    wrapper: {
+      borderColor: color('red-500')
     },
     hover: {
-      border: `1px solid ${color('red-500')}`
+      wapper: {
+        borderColor: color('red-500')
+      }
     },
     focus: {
-      boxShadow: `0 0 0 1px ${color('red-500')}`
+      wrapper: {
+        boxShadow: `0 0 0 1px ${color('red-500')}`
+      }
     }
   },
   adornment: {
     color: color('grey-300')
+  },
+  sizes: {
+    s: {
+      wrapper: {
+        ...typography('s'),
+        fontWeight: fontWeight('normal'),
+        paddingLeft: spacing('lg'),
+        paddingRight: spacing('lg'),
+        paddingTop: spacing('s'),
+        paddingBottom: spacing('s')
+      }
+    },
+    md: {
+      wrapper: {
+        ...typography('s'),
+        fontWeight: fontWeight('medium'),
+        paddingLeft: spacing('lg'),
+        paddingRight: spacing('lg'),
+        paddingTop: spacing('md'),
+        paddingBottom: spacing('md')
+      }
+    },
+    lg: {
+      wrapper: {
+        ...typography('md'),
+        fontWeight: fontWeight('medium'),
+        paddingLeft: spacing('lg'),
+        paddingRight: spacing('lg'),
+        paddingTop: '0.625rem',
+        paddingBottom: '0.625rem'
+      }
+    }
   }
 };
 

@@ -1,6 +1,18 @@
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/react-query';
-import { Card, Dd, Dl, DlProps, Flex, Item, SelectProps, Span, Spinner, TokenData, TokenListItem } from '@gobob/ui';
+import {
+  Card,
+  Dd,
+  Dl,
+  DlProps,
+  Flex,
+  Item,
+  SelectProps,
+  Span,
+  Spinner,
+  TokenSelectItemProps,
+  TokenListItem
+} from '@gobob/ui';
 import { ReactNode, useMemo } from 'react';
 import { ChainId } from '@gobob/chains';
 
@@ -18,7 +30,7 @@ type Props = {
   amount?: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   amountPlaceholder?: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   onChangeGasTicker?: (ticker: string) => void;
-  selectProps?: Omit<SelectProps<TokenData>, 'children'>;
+  selectProps?: Omit<SelectProps<TokenSelectItemProps>, 'children'>;
   duration?: ReactNode;
   gasLabel?: ReactNode;
 };
@@ -44,9 +56,9 @@ const TransactionDetails = ({
   const { getBalance } = useBalances(chainId);
   const { data: gasTokens } = useGasTokens(chainId);
 
-  const gasSelectItems: TokenData[] = useMemo(
+  const gasSelectItems: TokenSelectItemProps[] = useMemo(
     () =>
-      gasTokens?.map((token): TokenData => {
+      gasTokens?.map((token): TokenSelectItemProps => {
         const balance = getBalance(token.currency.symbol);
 
         return {
@@ -63,11 +75,11 @@ const TransactionDetails = ({
   const gasEstimate = gasEstimateProp || gasEstimatePlaceholder;
 
   return (
-    <Card background='grey-700'>
+    <Card background='grey-600' rounded='md'>
       <Dl direction='column' gap='none' {...props}>
         {amount && (
           <StyledDlGroup wrap alignItems='flex-start' gap='xs' justifyContent='space-between'>
-            <StyledDt $hasExtendedHeight={false} size='xs'>
+            <StyledDt $hasExtendedHeight={false} color='grey-50' size='xs'>
               You will receive
             </StyledDt>
             <Dd>
@@ -89,13 +101,15 @@ const TransactionDetails = ({
         )}
         {duration && (
           <StyledDlGroup justifyContent='space-between'>
-            <StyledDt size='xs'>Transfer time</StyledDt>
+            <StyledDt color='grey-50' size='xs'>
+              Transfer time
+            </StyledDt>
             <Dd size='xs'>{duration}</Dd>
           </StyledDlGroup>
         )}
         {onChangeGasTicker && (
           <Flex alignItems='center' justifyContent='space-between'>
-            <Span color='grey-200' size='xs'>
+            <Span color='grey-50' size='xs'>
               Gas Token
             </Span>
             <StyledSelect
@@ -108,7 +122,7 @@ const TransactionDetails = ({
               onSelectionChange={(ticker) => onChangeGasTicker(ticker as string)}
               {...selectProps}
             >
-              {(data: TokenData) => (
+              {(data: TokenSelectItemProps) => (
                 <Item key={data.currency.symbol} textValue={data.currency.symbol}>
                   <TokenListItem {...data} />
                 </Item>
@@ -118,7 +132,9 @@ const TransactionDetails = ({
         )}
         {gasEstimate && (
           <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
-            <StyledDt size='xs'>{gasLabel}</StyledDt>
+            <StyledDt color='grey-50' size='xs'>
+              {gasLabel}
+            </StyledDt>
             <Dd size='xs'>
               <Flex alignItems='center' elementType='span' gap='s'>
                 {isLoadingGasEstimate && <Spinner size='12' thickness={2} />}

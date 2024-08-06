@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { CSSProperties, HTMLAttributes } from 'react';
 
 import { Color, FontWeight, Typography } from '../../theme';
 import { NormalAlignments } from '../../theme';
@@ -11,6 +11,7 @@ type Props = {
   rows?: number;
   noWrap?: boolean;
   fontFamily?: string;
+  lineHeight?: CSSProperties['lineHeight'];
 };
 
 type NativeAttrs<T = unknown> = Omit<HTMLAttributes<T>, keyof Props>;

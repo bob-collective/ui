@@ -1,17 +1,17 @@
-import { useSelect } from '@react-aria/select';
+import { useSelect, AriaSelectOptions } from '@react-aria/select';
 import { mergeProps, useId } from '@react-aria/utils';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
-import { SelectProps as AriaSelectProps, useSelectState } from '@react-stately/select';
+import { SelectProps as StatelySelectProps, useSelectState } from '@react-stately/select';
 import { CollectionBase, Key, Node } from '@react-types/shared';
 import { ForwardedRef, ReactNode, forwardRef, useRef } from 'react';
 
 import { useDOMRef } from '../../hooks';
-import { InputSizes } from '../../theme';
-import { Field, FieldProps, useFieldProps } from '../Field';
-import { hasError } from '../utils/input';
+import { InputSizes, Spacing } from '../../theme';
+import { HelperText, HelperTextProps } from '../HelperText';
 
 import { SelectModal, SelectModalProps } from './SelectModal';
 import { SelectTrigger } from './SelectTrigger';
+import { StyledField } from './Select.style';
 
 type SelectObject = Record<any, any>;
 
@@ -23,6 +23,7 @@ type Props<T = SelectObject> = {
   asSelectTrigger?: any;
   renderValue?: (item: Node<T>) => ReactNode;
   placeholder?: ReactNode;
+  maxWidth?: Spacing;
 };
 
 type ListboxAttrs = { type?: 'listbox' };
@@ -32,16 +33,24 @@ type ModalAttrs = {
   modalProps?: { ref?: React.Ref<HTMLDivElement> } & Omit<SelectModalProps, 'state' | 'isOpen' | 'onClose' | 'id'>;
 };
 
-// type ConditionalAttrs = ListboxAttrs | ModalAttrs;
-
-type InheritAttrs<T = SelectObject> = Omit<
-  CollectionBase<T> & Omit<FieldProps, 'children'> & AriaSelectProps<T>,
-  keyof Props<T> | 'isDisabled' | 'isLoading' | 'isOpen' | 'isRequired' | 'selectedKey' | 'defaultSelectedKey'
+type AriaAttrs<T = SelectObject> = Omit<
+  CollectionBase<T> & AriaSelectOptions<T> & StatelySelectProps<T>,
+  | keyof Props<T>
+  | 'isDisabled'
+  | 'isLoading'
+  | 'isOpen'
+  | 'isRequired'
+  | 'selectedKey'
+  | 'defaultSelectedKey'
+  | 'description'
+  | 'errorMessage'
 >;
+
+type InheritAttrs<T = SelectObject> = Omit<HelperTextProps, (keyof Props<T> & AriaAttrs<T>) | 'children'>;
 
 type NativeAttrs<T = SelectObject> = Omit<React.InputHTMLAttributes<Element>, keyof Props<T> | 'children'>;
 
-type CommonProps<T = SelectObject> = Props<T> & NativeAttrs<T> & InheritAttrs<T>;
+type CommonProps<T = SelectObject> = Props<T> & NativeAttrs<T> & InheritAttrs<T> & AriaAttrs<T>;
 
 type ListboxSelectProps<T = SelectObject> = CommonProps<T> & ListboxAttrs;
 
@@ -60,6 +69,7 @@ const Select = <T extends SelectObject = SelectObject>(
     open,
     required,
     label,
+    description,
     errorMessage,
     size = 'md',
     placeholder = 'Select an option',
@@ -70,6 +80,10 @@ const Select = <T extends SelectObject = SelectObject>(
     items,
     disabledKeys,
     children,
+    className,
+    hidden,
+    style,
+    maxWidth,
     ...props
   }: SelectProps<T>,
   ref: ForwardedRef<HTMLInputElement>
@@ -78,7 +92,7 @@ const Select = <T extends SelectObject = SelectObject>(
   const buttonRef = useRef<HTMLButtonElement>(null);
   const modalId = useId();
 
-  const ariaProps: AriaSelectProps<T> = {
+  const ariaProps: StatelySelectProps<T> = {
     isDisabled: disabled,
     isOpen: open,
     isRequired: required,
@@ -101,17 +115,7 @@ const Select = <T extends SelectObject = SelectObject>(
     buttonRef
   );
 
-  const { fieldProps, elementProps } = useFieldProps(
-    mergeProps(props, {
-      descriptionProps: mergeProps(descriptionProps, props.descriptionProps || {}),
-      errorMessageProps: mergeProps(errorMessageProps, props.errorMessageProps || {}),
-      errorMessage,
-      labelProps: mergeProps(labelProps, props.labelProps || {}),
-      label
-    })
-  );
-
-  const error = hasError({ errorMessage, isInvalid });
+  const error = isInvalid || !!errorMessage;
 
   const selectTriggerProps =
     type === 'listbox'
@@ -127,28 +131,38 @@ const Select = <T extends SelectObject = SelectObject>(
         );
 
   return (
-    <Field {...fieldProps}>
+    <StyledField
+      $disabled={disabled}
+      $maxWidth={maxWidth}
+      className={className}
+      direction='column'
+      hidden={hidden}
+      style={style}
+    >
       <VisuallyHidden aria-hidden='true'>
         <input
           ref={inputRef}
           disabled={disabled}
           name={name}
           tabIndex={-1}
-          value={onChange ? state.selectedKey.toString() || '' : undefined}
+          value={onChange ? state.selectedKey?.toString() || '' : undefined}
           onChange={onChange}
         />
       </VisuallyHidden>
       <SelectTrigger
-        {...mergeProps(elementProps, selectTriggerProps)}
+        {...mergeProps(selectTriggerProps)}
         ref={buttonRef}
         aria-controls={modalId}
         aria-expanded={state.isOpen}
         as={asSelectTrigger}
         disabled={disabled}
         hasError={error}
+        label={label}
+        labelProps={labelProps}
         name={name}
         placeholder={placeholder}
         size={size}
+        value={state.selectedKey?.toString()}
         valueProps={valueProps}
       >
         {state.selectedItem && renderValue(state.selectedItem)}
@@ -167,7 +181,15 @@ const Select = <T extends SelectObject = SelectObject>(
           state={state}
         />
       )}
-    </Field>
+      {(description || errorMessage) && (
+        <HelperText
+          description={description}
+          descriptionProps={descriptionProps}
+          errorMessage={errorMessage as ReactNode}
+          errorMessageProps={errorMessageProps}
+        />
+      )}
+    </StyledField>
   );
 };
 

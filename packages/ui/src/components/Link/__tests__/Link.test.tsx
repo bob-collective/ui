@@ -2,11 +2,11 @@ import { screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { testA11y, render } from '@gobob/test-utils';
 
-import { TextLink } from '..';
+import { Link } from '..';
 
-describe('TextLink', () => {
+describe('Link', () => {
   it('should render correctly', () => {
-    const { unmount } = render(<TextLink>link</TextLink>);
+    const { unmount } = render(<Link>link</Link>);
 
     expect(() => unmount()).not.toThrow();
   });
@@ -14,19 +14,19 @@ describe('TextLink', () => {
   it('ref should be forwarded', () => {
     const ref = createRef<HTMLAnchorElement>();
 
-    render(<TextLink ref={ref}>link</TextLink>);
+    render(<Link ref={ref}>link</Link>);
 
     expect(ref.current).not.toBeNull();
   });
 
   it('should pass a11y', async () => {
-    await testA11y(<TextLink>link</TextLink>);
+    await testA11y(<Link>link</Link>);
   });
 
   it('should render pressable link as a span', async () => {
     const handlePress = jest.fn();
 
-    render(<TextLink onPress={handlePress}>link</TextLink>);
+    render(<Link onPress={handlePress}>link</Link>);
 
     expect(screen.getByRole('link').tagName).toBe('SPAN');
   });

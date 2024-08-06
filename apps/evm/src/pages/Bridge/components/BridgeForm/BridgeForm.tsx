@@ -1,12 +1,11 @@
 import { ChainId } from '@gobob/chains';
 import { TBTC, WBTC } from '@gobob/tokens';
-import { ArrowRight, Divider, Flex, InformationCircle, P, RadioGroup } from '@gobob/ui';
+import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
 import { Key, useCallback, useMemo, useState } from 'react';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { FeatureFlags, useFeatureFlag, useTokens } from '../../../../hooks';
 import { BridgeOrigin } from '../../Bridge';
-import { StyledCard } from '../../Bridge.style';
 import { useGetTransactions } from '../../hooks';
 import { L2BridgeData, OnRampData } from '../../types';
 import { ChainSelect } from '../ChainSelect';
@@ -14,7 +13,7 @@ import { ExternalBridgeForm } from '../ExternalBridgeForm';
 import { BridgeTransactionModal, OnRampTransactionModal } from '../TransactionModal';
 
 import { BobBridgeForm } from './BobBridgeForm';
-import { StyledRadio } from './BridgeForm.style';
+import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
 type TransactionModalState = {
@@ -162,11 +161,11 @@ const BridgeForm = ({
   return (
     <>
       <Flex direction='column' marginTop='2xl'>
-        <Flex alignItems='center' gap={{ base: 'md', md: '2xl' }}>
+        <StyledChainsGrid alignItems='center' gap={{ base: 'md', md: '2xl' }}>
           <ChainSelect chainId={type === 'deposit' ? chain : L2_CHAIN} selectProps={fromChainSelectProps} />
           <ArrowRight size='xs' />
           <ChainSelect chainId={type === 'withdraw' ? chain : L2_CHAIN} selectProps={toChainSelectProps} />
-        </Flex>
+        </StyledChainsGrid>
         <Divider marginY='xl' />
         <RadioGroup
           aria-label='bridge network'
@@ -175,29 +174,18 @@ const BridgeForm = ({
           value={bridgeOrigin}
           onValueChange={(value) => onChangeOrigin?.(value as BridgeOrigin)}
         >
-          <StyledRadio
-            $isSelected={bridgeOrigin === BridgeOrigin.INTERNAL}
-            isDisabled={isBobBridgeDisabled}
-            value={BridgeOrigin.INTERNAL}
-          >
+          <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.INTERNAL}>
             BOB Bridge
           </StyledRadio>
-          <StyledRadio
-            $isSelected={bridgeOrigin === BridgeOrigin.EXTERNAL}
-            isDisabled={isExternalBridgeDisabled}
-            value={BridgeOrigin.EXTERNAL}
-          >
+          <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.EXTERNAL}>
             3rd Party
           </StyledRadio>
         </RadioGroup>
         {type === 'withdraw' && bridgeOrigin === BridgeOrigin.INTERNAL && (
-          <StyledCard alignItems='center' direction='row' gap='md' marginTop='2xl'>
-            <InformationCircle />
-            <P size='s' weight='semibold'>
-              Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
-              bridge.
-            </P>
-          </StyledCard>
+          <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
+            Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
+            bridge.
+          </Alert>
         )}
         {bridgeOrigin === BridgeOrigin.INTERNAL ? (
           chain === 'BTC' && btcTokens?.length ? (

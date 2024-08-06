@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Alert, Card, Flex, H1, H2, P, Span, Table, TextLink } from '@gobob/ui';
+import { Accordion, AccordionItem, Alert, Card, Flex, H1, H2, P, Span, Table, Link } from '@gobob/ui';
 import { ReactNode } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -78,7 +78,7 @@ type SpiceMeterProps = {
 const SpiceMeter = ({ isHigh, isLow, isMedium, label }: SpiceMeterProps) => (
   <Flex alignItems='center' elementType='span' gap='xs' style={{ display: 'inline-flex' }}>
     {label && (
-      <Span color='grey-200' size='s'>
+      <Span color='grey-50' size='s'>
         {label}:
       </Span>
     )}
@@ -91,7 +91,7 @@ const SpiceMeter = ({ isHigh, isLow, isMedium, label }: SpiceMeterProps) => (
       {isMedium && (
         <>
           {isLow && (
-            <Span color='grey-200' size='s'>
+            <Span color='grey-50' size='s'>
               /
             </Span>
           )}
@@ -103,7 +103,7 @@ const SpiceMeter = ({ isHigh, isLow, isMedium, label }: SpiceMeterProps) => (
       {isHigh && (
         <>
           {isMedium && (
-            <Span color='grey-200' size='s'>
+            <Span color='grey-50' size='s'>
               /
             </Span>
           )}
@@ -134,7 +134,7 @@ const Info = () => {
         <H1 size='2xl' weight='semibold'>
           What is BOB Fusion Season 2?
         </H1>
-        <P color='grey-200'>
+        <P color='grey-50'>
           BOB Fusion is the official points program of BOB, where users can harvest Spice (points) based on:
         </P>
         <StyledList>
@@ -143,21 +143,21 @@ const Info = () => {
           <li>Referrals ({<SpiceMeter isHigh isLow isMedium />})</li>
           <li>Quests and special events ({<SpiceMeter isLow isMedium />})</li>
         </StyledList>
-        <P color='grey-200'>
+        <P color='grey-50'>
           Intract XP converts into Spice in a 1:100 ratio. E.g. if you have 1000 XP from BOB campaigns, it will be
           converted to 100,000 Spice and added to your BOB Fusion Dashboard.
         </P>
-        <P color='grey-200'>DApps can use the BOB Fusion system to bootstrap their launch on BOB.</P>
+        <P color='grey-50'>DApps can use the BOB Fusion system to bootstrap their launch on BOB.</P>
         <Accordion defaultExpandedKeys={['2']}>
           <AccordionItem key='1' hasChildItems={false} title='Season 1'>
-            <P color='grey-200'>
+            <P color='grey-50'>
               Season 1 started on 27/03/2024 and ended with the BOB mainnet launch on 1st May 2024. During Season 1,
               users harvested Spice by locking in whitelisted assets with different multipliers. The on-chain TVL for
               Season 1 reached a whopping 300 Million USD in just 4 weeks.
             </P>
           </AccordionItem>
           <AccordionItem key='2' hasChildItems={false} title='Season 2'>
-            <P color='grey-200'>
+            <P color='grey-50'>
               Season 2 started on 1st May 2024 with more ways to harvest Spice based on-chain activity. Below are
               different ways in which you can harvest Spice during Season 2.
             </P>
@@ -168,12 +168,12 @@ const Info = () => {
         <H1 size='2xl' weight='semibold'>
           Spice System
         </H1>
-        <P color='grey-200'>Spice represents a users or projects support to the growth of the BOB ecosystem.</P>
+        <P color='grey-50'>Spice represents a users or projects support to the growth of the BOB ecosystem.</P>
         <Accordion>
           <AccordionItem key='1' hasChildItems={false} title={<AccordionItemTitle isHigh isMedium title='TVL' />}>
             <Flex direction='column' gap='lg'>
               <P>Harvesting</P>
-              <P color='grey-200'>
+              <P color='grey-50'>
                 Supplying TVL into dApps generates the most Spice. Exact amount depends on the asset (see multipliers)
                 and the dApp. Higher effort/risk and benefit for the ecosystem results in more Spice.
               </P>
@@ -187,7 +187,7 @@ const Info = () => {
               </StyledList>
               <MultiplierTable />
               <P>Distribution</P>
-              <P color='grey-200'>
+              <P color='grey-50'>
                 TVL Spice points are allocated to dApps that re-distribute them to users. Distribution may vary from
                 project to project (e.g. special bonuses or requirements). DYOR.
               </P>
@@ -200,18 +200,18 @@ const Info = () => {
           >
             <Flex direction='column' gap='lg'>
               <P>Harvesting</P>
-              <P color='grey-200'>You also harvest Spice when you use dApps participating in BOB Fusion.</P>
+              <P color='grey-50'>You also harvest Spice when you use dApps participating in BOB Fusion.</P>
               <Alert status='warning' variant='outlined'>
                 Rate limits and anti-spam measures are in place. Extreme cases of spamming may lead to exclusion from
                 BOB Fusion.
               </Alert>
-              <P color='grey-200'>This Spice is split 50:50 between user and dApp.</P>
+              <P color='grey-50'>This Spice is split 50:50 between user and dApp.</P>
               <StyledList>
                 <li>User points: directly distributed</li>
                 <li>dApp points: dApps redistribute to their LPs (DeFi), creators (NFTs) and or via special quests.</li>
               </StyledList>
               <P>Distribution</P>
-              <P color='grey-200'>
+              <P color='grey-50'>
                 TVL Spice points are allocated to dApps that re-distribute them to users. Distribution may vary from
                 project to project (e.g. special bonuses or requirements). DYOR.
               </P>
@@ -228,9 +228,9 @@ const Info = () => {
           >
             <Flex direction='column' gap='lg'>
               <P>Harvesting</P>
-              <P color='grey-200'>Users can harvest Spice by completing quests of the Galxe or Intract campaign.</P>
+              <P color='grey-50'>Users can harvest Spice by completing quests of the Galxe or Intract campaign.</P>
               <P>Distribution</P>
-              <P color='grey-200'>
+              <P color='grey-50'>
                 Invite users to join BOB Fusion and get 15% Spice for direct invites and 7% for invites of your
                 invitees. The referral bonus is calculated based on ALL Spice the referred users harvest until the end
                 of the BOB Fusion campaign, across all of the apps they use (excluding points they collect from their
@@ -252,9 +252,9 @@ const Info = () => {
           >
             <Flex direction='column' gap='lg'>
               <P>Harvesting</P>
-              <P color='grey-200'>Users can harvest Spice by completing quests of the Galxe or Intract campaign. </P>
+              <P color='grey-50'>Users can harvest Spice by completing quests of the Galxe or Intract campaign. </P>
               <P>Distribution</P>
-              <P color='grey-200'>
+              <P color='grey-50'>
                 Users will earn points with the respective campaign website (Galxe or Intract) which will be manually
                 added to their Spice balance by the BOB team at after the campaign ended.
               </P>
@@ -266,11 +266,11 @@ const Info = () => {
         <H2 size='2xl' weight='semibold'>
           {t('fusion.community.title')}
         </H2>
-        <P color='grey-200'>
+        <P color='grey-50'>
           <Trans
             components={{
-              xLink: <TextLink external href='https://twitter.com/build_on_bob' />,
-              discordLink: <TextLink external href='https://discord.gg/gobob' />
+              xLink: <Link external href='https://twitter.com/build_on_bob' />,
+              discordLink: <Link external href='https://discord.gg/gobob' />
             }}
             i18nKey='fusion.community.content'
           />
@@ -280,19 +280,19 @@ const Info = () => {
         <H2 size='2xl' weight='semibold'>
           For Projects
         </H2>
-        <P color='grey-200'>
+        <P color='grey-50'>
           Reach out to the team on{' '}
           {
-            <TextLink external href={SocialLinks.TELEGRAM}>
+            <Link external href={SocialLinks.TELEGRAM}>
               Telegram
-            </TextLink>
+            </Link>
           }{' '}
           to learn more about the opportunities for builders to grow their project with our BOB Fusion campaign or read
           our{' '}
           {
-            <TextLink external href={NotionLinks.LAUNCH_PARTNERS_CHECKLIST}>
+            <Link external href={NotionLinks.LAUNCH_PARTNERS_CHECKLIST}>
               project checklist
-            </TextLink>
+            </Link>
           }{' '}
           that includes information about how to whitelist your dApp or add custom assets to the BOB Fusion campaign.
         </P>

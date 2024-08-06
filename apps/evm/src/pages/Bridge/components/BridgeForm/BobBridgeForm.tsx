@@ -3,7 +3,7 @@ import { Currency, CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/curre
 import { UINT_256_MAX, useApproval } from '@gobob/hooks';
 import { INTERVAL, useMutation, usePrices, useQuery } from '@gobob/react-query';
 import { USDC } from '@gobob/tokens';
-import { Flex, Input, TokenData, TokenInput, toast, useForm } from '@gobob/ui';
+import { Flex, Input, TokenSelectItemProps, TokenInput, toast, useForm } from '@gobob/ui';
 import { useAccount, useChainId, useEstimateFeesPerGas, useIsContract, usePublicClient } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
@@ -479,9 +479,9 @@ const BobBridgeForm = ({
 
   const valueUSD = useMemo(() => getUsdValue(ticker, amount), [amount, getUsdValue, ticker]);
 
-  const tokenInputItems: TokenData[] = useMemo(
+  const tokenInputItems: TokenSelectItemProps[] = useMemo(
     () =>
-      tokens?.map((token): TokenData => {
+      tokens?.map((token): TokenSelectItemProps => {
         const balance = getBalance(token.l1Currency.symbol);
 
         return {
@@ -526,7 +526,6 @@ const BobBridgeForm = ({
         humanBalance={humanBalance}
         items={tokenInputItems}
         label='Amount'
-        size='lg'
         type='selectable'
         valueUSD={valueUSD}
         onChangeCurrency={handleChangeTicker}

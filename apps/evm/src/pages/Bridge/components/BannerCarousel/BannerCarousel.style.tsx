@@ -52,11 +52,23 @@ const StyledSlider = styled(Slider)`
 
   .slick-prev,
   .slick-next {
-    color: ${({ theme }) => theme.color('grey-300')};
-    width: auto;
-    height: auto;
+    color: ${({ theme }) => theme.color('grey-200')};
+    width: ${({ theme }) => theme.spacing('4xl')};
+    height: ${({ theme }) => theme.spacing('4xl')};
     z-index: 1;
     transition: ${({ theme }) => theme.transition('colors', 'fast')};
+    border-radius: ${({ theme }) => theme.rounded('md')};
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: ${({ theme }) => theme.color('grey-600')};
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
 
     &::before {
       content: unset;
@@ -70,7 +82,7 @@ const StyledSlider = styled(Slider)`
 
   .slick-dots li button:before {
     font-size: 10px;
-    color: ${({ theme }) => theme.color('grey-100')};
+    color: ${({ theme }) => theme.color('grey-200')};
     transition: ${({ theme }) => theme.transition('colors', 'fast')};
   }
 

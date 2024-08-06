@@ -1,92 +1,139 @@
 import styled, { css } from 'styled-components';
 
-import { TokenInputSize } from '../../theme';
-import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { StyledTrigger } from '../Select/Select.style';
 import { Span } from '../Text';
+import { Divider } from '../Divider';
+import { Button } from '../Button';
 
-type StyledListItemSelectedLabelProps = {
-  $isSelected: boolean;
+import { Token } from './Token';
+
+type StyledBaseInputProps = {
+  $isInvalid: boolean;
 };
 
-type StyledTokenAdornmentProps = {
-  $size: TokenInputSize;
+type StyledFieldProps = {
+  $isHovered: boolean;
+  $isFocused: boolean;
+  $isInvalid: boolean;
+  $isDisabled?: boolean;
 };
 
-const StyledTicker = styled.span`
-  color: inherit;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
+const StyledBaseInput = styled.input<StyledBaseInputProps>`
+  ${({ theme, $isInvalid }) => css`
+    ${theme.tokenInput.base}
+    ${$isInvalid && theme.input.error.base}
 
-const StyledTokenAdornment = styled(Flex)<StyledTokenAdornmentProps>`
-  ${({ theme, $size }) => css`
-    ${theme.tokenInput.addorment.token.base}
-    ${theme.tokenInput.size[$size].addornment.token.base}
+    &::placeholder {
+      ${theme.tokenInput.placeholder}
+    }
   `}
 `;
 
-const StyledTokenImg = styled.img<StyledTokenAdornmentProps>`
-  ${({ theme, $size }) => theme.tokenInput.size[$size].addornment.token.img}
+const StyledBaseTokenInputWrapper = styled(Flex)<StyledFieldProps>`
+  ${({ theme, $isInvalid, $isFocused, $isHovered, $isDisabled }) => css`
+    ${theme.tokenInput.wrapper}
+    ${$isInvalid && theme.tokenInput.error.wrapper}
+    ${$isHovered ? ($isInvalid ? theme.tokenInput.error.hover.wapper : theme.tokenInput.hover.wapper) : undefined}
+    ${$isFocused ? ($isInvalid ? theme.tokenInput.error.focus.wrapper : theme.tokenInput.focus.wrapper) : undefined}
+    ${$isDisabled && theme.input.disabled.wrapper}
+  `}
+`;
+
+const StyledInputWrapper = styled(Flex)`
+  ${({ theme }) => css`
+    ${theme.tokenInput.inputWrapper}
+  `}
+`;
+
+const StyledDivider = styled(Divider)`
+  ${({ theme }) => css`
+    ${theme.tokenInput.divider}
+  `}
+`;
+
+const StyledBottomWrapper = styled(Flex)`
+  ${({ theme }) => css`
+    ${theme.tokenInput.bottomWrapper}
+  `}
+`;
+
+const StyledBalanceButton = styled(Button)`
+  ${({ theme }) => css`
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.spacing('xs')};
+    height: auto;
+    ${theme.tokenInput.balance}
+  `}
+`;
+
+const StyledUSDAdornment = styled.span`
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  ${({ theme }) => theme.tokenInput.usd}
+`;
+
+const StyledTokenImg = styled.img`
+  ${({ theme }) => theme.tokenInput.token.img}
   border-radius: ${({ theme }) => theme.rounded('full')};
 `;
 
+const StyledFixedTokenAdornment = styled(Token)`
+  ${({ theme }) => css`
+    ${theme.tokenInput.token.base}
+    border: 1px solid ${theme.color('grey-300')};
+    height: 2.5rem;
+    border-radius: ${theme.rounded('full')};
+  `}
+`;
+
 const StyledTokenSelect = styled(StyledTrigger)`
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  overflow: hidden;
-  margin-left: -1px;
+  border-radius: ${({ theme }) => theme.rounded('full')};
+  ${({ theme, ...props }) => css`
+    ${theme.tokenInput.token.base}
+    ${!(props as any)['data-value'] && theme.tokenInput.token.placeholder}
+    height: 2.5rem;
+  `}
 `;
 
-const StyledListItemLabel = styled(Span)<StyledListItemSelectedLabelProps>`
+const StyledListItemLabel = styled(Span)`
   text-overflow: ellipsis;
   overflow: hidden;
-
-  ${({ theme, $isSelected }) => {
-    return css`
-      ${theme.tokenInput.list.item.ticker}
-      ${$isSelected && theme.tokenInput.list.item.selected.ticker}
-    `;
-  }}
+  ${({ theme }) => theme.tokenInput.list.item.ticker};
 `;
 
-const StyledListItemUsd = styled(Span)<StyledListItemSelectedLabelProps>`
+const StyledListItemUsd = styled(Span)`
   text-overflow: ellipsis;
   overflow: hidden;
+  ${({ theme }) => theme.tokenInput.list.item.usd};
+`;
 
-  ${({ theme, $isSelected }) => {
-    return css`
-      ${theme.tokenInput.list.item.usd}
-      ${$isSelected && theme.tokenInput.list.item.selected.usd}
-    `;
-  }}
+const StyledListItemTokenImg = styled.img`
+  ${({ theme }) => theme.tokenInput.list.item.img}
+  border-radius: ${({ theme }) => theme.rounded('full')};
 `;
 
 const StyledListTokenWrapper = styled(Flex)`
   overflow: hidden;
 `;
 
-const StyledBalance = styled(Flex)`
-  max-height: 1.625rem;
-  ${({ theme }) => theme.tokenInput.balance}
-`;
-
-const StyledMaxButton = styled(Button)`
-  height: ${({ theme }) => theme.spacing('2xl')};
-  padding: 0 ${({ theme }) => theme.spacing('s')};
-  ${({ theme }) => ({ ...theme.typography('xs') })}
-  font-weight: ${({ theme }) => theme.fontWeight('medium')};
-`;
-
 export {
   StyledListItemLabel,
   StyledListTokenWrapper,
-  StyledTicker,
-  StyledBalance,
-  StyledTokenAdornment,
   StyledTokenSelect,
   StyledTokenImg,
   StyledListItemUsd,
-  StyledMaxButton
+  StyledBaseInput,
+  StyledBaseTokenInputWrapper,
+  StyledBalanceButton,
+  StyledUSDAdornment,
+  StyledInputWrapper,
+  StyledBottomWrapper,
+  StyledDivider,
+  StyledListItemTokenImg,
+  StyledFixedTokenAdornment
 };

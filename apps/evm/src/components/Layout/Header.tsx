@@ -65,7 +65,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
             <Popover crossOffset={-50} isOpen={isOpen} onOpenChange={setOpen}>
               <PopoverTrigger>
                 <Button isIconOnly aria-label='Show secondary navigation' size='s' variant='ghost'>
-                  <EllipsisHorizontal color='grey-200' size='s' />
+                  <EllipsisHorizontal color='light' size='s' />
                 </Button>
               </PopoverTrigger>
               <PopoverContent>

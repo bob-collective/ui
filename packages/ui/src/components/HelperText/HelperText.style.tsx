@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { visuallyHidden } from '../utils/visually-hidden';
 
@@ -8,11 +8,16 @@ type StyledHelperTextProps = {
 };
 
 const StyledHelperText = styled.div<StyledHelperTextProps>`
-  font-weight: ${({ theme }) => theme.fontWeight('medium')};
-  ${({ theme }) => theme.typography('xs')}
-  color: ${({ $hasError, theme }) => ($hasError ? theme.color('red-500') : theme.color('grey-100'))};
-  padding: ${({ theme }) => theme.spacing('xs')} 0;
-  ${({ $isHidden }) => $isHidden && visuallyHidden()}
+  ${({ theme, $hasError, $isHidden }) => css`
+    ${theme.label.base}
+    ${$hasError && theme.label.error.base}
+    
+    ${theme.typography('xs')}
+    ${$isHidden && visuallyHidden()}
+
+    font-weight: ${theme.fontWeight('medium')};
+    padding: ${theme.spacing('xs')} 0;
+  `}
 `;
 
 const StyledSubHelperText = styled.p`

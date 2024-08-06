@@ -44,7 +44,7 @@ const ButtonGroup = ({
         <PopoverContent>
           <PopoverBody>
             {showOnlyConnect ? (
-              <Button size='s' onPress={onPressConnect}>
+              <Button color='primary' size='s' onPress={onPressConnect}>
                 {connectLabel}
               </Button>
             ) : (
@@ -62,7 +62,7 @@ const ButtonGroup = ({
 
   if (showOnlyConnect) {
     return (
-      <Button size='s' variant='outline' onPress={onPressConnect}>
+      <Button color='primary' size='s' onPress={onPressConnect}>
         {connectLabel}
       </Button>
     );

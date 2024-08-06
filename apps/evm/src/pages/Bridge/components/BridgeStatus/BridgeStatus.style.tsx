@@ -1,4 +1,4 @@
-import { Spinner, TextLink } from '@gobob/ui';
+import { Spinner, Link } from '@gobob/ui';
 import { P } from '@gobob/ui';
 import styled from 'styled-components';
 import { AuthButton } from '@gobob/connect-ui';
@@ -9,7 +9,7 @@ type StyledPillProps = {
   $status: BridgeStepStatus;
 };
 
-const StyledPill = styled(TextLink)<StyledPillProps>`
+const StyledPill = styled(Link)<StyledPillProps>`
   display: inline-flex;
   width: min-content;
   white-space: nowrap;
@@ -19,12 +19,12 @@ const StyledPill = styled(TextLink)<StyledPillProps>`
   border-radius: ${({ theme }) => theme.rounded('full')};
   background-color: ${({ theme, $status }) =>
     $status === 'complete'
-      ? theme.color('grey-400')
+      ? theme.color('grey-600')
       : $status === 'ongoing'
         ? theme.color('green-300')
         : $status === 'failed'
           ? theme.color('red-800')
-          : theme.color('grey-400')};
+          : theme.color('grey-600')};
   opacity: ${({ $status }) => ($status === 'idle' ? '.7' : '1')};
   color: ${({ $status, theme }) => ($status === 'ongoing' ? theme.color('dark') : theme.color('light'))};
 

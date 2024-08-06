@@ -1,6 +1,5 @@
-import { ArrowTopRightOnSquare, Avatar, Card, Flex, P } from '@gobob/ui';
+import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 
-import { StyledAnchor, StyledExternalBridgeCard } from './ExternalBridgeForm.style';
 import { Meson } from './Meson';
 import { Owl } from './Owl';
 import { Relay } from './Relay';
@@ -54,14 +53,16 @@ type ExternalBridgeCardProps = Props;
 
 const ExternalBridgeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Element => {
   const { href, name, icon: Icon, disabled } = bridges[bridge];
+  const typeHref = typeof href === 'string' ? href : href[type];
 
-  const card = (
-    <StyledExternalBridgeCard
-      $isDisabled={disabled}
+  return (
+    <Card
+      {...{ external: true, href: typeHref }}
       alignItems='center'
-      background='grey-700'
+      background='grey-600'
       direction='row'
-      isHoverable={!disabled}
+      elementType={Link}
+      isDisabled={disabled}
       isPressable={!disabled}
       justifyContent='space-between'
       padding='lg'
@@ -78,19 +79,7 @@ const ExternalBridgeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Elem
       ) : (
         <ArrowTopRightOnSquare size='s' />
       )}
-    </StyledExternalBridgeCard>
-  );
-
-  if (disabled) {
-    return card;
-  }
-
-  const typeHref = typeof href === 'string' ? href : href[type];
-
-  return (
-    <StyledAnchor href={typeHref} rel='noreferrer' target='_blank'>
-      {card}
-    </StyledAnchor>
+    </Card>
   );
 };
 

@@ -1,4 +1,4 @@
-import { H2, P, Flex, TextLink } from '@gobob/ui';
+import { H2, P, Flex, Link } from '@gobob/ui';
 import { Trans, useTranslation } from 'react-i18next';
 
 const Challenges = () => {
@@ -9,11 +9,11 @@ const Challenges = () => {
       <H2 size='2xl' weight='semibold'>
         {t('fusion.challenges.title')}
       </H2>
-      <P color='grey-200'>
+      <P color='grey-50'>
         <Trans
           components={{
             challengeLink: (
-              <TextLink
+              <Link
                 external
                 href='https://www.intract.io/explore?query=BOB+Summer+Fest&hideCompleted=true&hideExpired=true&sortBy=participation'
                 size='s'

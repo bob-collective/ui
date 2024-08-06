@@ -9,7 +9,7 @@ import {
   P,
   toast,
   ArrowLeft,
-  TextLink
+  Link
 } from '@gobob/ui';
 import { Address, Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from '@gobob/wagmi';
 import {
@@ -238,21 +238,21 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               </P>
               <P size='s'>
                 By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the{' '}
-                <TextLink
+                <Link
                   external
                   href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
                   size='inherit'
                 >
                   Terms of Service
-                </TextLink>{' '}
+                </Link>{' '}
                 and that you have read and understood our{' '}
-                <TextLink
+                <Link
                   external
                   href='https://uploads-ssl.webflow.com/6620e8932695794632789d89/66aa4eac1074934d060d127c_20240731%20-%20BOB%20Foundation%20-%20Privacy%20Policy.pdf'
                   size='inherit'
                 >
                   Privacy policy
-                </TextLink>
+                </Link>
                 .
               </P>
               <Flex direction='column' gap='lg'>
