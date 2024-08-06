@@ -64,15 +64,10 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       <StyledCard
         ref={cardRef}
         $background={background}
-<<<<<<< HEAD
         $borderColor={borderColor}
         $disableAnimation={disableAnimation}
         $isDisabled={isDisabled}
         $isFocusVisible={isFocusVisible}
-=======
-        $bordered={bordered}
-        $isDisabled={isDisabled}
->>>>>>> a9be729 (fix: send form)
         $isHoverable={isHoverable}
         $isPressable={isPressable}
         $rounded={rounded}

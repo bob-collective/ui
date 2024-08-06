@@ -74,7 +74,7 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       isDisabled,
       isInvalid: isInvalidProp,
       defaultValue,
-      inputMode = 'decimal',
+      inputMode,
       value = '',
       endAdornment,
       currency,
@@ -142,16 +142,7 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
 
     const hasLabel = !!label || !!balance;
 
-<<<<<<< HEAD
     const isBalanceDisabled = !currency || isDisabled || Number(balance) === 0;
-=======
-    // FIXME: move this into Field
-    const { fieldProps: styleFieldProps } = useFieldProps({
-      ...props,
-      descriptionProps,
-      errorMessageProps
-    });
->>>>>>> af0bb56 (fix: minor ui)
 
     const hasHelpText = !!description || !!errorMessage;
 

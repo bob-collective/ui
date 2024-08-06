@@ -10,12 +10,9 @@ export { ArrowsUpDown } from './ArrowsUpDown';
 export { ArrowTopRightOnSquare } from './ArrowTopRightOnSquare';
 export { ArrowTrendingUp } from './ArrowTrendingUp';
 export { ArrowUp } from './ArrowUp';
-export { Bars3 } from './Bars3';
-<<<<<<< HEAD
 export { BankNotes } from './BankNotes';
-=======
+export { Bars3 } from './Bars3';
 export { BLogo } from './BLogo';
->>>>>>> 24190e7 (feat: add telegram (#81))
 export { Bolt } from './Bolt';
 export { ChatBubbleLeftRight } from './ChatBubbleLeftRight';
 export { Check } from './Check';

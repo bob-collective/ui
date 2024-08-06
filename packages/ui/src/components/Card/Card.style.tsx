@@ -11,7 +11,6 @@ type StyledCardProps = {
   $isFocusVisible?: boolean;
   $isPressable?: boolean;
   $isDisabled?: boolean;
-<<<<<<< HEAD
   $isHoverable?: boolean;
   $disableAnimation?: boolean;
 };
@@ -29,20 +28,6 @@ const StyledCard = styled(Flex)<StyledCardProps>`
     $rounded,
     theme
   }) => {
-=======
-};
-
-const StyledCard = styled(Flex)<StyledCardProps>`
-  border-radius: ${({ $rounded, theme }) => theme.rounded($rounded)};
-  cursor: ${({ $isPressable, $isDisabled }) => !$isDisabled && $isPressable && 'pointer'};
-  outline: none;
-  opacity: ${({ $isDisabled }) => $isDisabled && '.5'};
-
-  // TODO: add isHoverable
-  ${({ $bordered, $isPressable, $shadowed, $background, theme }) => {
-    const { border, boxShadow, backgroundColor, ...baseCss } = theme.card.base;
-
->>>>>>> a9be729 (fix: send form)
     return css`
       ${theme.card.base}
 
