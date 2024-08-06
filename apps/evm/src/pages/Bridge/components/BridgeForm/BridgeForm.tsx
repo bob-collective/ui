@@ -13,7 +13,7 @@ import { ExternalBridgeForm } from '../ExternalBridgeForm';
 import { BridgeTransactionModal, OnRampTransactionModal } from '../TransactionModal';
 
 import { BobBridgeForm } from './BobBridgeForm';
-import { StyledRadio } from './BridgeForm.style';
+import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
 type TransactionModalState = {
@@ -161,11 +161,11 @@ const BridgeForm = ({
   return (
     <>
       <Flex direction='column' marginTop='2xl'>
-        <Flex alignItems='center' gap={{ base: 'md', md: '2xl' }}>
+        <StyledChainsGrid alignItems='center' gap={{ base: 'md', md: '2xl' }}>
           <ChainSelect chainId={type === 'deposit' ? chain : L2_CHAIN} selectProps={fromChainSelectProps} />
           <ArrowRight size='xs' />
           <ChainSelect chainId={type === 'withdraw' ? chain : L2_CHAIN} selectProps={toChainSelectProps} />
-        </Flex>
+        </StyledChainsGrid>
         <Divider marginY='xl' />
         <RadioGroup
           aria-label='bridge network'

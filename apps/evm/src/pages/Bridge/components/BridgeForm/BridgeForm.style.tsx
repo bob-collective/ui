@@ -1,4 +1,4 @@
-import { Radio } from '@gobob/ui';
+import { Flex, Radio } from '@gobob/ui';
 import styled from 'styled-components';
 
 const StyledRadio = styled(Radio)`
@@ -33,4 +33,9 @@ const StyledRadio = styled(Radio)`
   }
 `;
 
-export { StyledRadio };
+const StyledChainsGrid = styled(Flex)`
+  display: grid;
+  grid-template-columns: 1fr ${({ theme }) => theme.spacing('xl')} 1fr;
+`;
+
+export { StyledRadio, StyledChainsGrid };

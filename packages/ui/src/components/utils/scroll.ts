@@ -1,41 +1,20 @@
 import { css } from 'styled-components';
 
 const customScrollbarCSS = css`
-  ::-webkit-scrollbar {
-    width: 14px;
-    height: 18px;
+  &::-webkit-scrollbar {
+    ${({ theme }) => theme.scroll.base}
   }
 
-  ::-webkit-scrollbar-thumb {
-    height: 30px;
-    border: 4px solid rgba(0, 0, 0, 0);
-    background-clip: padding-box;
-    background-color: red;
-    -webkit-border-radius: 7px;
-    -webkit-box-shadow:
-      inset -1px -1px 0px rgba(255, 255, 255, 0.05),
-      inset 1px 1px 0px rgba(255, 255, 255, 0.05);
+  &::-webkit-scrollbar-thumb {
+    ${({ theme }) => theme.scroll.thumb}
   }
 
-  ::-webkit-scrollbar-thumb {
-    height: 30px;
-    border: 4px solid rgba(255, 255, 255, 0);
-    background-clip: padding-box;
-    background-color: rgba(255, 255, 255, 0.2);
-    -webkit-border-radius: 7px;
-    -webkit-box-shadow:
-      inset -1px -1px 0px rgba(0, 0, 0, 0.05),
-      inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+  &::-webkit-scrollbar-button {
+    ${({ theme }) => theme.scroll.button}
   }
 
-  ::-webkit-scrollbar-button {
-    display: none;
-    width: 0;
-    height: 0;
-  }
-
-  ::-webkit-scrollbar-corner {
-    background-color: transparent;
+  &::-webkit-scrollbar-corner {
+    ${({ theme }) => theme.scroll.corner}
   }
 `;
 
