@@ -28,7 +28,7 @@ class WSTETHBridgeAdapter extends StandardBridgeAdapter {
 }
 
 const configConduit = {
-  [ChainId.SEPOLIA]: {
+  [ChainId.BOB]: {
     AddressManager: '0xF2dc77c697e892542cC53336178a78Bb313DFDC7',
     BondManager: '0x0000000000000000000000000000000000000000',
     CanonicalTransactionChain: '0x0000000000000000000000000000000000000000',
@@ -61,7 +61,7 @@ const configConduit = {
 };
 
 export const USDCCrossBridgeConfig = {
-  [ChainId.SEPOLIA]: {
+  [ChainId.BOB]: {
     Adapter: USDCBridgeAdapter,
     l1Bridge: '0x450D55a4B4136805B0e5A6BB59377c71FC4FaCBb',
     l2Bridge: '0xe497788F8Fcc30B773C9A181a0FFE2e60645cE90'
@@ -76,28 +76,23 @@ export const USDCCrossBridgeConfig = {
     l1Bridge: '0x0032303Dd587d74f79BFa3070A6293cb7cD5a4E7',
     l2Bridge: '0xc10C96F93eE4AB710C97b7c058C3DAca6b665eF7'
   }
-};
+} satisfies Record<ChainId.BOB | ChainId.BOB_SEPOLIA | ChainId.OLD_BOB_SEPOLIA, object>;
 
 const wstETHCrossBridgeConfig = {
-  [ChainId.SEPOLIA]: {
+  [ChainId.BOB]: {
     Adapter: WSTETHBridgeAdapter,
     l1Bridge: '0x091dF5E1284E49fA682407096aD34cfD42B95B72',
     l2Bridge: '0xd1559523374D93972E0F7fE1AA98642754f5c4d1'
-  },
-  [ChainId.BOB_SEPOLIA]: {
-    Adapter: WSTETHBridgeAdapter,
-    l1Bridge: '0x6fD5030EBa8399E791492721b20932A60875E32D',
-    l2Bridge: '0x087EB402f82b23b368f6a7d1ed606E8371c79CBE'
   },
   [ChainId.OLD_BOB_SEPOLIA]: {
     Adapter: WSTETHBridgeAdapter,
     l1Bridge: '0x633464fF59E3FC760728d268BD4747d08D343D27',
     l2Bridge: '0x91a55b1294e63347AbeA88011f3B80E8643E56B3'
   }
-};
+} satisfies Record<ChainId.BOB | ChainId.OLD_BOB_SEPOLIA, object>;
 
 const getCrossChainConfig = () => {
-  const config = (configConduit as any)[L2_CHAIN];
+  const config = configConduit[L2_CHAIN];
 
   return {
     l1ChainId: L1_CHAIN,
@@ -117,8 +112,8 @@ const getCrossChainConfig = () => {
         l1Bridge: config.L1StandardBridge,
         l2Bridge: '0x4200000000000000000000000000000000000010' // Pre-deploy
       },
-      USDC: (USDCCrossBridgeConfig as any)[L2_CHAIN],
-      wstETH: (wstETHCrossBridgeConfig as any)[L2_CHAIN]
+      USDC: USDCCrossBridgeConfig[L2_CHAIN],
+      ...(L2_CHAIN === ChainId.BOB_SEPOLIA ? (undefined as never) : { wstETH: wstETHCrossBridgeConfig[L2_CHAIN] })
     },
     bedrock: true
   } as const;
