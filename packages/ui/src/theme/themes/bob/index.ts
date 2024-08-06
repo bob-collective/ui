@@ -24,6 +24,7 @@ import { table } from './table';
 import { tabs } from './tabs';
 import { tokenInput } from './token-input';
 import { tooltip } from './tooltip';
+import { scroll } from './scroll';
 
 const bobTheme = defineTheme({
   colors,
@@ -46,6 +47,7 @@ const bobTheme = defineTheme({
   tokenInput,
   table,
   tabs,
+  scroll,
   select,
   stepper,
   label,

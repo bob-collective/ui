@@ -37,7 +37,7 @@ const ReceiveTokenModal = ({ token, onClose, ...props }: ReceiveTokenModalProps)
 
   return (
     <Modal elementType='form' onClose={onClose} {...props}>
-      <ModalHeader align='start'>Send {currency.symbol}</ModalHeader>
+      <ModalHeader align='start'>Receive {currency.symbol}</ModalHeader>
       <ModalBody gap='2xl'>
         {token !== 'btc' && (
           <Card

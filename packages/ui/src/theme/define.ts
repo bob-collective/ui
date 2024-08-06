@@ -22,6 +22,7 @@ import {
   SwitchTheme,
   TableTheme,
   TabsTheme,
+  ScrollTheme,
   TokenInputTheme,
   TooltipTheme
 } from './components';
@@ -73,6 +74,7 @@ type ThemeParams = {
   tokenInput: TokenInputTheme;
   tabs: TabsTheme;
   table: TableTheme;
+  scroll: ScrollTheme;
   stepper: StepperTheme;
   label: LabelTheme;
   helperText: HelperTextTheme;
