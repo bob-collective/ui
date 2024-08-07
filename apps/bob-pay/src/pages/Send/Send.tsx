@@ -1,17 +1,18 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
+import { MaxUint256 } from '@gobob/currency/src/constants';
+import { useGetApprovalData } from '@gobob/hooks';
 import { useMutation, usePrices } from '@gobob/react-query';
-import { Button, Flex, QRCode, toast, TokenInput, useForm } from '@gobob/ui';
+import { Button, Flex, Main, QRCode, toast, TokenInput, useForm } from '@gobob/ui';
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
-import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
-import { useGetApprovalData } from '@gobob/hooks';
-import { MaxUint256 } from '@gobob/currency/src/constants';
 import { useSearchParams } from 'react-router-dom';
+import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
 
-import { paymasters, useBalances, useKernelClient, useTokens } from '../../hooks';
+import { CHAIN } from '../../constants';
+import { paymasters, useBalances, useIsDynamicSmartAccount, useKernelClient, useTokens } from '../../hooks';
 import {
   TRANSFER_TOKEN_AMOUNT,
   TRANSFER_TOKEN_RECIPIENT,
@@ -22,9 +23,6 @@ import {
 } from '../../lib/form/transfer';
 import { isFormDisabled } from '../../lib/form/utils';
 import { calculateAmountUSD, dynamicApiClient } from '../../utils';
-import { CHAIN } from '../../constants';
-import { Main } from '../../components';
-import { useIsDynamicSmartAccount } from '../../hooks';
 
 import { ScannerModal, TokenButtonGroup } from './components';
 import { StyledInput } from './Send.style';
@@ -369,7 +367,6 @@ const Send = (): JSX.Element => {
           humanBalance={humanBalance}
           items={tokenInputItems}
           label='Amount'
-          size='lg'
           type='selectable'
           valueUSD={calculateAmountUSD(currencyAmount, getPrice(token.currency.symbol))}
           onChangeCurrency={(currency) => {

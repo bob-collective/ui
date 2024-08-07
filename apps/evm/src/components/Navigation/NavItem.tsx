@@ -1,11 +1,9 @@
-import { Flex, Span, TextProps } from '@gobob/ui';
+import { Flex, Span, TextProps, useLayoutContext } from '@gobob/ui';
 import { ReactNode, useRef } from 'react';
 import { NavLinkProps } from 'react-router-dom';
 import { ArrowTopRightOnSquare } from '@gobob/ui';
 
 import { StyledAnchor, StyledNativeNavLink, StyledNavLink } from './Layout.style';
-
-import { useLayoutContext } from '.';
 
 type Props = {
   children: ReactNode;

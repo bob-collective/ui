@@ -1,10 +1,9 @@
-import { ArrowTopRightOnSquare, Flex, H1, P, Tabs, TabsItem, XMark } from '@gobob/ui';
+import { ArrowTopRightOnSquare, Flex, H1, P, Tabs, TabsItem, XMark, Main } from '@gobob/ui';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { useLocalStorage } from '@uidotdev/usehooks';
 
-import { Main } from '../../components';
 import { L1_CHAIN, L2_CHAIN, LocalStorageKey, RoutesPath } from '../../constants';
 import bannerSrc from '../../assets/ecosystem-banner.png';
 import { FeatureFlags, useFeatureFlag } from '../../hooks';

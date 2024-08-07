@@ -50,7 +50,6 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@gobob/test-utils": "workspace:^",
     "@types/big.js": "^6.2.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",

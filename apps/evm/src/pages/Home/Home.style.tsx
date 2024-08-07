@@ -1,7 +1,5 @@
-import { Flex } from '@gobob/ui';
+import { Flex, Main } from '@gobob/ui';
 import styled, { css } from 'styled-components';
-
-import { Main } from '../../components';
 
 function getImageUrl(name: string) {
   return new URL(`../../assets/${name}`, import.meta.url).href;

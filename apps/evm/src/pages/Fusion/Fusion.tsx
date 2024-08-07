@@ -1,9 +1,9 @@
-import { Flex, Tabs, TabsItem } from '@gobob/ui';
+import { Flex, Tabs, TabsItem, Main } from '@gobob/ui';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { Key, useCallback, useEffect } from 'react';
 import { useLocalStorage } from '@uidotdev/usehooks';
 
-import { Geoblock, Main } from '../../components';
+import { Geoblock } from '../../components';
 import { LocalStorageKey } from '../../constants';
 
 import { Challenges, Dashboard, Info, Leaderboard, PartnersSection } from './components';

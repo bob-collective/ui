@@ -2,7 +2,7 @@ import { ChainId } from '@gobob/chains';
 import { useConnectModal } from '@gobob/connect-ui';
 import { Twitter } from '@gobob/icons';
 import { useMutation, useQuery } from '@gobob/react-query';
-import { Button, Card, Flex, H1, P, toast } from '@gobob/ui';
+import { Button, Card, Flex, H1, Main, P, toast } from '@gobob/ui';
 import { useAccount, useSignMessage, useSwitchChain } from '@gobob/wagmi';
 import { useSessionStorage } from '@uidotdev/usehooks';
 import { useEffect, useRef } from 'react';
@@ -10,7 +10,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { SiweMessage } from 'siwe';
 
-import { AuthCard, Geoblock, HighlightText, LoginSection, Main } from '../../components';
+import { AuthCard, Geoblock, HighlightText, LoginSection } from '../../components';
 import { L1_CHAIN, RoutesPath, isValidChain } from '../../constants';
 import { useGetUser } from '../../hooks';
 import { apiClient } from '../../utils';

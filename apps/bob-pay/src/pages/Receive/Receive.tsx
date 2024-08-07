@@ -1,10 +1,9 @@
 import { useDynamicContext, UserProfile } from '@dynamic-labs/sdk-react-core';
-import { Button, Flex, H1, H2 } from '@gobob/ui';
+import { Button, Flex, H1, H2, Main } from '@gobob/ui';
 import QRCode from 'react-qr-code';
 import { truncateEthAddress } from '@gobob/utils';
 import { useCopyToClipboard } from 'react-use';
 
-import { Main } from '../../components';
 import { RoutesPath } from '../../constants';
 import { useDynamicAddress } from '../../hooks';
 

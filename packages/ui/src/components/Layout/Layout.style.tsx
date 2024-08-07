@@ -1,5 +1,8 @@
-import { Flex, MaxWidth, ResponsiveProp, Spacing, UnstyledButton } from '@gobob/ui';
 import styled, { css } from 'styled-components';
+
+import { MaxWidth, ResponsiveProp, Spacing } from '../../theme';
+import { Drawer } from '../Drawer';
+import { Flex } from '../Flex';
 
 type StyledMainProps = {
   $maxWidth?: ResponsiveProp<MaxWidth>;
@@ -7,9 +10,9 @@ type StyledMainProps = {
 };
 
 const StyledLayout = styled(Flex)`
+  position: relative;
   min-height: 100vh;
-  // TODO: figure this out
-  background-color: #0d1017;
+  background-color: ${({ theme }) => theme.color('grey-600')};
 `;
 
 const StyledHeader = styled(Flex)`
@@ -17,8 +20,11 @@ const StyledHeader = styled(Flex)`
   padding-right: ${({ theme }) => theme.spacing('3xl')};
   overflow-x: hidden;
   z-index: 20;
-  max-width: ${({ theme }) => theme.maxWidth('7xl')};
   margin: 0 auto;
+`;
+
+const StyledDrawer = styled(Drawer)`
+  height: 100%;
 `;
 
 const StyledLogoWrapper = styled(Flex)`
@@ -46,12 +52,4 @@ const StyledMain = styled.main<StyledMainProps>`
   min-height: calc(100vh - 4.75rem);
 `;
 
-const StyledBackButton = styled(UnstyledButton)`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing('md')};
-  cursor: pointer;
-  padding: ${({ theme }) => theme.spacing('lg')} 0;
-`;
-
-export { StyledHeader, StyledLayout, StyledBackButton, StyledLogoWrapper, StyledMain };
+export { StyledDrawer, StyledHeader, StyledLayout, StyledLogoWrapper, StyledMain };

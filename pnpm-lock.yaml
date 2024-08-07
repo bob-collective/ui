@@ -265,9 +265,6 @@ importers:
         specifier: ^0.32.11
         version: 0.32.11
     devDependencies:
-      '@gobob/test-utils':
-        specifier: workspace:^
-        version: link:../../packages/test-utils
       '@types/big.js':
         specifier: ^6.2.0
         version: 6.2.2
@@ -422,9 +419,6 @@ importers:
         specifier: ^0.32.11
         version: 0.32.11
     devDependencies:
-      '@gobob/test-utils':
-        specifier: workspace:^
-        version: link:../../packages/test-utils
       '@types/big.js':
         specifier: ^6.2.0
         version: 6.2.2
