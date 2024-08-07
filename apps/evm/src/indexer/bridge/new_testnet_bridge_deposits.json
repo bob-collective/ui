@@ -19,12 +19,6 @@
       "address": "0xA932eD4b73972c37DC4a691E8eC6f2C8a13951BE",
       "startBlock": 6441278,
       "chain": "sepolia"
-    },
-    {
-      "abi": "bridge",
-      "address": "0x6fD5030EBa8399E791492721b20932A60875E32D",
-      "startBlock": 6442089,
-      "chain": "sepolia"
     }
   ]
 }
