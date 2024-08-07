@@ -1,9 +1,8 @@
-import { Button, Card, Dd, Dl, DlGroup, Dt, Flex, H1, P } from '@gobob/ui';
+import { Button, Card, Dd, Dl, DlGroup, Dt, Flex, H1, P, Main } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { useTranslation } from 'react-i18next';
 import { AuthButton, useConnectModal } from '@gobob/connect-ui';
 
-import { Main } from '../../components';
 import { useTotalBalance } from '../../hooks';
 import { L2_CHAIN, isL2Chain } from '../../constants';
 

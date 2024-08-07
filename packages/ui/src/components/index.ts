@@ -58,6 +58,7 @@ export { Table } from './Table';
 export type { ColumnProps, RowProps, TableProps } from './Table';
 export { Tabs, TabsItem } from './Tabs';
 export type { TabsItemProps, TabsProps } from './Tabs';
+export { Layout, Header, Main, useLayoutContext } from './Layout';
 export { Dd, Dl, DlGroup, Dt, Em, H1, H2, H3, H4, H5, H6, P, Span, Strong } from './Text';
 export type {
   DdProps,

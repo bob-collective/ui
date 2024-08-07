@@ -1,4 +1,4 @@
-import { Main } from '../../components';
+import { Main } from '@gobob/ui';
 
 import { StyledFlex } from './Wallet.style';
 import { Hero, TransactionList } from './components';

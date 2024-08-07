@@ -3,10 +3,11 @@ import { ZeroDevSmartWalletConnectors } from '@dynamic-labs/ethereum-aa';
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
 import { QueryClientProvider } from '@gobob/react-query';
-import { BOBUIProvider, CSSReset } from '@gobob/ui';
+import { CSSReset } from '@gobob/ui';
 import { WagmiProvider } from '@gobob/wagmi';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import { queryClient } from './lib/react-query';
@@ -24,10 +25,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <WagmiProvider isProd={false}>
         <QueryClientProvider client={queryClient}>
           <DynamicWagmiConnector>
-            <BOBUIProvider>
-              <CSSReset />
+            <CSSReset />
+            <BrowserRouter>
               <App />
-            </BOBUIProvider>
+            </BrowserRouter>
           </DynamicWagmiConnector>
         </QueryClientProvider>
       </WagmiProvider>

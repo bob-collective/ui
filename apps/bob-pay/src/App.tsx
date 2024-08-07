@@ -1,14 +1,15 @@
-import { useAccount, useReconnect } from '@gobob/wagmi';
-import { ReactNode, Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { DynamicEmbeddedWidget, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { usePrices } from '@gobob/react-query';
-import { Alert, Card, Flex, P, TextLink } from '@gobob/ui';
+import { Alert, BOBUIProvider, Card, Flex, Link, P } from '@gobob/ui';
+import { useAccount, useReconnect } from '@gobob/wagmi';
+import { ReactNode, Suspense, lazy, useEffect } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Layout, Main } from '@gobob/ui';
 
-import { Header, Layout, Main } from './components';
 import { CHAIN, RoutesPath } from './constants';
 import { useTokens } from './hooks';
 import { BalanceProvider } from './providers';
+import { Header } from './components';
 
 const ScrollToTop = () => {
   // Extracts pathname property(key) from an object
@@ -33,11 +34,11 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   if (!isAuthenticated) {
     return (
       <Main maxWidth='md' padding='md'>
-        <Alert status='info' variant='outlined'>
+        <Alert status='warning' variant='outlined'>
           BOB Pay is currently in testing. Please try it at your own risk.
         </Alert>
         <Flex alignItems='center' direction='column' gap='2xl' marginTop='xl' style={{ width: '100%' }}>
-          <Card bordered={false} padding='none' style={{ width: '100%' }}>
+          <Card padding='none' style={{ width: '100%' }}>
             <DynamicEmbeddedWidget background='none' />
             <Flex justifyContent='center' paddingBottom='lg'>
               <P
@@ -50,7 +51,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
                 }}
               >
                 By logging in, you agree to our{' '}
-                <TextLink
+                <Link
                   external
                   color='inherit'
                   href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
@@ -60,7 +61,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
                   }}
                 >
                   Terms and Conditions.
-                </TextLink>
+                </Link>
               </P>
             </Flex>
           </Card>
@@ -90,6 +91,7 @@ function App() {
   const { reconnect } = useReconnect();
   const { walletConnector } = useDynamicContext();
   const { chain } = useAccount();
+  const navigate = useNavigate();
 
   useEffect(() => {
     reconnect();
@@ -111,7 +113,7 @@ function App() {
 
   return (
     <BalanceProvider>
-      <BrowserRouter>
+      <BOBUIProvider navigate={navigate}>
         <ScrollToTop />
         <Layout>
           <Header />
@@ -145,7 +147,7 @@ function App() {
             </Routes>
           </Suspense>
         </Layout>
-      </BrowserRouter>
+      </BOBUIProvider>
     </BalanceProvider>
   );
 }

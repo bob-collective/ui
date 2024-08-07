@@ -1,7 +1,5 @@
-import { Button, Flex, H1, P } from '@gobob/ui';
+import { Button, Flex, H1, Main, P } from '@gobob/ui';
 import { Discord, Twitter } from '@gobob/icons';
-
-import { Main } from '../../components';
 
 const Geoblock = (): JSX.Element => {
   return (

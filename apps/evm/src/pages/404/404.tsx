@@ -1,7 +1,6 @@
-import { Button, Flex, H1, P } from '@gobob/ui';
+import { Button, Flex, H1, Main, P } from '@gobob/ui';
 import { Link } from 'react-router-dom';
 
-import { Main } from '../../components';
 import { RoutesPath } from '../../constants';
 
 const Custom404 = (): JSX.Element => {

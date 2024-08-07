@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { MaxWidth, ResponsiveProp, Spacing } from '@gobob/ui';
+
+import { MaxWidth, ResponsiveProp, Spacing } from '../../theme';
 
 import { StyledMain } from './Layout.style';
 

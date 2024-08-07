@@ -1,17 +1,31 @@
 import { usePrices, useQuery } from '@gobob/react-query';
 import { useAccount, useChainId, useConfig, useReconnect, useSwitchChain, watchAccount } from '@gobob/wagmi';
-import { ModalBody, ModalHeader, Modal, P, ModalFooter, Button, toast, BOBUIProvider } from '@gobob/ui';
+import {
+  ModalBody,
+  ModalHeader,
+  Modal,
+  P,
+  ModalFooter,
+  Button,
+  toast,
+  BOBUIProvider,
+  Layout,
+  Header as LibHeader,
+  Main,
+  useMediaQuery
+} from '@gobob/ui';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Chain } from 'viem';
 import { ConnectProvider } from '@gobob/connect-ui';
+import { useTheme } from 'styled-components';
 
-import { Header, Layout, Main, Sidebar } from './components';
 import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
 import { useGetUser, useLogin, useLogout, useTokens } from './hooks';
 import { useBalances } from './hooks/useBalances';
 import { apiClient } from './utils';
 import { useHaltedLockedTokens, useLockedTokens } from './pages/Fusion/hooks';
+import { Navigation, Logo, MobileNavigation } from './components';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
@@ -168,6 +182,22 @@ const Fallback = () => {
   );
 };
 
+const Header = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  return (
+    <LibHeader
+      logo={<Logo />}
+      logoHref={RoutesPath.HOME}
+      sidebarProps={{ children: <MobileNavigation /> }}
+      withSidebar={isMobile}
+    >
+      <Navigation />
+    </LibHeader>
+  );
+};
+
 function App() {
   const chainId = useChainId();
   const navigate = useNavigate();
@@ -192,7 +222,6 @@ function App() {
         <ScrollToTop />
         <AuthCheck />
         <Layout>
-          <Sidebar />
           <Header />
           <Suspense fallback={<Fallback />}>
             <Routes>
