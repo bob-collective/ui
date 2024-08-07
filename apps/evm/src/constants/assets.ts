@@ -257,11 +257,20 @@ const ethereumAssets: RawToken[] = [
   {
     chainId: ChainId.ETHEREUM,
     address: '0x88dF592F8eb5D7Bd38bFeF7dEb0fBc02cf3778a0',
-    name: 'Tellor Tributes ',
+    name: 'Tellor Tributes',
     symbol: 'TRB',
     decimals: 18,
     logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
     apiId: 'tellor-tributes'
+  },
+  {
+    chainId: ChainId.ETHEREUM,
+    address: '0xCdF7028ceAB81fA0C6971208e83fa7872994beE5',
+    name: 'Threshold Network Token',
+    symbol: 'T',
+    decimals: 18,
+    logoUrl: 'https://assets.coingecko.com/coins/images/22228/standard/nFPNiSbL_400x400.jpg',
+    apiId: 'threshold-network-token'
   }
 ];
 
@@ -416,11 +425,20 @@ const bobAssets: RawToken[] = [
   {
     chainId: ChainId.BOB,
     address: '0x665060707c3ea3c31b3eabad7f409072446e1d50',
-    name: 'Tellor Tributes ',
+    name: 'Tellor Tributes',
     symbol: 'TRB',
     decimals: 18,
     logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
     apiId: 'tellor-tributes'
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0xF14e82E192a36Df7d09Fe726F6ECF70310f73438',
+    name: 'Threshold Network Token',
+    symbol: 'T',
+    decimals: 18,
+    logoUrl: 'https://assets.coingecko.com/coins/images/22228/standard/nFPNiSbL_400x400.jpg',
+    apiId: 'threshold-network-token'
   }
 ];
 
