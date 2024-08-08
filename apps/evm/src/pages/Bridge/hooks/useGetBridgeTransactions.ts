@@ -442,7 +442,7 @@ const useGetBridgeTransactions = () => {
       request<BridgeTransactionResponse>(depositsUrl, getDepositBridgeTransactions, { address }),
       request<WithdrawBridgeTransactionResponse>(withdrawUrl, getWithdrawBridgeTransactions, {
         address,
-        westEthAddress: wstETH[L2_CHAIN].address.toLowerCase()
+        westEthAddress: L2_CHAIN === ChainId.BOB_SEPOLIA ? undefined : wstETH[L2_CHAIN].address.toLowerCase()
       })
     ]);
 

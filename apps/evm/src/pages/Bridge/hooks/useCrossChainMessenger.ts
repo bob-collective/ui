@@ -22,7 +22,7 @@ class WSTETHBridgeAdapter extends StandardBridgeAdapter {
   async supportsTokenPair(l1Token: AddressLike, l2Token: AddressLike): Promise<boolean> {
     return (
       isAddressEqual(l1Token as Address, wstETH[L1_CHAIN].address) &&
-      isAddressEqual(l2Token as Address, wstETH[L2_CHAIN].address)
+      isAddressEqual(l2Token as Address, wstETH[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA].address)
     );
   }
 }
@@ -113,7 +113,7 @@ const getCrossChainConfig = () => {
         l2Bridge: '0x4200000000000000000000000000000000000010' // Pre-deploy
       },
       USDC: USDCCrossBridgeConfig[L2_CHAIN],
-      ...(L2_CHAIN === ChainId.BOB_SEPOLIA ? (undefined as never) : { wstETH: wstETHCrossBridgeConfig[L2_CHAIN] })
+      ...(L2_CHAIN === ChainId.BOB_SEPOLIA ? undefined : { wstETH: wstETHCrossBridgeConfig[L2_CHAIN] })
     },
     bedrock: true
   } as const;
