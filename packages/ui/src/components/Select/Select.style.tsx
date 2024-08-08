@@ -64,10 +64,6 @@ const StyledTriggerValue = styled(Span)<StyledTriggerValueProps>`
 
 const StyledList: any = styled(List)`
   ${({ theme }) => theme.tokenInput.list.base};
-
-  > :last-child {
-    margin-bottom: ${({ theme }) => theme.spacing('lg')};
-  }
 `;
 
 const StyledChevronDown = styled(ChevronDown)`

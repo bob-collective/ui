@@ -34,7 +34,7 @@ const OnRampTransactionModal = ({ amount, txid, fee, onClose, ...props }: OnRamp
   return (
     <Modal onClose={onClose} {...props}>
       <ModalHeader align='start'>{title}</ModalHeader>
-      <ModalBody alignItems='center' gap='lg'>
+      <ModalBody alignItems='center' gap='lg' padding='even'>
         {!isSubmitted && <Spinner size='42' thickness={4} />}
         <Flex alignItems='center' gap='md'>
           <Chain chainId='BTC' labelProps={{ size: 'xs' }} />

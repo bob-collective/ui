@@ -1,11 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { Banner } from './Banner';
-
-function getImageUrl(name: string) {
-  return new URL(`../../../../assets/${name}`, import.meta.url).href;
-}
-
 const StyledBannerImg = styled.img`
   ${({ theme }) => {
     return css`
@@ -22,22 +16,4 @@ const StyledBannerImg = styled.img`
   }}
 `;
 
-const StyledPressableBanner = styled(Banner)`
-  background-image: url(${getImageUrl('cubs-group.svg')});
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  position: relative;
-
-  ${({ theme }) => {
-    return css`
-      background-position: 70% 50%;
-
-      @media ${theme.breakpoints.up('s')} {
-        background-position: 0% 50%;
-      }
-    `;
-  }}
-`;
-
-export { StyledPressableBanner, StyledBannerImg };
+export { StyledBannerImg };

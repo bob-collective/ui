@@ -56,7 +56,7 @@ const BridgeTransactionModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>
       <ModalHeader align='start'>{title}</ModalHeader>
-      <ModalBody alignItems='center' gap='lg'>
+      <ModalBody alignItems='center' gap='lg' padding={isSubmitted ? undefined : 'even'}>
         {!isSubmitted && <Spinner size='42' thickness={4} />}
         <Flex alignItems='center' gap='md'>
           <Chain chainId={isL1ToL2 ? L1_CHAIN : L2_CHAIN} labelProps={{ size: 'xs' }} />
