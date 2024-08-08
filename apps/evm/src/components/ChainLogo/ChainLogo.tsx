@@ -5,6 +5,7 @@ import { IconProps } from '@gobob/ui';
 // TODO: temp
 const chainLogo: Record<ChainId, any> = {
   [ChainId.BOB]: BOBLogo,
+  [ChainId.OLD_BOB_SEPOLIA]: BOBLogo,
   [ChainId.BOB_SEPOLIA]: BOBLogo,
   [ChainId.ETHEREUM]: ETH,
   [ChainId.SEPOLIA]: ETH,

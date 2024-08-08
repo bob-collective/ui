@@ -283,7 +283,7 @@ const BobBridgeForm = ({
     isApproving: isApprovingUSDC
   } = useApproval({
     amount: isUSDCWithdraw ? (currencyAmount as CurrencyAmount<Token>) : undefined,
-    spender: (USDCCrossBridgeConfig as any)[L1_CHAIN].l2Bridge as Address
+    spender: USDCCrossBridgeConfig[L2_CHAIN].l2Bridge as Address
   });
 
   const withdrawMutation = useMutation({
