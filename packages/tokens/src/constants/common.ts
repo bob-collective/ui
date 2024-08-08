@@ -13,7 +13,7 @@ export const USDC = {
   [ChainId.ETHEREUM]: USDC_ETH,
   [ChainId.SEPOLIA]: new ERC20Token(
     ChainId.SEPOLIA,
-    '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238',
+    '0x13fA158A117b93C27c55b8216806294a0aE88b6D',
     6,
     'USDC',
     'USD Coin'

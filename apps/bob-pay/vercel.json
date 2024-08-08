@@ -1,0 +1,26 @@
+{
+  "functions": {
+    "api/index.js": {
+      "memory": 128,
+      "maxDuration": 20
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/tunnel",
+      "destination": "/api/sentry.js"
+    },
+    {
+      "source": "/marketdata/v1",
+      "destination": "/api/marketdata.js"
+    },
+    {
+      "source": "/(dynamic-api|api)/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}

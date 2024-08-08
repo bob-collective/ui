@@ -74,7 +74,7 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       isDisabled,
       isInvalid: isInvalidProp,
       defaultValue,
-      inputMode,
+      inputMode = 'decimal',
       value = '',
       endAdornment,
       currency,

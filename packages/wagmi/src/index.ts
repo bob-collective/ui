@@ -1,4 +1,4 @@
-export { watchAccount } from '@wagmi/core';
+export { watchAccount, watchContractEvent } from '@wagmi/core';
 export * from 'wagmi';
 export * from './bob';
 export * from './config';
