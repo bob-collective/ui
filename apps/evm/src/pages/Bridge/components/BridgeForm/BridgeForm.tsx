@@ -48,7 +48,9 @@ const allNetworks = [
   ChainId.POLYGON_ZKEVM,
   ChainId.BSC,
   ChainId.OPBNB,
-  ChainId.MOONBEAM
+  ChainId.MOONBEAM,
+  ChainId.BITLAYER,
+  ChainId.MERLIN
 ] as const;
 
 const BridgeForm = ({
@@ -210,7 +212,7 @@ const BridgeForm = ({
             />
           )
         ) : (
-          <ExternalBridgeForm type={type} />
+          <ExternalBridgeForm chain={chain} type={type} />
         )}
       </Flex>
       <BridgeTransactionModal
