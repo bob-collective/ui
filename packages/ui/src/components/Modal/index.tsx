@@ -1,8 +1,10 @@
-export type { ModalProps } from './Modal';
 export { Modal } from './Modal';
-export type { ModalBodyProps } from './ModalBody';
+export type { ModalProps } from './Modal';
 export { ModalBody } from './ModalBody';
-export type { ModalFooterProps } from './ModalFooter';
+export type { ModalBodyProps } from './ModalBody';
+export { ModalDivider } from './ModalDivider';
+export type { ModalDividerProps } from './ModalDivider';
 export { ModalFooter } from './ModalFooter';
-export type { ModalHeaderProps } from './ModalHeader';
+export type { ModalFooterProps } from './ModalFooter';
 export { ModalHeader } from './ModalHeader';
+export type { ModalHeaderProps } from './ModalHeader';

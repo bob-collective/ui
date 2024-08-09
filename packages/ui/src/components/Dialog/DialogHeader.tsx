@@ -3,8 +3,9 @@ import { ElementType } from 'react';
 
 import { TextProps } from '../Text';
 
-import { StyledDialogHeader, StyledDivider } from './Dialog.style';
+import { StyledDialogHeader } from './Dialog.style';
 import { useDialogContext } from './DialogContext';
+import { DialogDivider } from './DialogDivider';
 
 type Props = {
   elementType?: ElementType;
@@ -29,7 +30,7 @@ const DialogHeader = ({
       <StyledDialogHeader align={align} as={elementType} size='xl' {...mergeProps(titleProps || {}, props)}>
         {children}
       </StyledDialogHeader>
-      {showDivider && <StyledDivider />}
+      {showDivider && <DialogDivider />}
     </>
   );
 };
