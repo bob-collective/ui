@@ -38,6 +38,7 @@ const settings: Settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   pauseOnHover: true,
+  initialSlide: 1,
   nextArrow: <NextArrow />,
   prevArrow: <PrevArrow />
 };
