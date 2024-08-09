@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
 import { OnrampGraphic } from './OnrampGraphic';
+import { EcosystemImg } from './EcosystemImg';
 
 const StyledCarouselWrapper = styled(Card)`
   position: relative;
@@ -12,24 +13,6 @@ const StyledCarouselWrapper = styled(Card)`
 
 const StyledBannerContent = styled(Flex)`
   z-index: 1;
-`;
-
-const StyledBannerImg = styled.img`
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  opacity: 0.5;
-
-  ${({ theme }) => {
-    return css`
-      transform: scale(4);
-
-      @media ${theme.breakpoints.up('s')} {
-        transform: scale(6) translateX(-15%);
-      }
-    `;
-  }}
 `;
 
 const StyledSlider = styled(Slider)`
@@ -93,6 +76,11 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
+const StyledBanner = styled(Card)`
+  position: relative;
+  max-height: 8.5rem;
+`;
+
 const StyledOnrampGraphic = styled(OnrampGraphic)`
   position: absolute;
 
@@ -112,9 +100,31 @@ const StyledOnrampGraphic = styled(OnrampGraphic)`
   }}
 `;
 
-const StyledBanner = styled(Card)`
-  position: relative;
-  max-height: 8.5rem;
+const StyledEcosystemImg = styled(EcosystemImg)`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 50%;
+      right: 0.275rem;
+      width: 26rem;
+      height: 26rem;
+      transform: translateY(-50%);
+
+      @media ${theme.breakpoints.down('md')} {
+        left: 50%;
+        right: unset;
+        transform: translate(-50%, -50%);
+        opacity: 0.2;
+      }
+    `;
+  }}
 `;
 
-export { StyledCarouselWrapper, StyledSlider, StyledOnrampGraphic, StyledBannerContent, StyledBanner, StyledBannerImg };
+export {
+  StyledCarouselWrapper,
+  StyledSlider,
+  StyledBanner,
+  StyledEcosystemImg,
+  StyledOnrampGraphic,
+  StyledBannerContent
+};
