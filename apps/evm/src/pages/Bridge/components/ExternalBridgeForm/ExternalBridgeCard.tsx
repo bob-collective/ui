@@ -5,11 +5,11 @@ import { Owl } from './Owl';
 import { Relay } from './Relay';
 import { Stargate } from './Stargate';
 
-type Bridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
+type ExternalBridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
 
 // TODO: add missing links
 const bridges: Record<
-  Bridges,
+  ExternalBridges,
   { icon: any | string; href: string | { deposit: string; withdraw: string }; name: string; disabled: boolean }
 > = {
   stargate: {
@@ -47,7 +47,7 @@ const bridges: Record<
   }
 };
 
-type Props = { type: 'deposit' | 'withdraw'; bridge: Bridges };
+type Props = { type: 'deposit' | 'withdraw'; bridge: ExternalBridges };
 
 type ExternalBridgeCardProps = Props;
 
@@ -84,3 +84,4 @@ const ExternalBridgeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Elem
 };
 
 export { ExternalBridgeCard };
+export type { ExternalBridges };

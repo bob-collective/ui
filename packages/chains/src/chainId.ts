@@ -11,7 +11,9 @@ export enum ChainId {
   BSC = 56,
   OPBNB = 204,
   OP = 10,
-  MOONBEAM = 1284
+  MOONBEAM = 1284,
+  MERLIN = 4200,
+  BITLAYER = 200901
 }
 
 export const testnetChainIds = [ChainId.SEPOLIA, ChainId.BOB_SEPOLIA, ChainId.OLD_BOB_SEPOLIA];

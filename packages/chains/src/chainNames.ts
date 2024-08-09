@@ -13,7 +13,9 @@ export const chainNames: Record<ChainId, string> = {
   [ChainId.BSC]: 'BNB Smart Chain',
   [ChainId.OPBNB]: 'OPBNB',
   [ChainId.BASE]: 'base',
-  [ChainId.MOONBEAM]: 'moonbeam'
+  [ChainId.MOONBEAM]: 'moonbeam',
+  [ChainId.BITLAYER]: 'Bitlayer',
+  [ChainId.MERLIN]: 'Merlin'
 };
 
 export const chainNameToChainId = Object.entries(chainNames).reduce(
@@ -41,5 +43,7 @@ export const defiLlamaChainNames: Record<ChainId, string> = {
   [ChainId.OP]: '',
   [ChainId.POLYGON_ZKEVM]: '',
   [ChainId.POLYGON]: '',
-  [ChainId.MOONBEAM]: ''
+  [ChainId.MOONBEAM]: '',
+  [ChainId.BITLAYER]: '',
+  [ChainId.MERLIN]: ''
 };

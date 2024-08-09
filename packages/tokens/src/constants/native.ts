@@ -16,7 +16,9 @@ export const WNATIVE = {
   [ChainId.OPBNB]: '' as any,
   [ChainId.POLYGON]: '' as any,
   [ChainId.POLYGON_ZKEVM]: '' as any,
-  [ChainId.MOONBEAM]: '' as any
+  [ChainId.MOONBEAM]: '' as any,
+  [ChainId.BITLAYER]: '' as any,
+  [ChainId.MERLIN]: '' as any
 } satisfies Record<ChainId, ERC20Token>;
 
 const ETHER = { name: 'Ether', symbol: 'ETH', decimals: 18 } as const;
@@ -79,6 +81,16 @@ export const NATIVE = {
     decimals: 18
   },
   [ChainId.MOONBEAM]: {
+    name: 'Ether',
+    symbol: 'ETH',
+    decimals: 18
+  },
+  [ChainId.MERLIN]: {
+    name: 'Ether',
+    symbol: 'ETH',
+    decimals: 18
+  },
+  [ChainId.BITLAYER]: {
     name: 'Ether',
     symbol: 'ETH',
     decimals: 18
