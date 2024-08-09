@@ -168,7 +168,6 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
             {endAdornment}
           </StyledInputWrapper>
           <StyledDivider />
-
           <StyledBottomWrapper gap='md' justifyContent='space-between'>
             <StyledUSDAdornment>{format(valueUSD)}</StyledUSDAdornment>
             <Tooltip isDisabled={!balanceHelper} label={balanceHelper}>

@@ -1,41 +1,43 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef } from 'react';
 import { Icon, IconProps } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 
-type BOBColors = 'light' | 'dark' | 'primary';
-
-type BobLogoProps = Omit<IconProps, 'color'> & { color?: BOBColors };
-
-const BOBLogo = forwardRef<SVGSVGElement, BobLogoProps>(({ color = 'primary', ...props }, ref) => {
+const BOBLogo = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
   const theme = useTheme();
-
-  const { bg, fill } = useMemo(
-    () =>
-      ({
-        primary: {
-          bg: theme.color('primary-500'),
-          fill: theme.color('light')
-        },
-        dark: {
-          bg: theme.color('dark'),
-          fill: theme.color('light')
-        },
-        light: {
-          bg: theme.color('light'),
-          fill: theme.color('dark')
-        }
-      })[color],
-    [theme, color]
-  );
 
   return (
     <Icon ref={ref} fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
-      <circle cx='12' cy='12' fill={bg} r='12' />
-      <rect fill={fill} height='4' rx='1' width='4' x='7' y='5' />
-      <rect fill={fill} height='4' rx='1' width='4' x='7' y='10' />
-      <rect fill={fill} height='4' rx='1' width='4' x='7' y='15' />
-      <rect fill={fill} height='4' rx='1' width='4' x='12' y='15' />
-      <rect fill={fill} height='4' rx='1' width='4' x='12' y='10' />
+      <g clipPath='url(#clip0_110_8415)'>
+        <path
+          d='M12.0212 23.9745C18.6357 23.9745 23.9978 18.6124 23.9978 11.9979C23.9978 5.38336 18.6357 0.0212402 12.0212 0.0212402C5.40668 0.0212402 0.0445557 5.38336 0.0445557 11.9979C0.0445557 18.6124 5.40668 23.9745 12.0212 23.9745Z'
+          fill={theme.color('primary-500')}
+        />
+        <path
+          d='M7.52112 9.5016V13.1533C7.52112 13.2789 7.62297 13.3808 7.74867 13.3808H11.4003C11.526 13.3808 11.6279 13.2789 11.6279 13.1533V9.5016C11.6279 9.3759 11.526 9.27405 11.4003 9.27405H7.74867C7.62297 9.27405 7.52112 9.3759 7.52112 9.5016Z'
+          fill='white'
+        />
+        <path
+          d='M7.52246 14.6335V18.2851C7.52246 18.4109 7.62436 18.5127 7.75006 18.5127H11.4017C11.5274 18.5127 11.6293 18.4109 11.6293 18.2851V14.6335C11.6293 14.5078 11.5274 14.4059 11.4017 14.4059H7.75006C7.62436 14.4059 7.52246 14.5078 7.52246 14.6335Z'
+          fill='white'
+        />
+        <path
+          d='M12.6538 14.6338V18.2855C12.6538 18.4112 12.7557 18.5131 12.8814 18.5131H16.533C16.6587 18.5131 16.7606 18.4112 16.7606 18.2855V14.6338C16.7606 14.5081 16.6587 14.4062 16.533 14.4062H12.8814C12.7557 14.4062 12.6538 14.5081 12.6538 14.6338Z'
+          fill='white'
+        />
+        <path
+          d='M12.6538 9.50038V13.1521C12.6538 13.2777 12.7557 13.3796 12.8814 13.3796H16.533C16.6587 13.3796 16.7606 13.2777 16.7606 13.1521V9.50038C16.7606 9.37472 16.6587 9.27283 16.533 9.27283H12.8814C12.7557 9.27283 12.6538 9.37472 12.6538 9.50038Z'
+          fill='white'
+        />
+        <path
+          d='M11.4003 4.14105H7.74867C7.62297 4.14105 7.52112 4.24294 7.52112 4.36861V8.0203C7.52112 8.14596 7.62297 8.24785 7.74867 8.24785H11.4003C11.526 8.24785 11.6279 8.14596 11.6279 8.0203V4.36861C11.6279 4.24294 11.526 4.14105 11.4003 4.14105Z'
+          fill='white'
+        />
+      </g>
+      <defs>
+        <clipPath id='clip0_110_8415'>
+          <rect fill='white' height='24' width='24' />
+        </clipPath>
+      </defs>
     </Icon>
   );
 });

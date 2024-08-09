@@ -2,12 +2,7 @@ import { Card, Flex } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
-import { Banner } from './Banner';
 import { OnrampGraphic } from './OnrampGraphic';
-
-function getImageUrl(name: string) {
-  return new URL(`../../../../assets/${name}`, import.meta.url).href;
-}
 
 const StyledCarouselWrapper = styled(Card)`
   position: relative;
@@ -98,29 +93,15 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const StyledOnrampBanner = styled(Banner)`
-  background-image: url(${getImageUrl('cubs-group.svg')});
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  ${({ theme }) => {
-    return css`
-      background-position: 70% 50%;
-
-      @media ${theme.breakpoints.up('s')} {
-        background-position: 0% 50%;
-      }
-    `;
-  }}
-`;
-
 const StyledOnrampGraphic = styled(OnrampGraphic)`
+  position: absolute;
+
   ${({ theme }) => {
     return css`
       height: 4rem;
+      right: ${theme.spacing('7xl')};
 
-      @media ${theme.breakpoints.down('s')} {
-        position: absolute;
+      @media ${theme.breakpoints.down('md')} {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -133,14 +114,7 @@ const StyledOnrampGraphic = styled(OnrampGraphic)`
 
 const StyledBanner = styled(Card)`
   position: relative;
+  max-height: 8.5rem;
 `;
 
-export {
-  StyledCarouselWrapper,
-  StyledSlider,
-  StyledOnrampBanner,
-  StyledOnrampGraphic,
-  StyledBannerContent,
-  StyledBanner,
-  StyledBannerImg
-};
+export { StyledCarouselWrapper, StyledSlider, StyledOnrampGraphic, StyledBannerContent, StyledBanner, StyledBannerImg };

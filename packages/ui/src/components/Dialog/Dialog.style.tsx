@@ -12,6 +12,7 @@ type StyledDialogProps = {
 
 type StyledDialogBodyProps = {
   $maxHeight?: Spacing;
+  $padding: 'even' | 'uneven' | 'none';
 };
 
 const StyledDialog = styled.section<StyledDialogProps>`
@@ -43,7 +44,7 @@ const StyledDialogHeader = styled(H3)`
 `;
 
 const StyledDialogBody = styled(Flex)<StyledDialogBodyProps>`
-  ${({ theme }) => theme.dialog.body};
+  ${({ theme, $padding }) => $padding !== 'none' && theme.dialog.body[$padding]};
   max-height: ${({ theme, $maxHeight }) => $maxHeight && theme.spacing($maxHeight)};
 
   flex: 1 1 auto;

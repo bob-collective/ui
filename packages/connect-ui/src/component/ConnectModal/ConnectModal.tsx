@@ -229,7 +229,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         <ModalHeader align='start' size='xl'>
           {modalHeader}
         </ModalHeader>
-        <ModalBody gap='xl'>
+        <ModalBody gap='xl' padding={step && 'even'}>
           {type === 'both' && !step && (
             <>
               <P size='s'>

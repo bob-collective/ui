@@ -2,7 +2,7 @@ import { useId } from '@react-aria/utils';
 import { SelectState } from '@react-stately/select';
 import { forwardRef, ReactNode } from 'react';
 
-import { Modal, ModalBody, ModalHeader, ModalProps, P } from '..';
+import { Modal, ModalHeader, ModalProps, P } from '..';
 import { ListItem, ListProps } from '../List';
 
 import { StyledList } from './Select.style';
@@ -42,31 +42,29 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
             {title}
           </ModalHeader>
         )}
-        <ModalBody noPadding={hasItems}>
-          {hasItems ? (
-            <StyledList
-              {...listProps}
-              aria-labelledby={headerId}
-              gap='s'
-              selectionMode='single'
-              onSelectionChange={handleSelectionChange}
-            >
-              {[...state.collection].map((item) => (
-                <ListItem
-                  key={item.key}
-                  alignItems='center'
-                  gap='xs'
-                  justifyContent='space-between'
-                  textValue={item.textValue}
-                >
-                  {item.rendered}
-                </ListItem>
-              ))}
-            </StyledList>
-          ) : (
-            <P align='center'>No options</P>
-          )}
-        </ModalBody>
+        {hasItems ? (
+          <StyledList
+            {...listProps}
+            aria-labelledby={headerId}
+            gap='s'
+            selectionMode='single'
+            onSelectionChange={handleSelectionChange}
+          >
+            {[...state.collection].map((item) => (
+              <ListItem
+                key={item.key}
+                alignItems='center'
+                gap='xs'
+                justifyContent='space-between'
+                textValue={item.textValue}
+              >
+                {item.rendered}
+              </ListItem>
+            ))}
+          </StyledList>
+        ) : (
+          <P align='center'>No options</P>
+        )}
       </Modal>
     );
   }

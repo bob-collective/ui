@@ -57,7 +57,11 @@ const tokenInput: TokenInputTheme = {
   },
   list: {
     base: {
-      padding: `0 ${spacing('xl')}`
+      padding: `0 ${spacing('xl')}`,
+      overflow: 'auto',
+      '> :last-child': {
+        marginBottom: spacing('xl')
+      }
     },
     item: {
       ticker: {

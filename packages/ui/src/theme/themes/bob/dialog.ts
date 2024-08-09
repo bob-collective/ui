@@ -16,7 +16,12 @@ const dialog: DialogTheme = {
     margin: `${spacing('s')} ${spacing('xl')} ${spacing('md')} ${spacing('xl')}`
   },
   body: {
-    padding: `${spacing('md')} ${spacing('2xl')}`
+    even: {
+      padding: `${spacing('md')} ${spacing('2xl')} ${spacing('2xl')} ${spacing('2xl')}`
+    },
+    uneven: {
+      padding: `${spacing('md')} ${spacing('2xl')}`
+    }
   },
   footer: {
     padding: `${spacing('xl')} ${spacing('2xl')}`

@@ -19,10 +19,6 @@ type StyledDialogProps = {
   $isOpen?: boolean;
 };
 
-type StyledModalBodyProps = {
-  $noPadding?: boolean;
-};
-
 const StyledWrapper = styled.div<StyledWrapperProps>`
   position: fixed;
   top: 0;
@@ -65,10 +61,9 @@ const StyledDialog = styled(Dialog)<StyledDialogProps>`
   max-height: inherit;
 `;
 
-const StyledDialogBody = styled(DialogBody)<StyledModalBodyProps>`
+const StyledDialogBody = styled(DialogBody)`
   overflow-y: auto;
   position: relative;
-  padding: ${({ $noPadding }) => $noPadding && 0};
   ${customScrollbarCSS}
 `;
 
