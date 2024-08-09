@@ -5,6 +5,7 @@ import { List } from '../List';
 import { Span } from '../Text';
 import { Flex } from '../Flex';
 import { ChevronDown } from '../../icons';
+import { ModalBody } from '../Modal';
 
 type StyledTriggerProps = {
   $isOpen?: boolean;
@@ -75,4 +76,17 @@ const StyledField = styled(Flex)<StyledFieldProps>`
   max-width: ${({ $maxWidth, theme }) => $maxWidth && theme.spacing($maxWidth)};
 `;
 
-export { StyledField, StyledList, StyledTrigger, StyledChevronDown, StyledTriggerInner, StyledTriggerValue };
+const StyledModalBody = styled(ModalBody)`
+  overflow: visible;
+  flex: 0;
+`;
+
+export {
+  StyledField,
+  StyledList,
+  StyledTrigger,
+  StyledChevronDown,
+  StyledTriggerInner,
+  StyledTriggerValue,
+  StyledModalBody
+};
