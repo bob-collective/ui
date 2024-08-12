@@ -1,31 +1,24 @@
 import { StyledObject } from 'styled-components';
 
-import { InputSizes } from './input';
+import { InputSizes, InputTheme } from './input';
 
 type TokenInputSize = InputSizes;
 
-type TokenInputTheme = {
+type TokenInputTheme = Omit<InputTheme, 'adornment' | 'sizes'> & {
+  inputWrapper: StyledObject<object>;
+  divider: StyledObject<object>;
+  bottomWrapper: StyledObject<object>;
+  usd: StyledObject<object>;
   balance: StyledObject<object>;
-  addorment: { token: { base: StyledObject<object>; img?: StyledObject<object> }; usd: StyledObject<object> };
+  token: { base: StyledObject<object>; placeholder: StyledObject<object>; img: StyledObject<object> };
   list: {
     base: StyledObject<object>;
     item: {
       ticker: StyledObject<object>;
       usd: StyledObject<object>;
-      selected: {
-        ticker: StyledObject<object>;
-        usd: StyledObject<object>;
-      };
+      img: StyledObject<object>;
     };
   };
-  size: Record<
-    TokenInputSize,
-    {
-      addornment: {
-        token: { base: StyledObject<object>; img: StyledObject<object> };
-      };
-    }
-  >;
 };
 
 export type { TokenInputTheme, TokenInputSize };

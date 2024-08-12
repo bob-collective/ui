@@ -12,6 +12,7 @@ export { ArrowUp } from './ArrowUp';
 export { ArrowsUpDown } from './ArrowsUpDown';
 export { BLogo } from './BLogo';
 export { Bars3 } from './Bars3';
+export { BankNotes } from './BankNotes';
 export { Bolt } from './Bolt';
 export { ChatBubbleLeftRight } from './ChatBubbleLeftRight';
 export { Check } from './Check';

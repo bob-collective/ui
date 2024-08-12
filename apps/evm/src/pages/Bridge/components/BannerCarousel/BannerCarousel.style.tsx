@@ -2,12 +2,8 @@ import { Card, Flex } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
-import { Banner } from './Banner';
 import { OnrampGraphic } from './OnrampGraphic';
-
-function getImageUrl(name: string) {
-  return new URL(`../../../../assets/${name}`, import.meta.url).href;
-}
+import { EcosystemImg } from './EcosystemImg';
 
 const StyledCarouselWrapper = styled(Card)`
   position: relative;
@@ -17,24 +13,6 @@ const StyledCarouselWrapper = styled(Card)`
 
 const StyledBannerContent = styled(Flex)`
   z-index: 1;
-`;
-
-const StyledBannerImg = styled.img`
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  opacity: 0.5;
-
-  ${({ theme }) => {
-    return css`
-      transform: scale(4);
-
-      @media ${theme.breakpoints.up('s')} {
-        transform: scale(6) translateX(-15%);
-      }
-    `;
-  }}
 `;
 
 const StyledSlider = styled(Slider)`
@@ -52,11 +30,23 @@ const StyledSlider = styled(Slider)`
 
   .slick-prev,
   .slick-next {
-    color: ${({ theme }) => theme.color('grey-300')};
-    width: auto;
-    height: auto;
+    color: ${({ theme }) => theme.color('grey-200')};
+    width: ${({ theme }) => theme.spacing('4xl')};
+    height: ${({ theme }) => theme.spacing('4xl')};
     z-index: 1;
     transition: ${({ theme }) => theme.transition('colors', 'fast')};
+    border-radius: ${({ theme }) => theme.rounded('md')};
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: ${({ theme }) => theme.color('grey-600')};
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
 
     &::before {
       content: unset;
@@ -70,7 +60,7 @@ const StyledSlider = styled(Slider)`
 
   .slick-dots li button:before {
     font-size: 10px;
-    color: ${({ theme }) => theme.color('grey-100')};
+    color: ${({ theme }) => theme.color('grey-200')};
     transition: ${({ theme }) => theme.transition('colors', 'fast')};
   }
 
@@ -86,38 +76,9 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const StyledOnrampBanner = styled(Banner)`
-  background-image: url(${getImageUrl('cubs-group.svg')});
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  ${({ theme }) => {
-    return css`
-      background-position: 70% 50%;
-
-      @media ${theme.breakpoints.up('s')} {
-        background-position: 0% 50%;
-      }
-    `;
-  }}
-`;
-
-const StyledPressableBanner = styled(Banner)`
-  background-image: url(${getImageUrl('cubs-group.svg')});
-  background-repeat: no-repeat;
-  background-size: cover;
-
+const StyledBanner = styled(Card)`
   position: relative;
-
-  ${({ theme }) => {
-    return css`
-      background-position: 70% 50%;
-
-      @media ${theme.breakpoints.up('s')} {
-        background-position: 0% 50%;
-      }
-    `;
-  }}
+  max-height: 8.5rem;
 `;
 
 const StyledIntractBannerImg = styled.img`
@@ -137,12 +98,14 @@ const StyledIntractBannerImg = styled.img`
 `;
 
 const StyledOnrampGraphic = styled(OnrampGraphic)`
+  position: absolute;
+
   ${({ theme }) => {
     return css`
       height: 4rem;
+      right: ${theme.spacing('7xl')};
 
-      @media ${theme.breakpoints.down('s')} {
-        position: absolute;
+      @media ${theme.breakpoints.down('md')} {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -153,18 +116,32 @@ const StyledOnrampGraphic = styled(OnrampGraphic)`
   }}
 `;
 
-const StyledBanner = styled(Card)`
-  position: relative;
+const StyledEcosystemImg = styled(EcosystemImg)`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 50%;
+      right: 0.275rem;
+      width: 26rem;
+      height: 26rem;
+      transform: translateY(-50%);
+
+      @media ${theme.breakpoints.down('md')} {
+        left: 50%;
+        right: unset;
+        transform: translate(-50%, -50%);
+        opacity: 0.2;
+      }
+    `;
+  }}
 `;
 
 export {
   StyledCarouselWrapper,
   StyledSlider,
-  StyledOnrampBanner,
-  StyledOnrampGraphic,
-  StyledBannerContent,
   StyledBanner,
-  StyledBannerImg,
-  StyledPressableBanner,
-  StyledIntractBannerImg
+  StyledIntractBannerImg,
+  StyledEcosystemImg,
+  StyledOnrampGraphic,
+  StyledBannerContent
 };

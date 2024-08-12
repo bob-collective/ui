@@ -32,7 +32,7 @@ const alert: AlertTheme = {
     success: {
       filled: {
         base: {
-          backgroundColor: '#1CCA87',
+          backgroundColor: color('green-400'),
           color: color('dark')
         },
         icon: {
@@ -44,34 +44,34 @@ const alert: AlertTheme = {
       },
       outlined: {
         base: {
-          backgroundColor: '#0D120D',
-          border: `1px solid #1CCA87`,
+          backgroundColor: color('green-900'),
+          border: `1px solid ${color('green-400')}`,
           color: color('light')
         },
         icon: {
-          color: '#1CCA87'
+          color: color('green-400')
         },
         title: {
-          color: '#1CCA87'
+          color: color('green-400')
         }
       },
       default: {
         base: {
-          backgroundColor: '#0D120D',
+          backgroundColor: color('green-900'),
           color: color('light')
         },
         icon: {
-          color: '#1CCA87'
+          color: color('green-400')
         },
         title: {
-          color: '#1CCA87'
+          color: color('green-400')
         }
       }
     },
     error: {
       filled: {
         base: {
-          backgroundColor: '#FF7676',
+          backgroundColor: color('red-600'),
           color: color('dark')
         },
         icon: {
@@ -83,34 +83,34 @@ const alert: AlertTheme = {
       },
       outlined: {
         base: {
-          backgroundColor: '#150B0B',
-          border: `1px solid #FF7676`,
+          backgroundColor: color('red-900'),
+          border: `1px solid ${color('red-600')}`,
           color: color('light')
         },
         icon: {
-          color: '#FF7676'
+          color: color('red-600')
         },
         title: {
-          color: '#FF7676'
+          color: color('red-600')
         }
       },
       default: {
         base: {
-          backgroundColor: '#150B0B',
+          backgroundColor: color('red-900'),
           color: color('light')
         },
         icon: {
-          color: '#FF7676'
+          color: color('red-600')
         },
         title: {
-          color: '#FF7676'
+          color: color('red-600')
         }
       }
     },
     info: {
       filled: {
         base: {
-          backgroundColor: '#57ADDD',
+          backgroundColor: color('blue-400'),
           color: color('dark')
         },
         icon: {
@@ -122,34 +122,34 @@ const alert: AlertTheme = {
       },
       outlined: {
         base: {
-          backgroundColor: '#161B26',
-          border: `1px solid #57ADDD`,
+          backgroundColor: color('blue-900'),
+          border: `1px solid ${color('blue-400')}`,
           color: color('light')
         },
         icon: {
-          color: '#57ADDD'
+          color: color('blue-400')
         },
         title: {
-          color: '#57ADDD'
+          color: color('blue-400')
         }
       },
       default: {
         base: {
-          backgroundColor: '#161B26',
+          backgroundColor: color('blue-900'),
           color: color('light')
         },
         icon: {
-          color: '#57ADDD'
+          color: color('blue-400')
         },
         title: {
-          color: '#57ADDD'
+          color: color('blue-400')
         }
       }
     },
     warning: {
       filled: {
         base: {
-          backgroundColor: '#FFF27C',
+          backgroundColor: color('yellow-500'),
           color: color('dark')
         },
         icon: {
@@ -161,27 +161,27 @@ const alert: AlertTheme = {
       },
       outlined: {
         base: {
-          backgroundColor: '#181208',
-          border: `1px solid #FFF27C`,
+          backgroundColor: color('yellow-900'),
+          border: `1px solid ${color('yellow-500')}`,
           color: color('light')
         },
         icon: {
-          color: '#FFF27C'
+          color: color('yellow-500')
         },
         title: {
-          color: '#FFF27C'
+          color: color('yellow-500')
         }
       },
       default: {
         base: {
-          backgroundColor: '#181208',
+          backgroundColor: color('yellow-900'),
           color: color('light')
         },
         icon: {
-          color: '#FFF27C'
+          color: color('yellow-500')
         },
         title: {
-          color: '#FFF27C'
+          color: color('yellow-500')
         }
       }
     }

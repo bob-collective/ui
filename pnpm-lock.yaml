@@ -534,6 +534,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@gobob/currency':
+        specifier: workspace:^
+        version: link:../currency
       '@internationalized/number':
         specifier: ^3.2.1
         version: 3.5.3

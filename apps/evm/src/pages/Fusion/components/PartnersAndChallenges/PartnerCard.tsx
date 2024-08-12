@@ -88,7 +88,7 @@ const PartnerCard = ({
     >
       <StyledLiveTag
         background={isLive ? 'primary-700' : 'grey-900'}
-        bordered={isLive ? 'primary-500' : 'grey-400'}
+        borderColor={isLive ? 'primary-500' : 'grey-400'}
         paddingX='xs'
         paddingY='xxs'
         rounded='md'
@@ -129,7 +129,7 @@ const PartnerCard = ({
                   <Popover>
                     <PopoverTrigger>
                       <Button isIconOnly size='s' variant='ghost'>
-                        <QuestionMarkCircle color='grey-200' size='s' />
+                        <QuestionMarkCircle color='grey-50' size='s' />
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent>
@@ -149,7 +149,7 @@ const PartnerCard = ({
                       </P>
                     }
                   >
-                    <QuestionMarkCircle color='grey-200' size='s' />
+                    <QuestionMarkCircle color='grey-50' size='s' />
                   </Tooltip>
                 )}
               </Flex>

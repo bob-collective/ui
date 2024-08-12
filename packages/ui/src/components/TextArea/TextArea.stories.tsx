@@ -1,7 +1,6 @@
 import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
-import { InformationCircle } from '../../icons';
 import { Flex } from '..';
 
 import { TextArea, TextAreaProps } from '.';
@@ -49,12 +48,6 @@ export const WithMultipleErrorMessage: StoryObj<TextAreaProps> = {
   }
 };
 
-export const SideLabel: StoryObj<TextAreaProps> = {
-  args: {
-    labelPosition: 'side'
-  }
-};
-
 export const MaxWidth: StoryObj<TextAreaProps> = {
   args: {
     maxWidth: '6xl'
@@ -66,14 +59,6 @@ export const MinHeight: StoryObj<TextAreaProps> = {
     minHeight: '6xl'
   }
 };
-
-export const Adornments: StoryFn<TextAreaProps> = (args) => (
-  <Flex direction='column'>
-    <TextArea {...args} label='Start Adornment' startAdornment={<InformationCircle />} />
-    <TextArea {...args} endAdornment={<InformationCircle />} label='End Adornment' />
-    <TextArea {...args} label='Bottom Adornment' />
-  </Flex>
-);
 
 export const Sizes: StoryFn<TextAreaProps> = (args) => (
   <Flex direction='column'>

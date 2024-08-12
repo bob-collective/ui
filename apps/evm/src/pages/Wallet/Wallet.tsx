@@ -24,7 +24,7 @@ const Wallet = () => {
         <H1 size='2xl' weight='semibold'>
           {t('wallet.title')}
         </H1>
-        <P color='grey-200'> {t('wallet.summary')}</P>
+        <P color='grey-50'> {t('wallet.summary')}</P>
       </Flex>
       {address ? (
         isOnL2Chain ? (
@@ -62,7 +62,7 @@ const Wallet = () => {
         >
           <Flex direction='column' gap='s'>
             <P align='center'>{t('wallet.assets.noAssets')}</P>
-            <P align='center' color='grey-200'>
+            <P align='center' color='grey-50'>
               {t('wallet.assets.connect')}
             </P>
           </Flex>

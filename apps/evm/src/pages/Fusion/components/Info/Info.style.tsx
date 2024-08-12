@@ -8,7 +8,7 @@ const StyledTableP = styled(P)`
 const StyledList = styled.ul`
   list-style-type: disc;
   margin-left: ${({ theme }) => theme.spacing('3xl')};
-  color: ${({ theme }) => theme.color('grey-200')};
+  color: ${({ theme }) => theme.color('grey-50')};
 `;
 
 export { StyledTableP, StyledList };

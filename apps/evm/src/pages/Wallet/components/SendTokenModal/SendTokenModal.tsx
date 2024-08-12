@@ -216,7 +216,6 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
             currency={currency}
             label='Amount'
             logoUrl={tokenData.logoUrl}
-            size='lg'
             valueUSD={valueUSD}
             {...mergeProps(form.getTokenFieldProps(SEND_TOKEN_AMOUNT), {
               onValueChange: (value: string) => setAmount(value)

@@ -10,12 +10,6 @@ const StyledCategoryTag = styled(P)`
   `}
 `;
 
-const StyledCard = styled(Card)`
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-`;
-
 const StyledGrid = styled.div`
   width: 100%;
   display: grid;
@@ -54,4 +48,4 @@ const StyledIconWrapper = styled('div')`
   left: 4px;
 `;
 
-export { StyledCategoryTag, StyledGrid, StyledCard, StyledPartnerCard, StyledLiveTag, StyledIconWrapper };
+export { StyledCategoryTag, StyledGrid, StyledPartnerCard, StyledLiveTag, StyledIconWrapper };

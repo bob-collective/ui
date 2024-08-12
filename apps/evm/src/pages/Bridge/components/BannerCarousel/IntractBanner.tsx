@@ -2,10 +2,11 @@ import { Flex, H1, P } from '@gobob/ui';
 
 import bannerSrc from '../../../../assets/intract-logo.png';
 
-import { StyledIntractBannerImg, StyledPressableBanner } from './BannerCarousel.style';
+import { StyledIntractBannerImg } from './BannerCarousel.style';
+import { Banner } from './Banner';
 
 const IntractBanner = () => (
-  <StyledPressableBanner
+  <Banner
     isPressable
     gap='md'
     justifyContent='space-between'
@@ -20,10 +21,10 @@ const IntractBanner = () => (
           Intract: BOB Summer Fest
         </H1>
       </Flex>
-      <P color='grey-200'>Complete quests to boost your Spice earnings</P>
+      <P color='grey-50'>Complete quests to boost your Spice earnings</P>
     </Flex>
     <StyledIntractBannerImg alt='Intract Logo' src={bannerSrc} />
-  </StyledPressableBanner>
+  </Banner>
 );
 
 export { IntractBanner };

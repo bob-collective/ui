@@ -18,6 +18,7 @@ type Props = {
   columns: ColumnProps[];
   rows: RowProps[];
   wrapperProps?: CardProps;
+  removeWrapper?: boolean;
 };
 
 type InheritAttrs = Omit<BaseTableProps, keyof Props | 'children'>;
@@ -25,8 +26,11 @@ type InheritAttrs = Omit<BaseTableProps, keyof Props | 'children'>;
 type TableProps = Props & InheritAttrs;
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ columns, rows, isStickyHeader, style, className, hidden, wrapperProps, ...props }, ref): JSX.Element => (
-    <StyledCard className={className} hidden={hidden} style={style} {...wrapperProps}>
+  (
+    { columns, rows, isStickyHeader, style, className, hidden, removeWrapper, wrapperProps, ...props },
+    ref
+  ): JSX.Element => {
+    const children = (
       <BaseTable ref={ref} isStickyHeader={isStickyHeader} {...props}>
         <TableHeader columns={columns}>
           {({ id, name, ...columnProps }) => (
@@ -39,8 +43,18 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           {(item: any) => <Row>{(columnKey) => <Cell>{item[columnKey.toString()]}</Cell>}</Row>}
         </TableBody>
       </BaseTable>
-    </StyledCard>
-  )
+    );
+
+    if (removeWrapper) {
+      return children;
+    }
+
+    return (
+      <StyledCard className={className} hidden={hidden} style={style} {...wrapperProps}>
+        {children}
+      </StyledCard>
+    );
+  }
 );
 
 Table.displayName = 'Table';

@@ -1,20 +1,13 @@
 import { chain, useId } from '@react-aria/utils';
-import { Key, ReactNode, forwardRef, useCallback } from 'react';
-
-import { HelperText } from '../HelperText';
+import { Key, forwardRef, useCallback } from 'react';
+import { Currency } from '@gobob/currency';
 
 import { BaseTokenInput, BaseTokenInputProps } from './BaseTokenInput';
-import { TokenInputBalance } from './TokenInputBalance';
-import { TokenData, TokenSelect, TokenSelectProps } from './TokenSelect';
+import { TokenSelectItemProps, TokenSelect, TokenSelectProps } from './TokenSelect';
 
 type Props = {
-  balance?: string;
-  humanBalance?: string | number;
-  balanceLabel?: ReactNode;
-  currency?: any;
-  items?: TokenData[];
-  onClickBalance?: (balance: string) => void;
-  onChangeCurrency?: (currency?: any) => void;
+  items?: TokenSelectItemProps[];
+  onChangeCurrency?: (currency: Currency) => void;
   selectProps?: Omit<TokenSelectProps, 'label' | 'helperTextId' | 'items'>;
 };
 
@@ -29,16 +22,14 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
       errorMessage,
       description,
       label,
-      balance: balanceProp,
+      balance,
       id,
       isDisabled,
-      balanceLabel,
       humanBalance,
       currency,
       items,
       onClickBalance,
       onChangeCurrency,
-      size,
       ...props
     },
     ref
@@ -47,9 +38,11 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
 
     const handleSelectionChange = useCallback(
       (ticker: Key) => {
-        const tokenData = (items as TokenData[]).find((item) => item.currency.symbol === ticker);
+        const item = items?.find((item) => item.currency.symbol === ticker);
 
-        onChangeCurrency?.(tokenData?.currency);
+        if (item) {
+          onChangeCurrency?.(item.currency);
+        }
       },
       [items, onChangeCurrency]
     );
@@ -71,20 +64,8 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
         errorMessage={undefined}
         isInvalid={isInvalid}
         items={items}
-        size={size}
         value={currency?.symbol}
         onSelectionChange={chain(onSelectionChange, handleSelectionChange)}
-      />
-    );
-
-    const balance = balanceProp !== undefined && (
-      <TokenInputBalance
-        balance={currency ? balanceProp : '0'}
-        balanceHuman={humanBalance}
-        inputId={id}
-        isDisabled={isDisabled || !currency}
-        label={balanceLabel}
-        onClickBalance={onClickBalance}
       />
     );
 
@@ -93,22 +74,18 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
         ref={ref}
         balance={balance}
         currency={currency}
-        description={description}
+        description={selectProps?.description || description}
+        descriptionProps={selectProps?.description ? { id: selectHelperTextId } : undefined}
         endAdornment={endAdornment}
-        errorMessage={errorMessage}
+        errorMessage={selectProps?.errorMessage || errorMessage}
+        errorMessageProps={selectProps?.errorMessage ? { id: selectHelperTextId } : undefined}
+        humanBalance={humanBalance}
         id={id}
         isDisabled={isDisabled}
         label={label}
+        onClickBalance={onClickBalance}
         {...props}
-      >
-        {shouldDisplayHelperText && (
-          <HelperText
-            description={selectProps?.description}
-            errorMessage={selectProps?.errorMessage}
-            id={selectHelperTextId}
-          />
-        )}
-      </BaseTokenInput>
+      />
     );
   }
 );

@@ -9,6 +9,26 @@ import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
 import { IntractBanner } from './IntractBanner';
 
+function NextArrow(props: any) {
+  const { className, style, onClick } = props;
+
+  return (
+    <button className={className} style={style} onClick={onClick}>
+      <ChevronRight strokeWidth='3' />
+    </button>
+  );
+}
+
+function PrevArrow(props: any) {
+  const { className, style, onClick } = props;
+
+  return (
+    <button className={className} style={style} onClick={onClick}>
+      <ChevronLeft strokeWidth='3' />
+    </button>
+  );
+}
+
 const settings: Settings = {
   dots: true,
   infinite: true,
@@ -19,16 +39,9 @@ const settings: Settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   pauseOnHover: true,
-  nextArrow: (
-    <button>
-      <ChevronRight strokeWidth='3' />
-    </button>
-  ),
-  prevArrow: (
-    <button>
-      <ChevronLeft strokeWidth='3' />
-    </button>
-  )
+  initialSlide: 1,
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />
 };
 
 type BannerCarouselProps = {

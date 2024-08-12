@@ -91,7 +91,7 @@ const DepositedAssets = () => {
             <Popover>
               <PopoverTrigger>
                 <Button isIconOnly size='s' variant='ghost'>
-                  <QuestionMarkCircle color='grey-200' size='s' />
+                  <QuestionMarkCircle color='grey-50' size='s' />
                 </Button>
               </PopoverTrigger>
               <PopoverContent>
@@ -101,7 +101,7 @@ const DepositedAssets = () => {
           ) : (
             <StyledTooltipWrapper>
               <Tooltip label={lockedAmounts}>
-                <QuestionMarkCircle color='grey-200' size='s' />
+                <QuestionMarkCircle color='grey-50' size='s' />
               </Tooltip>
             </StyledTooltipWrapper>
           ))}

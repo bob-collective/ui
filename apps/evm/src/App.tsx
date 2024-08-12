@@ -1,9 +1,10 @@
 import { usePrices, useQuery } from '@gobob/react-query';
 import { useAccount, useChainId, useConfig, useReconnect, useSwitchChain, watchAccount } from '@gobob/wagmi';
-import { ModalBody, ModalHeader, Modal, P, ModalFooter, Button, toast } from '@gobob/ui';
+import { ModalBody, ModalHeader, Modal, P, ModalFooter, Button, toast, BOBUIProvider } from '@gobob/ui';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
-import { BrowserRouter, Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Chain } from 'viem';
+import { ConnectProvider } from '@gobob/connect-ui';
 
 import { Header, Layout, Main, Sidebar } from './components';
 import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
@@ -169,6 +170,7 @@ const Fallback = () => {
 
 function App() {
   const chainId = useChainId();
+  const navigate = useNavigate();
 
   // Called here to make sure data exists
   usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
@@ -185,25 +187,27 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <AuthCheck />
-      <Layout>
-        <Sidebar />
-        <Header />
-        <Suspense fallback={<Fallback />}>
-          <Routes>
-            <Route element={<Bridge />} path={RoutesPath.HOME} />
-            <Route element={<SignUp />} path={RoutesPath.SIGN_UP} />
-            <Route element={<Fusion />} path={RoutesPath.FUSION} />
-            <Route element={<Bridge />} path={RoutesPath.BRIDGE} />
-            <Route element={<Wallet />} path={RoutesPath.WALLET} />
-            <Route element={<Geoblock />} path={RoutesPath.GEOBLOCK} />
-            <Route element={<Custom404 />} path='*' />
-          </Routes>
-        </Suspense>
-      </Layout>
-    </BrowserRouter>
+    <BOBUIProvider navigate={navigate}>
+      <ConnectProvider type='both'>
+        <ScrollToTop />
+        <AuthCheck />
+        <Layout>
+          <Sidebar />
+          <Header />
+          <Suspense fallback={<Fallback />}>
+            <Routes>
+              <Route element={<Bridge />} path={RoutesPath.HOME} />
+              <Route element={<SignUp />} path={RoutesPath.SIGN_UP} />
+              <Route element={<Fusion />} path={RoutesPath.FUSION} />
+              <Route element={<Bridge />} path={RoutesPath.BRIDGE} />
+              <Route element={<Wallet />} path={RoutesPath.WALLET} />
+              <Route element={<Geoblock />} path={RoutesPath.GEOBLOCK} />
+              <Route element={<Custom404 />} path='*' />
+            </Routes>
+          </Suspense>
+        </Layout>
+      </ConnectProvider>
+    </BOBUIProvider>
   );
 }
 

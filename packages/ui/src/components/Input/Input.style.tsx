@@ -1,68 +1,62 @@
 import styled, { css } from 'styled-components';
 
 import { InputSizes, Spacing } from '../../theme';
+import { Flex } from '../Flex';
 
 type BaseInputProps = {
-  $size: InputSizes;
-  $adornments: { left: boolean; right: boolean };
-  $isDisabled: boolean;
-  $hasError: boolean;
   $minHeight?: Spacing;
+  $error: boolean;
+  $hasStartAdornment: boolean;
+  $hasEndAdornment: boolean;
 };
 
+type StyledAdornmentProps = {
+  $size: InputSizes;
+};
+
+type StyledWrapperProps = {
+  $isHovered: boolean;
+  $isFocused: boolean;
+  $isDisabled: boolean;
+  $size: InputSizes;
+  $error: boolean;
+  $isTextArea: boolean;
+};
+
+type StyledFieldProps = {
+  $maxWidth?: Spacing;
+};
+
+const StyledWrapper = styled(Flex)<StyledWrapperProps>`
+  ${({ theme, $size, $error, $isFocused, $isHovered, $isTextArea, $isDisabled }) => css`
+    height: ${$isTextArea && 'auto'};
+
+    ${theme.input.wrapper}
+    ${theme.input.sizes[$size].wrapper}
+    ${$error && theme.input.error.wrapper}
+    ${$isHovered ? ($error ? theme.input.error.hover.wapper : theme.input.hover.wapper) : undefined}
+    ${$isFocused ? ($error ? theme.input.error.focus.wrapper : theme.input.focus.wrapper) : undefined}
+    ${$isDisabled && theme.input.disabled.wrapper}
+  `}
+`;
+
 const StyledBaseInput = styled.input<BaseInputProps>`
-  display: block;
-  width: 100%;
-  height: 100%;
-
-  outline: none;
-  font: inherit;
-  letter-spacing: inherit;
-  background: none;
-
-  text-overflow: ellipsis;
-
   // Properties for textarea
   min-height: ${({ $minHeight, theme, as }) =>
     $minHeight ? theme.spacing($minHeight) : as === 'textarea' && theme.spacing('7xl')};
   resize: ${({ as }) => as === 'textarea' && 'vertical'};
 
-  ${({ theme, $size, $adornments, $hasError }) => {
-    const { paddingRight, paddingTop, paddingBottom, paddingLeft, ...sizeCss } = theme.input.size[$size];
+  ${({ theme, $error, $hasEndAdornment, $hasStartAdornment }) => css`
+    ${theme.input.base}
+    ${$error && theme.input.error.base}
 
-    // MEMO: adding `spacing6` is a hacky solution because
-    // the `endAdornmentWidth` does not update width correctly
-    // after fonts are loaded. Instead of falling back to a more
-    // complex solution, an extra offset does the job of not allowing
-    // the input overlap the adornment.
-    return css`
-      padding-top: ${paddingTop};
-      padding-bottom: ${paddingBottom};
-      padding-left: ${$adornments.left ? theme.spacing('5xl') : paddingLeft};
-      padding-right: ${$adornments.right ? theme.spacing('5xl') : paddingRight};
+    padding-inline-start: ${$hasStartAdornment && '.375rem'};
+    padding-inline-end: ${$hasEndAdornment && '.375rem'};
 
-      ${sizeCss}
-      ${theme.input.base}
-      ${$hasError && theme.input.error.base}
-
-
-      &:hover:not(:disabled):not(:focus) {
-        ${$hasError ? theme.input.error.hover : theme.input.hover}
-      }
-
-      &:focus:not(:disabled) {
-        ${$hasError ? theme.input.error.focus : theme.input.focus}
-      }
-
-      &::placeholder {
-        ${theme.input.placeholder}
-      }
-
-      &:disabled {
-        ${theme.input.disabled}
-      }
-    `;
-  }}
+    &::placeholder {
+      ${theme.input.placeholder}
+    }
+  `}
 
   /* MEMO: inspired by https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
   /* Chrome, Safari, Edge, Opera */
@@ -77,29 +71,17 @@ const StyledBaseInput = styled.input<BaseInputProps>`
   }
 `;
 
-type StyledAdornmentProps = {
-  $size: InputSizes;
-};
-
 const StyledAdornment = styled.div<StyledAdornmentProps>`
   display: inline-flex;
-  align-items: center;
-  position: absolute;
+  align-items: flex-end;
   // to not allow adornment to take more than 50% of the input. We might want to reduce this in the future.
   max-width: 50%;
+  pointer-events: none;
   ${({ theme }) => theme.input.adornment};
 `;
 
-const StyledAdornmentRight = styled(StyledAdornment)`
-  top: 50%;
-  right: ${({ theme }) => theme.spacing('md')};
-  transform: translateY(-50%);
+const StyledField = styled(Flex)<StyledFieldProps>`
+  max-width: ${({ $maxWidth, theme }) => $maxWidth && theme.spacing($maxWidth)};
 `;
 
-const StyledAdornmentLeft = styled(StyledAdornment)`
-  top: 50%;
-  left: ${({ theme }) => theme.spacing('md')};
-  transform: translateY(-50%);
-`;
-
-export { StyledAdornmentLeft, StyledAdornmentRight, StyledBaseInput };
+export { StyledAdornment, StyledBaseInput, StyledWrapper, StyledField };

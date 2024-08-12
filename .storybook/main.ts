@@ -21,7 +21,7 @@ const config: StorybookConfig = {
     name: getAbsolutePath('@storybook/react-vite'),
     options: {
       builder: {
-        viteConfigPath: './apps/evm/vite.config.ts'
+        viteConfigPath: './.storybook/vite.config.ts'
       }
     }
   },

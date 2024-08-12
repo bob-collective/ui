@@ -1,38 +1,44 @@
 import type { Palette } from './core';
 
 import {
-  fontSize,
-  typography,
-  fontWeight,
-  lineHeight,
-  rounded,
-  spacing,
-  breakpoints,
-  transition,
-  color,
-  icon,
-  maxWidth
-} from './core';
-import {
-  ButtonTheme,
-  InputTheme,
   AccordionTheme,
   AlertTheme,
+  ButtonTheme,
   CardTheme,
+  ChipTheme,
   DialogTheme,
   DividerTheme,
   DrawerTheme,
+  HelperTextTheme,
+  InputTheme,
+  LabelTheme,
+  LinkTheme,
   ListTheme,
-  RadioTheme,
-  SwitchTheme,
-  SpinnerTheme,
   ProgressBarTheme,
-  TooltipTheme,
-  TokenInputTheme,
+  RadioTheme,
+  SelectTheme,
+  SpinnerTheme,
+  StepperTheme,
+  SwitchTheme,
   TableTheme,
   TabsTheme,
-  StepperTheme
+  ScrollTheme,
+  TokenInputTheme,
+  TooltipTheme
 } from './components';
+import {
+  breakpoints,
+  color,
+  fontSize,
+  fontWeight,
+  icon,
+  lineHeight,
+  maxWidth,
+  rounded,
+  spacing,
+  transition,
+  typography
+} from './core';
 
 const baseTheme = {
   fontSize,
@@ -52,20 +58,26 @@ type ThemeParams = {
   alert: AlertTheme;
   button: ButtonTheme;
   card: CardTheme;
+  chip: ChipTheme;
   dialog: DialogTheme;
   divider: DividerTheme;
   drawer: DrawerTheme;
   input: InputTheme;
+  link: LinkTheme;
   list: ListTheme;
   radio: RadioTheme;
   switch: SwitchTheme;
+  select: SelectTheme;
   spinner: SpinnerTheme;
   progressBar: ProgressBarTheme;
   tooltip: TooltipTheme;
   tokenInput: TokenInputTheme;
   tabs: TabsTheme;
   table: TableTheme;
+  scroll: ScrollTheme;
   stepper: StepperTheme;
+  label: LabelTheme;
+  helperText: HelperTextTheme;
 };
 
 const defineTheme = ({ colors, ...theme }: ThemeParams) => ({

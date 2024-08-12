@@ -108,7 +108,7 @@ const SignUp = (): JSX.Element | null => {
 
   if (!hasReferralCode) {
     return (
-      <Main hasBackgroundImg maxWidth='3xl'>
+      <Main maxWidth='3xl'>
         <Flex alignItems='center' flex={1} justifyContent='center' marginTop='4xl'>
           <AuthCard isLoadingReferralCode={isLoadingOnboarding} onValidReferralCode={() => refectOnboarding()} />
         </Flex>
@@ -147,15 +147,15 @@ const SignUp = (): JSX.Element | null => {
 
   return (
     <Geoblock>
-      <Main hasBackgroundImg maxWidth='3xl'>
+      <Main maxWidth='3xl'>
         <Flex direction='column' gap='2xl' justifyContent='center'>
           <H1 align='center' fontFamily='eurostar' size='5xl' weight='bold'>
             <Trans components={{ highlight: <HighlightText /> }} i18nKey='signUp.title' />
           </H1>
-          <P align='center' color='grey-100'>
+          <P align='center' color='grey-50'>
             {t('signUp.subtitle')}
           </P>
-          <P align='center' color='grey-100'>
+          <P align='center' color='grey-50'>
             {t('signUp.content')}
           </P>
         </Flex>
@@ -180,7 +180,7 @@ const SignUp = (): JSX.Element | null => {
                   variant='solid'
                   onPress={() => setTwitterVisited(true)}
                 >
-                  <a href='https://twitter.com/build_on_bob' rel='noreferrer' target='_blank'>
+                  <a href='https://x.com/intent/follow?screen_name=build_on_bob' rel='noreferrer' target='_blank'>
                     <Flex alignItems='center' elementType='span' gap='md'>
                       {t('signUp.followBOB')} <Twitter color='light' />
                     </Flex>

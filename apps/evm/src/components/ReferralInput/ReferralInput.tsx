@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import OtpInput, { OTPInputProps } from 'react-otp-input';
 import { useLabel } from '@react-aria/label';
-import { Field, Flex, P, TextLink } from '@gobob/ui';
+import { Flex, P, Link, Label } from '@gobob/ui';
 import { mergeProps } from '@react-aria/utils';
 import { useTheme } from 'styled-components';
 import { Trans } from 'react-i18next';
@@ -43,7 +43,8 @@ const ReferralInput = ({ onChange, errorMessage, ...props }: ReferralInputProps)
 
   return (
     <Flex direction='column' gap='lg'>
-      <Field direction='column' gap='lg' label={labelText} labelProps={labelProps}>
+      <Flex direction='column' gap='lg'>
+        {labelText && <Label {...labelProps}>{labelText}</Label>}
         <OtpInput
           {...props}
           skipDefaultStyles
@@ -53,10 +54,10 @@ const ReferralInput = ({ onChange, errorMessage, ...props }: ReferralInputProps)
           value={otp}
           onChange={handleChange}
         />
-      </Field>
+      </Flex>
       <P align='center' size='s'>
         <Trans
-          components={{ discordLink: <TextLink external href='https://discord.gg/gobob' size='s' /> }}
+          components={{ discordLink: <Link external href='https://discord.gg/gobob' size='s' /> }}
           i18nKey='home.referralCodePrompt'
         />
       </P>

@@ -1,5 +1,5 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Flex, H2, H3, InformationCircle, P, Spinner, TextLink, useLocale } from '@gobob/ui';
+import { Flex, H2, H3, InformationCircle, P, Spinner, Link, useLocale } from '@gobob/ui';
 import { Trans, useTranslation } from 'react-i18next';
 import { useCallback, useMemo } from 'react';
 
@@ -7,7 +7,7 @@ import { useGetUser } from '../../../../hooks';
 import { apiClient } from '../../../../utils';
 
 import { PartnerCard } from './PartnerCard';
-import { StyledCard, StyledGrid } from './PartnerCard.style';
+import { StyledPartnerCard, StyledGrid } from './PartnerCard.style';
 
 function getImageUrl(name: string) {
   return new URL(`../../../../assets/partners/${name.split(' ').join('').toLowerCase()}.png`, import.meta.url).href;
@@ -93,11 +93,11 @@ const PartnersAndChallenges = () => {
             <H2 size='2xl' weight='semibold'>
               {t('fusion.challenges.title')}
             </H2>
-            <P color='grey-200'>
+            <P color='grey-50'>
               <Trans
                 components={{
                   challengeLink: (
-                    <TextLink
+                    <Link
                       external
                       href='https://www.intract.io/explore?query=BOB+Summer+Fest&hideCompleted=true&hideExpired=true&sortBy=participation'
                       size='s'
@@ -132,7 +132,7 @@ const PartnersAndChallenges = () => {
             <H2 id='ecosystem' size='2xl' weight='semibold'>
               {t('fusion.partners.title')}
             </H2>
-            <P color='grey-200'> {t('fusion.partners.content')}</P>
+            <P color='grey-50'> {t('fusion.partners.content')}</P>
             <H3 size='lg' weight='semibold'>
               Top Harvesters
             </H3>
@@ -183,12 +183,12 @@ const PartnersAndChallenges = () => {
           </Flex>
         </Flex>
       )}
-      <StyledCard alignItems='center' direction='row' gap='md'>
+      <StyledPartnerCard alignItems='center' direction='row' gap='md'>
         <InformationCircle />
         <P size='s' weight='semibold'>
           {t('fusion.partners.alert')}
         </P>
-      </StyledCard>
+      </StyledPartnerCard>
     </Flex>
   );
 };

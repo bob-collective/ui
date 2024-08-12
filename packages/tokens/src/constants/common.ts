@@ -19,9 +19,16 @@ export const USDC = {
     'USD Coin'
   ),
   [ChainId.BOB]: new ERC20Token(ChainId.BOB, '0xe75D0fB2C24A55cA1e3F96781a2bCC7bdba058F0', 6, 'USDC', 'USD Coin'),
+  [ChainId.OLD_BOB_SEPOLIA]: new ERC20Token(
+    ChainId.OLD_BOB_SEPOLIA,
+    '0xdD796dbad8c4c6Ccd5C8cA9a6B1727CbEcc682AB',
+    6,
+    'USDC',
+    'USD Coin'
+  ),
   [ChainId.BOB_SEPOLIA]: new ERC20Token(
     ChainId.BOB_SEPOLIA,
-    '0xdD796dbad8c4c6Ccd5C8cA9a6B1727CbEcc682AB',
+    '0x2c1f73d37e7cdba2792156139b0d35a765d595c5',
     6,
     'USDC',
     'USD Coin'
@@ -46,8 +53,8 @@ export const WBTC = {
     'Wrapped BTC'
   ),
   [ChainId.BOB]: new ERC20Token(ChainId.BOB, '0x03c7054bcb39f7b2e5b2c7acb37583e32d70cfa3', 8, 'WBTC', 'Wrapped BTC'),
-  [ChainId.BOB_SEPOLIA]: new ERC20Token(
-    ChainId.BOB_SEPOLIA,
+  [ChainId.OLD_BOB_SEPOLIA]: new ERC20Token(
+    ChainId.OLD_BOB_SEPOLIA,
     '0x2868d708e442A6a940670d26100036d426F1e16b',
     8,
     'WBTC',
@@ -73,8 +80,8 @@ export const TBTC = {
     'tBTC v2'
   ),
   [ChainId.BOB]: new ERC20Token(ChainId.BOB, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2', 18, 'tBTC', 'tBTC v2'),
-  [ChainId.BOB_SEPOLIA]: new ERC20Token(
-    ChainId.BOB_SEPOLIA,
+  [ChainId.OLD_BOB_SEPOLIA]: new ERC20Token(
+    ChainId.OLD_BOB_SEPOLIA,
     '0x43a4e4E277aE3477c4E8A058640951FCb98CcC8B',
     18,
     'tBTC',
@@ -101,8 +108,8 @@ export const USDT = {
     'Tether USD'
   ),
   [ChainId.BOB]: new ERC20Token(ChainId.BOB, '0x05d032ac25d322df992303dca074ee7392c117b9', 6, 'USDT', 'Tether USD'),
-  [ChainId.BOB_SEPOLIA]: new ERC20Token(
-    ChainId.BOB_SEPOLIA,
+  [ChainId.OLD_BOB_SEPOLIA]: new ERC20Token(
+    ChainId.OLD_BOB_SEPOLIA,
     '0x38F715c449b0e24B21Fa15E6D34286fb19d15D03',
     6,
     'USDT',

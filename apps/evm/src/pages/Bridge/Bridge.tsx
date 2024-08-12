@@ -6,18 +6,11 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 
 import { Main } from '../../components';
 import { L1_CHAIN, L2_CHAIN, LocalStorageKey, RoutesPath } from '../../constants';
-import bannerSrc from '../../assets/ecosystem-banner.png';
 import { FeatureFlags, useFeatureFlag } from '../../hooks';
 
-import {
-  StyledBanner,
-  StyledBannerCloseBtn,
-  StyledBannerContent,
-  StyledBannerImg,
-  StyledCard,
-  StyledFlex
-} from './Bridge.style';
+import { StyledBanner, StyledBannerCloseBtn, StyledBannerContent, StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
+import { StyledEcosystemImg } from './components/BannerCarousel/BannerCarousel.style';
 
 enum BridgeOrigin {
   INTERNAL = 'INTERNAL',
@@ -131,7 +124,6 @@ const Bridge = () => {
         ) : (
           !isEcosystemBannerHidden && (
             <StyledBanner
-              isHoverable
               isPressable
               aria-label='navigate to ecosystem section in fusion page'
               paddingX='2xl'
@@ -153,9 +145,9 @@ const Bridge = () => {
                     BOB Ecosystem <ArrowTopRightOnSquare size='s' />
                   </H1>
                 </Flex>
-                <P>Discover the most exciting projects on BOB.</P>
+                <P color='grey-50'>Discover the most exciting projects on BOB.</P>
               </StyledBannerContent>
-              <StyledBannerImg alt='BOB ecosystem banner' src={bannerSrc} />
+              <StyledEcosystemImg />
             </StyledBanner>
           )
         )}
@@ -165,9 +157,9 @@ const Bridge = () => {
               <Strong size='inherit'>NOTICE: Fault Proofs are coming to BOB.</Strong> Withdrawals starting on July 4
               will need to be proven again after July 10, requiring at least 7 days to be finalised. Consider waiting
               until the upgrade is complete or using 3rd Party bridge for withdrawals during this period.{' '}
-              <TextLink external icon href={`${DocsLinks.OP_STACK}#settlement--fraud-proofs`} size='inherit'>
+              <Link external icon href={`${DocsLinks.OP_STACK}#settlement--fraud-proofs`} size='inherit'>
                 Click here for more info.
-              </TextLink>
+              </Link>
             </P>
           </Alert>
         )} */}

@@ -1,5 +1,3 @@
-import { useFocusRing } from '@react-aria/focus';
-import { mergeProps } from '@react-aria/utils';
 import { PressEvent } from '@react-types/shared';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { Slottable } from '@radix-ui/react-slot';
@@ -8,6 +6,7 @@ import { useDOMRef } from '../../hooks';
 import { ButtonVariants, ButtonSizes, ButtonColors, SpinnerSizes, SpinnerColors } from '../../theme';
 import { Flex } from '../Flex';
 import { Spinner } from '../Spinner';
+import { ElementTypeProp } from '../utils/types';
 
 import { StyledButton } from './Button.style';
 
@@ -29,6 +28,11 @@ const spinnerColorMap: Record<ButtonColors, Record<ButtonVariants, SpinnerColors
     ghost: 'primary',
     outline: 'primary',
     solid: 'default'
+  },
+  light: {
+    ghost: 'primary',
+    outline: 'primary',
+    solid: 'default'
   }
 };
 
@@ -45,7 +49,7 @@ type Props = {
 
 type NativeAttrs = Omit<ButtonHTMLAttributes<unknown>, keyof Props>;
 
-type ButtonProps = Props & NativeAttrs;
+type ButtonProps = Props & NativeAttrs & ElementTypeProp;
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -59,6 +63,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       fullWidth,
       isIconOnly,
       asChild,
+      elementType,
       ...props
     },
     ref
@@ -67,20 +72,18 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const isDisabled = disabled || loading;
 
-    const { focusProps, isFocusVisible } = useFocusRing(props);
-
     return (
       <StyledButton
         ref={domRef}
         $color={color}
         $fullWidth={fullWidth}
-        $isFocusVisible={isFocusVisible}
         $isIconOnly={isIconOnly}
         $size={size}
         $variant={variant}
+        as={elementType}
         asChild={asChild}
         disabled={isDisabled}
-        {...mergeProps(props, focusProps)}
+        {...props}
       >
         {loading && (
           <Flex elementType='span' marginRight={isIconOnly ? undefined : 's'}>

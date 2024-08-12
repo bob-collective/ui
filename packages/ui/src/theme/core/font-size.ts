@@ -13,7 +13,8 @@ const fontSizeBase = {
   '4xl': 36,
   '5xl': 48,
   '6xl': 60,
-  '7xl': 72
+  '7xl': 72,
+  '8xl': 96
 };
 
 const fontSize = style(fontSizeBase);

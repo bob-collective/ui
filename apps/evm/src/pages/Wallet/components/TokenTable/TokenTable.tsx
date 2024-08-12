@@ -23,7 +23,7 @@ const AmountCell = ({ amount, valueUSD }: { amount: string | number; valueUSD: s
     <Span size='s' weight='bold'>
       {`${new Intl.NumberFormat('en-US', { maximumFractionDigits: 18 }).format(Number(amount))}`}
     </Span>
-    <Span color='grey-200' size='xs' weight='medium'>
+    <Span color='grey-50' size='xs' weight='medium'>
       {valueUSD}
     </Span>
   </Flex>

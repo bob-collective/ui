@@ -1,9 +1,7 @@
 import { Flex, H1, P } from '@gobob/ui';
 
-import bannerSrc from '../../../../assets/ecosystem-banner.png';
-
-import { StyledBannerImg } from './BannerCarousel.style';
 import { Banner } from './Banner';
+import { StyledEcosystemImg } from './BannerCarousel.style';
 
 type EcosystemBannerProps = {
   onPress?: () => void;
@@ -16,8 +14,8 @@ const EcosystemBanner = ({ onPress }: EcosystemBannerProps) => (
         BOB Ecosystem
       </H1>
     </Flex>
-    <P color='grey-200'>Discover the most exciting projects on BOB.</P>
-    <StyledBannerImg alt='BOB ecosystem banner' src={bannerSrc} />
+    <P color='grey-50'>Discover the most exciting projects on BOB.</P>
+    <StyledEcosystemImg />
   </Banner>
 );
 

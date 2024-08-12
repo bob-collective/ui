@@ -5,15 +5,23 @@ import { color } from './colors';
 
 const dialog: DialogTheme = {
   base: {
-    background: color('grey-500'),
-    border: `1px solid ${color('grey-400')}`,
+    background: color('grey-400'),
+    border: `1px solid ${color('grey-300')}`,
     borderRadius: rounded('md')
   },
   header: {
     padding: `${spacing('xl')} ${spacing('2xl')} ${spacing('s')} ${spacing('2xl')}`
   },
+  divider: {
+    margin: `${spacing('s')} ${spacing('xl')} ${spacing('md')} ${spacing('xl')}`
+  },
   body: {
-    padding: `${spacing('md')} ${spacing('2xl')}`
+    even: {
+      padding: `${spacing('md')} ${spacing('2xl')} ${spacing('2xl')} ${spacing('2xl')}`
+    },
+    uneven: {
+      padding: `${spacing('md')} ${spacing('2xl')}`
+    }
   },
   footer: {
     padding: `${spacing('xl')} ${spacing('2xl')}`

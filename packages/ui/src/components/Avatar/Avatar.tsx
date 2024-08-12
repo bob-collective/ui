@@ -14,6 +14,7 @@ type InheritAttrs = Omit<ImgHTMLAttributes<unknown>, keyof Props>;
 
 type AvatarProps = Props & InheritAttrs;
 
+// TODO: add fallback?
 const Avatar = ({ size = '4xl', background, rounded = 'full', ...props }: AvatarProps) => (
   <StyledAvatar $background={background} $rounded={rounded} $size={size} {...props} />
 );

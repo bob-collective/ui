@@ -1,16 +1,15 @@
-import { ArrowTopRightOnSquare, Avatar, Card, Flex, P } from '@gobob/ui';
+import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 
-import { StyledAnchor, StyledExternalBridgeCard } from './ExternalBridgeForm.style';
 import { Meson } from './Meson';
 import { Owl } from './Owl';
 import { Relay } from './Relay';
 import { Stargate } from './Stargate';
 
-type Bridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
+type ExternalBridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
 
 // TODO: add missing links
 const bridges: Record<
-  Bridges,
+  ExternalBridges,
   { icon: any | string; href: string | { deposit: string; withdraw: string }; name: string; disabled: boolean }
 > = {
   stargate: {
@@ -48,20 +47,22 @@ const bridges: Record<
   }
 };
 
-type Props = { type: 'deposit' | 'withdraw'; bridge: Bridges };
+type Props = { type: 'deposit' | 'withdraw'; bridge: ExternalBridges };
 
 type ExternalBridgeCardProps = Props;
 
 const ExternalBridgeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Element => {
   const { href, name, icon: Icon, disabled } = bridges[bridge];
+  const typeHref = typeof href === 'string' ? href : href[type];
 
-  const card = (
-    <StyledExternalBridgeCard
-      $isDisabled={disabled}
+  return (
+    <Card
+      {...{ external: true, href: typeHref }}
       alignItems='center'
-      background='grey-700'
+      background='grey-600'
       direction='row'
-      isHoverable={!disabled}
+      elementType={Link}
+      isDisabled={disabled}
       isPressable={!disabled}
       justifyContent='space-between'
       padding='lg'
@@ -78,20 +79,9 @@ const ExternalBridgeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Elem
       ) : (
         <ArrowTopRightOnSquare size='s' />
       )}
-    </StyledExternalBridgeCard>
-  );
-
-  if (disabled) {
-    return card;
-  }
-
-  const typeHref = typeof href === 'string' ? href : href[type];
-
-  return (
-    <StyledAnchor href={typeHref} rel='noreferrer' target='_blank'>
-      {card}
-    </StyledAnchor>
+    </Card>
   );
 };
 
 export { ExternalBridgeCard };
+export type { ExternalBridges };

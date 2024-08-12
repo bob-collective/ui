@@ -3,8 +3,8 @@ import { Currency, CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/curre
 import { UINT_256_MAX, useApproval } from '@gobob/hooks';
 import { INTERVAL, useMutation, usePrices, useQuery } from '@gobob/react-query';
 import { USDC } from '@gobob/tokens';
-import { Flex, Input, TokenData, TokenInput, toast, useForm } from '@gobob/ui';
-import { useAccount, useChainId, useEstimateFeesPerGas, useIsContract, usePublicClient } from '@gobob/wagmi';
+import { Flex, Input, TokenSelectItemProps, TokenInput, toast, useForm } from '@gobob/ui';
+import { useAccount, useChainId, useIsContract, usePublicClient } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
@@ -12,7 +12,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address } from 'viem';
 import { AuthButton } from '@gobob/connect-ui';
 
-import { TransactionDetails } from '../../../../components';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { useBalances } from '../../../../hooks';
 import {
@@ -33,7 +32,6 @@ import {
   useGetTransactions
 } from '../../hooks';
 import { L2BridgeData } from '../../types';
-import { getDuration } from '../../utils/transaction';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -60,7 +58,6 @@ const BobBridgeForm = ({
   const publicClient = usePublicClient();
   const chainId = useChainId();
   const { address, chain } = useAccount();
-  const { data: feeData } = useEstimateFeesPerGas();
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
   const { getBalance } = useBalances(bridgeChainId);
@@ -283,7 +280,7 @@ const BobBridgeForm = ({
     isApproving: isApprovingUSDC
   } = useApproval({
     amount: isUSDCWithdraw ? (currencyAmount as CurrencyAmount<Token>) : undefined,
-    spender: (USDCCrossBridgeConfig as any)[L1_CHAIN].l2Bridge as Address
+    spender: USDCCrossBridgeConfig[L2_CHAIN].l2Bridge as Address
   });
 
   const withdrawMutation = useMutation({
@@ -479,9 +476,9 @@ const BobBridgeForm = ({
 
   const valueUSD = useMemo(() => getUsdValue(ticker, amount), [amount, getUsdValue, ticker]);
 
-  const tokenInputItems: TokenData[] = useMemo(
+  const tokenInputItems: TokenSelectItemProps[] = useMemo(
     () =>
-      tokens?.map((token): TokenData => {
+      tokens?.map((token): TokenSelectItemProps => {
         const balance = getBalance(token.l1Currency.symbol);
 
         return {
@@ -511,14 +508,6 @@ const BobBridgeForm = ({
   const balance = tokenBalance?.toExact() || '0';
   const humanBalance = tokenBalance?.toSignificant();
 
-  const calculateGasEstimate = useMemo(
-    () =>
-      feeData?.gasPrice
-        ? gasEstimateMutation.data?.multiply(feeData.gasPrice)
-        : selectedCurrency && CurrencyAmount.fromRawAmount(selectedCurrency, 0n),
-    [feeData?.gasPrice, gasEstimateMutation.data, selectedCurrency]
-  );
-
   return (
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
@@ -526,7 +515,6 @@ const BobBridgeForm = ({
         humanBalance={humanBalance}
         items={tokenInputItems}
         label='Amount'
-        size='lg'
         type='selectable'
         valueUSD={valueUSD}
         onChangeCurrency={handleChangeTicker}
@@ -538,15 +526,6 @@ const BobBridgeForm = ({
         <Input label='Recipient' placeholder='Enter destination address' {...form.getFieldProps(BRIDGE_RECIPIENT)} />
       )}
       {isBridgeDisabled && selectedToken && <BridgeAlert token={selectedToken} />}
-      <TransactionDetails
-        amount={currencyAmount}
-        chainId={bridgeChainId}
-        duration={`~ ${getDuration(type === 'deposit' ? MessageDirection.L1_TO_L2 : MessageDirection.L2_TO_L1)}`}
-        gasEstimate={calculateGasEstimate}
-        isLoadingGasEstimate={gasEstimateMutation.isPending}
-        selectProps={form.getSelectFieldProps(BRIDGE_GAS_TOKEN)}
-        onChangeGasTicker={(ticker) => setGasTicker(ticker)}
-      />
       <AuthButton
         chain={bridgeChainId}
         color='primary'

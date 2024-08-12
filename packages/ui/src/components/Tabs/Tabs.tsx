@@ -56,7 +56,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       });
     }, [state.selectedKey, tabsListRef]);
 
-    const { focusProps: focusRingProps, isFocusVisible } = useFocusRing({
+    const { focusProps: focusRingProps } = useFocusRing({
       within: true
     });
 
@@ -69,7 +69,6 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       <StyledTabs className={className} style={style}>
         <TabListWrapper $align={align} $fullWidth={fullWidth} $size={size}>
           <TabSelection
-            $isFocusVisible={isFocusVisible}
             $isFocusWithin={isFocusWithin}
             $isHovered={isHovered}
             $size={size}

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Span } from '../Text';
-import { TextLink } from '../TextLink';
+import { Link } from '../Link';
 
 type StyledBreadcrumbProps = {
   $isDisabled?: boolean;
@@ -31,7 +31,7 @@ const StyledSpanBreadcrumb = styled(Span)<StyledBreadcrumbProps>`
   cursor: default;
 `;
 
-const StyledLinkBreadcrumb = styled(TextLink)<StyledBreadcrumbProps>`
+const StyledLinkBreadcrumb = styled(Link)<StyledBreadcrumbProps>`
   padding: 0 ${({ theme }) => theme.spacing('s')};
   text-decoration: none;
 `;

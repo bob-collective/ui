@@ -11,7 +11,7 @@ const Auditors = () => {
   return (
     <Dl gap='md' justifyContent='center'>
       <DlGroup direction={{ base: 'column', s: 'row' }} gap='xl' justifyContent='center'>
-        <Dt noWrap color='grey-200' size='s'>
+        <Dt noWrap color='grey-50' size='s'>
           {t('fusion.deposit.auditedBy')}
         </Dt>
         <Dd style={{ width: '100%' }}>
