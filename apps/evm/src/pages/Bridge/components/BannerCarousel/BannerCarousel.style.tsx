@@ -17,15 +17,15 @@ const StyledBannerContent = styled(Flex)`
 
 const StyledSlider = styled(Slider)`
   .slick-prev {
-    left: 10px;
+    left: 20px;
   }
 
   .slick-next {
-    right: 10px;
+    right: 20px;
   }
 
   .slick-dots {
-    bottom: 0;
+    bottom: 10px;
   }
 
   .slick-prev,
@@ -81,6 +81,22 @@ const StyledBanner = styled(Card)`
   max-height: 8.5rem;
 `;
 
+const StyledIntractBannerImg = styled.img`
+  ${({ theme }) => {
+    return css`
+      height: 4rem;
+
+      @media ${theme.breakpoints.down('s')} {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
 const StyledOnrampGraphic = styled(OnrampGraphic)`
   position: absolute;
 
@@ -124,6 +140,7 @@ export {
   StyledCarouselWrapper,
   StyledSlider,
   StyledBanner,
+  StyledIntractBannerImg,
   StyledEcosystemImg,
   StyledOnrampGraphic,
   StyledBannerContent

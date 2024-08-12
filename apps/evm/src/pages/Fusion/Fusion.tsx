@@ -6,9 +6,8 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { Geoblock, Main } from '../../components';
 import { LocalStorageKey } from '../../constants';
 
-import { Challenges, Dashboard, Info, Leaderboard, PartnersSection } from './components';
+import { AllUsersLeaderboard, Dashboard, Info, PartnersAndChallenges, QuestUsersLeaderboard } from './components';
 import { StyledUpdateMark } from './Fusion.style';
-import { IntractBanner } from './components/IntractBanner';
 
 const Fusion = () => {
   const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams('tab=dashboard'));
@@ -51,15 +50,16 @@ const Fusion = () => {
       <Main maxWidth='4xl'>
         <Tabs selectedKey={selectedTabKey} onSelectionChange={handleSelectionChange}>
           <TabsItem key='dashboard' title='Dashboard'>
-            <Flex direction='column' gap='2xl'>
+            <Flex direction='column'>
               <Dashboard />
-              <IntractBanner />
-              <Challenges />
-              <PartnersSection />
+              <PartnersAndChallenges />
             </Flex>
           </TabsItem>
           <TabsItem key='leaderboard' title='Leaderboard'>
-            <Leaderboard />
+            <AllUsersLeaderboard />
+          </TabsItem>
+          <TabsItem key='quest-leaderboard' title='Quest Leaderboard'>
+            <QuestUsersLeaderboard />
           </TabsItem>
           <TabsItem
             key='info'

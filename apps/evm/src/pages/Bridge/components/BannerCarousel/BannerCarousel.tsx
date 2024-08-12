@@ -7,6 +7,7 @@ import { useTheme } from 'styled-components';
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
+import { IntractBanner } from './IntractBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -57,6 +58,7 @@ const BannerCarousel = ({ onPressOnrampBanner, onPressEcosystemBanner }: BannerC
       <StyledSlider {...settings} arrows={isDesktop}>
         <OnrampBanner onPress={onPressOnrampBanner} />
         <EcosystemBanner onPress={onPressEcosystemBanner} />
+        <IntractBanner />
       </StyledSlider>
     </StyledCarouselWrapper>
   );

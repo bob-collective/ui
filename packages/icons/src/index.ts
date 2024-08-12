@@ -8,6 +8,8 @@ export { BTC } from './BTC';
 export { CoinbaseWallet } from './CoinbaseWallet';
 export { Discord } from './Discord';
 export { ETH } from './ETH';
+export { Galxe } from './Galxe';
+export { Intract } from './Intract';
 export { LeatherWallet } from './LeatherWallet';
 export { Ledger } from './Ledger';
 export { MedalBronze } from './MedalBronze';
