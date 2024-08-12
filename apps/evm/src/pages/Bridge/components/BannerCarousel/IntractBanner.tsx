@@ -2,8 +2,8 @@ import { Flex, H1, P } from '@gobob/ui';
 
 import bannerSrc from '../../../../assets/intract-logo.png';
 
-import { StyledIntractBannerImg } from './BannerCarousel.style';
 import { Banner } from './Banner';
+import { StyledIntractBannerImg } from './BannerCarousel.style';
 
 const IntractBanner = () => (
   <Banner
