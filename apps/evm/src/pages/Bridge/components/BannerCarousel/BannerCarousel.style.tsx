@@ -17,15 +17,15 @@ const StyledBannerContent = styled(Flex)`
 
 const StyledSlider = styled(Slider)`
   .slick-prev {
-    left: 10px;
+    left: 20px;
   }
 
   .slick-next {
-    right: 10px;
+    right: 20px;
   }
 
   .slick-dots {
-    bottom: 0;
+    bottom: 10px;
   }
 
   .slick-prev,

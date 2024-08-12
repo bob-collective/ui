@@ -6,7 +6,7 @@ type BannerProps = CardProps;
 
 const Banner = (props: BannerProps) => {
   return (
-    <StyledBanner disableAnimation direction='row' paddingX={{ base: '2xl', s: '7xl' }} paddingY='5xl' {...props} />
+    <StyledBanner disableAnimation direction='row' paddingX={{ base: '3xl', s: '8xl' }} paddingY='6xl' {...props} />
   );
 };
 
