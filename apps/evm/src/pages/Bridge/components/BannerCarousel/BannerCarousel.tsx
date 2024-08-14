@@ -32,7 +32,7 @@ function PrevArrow(props: any) {
 const settings: Settings = {
   dots: true,
   infinite: true,
-  autoplay: false,
+  autoplay: true,
   speed: 500,
   autoplaySpeed: 10000,
   cssEase: 'linear',
