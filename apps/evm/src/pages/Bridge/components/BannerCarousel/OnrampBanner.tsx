@@ -1,6 +1,6 @@
 import { Flex, H1, P } from '@gobob/ui';
 
-import { StyledBannerContent, StyledOnrampGraphic } from './BannerCarousel.style';
+import { StyledBannerContent, StyledOnrampImg } from './BannerCarousel.style';
 import { Banner } from './Banner';
 
 type OnrampBannerProps = {
@@ -17,7 +17,7 @@ const OnrampBanner = ({ onPress }: OnrampBannerProps) => (
       </Flex>
       <P color='grey-50'>The fastest and easiest way to bridge BTC to BOB</P>
     </StyledBannerContent>
-    <StyledOnrampGraphic />
+    <StyledOnrampImg />
   </Banner>
 );
 

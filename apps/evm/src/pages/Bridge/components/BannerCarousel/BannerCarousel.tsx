@@ -6,8 +6,8 @@ import { useTheme } from 'styled-components';
 
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
-import { OnrampBanner } from './OnrampBanner';
 import { IntractBanner } from './IntractBanner';
+import { OnrampBanner } from './OnrampBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -49,16 +49,16 @@ type BannerCarouselProps = {
   onPressEcosystemBanner: () => void;
 };
 
-const BannerCarousel = ({ onPressOnrampBanner, onPressEcosystemBanner }: BannerCarouselProps) => {
+const BannerCarousel = ({ onPressEcosystemBanner, onPressOnrampBanner }: BannerCarouselProps) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
 
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
-        <OnrampBanner onPress={onPressOnrampBanner} />
-        <EcosystemBanner onPress={onPressEcosystemBanner} />
         <IntractBanner />
+        <EcosystemBanner onPress={onPressEcosystemBanner} />
+        <OnrampBanner onPress={onPressOnrampBanner} />
       </StyledSlider>
     </StyledCarouselWrapper>
   );
