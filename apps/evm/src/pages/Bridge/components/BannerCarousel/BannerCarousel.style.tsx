@@ -2,8 +2,9 @@ import { Card, Flex } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
-import { OnrampGraphic } from './OnrampGraphic';
 import { EcosystemImg } from './EcosystemImg';
+import { IntractImg } from './IntractImg';
+import { OnrampImg } from './OnrampImg';
 
 const StyledCarouselWrapper = styled(Card)`
   position: relative;
@@ -81,15 +82,19 @@ const StyledBanner = styled(Card)`
   max-height: 8.5rem;
 `;
 
-const StyledIntractBannerImg = styled.img`
+const StyledIntractImg = styled(IntractImg)`
   ${({ theme }) => {
     return css`
-      height: 4rem;
+      position: absolute;
+      top: 50%;
+      right: 3.275rem;
+      width: 14rem;
+      height: 14rem;
+      transform: translateY(-50%);
 
-      @media ${theme.breakpoints.down('s')} {
-        position: absolute;
-        top: 50%;
+      @media ${theme.breakpoints.down('md')} {
         left: 50%;
+        right: unset;
         transform: translate(-50%, -50%);
         opacity: 0.2;
       }
@@ -97,7 +102,7 @@ const StyledIntractBannerImg = styled.img`
   }}
 `;
 
-const StyledOnrampGraphic = styled(OnrampGraphic)`
+const StyledOnrampImg = styled(OnrampImg)`
   position: absolute;
 
   ${({ theme }) => {
@@ -140,8 +145,8 @@ export {
   StyledCarouselWrapper,
   StyledSlider,
   StyledBanner,
-  StyledIntractBannerImg,
   StyledEcosystemImg,
-  StyledOnrampGraphic,
+  StyledOnrampImg,
+  StyledIntractImg,
   StyledBannerContent
 };
