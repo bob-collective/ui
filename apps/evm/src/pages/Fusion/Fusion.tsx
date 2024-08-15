@@ -5,6 +5,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 
 import { Geoblock, Main } from '../../components';
 import { LocalStorageKey } from '../../constants';
+import { BannerCarousel } from '../Bridge/components';
 
 import { AllUsersLeaderboard, Dashboard, Info, PartnersAndChallenges, QuestUsersLeaderboard } from './components';
 import { StyledUpdateMark } from './Fusion.style';
@@ -47,31 +48,34 @@ const Fusion = () => {
   return (
     <Geoblock>
       <Main maxWidth='4xl'>
-        <Tabs selectedKey={selectedTabKey} onSelectionChange={handleSelectionChange}>
-          <TabsItem key='dashboard' title='Dashboard'>
-            <Flex direction='column'>
-              <Dashboard />
-              <PartnersAndChallenges />
-            </Flex>
-          </TabsItem>
-          <TabsItem key='leaderboard' title='Leaderboard'>
-            <AllUsersLeaderboard />
-          </TabsItem>
-          <TabsItem key='quest-leaderboard' title='Quest Leaderboard'>
-            <QuestUsersLeaderboard />
-          </TabsItem>
-          <TabsItem
-            key='info'
-            title={
-              <>
-                Info
-                {!isInfoTabMarkHidden && <StyledUpdateMark />}
-              </>
-            }
-          >
-            <Info />
-          </TabsItem>
-        </Tabs>
+        <Flex direction='column' gap='md'>
+          <BannerCarousel />
+          <Tabs selectedKey={selectedTabKey} onSelectionChange={handleSelectionChange}>
+            <TabsItem key='dashboard' title='Dashboard'>
+              <Flex direction='column'>
+                <Dashboard />
+                <PartnersAndChallenges />
+              </Flex>
+            </TabsItem>
+            <TabsItem key='leaderboard' title='Leaderboard'>
+              <AllUsersLeaderboard />
+            </TabsItem>
+            <TabsItem key='quest-leaderboard' title='Quest Leaderboard'>
+              <QuestUsersLeaderboard />
+            </TabsItem>
+            <TabsItem
+              key='info'
+              title={
+                <>
+                  Info
+                  {!isInfoTabMarkHidden && <StyledUpdateMark />}
+                </>
+              }
+            >
+              <Info />
+            </TabsItem>
+          </Tabs>
+        </Flex>
       </Main>
     </Geoblock>
   );
