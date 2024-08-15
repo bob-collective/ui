@@ -1,3 +1,3 @@
 export * from './BridgeForm';
 export * from './TransactionList';
-export * from './BannerCarousel';
+export * from '../../../components/BannerCarousel';
