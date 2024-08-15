@@ -48,7 +48,7 @@ const Fusion = () => {
   return (
     <Geoblock>
       <Main maxWidth='4xl'>
-        <Flex direction='column' gap='md'>
+        <Flex direction='column' gap='lg'>
           <BannerCarousel />
           <Tabs selectedKey={selectedTabKey} onSelectionChange={handleSelectionChange}>
             <TabsItem key='dashboard' title='Dashboard'>
