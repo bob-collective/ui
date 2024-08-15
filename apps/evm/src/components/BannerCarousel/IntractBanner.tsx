@@ -8,18 +8,15 @@ const IntractBanner = () => (
     isPressable
     gap='md'
     justifyContent='space-between'
-    onPress={() =>
-      (window.location.href =
-        'https://www.intract.io/explore?query=BOB+Summer+Fest&sortBy=launchDate&entity_type=CAMPAIGN&chainId=60808&hideExpired=true')
-    }
+    onPress={() => (window.location.href = 'https://www.intract.io/events/66b9e41cc8ff56cba8440d36')}
   >
     <Flex direction='column'>
       <Flex alignItems='center'>
         <H1 size='2xl' weight='bold'>
-          Intract: BOB Summer Fest
+          Stablecoin Carnival with BOB
         </H1>
       </Flex>
-      <P color='grey-50'>Complete quests to boost your Spice earnings</P>
+      <P color='grey-50'>Particpate & get extra SPICE!</P>
     </Flex>
     <StyledIntractImg />
   </Banner>

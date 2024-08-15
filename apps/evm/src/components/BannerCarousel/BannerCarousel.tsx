@@ -3,6 +3,10 @@ import 'slick-carousel/slick/slick.css';
 import { Settings } from 'react-slick';
 import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { RoutesPath } from '../../constants';
 
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
@@ -44,14 +48,22 @@ const settings: Settings = {
   prevArrow: <PrevArrow />
 };
 
-type BannerCarouselProps = {
-  onPressOnrampBanner: () => void;
-  onPressEcosystemBanner: () => void;
-};
-
-const BannerCarousel = ({ onPressEcosystemBanner, onPressOnrampBanner }: BannerCarouselProps) => {
+const BannerCarousel = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
+  const navigate = useNavigate();
+
+  const onPressEcosystemBanner = useCallback(
+    () => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const onPressOnrampBanner = useCallback(
+    () => navigate(RoutesPath.BRIDGE, { state: { setBridgeToBtc: true } }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>

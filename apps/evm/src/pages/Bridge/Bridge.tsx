@@ -7,10 +7,10 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { Main } from '../../components';
 import { L1_CHAIN, L2_CHAIN, LocalStorageKey, RoutesPath } from '../../constants';
 import { FeatureFlags, useFeatureFlag } from '../../hooks';
+import { StyledEcosystemImg } from '../../components/BannerCarousel/BannerCarousel.style';
 
 import { StyledBanner, StyledBannerCloseBtn, StyledBannerContent, StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
-import { StyledEcosystemImg } from './components/BannerCarousel/BannerCarousel.style';
 
 enum BridgeOrigin {
   INTERNAL = 'INTERNAL',
@@ -78,17 +78,6 @@ const Bridge = () => {
 
   const handleChangeChain = useCallback((chain: ChainId | 'BTC') => setChain(chain), []);
 
-  const handlePressEcosystemBanner = useCallback(
-    () => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
-  const handlePressOnrampBanner = useCallback(() => {
-    setChain('BTC');
-    setBridgeOrigin(BridgeOrigin.INTERNAL);
-  }, []);
-
   // const handleCloseFaultProofNotice = useCallback(() => {
   //   setFaultProofNoticeHidden(true);
   // }, [setFaultProofNoticeHidden]);
@@ -113,14 +102,18 @@ const Bridge = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chain]);
 
+  useEffect(() => {
+    if (location?.state?.setBridgeToBtc) {
+      setChain('BTC');
+      setBridgeOrigin(BridgeOrigin.INTERNAL);
+    }
+  }, [location]);
+
   return (
     <>
       <Main maxWidth='5xl' padding='md'>
         {isBtcOnRampEnabled ? (
-          <BannerCarousel
-            onPressEcosystemBanner={handlePressEcosystemBanner}
-            onPressOnrampBanner={handlePressOnrampBanner}
-          />
+          <BannerCarousel />
         ) : (
           !isEcosystemBannerHidden && (
             <StyledBanner
