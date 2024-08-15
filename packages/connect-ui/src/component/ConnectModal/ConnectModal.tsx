@@ -25,6 +25,7 @@ import { ConnectType, WalletType } from '../../types';
 import { WalletList } from './WalletList';
 import { ConnectedWalletSection } from './ConnectedWalletSection';
 import { ConnectWalletCard } from './ConnectWalletCard';
+import { BitgetWallet } from './walletLinks/BitgetWallet';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
@@ -40,6 +41,8 @@ type Props = {
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type ConnectModalProps = Props & InheritAttrs;
+
+const hasBitkeep = window.bitkeep && window.ethereum;
 
 const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
   ({ onClose, isOpen, step: stepProp, type = 'both', onConnectEvm, onConnectBtc, ...props }, ref) => {
@@ -293,6 +296,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               onSelectionChange={handleEvmWalletSelect as any}
             />
           )}
+          {(step === 'evm' || type === 'evm') && !hasBitkeep && <BitgetWallet />}
           {(step === 'btc' || type === 'btc') && (
             <WalletList
               connector={btcWalletConnector}
