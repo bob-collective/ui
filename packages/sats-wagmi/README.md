@@ -25,9 +25,6 @@ The package is still in an infancy state, but feel free to recommend any adjustm
   - Bitget (soon)
 - BTC functionality:
   - send bitcoin
-  - inscribe (text and images)
-  - send inscription
-  - sign input (psbt)
 - React hooks
 
 ## Installation

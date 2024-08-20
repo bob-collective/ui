@@ -125,23 +125,6 @@ class XverseConnector extends SatsConnector {
     });
   }
 
-  // async inscribe(contentType: 'text' | 'image', content: string): Promise<string> {
-  //   return new Promise(async (resolve, reject) => {
-  //     await createInscription({
-  //       payload: {
-  //         network: getWalletNetwork(this.network),
-  //         content,
-  //         contentType: contentType === 'text' ? 'text/plain;charset=utf-8' : 'image/jpeg',
-  //         payloadType: contentType === 'text' ? 'PLAIN_TEXT' : 'BASE_64'
-  //       },
-  //       onFinish: (response) => {
-  //         resolve(response.txId);
-  //       },
-  //       onCancel: () => reject(new Error('Canceled'))
-  //     });
-  //   });
-  // }
-
   async signPsbt(psbtHex: string, psbtInputAccounts: PsbtInputAccounts[]): Promise<string> {
     // https://docs.xverse.app/sats-connect/bitcoin-methods/signpsbt
     return new Promise(async (resolve, reject) => {

@@ -6,10 +6,14 @@ import { Psbt } from 'bitcoinjs-lib';
 import bs58check from 'bs58check';
 /* @ts-ignore */
 
-import { BitcoinScriptType, WalletNetwork } from '../types';
+import { WalletNetwork } from '../types';
 import { SnapError } from '../utils';
 
 import { SatsConnector } from './base';
+
+export enum BitcoinScriptType {
+  P2WPKH = 'P2WPKH'
+}
 
 const getSnapNetwork = (network: WalletNetwork): Network => {
   switch (network) {
@@ -164,162 +168,10 @@ class MMSnapConnector extends SatsConnector {
     throw new Error('Not implemented');
   }
 
+  // FIXME: Refactor using btc-signer
   sendToAddress(): Promise<string> {
     throw new Error('Method not implemented.');
   }
-
-  // FIXME: Refactor using btc-signer
-  // async sendToAddress(toAddress: string, amount: number): Promise<string> {
-  //   if (!this.publicKey) {
-  //     throw new Error('Public key missing');
-  //   }
-
-  //   const electrsClient = new DefaultEsploraClient(this.network as string);
-
-  //   const libNetwork = await this.getNetwork();
-  //   const network = this.network.toString();
-  //   const senderPubKey = Buffer.from(this.publicKey, 'hex');
-  //   const senderAddress = bitcoin.payments.p2wpkh({
-  //     pubkey: senderPubKey,
-  //     network: libNetwork
-  //   }).address!;
-
-  //   const txOutputs = [
-  //     {
-  //       address: toAddress,
-  //       value: amount
-  //     }
-  //   ];
-
-  //   const [allConfirmedUtxos, feeRate] = await Promise.all([
-  //     electrsClient.getAddressUtxos(senderAddress),
-  //     electrsClient.getFeeEstimate(CONFIRMATION_TARGET)
-  //   ]);
-
-  //   // FIXME: This function is not compatible with mainnet
-  //   const utxos = await findUtxosWithoutInscriptions(network, electrsClient, allConfirmedUtxos);
-
-  //   const { inputs, outputs } = coinSelect(
-  //     utxos.map((utxo) => {
-  //       return {
-  //         txId: utxo.txid,
-  //         vout: utxo.vout,
-  //         value: utxo.value
-  //       };
-  //     }),
-  //     txOutputs,
-  //     feeRate
-  //   );
-
-  //   if (!inputs || !outputs) {
-  //     throw Error('Please make sure you gave enough funds');
-  //   }
-
-  //   const psbt = new bitcoin.Psbt({ network: libNetwork });
-
-  //   for (const input of inputs) {
-  //     const txHex = await electrsClient.getTransactionHex(input.txId);
-  //     const utx = bitcoin.Transaction.fromHex(txHex);
-
-  //     const witnessUtxo = {
-  //       script: utx.outs[input.vout].script,
-  //       value: input.value
-  //     };
-  //     const nonWitnessUtxo = utx.toBuffer();
-
-  //     psbt.addInput({
-  //       hash: input.txId,
-  //       index: input.vout,
-  //       nonWitnessUtxo,
-  //       witnessUtxo,
-  //       bip32Derivation: [
-  //         {
-  //           masterFingerprint: Buffer.from((await this.getMasterFingerprint()) as any, 'hex'),
-  //           path: DEFAULT_BIP32_PATH,
-  //           pubkey: senderPubKey
-  //         }
-  //       ]
-  //     });
-  //   }
-
-  //   const changeAddress = senderAddress;
-
-  //   outputs.forEach((output: any) => {
-  //     // output may have been added for change
-  //     if (!output.address) {
-  //       output.address = changeAddress;
-  //     }
-
-  //     psbt.addOutput({
-  //       address: output.address,
-  //       value: output.value
-  //     });
-  //   });
-
-  //   const txResult = await this.signPsbt(psbt.toBase64(), hardcodedScriptType);
-
-  //   return electrsClient.broadcastTx(txResult.txHex);
-  // }
-
-  // async sendInscription(address: string, inscriptionId: string, feeRate = 1): Promise<string> {
-  // throw new Error('Not implemented');
-  // if (!this.publicKey) {
-  //   throw new Error('Connect failed');
-  // }
-  // const pubkey = Buffer.from(await this.publicKey, 'hex');
-
-  // const libNetwork = await this.getNetwork();
-  // const senderAddress = bitcoin.payments.p2wpkh({ pubkey, network: libNetwork }).address!;
-
-  // const electrsClient = new DefaultEsploraClient(this.network as string);
-
-  // const utxos = await electrsClient.getAddressUtxos(senderAddress);
-  // const inscriptionUtxo = await findUtxoForInscriptionId(electrsClient, utxos, inscriptionId);
-
-  // if (inscriptionUtxo === undefined) {
-  //   throw Error(
-  //     `Unable to find utxo owned by address [${senderAddress}] containing inscription id [${inscriptionId}]`
-  //   );
-  // }
-
-  // const psbt = new bitcoin.Psbt({ network: libNetwork });
-  // const txHex = await electrsClient.getTransactionHex(inscriptionUtxo.txid);
-  // const utx = bitcoin.Transaction.fromHex(txHex);
-
-  // const witnessUtxo = {
-  //   script: utx.outs[inscriptionUtxo.vout].script,
-  //   value: inscriptionUtxo.value
-  // };
-  // const nonWitnessUtxo = utx.toBuffer();
-  // const masterFingerprint = Buffer.from((await this.getMasterFingerprint()) as any, 'hex');
-
-  // // prepare single input
-  // psbt.addInput({
-  //   hash: inscriptionUtxo.txid,
-  //   index: inscriptionUtxo.vout,
-  //   nonWitnessUtxo,
-  //   witnessUtxo,
-  //   bip32Derivation: [
-  //     {
-  //       masterFingerprint,
-  //       path: DEFAULT_BIP32_PATH,
-  //       pubkey: pubkey
-  //     }
-  //   ]
-  // });
-
-  // const txSize = estimateTxSize(libNetwork, address);
-  // const fee = txSize * feeRate;
-
-  // psbt.addOutput({
-  //   address: address,
-  //   value: inscriptionUtxo.value - fee
-  // });
-
-  // const txResult = await this.signPsbt(psbt.toBase64(), hardcodedScriptType);
-
-  // return electrsClient.broadcastTx(txResult.txHex);
-  // }
 
   async signInput(inputIndex: number, psbt: Psbt) {
     try {
@@ -373,28 +225,6 @@ class MMSnapConnector extends SatsConnector {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async signPsbt(): Promise<string> {
     throw new Error('Not implemented');
-    // const scriptType = BitcoinScriptType;
-    // try {
-    //
-    //   return (await ethereum.request({
-    //     method: 'wallet_invokeSnap',
-    //     params: {
-    //       snapId,
-    //       request: {
-    //         method: 'btc_signPsbt',
-    //         params: {
-    //           psbt: psbt,
-    //           network: this.snapNetwork,
-    //           scriptType
-    //         }
-    //       }
-    //     }
-    //   })) as Promise<{ txId: string; txHex: string }>;
-    // } catch (err: any) {
-    //   const error = new SnapError(err?.message || 'Sign PSBT failed');
-
-    //   throw error;
-    // }
   }
 
   async updateNetworkInSnap() {

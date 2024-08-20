@@ -206,10 +206,6 @@ class UnisatConnector extends SatsConnector {
 
     return signedPsbtHex;
   }
-
-  // async sendInscription(address: string, inscriptionId: string, feeRate?: number): Promise<string> {
-  //   return (await window.unisat.sendInscription(address, inscriptionId, feeRate ? { feeRate } : undefined)).txid;
-  // }
 }
 
 export { UnisatConnector };

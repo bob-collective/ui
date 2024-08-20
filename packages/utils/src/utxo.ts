@@ -1,29 +1,17 @@
-import { DefaultEsploraClient, EsploraClient, UTXO } from '@gobob/bob-sdk';
-import { DefaultOrdinalsClient, TESTNET_ORD_BASE_PATH } from '@gobob/bob-sdk/dist/ordinal-api';
+import { DefaultEsploraClient, UTXO } from '@gobob/bob-sdk';
 import { Transaction, Script, selectUTXO, TEST_NETWORK, NETWORK, p2wpkh, p2sh } from '@scure/btc-signer';
 import { hex } from '@scure/base';
 import { AddressType } from 'bitcoin-address-validation';
 import * as bitcoin from 'bitcoinjs-lib';
 
-import { getTxInscriptions, parseInscriptionId } from './inscription';
 import { NetworkType, getBtcNetwork } from './btcNetwork';
 
 // Confirmation target for fee estimation in Bitcoin blocks
-export const CONFIRMATION_TARGET = 6;
+export const CONFIRMATION_TARGET = 3;
 
 /// The sequence number that enables replace-by-fee and absolute lock time but
 /// disables relative lock time.
 const ENABLE_RBF_NO_LOCKTIME = 0xfffffffd;
-
-interface InscriptionUTXO {
-  value: number;
-  script_pubkey: string;
-  address: string;
-  transaction: string;
-  sat_ranges: string;
-  inscriptions: string[];
-  runes: Record<string, any>;
-}
 
 export interface Input {
   txid: string;
@@ -36,64 +24,6 @@ export interface Input {
     amount: bigint;
   };
   nonWitnessUtxo?: Uint8Array;
-}
-
-export async function findUtxoForInscriptionId(
-  esploraClient: EsploraClient,
-  utxos: UTXO[],
-  inscriptionId: string
-): Promise<UTXO | undefined> {
-  // TODO: can we get the current UTXO of the inscription from ord?
-  // we can use the satpoint for this
-  const { txid, index } = parseInscriptionId(inscriptionId);
-
-  for (const utxo of utxos) {
-    if (utxo.confirmed) {
-      const res = await fetch(`${TESTNET_ORD_BASE_PATH}/output/${utxo.txid}:${utxo.vout}`, {
-        headers: {
-          Accept: 'application/json'
-        }
-      });
-
-      const inscriptionUtxo: InscriptionUTXO = await res.json();
-
-      if (inscriptionUtxo.inscriptions && inscriptionUtxo.inscriptions.includes(inscriptionId)) {
-        return utxo;
-      }
-    } else if (txid == utxo.txid) {
-      const inscriptions = await getTxInscriptions(esploraClient, utxo.txid);
-
-      if (typeof inscriptions[index] !== 'undefined') {
-        return utxo;
-      }
-    }
-  }
-
-  return undefined;
-}
-
-export async function findUtxosWithoutInscriptions(network: string, utxos: UTXO[]): Promise<UTXO[]> {
-  const ordinalsClient = new DefaultOrdinalsClient(network);
-
-  const safeUtxos: UTXO[] = [];
-
-  // Exclude UTXOs that are uncomfirmed or have inscriptions
-  await Promise.all([
-    utxos.map(async (utxo) => {
-      if (utxo.confirmed) {
-        const inscription = await ordinalsClient.getInscriptionsFromOutPoint({
-          txid: utxo.txid,
-          vout: utxo.vout
-        });
-
-        if (inscription.inscriptions.length === 0) {
-          safeUtxos.push(utxo);
-        }
-      }
-    })
-  ]);
-
-  return safeUtxos;
 }
 
 export async function createTransferWithOpReturn(

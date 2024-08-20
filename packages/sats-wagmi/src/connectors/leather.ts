@@ -4,15 +4,6 @@ import { WalletNetwork } from '../types';
 
 import { PsbtInputAccounts, SatsConnector } from './base';
 
-// function extractAccountNumber(path: string) {
-//   const segments = path.split('/');
-//   const accountNum = parseInt(segments[3].replaceAll("'", ''), 10);
-
-//   if (isNaN(accountNum)) throw new Error('Cannot parse account number from path');
-
-//   return accountNum;
-// }
-
 type Response<T> = {
   jsonrpc: string;
   id: string;
