@@ -1,4 +1,4 @@
-import { DefaultEsploraClient, RemoteSigner } from '@gobob/bob-sdk';
+import { DefaultEsploraClient } from '@gobob/bob-sdk';
 import { Network as LibNetwork, Psbt, Transaction, networks } from 'bitcoinjs-lib';
 import * as bitcoin from 'bitcoinjs-lib';
 import retry from 'async-retry';
@@ -117,64 +117,6 @@ abstract class SatsConnector {
 
   abstract removeListener(callback: (account: string) => void): void;
 
-  // TODO: verify if this works on mainnet
-  async sendInscription(): Promise<string> {
-    throw new Error('Not implemented');
-    // if (!this.ordinalsAddress || !this.publicKey) {
-    //   throw new Error('Connect wallet');
-    // }
-
-    // const network = await this.getNetwork();
-
-    // const electrsClient = new DefaultEsploraClient(this.network as string);
-
-    // const utxos = await electrsClient.getAddressUtxos(this.ordinalsAddress);
-
-    // const inscriptionUtxo = await findUtxoForInscriptionId(electrsClient, utxos, inscriptionId);
-
-    // if (inscriptionUtxo === undefined) {
-    //   throw Error(
-    //     `Unable to find utxo owned by address [${this.ordinalsAddress}] containing inscription id [${inscriptionId}]`
-    //   );
-    // }
-
-    // const txHex = await electrsClient.getTransactionHex(inscriptionUtxo.txid);
-    // const utx = Transaction.fromHex(txHex);
-
-    // const witnessUtxo = {
-    //   script: utx.outs[inscriptionUtxo.vout].script,
-    //   value: inscriptionUtxo.value
-    // };
-
-    // const nonWitnessUtxo = utx.toBuffer();
-
-    // let psbt = new Psbt({
-    //   network
-    // });
-
-    // psbt.addInput({
-    //   hash: inscriptionUtxo.txid,
-    //   index: inscriptionUtxo.vout,
-    //   witnessUtxo,
-    //   nonWitnessUtxo,
-    //   tapInternalKey: toXOnly(Buffer.from(this.publicKey, 'hex'))
-    // });
-
-    // const txSize = estimateTxSize(network, address);
-    // const fee = txSize * feeRate;
-
-    // psbt.addOutput({
-    //   address,
-    //   value: inscriptionUtxo.value - fee
-    // });
-
-    // psbt = await this.signInput(0, psbt);
-
-    // psbt.finalizeAllInputs();
-
-    // return electrsClient.broadcastTx(psbt.extractTransaction().toHex());
-  }
-
   async getTransaction(txId: string): Promise<Transaction> {
     const electrsClient = new DefaultEsploraClient(this.network as string);
 
@@ -195,33 +137,6 @@ abstract class SatsConnector {
         maxTimeout: 5000
       } as any
     );
-  }
-
-  // TODO: verify this works on mainnet
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async inscribe(): Promise<string> {
-    throw new Error('Not implemented');
-    // if (!this.ordinalsAddress) {
-    //   throw new Error('Something went wrong while connecting');
-    // }
-
-    // const electrsClient = new DefaultEsploraClient(this.network as string);
-
-    // let inscription;
-
-    // if (contentType === 'image') {
-    //   const buffer = Buffer.from(content, 'base64');
-
-    //   inscription = createImageInscription(buffer);
-    // } else {
-    //   inscription = createTextInscription(content);
-    // }
-
-    // const feeRate = await electrsClient.getFeeEstimate(6);
-
-    // const inscribeTx = await inscribeData(this.getSigner(), this.ordinalsAddress, feeRate, inscription);
-
-    // return electrsClient.broadcastTx(inscribeTx.toHex());
   }
 
   // Supports creating a transaction from the payment address with an OP_RETURN output
@@ -289,13 +204,6 @@ abstract class SatsConnector {
     signedTx.finalize();
 
     return bitcoin.Transaction.fromBuffer(Buffer.from(signedTx.extract()));
-  }
-
-  // lib needs this signer
-  // FIXME: need to update the SDK to reflect the refactor from `signInput` to `signPsbt`
-  getSigner(): RemoteSigner {
-    throw new Error('Not implemented');
-    // return this;
   }
 }
 

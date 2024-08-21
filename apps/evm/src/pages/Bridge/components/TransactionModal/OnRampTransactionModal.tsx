@@ -29,7 +29,7 @@ const OnRampTransactionModal = ({ amount, txid, fee, onClose, ...props }: OnRamp
 
   const isSubmitted = !!txData;
 
-  const title = isSubmitted ? 'Transaction Submitted' : 'Waiting for confirmation';
+  const title = isSubmitted ? 'Transaction submitted' : 'Waiting for confirmation';
 
   return (
     <Modal onClose={onClose} {...props}>
@@ -44,15 +44,15 @@ const OnRampTransactionModal = ({ amount, txid, fee, onClose, ...props }: OnRamp
         {isSubmitted ? (
           <Flex direction='column' gap='md'>
             <P size='xs'>
-              Your assets will be delivered once your BTC transactions receive atleast 6 confirmations and the
-              proccessing finishes on our L2 chain. We will provide you with updates accordingly. You can monitor the
+              Your assets will be delivered once your BTC transactions receive at least 3 confirmations and the
+              processing finishes on our L2 chain. We will provide you with updates accordingly. You can monitor the
               progress on your bridge page. It will be marked as complete once the process has concluded.
             </P>
           </Flex>
         ) : (
           <Flex alignSelf='normal' direction='column' gap='lg'>
             <P align='center' size='xs' weight='medium'>
-              Please confirm transaction in your wallet
+              Please confirm the transaction in your wallet
             </P>
             <TransactionDetails amount={amount} chainId={L1_CHAIN} gasEstimate={fee} />
           </Flex>
