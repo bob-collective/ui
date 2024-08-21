@@ -25,7 +25,8 @@ The package is still in an infancy state, but feel free to recommend any adjustm
   - Bitget
   - OKX Wallet
 - BTC functionality:
-  - send bitcoin
+  - send BTC
+  - sign PSBTs
 - React hooks
 - Planned BTC functionality
   - inscribe (text and images)
