@@ -22,7 +22,8 @@ The package is still in an infancy state, but feel free to recommend any adjustm
   - Unisat
   - Leather
   - Xverse
-  - Bitget (soon)
+  - Bitget
+  - OKX Wallet
 - BTC functionality:
   - send bitcoin
 - React hooks
