@@ -27,6 +27,11 @@ The package is still in an infancy state, but feel free to recommend any adjustm
 - BTC functionality:
   - send bitcoin
 - React hooks
+- Planned BTC functionality
+  - inscribe (text and images)
+  - send inscription
+  - etch runes
+  - send runes
 
 ## Installation
 
