@@ -7,7 +7,11 @@ type DialogSize = MaxWidth;
 type DialogTheme = {
   base: StyledObject<object>;
   header: StyledObject<object>;
-  body: StyledObject<object>;
+  divider: StyledObject<object>;
+  body: {
+    uneven: StyledObject<object>;
+    even: StyledObject<object>;
+  };
   footer: StyledObject<object>;
   size: Record<DialogSize, StyledObject<object>>;
 };

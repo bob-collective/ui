@@ -14,8 +14,8 @@ type NativeAttrs<T = unknown> = Omit<SVGAttributes<T>, keyof Props>;
 type IconProps<T = unknown> = Props & NativeAttrs<T>;
 
 const Icon = forwardRef<SVGSVGElement, IconProps>(
-  ({ size = 'md', color, ...props }, ref): JSX.Element => (
-    <StyledIcon ref={ref} $color={color} $size={size} {...props} />
+  ({ size = 'md', color, width, height, ...props }, ref): JSX.Element => (
+    <StyledIcon ref={ref} $color={color} $height={height} $size={size} $width={width} {...props} />
   )
 );
 

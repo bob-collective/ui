@@ -1,12 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { H3 } from '../Text';
-import { AccordionVariants } from '../../theme';
 import { ChevronDown } from '../../icons';
-
-type StyledAccordionProps = {
-  $variant: AccordionVariants;
-};
 
 type StyledChevronDownProps = {
   $isExpanded: boolean;
@@ -27,20 +22,19 @@ type StyledAccordionItemContentProps = {
 
 type StyledAccordionItemWrapperProps = {
   $isDisabled: boolean;
-  $variant: AccordionVariants;
 };
 
-const StyledAccordion = styled.div<StyledAccordionProps>`
+const StyledAccordion = styled.div`
   display: flex;
   flex-direction: column;
-  ${({ theme, $variant }) => theme.accordion.variant[$variant].base}
+  ${({ theme }) => theme.accordion.base}
 `;
 
 const StyledAccordionItemWrapper = styled.div<StyledAccordionItemWrapperProps>`
   z-index: inherit;
   position: relative;
   opacity: ${({ $isDisabled }) => $isDisabled && '0.5'};
-  ${({ theme, $variant }) => theme.accordion.variant[$variant].item.base}
+  ${({ theme }) => theme.accordion.item.base}
 `;
 
 const StyledAccordionItemHeading = styled(H3)`

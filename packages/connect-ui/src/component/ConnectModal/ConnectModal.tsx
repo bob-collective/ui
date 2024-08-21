@@ -1,4 +1,16 @@
-import { Button, Flex, Modal, ModalBody, ModalFooter, ModalHeader, ModalProps, P, toast, ArrowLeft } from '@gobob/ui';
+import {
+  Button,
+  Flex,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalProps,
+  P,
+  toast,
+  ArrowLeft,
+  Link
+} from '@gobob/ui';
 import { Address, Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from '@gobob/wagmi';
 import {
   useAccount as useSatsAccount,
@@ -6,13 +18,14 @@ import {
   useConnect as useSatsConnect,
   SatsConnector
 } from '@gobob/sats-wagmi';
-import { forwardRef, useCallback, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { ConnectType, WalletType } from '../../types';
 
 import { WalletList } from './WalletList';
 import { ConnectedWalletSection } from './ConnectedWalletSection';
 import { ConnectWalletCard } from './ConnectWalletCard';
+import { BitgetWallet } from './walletLinks/BitgetWallet';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
@@ -29,6 +42,8 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type ConnectModalProps = Props & InheritAttrs;
 
+const hasBitkeep = window.bitkeep && window.ethereum;
+
 const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
   ({ onClose, isOpen, step: stepProp, type = 'both', onConnectEvm, onConnectBtc, ...props }, ref) => {
     const { connector, address } = useAccount();
@@ -42,6 +57,19 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 
     const [pendingConnector, setPendingConnector] = useState<Connector>();
     const [pendingSatsConnector, setPendingSatsConnector] = useState<SatsConnector>();
+
+    // override properties set by OverlayProvider provider in ui/src/system
+    useEffect(() => {
+      if (pendingConnector?.id === 'walletConnect') {
+        const modals = document.querySelectorAll('wcm-modal');
+
+        // Set the aria-hidden attribute to true for each wcm-modal element
+        modals.forEach((modal) => {
+          modal.setAttribute('data-react-aria-top-layer', 'true');
+          modal.removeAttribute('aria-hidden');
+        });
+      }
+    }, [pendingConnector]);
 
     useAccountEffect({
       onConnect: (data) => {
@@ -129,14 +157,14 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
           await satsConnectAsync({
             connector: satsConnector
           });
-        } catch (e) {
+        } catch (e: any) {
           setPendingSatsConnector(undefined);
 
           if (!satsConnector.ready) {
             return;
           }
 
-          return toast.error(`Failed to connect to ${satsConnector.name}`);
+          return toast.error(e.message || `Failed to connect to ${satsConnector.name}`);
         }
 
         setPendingSatsConnector(undefined);
@@ -204,12 +232,31 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         <ModalHeader align='start' size='xl'>
           {modalHeader}
         </ModalHeader>
-        <ModalBody gap='xl'>
+        <ModalBody gap='xl' padding={step && 'even'}>
           {type === 'both' && !step && (
             <>
               <P size='s'>
                 On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it&apos;s
                 advised to connect wallets from both networks.
+              </P>
+              <P size='s'>
+                By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the{' '}
+                <Link
+                  external
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
+                  size='inherit'
+                >
+                  Terms of Service
+                </Link>{' '}
+                and that you have read and understood our{' '}
+                <Link
+                  external
+                  href='https://uploads-ssl.webflow.com/6620e8932695794632789d89/66aa4eac1074934d060d127c_20240731%20-%20BOB%20Foundation%20-%20Privacy%20Policy.pdf'
+                  size='inherit'
+                >
+                  Privacy policy
+                </Link>
+                .
               </P>
               <Flex direction='column' gap='lg'>
                 {connector && address ? (
@@ -226,6 +273,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
                 {btcWalletConnector && btcWalletAddress ? (
                   <ConnectedWalletSection
                     address={btcWalletAddress}
+                    icon={btcWalletConnector.icon}
                     type='btc'
                     wallet={btcWalletConnector.name}
                     onDisconnect={handleBtcWalletDisconnect}
@@ -248,6 +296,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               onSelectionChange={handleEvmWalletSelect as any}
             />
           )}
+          {(step === 'evm' || type === 'evm') && !hasBitkeep && <BitgetWallet />}
           {(step === 'btc' || type === 'btc') && (
             <WalletList
               connector={btcWalletConnector}

@@ -2,6 +2,7 @@ import styled, { CSSProperties } from 'styled-components';
 
 import { DialogSize } from '../../theme';
 import { overlayCSS } from '../utils/overlay';
+import { customScrollbarCSS } from '../utils/scroll';
 import { Dialog, DialogBody } from '../Dialog';
 
 type StyledWrapperProps = {
@@ -16,10 +17,6 @@ type StyledModalProps = {
 
 type StyledDialogProps = {
   $isOpen?: boolean;
-};
-
-type StyledModalBodyProps = {
-  $noPadding?: boolean;
 };
 
 const StyledWrapper = styled.div<StyledWrapperProps>`
@@ -64,10 +61,10 @@ const StyledDialog = styled(Dialog)<StyledDialogProps>`
   max-height: inherit;
 `;
 
-const StyledDialogBody = styled(DialogBody)<StyledModalBodyProps>`
+const StyledDialogBody = styled(DialogBody)`
   overflow-y: auto;
   position: relative;
-  padding: ${({ $noPadding }) => $noPadding && 0};
+  ${customScrollbarCSS}
 `;
 
 export { StyledDialog, StyledDialogBody, StyledModal, StyledWrapper };

@@ -38,13 +38,6 @@ const StyledTransactionListWrapper = styled(Flex)`
   overflow: hidden;
 `;
 
-const StyledViewTransactions = styled.a`
-  display: flex;
-  justify-content: space-between;
-  text-decoration: none;
-  flex-shrink: 0;
-`;
-
 const StyledDetailsButton = styled(Flex)`
   font: inherit;
   display: flex;
@@ -66,6 +59,5 @@ export {
   StyledSpan,
   StyledSpinnerWrapper,
   StyledTransactionList,
-  StyledTransactionListWrapper,
-  StyledViewTransactions
+  StyledTransactionListWrapper
 };

@@ -13,7 +13,7 @@
     "typecheck": "turbo typecheck",
     "format:check": "prettier --check packages/**/src apps/**/src --cache",
     "format:write": "prettier --write packages/**/src apps/**/src --cache",
-    "files:check": "pnpm knip --config knip.config.js",
+    "files:check": "knip --config knip.config.js",
     "build": "turbo run build",
     "build:sb": "storybook build",
     "test": "jest --verbose --config ./jest.config.js packages/ui",

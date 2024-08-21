@@ -1,12 +1,11 @@
 import { ChainId } from '@gobob/chains';
-import { TBTC } from '@gobob/tokens';
-import { ArrowRight, Divider, Flex, InformationCircle, P, RadioGroup } from '@gobob/ui';
-import { Key, useCallback, useEffect, useMemo, useState } from 'react';
+import { TBTC, WBTC } from '@gobob/tokens';
+import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
+import { Key, useCallback, useMemo, useState } from 'react';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { FeatureFlags, useFeatureFlag, useTokens } from '../../../../hooks';
 import { BridgeOrigin } from '../../Bridge';
-import { StyledCard } from '../../Bridge.style';
 import { useGetTransactions } from '../../hooks';
 import { L2BridgeData, OnRampData } from '../../types';
 import { ChainSelect } from '../ChainSelect';
@@ -14,7 +13,7 @@ import { ExternalBridgeForm } from '../ExternalBridgeForm';
 import { BridgeTransactionModal, OnRampTransactionModal } from '../TransactionModal';
 
 import { BobBridgeForm } from './BobBridgeForm';
-import { StyledRadio } from './BridgeForm.style';
+import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
 type TransactionModalState = {
@@ -30,11 +29,13 @@ type OnRampTransactionModalState = {
 };
 
 type BridgeFormProps = {
+  chain: ChainId | 'BTC';
   type: 'deposit' | 'withdraw';
   ticker?: string;
   bridgeOrigin?: BridgeOrigin;
   onChangeNetwork?: (network: Key) => void;
   onChangeOrigin?: (origin: BridgeOrigin) => void;
+  onChangeChain?: (chain: ChainId | 'BTC') => void;
 };
 
 const allNetworks = [
@@ -47,15 +48,19 @@ const allNetworks = [
   ChainId.POLYGON_ZKEVM,
   ChainId.BSC,
   ChainId.OPBNB,
-  ChainId.MOONBEAM
+  ChainId.MOONBEAM,
+  ChainId.BITLAYER,
+  ChainId.MERLIN
 ] as const;
 
 const BridgeForm = ({
   type = 'deposit',
   bridgeOrigin,
   ticker,
+  chain,
   onChangeNetwork,
-  onChangeOrigin
+  onChangeOrigin,
+  onChangeChain
 }: BridgeFormProps): JSX.Element => {
   const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
 
@@ -69,12 +74,6 @@ const BridgeForm = ({
     isOpen: false,
     step: 'confirmation'
   });
-
-  const [chain, setChain] = useState<ChainId | 'BTC'>(L1_CHAIN);
-
-  useEffect(() => {
-    setChain(L1_CHAIN);
-  }, [type]);
 
   const handleStartBridge = (data: L2BridgeData) => {
     setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
@@ -109,11 +108,11 @@ const BridgeForm = ({
     (network: Key) => {
       const parsedNetwork = network === 'BTC' ? network : (Number(network) as ChainId);
 
-      setChain(parsedNetwork);
+      onChangeChain?.(parsedNetwork);
 
       onChangeNetwork?.(parsedNetwork);
     },
-    [onChangeNetwork]
+    [onChangeNetwork, onChangeChain]
   );
 
   const { data: tokens } = useTokens(L2_CHAIN);
@@ -121,9 +120,9 @@ const BridgeForm = ({
   const btcTokens = useMemo(
     () =>
       tokens?.filter(
-        (token) => token.currency.symbol === TBTC[L2_CHAIN].symbol
-        // TODO: enable WBTC when supported
-        // || token.currency.symbol === WBTC[L2_CHAIN].symbol
+        (token) =>
+          token.currency.symbol === TBTC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA]?.symbol ||
+          token.currency.symbol === WBTC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA]?.symbol
       ),
     [tokens]
   );
@@ -166,11 +165,11 @@ const BridgeForm = ({
   return (
     <>
       <Flex direction='column' marginTop='2xl'>
-        <Flex alignItems='center' gap={{ base: 'md', md: '2xl' }}>
+        <StyledChainsGrid alignItems='center' gap={{ base: 'md', md: '2xl' }}>
           <ChainSelect chainId={type === 'deposit' ? chain : L2_CHAIN} selectProps={fromChainSelectProps} />
           <ArrowRight size='xs' />
           <ChainSelect chainId={type === 'withdraw' ? chain : L2_CHAIN} selectProps={toChainSelectProps} />
-        </Flex>
+        </StyledChainsGrid>
         <Divider marginY='xl' />
         <RadioGroup
           aria-label='bridge network'
@@ -179,29 +178,18 @@ const BridgeForm = ({
           value={bridgeOrigin}
           onValueChange={(value) => onChangeOrigin?.(value as BridgeOrigin)}
         >
-          <StyledRadio
-            $isSelected={bridgeOrigin === BridgeOrigin.INTERNAL}
-            isDisabled={isBobBridgeDisabled}
-            value={BridgeOrigin.INTERNAL}
-          >
+          <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.INTERNAL}>
             BOB Bridge
           </StyledRadio>
-          <StyledRadio
-            $isSelected={bridgeOrigin === BridgeOrigin.EXTERNAL}
-            isDisabled={isExternalBridgeDisabled}
-            value={BridgeOrigin.EXTERNAL}
-          >
+          <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.EXTERNAL}>
             3rd Party
           </StyledRadio>
         </RadioGroup>
         {type === 'withdraw' && bridgeOrigin === BridgeOrigin.INTERNAL && (
-          <StyledCard alignItems='center' direction='row' gap='md' marginTop='2xl'>
-            <InformationCircle />
-            <P size='s' weight='semibold'>
-              Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
-              bridge.
-            </P>
-          </StyledCard>
+          <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
+            Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
+            bridge.
+          </Alert>
         )}
         {bridgeOrigin === BridgeOrigin.INTERNAL ? (
           chain === 'BTC' && btcTokens?.length ? (
@@ -224,7 +212,7 @@ const BridgeForm = ({
             />
           )
         ) : (
-          <ExternalBridgeForm type={type} />
+          <ExternalBridgeForm chain={chain} type={type} />
         )}
       </Flex>
       <BridgeTransactionModal

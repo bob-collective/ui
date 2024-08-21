@@ -4,6 +4,7 @@ export const chainNames: Record<ChainId, string> = {
   [ChainId.ETHEREUM]: 'ethereum',
   [ChainId.SEPOLIA]: 'sepolia',
   [ChainId.BOB]: 'BOB',
+  [ChainId.OLD_BOB_SEPOLIA]: 'BOB sepolia (OLD)',
   [ChainId.BOB_SEPOLIA]: 'BOB sepolia',
   [ChainId.OP]: 'optimism',
   [ChainId.ARBITRUM_ONE]: 'arbitrum',
@@ -12,7 +13,9 @@ export const chainNames: Record<ChainId, string> = {
   [ChainId.BSC]: 'BNB Smart Chain',
   [ChainId.OPBNB]: 'OPBNB',
   [ChainId.BASE]: 'base',
-  [ChainId.MOONBEAM]: 'moonbeam'
+  [ChainId.MOONBEAM]: 'moonbeam',
+  [ChainId.BITLAYER]: 'Bitlayer',
+  [ChainId.MERLIN]: 'Merlin'
 };
 
 export const chainNameToChainId = Object.entries(chainNames).reduce(
@@ -31,6 +34,7 @@ export const defiLlamaChainNames: Record<ChainId, string> = {
   [ChainId.ETHEREUM]: 'ethereum',
   [ChainId.SEPOLIA]: '',
   [ChainId.BOB]: '',
+  [ChainId.OLD_BOB_SEPOLIA]: '',
   [ChainId.BOB_SEPOLIA]: '',
   [ChainId.ARBITRUM_ONE]: 'arbitrum',
   [ChainId.OPBNB]: 'op_bnb',
@@ -39,5 +43,7 @@ export const defiLlamaChainNames: Record<ChainId, string> = {
   [ChainId.OP]: '',
   [ChainId.POLYGON_ZKEVM]: '',
   [ChainId.POLYGON]: '',
-  [ChainId.MOONBEAM]: ''
+  [ChainId.MOONBEAM]: '',
+  [ChainId.BITLAYER]: '',
+  [ChainId.MERLIN]: ''
 };

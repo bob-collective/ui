@@ -9,8 +9,10 @@ const mapTextProps = <T extends TextProps = TextProps>({
   rows,
   noWrap,
   fontFamily,
+  lineHeight,
   ...props
-}: T): Omit<T, 'color' | 'size' | 'align' | 'weight' | 'rows' | 'noWrap' | 'fontFamily'> & StyledTextProps => ({
+}: T): Omit<T, 'color' | 'size' | 'align' | 'weight' | 'rows' | 'noWrap' | 'fontFamily' | 'lineHeight'> &
+  StyledTextProps => ({
   ...props,
   $color: color,
   $size: size,
@@ -18,7 +20,8 @@ const mapTextProps = <T extends TextProps = TextProps>({
   $align: align,
   $rows: rows,
   $noWrap: noWrap,
-  $fontFamily: fontFamily
+  $fontFamily: fontFamily,
+  $lineHeight: lineHeight
 });
 
 export { mapTextProps };

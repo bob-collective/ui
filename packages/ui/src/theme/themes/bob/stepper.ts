@@ -6,10 +6,10 @@ import { color } from './colors';
 const stepper: StepperTheme = {
   divider: {
     incomplete: {
-      backgroundColor: color('grey-400')
+      backgroundColor: color('grey-200')
     },
     active: {
-      backgroundColor: color('grey-400')
+      backgroundColor: color('grey-200')
     },
     complete: {
       backgroundColor: color('primary-500')
@@ -23,13 +23,13 @@ const stepper: StepperTheme = {
       color: color('light'),
       borderWidth: '2px',
       borderStyle: 'solid',
-      backgroundColor: color('grey-700')
+      backgroundColor: color('grey-400')
     },
     active: {
       borderColor: color('primary-500')
     },
     incomplete: {
-      borderColor: color('grey-400')
+      borderColor: color('grey-200')
     },
     complete: {
       borderColor: color('primary-500'),

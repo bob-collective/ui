@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'styled-components';
 
-import { RoutesPath } from '../../constants';
+import { DocsLinks, RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
 
@@ -65,7 +65,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
             <Popover crossOffset={-50} isOpen={isOpen} onOpenChange={setOpen}>
               <PopoverTrigger>
                 <Button isIconOnly aria-label='Show secondary navigation' size='s' variant='ghost'>
-                  <EllipsisHorizontal color='grey-200' size='s' />
+                  <EllipsisHorizontal color='light' size='s' />
                 </Button>
               </PopoverTrigger>
               <PopoverContent>
@@ -74,11 +74,11 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
                     <NavItem
                       isExternal
                       size='s'
-                      to='https://assets-global.website-files.com/64e85c2f3609488b3ed725f4/662a1cdc27ef55b556ce1aa6_GoBob_-_Terms_of_Service.pdf'
+                      to='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
                     >
                       {t('navigation.t_and_c')}
                     </NavItem>
-                    <NavItem isExternal size='s' to='https://docs.gobob.xyz/'>
+                    <NavItem isExternal size='s' to={DocsLinks.HOME}>
                       {t('navigation.dev')}
                     </NavItem>
                     <NavItem isExternal size='s' to='https://gobob.xyz/'>

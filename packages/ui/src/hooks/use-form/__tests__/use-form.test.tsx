@@ -197,7 +197,7 @@ describe('useForm', () => {
 
       render(
         <form onSubmit={result.current.handleSubmit}>
-          <TokenInput currency={{ decimals: 8, symbol: 'BTC' }} label='Amount' logoUrl='' {...props} />
+          <TokenInput currency={{ decimals: 8, symbol: 'BTC' } as any} label='Amount' logoUrl='' {...props} />
           <button type='submit'>Submit</button>
         </form>
       );
@@ -219,7 +219,7 @@ describe('useForm', () => {
       render(
         <form onSubmit={result.current.handleSubmit}>
           <TokenInput
-            items={[{ logoUrl: '', balance: '0', balanceUSD: 0, currency: { symbol: 'BTC', decimals: 8 } }]}
+            items={[{ logoUrl: '', balance: '0', balanceUSD: 0, currency: { symbol: 'BTC', decimals: 8 } as any }]}
             label='Amount'
             type='selectable'
             {...props}

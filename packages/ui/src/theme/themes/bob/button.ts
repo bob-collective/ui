@@ -7,7 +7,7 @@ import { color } from './colors';
 const button: ButtonTheme = {
   base: {
     borderRadius: rounded('md'),
-    fontWeight: fontWeight('semibold'),
+    fontWeight: fontWeight('normal'),
     ...transition('common', 'normal')
   },
   size: {
@@ -42,6 +42,12 @@ const button: ButtonTheme = {
       padding: `0 ${spacing('3xl')}`
     }
   },
+  active: {
+    transform: 'scale(0.97)'
+  },
+  disabled: {
+    opacity: 0.5
+  },
   variant: {
     solid: {
       color: {
@@ -52,15 +58,6 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: color('grey-400')
-          },
-          active: {
-            backgroundColor: color('grey-300')
-          },
-          focus: {
-            boxShadow: '0px 0px 0px 4px #4040403D, 0px 1px 2px 0px #1018280D'
-          },
-          disabled: {
-            opacity: 0.5
           }
         },
         primary: {
@@ -70,15 +67,15 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: color('primary-600')
+          }
+        },
+        light: {
+          base: {
+            backgroundColor: color('light'),
+            color: color('dark')
           },
-          active: {
-            backgroundColor: color('primary-700')
-          },
-          focus: {
-            boxShadow: '0px 0px 0px 4px #FA45163D, 0px 1px 2px 0px #1018280D'
-          },
-          disabled: {
-            opacity: 0.5
+          hover: {
+            backgroundColor: hexToRgba(color('light'), 80)
           }
         }
       }
@@ -87,38 +84,31 @@ const button: ButtonTheme = {
       color: {
         default: {
           base: {
-            border: `1px solid ${color('grey-400')}`,
+            border: `1px solid ${color('grey-300')}`,
             color: color('light')
           },
           hover: {
-            backgroundColor: color('grey-600')
-          },
-          active: {
             backgroundColor: color('grey-300')
-          },
-          focus: {
-            boxShadow: '0px 0px 0px 4px #98A2B324, 0px 1px 2px 0px #1018280D'
-          },
-          disabled: {
-            opacity: 0.5
           }
         },
         primary: {
           base: {
-            border: `1px solid ${color('primary-300')}`,
-            color: color('primary-300')
+            border: `1px solid ${color('primary-500')}`,
+            color: color('primary-500')
           },
           hover: {
-            backgroundColor: color('grey-300')
+            backgroundColor: color('primary-500'),
+            color: color('light')
+          }
+        },
+        light: {
+          base: {
+            border: `1px solid ${color('light')}`,
+            color: color('light')
           },
-          active: {
-            backgroundColor: color('grey-300')
-          },
-          focus: {
-            boxShadow: '0px 0px 0px 4px #D92D2040, 0px 1px 2px 0px #1018280D'
-          },
-          disabled: {
-            opacity: 0.5
+          hover: {
+            backgroundColor: color('light'),
+            color: color('dark')
           }
         }
       }
@@ -130,16 +120,7 @@ const button: ButtonTheme = {
             color: color('light')
           },
           hover: {
-            backgroundColor: hexToRgba(color('grey-300'), 20)
-          },
-          active: {
-            backgroundColor: hexToRgba(color('grey-300'), 30)
-          },
-          focusVisible: {
-            boxShadow: '0px 0px 0px 4px #98A2B324, 0px 1px 2px 0px #1018280D'
-          },
-          disabled: {
-            opacity: 0.5
+            backgroundColor: hexToRgba(color('grey-300'), 50)
           }
         },
         primary: {
@@ -148,15 +129,14 @@ const button: ButtonTheme = {
           },
           hover: {
             backgroundColor: hexToRgba(color('primary-500'), 20)
+          }
+        },
+        light: {
+          base: {
+            color: color('light')
           },
-          active: {
-            backgroundColor: hexToRgba(color('primary-500'), 30)
-          },
-          focusVisible: {
-            boxShadow: '0px 0px 0px 4px #D92D2040, 0px 1px 2px 0px #1018280D'
-          },
-          disabled: {
-            opacity: 0.5
+          hover: {
+            backgroundColor: hexToRgba(color('light'), 20)
           }
         }
       }

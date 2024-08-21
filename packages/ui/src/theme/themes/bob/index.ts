@@ -1,24 +1,30 @@
 import { defineTheme } from '../../define';
 
-import { button } from './button';
-import { input } from './input';
 import { accordion } from './accordion';
 import { alert } from './alert';
+import { button } from './button';
 import { card } from './card';
+import { chip } from './chip';
+import { colors } from './colors';
 import { dialog } from './dialog';
 import { divider } from './divider';
 import { drawer } from './drawer';
+import { helperText } from './helper-text';
+import { input } from './input';
+import { label } from './label';
+import { link } from './link';
 import { list } from './list';
-import { radio } from './radio';
-import { colors } from './colors';
-import { spinner } from './spinner';
-import { _switch } from './switch';
 import { progressBar } from './progress-bar';
-import { tooltip } from './tooltip';
-import { tokenInput } from './token-input';
-import { tabs } from './tabs';
-import { table } from './table';
+import { radio } from './radio';
+import { select } from './select';
+import { spinner } from './spinner';
 import { stepper } from './stepper';
+import { _switch } from './switch';
+import { table } from './table';
+import { tabs } from './tabs';
+import { tokenInput } from './token-input';
+import { tooltip } from './tooltip';
+import { scroll } from './scroll';
 
 const bobTheme = defineTheme({
   colors,
@@ -26,10 +32,12 @@ const bobTheme = defineTheme({
   alert,
   button,
   card,
+  chip,
   dialog,
   divider,
   drawer,
   input,
+  link,
   list,
   radio,
   spinner,
@@ -39,7 +47,11 @@ const bobTheme = defineTheme({
   tokenInput,
   table,
   tabs,
-  stepper
+  scroll,
+  select,
+  stepper,
+  label,
+  helperText
 });
 
 export { bobTheme };

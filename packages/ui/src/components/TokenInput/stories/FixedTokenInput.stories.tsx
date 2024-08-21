@@ -12,7 +12,8 @@ export default {
   args: {
     logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     label: 'Amount',
-    currency: { decimals: 6, symbol: 'ETH' }
+    currency: { decimals: 6, symbol: 'ETH' },
+    balance: '10'
   }
 } as Meta<typeof TokenInput>;
 
@@ -37,32 +38,10 @@ export const Controlled: StoryObj<TokenInputProps> = {
   render: ControlledComponent
 };
 
-export const WithValueUSD: StoryObj<TokenInputProps> = {
-  args: {
-    valueUSD: 0,
-    balance: '10.901231231',
-    humanBalance: '11'
-  },
-  render: ControlledComponent
-};
-
-export const WithBalance: StoryObj<TokenInputProps> = {
-  args: {
-    balance: '10'
-  }
-};
-
 export const WithHumanBalance: StoryObj<TokenInputProps> = {
   args: {
     balance: '10.901231231',
     humanBalance: '11'
-  }
-};
-
-export const WithCustomBalanceLabel: StoryObj<TokenInputProps> = {
-  args: {
-    balance: '10',
-    balanceLabel: 'Available'
   }
 };
 
@@ -87,5 +66,12 @@ export const WithMultipleErrorMessage: StoryObj<TokenInputProps> = {
 export const Disabled: StoryObj<TokenInputProps> = {
   args: {
     isDisabled: true
+  }
+};
+
+export const BalanceHelper: StoryObj<TokenInputProps> = {
+  args: {
+    balanceHelper:
+      'Your available balance may differ from your wallet balance due to network fees and available liquidity'
   }
 };

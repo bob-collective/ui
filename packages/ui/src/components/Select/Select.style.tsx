@@ -1,14 +1,18 @@
 import styled, { css } from 'styled-components';
 
-import { ChevronDown } from '../../icons';
-import { InputSizes } from '../../theme';
+import { InputSizes, Spacing } from '../../theme';
 import { List } from '../List';
 import { Span } from '../Text';
+import { Flex } from '../Flex';
+import { ChevronDown } from '../../icons';
 
 type StyledTriggerProps = {
   $isOpen?: boolean;
   $size: InputSizes;
   $isDisabled: boolean;
+  $isFocusVisible: boolean;
+  $isHovered: boolean;
+  $isFocused: boolean;
   $hasError: boolean;
   $hasValue: boolean;
 };
@@ -18,51 +22,31 @@ type StyledTriggerValueProps = {
   $isSelected?: boolean;
 };
 
+type StyledFieldProps = {
+  $disabled?: boolean;
+  $maxWidth?: Spacing;
+};
+
 const StyledTrigger = styled.button<StyledTriggerProps>`
-  outline: none;
-  letter-spacing: inherit;
-  background: none;
+  ${({ theme, $size, $hasError, $isFocused, $isHovered, $isDisabled, $isFocusVisible }) => css`
+    outline: ${!$isFocusVisible && 'none'};
 
-  overflow: hidden;
+    ${theme.select.wrapper}
+    ${theme.select.sizes[$size].wrapper}
+    ${$hasError && theme.select.error.wrapper}
+    ${$isHovered ? ($hasError ? theme.select.error.hover.wapper : theme.select.hover.wapper) : undefined}
+    ${$isFocused ? ($hasError ? theme.select.error.focus.wrapper : theme.select.focus.wrapper) : undefined}
+    ${$isDisabled && theme.select.disabled.wrapper}
+  `};
+`;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  text-align: left;
+const StyledTriggerInner = styled(Flex)<Pick<StyledTriggerProps, '$hasError'>>`
+  ${({ theme, $hasError }) => css`
+    width: 100%;
 
-  cursor: ${({ $isDisabled }) => !$isDisabled && 'pointer'};
-
-  ${({ theme, $size, $hasError, $hasValue }) => {
-    const { paddingRight, paddingTop, paddingBottom, paddingLeft, ...sizeCss } = theme.input.size[$size];
-    const { color, ...baseCss } = theme.input.base;
-
-    return css`
-      padding-top: ${paddingTop};
-      padding-bottom: ${paddingBottom};
-      padding-left: ${paddingLeft};
-      padding-right: ${paddingRight};
-
-      color: ${$hasValue ? color : theme.input.placeholder.color};
-
-      ${sizeCss}
-      ${baseCss}
-      ${$hasError && theme.input.error.base}
-
-
-      &:hover:not(:disabled):not(:focus) {
-        ${$hasError ? theme.input.error.hover : theme.input.hover}
-      }
-
-      &:focus:not(:disabled) {
-        ${$hasError ? theme.input.error.focus : theme.input.focus}
-      }
-
-      &:disabled {
-        ${theme.input.disabled}
-      }
-    `;
-  }}
+    ${theme.select.base}
+    ${$hasError && theme.select.error.base}
+  `};
 `;
 
 const StyledTriggerValue = styled(Span)<StyledTriggerValueProps>`
@@ -80,14 +64,15 @@ const StyledTriggerValue = styled(Span)<StyledTriggerValueProps>`
 
 const StyledList: any = styled(List)`
   ${({ theme }) => theme.tokenInput.list.base};
-
-  > :last-child {
-    margin-bottom: ${({ theme }) => theme.spacing('lg')};
-  }
 `;
 
 const StyledChevronDown = styled(ChevronDown)`
   margin-left: ${({ theme }) => theme.spacing('md')};
 `;
 
-export { StyledChevronDown, StyledList, StyledTrigger, StyledTriggerValue };
+const StyledField = styled(Flex)<StyledFieldProps>`
+  opacity: ${({ $disabled }) => $disabled && '.5'};
+  max-width: ${({ $maxWidth, theme }) => $maxWidth && theme.spacing($maxWidth)};
+`;
+
+export { StyledField, StyledList, StyledTrigger, StyledChevronDown, StyledTriggerInner, StyledTriggerValue };

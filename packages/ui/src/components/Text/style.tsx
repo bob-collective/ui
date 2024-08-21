@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { CSSProperties } from 'react';
 
 import { Color, FontWeight, NormalAlignments, Typography } from '../../theme';
 
@@ -10,10 +11,12 @@ type StyledTextProps = {
   $rows?: number;
   $noWrap?: boolean;
   $fontFamily?: string;
+  $lineHeight?: CSSProperties['lineHeight'];
 };
 
 const Text = styled.p<StyledTextProps>`
   ${({ theme, $size }) => theme.typography($size)}
+  line-height: ${({ $lineHeight }) => $lineHeight};
   color: ${({ theme, $color }) => theme.color($color)};
   font-weight: ${({ theme, $weight }) => ($weight === 'inherit' ? $weight : theme.fontWeight($weight))};
   text-align: ${({ $align }) => $align};

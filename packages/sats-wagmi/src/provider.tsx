@@ -5,6 +5,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { LeatherConnector, MMSnapConnector, UnisatConnector, XverseConnector } from './connectors';
 import { SatsConnector } from './connectors/base';
 import { LocalStorageKeys } from './constants';
+import { OKXConnector } from './connectors/okx';
 
 type SatsConfigData = {
   connector?: SatsConnector;
@@ -35,7 +36,6 @@ type SatsWagmiConfigProps = {
   network?: BitcoinNetwork;
 };
 
-// TODO: implement auto-connect
 const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainnet' }) => {
   const [connectors, setConnectors] = useState<SatsConnector[]>([]);
   const [connector, setCurrentConnector] = useState<SatsConnector>();
@@ -46,17 +46,27 @@ const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainne
     const init = () => {
       const readyConnectors: SatsConnector[] = [];
 
+      if (network === 'mainnet') {
+        const okx = new OKXConnector(network);
+
+        readyConnectors.push(okx);
+      }
+
       const xverse = new XverseConnector(network);
 
       readyConnectors.push(xverse);
 
-      const unisat = new UnisatConnector(network);
+      const unisat = new UnisatConnector(network, 'unisat');
 
       readyConnectors.push(unisat);
 
       const mmSnap = new MMSnapConnector(network);
-
+        
       readyConnectors.push(mmSnap);
+
+      const bitkeep = new UnisatConnector(network, 'bitkeep');
+
+      readyConnectors.push(bitkeep);
 
       const leather = new LeatherConnector(network);
 

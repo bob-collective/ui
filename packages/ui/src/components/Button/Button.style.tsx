@@ -8,7 +8,6 @@ type StyledButtonProps = {
   $size: ButtonSizes;
   $color: ButtonColors;
   $variant: ButtonVariants;
-  $isFocusVisible?: boolean;
   $isIconOnly?: boolean;
 };
 
@@ -17,19 +16,17 @@ const StyledButton = styled(UnstyledButton)<StyledButtonProps>`
   align-items: center;
   justify-content: center;
   width: ${(props) => (props.$fullWidth ? '100%' : 'auto')};
-  outline: transparent solid 2px;
   border: 0px solid;
 
   user-select: none;
 
-  ${({ theme, $size, $variant, $color, $isFocusVisible, $isIconOnly }) => {
-    const { active, disabled, hover, focus, focusVisible } = theme.button.variant[$variant].color[$color];
+  ${({ theme, $size, $variant, $color, $isIconOnly }) => {
+    const { hover } = theme.button.variant[$variant].color[$color];
 
     return css`
       ${theme.button.base}
       ${theme.button.size[$size]}
       ${theme.button.variant[$variant].color[$color].base}
-      ${$isFocusVisible && focusVisible}
       ${$isIconOnly &&
       css`
         padding: 0;
@@ -42,18 +39,14 @@ const StyledButton = styled(UnstyledButton)<StyledButtonProps>`
       }
 
       &:active:not([disabled]) {
-        ${active}
-      }
-
-      &:focus:not([disabled]) {
-        ${focus}
+        ${theme.button.active}
       }
 
       &[aria-disabled='true'],
       &[disabled] {
         pointer-events: none;
         cursor: not-allowed;
-        ${disabled}
+        ${theme.button.disabled}
       }
     `;
   }}

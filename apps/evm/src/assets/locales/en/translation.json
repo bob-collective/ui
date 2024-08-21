@@ -52,12 +52,12 @@
     },
     "partners": {
       "title": "Ecosystem",
-      "content": "Explore and interact with BOB Fusion allies to embark on unique adventures and supercharge your Spice accrual.",
+      "content": "Explore and interact with BOB Fusion allies.",
       "alert": "Projects harvest Spice points every hour based on TVL and user activity. Projects are responsible for distributing Spice to their users. Distribution method and frequency may differ from project to project. DYOR."
     },
     "challenges": {
       "title": "Challenges",
-      "content": "Participate in our educational quests to learn more about BOB, leverage your network to spread the word about BOB, get to know the projects. Any successful participation will help you climb the leaderboard even quicker. <galxeLink>View challenges at Galxe</galxeLink>."
+      "content": "Participate in our educational quests and climb the leaderboard. <challengeLink>View challenges at Intract</challengeLink>."
     },
     "ecosystem": {
       "title": "Ecosystem",

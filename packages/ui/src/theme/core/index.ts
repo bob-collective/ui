@@ -53,7 +53,7 @@ export type Overflow = 'auto' | 'hidden' | 'scroll' | 'visible' | 'inherit';
 
 export type ProgressBarColors = 'default' | 'red';
 
-export type LabelPosition = 'top' | 'side';
+export type LabelPosition = 'outside' | 'inside' | 'outside-left';
 
 export * from './font-size';
 export * from './font-weight';

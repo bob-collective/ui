@@ -5,7 +5,6 @@ import { TreeState } from '@react-stately/tree';
 import { Node } from '@react-types/shared';
 import { useRef } from 'react';
 
-import { AccordionVariants } from '../../theme';
 import { Flex } from '../Flex';
 
 import {
@@ -19,12 +18,8 @@ import { AccordionItemRegion } from './AccordionItemRegion';
 type AccordionItemProps<T> = {
   item: Node<T>;
   state: TreeState<T>;
-  variant?: AccordionVariants;
 };
-const AccordionItem = <T extends Record<string, unknown>>({
-  variant = 'light',
-  ...props
-}: AccordionItemProps<T>): JSX.Element => {
+const AccordionItem = <T extends Record<string, unknown>>(props: AccordionItemProps<T>): JSX.Element => {
   const ref = useRef<HTMLButtonElement>(null);
   const { state, item } = props;
   const { buttonProps, regionProps } = useAccordionItem<T>(props, state, ref);
@@ -33,7 +28,7 @@ const AccordionItem = <T extends Record<string, unknown>>({
   const { isFocusVisible, focusProps } = useFocusRing();
 
   return (
-    <StyledAccordionItemWrapper $isDisabled={isDisabled} $variant={variant}>
+    <StyledAccordionItemWrapper $isDisabled={isDisabled}>
       <StyledAccordionItemHeading>
         <FocusRing within>
           <StyledAccordionItemButton

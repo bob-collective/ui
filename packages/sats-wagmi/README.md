@@ -22,13 +22,17 @@ The package is still in an infancy state, but feel free to recommend any adjustm
   - Unisat
   - Leather
   - Xverse
-  - Bitget (soon)
+  - Bitget
+  - OKX Wallet
 - BTC functionality:
-  - send bitcoin
+  - send BTC
+  - sign PSBTs
+- React hooks
+- Planned BTC functionality
   - inscribe (text and images)
   - send inscription
-  - sign input (psbt)
-- React hooks
+  - etch runes
+  - send runes
 
 ## Installation
 

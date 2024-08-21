@@ -26,8 +26,7 @@ const TabListWrapper = styled.div<TabListWrapperProps>`
 
   ${hideScrollbar()}
 
-  ${({ theme }) => theme.tabs.base};
-  ${({ $size, theme }) => theme.tabs.size[$size].base};
+  ${({ theme }) => theme.tabs.wrapper};
 `;
 
 type TabListProps = {
@@ -43,6 +42,7 @@ type StyledTabProps = {
   $fullWidth: boolean;
   $size: TabsSize;
   $isDisabled: boolean;
+  $isFocusVisible: boolean;
 };
 
 const StyledTab = styled.div<StyledTabProps>`
@@ -53,21 +53,22 @@ const StyledTab = styled.div<StyledTabProps>`
   text-align: center;
   cursor: ${({ $isDisabled }) => !$isDisabled && 'pointer'};
   user-select: none;
-  outline: none;
   opacity: ${({ $isDisabled }) => $isDisabled && '.5'};
   text-overflow: ellipsis;
   position: relative;
+  outline: ${({ $isFocusVisible }) => !$isFocusVisible && 'none'};
 
-  ${({ theme, $size }) => {
-    return css`
-      ${theme.tabs.item.base}
-      ${theme.tabs.size[$size].item}
-    `;
-  }};
+  ${({ theme, $size }) => css`
+    ${theme.tabs.tab.base}
+    ${theme.tabs.size[$size].tab.base}
+
+      &:hover:not([aria-selected=true]):not([aria-disabled=true]) {
+      ${theme.tabs.tab.hover}
+    }
+  `};
 `;
 
 type TabSelectionProps = {
-  $isFocusVisible: boolean;
   $width: number;
   $transform: string;
   $size: TabsSize;
@@ -77,40 +78,14 @@ type TabSelectionProps = {
 
 const TabSelection = styled.div<TabSelectionProps>`
   position: absolute;
-  top: ${({ $size, theme }) => theme.tabs.size[$size].base.padding};
-  bottom: ${({ $size, theme }) => theme.tabs.size[$size].base.padding};
   left: 0;
-  border-radius: ${({ theme }) => theme.tabs.item.base.borderRadius};
-  background-color: ${({ theme }) => theme.tabs.item.base.backgroundColor};
+  border-radius: ${({ theme }) => theme.tabs.tab.base.borderRadius};
+  background-color: ${({ theme }) => theme.tabs.tab.base.backgroundColor};
   z-index: -1;
-
   width: ${(props) => props.$width}px;
   transform: ${(props) => props.$transform};
 
-  ${({ theme, $isHovered, $isFocusWithin, $isFocusVisible, $size }) => {
-    const sizeCss = theme.tabs.size[$size];
-
-    return css`
-      ${sizeCss.base}
-      ${theme.tabs.item.selected}
-      ${$isHovered && theme.tabs.item.hover}
-      ${$isFocusWithin && theme.tabs.item.focus}
-      
-      ${$isFocusVisible &&
-      css`
-        &:after {
-          content: '';
-          position: absolute;
-          top: -4px;
-          left: -4px;
-          right: -4px;
-          bottom: -4px;
-          z-index: 3;
-          ${sizeCss.focusVisible}
-        }
-      `}
-    `;
-  }};
+  ${({ theme }) => theme.tabs.tab.selected};
 `;
 
 export { StyledTab, StyledTabs, TabList, TabListWrapper, TabSelection };

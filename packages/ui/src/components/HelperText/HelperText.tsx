@@ -1,14 +1,12 @@
-import { forwardRef, HTMLAttributes } from 'react';
-
-import { hasError } from '../utils/input';
+import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 
 import { StyledHelperText, StyledSubHelperText } from './HelperText.style';
 
 type Props = {
-  errorMessage?: string | string[];
+  errorMessage?: ReactNode | ReactNode[];
   // Used to pass accessiblity props
   errorMessageProps?: HTMLAttributes<HTMLElement>;
-  description?: string;
+  description?: ReactNode;
   // Used to pass accessiblity props
   descriptionProps?: HTMLAttributes<HTMLElement>;
 };
@@ -19,19 +17,17 @@ type HelperTextProps = Props & NativeAttrs;
 
 const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
   ({ errorMessage, errorMessageProps, description, descriptionProps, ...props }, ref): JSX.Element => {
-    const isErrorMessage = hasError({ errorMessage });
-
     const renderErrorMessage = () => {
       if (Array.isArray(errorMessage)) {
-        return errorMessage.map((message) => <StyledSubHelperText key={message}>{message}</StyledSubHelperText>);
+        return errorMessage.map((message, idx) => <StyledSubHelperText key={idx}>{message}</StyledSubHelperText>);
       }
 
       return errorMessage;
     };
 
     return (
-      <StyledHelperText {...props} ref={ref} $hasError={isErrorMessage}>
-        {isErrorMessage ? (
+      <StyledHelperText {...props} ref={ref} $hasError={!!errorMessage}>
+        {!!errorMessage ? (
           <div {...errorMessageProps}>{renderErrorMessage()}</div>
         ) : (
           <div {...descriptionProps}>{description}</div>

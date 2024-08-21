@@ -1,13 +1,23 @@
-import { FocusEvent, forwardRef, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react';
+import {
+  FocusEvent,
+  forwardRef,
+  InputHTMLAttributes,
+  MouseEventHandler,
+  ReactNode,
+  TextareaHTMLAttributes
+} from 'react';
+import { useHover } from '@react-aria/interactions';
+import { useFocusRing } from '@react-aria/focus';
+import { mergeProps } from '@react-aria/utils';
 
+import { useDOMRef } from '../../hooks';
 import { Spacing, InputSizes } from '../../theme';
-import { Field, FieldProps, useFieldProps } from '../Field';
-import { HelperTextProps } from '../HelperText';
-import { LabelProps } from '../Label';
-import { hasError } from '../utils/input';
+import { HelperText, HelperTextProps } from '../HelperText';
+import { Label, LabelProps } from '../Label';
 import { ElementTypeProp } from '../utils/types';
+import { Flex } from '../Flex';
 
-import { StyledAdornmentLeft, StyledAdornmentRight, StyledBaseInput } from './Input.style';
+import { StyledAdornment, StyledBaseInput, StyledField, StyledWrapper } from './Input.style';
 
 // TODO: might need to consolidate this later
 interface HTMLInputProps extends ElementTypeProp {
@@ -32,43 +42,100 @@ type Props = {
   size?: InputSizes;
   isInvalid?: boolean;
   minHeight?: Spacing;
+  maxWidth?: Spacing;
   onFocus?: (e: FocusEvent<Element>) => void;
   onBlur?: (e: FocusEvent<Element>) => void;
 } & (HTMLInputProps | HTMLTextAreaProps);
 
-type InheritAttrs = Omit<
-  HelperTextProps &
-    Pick<FieldProps, 'label' | 'labelPosition' | 'labelProps' | 'maxWidth' | 'justifyContent' | 'alignItems'>,
-  keyof Props
->;
+type InheritAttrs = Omit<HelperTextProps, keyof Props>;
 
 type BaseInputProps = Props & InheritAttrs;
 
 const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   (
-    { startAdornment, endAdornment, size = 'md', isInvalid, inputProps, minHeight, elementType = 'input', ...props },
+    {
+      startAdornment,
+      endAdornment,
+      size = 'md',
+      isInvalid,
+      inputProps,
+      minHeight,
+      maxWidth,
+      elementType = 'input',
+      label,
+      labelProps,
+      description,
+      descriptionProps,
+      errorMessage,
+      errorMessageProps,
+      className,
+      hidden,
+      style
+    },
     ref
   ): JSX.Element => {
-    // FIXME: move this into Field
-    const { fieldProps } = useFieldProps(props);
+    const domRef = useDOMRef(ref);
 
-    const error = hasError({ isInvalid, errorMessage: props.errorMessage });
+    const error = isInvalid || !!errorMessage;
+
+    const isDisabled = !!inputProps?.disabled;
+
+    const { hoverProps, isHovered } = useHover({ isDisabled });
+
+    const { isFocused, focusProps } = useFocusRing({
+      autoFocus: inputProps.autoFocus,
+      isTextInput: true
+    });
+
+    const hasHelpText = !!description || error;
+
+    const handleClickWrapper: MouseEventHandler<unknown> = (e) => {
+      if (domRef.current && e.currentTarget === e.target) {
+        domRef.current.focus();
+      }
+    };
 
     return (
-      <Field {...fieldProps}>
-        {startAdornment && <StyledAdornmentLeft $size={size}>{startAdornment}</StyledAdornmentLeft>}
-        <StyledBaseInput
-          ref={ref as any}
-          $adornments={{ left: !!startAdornment, right: !!endAdornment }}
-          $hasError={error}
-          $isDisabled={!!inputProps?.disabled}
-          $minHeight={minHeight}
+      <StyledField $maxWidth={maxWidth} className={className} direction='column' hidden={hidden} style={style}>
+        <StyledWrapper
+          $error={error}
+          $isDisabled={isDisabled}
+          $isFocused={isFocused}
+          $isHovered={isHovered}
+          $isTextArea={elementType === 'textarea'}
           $size={size}
-          as={elementType}
-          {...inputProps}
-        />
-        {endAdornment && <StyledAdornmentRight $size={size}>{endAdornment}</StyledAdornmentRight>}
-      </Field>
+          direction='column'
+          onClick={handleClickWrapper}
+          {...mergeProps(hoverProps, focusProps)}
+        >
+          {label && (
+            <Label error={error} size={size} {...labelProps}>
+              {label}
+            </Label>
+          )}
+          <Flex>
+            {startAdornment && <StyledAdornment $size={size}>{startAdornment}</StyledAdornment>}
+            <StyledBaseInput
+              ref={domRef as any}
+              $error={error}
+              $hasEndAdornment={!!endAdornment}
+              $hasStartAdornment={!!startAdornment}
+              $minHeight={minHeight}
+              as={elementType}
+              {...mergeProps(inputProps, focusProps)}
+            />
+            {endAdornment && <StyledAdornment $size={size}>{endAdornment}</StyledAdornment>}
+          </Flex>
+        </StyledWrapper>
+        {hasHelpText && (
+          <HelperText
+            description={description}
+            descriptionProps={descriptionProps}
+            errorMessage={errorMessage}
+            errorMessageProps={errorMessageProps}
+          />
+        )}
+      </StyledField>
     );
   }
 );

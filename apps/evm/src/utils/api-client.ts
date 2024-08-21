@@ -1,6 +1,11 @@
 import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
 
+export enum QuestRefCodes {
+  GALXE = 'itxc9y',
+  INTRACT = '6y2pac'
+}
+
 export type UserResponse = {
   id: number;
   username: string;
@@ -14,11 +19,13 @@ export type UserResponse = {
   data: any;
   created_at: Date;
   updated_at: Date;
-  leaderboardRank: { user_address: string; total_reward_points: number; rank: number };
+  leaderboardRank: { user_address: string; total_reward_points: number; total_quest_points: number; rank: number };
   depositStats: any[];
   totalUsdDeposited: number;
   withdrawStats: any[];
   harvested: { partner_name: string; partner_refcode: string; total_points: 'string' }[];
+  quests_breakdown: Record<string, number>;
+  total_quest_points: string;
 };
 
 type LeaderboardResponse = {
@@ -32,24 +39,30 @@ type PartnersResponse = {
 };
 
 type Partner = {
-  name: string;
-  ref_code: string;
   category: string;
-  project_url: string;
-  total_distributed_points: string;
-  total_deposit_points: string;
-  total_referral_points: string;
-  total_points: string;
   current_points: string;
   live: boolean;
+  name: string;
+  points_distributed_per_hour: string;
+  project_url: string;
+  ref_code: string;
+  show_on_app_store: boolean;
+  total_deposit_points: string;
+  total_distributed_points: string;
+  total_points: string;
+  total_points_distributed_in_time_window: string;
+  total_referral_points: string;
 };
 
 type LeaderboardItem = {
   rank: string;
   deposit_owner: Address;
   total_points: string;
+  total_quest_points: string;
   username: string;
   referred_by?: string;
+  quests_breakdown?: Record<string, number>;
+  points_breakdown?: Record<string, number>;
 };
 
 type TVLStats = {
@@ -158,6 +171,12 @@ class ApiClient {
 
   async getLeaderboard(limit: number, offset: number): Promise<LeaderboardResponse> {
     const response = await fetch(`${this.baseUrl}/leaderboard?limit=${limit}&offset=${offset}`);
+
+    return await response.json();
+  }
+
+  async getQuestLeaderboard(limit: number, offset: number): Promise<LeaderboardResponse> {
+    const response = await fetch(`${this.baseUrl}/quest-leaderboard?limit=${limit}&offset=${offset}`);
 
     return await response.json();
   }

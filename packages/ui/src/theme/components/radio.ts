@@ -5,8 +5,10 @@ import { Typography } from '../core';
 type RadioSize = 's' | 'md' | 'lg';
 
 type RadioTheme = {
+  base: StyledObject<object>;
   button: { base: StyledObject<object>; inside: StyledObject<object> };
   selected: { button: { base: StyledObject<object>; inside: StyledObject<object> } };
+  error: { base: StyledObject<object>; button: { base: StyledObject<object>; inside: StyledObject<object> } };
   size: Record<
     RadioSize,
     {

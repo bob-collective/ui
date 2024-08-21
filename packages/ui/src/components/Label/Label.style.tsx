@@ -1,20 +1,18 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { LabelPosition } from '../../theme';
+import { LabelSizes } from '../../theme';
 
 type StyledLabelProps = {
-  $position: LabelPosition;
+  $error?: boolean;
+  $size: LabelSizes;
 };
 
 const StyledLabel = styled.label<StyledLabelProps>`
-  ${({ theme }) => theme.typography('xs')}
-  color: ${({ theme }) => theme.color('light')};
-  font-weight: ${({ theme }) => theme.fontWeight('medium')};
-
-  // FIXME: padding bottom when position is on side
-  padding: ${({ theme, $position }) =>
-    $position === 'top' ? `${theme.spacing('xs')} 0` : `${theme.spacing('s')} ${theme.spacing('xs')} 0.625rem 0`};
-  align-self: flex-start;
+  ${({ theme, $error, $size }) => css`
+    ${theme.label.base}
+    ${theme.label.size[$size]}
+    ${$error && theme.label.error.base}
+  `}
 `;
 
 export { StyledLabel };

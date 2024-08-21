@@ -23,12 +23,16 @@ type MultiplierTableRow = {
 
 const multiplierTableData: MultiplierTableData[] = [
   {
+    multiplier: '2x',
+    tokens: 'USDT, USDC, SAT, thUSD'
+  },
+  {
     multiplier: '1.5x',
     tokens: 'tBTC, WBTC'
   },
   {
     multiplier: '1.3x',
-    tokens: 'DAI, eDLLR, rETH, STONE, USDC, USDT, wstETH'
+    tokens: 'DAI, eDLLR, rETH, STONE, wstETH'
   },
   {
     multiplier: '1x',

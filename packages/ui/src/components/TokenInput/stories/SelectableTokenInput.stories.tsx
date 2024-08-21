@@ -1,25 +1,26 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { mergeProps } from '@react-aria/utils';
+import { Currency } from '@gobob/currency';
 
 import { TokenInput, TokenInputProps } from '..';
 
 const items = [
   {
     balance: 2,
-    currency: { symbol: 'ETH', decimals: 18 },
+    currency: { symbol: 'ETH', decimals: 18 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     balanceUSD: 900
   },
   {
     balance: 500,
-    currency: { symbol: 'USDT', decimals: 6 },
+    currency: { symbol: 'USDT', decimals: 6 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
     balanceUSD: 500
   },
   {
     balance: 100,
-    currency: { symbol: 'USDC', decimals: 6 },
+    currency: { symbol: 'USDC', decimals: 6 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
     balanceUSD: 100
   }

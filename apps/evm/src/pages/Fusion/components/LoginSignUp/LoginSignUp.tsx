@@ -13,7 +13,7 @@ const LoginSignUp = () => {
       <Flex direction='column' gap='md'>
         <H2 size='md'>{t('fusion.logIn.title')}</H2>
         <Divider />
-        <P color='grey-200' size='s'>
+        <P color='grey-50' size='s'>
           {t('fusion.logIn.content')}
         </P>
       </Flex>

@@ -1,46 +1,36 @@
 import { mergeProps } from '@react-aria/utils';
+import { Currency } from '@gobob/currency';
 
-import { Span } from '../Text';
-import { Flex } from '../Flex';
 import { Item, ModalSelectProps, Select } from '../Select';
 
-import { StyledTicker, StyledTokenImg, StyledTokenSelect } from './TokenInput.style';
+import { StyledTokenSelect } from './TokenInput.style';
 import { TokenListItem } from './TokenListItem';
+import { Token } from './Token';
 
-const Value = ({ data }: { data: TokenData }) => (
-  <Flex alignItems='center' gap='xs' justifyContent='space-evenly'>
-    <StyledTokenImg $size='md' alt={data.currency.symbol} src={data.logoUrl} />
-    <StyledTicker>{data.currency.symbol}</StyledTicker>
-  </Flex>
-);
-
-type TokenData = {
-  currency: any;
+type TokenSelectItemProps = {
+  currency: Currency;
   logoUrl: string;
   balance: string | number;
   balanceUSD: number;
 };
 
-type TokenSelectProps = Omit<ModalSelectProps<TokenData>, 'children' | 'type'>;
+type TokenSelectProps = Omit<ModalSelectProps<TokenSelectItemProps>, 'children' | 'type'>;
 
-// TODO: value control from currency object
 const TokenSelect = ({ modalProps, size, ...props }: TokenSelectProps): JSX.Element => {
   return (
-    <Select<TokenData>
+    <Select<TokenSelectItemProps>
       {...props}
       aria-label='select token'
       asSelectTrigger={StyledTokenSelect}
       modalProps={mergeProps({ title: 'Select Token', listProps: { maxHeight: '32rem' } }, modalProps)}
-      placeholder={
-        <Span color='inherit' size='s'>
-          Select token
-        </Span>
+      placeholder='Select token'
+      renderValue={({ value }) =>
+        value ? <Token logoUrl={value.logoUrl} symbol={value.currency.symbol} /> : undefined
       }
-      renderValue={(item) => <Value data={item.value as TokenData} />}
       size={size === 'lg' ? 'md' : size}
       type='modal'
     >
-      {(data: TokenData) => (
+      {(data: TokenSelectItemProps) => (
         <Item key={data.currency.symbol} textValue={data.currency.symbol}>
           <TokenListItem {...data} />
         </Item>
@@ -50,4 +40,4 @@ const TokenSelect = ({ modalProps, size, ...props }: TokenSelectProps): JSX.Elem
 };
 
 export { TokenSelect };
-export type { TokenData, TokenSelectProps };
+export type { TokenSelectItemProps, TokenSelectProps };

@@ -81,7 +81,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref): JSX.Eleme
 
   if (shouldWrap) {
     trigger = (
-      <Span ref={tooltipTriggerRef} tabIndex={0} {...triggerProps}>
+      <Span ref={tooltipTriggerRef} size='inherit' tabIndex={0} {...triggerProps}>
         {children}
       </Span>
     );

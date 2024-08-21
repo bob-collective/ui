@@ -4,6 +4,7 @@ import { DialogSize, Spacing } from '../../theme';
 import { Flex } from '../Flex';
 import { H3 } from '../Text';
 import { Button } from '../Button';
+import { Divider } from '../Divider';
 
 type StyledDialogProps = {
   $size: DialogSize;
@@ -11,6 +12,7 @@ type StyledDialogProps = {
 
 type StyledDialogBodyProps = {
   $maxHeight?: Spacing;
+  $padding: 'even' | 'uneven' | 'none';
 };
 
 const StyledDialog = styled.section<StyledDialogProps>`
@@ -42,7 +44,7 @@ const StyledDialogHeader = styled(H3)`
 `;
 
 const StyledDialogBody = styled(Flex)<StyledDialogBodyProps>`
-  ${({ theme }) => theme.dialog.body};
+  ${({ theme, $padding }) => $padding !== 'none' && theme.dialog.body[$padding]};
   max-height: ${({ theme, $maxHeight }) => $maxHeight && theme.spacing($maxHeight)};
 
   flex: 1 1 auto;
@@ -52,4 +54,8 @@ const StyledDialogFooter = styled(Flex)`
   ${({ theme }) => theme.dialog.footer};
 `;
 
-export { StyledCloseBtn, StyledDialog, StyledDialogBody, StyledDialogFooter, StyledDialogHeader };
+const StyledDivider = styled(Divider)`
+  ${({ theme }) => theme.dialog.divider};
+`;
+
+export { StyledCloseBtn, StyledDialog, StyledDialogBody, StyledDialogFooter, StyledDialogHeader, StyledDivider };

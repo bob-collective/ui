@@ -5,8 +5,9 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 
 import { Geoblock, Main } from '../../components';
 import { LocalStorageKey } from '../../constants';
+import { BannerCarousel } from '../Bridge/components';
 
-import { Challenges, Dashboard, Info, Leaderboard, PartnersSection } from './components';
+import { AllUsersLeaderboard, Dashboard, Info, PartnersAndChallenges, QuestUsersLeaderboard } from './components';
 import { StyledUpdateMark } from './Fusion.style';
 
 const Fusion = () => {
@@ -25,8 +26,7 @@ const Fusion = () => {
     if (location.state?.scrollEcosystem && selectedTabKey === 'dashboard') {
       document.getElementById('ecosystem')?.scrollIntoView?.();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location, selectedTabKey]);
 
   const handleSelectionChange = useCallback(
     (key: Key) => {
@@ -47,30 +47,35 @@ const Fusion = () => {
 
   return (
     <Geoblock>
-      <Main hasBackgroundImg maxWidth='4xl'>
-        <Tabs selectedKey={selectedTabKey} onSelectionChange={handleSelectionChange}>
-          <TabsItem key='dashboard' title='Dashboard'>
-            <Flex direction='column' gap='2xl'>
-              <Dashboard />
-              <Challenges />
-              <PartnersSection />
-            </Flex>
-          </TabsItem>
-          <TabsItem key='leaderboard' title='Leaderboard'>
-            <Leaderboard />
-          </TabsItem>
-          <TabsItem
-            key='info'
-            title={
-              <>
-                Info
-                {!isInfoTabMarkHidden && <StyledUpdateMark />}
-              </>
-            }
-          >
-            <Info />
-          </TabsItem>
-        </Tabs>
+      <Main maxWidth='4xl'>
+        <Flex direction='column' gap='lg'>
+          <BannerCarousel />
+          <Tabs selectedKey={selectedTabKey} onSelectionChange={handleSelectionChange}>
+            <TabsItem key='dashboard' title='Dashboard'>
+              <Flex direction='column'>
+                <Dashboard />
+                <PartnersAndChallenges />
+              </Flex>
+            </TabsItem>
+            <TabsItem key='leaderboard' title='Leaderboard'>
+              <AllUsersLeaderboard />
+            </TabsItem>
+            <TabsItem key='quest-leaderboard' title='Quest Leaderboard'>
+              <QuestUsersLeaderboard />
+            </TabsItem>
+            <TabsItem
+              key='info'
+              title={
+                <>
+                  Info
+                  {!isInfoTabMarkHidden && <StyledUpdateMark />}
+                </>
+              }
+            >
+              <Info />
+            </TabsItem>
+          </Tabs>
+        </Flex>
       </Main>
     </Geoblock>
   );

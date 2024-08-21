@@ -4,14 +4,11 @@ import { useTreeState } from '@react-stately/tree';
 import { forwardRef, HTMLAttributes, Ref } from 'react';
 
 import { useDOMRef } from '../../hooks';
-import { AccordionVariants } from '../../theme';
 
 import { AccordionItem } from './AccordionItem';
 import { StyledAccordion } from './Accordion.style';
 
-type Props = {
-  variant?: AccordionVariants;
-};
+type Props = {};
 
 type InheritAttrs<T> = Omit<AriaAccordionProps<T>, keyof Props>;
 
@@ -20,7 +17,7 @@ type NativeAttrs<T> = Omit<HTMLAttributes<unknown>, (keyof InheritAttrs<T> & Pro
 type AccordionProps<T = any> = Props & InheritAttrs<T> & NativeAttrs<T>;
 
 const Accordion = <T extends Record<string, unknown>>(
-  { variant = 'light', ...props }: AccordionProps<T>,
+  props: AccordionProps<T>,
   ref: Ref<HTMLDivElement>
 ): JSX.Element => {
   const state = useTreeState(props);
@@ -28,9 +25,9 @@ const Accordion = <T extends Record<string, unknown>>(
   const { accordionProps } = useAccordion(props, state, accordionRef);
 
   return (
-    <StyledAccordion $variant={variant} {...mergeProps(props, accordionProps)} ref={accordionRef}>
+    <StyledAccordion {...mergeProps(props, accordionProps)} ref={accordionRef}>
       {[...state.collection].map((item) => (
-        <AccordionItem<T> key={item.key} item={item} state={state} variant={variant} />
+        <AccordionItem<T> key={item.key} item={item} state={state} />
       ))}
     </StyledAccordion>
   );

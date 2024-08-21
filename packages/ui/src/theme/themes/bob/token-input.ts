@@ -1,35 +1,67 @@
-import { fontWeight, rounded, spacing, typography } from '../../core';
+import { fontSize, fontWeight, spacing, typography } from '../../core';
 import { TokenInputTheme } from '../../components';
 
 import { color } from './colors';
+import { input } from './input';
 
-// TODO: handle different sizes
 const tokenInput: TokenInputTheme = {
-  balance: {
-    padding: `${spacing('s')} 0`,
-    color: color('primary-500'),
-    fontWeight: fontWeight('medium'),
-    ...typography('xs')
+  wrapper: input.wrapper,
+  placeholder: input.placeholder,
+  hover: input.hover,
+  focus: input.focus,
+  error: input.error,
+  disabled: input.disabled,
+  base: {
+    ...input.base,
+    ...typography('2xl'),
+    fontWeight: fontWeight('medium')
   },
-  addorment: {
-    token: {
-      base: {
-        backgroundColor: color('grey-600'),
-        border: `1px solid ${color('grey-400')}`,
-        borderLeft: 'none',
-        borderTopRightRadius: rounded('md'),
-        borderBottomRightRadius: rounded('md'),
-        color: color('light')
-      }
+  inputWrapper: {
+    paddingLeft: spacing('lg'),
+    paddingRight: spacing('lg'),
+    paddingTop: '0.625rem',
+    paddingBottom: spacing('md')
+  },
+  divider: {
+    marginLeft: spacing('lg'),
+    marginRight: spacing('lg'),
+    marginBottom: spacing('md')
+  },
+  bottomWrapper: {
+    paddingLeft: spacing('lg'),
+    paddingRight: spacing('lg'),
+    paddingBottom: '0.625rem'
+  },
+  usd: {
+    ...typography('md'),
+    color: color('grey-50')
+  },
+  balance: {
+    fontWeight: fontWeight('medium'),
+    ...typography('md')
+  },
+  token: {
+    base: {
+      borderColor: color('grey-300'),
+      backgroundColor: color('grey-500'),
+      padding: `0 ${spacing('md')}`,
+      fontSize: fontSize('md', 'rem')
     },
-    usd: {
-      ...typography('xs'),
-      color: color('grey-200')
+    img: {
+      height: spacing('3xl'),
+      width: spacing('3xl')
+    },
+    placeholder: {
+      padding: `0 ${spacing('md')} 0 ${spacing('lg')}`
     }
   },
   list: {
     base: {
-      padding: `0 ${spacing('xl')}`
+      padding: `0 ${spacing('xl')}`,
+      overflow: 'auto',
+      '> :last-child': {
+        marginBottom: spacing('xl')
+      }
     },
     item: {
       ticker: {
@@ -38,64 +70,13 @@ const tokenInput: TokenInputTheme = {
         ...typography('md')
       },
       usd: {
-        color: color('grey-300'),
+        color: color('grey-50'),
         fontWeight: fontWeight('medium'),
         ...typography('s')
       },
-      selected: {
-        ticker: {
-          color: color('dark')
-        },
-        usd: {
-          color: color('grey-300')
-        }
-      }
-    }
-  },
-  size: {
-    s: {
-      addornment: {
-        token: {
-          base: {
-            paddingLeft: spacing('md'),
-            paddingRight: spacing('md'),
-            ...typography('xs')
-          },
-          img: {
-            height: spacing('2xl'),
-            width: spacing('2xl')
-          }
-        }
-      }
-    },
-    md: {
-      addornment: {
-        token: {
-          base: {
-            paddingLeft: spacing('md'),
-            paddingRight: spacing('md'),
-            ...typography('s')
-          },
-          img: {
-            height: spacing('2xl'),
-            width: spacing('2xl')
-          }
-        }
-      }
-    },
-    lg: {
-      addornment: {
-        token: {
-          base: {
-            paddingLeft: spacing('md'),
-            paddingRight: spacing('md'),
-            ...typography('md')
-          },
-          img: {
-            height: spacing('3xl'),
-            width: spacing('3xl')
-          }
-        }
+      img: {
+        height: spacing('4xl'),
+        width: spacing('4xl')
       }
     }
   }

@@ -1,23 +1,28 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { mergeProps } from '@react-aria/utils';
-import { ChangeEventHandler, FocusEvent, forwardRef, ReactNode, useCallback } from 'react';
+import React, { ChangeEventHandler, FocusEvent, forwardRef, MouseEventHandler, ReactNode, useCallback } from 'react';
+import { useHover } from '@react-aria/interactions';
+import { useFocusRing } from '@react-aria/focus';
+import { Currency } from '@gobob/currency';
 
 import { useCurrencyFormatter, useDOMRef } from '../../hooks';
-import { Spacing, TokenInputSize } from '../../theme';
-import { HelperTextProps } from '../HelperText';
-import { LabelProps } from '../Label';
-import { Field, FieldProps, useFieldProps } from '../Field';
+import { Spacing } from '../../theme';
+import { Label, LabelProps } from '../Label';
 import { Flex } from '../Flex';
-import { hasError } from '../utils/input';
+import { BankNotes } from '../../icons';
+import { Span } from '../Text';
+import { HelperText, HelperTextProps } from '../HelperText';
+import { Tooltip } from '../Tooltip';
 
 import {
-  StyledAdornment,
+  StyledBalanceButton,
   StyledBaseInput,
-  StyledGroupInputWrapper,
-  StyledNumberInputWrapper,
+  StyledBaseTokenInputWrapper,
+  StyledBottomWrapper,
+  StyledDivider,
+  StyledInputWrapper,
   StyledUSDAdornment
-} from './BaseTokenInput.style';
-import { TokenInputLabel } from './TokenInputLabel';
+} from './TokenInput.style';
 
 const escapeRegExp = (string: string): string => {
   // $& means the whole matched string
@@ -32,47 +37,42 @@ const hasCorrectDecimals = (value: string, decimals: number) => {
 
 type Props = {
   valueUSD?: number;
-  balance?: ReactNode;
   label?: ReactNode;
   labelProps?: LabelProps;
   endAdornment: ReactNode;
-  size?: TokenInputSize;
   isInvalid?: boolean;
   minHeight?: Spacing;
   value?: string;
   defaultValue?: string;
-  // TODO: use Currency from bob-ui
-  currency?: { decimals: number };
+  currency?: Currency;
+  balance?: string;
+  balanceHelper?: ReactNode;
+  humanBalance?: string | number;
+  onClickBalance?: (balance: string) => void;
   onValueChange?: (value: string | number) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: FocusEvent<Element>) => void;
   onBlur?: (e: FocusEvent<Element>) => void;
 };
 
-type InheritAttrs = Omit<
-  HelperTextProps &
-    Pick<
-      FieldProps,
-      'label' | 'labelPosition' | 'labelProps' | 'maxWidth' | 'justifyContent' | 'alignItems' | 'fullWidth'
-    >,
-  keyof Props
->;
+type AriaAttrs = Omit<AriaTextFieldOptions<'input'>, keyof Props | 'onChange' | 'errorMessage' | 'description'>;
 
-type AriaAttrs = Omit<AriaTextFieldOptions<'input'>, (keyof Props & InheritAttrs) | 'onChange'>;
+type InheritAttrs = Omit<HelperTextProps, keyof (Props & AriaAttrs)>;
 
-type BaseTokenInputProps = Props & AriaAttrs & InheritAttrs;
+type BaseTokenInputProps = Props & InheritAttrs & AriaAttrs;
 
 const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
   (
     {
       label,
       placeholder = '0.00',
-      balance,
-      children,
-      valueUSD,
+      balance = '0.00',
+      humanBalance,
+      balanceHelper,
+      onClickBalance,
+      valueUSD = 0,
       isDisabled,
-      isInvalid,
-      size = 'md',
+      isInvalid: isInvalidProp,
       defaultValue,
       inputMode,
       value = '',
@@ -80,6 +80,10 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       currency,
       onChange,
       onValueChange,
+      description,
+      errorMessage,
+      descriptionProps: descriptionPropsProp,
+      errorMessageProps: errorMessagePropsProp,
       ...props
     },
     ref
@@ -88,12 +92,14 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
 
     const format = useCurrencyFormatter();
 
-    const { inputProps, descriptionProps, errorMessageProps, labelProps } = useTextField(
+    const { inputProps, descriptionProps, errorMessageProps, labelProps, isInvalid } = useTextField<'input'>(
       {
         ...props,
+        errorMessage,
+        description,
         label,
         inputMode,
-        isInvalid: isInvalid || !!props.errorMessage,
+        isInvalid: isInvalidProp || !!errorMessage,
         value,
         onChange: () => {},
         defaultValue,
@@ -121,44 +127,76 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
       [onChange, onValueChange, currency]
     );
 
+    const handleClickWrapper: MouseEventHandler<unknown> = (e) => {
+      if (inputRef.current && e.currentTarget === e.target) {
+        inputRef.current.focus();
+      }
+    };
+
+    const { hoverProps, isHovered } = useHover({ isDisabled });
+
+    const { isFocused, focusProps } = useFocusRing({
+      autoFocus: inputProps.autoFocus,
+      isTextInput: true
+    });
+
     const hasLabel = !!label || !!balance;
 
-    // FIXME: move this into Field
-    const { fieldProps: styleFieldProps } = useFieldProps({ ...props, descriptionProps, errorMessageProps } as any);
+    const isBalanceDisabled = !currency || isDisabled || Number(balance) === 0;
 
-    const error = hasError({ isInvalid, errorMessage: props.errorMessage } as any);
-
-    const bottomAdornment = valueUSD !== undefined && (
-      <StyledUSDAdornment $isDisabled={isDisabled} $size={size}>
-        {format(valueUSD)}
-      </StyledUSDAdornment>
-    );
+    const hasHelpText = !!description || !!errorMessage;
 
     return (
-      <Field {...styleFieldProps}>
-        <Flex direction='column' flex={1}>
-          {hasLabel && (
-            <TokenInputLabel {...labelProps} balance={balance}>
-              {label}
-            </TokenInputLabel>
-          )}
-          <StyledGroupInputWrapper>
-            <StyledNumberInputWrapper>
+      <Flex direction='column'>
+        <StyledBaseTokenInputWrapper
+          $isDisabled={isDisabled}
+          $isFocused={isFocused}
+          $isHovered={isHovered}
+          $isInvalid={isInvalid}
+          direction='column'
+        >
+          <StyledInputWrapper alignItems='flex-end' onClick={handleClickWrapper}>
+            <Flex direction='column' flex={1} onClick={handleClickWrapper} {...mergeProps(hoverProps, focusProps)}>
+              {hasLabel && <Label {...labelProps}>{label}</Label>}
               <StyledBaseInput
                 ref={inputRef}
-                $adornmentBottom={!!bottomAdornment}
-                $hasError={error}
-                $size={size}
+                $isInvalid={isInvalid}
                 placeholder={placeholder}
-                {...mergeProps(inputProps, { onChange: handleChange })}
+                {...mergeProps(inputProps, focusProps, { onChange: handleChange })}
               />
-              <StyledAdornment $size={size}>{bottomAdornment}</StyledAdornment>
-            </StyledNumberInputWrapper>
+            </Flex>
             {endAdornment}
-          </StyledGroupInputWrapper>
-          {children}
-        </Flex>
-      </Field>
+          </StyledInputWrapper>
+          <StyledDivider />
+          <StyledBottomWrapper gap='md' justifyContent='space-between'>
+            <StyledUSDAdornment>{format(valueUSD)}</StyledUSDAdornment>
+            <Tooltip isDisabled={!balanceHelper} label={balanceHelper}>
+              <StyledBalanceButton
+                aria-controls={inputProps.id}
+                aria-label={`apply ${balance}${currency ? ` ${currency.symbol}` : ''} ${typeof label === 'string' ? ` to ${label}` : ''}`}
+                color='primary'
+                disabled={isBalanceDisabled}
+                size='s'
+                variant='ghost'
+                onPress={() => onClickBalance?.(balance)}
+              >
+                <BankNotes color='inherit' size='xs' />
+                <Span color='inherit' lineHeight='normal'>
+                  {isBalanceDisabled ? 0 : humanBalance || balance}
+                </Span>
+              </StyledBalanceButton>
+            </Tooltip>
+          </StyledBottomWrapper>
+        </StyledBaseTokenInputWrapper>
+        {hasHelpText && (
+          <HelperText
+            description={description}
+            descriptionProps={descriptionPropsProp || descriptionProps}
+            errorMessage={errorMessage}
+            errorMessageProps={errorMessagePropsProp || errorMessageProps}
+          />
+        )}
+      </Flex>
     );
   }
 );

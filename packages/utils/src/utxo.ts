@@ -1,28 +1,22 @@
-import { DefaultElectrsClient, ElectrsClient, UTXO } from '@gobob/bob-sdk';
-import { DefaultOrdinalsClient, TESTNET_ORD_BASE_PATH } from '@gobob/bob-sdk/dist/ordinal-api';
+import { DefaultEsploraClient, UTXO } from '@gobob/bob-sdk';
 import { Transaction, Script, selectUTXO, TEST_NETWORK, NETWORK, p2wpkh, p2sh } from '@scure/btc-signer';
 import { hex } from '@scure/base';
-import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
+import { AddressType } from 'bitcoin-address-validation';
+import * as bitcoin from 'bitcoinjs-lib';
 
-import { getTxInscriptions, parseInscriptionId } from './inscription';
 import { NetworkType, getBtcNetwork } from './btcNetwork';
 
 // Confirmation target for fee estimation in Bitcoin blocks
-export const CONFIRMATION_TARGET = 6;
+export const CONFIRMATION_TARGET = 3;
 
-interface InscriptionUTXO {
-  value: number;
-  script_pubkey: string;
-  address: string;
-  transaction: string;
-  sat_ranges: string;
-  inscriptions: string[];
-  runes: Record<string, any>;
-}
+/// The sequence number that enables replace-by-fee and absolute lock time but
+/// disables relative lock time.
+const ENABLE_RBF_NO_LOCKTIME = 0xfffffffd;
 
 export interface Input {
   txid: string;
   index: number;
+  sequence: number;
   witness_script?: Uint8Array;
   redeem_script?: Uint8Array;
   witnessUtxo?: {
@@ -32,87 +26,16 @@ export interface Input {
   nonWitnessUtxo?: Uint8Array;
 }
 
-export async function findUtxoForInscriptionId(
-  electrsClient: ElectrsClient,
-  utxos: UTXO[],
-  inscriptionId: string
-): Promise<UTXO | undefined> {
-  // TODO: can we get the current UTXO of the inscription from ord?
-  // we can use the satpoint for this
-  const { txid, index } = parseInscriptionId(inscriptionId);
-
-  for (const utxo of utxos) {
-    if (utxo.confirmed) {
-      const res = await fetch(`${TESTNET_ORD_BASE_PATH}/output/${utxo.txid}:${utxo.vout}`, {
-        headers: {
-          Accept: 'application/json'
-        }
-      });
-
-      const inscriptionUtxo: InscriptionUTXO = await res.json();
-
-      if (inscriptionUtxo.inscriptions && inscriptionUtxo.inscriptions.includes(inscriptionId)) {
-        return utxo;
-      }
-    } else if (txid == utxo.txid) {
-      const inscriptions = await getTxInscriptions(electrsClient, utxo.txid);
-
-      if (typeof inscriptions[index] !== 'undefined') {
-        return utxo;
-      }
-    }
-  }
-
-  return undefined;
-}
-
-export async function findUtxosWithoutInscriptions(network: string, utxos: UTXO[]): Promise<UTXO[]> {
-  const ordinalsClient = new DefaultOrdinalsClient(network);
-
-  const safeUtxos: UTXO[] = [];
-
-  // Exclude UTXOs that are uncomfirmed or have inscriptions
-  await Promise.all([
-    utxos.map(async (utxo) => {
-      if (utxo.confirmed) {
-        const inscription = await ordinalsClient.getInscriptionsFromOutPoint({
-          txid: utxo.txid,
-          vout: utxo.vout
-        });
-
-        if (inscription.inscriptions.length === 0) {
-          safeUtxos.push(utxo);
-        }
-      }
-    })
-  ]);
-
-  return safeUtxos;
-}
-
 export async function createTransferWithOpReturn(
   network: NetworkType,
   paymentAddress: string,
   toAddress: string,
   amount: number,
   opReturn: string,
+  addressType: string,
   publicKey?: string
 ): Promise<Transaction> {
-  const addressType = getAddressInfo(paymentAddress).type;
-
-  // Ensure this is not the P2TR address for ordinals (we don't want to spend from it)
-  if (addressType === AddressType.p2tr) {
-    throw new Error('Cannot send from ordinals address');
-  }
-
-  // We need the public key to generate the redeem and witness script to spend the scripts
-  if (addressType === (AddressType.p2sh || AddressType.p2wsh)) {
-    if (!publicKey) {
-      throw new Error('Public key is required to spend from the selected address type');
-    }
-  }
-
-  const electrsClient = new DefaultElectrsClient(network);
+  const electrsClient = new DefaultEsploraClient(network);
 
   // eslint-disable-next-line no-console
   console.log('Payment address:', paymentAddress);
@@ -235,6 +158,7 @@ export function getInputFromUtxoAndTransaction(
   const input = {
     txid: utxo.txid,
     index: utxo.vout,
+    sequence: ENABLE_RBF_NO_LOCKTIME,
     ...scriptMixin, // Maybe adds the redeemScript and/or witnessScript
     ...witnessMixin // Adds the witnessUtxo and/or nonWitnessUtxo
   };
@@ -243,4 +167,21 @@ export function getInputFromUtxoAndTransaction(
   console.log('Input:', input);
 
   return input;
+}
+
+export function estimateTxFee(feeRate: number, numInputs: number = 1) {
+  const tx = new bitcoin.Transaction();
+
+  for (let i = 0; i < numInputs; i++) {
+    tx.addInput(Buffer.alloc(32, 0), 0, 0xfffffffd, Buffer.alloc(0));
+  }
+  // https://github.com/interlay/interbtc-clients/blob/6bd3e81d695b93180c5aeae4f33910ad4395ff1a/bitcoin/src/light/wallet.rs#L80
+  tx.ins.map((tx_input) => (tx_input.witness = [Buffer.alloc(33 + 32 + 7, 0), Buffer.alloc(33, 0)]));
+  tx.addOutput(Buffer.alloc(22, 0), 1000); // P2WPKH
+  tx.addOutput(Buffer.alloc(22, 0), 1000); // P2WPKH (change)
+  tx.addOutput(bitcoin.script.compile([bitcoin.opcodes.OP_RETURN, Buffer.alloc(20, 0)]), 0);
+  const vsize = tx.virtualSize();
+  const satoshis = feeRate * vsize;
+
+  return satoshis;
 }

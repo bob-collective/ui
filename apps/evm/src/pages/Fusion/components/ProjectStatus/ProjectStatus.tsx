@@ -13,15 +13,8 @@ const ProjectStatus = () => {
     <StyledWrapper direction='column' gap='3xl' justifyContent='space-between'>
       <Flex direction='column' gap='2xl'>
         <Flex direction={{ base: 'column', md: 'row' }} gap='2xl' justifyContent='space-between'>
-          <Flex
-            color='grey-200'
-            direction='column'
-            elementType={H2}
-            flex={{ base: '1', md: '1' }}
-            gap='s'
-            id={statusId}
-          >
-            <Span color='grey-200' size='s'>
+          <Flex color='grey-50' direction='column' elementType={H2} flex={{ base: '1', md: '1' }} gap='s' id={statusId}>
+            <Span color='grey-50' size='s'>
               {t('fusion.status')}
             </Span>
             <Span size='md' weight='semibold'>
@@ -34,7 +27,7 @@ const ProjectStatus = () => {
             <StepperItem textValue='3' />
           </Stepper>
         </Flex>
-        <P color='grey-200' size='s'>
+        <P color='grey-50' size='s'>
           {t('fusion.seasonDescription')}
         </P>
       </Flex>

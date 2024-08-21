@@ -4,15 +4,6 @@ import { WalletNetwork } from '../types';
 
 import { PsbtInputAccounts, SatsConnector } from './base';
 
-// function extractAccountNumber(path: string) {
-//   const segments = path.split('/');
-//   const accountNum = parseInt(segments[3].replaceAll("'", ''), 10);
-
-//   if (isNaN(accountNum)) throw new Error('Cannot parse account number from path');
-
-//   return accountNum;
-// }
-
 type Response<T> = {
   jsonrpc: string;
   id: string;
@@ -78,14 +69,10 @@ declare global {
 }
 
 class LeatherConnector extends SatsConnector {
-  id = 'leather';
-  name = 'Leather';
-  homepage = 'https://leather.io/';
-
   derivationPath: string | undefined;
 
   constructor(network: WalletNetwork) {
-    super(network);
+    super(network, 'leather', 'Leather', 'https://leather.io/');
   }
 
   async connect(): Promise<void> {
@@ -108,6 +95,10 @@ class LeatherConnector extends SatsConnector {
     this.publicKey = paymentAccount.publicKey;
     this.derivationPath = paymentAccount.derivationPath;
   }
+
+  on(): void {}
+
+  removeListener(): void {}
 
   async isReady() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

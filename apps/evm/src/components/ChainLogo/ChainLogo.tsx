@@ -1,10 +1,11 @@
 import { ChainId } from '@gobob/chains';
-import { ArbitrumOne, BNB, BOBLogo, BTC, Base, ETH, Moonbeam, Optimism, Polygon } from '@gobob/icons';
+import { ArbitrumOne, BNB, BOBLogo, BTC, Base, Bitlayer, ETH, Merlin, Moonbeam, Optimism, Polygon } from '@gobob/icons';
 import { IconProps } from '@gobob/ui';
 
 // TODO: temp
 const chainLogo: Record<ChainId, any> = {
   [ChainId.BOB]: BOBLogo,
+  [ChainId.OLD_BOB_SEPOLIA]: BOBLogo,
   [ChainId.BOB_SEPOLIA]: BOBLogo,
   [ChainId.ETHEREUM]: ETH,
   [ChainId.SEPOLIA]: ETH,
@@ -15,7 +16,9 @@ const chainLogo: Record<ChainId, any> = {
   [ChainId.OPBNB]: BNB,
   [ChainId.POLYGON_ZKEVM]: Polygon,
   [ChainId.POLYGON]: Polygon,
-  [ChainId.MOONBEAM]: Moonbeam
+  [ChainId.MOONBEAM]: Moonbeam,
+  [ChainId.BITLAYER]: Bitlayer,
+  [ChainId.MERLIN]: Merlin
 };
 
 type Props = {
