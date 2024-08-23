@@ -182,7 +182,7 @@ const BtcBridgeForm = ({
       }
 
       const data = {
-        amount: [quoteData.receiveAmount, quoteData.gratuityAmount],
+        amount: [quoteData.receiveAmount, ethGratuity],
         fee: quoteData.fee
       };
 
@@ -288,9 +288,21 @@ const BtcBridgeForm = ({
     hideErrors: 'untouched'
   });
 
-  const price = useMemo(() => getPrice('BTC'), [getPrice]);
+  const btcPrice = useMemo(() => getPrice('tBTC'), [getPrice]);
+  const ethPrice = useMemo(() => getPrice('ETH'), [getPrice]);
 
-  const valueUSD = useMemo(() => new Big(amount || 0).mul(price || 0).toNumber(), [amount, price]);
+  // Temporary workaround until Gateway V3. Harcode gratuity as
+  // 0.00002 BTC worth of ETH.
+  const ethGratuity = useMemo(() => {
+    const btcUsdValue = new Big(0.00002 || 0).mul(btcPrice || 0).toNumber();
+    const ethValue = Big(btcUsdValue || 0)
+      .div(ethPrice || 0)
+      .toNumber();
+
+    return CurrencyAmount.fromBaseAmount(nativeToken, ethValue);
+  }, [btcPrice, ethPrice]);
+
+  const valueUSD = useMemo(() => new Big(amount || 0).mul(btcPrice || 0).toNumber(), [amount, btcPrice]);
 
   const isSubmitDisabled = isFormDisabled(form);
 
