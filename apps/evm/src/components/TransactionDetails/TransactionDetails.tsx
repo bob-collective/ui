@@ -74,6 +74,9 @@ const TransactionDetails = ({
   const amount = amountProp || amountPlaceholder;
   const gasEstimate = gasEstimateProp || gasEstimatePlaceholder;
 
+  // eslint-disable-next-line no-console
+  console.log('amount', amount);
+
   return (
     <Card background='grey-600' rounded='md'>
       <Dl direction='column' gap='none' {...props}>

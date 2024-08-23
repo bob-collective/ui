@@ -186,6 +186,9 @@ const BtcBridgeForm = ({
         fee: quoteData.fee
       };
 
+      // eslint-disable-next-line no-console
+      console.log('data', data);
+
       onStartOnRamp(data);
 
       const atomicAmount = Number(currencyAmount.numerator);
