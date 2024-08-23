@@ -192,7 +192,7 @@ const BtcBridgeForm = ({
         throw new Error('Quote Data missing');
       }
 
-      // Temp gratuity only used to display value. Mutation continues to use `quoteData.gratuityAmount`
+      // Temp gratuity only used to display value in transaction details. Mutation continues to use `quoteData.gratuityAmount`
       const data = {
         amount: [quoteData.receiveAmount, quoteData.gratuityAmount],
         fee: quoteData.fee
