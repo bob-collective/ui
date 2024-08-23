@@ -73,7 +73,7 @@ const BtcBridgeForm = ({
 
   const [receiveTicker, setReceiveTicker] = useState(availableTokens[0].currency.symbol);
 
-  const price = useMemo(() => getPrice('WBTC'), [getPrice]);
+  const price = useMemo(() => getPrice('BTC'), [getPrice]);
   const ethPrice = useMemo(() => getPrice('ETH'), [getPrice]);
 
   // Temporary workaround until Gateway V3. Harcode gratuity as
