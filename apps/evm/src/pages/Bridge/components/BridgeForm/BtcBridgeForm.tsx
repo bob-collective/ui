@@ -138,10 +138,7 @@ const BtcBridgeForm = ({
 
       const atomicAmount = currencyAmount.numerator.toString();
 
-      const { fee, onramp_address, bitcoin_address, gratuity } = await gatewayClient.getQuote(
-        btcToken.raw.address,
-        atomicAmount
-      );
+      const { fee, onramp_address, bitcoin_address } = await gatewayClient.getQuote(btcToken.raw.address, atomicAmount);
 
       // means that the call failed
       if (!fee) return null;
@@ -152,7 +149,7 @@ const BtcBridgeForm = ({
 
       return {
         receiveAmount: CurrencyAmount.fromBaseAmount(btcToken.currency, btcReceiveAmount.toExact()),
-        gratuityAmount: CurrencyAmount.fromRawAmount(nativeToken, gratuity),
+        gratuityAmount: CurrencyAmount.fromRawAmount(nativeToken, ethGratuity),
         fee: feeAmount,
         onrampAddress: onramp_address,
         bitcoinAddress: bitcoin_address
@@ -182,7 +179,7 @@ const BtcBridgeForm = ({
       }
 
       const data = {
-        amount: [quoteData.receiveAmount, ethGratuity],
+        amount: [quoteData.receiveAmount, CurrencyAmount.fromBaseAmount(nativeToken, ethGratuity)],
         fee: quoteData.fee
       };
 
@@ -302,7 +299,7 @@ const BtcBridgeForm = ({
       .div(ethPrice || 0)
       .toNumber();
 
-    return CurrencyAmount.fromBaseAmount(nativeToken, ethValue);
+    return ethValue;
   }, [btcPrice, ethPrice]);
 
   // eslint-disable-next-line no-console
