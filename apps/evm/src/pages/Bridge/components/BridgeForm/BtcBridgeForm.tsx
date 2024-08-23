@@ -305,6 +305,9 @@ const BtcBridgeForm = ({
     return CurrencyAmount.fromBaseAmount(nativeToken, ethValue);
   }, [btcPrice, ethPrice]);
 
+  // eslint-disable-next-line no-console
+  console.log('ethGratuity', ethGratuity);
+
   const valueUSD = useMemo(() => new Big(amount || 0).mul(btcPrice || 0).toNumber(), [amount, btcPrice]);
 
   const isSubmitDisabled = isFormDisabled(form);
