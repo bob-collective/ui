@@ -1,4 +1,4 @@
-import { Card, Flex } from '@gobob/ui';
+import { Card, Flex, H1 } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
@@ -82,6 +82,12 @@ const StyledBanner = styled(Card)`
   max-height: 8.5rem;
 `;
 
+const StyledBannerTitle = styled(H1)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 const StyledIntractImg = styled(IntractImg)`
   ${({ theme }) => {
     return css`
@@ -141,6 +147,25 @@ const StyledEcosystemImg = styled(EcosystemImg)`
   }}
 `;
 
+const StyledBitgetCampaignImg = styled.img`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 50%;
+      right: ${theme.spacing('3xl')};
+      width: 24rem;
+      transform: translateY(-50%);
+
+      @media ${theme.breakpoints.down('md')} {
+        left: 50%;
+        right: unset;
+        transform: translate(-50%, -50%);
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
 export {
   StyledCarouselWrapper,
   StyledSlider,
@@ -148,5 +173,7 @@ export {
   StyledEcosystemImg,
   StyledOnrampImg,
   StyledIntractImg,
-  StyledBannerContent
+  StyledBitgetCampaignImg,
+  StyledBannerContent,
+  StyledBannerTitle
 };

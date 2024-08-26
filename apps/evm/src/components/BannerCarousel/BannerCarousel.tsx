@@ -7,11 +7,13 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { RoutesPath } from '../../constants';
+import { FeatureFlags, useFeatureFlag } from '../../hooks';
 
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { IntractBanner } from './IntractBanner';
 import { OnrampBanner } from './OnrampBanner';
+import { BitgetCampaignBanner } from './BitgetCampaignBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -43,7 +45,6 @@ const settings: Settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   pauseOnHover: true,
-  initialSlide: 1,
   nextArrow: <NextArrow />,
   prevArrow: <PrevArrow />
 };
@@ -52,6 +53,8 @@ const BannerCarousel = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
   const navigate = useNavigate();
+
+  const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
 
   const onPressEcosystemBanner = useCallback(
     () => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } }),
@@ -65,12 +68,25 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressIntractBanner = useCallback(
+    () => window.open('https://www.intract.io/events/66b9e41cc8ff56cba8440d36', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const onPressBitgetCampaignBanner = useCallback(
+    () => window.open('https://www.intract.io/events/66b9e41cc8ff56cba8440d36', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
-        <IntractBanner />
+        <BitgetCampaignBanner onPress={onPressBitgetCampaignBanner} />
+        <IntractBanner onPress={onPressIntractBanner} />
         <EcosystemBanner onPress={onPressEcosystemBanner} />
-        <OnrampBanner onPress={onPressOnrampBanner} />
+        {isBtcOnRampEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledSlider>
     </StyledCarouselWrapper>
   );
