@@ -1,7 +1,8 @@
-import { Flex, H1, P } from '@gobob/ui';
+import { Flex, P } from '@gobob/ui';
 
 import { Banner } from './Banner';
 import { StyledEcosystemImg } from './BannerCarousel.style';
+import { BannerTitle } from './BannerTitle';
 
 type EcosystemBannerProps = {
   onPress?: () => void;
@@ -10,9 +11,7 @@ type EcosystemBannerProps = {
 const EcosystemBanner = ({ onPress }: EcosystemBannerProps) => (
   <Banner isPressable direction='column' onPress={onPress}>
     <Flex alignItems='center'>
-      <H1 size='2xl' weight='bold'>
-        BOB Ecosystem
-      </H1>
+      <BannerTitle>BOB Ecosystem</BannerTitle>
     </Flex>
     <P color='grey-50'>Discover the most exciting projects on BOB.</P>
     <StyledEcosystemImg />

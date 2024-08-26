@@ -1,15 +1,12 @@
-import { ArrowTopRightOnSquare, Flex, H1, P, Tabs, TabsItem, XMark } from '@gobob/ui';
+import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
+import { Tabs, TabsItem } from '@gobob/ui';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
-import { useLocalStorage } from '@uidotdev/usehooks';
 
 import { Main } from '../../components';
-import { L1_CHAIN, L2_CHAIN, LocalStorageKey, RoutesPath } from '../../constants';
-import { FeatureFlags, useFeatureFlag } from '../../hooks';
-import { StyledEcosystemImg } from '../../components/BannerCarousel/BannerCarousel.style';
+import { L1_CHAIN, L2_CHAIN } from '../../constants';
 
-import { StyledBanner, StyledBannerCloseBtn, StyledBannerContent, StyledCard, StyledFlex } from './Bridge.style';
+import { StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
 
 enum BridgeOrigin {
@@ -43,11 +40,6 @@ const Bridge = () => {
   const [chain, setChain] = useState<ChainId | 'BTC'>(initialChain);
 
   const navigate = useNavigate();
-
-  const [isEcosystemBannerHidden, setEcosystemBannerVisibility] = useLocalStorage(
-    LocalStorageKey.HIDE_ECOSYSTEM_BANNER
-  );
-  const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
 
   // const [isFaultProofNoticeHidden, setFaultProofNoticeHidden] = useLocalStorage(
   //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
@@ -112,38 +104,8 @@ const Bridge = () => {
   return (
     <>
       <Main maxWidth='5xl' padding='md'>
-        {isBtcOnRampEnabled ? (
-          <BannerCarousel />
-        ) : (
-          !isEcosystemBannerHidden && (
-            <StyledBanner
-              isPressable
-              aria-label='navigate to ecosystem section in fusion page'
-              paddingX='2xl'
-              paddingY='4xl'
-              onPress={() => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } })}
-            >
-              <StyledBannerCloseBtn
-                isIconOnly
-                aria-label='close banner'
-                size='s'
-                variant='ghost'
-                onPress={() => setEcosystemBannerVisibility(true)}
-              >
-                <XMark />
-              </StyledBannerCloseBtn>
-              <StyledBannerContent direction='column'>
-                <Flex alignItems='center'>
-                  <H1 size='2xl' weight='bold'>
-                    BOB Ecosystem <ArrowTopRightOnSquare size='s' />
-                  </H1>
-                </Flex>
-                <P color='grey-50'>Discover the most exciting projects on BOB.</P>
-              </StyledBannerContent>
-              <StyledEcosystemImg />
-            </StyledBanner>
-          )
-        )}
+        <BannerCarousel />
+
         {/* {!isFaultProofNoticeHidden && (
           <Alert marginTop='xl' status='info' onClose={handleCloseFaultProofNotice}>
             <P size='s'>
