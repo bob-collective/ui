@@ -73,6 +73,17 @@ const BtcBridgeForm = ({
 
   const [receiveTicker, setReceiveTicker] = useState(availableTokens[0].currency.symbol);
 
+  const btcPrice = useMemo(() => getPrice('BTC'), [getPrice]);
+  const ethPrice = useMemo(() => getPrice('ETH'), [getPrice]);
+
+  // Temporary workaround until Gateway V3. Harcode gratuity as
+  // 0.00002 BTC worth of ETH.
+  const ethGratuity = useMemo(() => {
+    const btcUsdValue = new Big(0.00002).mul(btcPrice || 0).toNumber();
+
+    return new Big(btcUsdValue || 0).div(ethPrice || 0).toNumber();
+  }, [btcPrice, ethPrice]);
+
   const currencyAmount = useMemo(
     () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
     [amount]
@@ -181,6 +192,7 @@ const BtcBridgeForm = ({
         throw new Error('Quote Data missing');
       }
 
+      // Temp gratuity only used to display value in transaction details. Mutation continues to use `quoteData.gratuityAmount`
       const data = {
         amount: [quoteData.receiveAmount, quoteData.gratuityAmount],
         fee: quoteData.fee
@@ -288,9 +300,7 @@ const BtcBridgeForm = ({
     hideErrors: 'untouched'
   });
 
-  const price = useMemo(() => getPrice('BTC'), [getPrice]);
-
-  const valueUSD = useMemo(() => new Big(amount || 0).mul(price || 0).toNumber(), [amount, price]);
+  const valueUSD = useMemo(() => new Big(amount || 0).mul(btcPrice || 0).toNumber(), [amount, btcPrice]);
 
   const isSubmitDisabled = isFormDisabled(form);
 
@@ -302,8 +312,8 @@ const BtcBridgeForm = ({
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
   const receiveAmount = useMemo(
-    () => (quoteData ? [quoteData.receiveAmount, quoteData.gratuityAmount] : undefined),
-    [quoteData]
+    () => (quoteData ? [quoteData.receiveAmount, CurrencyAmount.fromBaseAmount(nativeToken, ethGratuity)] : undefined),
+    [ethGratuity, quoteData]
   );
 
   const placeholderAmount = useMemo(
