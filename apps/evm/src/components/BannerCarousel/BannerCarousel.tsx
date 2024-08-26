@@ -75,7 +75,7 @@ const BannerCarousel = () => {
   );
 
   const onPressBitgetCampaignBanner = useCallback(
-    () => window.open('https://www.intract.io/events/66b9e41cc8ff56cba8440d36', '_blank', 'noreferrer'),
+    () => window.open('https://bitgetwallet.onelink.me/6Vx1/8xbtum2q', '_blank', 'noreferrer'),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
