@@ -148,6 +148,7 @@ const ScrollToTop = () => {
 };
 
 const SignUp = lazy(() => import('./pages/SignUp'));
+const Apps = lazy(() => import('./pages/Apps'));
 const Fusion = lazy(() => import('./pages/Fusion'));
 const Bridge = lazy(() => import('./pages/Bridge'));
 const Stake = lazy(() => import('./pages/Stake'));
@@ -199,6 +200,7 @@ function App() {
               <Route element={<Bridge />} path={RoutesPath.HOME} />
               <Route element={<SignUp />} path={RoutesPath.SIGN_UP} />
               <Route element={<Fusion />} path={RoutesPath.FUSION} />
+              <Route element={<Apps />} path={RoutesPath.APPS} />
               <Route element={<Bridge />} path={RoutesPath.BRIDGE} />
               <Route element={<Wallet />} path={RoutesPath.WALLET} />
               <Route element={<Stake />} path={RoutesPath.STAKE} />

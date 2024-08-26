@@ -35,6 +35,7 @@ export { Power } from './Power';
 export { PresentationChartBar } from './PresentationChartBar';
 export { PuzzlePiece } from './PuzzlePiece';
 export { QuestionMarkCircle } from './QuestionMarkCircle';
+export { SolidClock } from './SolidClock';
 export { StickyNote } from './StickyNote';
 export { Twitter } from './Twitter';
 export { Wallet } from './Wallet';

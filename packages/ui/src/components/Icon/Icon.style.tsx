@@ -17,8 +17,8 @@ const StyledIcon = styled.svg<StyledIconProps>`
   overflow: hidden;
   ${({ theme, $size, $color, $width, $height }) => css`
     ${theme.icon($size, $color)}
-    width: ${$width};
-    height: ${$height};
+    width: ${$width}px;
+    height: ${$height}px;
   `}
 `;
 

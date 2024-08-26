@@ -29,7 +29,13 @@ const Chip = ({
 }: ChipProps) => (
   <StyledChip $background={background} $borderColor={borderColor} $rounded={rounded} $size={size} {...props}>
     {startAdornment}
-    <StyledContent $size={size} color='inherit' size='inherit'>
+    <StyledContent
+      $hasEndAdornment={!!endAdornment}
+      $hasStartAdornment={!!startAdornment}
+      $size={size}
+      color='inherit'
+      size='inherit'
+    >
       {children}
     </StyledContent>
     {endAdornment}

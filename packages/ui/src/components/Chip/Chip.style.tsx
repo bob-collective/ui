@@ -10,6 +10,12 @@ type StyledChipProps = {
   $borderColor?: Color;
 };
 
+type StyledContentProps = {
+  $size: ChipSize;
+  $hasStartAdornment?: boolean;
+  $hasEndAdornment?: boolean;
+};
+
 const StyledChip = styled.div<StyledChipProps>`
   display: inline-flex;
   position: relative;
@@ -23,18 +29,25 @@ const StyledChip = styled.div<StyledChipProps>`
   align-items: center;
 
   ${({ theme, $size, $rounded, $background, $borderColor }) => css`
+    ${theme.chip.base}
+    ${theme.chip.size[$size].base}
+  
     border-radius: ${$rounded && theme.rounded($rounded)};
     background-color: ${$background && theme.color($background)};
     border: ${$borderColor && `1px solid ${theme.color($borderColor)}`};
-
-    ${theme.chip.base}
-    ${theme.chip.size[$size].base}
   `}
 `;
 
-const StyledContent = styled(Span)<Pick<StyledChipProps, '$size'>>`
+const StyledContent = styled(Span)<StyledContentProps>`
   flex: 1 1 0%;
-  ${({ theme, $size }) => theme.chip.size[$size].content}
+  ${({ theme, $size, $hasEndAdornment, $hasStartAdornment }) =>
+    $hasEndAdornment && $hasStartAdornment
+      ? theme.chip.size[$size].content.adornment.both
+      : $hasStartAdornment
+        ? theme.chip.size[$size].content.adornment.start
+        : $hasEndAdornment
+          ? theme.chip.size[$size].content.adornment.end
+          : theme.chip.size[$size].content.base}
 `;
 
 export { StyledChip, StyledContent };

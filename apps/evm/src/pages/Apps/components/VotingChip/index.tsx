@@ -1,0 +1,1 @@
+export { VotingChip } from './VotingChip';

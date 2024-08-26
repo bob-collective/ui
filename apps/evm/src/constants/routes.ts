@@ -1,6 +1,7 @@
 const RoutesPath = {
   HOME: '/',
   SIGN_UP: '/sign-up',
+  APPS: '/apps',
   FUSION: '/fusion',
   BRIDGE: '/bridge',
   STAKE: '/stake',

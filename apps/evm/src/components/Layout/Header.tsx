@@ -55,6 +55,9 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
               <NavItem size='s' to={RoutesPath.BRIDGE}>
                 {t('navigation.bridge')}
               </NavItem>
+              <NavItem size='s' to={RoutesPath.APPS}>
+                Apps
+              </NavItem>
               <NavItem size='s' to={RoutesPath.WALLET}>
                 {t('navigation.wallet')}
               </NavItem>

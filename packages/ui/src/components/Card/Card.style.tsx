@@ -33,7 +33,7 @@ const StyledCard = styled(Flex)<StyledCardProps>`
 
       border-radius: ${$rounded && theme.rounded($rounded)};
       overflow: hidden;
-      border: ${$borderColor && `1px solid ${$borderColor}`};
+      border: ${$borderColor && `1px solid ${theme.color($borderColor)}`};
       box-shadow: ${!$shadowed && 'none'};
       background-color: ${$background && theme.color($background)};
       outline: ${!$isFocusVisible && 'none'};
