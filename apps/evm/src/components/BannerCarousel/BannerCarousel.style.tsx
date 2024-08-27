@@ -153,7 +153,7 @@ const StyledBitgetCampaignImg = styled.img`
       position: absolute;
       top: 50%;
       right: ${theme.spacing('3xl')};
-      width: 24rem;
+      width: 20rem;
       transform: translateY(-50%);
 
       @media ${theme.breakpoints.down('md')} {
