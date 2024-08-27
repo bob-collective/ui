@@ -28,7 +28,7 @@ const ProjectMedal = ({ position }: ProjectMedalProps): JSX.Element => {
 
   return (
     <StyledWrapper>
-      <Medal />
+      <Medal size='xl' />
       <StyledMedalContent color={isCommonMedal ? 'light' : 'dark'} weight='bold'>
         {position}
       </StyledMedalContent>

@@ -1,9 +1,10 @@
 import { useTab } from '@react-aria/tabs';
 import { TabListState } from '@react-stately/tabs';
 import { AriaTabProps } from '@react-types/tabs';
-import { HTMLAttributes, ReactNode, useRef } from 'react';
+import { HTMLAttributes, ReactNode, RefObject, useRef } from 'react';
 import { mergeProps } from '@react-aria/utils';
 import { useFocusRing } from '@react-aria/focus';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 import { TabsSize } from '../../theme';
 
@@ -12,6 +13,7 @@ import { StyledTab } from './Tabs.style';
 type Props = {
   fullWidth?: boolean;
   size: TabsSize;
+  listRef: RefObject<HTMLDivElement>;
 };
 
 type AriaProps<T> = {
@@ -29,6 +31,7 @@ const Tab = <T extends Record<string, unknown>>({
   state,
   fullWidth = false,
   size = 'md',
+  listRef,
   ...props
 }: TabProps<T>): JSX.Element => {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,9 +39,21 @@ const Tab = <T extends Record<string, unknown>>({
 
   const { isFocusVisible, focusProps } = useFocusRing();
 
+  const handleClick = () => {
+    if (!ref?.current || !listRef?.current) return;
+    // TODO: fix focus visible when using keyvoard
+    scrollIntoView(ref.current, {
+      scrollMode: 'if-needed',
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'end',
+      boundary: listRef?.current
+    });
+  };
+
   return (
     <StyledTab
-      {...mergeProps(tabProps, focusProps, props)}
+      {...mergeProps(tabProps, focusProps, props, { onClick: handleClick })}
       ref={ref}
       $fullWidth={fullWidth}
       $isDisabled={isDisabled}

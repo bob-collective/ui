@@ -1,1 +1,0 @@
-export { UserVotingInfo } from './UserVotingInfo';

@@ -13,18 +13,30 @@ export default {
     layout: 'centered'
   },
   render: (args) => (
-    <Tabs {...args}>
-      <TabsItem key='all' title='All'>
-        <P>All</P>
+    <Tabs variant='without-background' {...args} style={{ width: 400 }}>
+      <TabsItem key='all' title='All Categories'>
+        <></>
       </TabsItem>
-      <TabsItem key='pending' title='Pending'>
-        <P>Pending</P>
+      <TabsItem key='new-dapps' title='New Apps'>
+        <></>
       </TabsItem>
-      <TabsItem key='completed' title='Completed'>
-        <P>Completed</P>
+      <TabsItem key='defi' title='DeFi'>
+        <></>
       </TabsItem>
-      <TabsItem key='failed' title='Failed'>
-        <P>Failed</P>
+      <TabsItem key='lending-borrowing' title='Lending & Borrowing'>
+        <></>
+      </TabsItem>
+      <TabsItem key='dex' title='Dex'>
+        <></>
+      </TabsItem>
+      <TabsItem key='bridge' title='Bridge'>
+        <></>
+      </TabsItem>
+      <TabsItem key='nft' title='NFT'>
+        <></>
+      </TabsItem>
+      <TabsItem key='my-harvesters' title='My Harvesters'>
+        <></>
       </TabsItem>
     </Tabs>
   )

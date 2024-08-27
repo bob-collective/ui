@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { TabsSize } from '../../theme';
+import { TabsSize, TabsVariant } from '../../theme';
 import { AlignItems } from '../../theme';
 import { hideScrollbar } from '../utils/visually-hidden';
 
@@ -14,6 +14,7 @@ type TabListWrapperProps = {
   $fullWidth: boolean;
   $size: TabsSize;
   $align: AlignItems;
+  $variant: TabsVariant;
 };
 
 const TabListWrapper = styled.div<TabListWrapperProps>`
@@ -27,6 +28,7 @@ const TabListWrapper = styled.div<TabListWrapperProps>`
   ${hideScrollbar()}
 
   ${({ theme }) => theme.tabs.wrapper};
+  ${({ theme, $variant }) => theme.tabs.variant[$variant].wrapper};
 `;
 
 type TabListProps = {
@@ -57,6 +59,7 @@ const StyledTab = styled.div<StyledTabProps>`
   text-overflow: ellipsis;
   position: relative;
   outline: ${({ $isFocusVisible }) => !$isFocusVisible && 'none'};
+  white-space: nowrap;
 
   ${({ theme, $size }) => css`
     ${theme.tabs.tab.base}
@@ -74,6 +77,7 @@ type TabSelectionProps = {
   $size: TabsSize;
   $isHovered: boolean;
   $isFocusWithin: boolean;
+  $variant: TabsVariant;
 };
 
 const TabSelection = styled.div<TabSelectionProps>`
@@ -86,6 +90,7 @@ const TabSelection = styled.div<TabSelectionProps>`
   transform: ${(props) => props.$transform};
 
   ${({ theme }) => theme.tabs.tab.selected};
+  ${({ theme, $variant }) => theme.tabs.variant[$variant].tab.selected};
 `;
 
 export { StyledTab, StyledTabs, TabList, TabListWrapper, TabSelection };

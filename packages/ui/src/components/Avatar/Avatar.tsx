@@ -1,11 +1,11 @@
 import { ImgHTMLAttributes } from 'react';
 
-import { Color, Rounded, Spacing } from '../../theme';
+import { Color, ResponsiveProp, Rounded, Spacing } from '../../theme';
 
 import { StyledAvatar } from './Avatar.style';
 
 type Props = {
-  size?: Spacing;
+  size?: ResponsiveProp<Spacing>;
   background?: Color;
   rounded?: Rounded;
   borderColor?: Color;

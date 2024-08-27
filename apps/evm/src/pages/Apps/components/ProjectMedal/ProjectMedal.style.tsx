@@ -1,9 +1,8 @@
-import { Span } from '@gobob/ui';
+import { Flex, Span } from '@gobob/ui';
 import styled from 'styled-components';
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled(Flex)`
   position: relative;
-  max-height: 33px;
 `;
 
 const StyledMedalContent = styled(Span)`

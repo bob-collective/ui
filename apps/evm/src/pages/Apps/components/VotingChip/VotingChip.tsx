@@ -10,7 +10,7 @@ type VotingChipProps = Props & InheritAttrs;
 
 const VotingChip = ({ iconPlacement = 'start', isLit, children }: VotingChipProps): JSX.Element => {
   return (
-    <Chip background='grey-900' borderColor={isLit ? 'primary-500' : 'grey-700'} style={{ padding: 0 }}>
+    <Chip background='grey-900' borderColor={isLit ? 'primary-500' : 'grey-700'} style={{ padding: 0, flexShrink: 0 }}>
       <Flex alignItems='center' elementType='span' gap='xs' justifyContent='center'>
         {iconPlacement === 'start' && <Fire isLit={isLit} size='xs' />}
         <Flex elementType='span' paddingRight='xs'>
