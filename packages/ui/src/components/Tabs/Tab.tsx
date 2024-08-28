@@ -45,7 +45,7 @@ const Tab = <T extends Record<string, unknown>>({
     scrollIntoView(ref.current, {
       scrollMode: 'if-needed',
       behavior: 'smooth',
-      block: 'end',
+      block: 'center',
       inline: 'end',
       boundary: listRef?.current
     });

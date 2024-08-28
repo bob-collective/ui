@@ -10,14 +10,14 @@ const StyledTabs = styled.div`
   width: 100%;
 `;
 
-type TabListWrapperProps = {
+type TabListProps = {
   $fullWidth: boolean;
   $size: TabsSize;
   $align: AlignItems;
   $variant: TabsVariant;
 };
 
-const TabListWrapper = styled.div<TabListWrapperProps>`
+const TabList = styled.div<TabListProps>`
   display: ${({ $fullWidth }) => ($fullWidth ? 'flex' : 'inline-flex')};
   align-self: ${({ $align, $fullWidth }) => !$fullWidth && $align};
   position: relative;
@@ -29,15 +29,6 @@ const TabListWrapper = styled.div<TabListWrapperProps>`
 
   ${({ theme }) => theme.tabs.wrapper};
   ${({ theme, $variant }) => theme.tabs.variant[$variant].wrapper};
-`;
-
-type TabListProps = {
-  $fullWidth: boolean;
-};
-
-const TabList = styled.div<TabListProps>`
-  display: ${({ $fullWidth }) => ($fullWidth ? 'flex' : 'inline-flex')};
-  width: 100%;
 `;
 
 type StyledTabProps = {
@@ -93,4 +84,4 @@ const TabSelection = styled.div<TabSelectionProps>`
   ${({ theme, $variant }) => theme.tabs.variant[$variant].tab.selected};
 `;
 
-export { StyledTab, StyledTabs, TabList, TabListWrapper, TabSelection };
+export { StyledTab, StyledTabs, TabList, TabSelection };

@@ -11,7 +11,7 @@ import { AlignItems, TabsSize, TabsVariant } from '../../theme';
 
 import { Tab } from './Tab';
 import { TabPanel } from './TabPanel';
-import { StyledTabs, TabListWrapper, TabSelection } from './Tabs.style';
+import { StyledTabs, TabList, TabSelection } from './Tabs.style';
 
 type Props = {
   defaultSelectedKey?: Key;
@@ -39,7 +39,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       fullWidth = false,
       size = 'md',
       align = 'flex-start',
-      variant = 'with-background',
+      variant = 'solid',
       ...props
     },
     ref
@@ -78,7 +78,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
 
     return (
       <StyledTabs className={className} style={style}>
-        <TabListWrapper
+        <TabList
           ref={tabsListRef}
           $align={align}
           $fullWidth={fullWidth}
@@ -105,7 +105,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
               {...(item.key === state.selectedKey ? hoverProps : undefined)}
             />
           ))}
-        </TabListWrapper>
+        </TabList>
         <TabPanel key={state.selectedItem?.key} state={state}>
           {panel}
         </TabPanel>

@@ -1,6 +1,6 @@
 import { Card, Dd, Divider, Dl, DlGroup, Dt, Flex, P, SolidClock } from '@gobob/ui';
 
-import { VotingChip } from '../VotingChip';
+import { SpiceChip } from '../SpiceChip';
 
 type Props = {};
 
@@ -15,7 +15,7 @@ const UserVotingInfo = ({}: UserVotingInfoProps): JSX.Element => {
             Votes Left:
           </Dt>
           <Dd>
-            <VotingChip isLit>1</VotingChip>
+            <SpiceChip isLit amount={1} />
           </Dd>
         </DlGroup>
       </Dl>

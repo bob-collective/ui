@@ -27,7 +27,7 @@ const tabs: TabsTheme = {
     }
   },
   variant: {
-    'with-background': {
+    solid: {
       wrapper: {
         backgroundColor: color('grey-600')
       },
@@ -37,7 +37,7 @@ const tabs: TabsTheme = {
         }
       }
     },
-    'without-background': {
+    light: {
       wrapper: {},
       tab: {
         selected: {

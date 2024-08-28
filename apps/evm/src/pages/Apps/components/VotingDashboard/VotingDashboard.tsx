@@ -1,7 +1,7 @@
 import { Flex, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 
-import { CategoryLeaderboard } from './CategoryLeaderboard';
+import { AppsLeaderboard } from './AppsLeaderboard';
 import { UserVotingInfo } from './UserVotingInfo';
 import { StyledViewRules } from './VotingDashboard.style';
 
@@ -22,7 +22,7 @@ const VotingDashboard = (): JSX.Element => {
         {!isMobile && viewRules}
       </Flex>
       <Flex direction={{ base: 'column', md: 'row' }} gap='xl'>
-        <CategoryLeaderboard
+        <AppsLeaderboard
           data={[
             {
               imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
@@ -40,7 +40,7 @@ const VotingDashboard = (): JSX.Element => {
           ]}
           title='Defi Favourites'
         />
-        <CategoryLeaderboard
+        <AppsLeaderboard
           data={[
             {
               imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
@@ -58,7 +58,7 @@ const VotingDashboard = (): JSX.Element => {
           ]}
           title='NFT Favourites'
         />
-        <CategoryLeaderboard
+        <AppsLeaderboard
           data={[
             {
               imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',

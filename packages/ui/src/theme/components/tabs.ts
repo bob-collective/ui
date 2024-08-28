@@ -2,7 +2,7 @@ import { StyledObject } from 'styled-components';
 
 type TabsSize = 's' | 'md' | 'lg';
 
-type TabsVariant = 'with-background' | 'without-background';
+type TabsVariant = 'solid' | 'light';
 
 type TabsTheme = {
   wrapper: StyledObject<object>;

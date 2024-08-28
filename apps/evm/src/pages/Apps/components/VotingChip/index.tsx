@@ -1,1 +1,0 @@
-export { VotingChip } from './VotingChip';

@@ -1,12 +1,12 @@
-import { Avatar, Divider, Flex, P, useLocale } from '@gobob/ui';
+import { Avatar, Divider, Flex, P } from '@gobob/ui';
 import { Fragment } from 'react/jsx-runtime';
 import { ReactNode } from 'react';
 import { useTheme } from 'styled-components';
 
 import { ProjectMedal } from '../ProjectMedal';
-import { VotingChip } from '../VotingChip';
+import { SpiceChip } from '../SpiceChip';
 
-import { StyledH3, StyledHeaderWrapper, StyledList, StyledWrapper } from './CategoryLeaderboard.style';
+import { StyledH3, StyledHeaderWrapper, StyledList, StyledWrapper } from './AppsLeaderboard.style';
 
 const Trapezoid = () => {
   const theme = useTheme();
@@ -35,11 +35,9 @@ type ProjectData = {
 
 type Props = { title: ReactNode; data: ProjectData[] };
 
-type CategoryLeaderboardProps = Props;
+type AppsLeaderboardProps = Props;
 
-const CategoryLeaderboard = ({ title, data }: CategoryLeaderboardProps): JSX.Element => {
-  const { locale } = useLocale();
-
+const AppsLeaderboard = ({ title, data }: AppsLeaderboardProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} style={{ overflow: 'hidden' }}>
       <StyledWrapper alignItems='center'>
@@ -61,9 +59,7 @@ const CategoryLeaderboard = ({ title, data }: CategoryLeaderboardProps): JSX.Ele
                   {item.name}
                 </P>
               </Flex>
-              <VotingChip iconPlacement='end'>
-                {Intl.NumberFormat(locale, { notation: 'compact' }).format(item.votesCount)}
-              </VotingChip>
+              <SpiceChip amount={item.votesCount} iconPlacement='end' onPress={console.log} />
             </Flex>
             {idx !== data.length - 1 && <Divider />}
           </Fragment>
@@ -73,4 +69,4 @@ const CategoryLeaderboard = ({ title, data }: CategoryLeaderboardProps): JSX.Ele
   );
 };
 
-export { CategoryLeaderboard };
+export { AppsLeaderboard };
