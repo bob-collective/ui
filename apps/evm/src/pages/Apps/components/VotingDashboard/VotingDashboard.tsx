@@ -16,7 +16,7 @@ const VotingDashboard = (): JSX.Element => {
   );
 
   return (
-    <Flex direction='column' gap='2xl'>
+    <Flex direction='column' gap='2xl' marginTop='3xl'>
       <Flex alignItems='center' justifyContent='space-between'>
         <UserVotingInfo />
         {!isMobile && viewRules}

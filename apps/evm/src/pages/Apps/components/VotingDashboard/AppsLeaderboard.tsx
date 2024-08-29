@@ -3,7 +3,7 @@ import { Fragment } from 'react/jsx-runtime';
 import { ReactNode } from 'react';
 import { useTheme } from 'styled-components';
 
-import { ProjectMedal } from '../ProjectMedal';
+import { Medal } from '../Medal';
 import { SpiceChip } from '../SpiceChip';
 
 import { StyledH3, StyledHeaderWrapper, StyledList, StyledWrapper } from './AppsLeaderboard.style';
@@ -48,12 +48,12 @@ const AppsLeaderboard = ({ title, data }: AppsLeaderboardProps): JSX.Element => 
         </StyledHeaderWrapper>
         <Trapezoid />
       </StyledWrapper>
-      <StyledList borderColor='grey-300' gap='md' paddingX='md' paddingY='lg'>
+      <StyledList borderColor='grey-300' gap='md' paddingX='lg' paddingY='lg'>
         {data.map((item, idx) => (
           <Fragment key={idx}>
             <Flex alignItems='center' gap='s' justifyContent='space-between'>
               <Flex alignItems='center' flex={1} gap={{ base: 'md', s: 'xl' }} style={{ overflow: 'hidden' }}>
-                <ProjectMedal position={idx + 1} />
+                <Medal position={idx + 1} />
                 <Avatar borderColor='grey-200' rounded='md' size={{ base: '5xl', s: '6xl' }} src={item.imgSrc} />
                 <P noWrap style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {item.name}

@@ -56,7 +56,7 @@ const apps = [
 
 const AppsList = (): JSX.Element => {
   return (
-    <Flex direction='column' gap='3xl' marginTop='xl'>
+    <Flex direction='column' gap='3xl' marginTop='3xl'>
       <H2 size='3xl'>Discover all Apps</H2>
       <Tabs variant='light'>
         <TabsItem key='all' title='All Categories'>

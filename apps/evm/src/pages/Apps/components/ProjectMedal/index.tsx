@@ -1,1 +1,0 @@
-export { ProjectMedal } from './ProjectMedal';
