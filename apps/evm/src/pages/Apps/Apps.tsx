@@ -1,8 +1,13 @@
 import { Main } from '../../components';
 
 import { AppsList, AppsPodyum, HeroBanner, VotingDashboard } from './components';
+import { useGetApps } from './hooks';
 
 const Apps = () => {
+  const { data: apps } = useGetApps();
+
+  const mockTop5 = apps?.slice(0, 4);
+
   return (
     <>
       <Main maxWidth='7xl' padding='lg'>

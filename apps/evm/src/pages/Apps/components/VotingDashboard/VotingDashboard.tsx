@@ -1,11 +1,18 @@
 import { Flex, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 
+import { AppData } from '../../hooks';
+
 import { AppsLeaderboard } from './AppsLeaderboard';
 import { UserVotingInfo } from './UserVotingInfo';
 import { StyledViewRules } from './VotingDashboard.style';
 
-const VotingDashboard = (): JSX.Element => {
+type VotingDashboardProps = {
+  isLoading?: boolean;
+  apps?: AppData[];
+};
+
+const VotingDashboard = ({ apps, isLoading }: VotingDashboardProps): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
@@ -23,6 +30,7 @@ const VotingDashboard = (): JSX.Element => {
       </Flex>
       <Flex direction={{ base: 'column', md: 'row' }} gap='xl'>
         <AppsLeaderboard
+          isLoading
           data={[
             {
               imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',

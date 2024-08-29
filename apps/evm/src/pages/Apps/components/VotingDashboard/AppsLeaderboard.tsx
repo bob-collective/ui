@@ -1,4 +1,4 @@
-import { Avatar, Divider, Flex, P } from '@gobob/ui';
+import { Avatar, Divider, Flex, P, Skeleton } from '@gobob/ui';
 import { Fragment } from 'react/jsx-runtime';
 import { ReactNode } from 'react';
 import { useTheme } from 'styled-components';
@@ -33,11 +33,11 @@ type ProjectData = {
   imgSrc: string;
 };
 
-type Props = { title: ReactNode; data: ProjectData[] };
+type Props = { title: ReactNode; data: ProjectData[]; isLoading?: boolean };
 
 type AppsLeaderboardProps = Props;
 
-const AppsLeaderboard = ({ title, data }: AppsLeaderboardProps): JSX.Element => {
+const AppsLeaderboard = ({ title, data, isLoading }: AppsLeaderboardProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} style={{ overflow: 'hidden' }}>
       <StyledWrapper alignItems='center'>
@@ -49,6 +49,19 @@ const AppsLeaderboard = ({ title, data }: AppsLeaderboardProps): JSX.Element => 
         <Trapezoid />
       </StyledWrapper>
       <StyledList borderColor='grey-300' gap='md' paddingX='lg' paddingY='lg'>
+        {[...Array(5).fill(null)].map((_, idx) => (
+          <Fragment key={idx}>
+            <Flex alignItems='center' gap='s' justifyContent='space-between'>
+              <Flex alignItems='center' flex={1} gap={{ base: 'md', s: 'xl' }} style={{ overflow: 'hidden' }}>
+                <Medal position={idx + 1} />
+                <Skeleton height={{ base: '5xl', s: '6xl' }} width={{ base: '5xl', s: '6xl' }} />
+                <Skeleton />
+              </Flex>
+              <Skeleton />
+            </Flex>
+            {idx !== data.length - 1 && <Divider />}
+          </Fragment>
+        ))}
         {data.map((item, idx) => (
           <Fragment key={idx}>
             <Flex alignItems='center' gap='s' justifyContent='space-between'>

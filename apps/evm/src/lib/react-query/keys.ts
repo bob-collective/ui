@@ -62,3 +62,7 @@ export const signUpKeys = {
   signUp: () => ['sign-up'],
   referralCode: () => ['referral-code']
 };
+
+export const appsKeys = {
+  partners: () => ['season3-partners']
+};

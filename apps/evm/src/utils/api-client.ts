@@ -33,12 +33,12 @@ type LeaderboardResponse = {
   leaderboard: LeaderboardItem[];
 };
 
-type PartnersResponse = {
+export type PartnersResponse = {
   partners: Partner[];
   total_partners: number;
 };
 
-type Partner = {
+export type Partner = {
   category: string;
   current_points: string;
   live: boolean;
@@ -191,6 +191,14 @@ class ApiClient {
     const response = await fetch(`${this.baseUrl}/user/${address}`);
 
     return response.ok;
+  }
+
+  // SEASON 3
+
+  async getSeason3Partners(): Promise<PartnersResponse> {
+    const response = await fetch(`${this.baseUrl}/partners-s3`);
+
+    return await response.json();
   }
 }
 
