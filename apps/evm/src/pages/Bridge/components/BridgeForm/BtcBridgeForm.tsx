@@ -8,13 +8,29 @@ import {
   useFeeEstimate as useSatsFeeEstimate
 } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
-import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, toast, useForm } from '@gobob/ui';
+import {
+  Alert,
+  Avatar,
+  Card,
+  Flex,
+  Input,
+  Item,
+  P,
+  Select,
+  SolidInformationCircle,
+  Switch,
+  TokenInput,
+  Tooltip,
+  toast,
+  useForm
+} from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address } from 'viem';
+import { FuelStation } from '@gobob/icons';
 
 import { TransactionDetails } from '../../../../components';
 import { L2_CHAIN } from '../../../../constants';
@@ -357,6 +373,26 @@ const BtcBridgeForm = ({
           </Item>
         )}
       </Select>
+      <Card background='grey-600' direction='row' gap='lg' justifyContent='space-between' rounded='md'>
+        <Flex alignItems='center' gap='md'>
+          <FuelStation color='primary-500' />
+          <Flex direction='column'>
+            <Flex alignItems='center' gap='s'>
+              <P>Top-up Gas</P>
+              <Tooltip
+                color='primary'
+                label={<P size='xs'>BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB.</P>}
+              >
+                <SolidInformationCircle color='grey-50' size='xs' />
+              </Tooltip>
+            </Flex>
+            <P color='grey-50' size='xs'>
+              Get ETH for transaction fees on BOB
+            </P>
+          </Flex>
+        </Flex>
+        <Switch size='lg' />
+      </Card>
       {isSmartAccount && (
         <Input label='Recipient' placeholder='Enter destination address' {...form.getFieldProps(BRIDGE_RECIPIENT)} />
       )}
