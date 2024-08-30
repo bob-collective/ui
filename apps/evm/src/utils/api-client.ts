@@ -76,6 +76,30 @@ type TVLStats = {
   }>;
 };
 
+// Define the interface for a project
+export interface Project {
+  name: string;
+  weight: number;
+  rank: number;
+  refCode: string;
+  userHasVotedFor: boolean;
+  isPreviousRoundWinner: boolean;
+}
+
+// Define the interface for a category
+export interface ProjectCategory {
+  id: number;
+  name: string;
+  projects: Project[];
+}
+
+// Define the main type for the object
+export interface ProjectVotingInfo {
+  categories: ProjectCategory[];
+  votesRemaining: number;
+  roundEndsAt: string; // ISO 8601 date string
+}
+
 class ApiClient {
   private baseUrl: string;
 
@@ -195,10 +219,30 @@ class ApiClient {
 
   // SEASON 3
 
-  async getSeason3Partners(): Promise<PartnersResponse> {
-    const response = await fetch(`${this.baseUrl}/partners-s3`);
+  async getVotes(): Promise<ProjectVotingInfo> {
+    const response = await fetch(`${this.baseUrl}/votes`);
 
     return await response.json();
+  }
+
+  async vote(refCode: string): Promise<ProjectVotingInfo> {
+    const response = await fetch(`${this.baseUrl}/me/vote`, {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ projectRefcode: refCode })
+    });
+
+    return response.json();
+  }
+
+  async retractVote(refCode: string): Promise<ProjectVotingInfo> {
+    const response = await fetch(`${this.baseUrl}/me/retract-vote`, {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ projectRefcode: refCode })
+    });
+
+    return response.json();
   }
 }
 

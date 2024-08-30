@@ -5,6 +5,7 @@ import { useTheme } from 'styled-components';
 
 import { Medal } from '../Medal';
 import { SpiceChip } from '../SpiceChip';
+import { AppData } from '../../hooks';
 
 import { StyledH3, StyledHeaderWrapper, StyledList, StyledWrapper } from './AppsLeaderboard.style';
 
@@ -27,17 +28,11 @@ const Trapezoid = () => {
   );
 };
 
-type ProjectData = {
-  name: string;
-  votesCount: number;
-  imgSrc: string;
-};
-
-type Props = { title: ReactNode; data: ProjectData[]; isLoading?: boolean };
+type Props = { title: ReactNode; data?: AppData[]; isLoading?: boolean; onVote?: (app: AppData) => void };
 
 type AppsLeaderboardProps = Props;
 
-const AppsLeaderboard = ({ title, data, isLoading }: AppsLeaderboardProps): JSX.Element => {
+const AppsLeaderboard = ({ title, data, isLoading, onVote }: AppsLeaderboardProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} style={{ overflow: 'hidden' }}>
       <StyledWrapper alignItems='center'>
@@ -49,34 +44,43 @@ const AppsLeaderboard = ({ title, data, isLoading }: AppsLeaderboardProps): JSX.
         <Trapezoid />
       </StyledWrapper>
       <StyledList borderColor='grey-300' gap='md' paddingX='lg' paddingY='lg'>
-        {[...Array(5).fill(null)].map((_, idx) => (
-          <Fragment key={idx}>
-            <Flex alignItems='center' gap='s' justifyContent='space-between'>
-              <Flex alignItems='center' flex={1} gap={{ base: 'md', s: 'xl' }} style={{ overflow: 'hidden' }}>
-                <Medal position={idx + 1} />
-                <Skeleton height={{ base: '5xl', s: '6xl' }} width={{ base: '5xl', s: '6xl' }} />
-                <Skeleton />
-              </Flex>
-              <Skeleton />
-            </Flex>
-            {idx !== data.length - 1 && <Divider />}
-          </Fragment>
-        ))}
-        {data.map((item, idx) => (
-          <Fragment key={idx}>
-            <Flex alignItems='center' gap='s' justifyContent='space-between'>
-              <Flex alignItems='center' flex={1} gap={{ base: 'md', s: 'xl' }} style={{ overflow: 'hidden' }}>
-                <Medal position={idx + 1} />
-                <Avatar borderColor='grey-200' rounded='md' size={{ base: '5xl', s: '6xl' }} src={item.imgSrc} />
-                <P noWrap style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {item.name}
-                </P>
-              </Flex>
-              <SpiceChip amount={item.votesCount} iconPlacement='end' onPress={console.log} />
-            </Flex>
-            {idx !== data.length - 1 && <Divider />}
-          </Fragment>
-        ))}
+        {isLoading || !data
+          ? [...Array(5).fill(null)].map((_, idx) => (
+              <Fragment key={idx}>
+                <Flex alignItems='center' gap='s' justifyContent='space-between'>
+                  <Flex alignItems='center' flex={1} gap={{ base: 'md', s: 'xl' }} style={{ overflow: 'hidden' }}>
+                    <Medal position={idx + 1} />
+                    <Skeleton height={{ base: '5xl', s: '6xl' }} width={{ base: '5xl', s: '6xl' }} />
+                    <Skeleton flex={0.5} />
+                  </Flex>
+                  <Skeleton height='3xl' rounded='full' width='6xl' />
+                </Flex>
+                {idx < 4 && <Divider />}
+              </Fragment>
+            ))
+          : data
+              .sort((a, b) => a.rank - b.rank)
+              .slice(0, 4)
+              .map((item, idx) => (
+                <Fragment key={idx}>
+                  <Flex alignItems='center' gap='s' justifyContent='space-between'>
+                    <Flex alignItems='center' flex={1} gap={{ base: 'md', s: 'xl' }} style={{ overflow: 'hidden' }}>
+                      <Medal position={idx + 1} />
+                      <Avatar borderColor='grey-200' rounded='md' size={{ base: '5xl', s: '6xl' }} src={item.logoSrc} />
+                      <P noWrap style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {item.name}
+                      </P>
+                    </Flex>
+                    <SpiceChip
+                      amount={item.weight}
+                      iconPlacement='end'
+                      isLit={item.userHasVotedFor}
+                      onPress={() => onVote?.(item)}
+                    />
+                  </Flex>
+                  {idx < 4 && <Divider />}
+                </Fragment>
+              ))}
       </StyledList>
     </Flex>
   );

@@ -1,8 +1,8 @@
 import { ChipProps, Flex, useLocale } from '@gobob/ui';
+import { PressEvent, usePress } from '@react-aria/interactions';
 import { chain, mergeProps } from '@react-aria/utils';
 import { LottieRefCurrentProps } from 'lottie-react';
 import { useEffect, useRef, useState } from 'react';
-import { PressEvent, usePress } from '@react-aria/interactions';
 
 import fireAnimationData from '.././../../../assets/lotties/fire.json';
 
@@ -19,6 +19,8 @@ type Props = {
 type InheritAttrs = Omit<ChipProps, keyof Props | 'children'>;
 
 type SpiceChipProps = Props & InheritAttrs;
+
+// TODO: check when voting is possible
 
 const SpiceChip = ({
   iconPlacement = 'start',

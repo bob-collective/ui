@@ -1,7 +1,7 @@
 import { Flex, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 
-import { AppData } from '../../hooks';
+import { AppData, AppsVotingInfoData } from '../../hooks';
 
 import { AppsLeaderboard } from './AppsLeaderboard';
 import { UserVotingInfo } from './UserVotingInfo';
@@ -9,10 +9,11 @@ import { StyledViewRules } from './VotingDashboard.style';
 
 type VotingDashboardProps = {
   isLoading?: boolean;
-  apps?: AppData[];
+  apps?: AppsVotingInfoData;
+  onVote?: (app: AppData) => void;
 };
 
-const VotingDashboard = ({ apps, isLoading }: VotingDashboardProps): JSX.Element => {
+const VotingDashboard = ({ apps, isLoading, onVote }: VotingDashboardProps): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
@@ -22,68 +23,24 @@ const VotingDashboard = ({ apps, isLoading }: VotingDashboardProps): JSX.Element
     </StyledViewRules>
   );
 
+  const categories = apps?.categories.slice(0, 2) || [undefined, undefined, undefined];
+
   return (
     <Flex direction='column' gap='2xl' marginTop='3xl'>
       <Flex alignItems='center' justifyContent='space-between'>
-        <UserVotingInfo />
+        <UserVotingInfo roundEndsAt={apps?.roundEndsAt} votesRemaining={apps?.votesRemaining} />
         {!isMobile && viewRules}
       </Flex>
       <Flex direction={{ base: 'column', md: 'row' }} gap='xl'>
-        <AppsLeaderboard
-          isLoading
-          data={[
-            {
-              imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-              name: 'Velodrome',
-              votesCount: 200000000
-            },
-            {
-              imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-              name: 'ChaineyeMiniBridge',
-              votesCount: 20000000
-            },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 }
-          ]}
-          title='Defi Favourites'
-        />
-        <AppsLeaderboard
-          data={[
-            {
-              imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-              name: 'Velodrome',
-              votesCount: 200000000
-            },
-            {
-              imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-              name: 'ChaineyeMiniBridge',
-              votesCount: 20000000
-            },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 }
-          ]}
-          title='NFT Favourites'
-        />
-        <AppsLeaderboard
-          data={[
-            {
-              imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-              name: 'Velodrome',
-              votesCount: 200000000
-            },
-            {
-              imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-              name: 'ChaineyeMiniBridge',
-              votesCount: 20000000
-            },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 },
-            { imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png', name: 'Velodrome', votesCount: 20000000 }
-          ]}
-          title='New Apps'
-        />
+        {categories.map((category) => (
+          <AppsLeaderboard
+            key={category?.id}
+            data={category?.apps}
+            isLoading={isLoading}
+            title={category?.name}
+            onVote={onVote}
+          />
+        ))}
       </Flex>
       {isMobile && viewRules}
     </Flex>

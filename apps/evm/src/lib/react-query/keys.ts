@@ -64,5 +64,6 @@ export const signUpKeys = {
 };
 
 export const appsKeys = {
-  partners: () => ['season3-partners']
+  apps: () => ['apps'],
+  vote: (address: Address | undefined) => [appsKeys.apps(), 'vote', address]
 };
