@@ -97,6 +97,8 @@ const BtcBridgeForm = ({
 
   const [receiveTicker, setReceiveTicker] = useState(availableTokens[0].currency.symbol);
 
+  const [isGasNeeded, setGasNeeded] = useState(true);
+
   const btcPrice = useMemo(() => getPrice('BTC'), [getPrice]);
   const ethPrice = useMemo(() => getPrice('ETH'), [getPrice]);
 
@@ -134,6 +136,7 @@ const BtcBridgeForm = ({
       // TODO: error from this isn't propagated
       const maxQuoteData = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
+        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
         toToken: btcToken.currency.symbol
       });
 
@@ -391,7 +394,7 @@ const BtcBridgeForm = ({
             </P>
           </Flex>
         </Flex>
-        <Switch size='lg' />
+        <Switch isSelected={isGasNeeded} size='lg' onChange={(e) => setGasNeeded(e.target.checked)} />
       </Card>
       {isSmartAccount && (
         <Input label='Recipient' placeholder='Enter destination address' {...form.getFieldProps(BRIDGE_RECIPIENT)} />

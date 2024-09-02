@@ -80,6 +80,13 @@ export const TBTC = {
     'tBTC v2'
   ),
   [ChainId.BOB]: new ERC20Token(ChainId.BOB, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2', 18, 'tBTC', 'tBTC v2'),
+  [ChainId.BOB_SEPOLIA]: new ERC20Token(
+    ChainId.BOB_SEPOLIA,
+    '0x6744babdf02dcf578ea173a9f0637771a9e1c4d0',
+    18,
+    'tBTC',
+    'tBTC v2'
+  ),
   [ChainId.OLD_BOB_SEPOLIA]: new ERC20Token(
     ChainId.OLD_BOB_SEPOLIA,
     '0x43a4e4E277aE3477c4E8A058640951FCb98CcC8B',

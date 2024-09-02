@@ -2,10 +2,10 @@ import { ChainId } from '@gobob/chains';
 import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
 import { Key, useCallback, useMemo, useState } from 'react';
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Token } from '@gobob/currency';
+import { Address, isAddressEqual } from 'viem';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { FeatureFlags, useFeatureFlag } from '../../../../hooks';
+import { FeatureFlags, useFeatureFlag, useTokens } from '../../../../hooks';
 import { BridgeOrigin } from '../../Bridge';
 import { useGetTransactions } from '../../hooks';
 import { L2BridgeData, GatewayData } from '../../types';
@@ -14,7 +14,6 @@ import { ExternalBridgeForm } from '../ExternalBridgeForm';
 import { BridgeTransactionModal, GatewayTransactionModal } from '../TransactionModal';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import { bridgeKeys } from '../../../../lib/react-query';
-import { TokenData } from '../../../../hooks';
 
 import { BobBridgeForm } from './BobBridgeForm';
 import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
@@ -79,6 +78,23 @@ const BridgeForm = ({
     step: 'confirmation'
   });
 
+  const { data: tokens } = useTokens(L2_CHAIN);
+
+  const { data: btcTokens } = useQuery({
+    enabled: Boolean(tokens && isBtcGatewayEnabled),
+    queryKey: bridgeKeys.btcTokens(),
+    refetchInterval: INTERVAL.MINUTE,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      const btcTokens = await gatewaySDK.getTokens();
+
+      return tokens?.filter((token) =>
+        btcTokens.find((btcToken) => isAddressEqual(btcToken.address as Address, token.raw.address))
+      );
+    }
+  });
+
   const handleStartBridge = (data: L2BridgeData) => {
     setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
   };
@@ -118,44 +134,6 @@ const BridgeForm = ({
     },
     [onChangeNetwork, onChangeChain]
   );
-
-  // const { data: tokens } = useTokens(L2_CHAIN);
-
-  // const btcTokens = useMemo(
-  //   () =>
-  //     tokens?.filter(
-  //       (token) =>
-  //         token.currency.symbol === TBTC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA]?.symbol ||
-  //         token.currency.symbol === WBTC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA]?.symbol
-  //     ),
-  //   [tokens]
-  // );
-
-  const { data: btcTokens } = useQuery({
-    enabled: true,
-    queryKey: bridgeKeys.btcTokens(),
-    refetchInterval: INTERVAL.MINUTE,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    queryFn: async (): Promise<TokenData[]> => {
-      const tokens = await gatewaySDK.getTokens();
-
-      return tokens.map((token) => {
-        return {
-          raw: {
-            chainId: ChainId.BOB,
-            address: token.address as `0x${string}`,
-            name: token.name,
-            symbol: token.symbol,
-            decimals: token.decimals,
-            logoUrl: token.logoURI,
-            apiId: ''
-          },
-          currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.name)
-        };
-      });
-    }
-  });
 
   const availableNetworks = useMemo(() => {
     const isBtcNetworkAvailable = isBtcGatewayEnabled && type === 'deposit' && !!btcTokens?.length;

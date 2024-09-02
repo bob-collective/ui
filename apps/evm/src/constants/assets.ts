@@ -477,7 +477,16 @@ const bobAssets: RawToken[] = [
 
 const bobSepoliaAssets: RawToken[] = [
   ETH[ChainId.BOB_SEPOLIA],
-  usdc[ChainId.BOB_SEPOLIA]
+  usdc[ChainId.BOB_SEPOLIA],
+  {
+    chainId: ChainId.BOB_SEPOLIA,
+    address: TBTC[ChainId.BOB_SEPOLIA].address,
+    name: TBTC[ChainId.BOB_SEPOLIA].name!,
+    symbol: TBTC[ChainId.BOB_SEPOLIA].symbol!,
+    decimals: TBTC[ChainId.BOB_SEPOLIA].decimals,
+    logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
+    apiId: 'tbtc'
+  }
   // wstETH[ChainId.BOB_SEPOLIA]
 ];
 
