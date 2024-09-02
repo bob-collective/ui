@@ -228,8 +228,10 @@ class ApiClient {
   async vote(refCode: string): Promise<ProjectVotingInfo> {
     const response = await fetch(`${this.baseUrl}/me/vote`, {
       method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({ projectRefcode: refCode })
+      body: JSON.stringify({ projectRefcode: refCode }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
     return response.json();
@@ -239,7 +241,10 @@ class ApiClient {
     const response = await fetch(`${this.baseUrl}/me/retract-vote`, {
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify({ projectRefcode: refCode })
+      body: JSON.stringify({ projectRefcode: refCode }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
     return response.json();

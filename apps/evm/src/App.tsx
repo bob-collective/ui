@@ -11,7 +11,7 @@ import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
 import { useGetUser, useLogin, useLogout, useTokens } from './hooks';
 import { useBalances } from './hooks/useBalances';
 import { apiClient } from './utils';
-import { useHaltedLockedTokens, useLockedTokens } from './pages/Fusion/hooks';
+import { useHaltedLockedTokens, useLockedTokens } from './pages/Fusion2/hooks';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);

@@ -36,6 +36,8 @@ export { PresentationChartBar } from './PresentationChartBar';
 export { PuzzlePiece } from './PuzzlePiece';
 export { QuestionMarkCircle } from './QuestionMarkCircle';
 export { SolidClock } from './SolidClock';
+export { SolidDocumentDuplicate } from './SolidDocumentDuplicate';
+export { SolidInformationCircle } from './SolidInformationCircle';
 export { SolidShieldCheck } from './SolidShieldCheck';
 export { StickyNote } from './StickyNote';
 export { Wallet } from './Wallet';

@@ -1,13 +1,27 @@
 import styled from 'styled-components';
 
-const StyledUpdateMark = styled.div`
+function getImageUrl(name: string) {
+  return new URL(`../../assets/${name}`, import.meta.url).href;
+}
+
+const StyledBackground = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
-  width: ${({ theme }) => theme.spacing('md')};
-  height: ${({ theme }) => theme.spacing('md')};
-  border-radius: ${({ theme }) => theme.rounded('full')};
-  background-color: ${({ theme }) => theme.color('red-500')};
+  height: 32rem;
+  width: 100%;
+
+  background-image: url(${getImageUrl('podyum-background.png')});
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
-export { StyledUpdateMark };
+const StyledBackgroundOpacity = styled.div`
+  position: absolute;
+  top: 0;
+  height: 32rem;
+  width: 100%;
+
+  background: ${({ theme }) => `linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, ${theme.color('grey-600')} 100%)`};
+`;
+
+export { StyledBackground, StyledBackgroundOpacity };
