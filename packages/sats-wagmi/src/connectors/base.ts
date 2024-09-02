@@ -1,10 +1,9 @@
-import { DefaultEsploraClient } from '@gobob/bob-sdk';
+import { EsploraClient } from '@gobob/bob-sdk';
 import { Network as LibNetwork, Psbt, Transaction, networks } from 'bitcoinjs-lib';
-import * as bitcoin from 'bitcoinjs-lib';
 import retry from 'async-retry';
 import { createTransferWithOpReturn } from '@gobob/utils';
 import { Transaction as SigTx } from '@scure/btc-signer';
-import { hex } from '@scure/base';
+import { base64, hex } from '@scure/base';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 import { NetworkType } from '@gobob/utils/src/btcNetwork';
 
@@ -118,7 +117,7 @@ abstract class SatsConnector {
   abstract removeListener(callback: (account: string) => void): void;
 
   async getTransaction(txId: string): Promise<Transaction> {
-    const electrsClient = new DefaultEsploraClient(this.network as string);
+    const electrsClient = new EsploraClient(this.network as string);
 
     return retry(
       async (bail) => {
@@ -145,7 +144,7 @@ abstract class SatsConnector {
   // - P2SH-P2WPKH (Xverse, Unisat)
   // - P2PKH (Unisat)
   // NOTE: does not broadcast the tx!
-  async createTxWithOpReturn(toAddress: string, amount: number, opReturn: string): Promise<bitcoin.Transaction> {
+  async createTxWithOpReturn(toAddress: string, amount: number, opReturn: string): Promise<SigTx> {
     if (!this.paymentAddress) {
       throw new Error('Something went wrong while connecting');
     }
@@ -173,7 +172,7 @@ abstract class SatsConnector {
       }
     }
 
-    const unsignedTransaction = await createTransferWithOpReturn(
+    const unsignedTx = await createTransferWithOpReturn(
       networkType,
       this.paymentAddress,
       toAddress,
@@ -183,12 +182,24 @@ abstract class SatsConnector {
       this.publicKey
     );
 
+    return this.signAllInputs(unsignedTx);
+  }
+
+  async signAllInputsPsbtBase64(unsignedTx: string) {
+    return this.signAllInputs(SigTx.fromPSBT(base64.decode(unsignedTx)));
+  }
+
+  async signAllInputs(unsignedTx: SigTx) {
+    if (!this.paymentAddress) {
+      throw new Error('Something went wrong while connecting');
+    }
+
     // Determine how many inputs to sign
-    const inputLength = unsignedTransaction.inputsLength;
+    const inputLength = unsignedTx.inputsLength;
     const inputsToSign = Array.from({ length: inputLength }, (_, i) => i);
 
     // Sign all inputs
-    const psbt = unsignedTransaction.toPSBT(0);
+    const psbt = unsignedTx.toPSBT(0);
     const psbtHex = hex.encode(psbt);
 
     // Sign all inputs with the payment address
@@ -203,7 +214,7 @@ abstract class SatsConnector {
 
     signedTx.finalize();
 
-    return bitcoin.Transaction.fromBuffer(Buffer.from(signedTx.extract()));
+    return signedTx;
   }
 }
 

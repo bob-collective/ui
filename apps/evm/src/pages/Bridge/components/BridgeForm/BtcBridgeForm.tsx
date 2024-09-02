@@ -1,5 +1,5 @@
 import { AuthButton } from '@gobob/connect-ui';
-import { Bitcoin, CurrencyAmount, Ether } from '@gobob/currency';
+import { CurrencyAmount, Ether } from '@gobob/currency';
 import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
 import {
   BtcAddressType,
@@ -31,6 +31,7 @@ import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address } from 'viem';
 import { FuelStation } from '@gobob/icons';
+import { GatewayQuote } from '@gobob/bob-sdk';
 
 import { TransactionDetails } from '../../../../components';
 import { L2_CHAIN } from '../../../../constants';
@@ -45,16 +46,23 @@ import {
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { useGetTransactions } from '../../hooks';
-import { OnRampData } from '../../types';
+import { GatewayData } from '../../types';
 import { bridgeKeys } from '../../../../lib/react-query';
-import { gatewayClient } from '../../../../lib/bob-sdk';
+import { gatewaySDK } from '../../../../lib/bob-sdk';
 
 type BtcBridgeFormProps = {
   type: 'deposit' | 'withdraw';
   availableTokens: TokenData[];
-  onStartOnRamp: (data: OnRampData) => void;
-  onOnRampSuccess: (data: OnRampData) => void;
-  onFailOnRamp: () => void;
+  onStartGateway: (data: GatewayData) => void;
+  onGatewaySuccess: (data: GatewayData) => void;
+  onFailGateway: () => void;
+};
+
+const DEFAULT_GATEWAY_QUOTE_PARAMS = {
+  fromChain: 'bitcoin',
+  toChain: 'bob-sepolia',
+  fromToken: 'BTC',
+  gasRefill: 2000
 };
 
 const MIN_DEPOSIT_AMOUNT = 1000;
@@ -66,9 +74,9 @@ const nativeToken = Ether.onChain(L2_CHAIN);
 const BtcBridgeForm = ({
   type = 'deposit',
   availableTokens,
-  onOnRampSuccess,
-  onStartOnRamp,
-  onFailOnRamp
+  onGatewaySuccess,
+  onStartGateway,
+  onFailGateway
 }: BtcBridgeFormProps): JSX.Element => {
   const queryClient = useQueryClient();
 
@@ -82,7 +90,7 @@ const BtcBridgeForm = ({
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
 
-  const { refetchOnRampTxs } = useGetTransactions();
+  const { refetchGatewayTxs } = useGetTransactions();
 
   const [amount, setAmount] = useState('');
   const debouncedAmount = useDebounce(amount, 300);
@@ -123,7 +131,11 @@ const BtcBridgeForm = ({
     queryFn: async () => {
       if (!currencyAmount || !btcToken) return;
 
-      const maxQuoteData = await gatewayClient.getQuote(btcToken.raw.address);
+      // TODO: error from this isn't propagated
+      const maxQuoteData = await gatewaySDK.getQuote({
+        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
+        toToken: btcToken.currency.symbol
+      });
 
       return CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis);
     }
@@ -164,42 +176,27 @@ const BtcBridgeForm = ({
       if (!currencyAmount || !btcToken) return;
 
       const atomicAmount = currencyAmount.numerator.toString();
+      const gatewayQuote = await gatewaySDK.getQuote({
+        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
+        toToken: btcToken.currency.symbol,
+        amount: atomicAmount
+      });
 
-      const { fee, onramp_address, bitcoin_address, gratuity } = await gatewayClient.getQuote(
-        btcToken.raw.address,
-        atomicAmount
-      );
-
-      // means that the call failed
-      if (!fee) return null;
-
-      const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, fee);
+      const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, gatewayQuote.fee);
 
       const btcReceiveAmount = currencyAmount.subtract(feeAmount);
 
       return {
         receiveAmount: CurrencyAmount.fromBaseAmount(btcToken.currency, btcReceiveAmount.toExact()),
-        gratuityAmount: CurrencyAmount.fromRawAmount(nativeToken, gratuity),
         fee: feeAmount,
-        onrampAddress: onramp_address,
-        bitcoinAddress: bitcoin_address
+        gatewayQuote
       };
     }
   });
 
   const depositMutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
-    mutationFn: async ({
-      evmAddress,
-      bitcoinAddress,
-      onrampAddress,
-      currencyAmount
-    }: {
-      evmAddress: Address;
-      bitcoinAddress: string;
-      onrampAddress: Address;
-      currencyAmount: CurrencyAmount<Bitcoin>;
-    }) => {
+    mutationFn: async ({ evmAddress, gatewayQuote }: { evmAddress: Address; gatewayQuote: GatewayQuote }) => {
       if (!connector) {
         throw new Error('Connector missing');
       }
@@ -208,35 +205,40 @@ const BtcBridgeForm = ({
         throw new Error('Quote Data missing');
       }
 
-      // Temp gratuity only used to display value in transaction details. Mutation continues to use `quoteData.gratuityAmount`
       const data = {
-        amount: [quoteData.receiveAmount, quoteData.gratuityAmount],
+        amount: quoteData.receiveAmount,
         fee: quoteData.fee
       };
 
-      onStartOnRamp(data);
+      onStartGateway(data);
 
-      const atomicAmount = Number(currencyAmount.numerator);
+      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(gatewayQuote, {
+        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
+        toUserAddress: evmAddress,
+        fromUserAddress: connector.paymentAddress!,
+        fromUserPublicKey: connector.publicKey
+      });
 
-      const orderId = await gatewayClient.createOrder(onrampAddress, evmAddress, atomicAmount);
+      const bitcoinTx = await connector.signAllInputsPsbtBase64(psbtBase64!);
 
-      const tx = await connector.createTxWithOpReturn(bitcoinAddress, atomicAmount, evmAddress);
+      // NOTE: user does not broadcast the tx, that is done by
+      // the relayer after it is validated
+      await gatewaySDK.finalizeOrder(uuid, bitcoinTx.hex);
 
-      // NOTE: relayer should broadcast the tx
-      await gatewayClient.updateOrder(orderId, tx.toHex());
+      const txid = bitcoinTx.id;
 
-      return { ...data, txid: tx.getId() };
+      return { ...data, txid };
     },
     onSuccess: (data) => {
       setAmount('');
       form.resetForm();
-      onOnRampSuccess?.(data);
-      refetchOnRampTxs();
+      onGatewaySuccess?.(data);
+      refetchGatewayTxs();
       queryClient.removeQueries({ queryKey: quoteQueryKey });
     },
     onError: (error) => {
       handleError(error);
-      onFailOnRamp();
+      onFailGateway();
     }
   });
 
@@ -249,14 +251,12 @@ const BtcBridgeForm = ({
   }, [availableTokens]);
 
   const handleSubmit = async (data: BridgeFormValues) => {
-    if (!currencyAmount || !quoteData || !evmAddress) return;
+    if (!quoteData || !evmAddress) return;
 
     if (type === 'deposit') {
       return depositMutation.mutate({
-        onrampAddress: quoteData.onrampAddress as Address,
-        bitcoinAddress: quoteData.bitcoinAddress,
         evmAddress: (data[BRIDGE_RECIPIENT] as Address) || evmAddress,
-        currencyAmount
+        gatewayQuote: quoteData.gatewayQuote
       });
     }
   };

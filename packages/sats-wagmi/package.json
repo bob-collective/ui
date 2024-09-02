@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@bitcoin-js/tiny-secp256k1-asmjs": "^2.2.3",
-    "@gobob/bob-sdk": "^1.3.0",
+    "@gobob/bob-sdk": "^2.2.0",
     "@gobob/react-query": "workspace:^",
     "@gobob/types": "workspace:^",
     "@gobob/utils": "workspace:^",

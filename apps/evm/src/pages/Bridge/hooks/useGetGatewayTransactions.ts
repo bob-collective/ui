@@ -7,27 +7,27 @@ import { Address, isAddressEqual } from 'viem';
 import { L2_CHAIN } from '../../../constants';
 import { FeatureFlags, TokenData, useFeatureFlag, useTokens } from '../../../hooks';
 import { electrsClient } from '../../../utils';
-import { OnRampDepositSteps } from '../constants';
+import { GatewayDepositSteps } from '../constants';
 import { TransactionType } from '../types';
-import { gatewayClient } from '../../../lib/bob-sdk';
+import { gatewaySDK } from '../../../lib/bob-sdk';
 
-type OnRampTransaction = {
-  status: OnRampDepositSteps;
+type GatewayTransaction = {
+  status: GatewayDepositSteps;
   date: Date;
   confirmations: number;
   totalConfirmations: number;
   btcTxId: string;
   amount: CurrencyAmount<ERC20Token>;
-  type: TransactionType.OnRamp;
+  type: TransactionType.Gateway;
 };
 
-const getOnRampTransactions = async (address: Address, l2Tokens: TokenData[]): Promise<OnRampTransaction[]> => {
-  const [orders, latestBlock] = await Promise.all([gatewayClient.getOrders(address), electrsClient.getLatestBlock()]);
+const getGatewayTransactions = async (address: Address, l2Tokens: TokenData[]): Promise<GatewayTransaction[]> => {
+  const [orders, latestBlock] = await Promise.all([gatewaySDK.getOrders(address), electrsClient.getLatestBlock()]);
 
   return (
     await Promise.all(
-      orders.map(async (order): Promise<OnRampTransaction | undefined> => {
-        const token = l2Tokens.find((token) => isAddressEqual(token.raw.address, order.token_address as Address));
+      orders.map(async (order): Promise<GatewayTransaction | undefined> => {
+        const token = l2Tokens.find((token) => isAddressEqual(token.raw.address, order.tokenAddress as Address));
 
         if (!token) return undefined;
 
@@ -36,9 +36,9 @@ const getOnRampTransactions = async (address: Address, l2Tokens: TokenData[]): P
         const txStatus = await electrsClient.getTxStatus(order.txid);
 
         const confirmations = txStatus.confirmed ? Number(latestBlock) - txStatus.block_height + 1 : 0;
-        const hasEnoughConfirmations = confirmations >= order.tx_proof_difficulty_factor;
+        const hasEnoughConfirmations = confirmations >= order.txProofDifficultyFactor;
 
-        const status: OnRampDepositSteps = !hasEnoughConfirmations
+        const status: GatewayDepositSteps = !hasEnoughConfirmations
           ? 'btc-confirmation'
           : order.status
             ? 'l2-confirmation'
@@ -49,24 +49,24 @@ const getOnRampTransactions = async (address: Address, l2Tokens: TokenData[]): P
           btcTxId: order.txid,
           date: new Date(order.timestamp * 1000),
           confirmations,
-          totalConfirmations: order.tx_proof_difficulty_factor,
+          totalConfirmations: order.txProofDifficultyFactor,
           status,
-          type: TransactionType.OnRamp
+          type: TransactionType.Gateway
         };
       })
     )
-  ).filter(Boolean) as OnRampTransaction[];
+  ).filter(Boolean) as GatewayTransaction[];
 };
 
-const useGetOnRampTransactions = () => {
+const useGetGatewayTransactions = () => {
   const { data: l2Tokens } = useTokens(L2_CHAIN);
   const { address } = useAccount();
-  const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
+  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
   return useQuery({
-    queryKey: ['onramp-transactions', address],
-    queryFn: async () => getOnRampTransactions(address!, l2Tokens!),
-    enabled: Boolean(address && l2Tokens && isBtcOnRampEnabled),
+    queryKey: ['gateway-transactions', address],
+    queryFn: async () => getGatewayTransactions(address!, l2Tokens!),
+    enabled: Boolean(address && l2Tokens && isBtcGatewayEnabled),
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,
@@ -74,5 +74,5 @@ const useGetOnRampTransactions = () => {
   });
 };
 
-export { useGetOnRampTransactions };
-export type { OnRampTransaction };
+export { useGetGatewayTransactions };
+export type { GatewayTransaction };

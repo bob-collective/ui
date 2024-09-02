@@ -7,9 +7,9 @@ const API_URL = {
   sepolia: 'https://fusion-api-sepolia.gobob.xyz'
 };
 
-const ONRAMP_API_URL = {
-  mainnet: 'https://onramp-api-mainnet.gobob.xyz',
-  sepolia: 'https://onramp-api-testnet.gobob.xyz'
+const GATEWAY_API_URL = {
+  mainnet: 'https://gateway-api-mainnet.gobob.xyz',
+  sepolia: 'https://gateway-api-testnet.gobob.xyz'
 };
 
 const BTC_API_URL = {
@@ -21,11 +21,11 @@ const proxyMiddleware = createProxyMiddleware({
   target: API_URL[CHAIN],
   router: {
     '/api': API_URL[CHAIN],
-    '/onramp-api': ONRAMP_API_URL[CHAIN],
+    '/gateway-api': GATEWAY_API_URL[CHAIN],
     '/btc-api': BTC_API_URL[CHAIN]
   },
   changeOrigin: true,
-  pathRewrite: { '^/api': '', '^/onramp-api': '', '^/btc-api': '' },
+  pathRewrite: { '^/api': '', '^/gateway-api': '', '^/btc-api': '' },
   on: {
     proxyReq: (proxyReq) => {
       proxyReq.setHeader('x-sec-token', 'foobar');

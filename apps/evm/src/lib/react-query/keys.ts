@@ -52,5 +52,6 @@ export const bridgeKeys = {
   btcDeposit: (address: Address | undefined, btcAddress: string | undefined) => [
     ...bridgeKeys.btc(address, btcAddress),
     'deposit'
-  ]
+  ],
+  btcTokens: () => ['btc-tokens']
 };

@@ -14,7 +14,7 @@ type SatsConfigData = {
   network: BitcoinNetwork;
 };
 
-const StatsWagmiContext = createContext<SatsConfigData>({
+const SatsWagmiContext = createContext<SatsConfigData>({
   connector: undefined,
   connectors: [],
   setConnector: () => {},
@@ -22,7 +22,7 @@ const StatsWagmiContext = createContext<SatsConfigData>({
 });
 
 const useSatsWagmi = (): SatsConfigData => {
-  const context = useContext(StatsWagmiContext);
+  const context = useContext(SatsWagmiContext);
 
   if (context === undefined) {
     throw new Error('useSatsWagmi must be used within a SatsWagmiConfig!');
@@ -108,9 +108,9 @@ const SatsWagmiConfig: FC<SatsWagmiConfigProps> = ({ children, network = 'mainne
   }, [connectors]);
 
   return (
-    <StatsWagmiContext.Provider value={{ connectors, connector, setConnector, network }}>
+    <SatsWagmiContext.Provider value={{ connectors, connector, setConnector, network }}>
       {children}
-    </StatsWagmiContext.Provider>
+    </SatsWagmiContext.Provider>
   );
 };
 

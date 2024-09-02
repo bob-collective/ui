@@ -17,12 +17,12 @@ type BridgeSteps = BridgeDepositSteps | BridgeWithdrawSteps;
 
 // l2-processing - relayer did not execute the swap
 // l2-confirmation - relayer executed the swap
-const onRampDepositSteps = ['btc-confirmation', 'l2-processing', 'l2-confirmation'] as const;
+const gatewayDepositSteps = ['btc-confirmation', 'l2-processing', 'l2-confirmation'] as const;
 
-type OnRampDepositSteps = (typeof onRampDepositSteps)[number];
+type GatewayDepositSteps = (typeof gatewayDepositSteps)[number];
 
-type OnRampSteps = (typeof onRampDepositSteps)[number];
+type GatewaySteps = (typeof gatewayDepositSteps)[number];
 
 type BridgeStepStatus = 'idle' | 'ongoing' | 'complete' | 'failed';
 
-export type { BridgeStepStatus, BridgeSteps, OnRampSteps, OnRampDepositSteps };
+export type { BridgeStepStatus, BridgeSteps, GatewaySteps, GatewayDepositSteps };

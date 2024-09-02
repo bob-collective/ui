@@ -1,10 +1,10 @@
-import { OnRampDepositSteps, OnRampSteps } from '../../constants';
-import { OnRampTransaction } from '../../hooks';
+import { GatewayDepositSteps, GatewaySteps } from '../../constants';
+import { GatewayTransaction } from '../../hooks';
 import { mempoolUrl } from '../../../../constants';
 
 import { Pill } from './Pill';
 
-const getLabel = (status: OnRampDepositSteps, confirmations: number, totalConfirmations: number) => {
+const getLabel = (status: GatewayDepositSteps, confirmations: number, totalConfirmations: number) => {
   switch (status) {
     case 'btc-confirmation':
       return confirmations <= totalConfirmations
@@ -16,7 +16,7 @@ const getLabel = (status: OnRampDepositSteps, confirmations: number, totalConfir
   }
 };
 
-const getStatus = (data: OnRampTransaction, step: OnRampSteps) => {
+const getStatus = (data: GatewayTransaction, step: GatewaySteps) => {
   switch (step) {
     case 'btc-confirmation':
       return data.status === 'btc-confirmation' ? 'ongoing' : 'complete';
@@ -34,12 +34,12 @@ const getStatus = (data: OnRampTransaction, step: OnRampSteps) => {
   }
 };
 
-type OnRampStepProps = {
-  data: OnRampTransaction;
-  step?: OnRampSteps;
+type GatewayStepProps = {
+  data: GatewayTransaction;
+  step?: GatewaySteps;
 };
 
-const OnRampStep = ({ step: stepProp, data }: OnRampStepProps): JSX.Element => {
+const GatewayStep = ({ step: stepProp, data }: GatewayStepProps): JSX.Element => {
   const step = stepProp || data.status;
 
   const label = getLabel(step, data.confirmations, data.totalConfirmations);
@@ -51,4 +51,4 @@ const OnRampStep = ({ step: stepProp, data }: OnRampStepProps): JSX.Element => {
   return <Pill href={href} label={label} status={status} />;
 };
 
-export { OnRampStep };
+export { GatewayStep };
