@@ -2,10 +2,11 @@ import { ChainId } from '@gobob/chains';
 import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
 import { Key, useCallback, useMemo, useState } from 'react';
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Address, isAddressEqual } from 'viem';
+import { Token } from '@gobob/currency';
+import { useChainId } from '@gobob/wagmi';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { FeatureFlags, useFeatureFlag, useTokens } from '../../../../hooks';
+import { FeatureFlags, TokenData, useFeatureFlag } from '../../../../hooks';
 import { BridgeOrigin } from '../../Bridge';
 import { useGetTransactions } from '../../hooks';
 import { L2BridgeData, GatewayData } from '../../types';
@@ -78,20 +79,31 @@ const BridgeForm = ({
     step: 'confirmation'
   });
 
-  const { data: tokens } = useTokens(L2_CHAIN);
+  const chainId = useChainId();
 
   const { data: btcTokens } = useQuery({
-    enabled: Boolean(tokens && isBtcGatewayEnabled),
+    enabled: isBtcGatewayEnabled,
     queryKey: bridgeKeys.btcTokens(),
-    refetchInterval: INTERVAL.MINUTE,
-    refetchOnMount: false,
     refetchOnWindowFocus: false,
-    queryFn: async () => {
-      const btcTokens = await gatewaySDK.getTokens();
+    refetchOnMount: false,
+    gcTime: INTERVAL.HOUR,
+    queryFn: async (): Promise<TokenData[]> => {
+      const tokens = await gatewaySDK.getTokens();
 
-      return tokens?.filter((token) =>
-        btcTokens.find((btcToken) => isAddressEqual(btcToken.address as Address, token.raw.address))
-      );
+      return tokens.map((token) => {
+        return {
+          raw: {
+            chainId,
+            address: token.address as `0x${string}`,
+            name: token.name,
+            symbol: token.symbol,
+            decimals: token.decimals,
+            logoUrl: token.logoURI,
+            apiId: ''
+          },
+          currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.name)
+        };
+      });
     }
   });
 
