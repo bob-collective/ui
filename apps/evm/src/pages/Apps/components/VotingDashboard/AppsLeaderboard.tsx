@@ -28,11 +28,17 @@ const Trapezoid = () => {
   );
 };
 
-type Props = { title: ReactNode; data?: AppData[]; isLoading?: boolean; onVote?: (app: AppData) => void };
+type Props = {
+  title: ReactNode;
+  data?: AppData[];
+  isLoading?: boolean;
+  onVote?: (app: AppData) => void;
+  isVotingDisabled?: boolean;
+};
 
 type AppsLeaderboardProps = Props;
 
-const AppsLeaderboard = ({ title, data, isLoading, onVote }: AppsLeaderboardProps): JSX.Element => {
+const AppsLeaderboard = ({ title, data, isLoading, isVotingDisabled, onVote }: AppsLeaderboardProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} style={{ overflow: 'hidden' }}>
       <StyledWrapper alignItems='center'>
@@ -61,7 +67,7 @@ const AppsLeaderboard = ({ title, data, isLoading, onVote }: AppsLeaderboardProp
           : data
               .sort((a, b) => a.rank - b.rank)
               .slice(0, 4)
-              .map((item, idx) => (
+              .map((item, idx, array) => (
                 <Fragment key={idx}>
                   <Flex alignItems='center' gap='s' justifyContent='space-between'>
                     <Flex alignItems='center' flex={1} gap={{ base: 'md', s: 'xl' }} style={{ overflow: 'hidden' }}>
@@ -74,11 +80,12 @@ const AppsLeaderboard = ({ title, data, isLoading, onVote }: AppsLeaderboardProp
                     <SpiceChip
                       amount={item.weight}
                       iconPlacement='end'
+                      isDisabled={isVotingDisabled}
                       isLit={item.userHasVotedFor}
                       onPress={() => onVote?.(item)}
                     />
                   </Flex>
-                  {idx < 4 && <Divider />}
+                  {idx < array.length - 1 && <Divider />}
                 </Fragment>
               ))}
       </StyledList>

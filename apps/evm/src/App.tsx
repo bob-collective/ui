@@ -101,7 +101,7 @@ const AuthCheck = () => {
       !isLoggingIn &&
       !isCheckingFusionUser &&
       isFusionUser &&
-      location.pathname === RoutesPath.FUSION
+      (location.pathname === RoutesPath.FUSION || location.pathname === RoutesPath.APPS)
     ) {
       checkLogin(address, chain);
     }

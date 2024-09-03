@@ -1,4 +1,5 @@
 import { Main } from '../../components';
+import { useGetUser } from '../../hooks';
 
 import { AppsList, AppsPodyum, HeroBanner, VotingDashboard } from './components';
 import { AppData, useGetApps, useVote } from './hooks';
@@ -8,6 +9,8 @@ const Apps = () => {
 
   const { mutate: vote } = useVote();
 
+  const { data: user } = useGetUser();
+
   const handleVote = (app: AppData) => {
     vote({ refCode: app.refCode, isRetract: app.userHasVotedFor });
   };
@@ -16,7 +19,7 @@ const Apps = () => {
     <>
       <Main maxWidth='7xl' padding='lg'>
         <HeroBanner />
-        <VotingDashboard apps={apps} isLoading={isLoadingApps} onVote={handleVote} />
+        <VotingDashboard apps={apps} isLoading={isLoadingApps} isVotingDisabled={!user} onVote={handleVote} />
         <AppsPodyum
           apps={[
             { name: 'Velodrome', imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png' },

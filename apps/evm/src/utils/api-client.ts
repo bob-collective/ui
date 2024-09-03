@@ -240,7 +240,6 @@ class ApiClient {
   async retractVote(refCode: string): Promise<ProjectVotingInfo> {
     const response = await fetch(`${this.baseUrl}/me/retract-vote`, {
       method: 'POST',
-      credentials: 'include',
       body: JSON.stringify({ projectRefcode: refCode }),
       headers: {
         'Content-Type': 'application/json'

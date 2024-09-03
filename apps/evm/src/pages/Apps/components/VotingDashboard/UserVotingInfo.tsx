@@ -14,7 +14,7 @@ const UserVotingInfo = ({ roundEndsAt, votesRemaining }: UserVotingInfoProps): J
   const { data: user } = useGetUser();
 
   return (
-    <Card borderColor='grey-300' direction='row' gap='md' padding='xl'>
+    <Card borderColor='grey-300' direction='row' gap='md' padding={user ? 'xl' : 'lg'}>
       {user ? (
         <>
           <Dl>
@@ -30,17 +30,19 @@ const UserVotingInfo = ({ roundEndsAt, votesRemaining }: UserVotingInfoProps): J
           <Divider orientation='vertical' />
           <Flex alignItems='center' gap='s'>
             <SolidClock color='grey-200' size='s' />
-            {roundEndsAt ? <P>{formatDistanceToNow(new Date())}</P> : <Skeleton width='4xl' />}
+            {roundEndsAt ? <P>{formatDistanceToNow(roundEndsAt)}</P> : <Skeleton width='4xl' />}
           </Flex>{' '}
         </>
       ) : (
         <>
           <Flex alignItems='center' gap='md'>
-            <LoginButton color='primary'>Login</LoginButton>
+            <LoginButton color='primary' size='s'>
+              Login
+            </LoginButton>
             <Span color='grey-50' size='s'>
               or
             </Span>
-            <Button asChild color='primary' variant='ghost'>
+            <Button asChild color='primary' size='s' variant='ghost'>
               <Link href={RoutesPath.SIGN_UP}>Create Account</Link>
             </Button>
           </Flex>

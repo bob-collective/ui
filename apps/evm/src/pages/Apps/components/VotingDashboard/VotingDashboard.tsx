@@ -10,10 +10,11 @@ import { StyledViewRules } from './VotingDashboard.style';
 type VotingDashboardProps = {
   isLoading?: boolean;
   apps?: AppsVotingInfoData;
+  isVotingDisabled?: boolean;
   onVote?: (app: AppData) => void;
 };
 
-const VotingDashboard = ({ apps, isLoading, onVote }: VotingDashboardProps): JSX.Element => {
+const VotingDashboard = ({ apps, isLoading, isVotingDisabled, onVote }: VotingDashboardProps): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
@@ -37,6 +38,7 @@ const VotingDashboard = ({ apps, isLoading, onVote }: VotingDashboardProps): JSX
             key={category?.id}
             data={category?.apps}
             isLoading={isLoading}
+            isVotingDisabled={isVotingDisabled}
             title={category?.name}
             onVote={onVote}
           />

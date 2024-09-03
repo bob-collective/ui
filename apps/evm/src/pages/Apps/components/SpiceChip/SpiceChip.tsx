@@ -13,6 +13,7 @@ type Props = {
   iconPlacement?: 'start' | 'end';
   isLit?: boolean;
   amount: number;
+  isDisabled?: boolean;
   onPress?: (e: PressEvent) => void;
 };
 
@@ -26,6 +27,7 @@ const SpiceChip = ({
   iconPlacement = 'start',
   isLit: isLitProp,
   amount,
+  isDisabled,
   onPress,
   className,
   ...props
@@ -52,11 +54,12 @@ const SpiceChip = ({
     }
   };
 
-  const isPressable = !!onPress;
+  const isPressable = !!onPress && !isDisabled;
 
   const icon = isLit ? (
     <StyledLottie
       animationData={fireAnimationData}
+      // TODO: fix
       autoPlay={!isPressable || isLit}
       loop={2}
       lottieRef={lottieRef}
@@ -66,7 +69,7 @@ const SpiceChip = ({
     <Fire isLit={isLit} size='xs' />
   );
 
-  const { pressProps } = usePress({ onPress: isPressable ? chain(onPress, handlePress) : undefined });
+  const { pressProps } = usePress({ isDisabled, onPress: isPressable ? chain(onPress, handlePress) : undefined });
 
   return (
     <StyledChip
