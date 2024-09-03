@@ -118,7 +118,7 @@ const BtcBridgeForm = ({
 
   const { data: availableLiquidity, isLoading: isLoadingMaxQuote } = useQuery({
     enabled: Boolean(btcToken),
-    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, btcToken?.currency.symbol, 'max'),
+    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, btcToken?.currency.symbol, 'max'),
     refetchInterval: INTERVAL.MINUTE,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
