@@ -129,7 +129,7 @@ const BridgeForm = ({
   };
 
   const handleGatewaySuccess = (data: GatewayData) => {
-    setGatewayModalState({ isOpen: true, step: 'submitted', data });
+    setGatewayModalState({ isOpen: false, step: 'submitted', data });
   };
 
   const handleCloseGatewayModal = () => {

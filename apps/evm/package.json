@@ -15,7 +15,7 @@
   "dependencies": {
     "@eth-optimism/sdk": "^3.1.6",
     "@ethersproject/providers": "^5.7.2",
-    "@gobob/bob-sdk": "2.2.1",
+    "@gobob/bob-sdk": "2.2.4",
     "@gobob/chains": "workspace:^",
     "@gobob/connect-ui": "workspace:^",
     "@gobob/currency": "workspace:^",
@@ -24,7 +24,6 @@
     "@gobob/react-query": "workspace:^",
     "@gobob/sats-wagmi": "workspace:^",
     "@gobob/tokens": "workspace:^",
-    "@gobob/types": "workspace:^",
     "@gobob/ui": "workspace:^",
     "@gobob/utils": "workspace:^",
     "@gobob/wagmi": "workspace:^",

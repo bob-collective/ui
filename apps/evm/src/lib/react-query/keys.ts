@@ -46,9 +46,10 @@ export const bridgeKeys = {
   btcQuote: (
     address: Address | undefined,
     btcAddress: string | undefined,
+    isGasNeeded: boolean,
     btcTokenSymbol?: string,
     atomicAmount?: number | 'max'
-  ) => [...bridgeKeys.btc(address, btcAddress), btcTokenSymbol, atomicAmount, 'quote'],
+  ) => [...bridgeKeys.btc(address, btcAddress), isGasNeeded, btcTokenSymbol, atomicAmount, 'quote'],
   btcDeposit: (address: Address | undefined, btcAddress: string | undefined) => [
     ...bridgeKeys.btc(address, btcAddress),
     'deposit'

@@ -92,6 +92,11 @@ const usePrices = ({ baseUrl, allCurrencies }: UsePricesProps) => {
 
   const getPrice = useCallback(
     (ticker: string, versusCurrency: PriceCurrency = PriceCurrency.USD) => {
+      // TODO: price feed doesn't have BTC
+      if (ticker === 'BTC') {
+        ticker = 'tBTC';
+      }
+
       const cgId = COINGECKO_ID_BY_CURRENCY_TICKER[ticker];
 
       return query.data?.[cgId]?.[versusCurrency] || 0;
