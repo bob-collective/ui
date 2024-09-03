@@ -1,6 +1,6 @@
 import { ChipProps, Flex, useLocale } from '@gobob/ui';
 import { PressEvent, usePress } from '@react-aria/interactions';
-import { chain, mergeProps } from '@react-aria/utils';
+import { mergeProps } from '@react-aria/utils';
 import { LottieRefCurrentProps } from 'lottie-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -36,23 +36,13 @@ const SpiceChip = ({
   const [isLit, setLit] = useState(isLitProp);
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
 
-  const [isAnimationRunning, setAnimationRunning] = useState(false);
-
   useEffect(() => {
     setLit(isLitProp);
-  }, [isLitProp]);
 
-  const handlePress = () => {
-    //waits for animation to run and avoid spam from user
-    if (isAnimationRunning) return;
-
-    setLit((lit) => !lit);
-
-    if (!isLit) {
-      setAnimationRunning(true);
+    if (isLitProp) {
       lottieRef.current?.play();
     }
-  };
+  }, [isLitProp]);
 
   const isPressable = !!onPress && !isDisabled;
 
@@ -63,13 +53,12 @@ const SpiceChip = ({
       autoPlay={!isPressable || isLit}
       loop={2}
       lottieRef={lottieRef}
-      onComplete={() => setAnimationRunning(false)}
     />
   ) : (
     <Fire isLit={isLit} size='xs' />
   );
 
-  const { pressProps } = usePress({ isDisabled, onPress: isPressable ? chain(onPress, handlePress) : undefined });
+  const { pressProps } = usePress({ isDisabled, onPress: isPressable ? onPress : undefined });
 
   return (
     <StyledChip

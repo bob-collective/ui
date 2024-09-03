@@ -100,6 +100,34 @@ export interface ProjectVotingInfo {
   roundEndsAt: string; // ISO 8601 date string
 }
 
+export interface PartnersS3Response {
+  totalPartners: number;
+  partners: PartnerS3[];
+}
+
+export interface PartnerS3 {
+  name: string;
+  ref_code: string;
+  category: string;
+  live?: boolean;
+  project_url: string;
+  show_on_app_store: boolean;
+  discord_id: any;
+  twitter_id: any;
+  categories: any;
+  total_distributed_points: string;
+  total_points: number;
+  total_tvl_points: string;
+  total_received_points_through_partner: string;
+  total_quest_points: string;
+  total_referral_points?: number;
+  points_distributed_per_hour: string;
+  total_points_distributed_in_time_window: any;
+  max_multiplier: string;
+  min_multiplier: string;
+  points_distributed_per_hour_rank: string;
+}
+
 class ApiClient {
   private baseUrl: string;
 
@@ -221,6 +249,12 @@ class ApiClient {
 
   async getVotes(): Promise<ProjectVotingInfo> {
     const response = await fetch(`${this.baseUrl}/votes`);
+
+    return await response.json();
+  }
+
+  async getSeason3Partners(): Promise<PartnersS3Response> {
+    const response = await fetch(`${this.baseUrl}/partners-s3`);
 
     return await response.json();
   }

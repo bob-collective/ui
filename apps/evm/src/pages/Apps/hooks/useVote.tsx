@@ -19,7 +19,7 @@ const useVote = () => {
       return apiClient.vote(refCode);
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(appsKeys.apps(), data);
+      queryClient.setQueryData(appsKeys.appsVotes(address), data);
     }
   });
 };

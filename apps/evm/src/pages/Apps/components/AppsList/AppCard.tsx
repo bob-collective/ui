@@ -1,4 +1,4 @@
-import { Discord, Spice, Twitter } from '@gobob/icons';
+import { Twitter } from '@gobob/icons';
 import {
   Avatar,
   Card,
@@ -17,27 +17,23 @@ import {
   useLocale
 } from '@gobob/ui';
 
+import { VotingAppData } from '../../hooks';
+
 import { StyledImgWrapper, StyledSpiceChip } from './AppCard.style';
-
-type CardSocials = 'discord' | 'x';
-
-const socialsMap: Record<CardSocials, typeof Twitter> = {
-  x: Twitter,
-  discord: Discord
-};
 
 type Props = {
   name: string;
-  description: string;
-  refCode: string;
-  categories: string[];
+  description?: string;
+  categories?: string[];
   url: string;
   imgSrc: string;
-  totalSpice: number;
   spicePerHour: number;
-  spiceMultiplier: number;
-  userHarvest?: number;
-  socials: Array<{ name: 'discord' | 'x'; url: string }>;
+  spiceMultiplier: string;
+  // userHarvest?: number;
+  discord?: string;
+  twitter?: string;
+  voting?: VotingAppData;
+  onVote?: (app: VotingAppData) => void;
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
@@ -50,22 +46,23 @@ const AppCard = ({
   categories,
   url,
   imgSrc,
-  totalSpice,
+  voting,
   spicePerHour,
-  socials,
   spiceMultiplier,
-  userHarvest,
-  refCode,
+  // userHarvest,
+  discord,
+  twitter,
+  onVote,
   ...props
 }: AppCardPops): JSX.Element => {
   const { locale } = useLocale();
 
   return (
-    <a href={url} rel='noreferrer' style={{ textDecoration: 'none' }} target='_blank'>
+    <a href={`https://${url}`} rel='noreferrer' style={{ textDecoration: 'none' }} target='_blank'>
       <Card {...props} borderColor='grey-300' padding='none'>
         <StyledImgWrapper alignItems='center' justifyContent='center' padding='5xl'>
           <Avatar borderColor='grey-300' rounded='md' size='9xl' src={imgSrc} />
-          <StyledSpiceChip amount={totalSpice} iconPlacement='end' onPress={console.log} />
+          {voting && <StyledSpiceChip amount={voting.weight} iconPlacement='end' onPress={() => onVote?.(voting)} />}
         </StyledImgWrapper>
         <Divider />
         <Flex direction='column' padding='xl'>
@@ -74,7 +71,17 @@ const AppCard = ({
               <H3 size='lg'>{name}</H3>
               <Flex alignItems='center' flex='0' gap='md'>
                 <SolidShieldCheck color='grey-50' size='s' />
-                {socials.map((social) => {
+                {discord && (
+                  <Link external href={discord}>
+                    <Twitter color='grey-50' size='s' />
+                  </Link>
+                )}
+                {twitter && (
+                  <Link external href={twitter}>
+                    <Twitter color='grey-50' size='s' />
+                  </Link>
+                )}
+                {/* {socials.map((social) => {
                   const Social = socialsMap[social.name];
 
                   return (
@@ -82,12 +89,14 @@ const AppCard = ({
                       <Social color='grey-50' size='s' />
                     </Link>
                   );
-                })}
+                })} */}
               </Flex>
             </Flex>
-            <P color='grey-50' rows={2} size='s'>
-              {description}
-            </P>
+            {description && (
+              <P color='grey-50' rows={2} size='s'>
+                {description}
+              </P>
+            )}
             <Dl direction='column' gap='xxs'>
               <DlGroup justifyContent='space-between'>
                 <Dd color='grey-50'>Spice Per Hour</Dd>
@@ -95,25 +104,29 @@ const AppCard = ({
               </DlGroup>
               <DlGroup justifyContent='space-between'>
                 <Dd color='grey-50'>Spice Multiplier</Dd>
-                <Dt color='grey-50'>{spiceMultiplier}x</Dt>
+                <Dt color='grey-50'>{spiceMultiplier}</Dt>
               </DlGroup>
-              <DlGroup justifyContent='space-between'>
+              {/* <DlGroup justifyContent='space-between'>
                 <Dd color='grey-50'>My Total Harvest</Dd>
                 <Dt color='primary-400' style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                   <Spice color='inherit' size='xs' />
                   {Intl.NumberFormat(locale, { notation: 'compact' }).format(userHarvest || 0)}
                 </Dt>
-              </DlGroup>
+              </DlGroup> */}
             </Dl>
           </Flex>
-          <Divider marginY='xl' />
-          <Flex gap='md' style={{ overflow: 'hidden' }}>
-            {categories.map((category, idx) => (
-              <Chip key={idx} background='grey-300'>
-                {category}
-              </Chip>
-            ))}
-          </Flex>
+          {categories && (
+            <>
+              <Divider marginY='xl' />
+              <Flex gap='md' style={{ overflow: 'hidden' }}>
+                {categories?.map((category, idx) => (
+                  <Chip key={idx} background='grey-300'>
+                    {category}
+                  </Chip>
+                ))}
+              </Flex>
+            </>
+          )}
         </Flex>
       </Card>
     </a>

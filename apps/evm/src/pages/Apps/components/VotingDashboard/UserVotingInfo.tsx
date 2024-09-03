@@ -1,5 +1,6 @@
 import { Button, Card, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, P, Skeleton, SolidClock, Span } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
+import { useAccount } from '@gobob/wagmi';
 
 import { SpiceChip } from '../SpiceChip';
 import { useGetUser } from '../../../../hooks';
@@ -11,11 +12,12 @@ type Props = { roundEndsAt?: string; votesRemaining?: number };
 type UserVotingInfoProps = Props;
 
 const UserVotingInfo = ({ roundEndsAt, votesRemaining }: UserVotingInfoProps): JSX.Element => {
+  const { address } = useAccount();
   const { data: user } = useGetUser();
 
   return (
     <Card borderColor='grey-300' direction='row' gap='md' padding={user ? 'xl' : 'lg'}>
-      {user ? (
+      {address && user ? (
         <>
           <Dl>
             <DlGroup alignItems='center'>

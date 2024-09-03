@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components';
 
 import { Medal } from '../Medal';
 import { SpiceChip } from '../SpiceChip';
-import { AppData } from '../../hooks';
+import { VotingAppData } from '../../hooks';
 
 import { StyledH3, StyledHeaderWrapper, StyledList, StyledWrapper } from './AppsLeaderboard.style';
 
@@ -30,9 +30,9 @@ const Trapezoid = () => {
 
 type Props = {
   title: ReactNode;
-  data?: AppData[];
+  data?: VotingAppData[];
   isLoading?: boolean;
-  onVote?: (app: AppData) => void;
+  onVote?: (app: VotingAppData) => void;
   isVotingDisabled?: boolean;
 };
 
@@ -43,9 +43,13 @@ const AppsLeaderboard = ({ title, data, isLoading, isVotingDisabled, onVote }: A
     <Flex direction='column' flex={1} style={{ overflow: 'hidden' }}>
       <StyledWrapper alignItems='center'>
         <StyledHeaderWrapper borderColor='grey-300' justifyContent='center' padding='none' paddingLeft='2xl'>
-          <StyledH3 noWrap size='md'>
-            {title}
-          </StyledH3>
+          {title ? (
+            <StyledH3 noWrap size='md'>
+              {title}
+            </StyledH3>
+          ) : (
+            <Skeleton width='8xl' />
+          )}
         </StyledHeaderWrapper>
         <Trapezoid />
       </StyledWrapper>
@@ -65,8 +69,8 @@ const AppsLeaderboard = ({ title, data, isLoading, isVotingDisabled, onVote }: A
               </Fragment>
             ))
           : data
-              .sort((a, b) => a.rank - b.rank)
-              .slice(0, 4)
+              .sort((a, b) => b.weight - a.weight)
+              .slice(0, 5)
               .map((item, idx, array) => (
                 <Fragment key={idx}>
                   <Flex alignItems='center' gap='s' justifyContent='space-between'>

@@ -1,7 +1,7 @@
 import { Flex, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 
-import { AppData, AppsVotingInfoData } from '../../hooks';
+import { VotingAppData, VotingAppsData } from '../../hooks';
 
 import { AppsLeaderboard } from './AppsLeaderboard';
 import { UserVotingInfo } from './UserVotingInfo';
@@ -9,9 +9,9 @@ import { StyledViewRules } from './VotingDashboard.style';
 
 type VotingDashboardProps = {
   isLoading?: boolean;
-  apps?: AppsVotingInfoData;
+  apps?: VotingAppsData;
   isVotingDisabled?: boolean;
-  onVote?: (app: AppData) => void;
+  onVote?: (app: VotingAppData) => void;
 };
 
 const VotingDashboard = ({ apps, isLoading, isVotingDisabled, onVote }: VotingDashboardProps): JSX.Element => {
@@ -24,7 +24,7 @@ const VotingDashboard = ({ apps, isLoading, isVotingDisabled, onVote }: VotingDa
     </StyledViewRules>
   );
 
-  const categories = apps?.categories.slice(0, 2) || [undefined, undefined, undefined];
+  const categories = apps?.categories.slice(0, 3) || [undefined, undefined, undefined];
 
   return (
     <Flex direction='column' gap='2xl' marginTop='3xl'>

@@ -1,93 +1,63 @@
 import { Flex, H2, Tabs, TabsItem } from '@gobob/ui';
+import { useState } from 'react';
 
-import { AppCard } from './AppCard';
+import { AppData, VotingAppData } from '../../hooks';
+
 import { StyledGrid } from './AppsList.style';
+import { AppCard } from './AppCard';
 
-const apps = [
-  {
-    categories: ['Lending & Borrow', 'DeFi', 'DEX'],
-    description: 'Velodrome Finance is a next-generation AMM that combines',
-    imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-    name: 'Velodrome',
-    refCode: '123',
-    socials: [
-      { url: '#', name: 'discord' },
-      { name: 'x', url: '#' }
-    ],
-    spiceMultiplier: 2,
-    spicePerHour: 20000,
-    totalSpice: 2000000,
-    url: '#',
-    userHarvest: 2000
-  },
-  {
-    categories: ['Lending & Borrow', 'DeFi', 'DEX'],
-    description: 'Velodrome Finance is a next-generation AMM that combines',
-    imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-    name: 'Velodrome',
-    refCode: '123',
-    socials: [
-      { url: '#', name: 'discord' },
-      { name: 'x', url: '#' }
-    ],
-    spiceMultiplier: 2,
-    spicePerHour: 20000,
-    totalSpice: 2000000,
-    url: '#',
-    userHarvest: 2000
-  },
-  {
-    categories: ['Lending & Borrow', 'DeFi', 'DEX'],
-    description: 'Velodrome Finance is a next-generation AMM that combines',
-    imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png',
-    name: 'Velodrome',
-    refCode: '123',
-    socials: [
-      { url: '#', name: 'discord' },
-      { name: 'x', url: '#' }
-    ],
-    spiceMultiplier: 2,
-    spicePerHour: 20000,
-    totalSpice: 2000000,
-    url: '#',
-    userHarvest: 2000
-  }
-];
+type AppsListProps = {
+  apps: AppData[];
+  onVote?: (app: VotingAppData) => void;
+};
 
-const AppsList = (): JSX.Element => {
+const ALL_CATEGORIES = 'all';
+
+const AppsList = ({ apps, onVote }: AppsListProps): JSX.Element => {
+  const [tabCategory, setTabCategory] = useState(ALL_CATEGORIES);
+
+  const categories = Array.from(new Set(apps.map((app) => app.category)));
+
+  const list = tabCategory === 'all' ? apps : apps.filter((app) => app.category === tabCategory);
+
+  const sortedList = list.sort(
+    (a, b) => Number(b.points_distributed_per_hour_rank) - Number(a.points_distributed_per_hour_rank)
+  );
+
   return (
     <Flex direction='column' gap='3xl' marginTop='3xl'>
       <H2 size='3xl'>Discover all Apps</H2>
-      <Tabs variant='light'>
+      <Tabs variant='light' onSelectionChange={(key) => setTabCategory(key as string)}>
         <TabsItem key='all' title='All Categories'>
           <></>
         </TabsItem>
-        <TabsItem key='new-dapps' title='New Apps'>
-          <></>
-        </TabsItem>
-        <TabsItem key='defi' title='DeFi'>
-          <></>
-        </TabsItem>
-        <TabsItem key='lending-borrowing' title='Lending & Borrowing'>
-          <></>
-        </TabsItem>
-        <TabsItem key='dex' title='Dex'>
-          <></>
-        </TabsItem>
-        <TabsItem key='bridge' title='Bridge'>
-          <></>
-        </TabsItem>
-        <TabsItem key='nft' title='NFT'>
-          <></>
-        </TabsItem>
-        <TabsItem key='my-harvesters' title='My Harvesters'>
-          <></>
-        </TabsItem>
+        {categories.map((category) => (
+          <TabsItem key={category} title={category}>
+            <></>
+          </TabsItem>
+        ))}
       </Tabs>
       <StyledGrid>
-        {apps.map((app) => (
-          <AppCard key={app.refCode} {...(app as any)} />
-        ))}
+        {sortedList.map((app) => {
+          return (
+            <AppCard
+              key={app.ref_code}
+              categories={app.categories || [app.category]}
+              imgSrc={app.logoSrc}
+              name={app.name}
+              spiceMultiplier={
+                app.min_multiplier === app.max_multiplier
+                  ? `${app.max_multiplier}x`
+                  : `${app.min_multiplier}x - ${app.max_multiplier}x`
+              }
+              spicePerHour={Number(app.points_distributed_per_hour)}
+              url={app.project_url}
+              voting={app.voting}
+              onVote={onVote}
+              // description={}
+            />
+          );
+        })}
       </StyledGrid>
     </Flex>
   );

@@ -49,7 +49,11 @@ const AuthCheck = () => {
     }
   });
 
-  const { logout } = useLogout();
+  const { logout } = useLogout({
+    onSuccess: () => {
+      refetchUser();
+    }
+  });
   const watchAccountRef = useRef<() => void>();
 
   useEffect(() => {
