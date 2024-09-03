@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <WagmiProvider isProd={isProd}>
       <QueryClientProvider client={queryClient}>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-        <SatsWagmiConfig network={bitcoinNetwork}>
+        <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}>
           <CSSReset />
           <BrowserRouter>
             <App />
