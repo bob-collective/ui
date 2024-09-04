@@ -9,7 +9,7 @@ const SeasonInfo = () => {
       </Chip>
       <Flex alignItems='center' gap='md'>
         <Spice size='2xl' />
-        <H1 size='6xl'>20M Spice</H1>
+        <H1 size={{ base: '4xl', md: '6xl' }}>20M Spice</H1>
       </Flex>
       <P align='center' color='grey-50'>
         Season 3 is live from September 15 to November 25, with a huge 20M prize pool at stake. This is your final

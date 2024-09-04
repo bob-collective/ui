@@ -1,54 +1,41 @@
 import { Spice } from '@gobob/icons';
-import {
-  ArrowRight,
-  Bars3,
-  Button,
-  Card,
-  CardProps,
-  Dd,
-  Dl,
-  Dt,
-  Flex,
-  SolidDocumentDuplicate,
-  SolidInformationCircle,
-  Span,
-  Tooltip
-} from '@gobob/ui';
-import { ReactNode } from 'react';
+import { ArrowRight, Bars3, Button, Divider, Flex, H3, P, SolidDocumentDuplicate, Span } from '@gobob/ui';
+import { Link } from 'react-router-dom';
 
-type Props = {
-  title?: ReactNode;
-  tooltipLabel?: ReactNode;
-  description?: ReactNode;
+import { LoginSection } from '../../../../components';
+import { RoutesPath } from '../../../../constants';
+
+import { StyledDl, StyledLoginCard } from './UserInfo.style';
+import { UserInfoCard } from './UserInfoCard';
+
+type UserInfoProps = {
+  isAuthenticated?: boolean;
 };
 
-type InheritAttrs = Omit<CardProps, keyof Props>;
-
-type InfoCardProps = Props & InheritAttrs;
-
-const InfoCard = ({ description, title, tooltipLabel, children, ...props }: InfoCardProps) => {
-  return (
-    <Card flex={1} gap='md' justifyContent='space-between' {...props}>
-      <Flex direction='column' gap='md'>
-        <Flex alignItems='center' gap='s'>
-          <Dt>{title}</Dt>
-          {tooltipLabel && (
-            <Tooltip label={tooltipLabel}>
-              <SolidInformationCircle size='s' />
-            </Tooltip>
-          )}
-        </Flex>
-        <Dd size='3xl'>{description}</Dd>
+const UserInfo = ({ isAuthenticated }: UserInfoProps) => {
+  if (!isAuthenticated) {
+    return (
+      <Flex justifyContent='center' marginTop='4xl'>
+        <StyledLoginCard gap='lg'>
+          <H3 align='center' size='md'>
+            Log in to View Dashboard
+          </H3>
+          <Divider />
+          <P align='center' color='grey-50' size='s'>
+            Set sail on your Season 3 adventure, charting new territories and harvesting Spice along the way.
+          </P>
+          <Button asChild color='primary' size='xl'>
+            <Link to={RoutesPath.SIGN_UP}>Start Harvesting Spice</Link>
+          </Button>
+          <LoginSection direction={{ base: 'column', s: 'row' }} />
+        </StyledLoginCard>
       </Flex>
-      {children}
-    </Card>
-  );
-};
+    );
+  }
 
-const UserInfo = () => {
   return (
-    <Dl direction={{ base: 'column', md: 'row' }} gap='lg' marginTop='4xl'>
-      <InfoCard description='$172,124.22' title='Assets Deposited'>
+    <StyledDl direction={{ base: 'column', md: 'row' }} gap='lg' marginTop='4xl'>
+      <UserInfoCard description='$172,124.22' title='Assets Deposited'>
         <Flex gap='md' marginTop='xl'>
           <Button variant='outline'>
             <Bars3 />
@@ -57,8 +44,8 @@ const UserInfo = () => {
             Bridge More
           </Button>
         </Flex>
-      </InfoCard>
-      <InfoCard description='3' title='Apps Used' tooltipLabel='TBD'>
+      </UserInfoCard>
+      <UserInfoCard description='3' title='Apps Used' tooltipLabel='TBD'>
         <Flex gap='md' marginTop='xl'>
           <Button variant='outline'>
             <Bars3 />
@@ -68,13 +55,13 @@ const UserInfo = () => {
             <ArrowRight size='xs' strokeWidth='2' style={{ marginLeft: 4 }} />
           </Button>
         </Flex>
-      </InfoCard>
-      <InfoCard description='3' title='Challenges Solved' tooltipLabel='TBD'>
+      </UserInfoCard>
+      <UserInfoCard description='3' title='Challenges Solved' tooltipLabel='TBD'>
         <Button fullWidth variant='outline'>
           Solve Challenges
         </Button>
-      </InfoCard>
-      <InfoCard description='3raDX' title='Your Referral Code' tooltipLabel='TBD'>
+      </UserInfoCard>
+      <UserInfoCard description='3raDX' title='Your Referral Code' tooltipLabel='TBD'>
         <Flex gap='md' marginTop='xl'>
           <Button variant='outline'>
             <Bars3 />
@@ -83,8 +70,8 @@ const UserInfo = () => {
             Copy <SolidDocumentDuplicate size='xs' style={{ marginLeft: 4 }} />
           </Button>
         </Flex>
-      </InfoCard>
-      <InfoCard
+      </UserInfoCard>
+      <UserInfoCard
         description={
           <Flex direction='column' elementType='span' gap='xs'>
             <Span size='inherit'>22,201.12</Span>
@@ -98,7 +85,7 @@ const UserInfo = () => {
         title='Season 3 Harvested Spice'
         tooltipLabel='TBD'
       />
-    </Dl>
+    </StyledDl>
   );
 };
 
