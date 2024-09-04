@@ -3,6 +3,10 @@ const rem = (value: number, base = 16) => `${(1 / base) * value}rem`;
 const style =
   <T extends Record<string, any>>(baseStyle: T) =>
   (key: keyof typeof baseStyle, unit: 'rem' | 'px' = 'rem', base = 16) => {
+    const value = baseStyle[key];
+
+    if (!value) return undefined;
+
     if (unit === 'px') {
       return `${baseStyle[key]}px`;
     }
