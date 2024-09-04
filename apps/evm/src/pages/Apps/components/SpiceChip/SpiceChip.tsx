@@ -36,6 +36,7 @@ const SpiceChip = ({
 }: SpiceChipProps): JSX.Element => {
   const { locale } = useLocale();
   const [isLit, setLit] = useState(isLitProp);
+  const [shouldPlayAnimation, setShouldPlayAnimation] = useState(false);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -48,21 +49,26 @@ const SpiceChip = ({
 
     if (shouldPlayAnimationRef.current && isLitProp) {
       lottieRef.current?.play();
-      shouldPlayAnimationRef.current = false;
+      // shouldPlayAnimationRef.current = false;
     }
   }, [isLitProp]);
 
   const isPressable = !!onPress && !isDisabled;
 
-  // TODO: fix animation
   const icon = isLit ? (
-    <StyledLottie animationData={fireAnimationData} autoplay={false} loop={2} lottieRef={lottieRef} />
+    <StyledLottie
+      animationData={fireAnimationData}
+      autoplay={shouldPlayAnimation}
+      loop={2}
+      lottieRef={lottieRef}
+      onAnimationEnd={() => setShouldPlayAnimation(false)}
+    />
   ) : (
     <Fire isLit={isLit} size='xs' />
   );
 
   const handlePress = () => {
-    shouldPlayAnimationRef.current = true;
+    setShouldPlayAnimation(true);
   };
 
   const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {

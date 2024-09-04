@@ -28,12 +28,12 @@ const AppsList = ({
 }: AppsListProps): JSX.Element => {
   const [tabCategory, setTabCategory] = useState(ALL_CATEGORIES);
 
-  const categories = apps ? Array.from(new Set(apps.map((app) => app.category))) : undefined;
+  const categories = apps ? Array.from(new Set(apps.map((app) => app.category))).sort() : undefined;
 
   const list = apps ? (tabCategory === 'all' ? apps : apps.filter((app) => app.category === tabCategory)) : undefined;
 
   const sortedList = list?.sort(
-    (a, b) => Number(b.points_distributed_per_hour_rank) - Number(a.points_distributed_per_hour_rank)
+    (a, b) => Number(a.points_distributed_per_hour_rank) - Number(b.points_distributed_per_hour_rank)
   );
 
   return (

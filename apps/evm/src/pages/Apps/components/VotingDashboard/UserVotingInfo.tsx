@@ -1,24 +1,19 @@
 import { Button, Card, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, P, Skeleton, SolidClock, Span } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
-import { useAccount } from '@gobob/wagmi';
 
 import { SpiceChip } from '../SpiceChip';
-import { useGetUser } from '../../../../hooks';
 import { LoginButton } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
 
-type Props = { roundEndsAt?: string; votesRemaining?: number };
+type Props = { isAuthenticated?: boolean; roundEndsAt?: string; votesRemaining?: number };
 
 type UserVotingInfoProps = Props;
 
-const UserVotingInfo = ({ roundEndsAt, votesRemaining }: UserVotingInfoProps): JSX.Element => {
-  const { address } = useAccount();
-  const { data: user } = useGetUser();
-
+const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVotingInfoProps): JSX.Element => {
   return (
-    <Card borderColor='grey-300' direction='row' gap='md' padding={user ? 'xl' : 'lg'}>
-      {address && user ? (
-        <>
+    <Card borderColor='grey-300' direction='row' gap='md' padding={isAuthenticated ? 'xl' : 'lg'}>
+      <>
+        {isAuthenticated ? (
           <Dl>
             <DlGroup alignItems='center'>
               <Dt color='light' size='lg'>
@@ -29,14 +24,7 @@ const UserVotingInfo = ({ roundEndsAt, votesRemaining }: UserVotingInfoProps): J
               </Dd>
             </DlGroup>
           </Dl>
-          <Divider orientation='vertical' />
-          <Flex alignItems='center' gap='s'>
-            <SolidClock color='grey-200' size='s' />
-            {roundEndsAt ? <P>{formatDistanceToNow(roundEndsAt)}</P> : <Skeleton width='4xl' />}
-          </Flex>{' '}
-        </>
-      ) : (
-        <>
+        ) : (
           <Flex alignItems='center' gap='md'>
             <LoginButton color='primary' size='s'>
               Login
@@ -48,8 +36,13 @@ const UserVotingInfo = ({ roundEndsAt, votesRemaining }: UserVotingInfoProps): J
               <Link href={RoutesPath.SIGN_UP}>Create Account</Link>
             </Button>
           </Flex>
-        </>
-      )}
+        )}
+        <Divider orientation='vertical' />
+        <Flex alignItems='center' gap='s'>
+          <SolidClock color='grey-200' size='s' />
+          {roundEndsAt ? <P>{formatDistanceToNow(roundEndsAt)}</P> : <Skeleton width='4xl' />}
+        </Flex>
+      </>
     </Card>
   );
 };

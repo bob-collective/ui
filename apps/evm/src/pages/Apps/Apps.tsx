@@ -28,6 +28,7 @@ const Apps = () => {
         <HeroBanner />
         <VotingDashboard
           apps={votingAppsData}
+          isAuthenticated={isAuthenticated}
           isLoading={isLoadingVotingApps}
           isVotingDisabled={!user}
           isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
