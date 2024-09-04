@@ -1,6 +1,11 @@
 import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
 
+export enum QuestRefCodes {
+  GALXE = 'itxc9y',
+  INTRACT = '6y2pac'
+}
+
 interface DepositStat {
   token_address: string;
   token_name: string;

@@ -11,7 +11,7 @@ import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
 import { useGetUser, useLogin, useLogout, useTokens } from './hooks';
 import { useBalances } from './hooks/useBalances';
 import { apiClient } from './utils';
-import { useHaltedLockedTokens, useLockedTokens } from './pages/Fusion2/hooks';
+import { useHaltedLockedTokens, useLockedTokens } from './pages/FusionS2/hooks';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
@@ -153,7 +153,7 @@ const ScrollToTop = () => {
 
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Apps = lazy(() => import('./pages/Apps'));
-const Fusion = lazy(() => import('./pages/Fusion'));
+const Fusion = lazy(() => import('./pages/FusionS3'));
 const Bridge = lazy(() => import('./pages/Bridge'));
 const Stake = lazy(() => import('./pages/Stake'));
 const Wallet = lazy(() => import('./pages/Wallet'));
