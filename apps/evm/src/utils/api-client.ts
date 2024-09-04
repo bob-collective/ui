@@ -1,9 +1,34 @@
 import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
 
-export enum QuestRefCodes {
-  GALXE = 'itxc9y',
-  INTRACT = '6y2pac'
+interface DepositStat {
+  token_address: string;
+  token_name: string;
+  total_amount: string;
+  total_usd: string;
+}
+
+interface S3LeaderboardData {
+  global_rank: string;
+  group_rank: string;
+  quest_rank: string;
+  total_points: number;
+  username: string;
+  referral_code: string;
+  evm_address: string;
+  tvl_points: string;
+  received_pts: string;
+  distributed_pts: string;
+  quest_points: string;
+  quests_breakdown: any;
+  is_partner: boolean;
+  ref_points: any;
+}
+
+interface Season3Data {
+  usedProjects: any[];
+  s3LeaderboardData: S3LeaderboardData[];
+  harvestedPointsS3: any[];
 }
 
 export type UserResponse = {
@@ -15,17 +40,21 @@ export type UserResponse = {
   referral_code: string;
   referred_by: string;
   evm_address: Address;
-  partner: any;
+  partner: boolean;
   data: any;
   created_at: Date;
   updated_at: Date;
   leaderboardRank: { user_address: string; total_reward_points: number; total_quest_points: number; rank: number };
-  depositStats: any[];
+  depositStats: DepositStat[];
   totalUsdDeposited: number;
   withdrawStats: any[];
   harvested: { partner_name: string; partner_refcode: string; total_points: 'string' }[];
+  tvlPoints: {
+    spice: string;
+  };
   quests_breakdown: Record<string, number>;
   total_quest_points: string;
+  season3Data: Season3Data;
 };
 
 type LeaderboardResponse = {
@@ -33,12 +62,12 @@ type LeaderboardResponse = {
   leaderboard: LeaderboardItem[];
 };
 
-export type PartnersResponse = {
+type PartnersResponse = {
   partners: Partner[];
   total_partners: number;
 };
 
-export type Partner = {
+type Partner = {
   category: string;
   current_points: string;
   live: boolean;
@@ -100,7 +129,7 @@ export interface ProjectVotingInfo {
   roundEndsAt: string; // ISO 8601 date string
 }
 
-export interface PartnersS3Response {
+interface PartnersS3Response {
   totalPartners: number;
   partners: PartnerS3[];
 }

@@ -1,8 +1,6 @@
 import { Card, Flex } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
-import { Medal } from '../Medal';
-
 function getImageUrl(name: string) {
   return new URL(`../../../../assets/${name}`, import.meta.url).href;
 }
@@ -33,18 +31,8 @@ const StyledOpacityOverlay = styled.div`
     linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
 `;
 
-const StyledAvatarWrapper = styled.div`
-  position: relative;
-`;
-
-const StyledMedal = styled(Medal)`
-  position: absolute;
-  top: 0;
-  left: 0.25rem;
-`;
-
 const StyledContentWrapper = styled(Flex)`
   z-index: 1;
 `;
 
-export { StyledCard, StyledAvatarWrapper, StyledContentWrapper, StyledMedal, StyledOpacityOverlay };
+export { StyledCard, StyledContentWrapper, StyledOpacityOverlay };

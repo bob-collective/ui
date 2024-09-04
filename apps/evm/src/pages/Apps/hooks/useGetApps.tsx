@@ -2,6 +2,7 @@ import { INTERVAL, useQuery } from '@gobob/react-query';
 
 import { appsKeys } from '../../../lib/react-query';
 import { apiClient, PartnerS3 } from '../../../utils';
+import { useGetUser } from '../../../hooks';
 
 import { useGetVotingApps, VotingAppData } from './useGetVotingApps';
 
@@ -12,10 +13,12 @@ function getImageUrl(name: string) {
 type AppData = PartnerS3 & {
   logoSrc: string;
   voting?: VotingAppData;
+  userHarvest?: string;
 };
 
 const useGetApps = () => {
   const { data: votingApps } = useGetVotingApps();
+  const { data: user } = useGetUser();
 
   return useQuery({
     queryKey: appsKeys.apps(),
@@ -29,7 +32,8 @@ const useGetApps = () => {
       return data.partners.map((partner) => ({
         ...partner,
         logoSrc: getImageUrl(partner.name),
-        voting: apps?.find((app) => partner.ref_code === app.refCode)
+        voting: apps?.find((app) => partner.ref_code === app.refCode),
+        userHarvest: user?.harvested.find((project) => project.partner_refcode === partner.ref_code)?.total_points
       }));
     }
   });

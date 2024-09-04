@@ -11,10 +11,17 @@ type VotingDashboardProps = {
   isLoading?: boolean;
   apps?: VotingAppsData;
   isVotingDisabled?: boolean;
+  isVotingExceeded?: boolean;
   onVote?: (app: VotingAppData) => void;
 };
 
-const VotingDashboard = ({ apps, isLoading, isVotingDisabled, onVote }: VotingDashboardProps): JSX.Element => {
+const VotingDashboard = ({
+  apps,
+  isLoading,
+  isVotingDisabled,
+  isVotingExceeded,
+  onVote
+}: VotingDashboardProps): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
@@ -39,6 +46,7 @@ const VotingDashboard = ({ apps, isLoading, isVotingDisabled, onVote }: VotingDa
             data={category?.apps}
             isLoading={isLoading}
             isVotingDisabled={isVotingDisabled}
+            isVotingExceeded={isVotingExceeded}
             title={category?.name}
             onVote={onVote}
           />

@@ -9,11 +9,20 @@ import { AppCard } from './AppCard';
 type AppsListProps = {
   apps: AppData[];
   onVote?: (app: VotingAppData) => void;
+  isAuthenticated: boolean;
+  isVotingDisabled?: boolean;
+  isVotingExceeded?: boolean;
 };
 
 const ALL_CATEGORIES = 'all';
 
-const AppsList = ({ apps, onVote }: AppsListProps): JSX.Element => {
+const AppsList = ({
+  apps,
+  isAuthenticated,
+  isVotingDisabled,
+  isVotingExceeded,
+  onVote
+}: AppsListProps): JSX.Element => {
   const [tabCategory, setTabCategory] = useState(ALL_CATEGORIES);
 
   const categories = Array.from(new Set(apps.map((app) => app.category)));
@@ -44,6 +53,8 @@ const AppsList = ({ apps, onVote }: AppsListProps): JSX.Element => {
               key={app.ref_code}
               categories={app.categories || [app.category]}
               imgSrc={app.logoSrc}
+              isVotingDisabled={isVotingDisabled}
+              isVotingExceeded={isVotingExceeded}
               name={app.name}
               spiceMultiplier={
                 app.min_multiplier === app.max_multiplier
@@ -52,9 +63,9 @@ const AppsList = ({ apps, onVote }: AppsListProps): JSX.Element => {
               }
               spicePerHour={Number(app.points_distributed_per_hour)}
               url={app.project_url}
+              userHarvest={isAuthenticated ? Number(app.userHarvest || 0) : undefined}
               voting={app.voting}
               onVote={onVote}
-              // description={}
             />
           );
         })}

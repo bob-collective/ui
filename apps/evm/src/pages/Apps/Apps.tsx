@@ -1,3 +1,5 @@
+import { useAccount } from '@gobob/wagmi';
+
 import { Main } from '../../components';
 import { useGetUser } from '../../hooks';
 
@@ -7,15 +9,18 @@ import { useGetApps, useGetVotingApps, useVote, VotingAppData } from './hooks';
 const Apps = () => {
   const { data: votingAppsData, isLoading: isLoadingVotingApps } = useGetVotingApps();
 
-  const { data: apps, isLoading: isLoadingApps } = useGetApps();
+  const { data: apps } = useGetApps();
 
   const { mutate: vote } = useVote();
 
+  const { address } = useAccount();
   const { data: user } = useGetUser();
 
   const handleVote = (app: VotingAppData) => {
     vote({ refCode: app.refCode, isRetract: app.userHasVotedFor });
   };
+
+  const isAuthenticated = Boolean(user && address);
 
   return (
     <>
@@ -25,6 +30,7 @@ const Apps = () => {
           apps={votingAppsData}
           isLoading={isLoadingVotingApps}
           isVotingDisabled={!user}
+          isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
           onVote={handleVote}
         />
         <AppsPodyum
@@ -34,7 +40,15 @@ const Apps = () => {
             { name: 'Velodrome', imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png' }
           ]}
         />
-        {apps && <AppsList apps={apps} onVote={handleVote} />}
+        {apps && (
+          <AppsList
+            apps={apps}
+            isAuthenticated={isAuthenticated}
+            isVotingDisabled={!user}
+            isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
+            onVote={handleVote}
+          />
+        )}
       </Main>
     </>
   );

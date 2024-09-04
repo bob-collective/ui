@@ -34,11 +34,19 @@ type Props = {
   isLoading?: boolean;
   onVote?: (app: VotingAppData) => void;
   isVotingDisabled?: boolean;
+  isVotingExceeded?: boolean;
 };
 
 type AppsLeaderboardProps = Props;
 
-const AppsLeaderboard = ({ title, data, isLoading, isVotingDisabled, onVote }: AppsLeaderboardProps): JSX.Element => {
+const AppsLeaderboard = ({
+  title,
+  data,
+  isLoading,
+  isVotingDisabled,
+  isVotingExceeded,
+  onVote
+}: AppsLeaderboardProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} style={{ overflow: 'hidden' }}>
       <StyledWrapper alignItems='center'>
@@ -86,6 +94,7 @@ const AppsLeaderboard = ({ title, data, isLoading, isVotingDisabled, onVote }: A
                       iconPlacement='end'
                       isDisabled={isVotingDisabled}
                       isLit={item.userHasVotedFor}
+                      isVotingExceeded={isVotingExceeded}
                       onPress={() => onVote?.(item)}
                     />
                   </Flex>

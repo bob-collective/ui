@@ -1,4 +1,4 @@
-import { Twitter } from '@gobob/icons';
+import { Spice, Twitter } from '@gobob/icons';
 import {
   Avatar,
   Card,
@@ -18,8 +18,9 @@ import {
 } from '@gobob/ui';
 
 import { VotingAppData } from '../../hooks';
+import { SpiceChip } from '../SpiceChip';
 
-import { StyledImgWrapper, StyledSpiceChip } from './AppCard.style';
+import { StyledImgWrapper, StyledSpiceChipWrapper } from './AppCard.style';
 
 type Props = {
   name: string;
@@ -29,11 +30,13 @@ type Props = {
   imgSrc: string;
   spicePerHour: number;
   spiceMultiplier: string;
-  // userHarvest?: number;
+  userHarvest?: number;
   discord?: string;
   twitter?: string;
   voting?: VotingAppData;
   onVote?: (app: VotingAppData) => void;
+  isVotingDisabled?: boolean;
+  isVotingExceeded?: boolean;
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
@@ -49,10 +52,12 @@ const AppCard = ({
   voting,
   spicePerHour,
   spiceMultiplier,
-  // userHarvest,
+  userHarvest,
   discord,
   twitter,
   onVote,
+  isVotingDisabled,
+  isVotingExceeded,
   ...props
 }: AppCardPops): JSX.Element => {
   const { locale } = useLocale();
@@ -62,7 +67,18 @@ const AppCard = ({
       <Card {...props} borderColor='grey-300' padding='none'>
         <StyledImgWrapper alignItems='center' justifyContent='center' padding='5xl'>
           <Avatar borderColor='grey-300' rounded='md' size='9xl' src={imgSrc} />
-          {voting && <StyledSpiceChip amount={voting.weight} iconPlacement='end' onPress={() => onVote?.(voting)} />}
+          {voting && (
+            <StyledSpiceChipWrapper>
+              <SpiceChip
+                amount={voting.weight}
+                iconPlacement='end'
+                isDisabled={isVotingDisabled}
+                isLit={voting.userHasVotedFor}
+                isVotingExceeded={isVotingExceeded}
+                onPress={() => onVote?.(voting)}
+              />
+            </StyledSpiceChipWrapper>
+          )}
         </StyledImgWrapper>
         <Divider />
         <Flex direction='column' padding='xl'>
@@ -81,15 +97,6 @@ const AppCard = ({
                     <Twitter color='grey-50' size='s' />
                   </Link>
                 )}
-                {/* {socials.map((social) => {
-                  const Social = socialsMap[social.name];
-
-                  return (
-                    <Link key={social.name} external href={social.url}>
-                      <Social color='grey-50' size='s' />
-                    </Link>
-                  );
-                })} */}
               </Flex>
             </Flex>
             {description && (
@@ -106,13 +113,15 @@ const AppCard = ({
                 <Dd color='grey-50'>Spice Multiplier</Dd>
                 <Dt color='grey-50'>{spiceMultiplier}</Dt>
               </DlGroup>
-              {/* <DlGroup justifyContent='space-between'>
-                <Dd color='grey-50'>My Total Harvest</Dd>
-                <Dt color='primary-400' style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <Spice color='inherit' size='xs' />
-                  {Intl.NumberFormat(locale, { notation: 'compact' }).format(userHarvest || 0)}
-                </Dt>
-              </DlGroup> */}
+              {userHarvest !== undefined && (
+                <DlGroup justifyContent='space-between'>
+                  <Dd color='grey-50'>My Total Harvest</Dd>
+                  <Dt color='primary-400' style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    <Spice color='inherit' size='xs' />
+                    {Intl.NumberFormat(locale, { notation: 'compact' }).format(userHarvest || 0)}
+                  </Dt>
+                </DlGroup>
+              )}
             </Dl>
           </Flex>
           {categories && (
@@ -134,4 +143,3 @@ const AppCard = ({
 };
 
 export { AppCard };
-export type { AppCardPops };
