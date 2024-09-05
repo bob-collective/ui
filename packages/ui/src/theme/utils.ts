@@ -5,13 +5,16 @@ const style =
   (key: keyof typeof baseStyle, unit: 'rem' | 'px' = 'rem', base = 16) => {
     const value = baseStyle[key];
 
-    if (!value) return undefined;
-
-    if (unit === 'px') {
-      return `${baseStyle[key]}px`;
+    // TODO: handle this better
+    if (!value) {
+      return key;
     }
 
-    return rem(baseStyle[key], base);
+    if (unit === 'px') {
+      return `${value}px`;
+    }
+
+    return rem(value, base);
   };
 
 // MEMO: only supports 6 digits hex

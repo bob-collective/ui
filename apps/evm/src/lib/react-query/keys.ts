@@ -68,3 +68,8 @@ export const appsKeys = {
   appsVotes: (address: Address | undefined) => [...appsKeys.apps(), 'votes', address],
   vote: (address: Address | undefined) => [appsKeys.apps(), 'vote', address]
 };
+
+export const fusionKeys = {
+  fusion: () => ['fusion'],
+  leaderboard: () => [...fusionKeys.fusion(), 'leaderboard']
+};

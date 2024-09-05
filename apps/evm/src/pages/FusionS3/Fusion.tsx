@@ -5,6 +5,7 @@ import { useGetUser } from '../../hooks';
 
 import { Challenges, SeasonInfo, UserInfo } from './components';
 import { StyledBackground, StyledBackgroundOpacity } from './Fusion.style';
+import { Leaderboard } from './components';
 
 const Fusion = () => {
   const { address } = useAccount();
@@ -20,6 +21,7 @@ const Fusion = () => {
         <SeasonInfo />
         <UserInfo isAuthenticated={isAuthenticated} />
         <Challenges />
+        <Leaderboard />
       </Main>
     </Geoblock>
   );
