@@ -49,7 +49,13 @@ export type UserResponse = {
   data: any;
   created_at: Date;
   updated_at: Date;
-  leaderboardRank: { user_address: string; total_reward_points: number; total_quest_points: number; rank: number };
+  leaderboardRank: {
+    user_address: string;
+    total_points: number;
+    total_reward_points: number;
+    total_quest_points: number;
+    rank: number;
+  };
   depositStats: DepositStat[];
   totalUsdDeposited: number;
   withdrawStats: any[];
@@ -132,6 +138,26 @@ export interface ProjectVotingInfo {
   categories: ProjectCategory[];
   votesRemaining: number;
   roundEndsAt: string; // ISO 8601 date string
+}
+
+export interface ResultProject {
+  name: string;
+  weight: number;
+  rank: number;
+  refCode: string;
+  prizePoints: number;
+}
+
+// Define the interface for a category
+export interface ResultProjectCategory {
+  id: number;
+  name: string;
+  projects: ResultProject[];
+}
+
+// Define the main type for the object
+export interface ResultProjectVotingInfo {
+  categories: ResultProjectCategory[];
 }
 
 interface PartnersS3Response {
@@ -315,6 +341,12 @@ class ApiClient {
     });
 
     return response.json();
+  }
+
+  async getLastVotingResults(): Promise<ResultProjectVotingInfo> {
+    const response = await fetch(`${this.baseUrl}/finalized-voting-round/latest/results`);
+
+    return await response.json();
   }
 }
 

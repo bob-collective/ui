@@ -66,6 +66,7 @@ export const signUpKeys = {
 export const appsKeys = {
   apps: () => ['apps'],
   appsVotes: (address: Address | undefined) => [...appsKeys.apps(), 'votes', address],
+  appsResultVotes: () => [...appsKeys.apps(), 'result-votes'],
   vote: (address: Address | undefined) => [appsKeys.apps(), 'vote', address]
 };
 

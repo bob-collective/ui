@@ -1,51 +1,45 @@
 import { Button, ChevronLeft, ChevronRight, Flex, H2, useMediaQuery } from '@gobob/ui';
-import { Settings } from 'react-slick';
+import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { useTheme } from 'styled-components';
+import { useRef } from 'react';
 
 import { QuestRefCodes } from '../../../../utils';
 
 import { ChallengeCard } from './ChallengeCard';
 import { StyledSlider } from './Challenges.style';
 
-function NextArrow(props: any) {
-  const { className, style, onClick } = props;
-
-  return (
-    <Button isIconOnly className={className} style={style} onClick={onClick}>
-      <ChevronRight strokeWidth='3' />
-    </Button>
-  );
-}
-
-function PrevArrow(props: any) {
-  const { className, style, onClick } = props;
-
-  return (
-    <Button isIconOnly className={className} style={style} onClick={onClick}>
-      <ChevronLeft strokeWidth='3' />
-    </Button>
-  );
-}
-
 const settings: Settings = {
-  dots: true,
   infinite: false,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />
+  arrows: false,
+  slidesToScroll: 1
 };
 
 const Challenges = () => {
+  const sliderRef = useRef<Slider>(null);
+
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
+  const isLargeDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const isTable = useMediaQuery(theme.breakpoints.up('s'));
+
+  const handleNext = () => {
+    sliderRef.current?.slickNext();
+  };
+
+  const handlePrevious = () => {
+    sliderRef.current?.slickPrev();
+  };
 
   return (
     <Flex direction='column' gap='2xl' marginTop='2xl'>
-      <H2 size='2xl'>Challenges</H2>
-      <StyledSlider {...settings} arrows={isDesktop}>
+      <H2 size='3xl'>Challenges</H2>
+      <StyledSlider
+        ref={sliderRef}
+        {...settings}
+        slidesToShow={isLargeDesktop ? 4 : isDesktop ? 3 : isTable ? 2 : 1.25}
+      >
         <ChallengeCard
           description='Provide Liquidity with BOB'
           href='#'
@@ -77,6 +71,14 @@ const Challenges = () => {
           questRefCode={QuestRefCodes.INTRACT}
         />
       </StyledSlider>
+      <Flex gap='md' justifyContent='flex-end'>
+        <Button isIconOnly onPress={handlePrevious}>
+          <ChevronLeft strokeWidth='3' />
+        </Button>
+        <Button isIconOnly onClick={handleNext}>
+          <ChevronRight strokeWidth='3' />
+        </Button>
+      </Flex>
     </Flex>
   );
 };

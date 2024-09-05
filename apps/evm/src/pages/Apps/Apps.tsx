@@ -5,11 +5,14 @@ import { useGetUser } from '../../hooks';
 
 import { AppsList, AppsPodyum, HeroBanner, VotingDashboard } from './components';
 import { useGetApps, useGetVotingApps, useVote, VotingAppData } from './hooks';
+import { useGetPodyumData } from './hooks/useGetPodyumData';
 
 const Apps = () => {
   const { data: votingAppsData, isLoading: isLoadingVotingApps } = useGetVotingApps();
 
   const { data: apps, isLoading: isLoadingApps } = useGetApps();
+
+  const { data: podyumApps } = useGetPodyumData();
 
   const { mutate: vote } = useVote();
 
@@ -34,13 +37,7 @@ const Apps = () => {
           isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
           onVote={handleVote}
         />
-        <AppsPodyum
-          apps={[
-            { name: 'Velodrome', imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png' },
-            { name: 'Velodrome', imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png' },
-            { name: 'Velodrome', imgSrc: 'https://app.gobob.xyz/assets/velodrome-9314312b.png' }
-          ]}
-        />
+        <AppsPodyum apps={podyumApps} />
         <AppsList
           apps={apps}
           isAuthenticated={isAuthenticated}

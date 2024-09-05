@@ -1,12 +1,12 @@
 import { CardProps, Flex, H2, P } from '@gobob/ui';
 
+import { ResultVotingAppData } from '../../hooks/useGetPodyumData';
+
 import { StyledCard, StyledContentWrapper, StyledOpacityOverlay } from './AppsPodyum.style';
 import { PodyumSpot } from './PodyumSpot';
 
-type App = { name: string; imgSrc: string };
-
 type Props = {
-  apps: [App, App, App];
+  apps?: [ResultVotingAppData, ResultVotingAppData, ResultVotingAppData];
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
@@ -14,7 +14,7 @@ type InheritAttrs = Omit<CardProps, keyof Props>;
 type AppPodyumProps = Props & InheritAttrs;
 
 const AppsPodyum = ({ apps }: AppPodyumProps): JSX.Element => {
-  const [first, second, third] = apps;
+  const [first, second, third] = apps || [undefined, undefined, undefined];
 
   return (
     <StyledCard borderColor='grey-300' marginTop='3xl' padding='none'>

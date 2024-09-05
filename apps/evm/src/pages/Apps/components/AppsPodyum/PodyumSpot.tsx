@@ -1,8 +1,8 @@
-import { Avatar, Flex, FlexProps, P, Spacing } from '@gobob/ui';
+import { Avatar, Flex, FlexProps, P, Skeleton, Spacing } from '@gobob/ui';
+
+import { ResultVotingAppData } from '../../hooks/useGetPodyumData';
 
 import { StyledAvatarWrapper, StyledMedal } from './AppsPodyum.style';
-
-type App = { name: string; imgSrc: string };
 
 type Spot = 'first' | 'second' | 'third';
 
@@ -25,7 +25,7 @@ const numericSpotMap: Record<Spot, 1 | 2 | 3> = {
 };
 
 type Props = {
-  app: App;
+  app?: ResultVotingAppData;
   spot: Spot;
 };
 
@@ -42,14 +42,21 @@ const PodyumSpot = ({ app, spot, ...props }: PodyumSpotProps): JSX.Element => {
           position={numericSpotMap[spot]}
           size={{ base: 'lg', md: 'xl' }}
         />
-        <Avatar
-          borderColor='grey-300'
-          rounded='md'
-          size={{ base: mobileSpotMap[spot], md: desktopSpotMap[spot] }}
-          src={app.imgSrc}
-        />
+        {app ? (
+          <Avatar
+            borderColor='grey-300'
+            rounded='md'
+            size={{ base: mobileSpotMap[spot], md: desktopSpotMap[spot] }}
+            src={app.logoSrc}
+          />
+        ) : (
+          <Skeleton
+            height={{ base: mobileSpotMap[spot], md: desktopSpotMap[spot] }}
+            width={{ base: mobileSpotMap[spot], md: desktopSpotMap[spot] }}
+          />
+        )}
       </StyledAvatarWrapper>
-      <P size={{ base: 's', md: 'md' }}>{app.name}</P>
+      {app ? <P size={{ base: 's', md: 'md' }}>{app.name}</P> : <Skeleton width='5xl' />}
     </Flex>
   );
 };

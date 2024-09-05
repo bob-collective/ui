@@ -1,19 +1,55 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Flex, H2, useLocale } from '@gobob/ui';
+import { Chip, Flex, H2, Span, Tabs, TabsItem, useLocale } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
-import { useId, useMemo } from 'react';
+import { useId, useMemo, useState } from 'react';
 import { ReactNode } from 'react';
+import { Spice } from '@gobob/icons';
 
 import { useGetUser } from '../../../../hooks';
 import { QuestRefCodes, apiClient } from '../../../../utils';
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 import { fusionKeys } from '../../../../lib/react-query';
+import { Medal } from '../../../Apps/components/Medal';
 
-import { StyledGrid } from './Leaderboard.style';
 import { StyledTable } from './Leaderboard.style';
 
+const SpiceColumn = ({ locale, amount }: { locale: any; amount: number }) => (
+  <Flex alignItems='center' gap='s' justifyContent='flex-end'>
+    <Spice />
+    <Span size='inherit'>{Intl.NumberFormat(locale).format(Number(amount))}</Span>
+  </Flex>
+);
+
+const NameColumn = ({ rank, name }: { rank: number; name: string }) => (
+  <Flex alignItems='center' gap='s'>
+    {rank > 10 ? (
+      <Chip background='grey-400' borderColor='grey-300' rounded='s'>
+        <Span size='md' weight='bold'>
+          {rank}
+        </Span>
+      </Chip>
+    ) : (
+      <Medal position={rank} size='xl' />
+    )}
+    <Span size='inherit'>{name}</Span>
+  </Flex>
+);
+
+const QuestsColumn = ({ hasGalxe, hasIntract }: { hasGalxe: boolean; hasIntract: boolean }) => (
+  <Flex>
+    {hasGalxe && <QuestOwnerIcon name='galxe' />}
+    {hasIntract && <QuestOwnerIcon name='intract' />}
+  </Flex>
+);
+
+enum LeaderboardTabs {
+  SEASON,
+  HOURS_24,
+  DAYS_7,
+  QUESTS_ONLY
+}
+
 export enum LeaderboardColumns {
-  RANK = 'rank',
   NAME = 'name',
   INVITED_BY = 'invitedBy',
   QUESTS = 'quests',
@@ -22,7 +58,6 @@ export enum LeaderboardColumns {
 
 export type LeaderboardRow = {
   id: string;
-  [LeaderboardColumns.RANK]: ReactNode;
   [LeaderboardColumns.NAME]: ReactNode;
   [LeaderboardColumns.INVITED_BY]: ReactNode;
   [LeaderboardColumns.QUESTS]: ReactNode;
@@ -30,7 +65,6 @@ export type LeaderboardRow = {
 };
 
 const columns = [
-  { name: 'Rank', id: LeaderboardColumns.RANK },
   { name: 'Name', id: LeaderboardColumns.NAME },
   { name: 'Invited By', id: LeaderboardColumns.INVITED_BY },
   { name: 'Quests', id: LeaderboardColumns.QUESTS },
@@ -40,40 +74,37 @@ const columns = [
 const userRankKey = 'userRankKey';
 
 const Leaderboard = (): JSX.Element => {
-  const { address } = useAccount();
   const id = useId();
   const { locale } = useLocale();
 
+  const { address } = useAccount();
   const { data: user } = useGetUser();
+
+  const [tab, setTab] = useState(LeaderboardTabs.SEASON);
 
   const { data } = useQuery({
     queryKey: fusionKeys.leaderboard(),
-    queryFn: async () => {
-      const fetchedData = await apiClient.getQuestLeaderboard(10, 0);
-
-      return fetchedData.leaderboard.map((item, idx) => {
-        return {
-          id: `${item.username}${idx}`,
-          [LeaderboardColumns.RANK]: <Flex paddingY='md'>{item.rank}</Flex>,
-          [LeaderboardColumns.INVITED_BY]: item.referred_by || '-',
-          [LeaderboardColumns.NAME]: item.username,
-          [LeaderboardColumns.QUESTS]: item.points_breakdown && (
-            <StyledGrid>
-              {item.points_breakdown[QuestRefCodes.GALXE] && (
-                <QuestOwnerIcon name='galxe' style={{ gridColumn: '1' }} />
-              )}
-              {item.points_breakdown[QuestRefCodes.INTRACT] && (
-                <QuestOwnerIcon name='intract' style={{ gridColumn: '2' }} />
-              )}
-            </StyledGrid>
-          ),
-          [LeaderboardColumns.SPICE]: Intl.NumberFormat(locale).format(Number(item.total_points))
-        };
-      });
-    },
+    queryFn: async () => apiClient.getQuestLeaderboard(10, 0),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    refetchInterval: INTERVAL.MINUTE
+    refetchInterval: INTERVAL.MINUTE,
+    select: (data) => {
+      return data.leaderboard.map((item, idx) => {
+        return {
+          id: `${item.username}${idx}`,
+          // [LeaderboardColumns.RANK]: <Flex paddingY='md'>{item.rank}</Flex>,
+          [LeaderboardColumns.INVITED_BY]: item.referred_by || '-',
+          [LeaderboardColumns.NAME]: <NameColumn name={item.username} rank={Number(item.rank)} />,
+          [LeaderboardColumns.QUESTS]: (
+            <QuestsColumn
+              hasGalxe={!!item.points_breakdown?.[QuestRefCodes.GALXE]}
+              hasIntract={!!item.points_breakdown?.[QuestRefCodes.INTRACT]}
+            />
+          ),
+          [LeaderboardColumns.SPICE]: <SpiceColumn amount={Number(item.total_points)} locale={locale} />
+        };
+      });
+    }
   });
 
   const flatData: LeaderboardRow[] = useMemo(() => {
@@ -83,13 +114,13 @@ const Leaderboard = (): JSX.Element => {
             {
               id: userRankKey,
               invitedBy: user.referred_by,
-              name: user.username,
-              spice: Intl.NumberFormat().format(user.leaderboardRank?.total_quest_points || 0),
+              name: <NameColumn name={user.username} rank={user.leaderboardRank.rank} />,
+              spice: <SpiceColumn amount={user.leaderboardRank?.total_points || 0} locale={locale} />,
               quests: user.quests_breakdown && (
-                <Flex gap='xxs'>
-                  {user.quests_breakdown[QuestRefCodes.GALXE] && <QuestOwnerIcon name='galxe' />}
-                  {user.quests_breakdown[QuestRefCodes.INTRACT] && <QuestOwnerIcon name='intract' />}
-                </Flex>
+                <QuestsColumn
+                  hasGalxe={!!user.quests_breakdown?.[QuestRefCodes.GALXE]}
+                  hasIntract={!!user.quests_breakdown?.[QuestRefCodes.INTRACT]}
+                />
               ),
               rank: <Flex paddingY='md'>{user.leaderboardRank?.rank || '-'}</Flex>
             }
@@ -97,11 +128,25 @@ const Leaderboard = (): JSX.Element => {
         : [];
 
     return [...userData, ...(data || [])];
-  }, [data, address, user]);
+  }, [address, user, locale, data]);
 
   return (
-    <Flex direction='column'>
-      <H2>Leaderboard</H2>
+    <Flex direction='column' gap='2xl' marginTop='3xl'>
+      <H2 size='3xl'>Leaderboard</H2>
+      <Tabs selectedKey={tab} onSelectionChange={(key) => setTab(key as LeaderboardTabs)}>
+        <TabsItem key={LeaderboardTabs.SEASON} title='Season Three'>
+          <></>
+        </TabsItem>
+        <TabsItem key={LeaderboardTabs.HOURS_24} title='Last 24 Hours'>
+          <></>
+        </TabsItem>
+        <TabsItem key={LeaderboardTabs.DAYS_7} title='Last 7 Days'>
+          <></>
+        </TabsItem>
+        <TabsItem key={LeaderboardTabs.QUESTS_ONLY} title='Quests Only'>
+          <></>
+        </TabsItem>
+      </Tabs>
       <StyledTable
         isStickyHeader
         aria-labelledby={id}
@@ -109,11 +154,6 @@ const Leaderboard = (): JSX.Element => {
         rows={flatData}
         selectedKeys={[userRankKey]}
         selectionMode='single'
-        wrapperProps={
-          {
-            marginTop: '4xl'
-          } as any
-        }
       />
     </Flex>
   );
