@@ -2,6 +2,8 @@ import { Flex, H2, P, Span, Stepper, StepperItem } from '@gobob/ui';
 import { useId } from '@react-aria/utils';
 import { useTranslation } from 'react-i18next';
 
+import { Countdown } from '../Countdown';
+
 import { StyledWrapper } from './ProjectStatus.style';
 
 const ProjectStatus = () => {
@@ -27,6 +29,7 @@ const ProjectStatus = () => {
             <StepperItem textValue='3' />
           </Stepper>
         </Flex>
+        <Countdown />
         <P color='grey-50' size='s'>
           {t('fusion.seasonDescription')}
         </P>
