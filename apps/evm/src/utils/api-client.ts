@@ -33,7 +33,11 @@ interface S3LeaderboardData {
 interface Season3Data {
   usedProjects: any[];
   s3LeaderboardData: S3LeaderboardData[];
-  harvestedPointsS3: any[];
+  harvestedPointsS3: Array<{
+    partner_name: string;
+    partner_refcode: string;
+    total_points: string;
+  }>;
 }
 
 export type UserResponse = {
@@ -186,6 +190,106 @@ export interface PartnerS3 {
   max_multiplier: string;
   min_multiplier: string;
   points_distributed_per_hour_rank: string;
+}
+
+export interface LeaderboardS3Response {
+  leaderboardData: LeaderboardData;
+  totalDistributedPoints: S3TotalDistributedPoint[];
+}
+
+interface LeaderboardData {
+  s3_leaderboard: S3Leaderboard[];
+  s3_one_day_change: S3OneDayChange[];
+  s3_seven_day_change: S3SevenDayChange[];
+  s3_quest_leaderboard: S3QuestLeaderboard[];
+}
+
+interface S3Leaderboard {
+  global_rank: string;
+  group_rank: string;
+  quest_rank: string;
+  total_points: number;
+  username: string;
+  referral_code: string;
+  evm_address?: string;
+  tvl_points: string;
+  received_pts: string;
+  distributed_pts: string;
+  quest_points: string;
+  quests_breakdown: any;
+  is_partner: boolean;
+  ref_points?: number;
+  ts: string;
+}
+
+interface S3OneDayChange {
+  global_rank: string;
+  group_rank: string;
+  quest_rank: string;
+  total_points: number;
+  username: string;
+  referral_code: string;
+  evm_address: string;
+  tvl_points: string;
+  received_pts: string;
+  distributed_pts: string;
+  quest_points: string;
+  quests_breakdown: any;
+  is_partner: boolean;
+  ref_points: number;
+  global_rank_diff: any;
+  group_rank_diff: any;
+  quest_rank_diff: any;
+}
+
+interface S3SevenDayChange {
+  global_rank: string;
+  group_rank: string;
+  quest_rank: string;
+  total_points: number;
+  username: string;
+  referral_code: string;
+  evm_address: string;
+  tvl_points: string;
+  received_pts: string;
+  distributed_pts: string;
+  quest_points: string;
+  quests_breakdown: any;
+  is_partner: boolean;
+  ref_points: number;
+  global_rank_diff: any;
+  group_rank_diff: any;
+  quest_rank_diff: any;
+}
+
+interface S3QuestLeaderboard {
+  global_rank: string;
+  group_rank: string;
+  quest_rank: string;
+  total_points: number;
+  username: string;
+  referral_code: string;
+  evm_address?: string;
+  tvl_points: string;
+  received_pts: string;
+  distributed_pts: string;
+  quest_points: string;
+  quests_breakdown: any;
+  is_partner: boolean;
+  ref_points?: number;
+  ts: string;
+}
+
+interface S3TotalDistributedPoint {
+  sum: string;
+}
+
+export interface TokenInfo {
+  symbol: string;
+  decimals: number;
+  l2_address: string;
+  multiplier: string;
+  latest_price_in_usd: string;
 }
 
 class ApiClient {
@@ -345,6 +449,24 @@ class ApiClient {
 
   async getLastVotingResults(): Promise<ResultProjectVotingInfo> {
     const response = await fetch(`${this.baseUrl}/finalized-voting-round/latest/results`);
+
+    return await response.json();
+  }
+
+  async getLeaderboardSeason3(limit: number, offset: number): Promise<LeaderboardS3Response> {
+    const response = await fetch(`${this.baseUrl}/leaderboards-s3?limit=${limit}&offset=${offset}`);
+
+    return await response.json();
+  }
+
+  async getQuestsS3(limit: number, offset: number): Promise<LeaderboardS3Response> {
+    const response = await fetch(`${this.baseUrl}/leaderboards-s3?limit=${limit}&offset=${offset}`);
+
+    return await response.json();
+  }
+
+  async getTokenInfo(): Promise<TokenInfo[]> {
+    const response = await fetch(`${this.baseUrl}/get-token-info`);
 
     return await response.json();
   }

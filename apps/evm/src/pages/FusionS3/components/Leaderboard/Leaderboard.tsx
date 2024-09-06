@@ -1,7 +1,7 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Chip, Flex, H2, Span, Tabs, TabsItem, useLocale } from '@gobob/ui';
+import { Chip, Flex, H2, Skeleton, Span, Table, Tabs, TabsItem, useLocale } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
-import { useId, useMemo, useState } from 'react';
+import { useId, useState } from 'react';
 import { ReactNode } from 'react';
 import { Spice } from '@gobob/icons';
 
@@ -11,10 +11,10 @@ import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 import { fusionKeys } from '../../../../lib/react-query';
 import { Medal } from '../../../Apps/components/Medal';
 
-import { StyledTable } from './Leaderboard.style';
+import { StyledQuestList, StyledSkeletonWrapper } from './Leaderboard.style';
 
 const SpiceColumn = ({ locale, amount }: { locale: any; amount: number }) => (
-  <Flex alignItems='center' gap='s' justifyContent='flex-end'>
+  <Flex alignItems='center' gap='s'>
     <Spice />
     <Span size='inherit'>{Intl.NumberFormat(locale).format(Number(amount))}</Span>
   </Flex>
@@ -35,18 +35,33 @@ const NameColumn = ({ rank, name }: { rank: number; name: string }) => (
   </Flex>
 );
 
-const QuestsColumn = ({ hasGalxe, hasIntract }: { hasGalxe: boolean; hasIntract: boolean }) => (
-  <Flex>
-    {hasGalxe && <QuestOwnerIcon name='galxe' />}
-    {hasIntract && <QuestOwnerIcon name='intract' />}
+const QuestsColumn = ({
+  hasGalxe,
+  hasIntract,
+  earnedSpice,
+  locale
+}: {
+  locale: any;
+  hasGalxe: boolean;
+  hasIntract: boolean;
+  earnedSpice?: number;
+}) => (
+  <Flex alignItems='center' gap='s' justifyContent='flex-end'>
+    <StyledQuestList>
+      {hasGalxe && <QuestOwnerIcon name='galxe' />}
+      {hasIntract && <QuestOwnerIcon name='intract' />}
+    </StyledQuestList>
+    {!!earnedSpice && (
+      <Span size='inherit'>+{Intl.NumberFormat(locale, { notation: 'compact' }).format(Number(earnedSpice))}</Span>
+    )}
   </Flex>
 );
 
 enum LeaderboardTabs {
-  SEASON,
-  HOURS_24,
-  DAYS_7,
-  QUESTS_ONLY
+  SEASON = 's3_leaderboard',
+  HOURS_24 = 's3_one_day_change',
+  DAYS_7 = 's3_seven_day_change',
+  QUESTS_ONLY = 's3_quest_leaderboard'
 }
 
 export enum LeaderboardColumns {
@@ -60,15 +75,15 @@ export type LeaderboardRow = {
   id: string;
   [LeaderboardColumns.NAME]: ReactNode;
   [LeaderboardColumns.INVITED_BY]: ReactNode;
-  [LeaderboardColumns.QUESTS]: ReactNode;
   [LeaderboardColumns.SPICE]: ReactNode;
+  [LeaderboardColumns.QUESTS]: ReactNode;
 };
 
 const columns = [
   { name: 'Name', id: LeaderboardColumns.NAME },
   { name: 'Invited By', id: LeaderboardColumns.INVITED_BY },
-  { name: 'Quests', id: LeaderboardColumns.QUESTS },
-  { name: 'Spice', id: LeaderboardColumns.SPICE }
+  { name: 'Spice', id: LeaderboardColumns.SPICE },
+  { name: 'Quests', id: LeaderboardColumns.QUESTS }
 ];
 
 const userRankKey = 'userRankKey';
@@ -82,53 +97,79 @@ const Leaderboard = (): JSX.Element => {
 
   const [tab, setTab] = useState(LeaderboardTabs.SEASON);
 
-  const { data } = useQuery({
+  const isAuthenticated = address && user;
+
+  const { data, isLoading } = useQuery({
     queryKey: fusionKeys.leaderboard(),
-    queryFn: async () => apiClient.getQuestLeaderboard(10, 0),
+    queryFn: async () => apiClient.getLeaderboardSeason3(10, 0),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    refetchInterval: INTERVAL.MINUTE,
-    select: (data) => {
-      return data.leaderboard.map((item, idx) => {
+    gcTime: INTERVAL.HOUR,
+    select: (data): LeaderboardRow[] => {
+      const leaderboard = data.leaderboardData[tab].map((item, idx) => {
+        const questPoints =
+          (item.quests_breakdown?.[QuestRefCodes.GALXE] || 0) + (item.quests_breakdown?.[QuestRefCodes.INTRACT] || 0);
+
         return {
           id: `${item.username}${idx}`,
           // [LeaderboardColumns.RANK]: <Flex paddingY='md'>{item.rank}</Flex>,
-          [LeaderboardColumns.INVITED_BY]: item.referred_by || '-',
-          [LeaderboardColumns.NAME]: <NameColumn name={item.username} rank={Number(item.rank)} />,
-          [LeaderboardColumns.QUESTS]: (
-            <QuestsColumn
-              hasGalxe={!!item.points_breakdown?.[QuestRefCodes.GALXE]}
-              hasIntract={!!item.points_breakdown?.[QuestRefCodes.INTRACT]}
+          //TODO: remove any
+          [LeaderboardColumns.INVITED_BY]: (item as any)?.referred_by || '-',
+          [LeaderboardColumns.NAME]: (
+            <NameColumn
+              name={item.username}
+              rank={tab === LeaderboardTabs.QUESTS_ONLY ? Number(item.quest_rank) : Number(item.group_rank)}
             />
           ),
-          [LeaderboardColumns.SPICE]: <SpiceColumn amount={Number(item.total_points)} locale={locale} />
+          [LeaderboardColumns.QUESTS]: (
+            <QuestsColumn
+              earnedSpice={questPoints}
+              hasGalxe={!!item.quests_breakdown?.[QuestRefCodes.GALXE]}
+              hasIntract={!!item.quests_breakdown?.[QuestRefCodes.INTRACT]}
+              locale={locale}
+            />
+          ),
+          [LeaderboardColumns.SPICE]: (
+            <SpiceColumn
+              amount={tab === LeaderboardTabs.QUESTS_ONLY ? Number(item.quest_points) : Number(item.total_points)}
+              locale={locale}
+            />
+          )
         };
       });
+
+      const userData: LeaderboardRow | undefined = isAuthenticated && {
+        id: userRankKey,
+        invitedBy: user.referred_by,
+        name: <NameColumn name={user.username} rank={user.leaderboardRank.rank} />,
+        spice: <SpiceColumn amount={user.leaderboardRank?.total_points || 0} locale={locale} />,
+        quests: user.quests_breakdown && (
+          <QuestsColumn
+            earnedSpice={Number(user.total_quest_points)}
+            hasGalxe={!!user.quests_breakdown?.[QuestRefCodes.GALXE]}
+            hasIntract={!!user.quests_breakdown?.[QuestRefCodes.INTRACT]}
+            locale={locale}
+          />
+        )
+      };
+
+      return userData ? [userData, ...leaderboard] : leaderboard;
     }
   });
 
-  const flatData: LeaderboardRow[] = useMemo(() => {
-    const userData =
-      address && user
-        ? [
-            {
-              id: userRankKey,
-              invitedBy: user.referred_by,
-              name: <NameColumn name={user.username} rank={user.leaderboardRank.rank} />,
-              spice: <SpiceColumn amount={user.leaderboardRank?.total_points || 0} locale={locale} />,
-              quests: user.quests_breakdown && (
-                <QuestsColumn
-                  hasGalxe={!!user.quests_breakdown?.[QuestRefCodes.GALXE]}
-                  hasIntract={!!user.quests_breakdown?.[QuestRefCodes.INTRACT]}
-                />
-              ),
-              rank: <Flex paddingY='md'>{user.leaderboardRank?.rank || '-'}</Flex>
-            }
-          ]
-        : [];
-
-    return [...userData, ...(data || [])];
-  }, [address, user, locale, data]);
+  const skeletonData = Array(isAuthenticated ? 11 : 10)
+    .fill(undefined)
+    .map((_, idx) => ({
+      id: idx,
+      name: (
+        <StyledSkeletonWrapper>
+          <Skeleton height='2xl' width='10xl' />
+        </StyledSkeletonWrapper>
+      ),
+      invitedBy: <Skeleton height='2xl' width='8xl' />,
+      spice: <Skeleton height='2xl' width='7xl' />,
+      quests: <Skeleton height='2xl' width='6xl' />
+    }));
 
   return (
     <Flex direction='column' gap='2xl' marginTop='3xl'>
@@ -147,14 +188,27 @@ const Leaderboard = (): JSX.Element => {
           <></>
         </TabsItem>
       </Tabs>
-      <StyledTable
-        isStickyHeader
-        aria-labelledby={id}
-        columns={columns}
-        rows={flatData}
-        selectedKeys={[userRankKey]}
-        selectionMode='single'
-      />
+      {data && !isLoading ? (
+        <Table
+          isStickyHeader
+          aria-labelledby={id}
+          columns={columns}
+          rows={data}
+          selectedKeys={[userRankKey]}
+          selectionMode='single'
+        />
+      ) : (
+        <Flex direction='column'>
+          <Table
+            isStickyHeader
+            aria-labelledby={id}
+            columns={columns}
+            rows={skeletonData}
+            selectedKeys={[userRankKey]}
+            selectionMode='single'
+          />
+        </Flex>
+      )}
     </Flex>
   );
 };

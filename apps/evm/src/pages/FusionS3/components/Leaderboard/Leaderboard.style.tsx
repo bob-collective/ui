@@ -1,8 +1,14 @@
-import { Table } from '@gobob/ui';
+import { Flex } from '@gobob/ui';
 import styled from 'styled-components';
 
-const StyledTable = styled(Table)`
-  max-height: calc(100dvh - 13rem);
+const StyledQuestList = styled(Flex)`
+  :last-child:not(:first-child) {
+    margin-left: -${({ theme }) => theme.spacing('s')};
+  }
 `;
 
-export { StyledTable };
+const StyledSkeletonWrapper = styled(Flex)`
+  height: ${({ theme }) => theme.spacing('4xl')};
+`;
+
+export { StyledQuestList, StyledSkeletonWrapper };

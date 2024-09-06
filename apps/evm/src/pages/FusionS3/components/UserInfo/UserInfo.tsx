@@ -1,18 +1,22 @@
 import { Spice } from '@gobob/icons';
 import { ArrowRight, Bars3, Button, Divider, Flex, H3, P, SolidDocumentDuplicate, Span } from '@gobob/ui';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import { LoginSection } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
 
 import { StyledDl, StyledLoginCard } from './UserInfo.style';
 import { UserInfoCard } from './UserInfoCard';
+import { UserAssetsModal } from './UserAssetsModal';
 
 type UserInfoProps = {
   isAuthenticated?: boolean;
 };
 
 const UserInfo = ({ isAuthenticated }: UserInfoProps) => {
+  const [isUserAssetsModalOpen, setUserAssetsModalOpen] = useState(false);
+
   if (!isAuthenticated) {
     return (
       <Flex justifyContent='center' marginTop='4xl'>
@@ -37,13 +41,14 @@ const UserInfo = ({ isAuthenticated }: UserInfoProps) => {
     <StyledDl direction={{ base: 'column', md: 'row' }} gap='lg' marginTop='4xl'>
       <UserInfoCard description='$172,124.22' title='Assets Deposited'>
         <Flex gap='md' marginTop='xl'>
-          <Button variant='outline'>
+          <Button variant='outline' onPress={() => setUserAssetsModalOpen(true)}>
             <Bars3 />
           </Button>
           <Button fullWidth color='primary'>
             Bridge More
           </Button>
         </Flex>
+        <UserAssetsModal isOpen={isUserAssetsModalOpen} onClose={() => setUserAssetsModalOpen(false)} />
       </UserInfoCard>
       <UserInfoCard description='3' title='Apps Used' tooltipLabel='TBD'>
         <Flex gap='md' marginTop='xl'>
