@@ -1,7 +1,7 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Chip, Flex, H2, Skeleton, Span, Table, Tabs, TabsItem, useLocale } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
-import { useId, useState } from 'react';
+import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
 import { Spice } from '@gobob/icons';
 
@@ -99,6 +99,48 @@ const Leaderboard = (): JSX.Element => {
 
   const isAuthenticated = address && user;
 
+  const getUserData = useCallback(() => {
+    if (!isAuthenticated) return;
+
+    switch (tab) {
+      case LeaderboardTabs.SEASON: {
+        return {
+          rank: user.leaderboardRank.rank,
+          questPoints: user.leaderboardRank.total_quest_points,
+          points: user.leaderboardRank.total_points
+        };
+      }
+      case LeaderboardTabs.HOURS_24: {
+        const [data] = user.season3Data.oneDayLeaderboardEntry;
+
+        return {
+          rank: data.group_rank,
+          questPoints: data.quest_points,
+          points: data.total_points
+        };
+      }
+      case LeaderboardTabs.DAYS_7: {
+        const [data] = user.season3Data.sevenDayLeaderboardEntry;
+
+        return {
+          rank: data.group_rank,
+          questPoints: data.quest_points,
+          points: data.total_points
+        };
+      }
+      // TODO: im not 100% sure here
+      case LeaderboardTabs.QUESTS_ONLY: {
+        const [data] = user.season3Data.s3LeaderboardData;
+
+        return {
+          rank: data.group_rank,
+          questPoints: data.quest_points,
+          points: data.quest_points
+        };
+      }
+    }
+  }, [isAuthenticated, tab, user]);
+
   const { data, isLoading } = useQuery({
     queryKey: fusionKeys.leaderboard(),
     queryFn: async () => apiClient.getLeaderboardSeason3(10, 0),
@@ -106,6 +148,8 @@ const Leaderboard = (): JSX.Element => {
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR,
     select: (data): LeaderboardRow[] => {
+      const isQuestLeaderboard = tab === LeaderboardTabs.QUESTS_ONLY;
+
       const leaderboard = data.leaderboardData[tab].map((item, idx) => {
         const questPoints =
           (item.quests_breakdown?.[QuestRefCodes.GALXE] || 0) + (item.quests_breakdown?.[QuestRefCodes.INTRACT] || 0);
@@ -118,7 +162,7 @@ const Leaderboard = (): JSX.Element => {
           [LeaderboardColumns.NAME]: (
             <NameColumn
               name={item.username}
-              rank={tab === LeaderboardTabs.QUESTS_ONLY ? Number(item.quest_rank) : Number(item.group_rank)}
+              rank={isQuestLeaderboard ? Number(item.quest_rank) : Number(item.group_rank)}
             />
           ),
           [LeaderboardColumns.QUESTS]: (
@@ -131,27 +175,35 @@ const Leaderboard = (): JSX.Element => {
           ),
           [LeaderboardColumns.SPICE]: (
             <SpiceColumn
-              amount={tab === LeaderboardTabs.QUESTS_ONLY ? Number(item.quest_points) : Number(item.total_points)}
+              amount={isQuestLeaderboard ? Number(item.quest_points) : Number(item.total_points)}
               locale={locale}
             />
           )
         };
       });
 
-      const userData: LeaderboardRow | undefined = isAuthenticated && {
-        id: userRankKey,
-        invitedBy: user.referred_by,
-        name: <NameColumn name={user.username} rank={user.leaderboardRank.rank} />,
-        spice: <SpiceColumn amount={user.leaderboardRank?.total_points || 0} locale={locale} />,
-        quests: user.quests_breakdown && (
-          <QuestsColumn
-            earnedSpice={Number(user.total_quest_points)}
-            hasGalxe={!!user.quests_breakdown?.[QuestRefCodes.GALXE]}
-            hasIntract={!!user.quests_breakdown?.[QuestRefCodes.INTRACT]}
-            locale={locale}
-          />
-        )
-      };
+      let userData: LeaderboardRow | undefined;
+
+      if (isAuthenticated) {
+        const userLeaderboardData = getUserData();
+
+        if (userLeaderboardData) {
+          userData = {
+            id: userRankKey,
+            invitedBy: user.referred_by,
+            name: <NameColumn name={user.username} rank={Number(userLeaderboardData.rank)} />,
+            spice: <SpiceColumn amount={Number(userLeaderboardData.points)} locale={locale} />,
+            quests: user.quests_breakdown && (
+              <QuestsColumn
+                earnedSpice={Number(user.total_quest_points)}
+                hasGalxe={!!user.quests_breakdown?.[QuestRefCodes.GALXE]}
+                hasIntract={!!user.quests_breakdown?.[QuestRefCodes.INTRACT]}
+                locale={locale}
+              />
+            )
+          };
+        }
+      }
 
       return userData ? [userData, ...leaderboard] : leaderboard;
     }

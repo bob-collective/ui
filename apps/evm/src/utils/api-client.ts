@@ -30,9 +30,55 @@ interface S3LeaderboardData {
   ref_points: any;
 }
 
+interface OneDayLeaderboardEntry {
+  global_rank: string;
+  group_rank: string;
+  quest_rank: string;
+  total_points: number;
+  username: string;
+  referral_code: string;
+  evm_address: string;
+  tvl_points: string;
+  received_pts: string;
+  distributed_pts: string;
+  quest_points: string;
+  quests_breakdown: any;
+  is_partner: boolean;
+  ref_points: number;
+  global_rank_diff: any;
+  group_rank_diff: any;
+  quest_rank_diff: any;
+  voting_round_prizes: string;
+  referred_by: string;
+}
+
+interface SevenDayLeaderboardEntry {
+  global_rank: string;
+  group_rank: string;
+  quest_rank: string;
+  total_points: number;
+  username: string;
+  referral_code: string;
+  evm_address: string;
+  tvl_points: string;
+  received_pts: string;
+  distributed_pts: string;
+  quest_points: string;
+  quests_breakdown: any;
+  is_partner: boolean;
+  ref_points: number;
+  global_rank_diff: any;
+  group_rank_diff: any;
+  quest_rank_diff: any;
+  voting_round_prizes: string;
+  referred_by: string;
+}
+
 interface Season3Data {
   usedProjects: any[];
   s3LeaderboardData: S3LeaderboardData[];
+  oneDayLeaderboardEntry: OneDayLeaderboardEntry[];
+  sevenDayLeaderboardEntry: SevenDayLeaderboardEntry[];
   harvestedPointsS3: Array<{
     partner_name: string;
     partner_refcode: string;

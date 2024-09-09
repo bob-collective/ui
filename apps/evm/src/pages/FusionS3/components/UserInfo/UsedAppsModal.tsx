@@ -100,10 +100,12 @@ const UserAssetsModal = (props: UserAssetsModalProps): JSX.Element => {
   return (
     <Modal {...props} size='lg'>
       <ModalHeader showDivider align='start'>
-        Total Assets
+        Your Active Spice Harvesting Apps
       </ModalHeader>
       <ModalBody gap='2xl' padding='even'>
-        <P color='grey-50'>Bridge High Priority assets to earn multipliers on your spice</P>
+        <P color='grey-50'>
+          Below are the apps you’re currently using to harvest Spice. Keep using these to maximize your earnings!
+        </P>
         <List direction='column' gap='md'>
           {data?.map((item, key) => (
             <ListItem key={key} alignItems='center' flex={1} justifyContent='space-between'>
