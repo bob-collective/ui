@@ -44,4 +44,27 @@ const StyledSlider = styled(Slider)`
   }}
 `;
 
-export { StyledAvatarWrapper, StyledPrize, StyledSlider, StyledQuestWrapper, StyledCubsPath, StyledCard };
+const StyledDescription = styled.div`
+  ${({ theme }) => theme.typography('s')}
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  &,
+  span {
+    color: ${({ theme }) => theme.color('grey-50')} !important;
+  }
+`;
+
+export {
+  StyledAvatarWrapper,
+  StyledDescription,
+  StyledPrize,
+  StyledSlider,
+  StyledQuestWrapper,
+  StyledCubsPath,
+  StyledCard
+};

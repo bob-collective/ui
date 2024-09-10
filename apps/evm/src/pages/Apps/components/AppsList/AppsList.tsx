@@ -62,11 +62,7 @@ const AppsList = ({
             isVotingDisabled={isVotingDisabled}
             isVotingExceeded={isVotingExceeded}
             name={app.name}
-            spiceMultiplier={
-              app.min_multiplier === app.max_multiplier
-                ? `${app.max_multiplier}x`
-                : `${app.min_multiplier}x - ${app.max_multiplier}x`
-            }
+            spiceMultiplier={app.multiplier}
             spicePerHour={Number(app.points_distributed_per_hour)}
             url={app.project_url}
             userHarvest={isAuthenticated ? Number(app.userHarvest || 0) : undefined}

@@ -1,4 +1,4 @@
-import { Card, Dl } from '@gobob/ui';
+import { Card, Dl, Flex } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
 const StyledDl = styled(Dl)`
@@ -26,10 +26,6 @@ const StyledDl = styled(Dl)`
   }}
 `;
 
-const StyledLoginCard = styled(Card)`
-  max-width: ${({ theme }) => theme.maxWidth('lg')};
-`;
-
 const StyledCard = styled(Card)`
   ${({ theme }) => {
     return css`
@@ -42,4 +38,24 @@ const StyledCard = styled(Card)`
   }}
 `;
 
-export { StyledDl, StyledLoginCard, StyledCard };
+const StyledUnderlay = styled.div`
+  top: -0.75rem;
+  bottom: -0.75rem;
+  left: -0.75rem;
+  right: -0.75rem;
+  position: absolute;
+  z-index: 1;
+  backdrop-filter: blur(4px);
+`;
+
+const StyledOverlay = styled(Flex)`
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+`;
+
+const StyledLoginCard = styled(Card)`
+  max-width: ${({ theme }) => theme.maxWidth('lg')};
+`;
+
+export { StyledDl, StyledLoginCard, StyledOverlay, StyledUnderlay, StyledCard };

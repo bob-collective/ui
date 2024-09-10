@@ -21,7 +21,7 @@ import { useMediaQuery } from '@uidotdev/usehooks';
 
 import { useGetUser } from '../../../../hooks';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { useGetTokensInfo } from '../../hooks/useGetTokensInfo';
+import { useGetTokensInfo } from '../../hooks';
 import { useBridgeTokens } from '../../../Bridge/hooks';
 
 type Props = {};

@@ -23,6 +23,7 @@ import { StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
+import { FusionPopover } from './FusionPopover';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 
@@ -100,6 +101,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
             <SocialsGroup variant='ghost' />
           </>
         )}
+        <FusionPopover />
         <ConnectWallet variant='ghost' />
       </Flex>
     </StyledHeader>

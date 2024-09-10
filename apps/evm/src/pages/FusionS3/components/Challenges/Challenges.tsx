@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import { useTheme } from 'styled-components';
 import { useRef } from 'react';
 
-import { QuestRefCodes } from '../../../../utils';
+import { QuestS3Response } from '../../../../utils';
 
 import { ChallengeCard } from './ChallengeCard';
 import { StyledSlider } from './Challenges.style';
@@ -16,7 +16,11 @@ const settings: Settings = {
   slidesToScroll: 1
 };
 
-const Challenges = () => {
+type ChallengesProps = {
+  quests: QuestS3Response | undefined;
+};
+
+const Challenges = ({ quests }: ChallengesProps) => {
   const sliderRef = useRef<Slider>(null);
 
   const theme = useTheme();
@@ -33,43 +37,20 @@ const Challenges = () => {
   };
 
   return (
-    <Flex direction='column' gap='2xl' marginTop='2xl'>
-      <H2 size='3xl'>Challenges</H2>
+    <Flex direction='column' gap='2xl' marginTop='3xl'>
+      <H2 id='challenges' size='3xl'>
+        Challenges
+      </H2>
       <StyledSlider
         ref={sliderRef}
         {...settings}
         slidesToShow={isLargeDesktop ? 4 : isDesktop ? 3 : isTable ? 2 : 1.25}
       >
-        <ChallengeCard
-          description='Provide Liquidity with BOB'
-          href='#'
-          prize='200000'
-          questRefCode={QuestRefCodes.GALXE}
-        />
-        <ChallengeCard
-          description='Provide Liquidity with BOB'
-          href='#'
-          prize='200000'
-          questRefCode={QuestRefCodes.INTRACT}
-        />
-        <ChallengeCard
-          description='Provide Liquidity with BOB'
-          href='#'
-          prize='200000'
-          questRefCode={QuestRefCodes.GALXE}
-        />
-        <ChallengeCard
-          description='Provide Liquidity with BOB'
-          href='#'
-          prize='200000'
-          questRefCode={QuestRefCodes.INTRACT}
-        />
-        <ChallengeCard
-          description='Provide Liquidity with BOB'
-          href='#'
-          prize='200000'
-          questRefCode={QuestRefCodes.INTRACT}
-        />
+        {quests
+          ? quests.questBreakdown.map((quest) => <ChallengeCard key={quest.quest_id} data={quest} />)
+          : Array(6)
+              .fill(undefined)
+              .map((_, idx) => <ChallengeCard key={idx} data={undefined} />)}
       </StyledSlider>
       <Flex gap='md' justifyContent='flex-end'>
         <Button isIconOnly onPress={handlePrevious}>

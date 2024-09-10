@@ -338,6 +338,26 @@ export interface TokenInfo {
   latest_price_in_usd: string;
 }
 
+export interface QuestS3Response {
+  questBreakdown: QuestBreakdown[];
+  totalPoints: number;
+  uniqueQuestParticipated: number;
+  totalUniqueQuests: number;
+}
+
+export interface QuestBreakdown {
+  quest_id: string;
+  total_received_xp: string;
+  available_xp: string;
+  quest_name: string;
+  quest_completed: boolean;
+  url: string;
+  description: string;
+  is_featured: boolean;
+  start_date: string;
+  end_date: string;
+}
+
 class ApiClient {
   private baseUrl: string;
 
@@ -505,8 +525,8 @@ class ApiClient {
     return await response.json();
   }
 
-  async getQuestsS3(limit: number, offset: number): Promise<LeaderboardS3Response> {
-    const response = await fetch(`${this.baseUrl}/leaderboards-s3?limit=${limit}&offset=${offset}`);
+  async getQuestsS3(): Promise<QuestS3Response> {
+    const response = await fetch(`${this.baseUrl}/get-quests-s3`);
 
     return await response.json();
   }

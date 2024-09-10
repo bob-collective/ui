@@ -1,9 +1,16 @@
-import { Button, CardProps, Link, P } from '@gobob/ui';
 import { Galxe, Intract, Spice } from '@gobob/icons';
+import { H3, Skeleton } from '@gobob/ui';
 
-import { QuestRefCodes } from '../../../../utils';
+import { QuestBreakdown, QuestRefCodes } from '../../../../utils';
 
-import { StyledAvatarWrapper, StyledCard, StyledCubsPath, StyledPrize, StyledQuestWrapper } from './Challenges.style';
+import {
+  StyledAvatarWrapper,
+  StyledCard,
+  StyledCubsPath,
+  StyledDescription,
+  StyledPrize,
+  StyledQuestWrapper
+} from './Challenges.style';
 
 const questOwnerMap = {
   [QuestRefCodes.GALXE]: Galxe,
@@ -11,39 +18,48 @@ const questOwnerMap = {
 };
 
 type Props = {
-  href: string;
-  description: string;
-  prize: string;
-  questRefCode: QuestRefCodes;
+  data?: QuestBreakdown;
 };
 
-type InheritAttrs = Omit<CardProps, keyof Props>;
+type ChallengeCardProps = Props;
 
-type ChallengeCardProps = Props & InheritAttrs;
+const ChallengeCard = ({ data, ...props }: ChallengeCardProps) => {
+  const QuestOwnerComp = questOwnerMap[QuestRefCodes.GALXE];
 
-const ChallengeCard = ({ description, href, prize, questRefCode, ...props }: ChallengeCardProps) => {
-  const QuestOwnerComp = questOwnerMap[questRefCode];
+  const card = (
+    <StyledCard isHoverable isPressable gap='xl' marginX='s'>
+      <StyledAvatarWrapper>
+        <StyledCubsPath />
+        <StyledQuestWrapper>
+          <QuestOwnerComp size='4xl' />
+        </StyledQuestWrapper>
+        <StyledPrize rounded='s' startAdornment={<Spice color='primary-500' size='xs' />}>
+          {20000}
+        </StyledPrize>
+      </StyledAvatarWrapper>
+      {data ? (
+        <H3 rows={1} size='md'>
+          {data.quest_name}
+        </H3>
+      ) : (
+        <Skeleton width='50%' />
+      )}
+      {data ? (
+        <StyledDescription dangerouslySetInnerHTML={{ __html: data.description }} />
+      ) : (
+        <Skeleton count={2} height='xl' />
+      )}
+    </StyledCard>
+  );
+
+  if (!data) {
+    return card;
+  }
 
   return (
-    <div {...props}>
-      <StyledCard gap='xl' marginX='s'>
-        <StyledAvatarWrapper>
-          <StyledCubsPath />
-          <StyledQuestWrapper>
-            <QuestOwnerComp size='4xl' />
-          </StyledQuestWrapper>
-          <StyledPrize rounded='s' startAdornment={<Spice color='primary-500' size='xs' />}>
-            {prize}
-          </StyledPrize>
-        </StyledAvatarWrapper>
-        <P align='center'>{description}</P>
-        <Button asChild variant='outline'>
-          <Link external href={href}>
-            View Challenge
-          </Link>
-        </Button>
-      </StyledCard>
-    </div>
+    <a {...props} href={data.url} rel='noreferrer' style={{ textDecoration: 'none' }} target='_blank'>
+      {card}
+    </a>
   );
 };
 

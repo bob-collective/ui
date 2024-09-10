@@ -1,57 +1,70 @@
 import { Spice } from '@gobob/icons';
-import { ArrowRight, Bars3, Button, Divider, Flex, H3, P, SolidDocumentDuplicate, Span } from '@gobob/ui';
-import { Link } from 'react-router-dom';
+import {
+  ArrowRight,
+  Bars3,
+  Button,
+  Divider,
+  Flex,
+  H3,
+  Link,
+  P,
+  SolidDocumentDuplicate,
+  Span,
+  useLocale
+} from '@gobob/ui';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCopyToClipboard } from '@uidotdev/usehooks';
 
-import { LoginSection } from '../../../../components';
-import { RoutesPath } from '../../../../constants';
 import { UserResponse } from '../../../../utils';
 import { AppData } from '../../../Apps/hooks';
+import { LoginSection } from '../../../../components';
+import { RoutesPath } from '../../../../constants';
 
-import { StyledDl, StyledLoginCard } from './UserInfo.style';
+import { StyledDl, StyledLoginCard, StyledOverlay, StyledUnderlay } from './UserInfo.style';
 import { UserInfoCard } from './UserInfoCard';
 import { UserAssetsModal } from './UserAssetsModal';
+import { UserAppsModal } from './UsedAppsModal';
 
 type UserInfoProps = {
   user?: UserResponse;
   apps: AppData[] | undefined;
+  completedQuestsCount?: number;
   isAuthenticated?: boolean;
 };
 
-const UserInfo = ({ user, isAuthenticated }: UserInfoProps) => {
-  const [isUserAssetsModalOpen, setUserAssetsModalOpen] = useState(false);
+const UserInfo = ({ apps, user, completedQuestsCount, isAuthenticated }: UserInfoProps) => {
+  const { locale } = useLocale();
+  const navigate = useNavigate();
+  const [, copy] = useCopyToClipboard();
 
-  if (!(isAuthenticated || user)) {
-    return (
-      <Flex justifyContent='center' style={{ marginTop: '4.594rem', marginBottom: '4.594rem' }}>
-        <StyledLoginCard gap='lg'>
-          <H3 align='center' size='md'>
-            Log in to View Dashboard
-          </H3>
-          <Divider />
-          <P align='center' color='grey-50' size='s'>
-            Set sail on your Season 3 adventure, charting new territories and harvesting Spice along the way.
-          </P>
-          <Button asChild color='primary' size='xl'>
-            <Link to={RoutesPath.SIGN_UP}>Start Harvesting Spice</Link>
-          </Button>
-          <LoginSection direction={{ base: 'column', s: 'row' }} />
-        </StyledLoginCard>
-      </Flex>
-    );
-  }
+  const [isUserAssetsModalOpen, setUserAssetsModalOpen] = useState(false);
+  const [isUserAppsModalOpen, setUserAppsModalOpen] = useState(false);
 
   const appsUsedCount = user?.season3Data.harvestedPointsS3.length;
 
+  const spicePerDay = user?.season3Data.oneDayLeaderboardEntry[0].total_points;
+
   return (
     <div style={{ position: 'relative' }}>
-      <StyledDl direction={{ base: 'column', md: 'row' }} gap='lg' marginTop='4xl' style={{ zIndex: 0 }}>
+      <StyledDl
+        aria-hidden={!isAuthenticated && 'true'}
+        direction={{ base: 'column', md: 'row' }}
+        gap='lg'
+        marginTop='5xl'
+      >
         <UserInfoCard description='$172,124.22' title='Assets Deposited'>
           <Flex gap='md' marginTop='xl'>
-            <Button variant='outline' onPress={() => setUserAssetsModalOpen(true)}>
+            <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserAssetsModalOpen(true)}>
               <Bars3 />
             </Button>
-            <Button fullWidth color='primary'>
+            <Button
+              fullWidth
+              color='primary'
+              disabled={!isAuthenticated}
+              elementType={Link}
+              {...{ href: RoutesPath.BRIDGE }}
+            >
               Bridge More
             </Button>
           </Flex>
@@ -59,26 +72,43 @@ const UserInfo = ({ user, isAuthenticated }: UserInfoProps) => {
         </UserInfoCard>
         <UserInfoCard description={appsUsedCount} title='Apps Used' tooltipLabel='TBD'>
           <Flex gap='md' marginTop='xl'>
-            <Button variant='outline'>
+            <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserAppsModalOpen(true)}>
               <Bars3 />
             </Button>
-            <Button fullWidth variant='outline'>
+            <Button
+              fullWidth
+              disabled={!isAuthenticated}
+              elementType={Link}
+              variant='outline'
+              {...{ href: RoutesPath.APPS }}
+            >
               Use Apps
               <ArrowRight size='xs' strokeWidth='2' style={{ marginLeft: 4 }} />
             </Button>
           </Flex>
+          <UserAppsModal apps={apps} isOpen={isUserAppsModalOpen} onClose={() => setUserAppsModalOpen(false)} />
         </UserInfoCard>
-        <UserInfoCard description='3' title='Challenges Solved' tooltipLabel='TBD'>
-          <Button fullWidth variant='outline'>
+        <UserInfoCard description={completedQuestsCount || 0} title='Challenges Solved' tooltipLabel='TBD'>
+          <Button
+            fullWidth
+            disabled={!isAuthenticated}
+            variant='outline'
+            onPress={() => navigate(RoutesPath.FUSION, { state: { scrollChallenges: true } })}
+          >
             Solve Challenges
           </Button>
         </UserInfoCard>
-        <UserInfoCard description='3raDX' title='Your Referral Code' tooltipLabel='TBD'>
+        <UserInfoCard description={user?.referral_code} title='Your Referral Code' tooltipLabel='TBD'>
           <Flex gap='md' marginTop='xl'>
-            <Button variant='outline'>
+            {/* <Button disabled={!isAuthenticated} variant='outline'>
               <Bars3 />
-            </Button>
-            <Button fullWidth variant='outline'>
+            </Button> */}
+            <Button
+              fullWidth
+              disabled={!isAuthenticated}
+              variant='outline'
+              onPress={() => copy(user?.referral_code || '')}
+            >
               Copy <SolidDocumentDuplicate size='xs' style={{ marginLeft: 4 }} />
             </Button>
           </Flex>
@@ -86,10 +116,16 @@ const UserInfo = ({ user, isAuthenticated }: UserInfoProps) => {
         <UserInfoCard
           description={
             <Flex direction='column' elementType='span' gap='xs'>
-              <Span size='inherit'>22,201.12</Span>
+              <Span size='inherit'>
+                {Intl.NumberFormat(locale, { notation: 'compact' }).format(
+                  user?.season3Data.s3LeaderboardData[0].total_points || 0
+                )}
+              </Span>
               <Flex elementType='span' gap='xs'>
                 <Spice size='xs' />
-                <Span size='xs'>(+12,582 / Day)</Span>
+                <Span size='xs'>
+                  (+{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerDay || 0)}/ Day)
+                </Span>
               </Flex>
             </Flex>
           }
@@ -98,36 +134,26 @@ const UserInfo = ({ user, isAuthenticated }: UserInfoProps) => {
           tooltipLabel='TBD'
         />
       </StyledDl>
-      {/* <div
-        style={{
-          opacity: 0.8,
-          top: '-0.75rem',
-          bottom: '-0.75rem',
-          left: '-0.75rem',
-          right: '-0.75rem',
-          position: 'absolute',
-          zIndex: 1,
-          backdropFilter: 'blur(3px)'
-        }}
-      />
-      <Flex
-        justifyContent='center'
-        style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', zIndex: 2 }}
-      >
-        <StyledLoginCard shadowed borderColor='grey-300' gap='lg'>
-          <H3 align='center' size='md'>
-            Log in to View Dashboard
-          </H3>
-          <Divider />
-          <P align='center' color='grey-50' size='s'>
-            Set sail on your Season 3 adventure, charting new territories and harvesting Spice along the way.
-          </P>
-          <Button asChild color='primary' size='xl'>
-            <Link to={RoutesPath.SIGN_UP}>Start Harvesting Spice</Link>
-          </Button>
-          <LoginSection direction={{ base: 'column', s: 'row' }} />
-        </StyledLoginCard>
-      </Flex> */}
+      {!isAuthenticated && (
+        <>
+          <StyledUnderlay />
+          <StyledOverlay alignItems='center' justifyContent='center'>
+            <StyledLoginCard shadowed borderColor='grey-300' gap='lg'>
+              <H3 align='center' size='md'>
+                Log in to View Dashboard
+              </H3>
+              <Divider />
+              <P align='center' color='grey-50' size='s'>
+                Set sail on your Season 3 adventure, charting new territories and harvesting Spice along the way.
+              </P>
+              <Button asChild color='primary' elementType={Link} size='xl' {...{ href: RoutesPath.SIGN_UP }}>
+                Start Harvesting Spice
+              </Button>
+              <LoginSection direction={{ base: 'column', s: 'row' }} />
+            </StyledLoginCard>
+          </StyledOverlay>
+        </>
+      )}
     </div>
   );
 };

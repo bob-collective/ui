@@ -78,7 +78,6 @@ const AppsLeaderboard = ({
             ))
           : data
               .sort((a, b) => b.weight - a.weight)
-              .slice(0, 5)
               .map((item, idx, array) => (
                 <Fragment key={idx}>
                   <Flex alignItems='center' gap='s' justifyContent='space-between'>

@@ -14,6 +14,7 @@ type AppData = PartnerS3 & {
   logoSrc: string;
   voting?: VotingAppData;
   userHarvest?: string;
+  multiplier: string;
 };
 
 const useGetApps = () => {
@@ -33,7 +34,12 @@ const useGetApps = () => {
         ...partner,
         logoSrc: getImageUrl(partner.name),
         voting: apps?.find((app) => partner.ref_code === app.refCode),
-        userHarvest: user?.harvested.find((project) => project.partner_refcode === partner.ref_code)?.total_points
+        userHarvest: user?.season3Data.harvestedPointsS3.find((project) => project.partner_refcode === partner.ref_code)
+          ?.total_points,
+        multiplier:
+          partner.min_multiplier === partner.max_multiplier
+            ? `${partner.max_multiplier}x`
+            : `${partner.min_multiplier}x - ${partner.max_multiplier}x`
       }));
     }
   });
