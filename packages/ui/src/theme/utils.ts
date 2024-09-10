@@ -6,7 +6,7 @@ const style =
     const value = baseStyle[key];
 
     // TODO: handle this better
-    if (!value) {
+    if (value === undefined) {
       return key;
     }
 

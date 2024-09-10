@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Slider from 'react-slick';
-import { Card, Chip } from '@gobob/ui';
+import { Card, Chip, Span } from '@gobob/ui';
 
 import { CubsPath } from './CubsPath';
 
@@ -28,7 +28,30 @@ const StyledQuestWrapper = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const StyledCard = styled(Card)``;
+const StyledCard = styled(Card)`
+  position: relative;
+`;
+
+const StyledOpacityOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-color: ${({ theme }) => theme.color('dark')};
+  z-index: 2;
+`;
+
+const StyledCompletedTag = styled(Span)`
+  background-color: ${({ theme }) => theme.color('grey-500')};
+  border: 1px solid ${({ theme }) => theme.color('grey-300')};
+  padding: ${({ theme }) => `0 ${theme.spacing('md')}`};
+  border-radius: ${({ theme }) => theme.rounded('md')};
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+
+  z-index: 4;
+`;
 
 const StyledSlider = styled(Slider)`
   ${({ theme }) => {
@@ -45,7 +68,6 @@ const StyledSlider = styled(Slider)`
 `;
 
 const StyledDescription = styled.div`
-  ${({ theme }) => theme.typography('s')}
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -54,17 +76,21 @@ const StyledDescription = styled.div`
   -webkit-box-orient: vertical;
 
   &,
-  span {
+  span,
+  p {
     color: ${({ theme }) => theme.color('grey-50')} !important;
+    ${({ theme }) => theme.typography('s')}
   }
 `;
 
 export {
   StyledAvatarWrapper,
+  StyledOpacityOverlay,
   StyledDescription,
   StyledPrize,
   StyledSlider,
   StyledQuestWrapper,
   StyledCubsPath,
+  StyledCompletedTag,
   StyledCard
 };

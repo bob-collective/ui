@@ -63,8 +63,8 @@ const AppCard = ({
   const { locale } = useLocale();
 
   return (
-    <a href={`https://${url}`} rel='noreferrer' style={{ textDecoration: 'none' }} target='_blank'>
-      <Card {...props} borderColor='grey-300' padding='none'>
+    <a href={`https://${url}`} rel='noreferrer' style={{ textDecoration: 'none', display: 'flex' }} target='_blank'>
+      <Card {...props} borderColor='grey-300' flex={1} padding='none'>
         <StyledImgWrapper alignItems='center' justifyContent='center' padding='5xl'>
           <Avatar borderColor='grey-300' rounded='md' size='9xl' src={imgSrc} />
           {voting && (

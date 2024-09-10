@@ -47,7 +47,19 @@ const Challenges = ({ quests }: ChallengesProps) => {
         slidesToShow={isLargeDesktop ? 4 : isDesktop ? 3 : isTable ? 2 : 1.25}
       >
         {quests
-          ? quests.questBreakdown.map((quest) => <ChallengeCard key={quest.quest_id} data={quest} />)
+          ? quests.questBreakdown
+              .sort((a, b) => {
+                // First, compare "is_featured" to prioritize featured quests.
+                if (a.is_featured && !b.is_featured) return -1;
+                if (!a.is_featured && b.is_featured) return 1;
+
+                // If both are equally featured or non-featured, handle "quest_completed".
+                if (a.quest_completed && !b.quest_completed) return 1; // completed goes to the end
+                if (!a.quest_completed && b.quest_completed) return -1; // non-completed stays in front
+
+                return 0; // if they're both featured/non-featured and completed/non-completed equally, keep their order
+              })
+              .map((quest) => <ChallengeCard key={quest.quest_id} data={quest} />)
           : Array(6)
               .fill(undefined)
               .map((_, idx) => <ChallengeCard key={idx} data={undefined} />)}

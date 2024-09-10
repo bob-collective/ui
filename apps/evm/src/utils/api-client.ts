@@ -349,6 +349,8 @@ export interface QuestBreakdown {
   quest_id: string;
   total_received_xp: string;
   available_xp: string;
+  total_received_spice: string;
+  available_spice: string;
   quest_name: string;
   quest_completed: boolean;
   url: string;
@@ -356,6 +358,7 @@ export interface QuestBreakdown {
   is_featured: boolean;
   start_date: string;
   end_date: string;
+  questing_platform_referral_code: string;
 }
 
 class ApiClient {
