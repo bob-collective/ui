@@ -2,7 +2,7 @@ import { Flex, FlexProps } from '@gobob/ui';
 import { useMemo } from 'react';
 
 import { L1_CHAIN } from '../../../../constants';
-import { BridgeSteps } from '../../constants';
+import { StakeSteps } from '../../constants';
 import { BridgeTransaction } from '../../hooks';
 import { MessageStatus } from '../../types';
 
@@ -11,7 +11,7 @@ import { StakeStep } from './StakeStep';
 
 type Props = {
   data: BridgeTransaction;
-  currentStep?: BridgeSteps;
+  currentStep?: StakeSteps;
   isProving?: boolean;
   isProveSuccessful: boolean;
   onPressProve?: () => void;
