@@ -1,11 +1,11 @@
 import { ArrowTopRightOnSquare, Span } from '@gobob/ui';
 
-import { BridgeStepStatus } from '../../constants';
+import { StakeStepStatus } from '../../constants';
 import { Circle, CircleCheck, CircleX } from '../../icons';
 
 import { StyledLoadingSpinner, StyledPill } from './BridgeStatus.style';
 
-const getPillIcon = (status: BridgeStepStatus) => {
+const getPillIcon = (status: StakeStepStatus) => {
   switch (status) {
     case 'idle':
       return <Circle size='xs' />;
@@ -22,7 +22,7 @@ const getPillIcon = (status: BridgeStepStatus) => {
 type PillProps = {
   href?: string;
   label: string;
-  status: BridgeStepStatus;
+  status: StakeStepStatus;
 };
 
 const Pill = ({ label, status, href }: PillProps): JSX.Element => {

@@ -23,6 +23,6 @@ type GatewayDepositSteps = (typeof gatewayDepositSteps)[number];
 
 type GatewaySteps = (typeof gatewayDepositSteps)[number];
 
-type BridgeStepStatus = 'idle' | 'ongoing' | 'complete' | 'failed';
+type StakeStepStatus = 'idle' | 'ongoing' | 'complete' | 'failed';
 
-export type { BridgeStepStatus, StakeSteps, GatewaySteps, GatewayDepositSteps };
+export type { StakeStepStatus, StakeSteps, GatewaySteps, GatewayDepositSteps };

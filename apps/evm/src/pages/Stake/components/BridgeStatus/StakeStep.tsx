@@ -1,13 +1,13 @@
 import { Address } from 'viem';
 
-import { StakeSteps, BridgeStepStatus } from '../../constants';
+import { StakeSteps, StakeStepStatus } from '../../constants';
 import { MessageDirection, MessageStatus } from '../../types';
 import { chainL1, chainL2 } from '../../../../constants';
 import { BridgeTransaction } from '../../hooks';
 
 import { Pill } from './Pill';
 
-const getLabel = (stage: StakeSteps, status: BridgeStepStatus, isActing?: boolean, isActionSuccessful?: boolean) => {
+const getLabel = (stage: StakeSteps, status: StakeStepStatus, isActing?: boolean, isActionSuccessful?: boolean) => {
   switch (stage) {
     case 'stake': {
       switch (status) {
@@ -102,7 +102,7 @@ const unstakeOrder = {
   [MessageStatus.UNCONFIRMED_L1_TO_L2_MESSAGE]: -1
 } as const;
 
-const getBridgeStepStatus = (step: number, currentStep: number) => {
+const getStakeStepStatus = (step: number, currentStep: number) => {
   if (currentStep < step) {
     return 'idle';
   } else if (currentStep === step) {
@@ -112,7 +112,7 @@ const getBridgeStepStatus = (step: number, currentStep: number) => {
   }
 };
 
-const getStatus = (step: StakeSteps, status: MessageStatus | null, direction: MessageDirection): BridgeStepStatus => {
+const getStatus = (step: StakeSteps, status: MessageStatus | null, direction: MessageDirection): StakeStepStatus => {
   if (!status) return 'idle';
 
   if (direction === MessageDirection.L1_TO_L2) {
@@ -145,27 +145,27 @@ const getStatus = (step: StakeSteps, status: MessageStatus | null, direction: Me
     case 'state-root-published': {
       const step = unstakeOrder[MessageStatus.STATE_ROOT_NOT_PUBLISHED];
 
-      return getBridgeStepStatus(step, currentStep);
+      return getStakeStepStatus(step, currentStep);
     }
     case 'prove': {
       const step = unstakeOrder[MessageStatus.READY_TO_PROVE];
 
-      return getBridgeStepStatus(step, currentStep);
+      return getStakeStepStatus(step, currentStep);
     }
     case 'challenge-period': {
       const step = unstakeOrder[MessageStatus.IN_CHALLENGE_PERIOD];
 
-      return getBridgeStepStatus(step, currentStep);
+      return getStakeStepStatus(step, currentStep);
     }
     case 'relay': {
       const step = unstakeOrder[MessageStatus.READY_FOR_RELAY];
 
-      return getBridgeStepStatus(step, currentStep);
+      return getStakeStepStatus(step, currentStep);
     }
     case 'l1-confirmation': {
       const step = unstakeOrder[MessageStatus.RELAYED];
 
-      return getBridgeStepStatus(step, currentStep);
+      return getStakeStepStatus(step, currentStep);
     }
   }
 
