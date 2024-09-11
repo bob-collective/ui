@@ -152,7 +152,7 @@ importers:
         version: 7.6.19
       turbo:
         specifier: latest
-        version: 2.0.3
+        version: 2.1.1
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -181,8 +181,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       '@gobob/bob-sdk':
-        specifier: 2.2.4
-        version: 2.2.4
+        specifier: 2.2.8
+        version: 2.2.8
       '@gobob/chains':
         specifier: workspace:^
         version: link:../../packages/chains
@@ -438,8 +438,8 @@ importers:
   packages/sats-wagmi:
     dependencies:
       '@gobob/sats-wagmi':
-        specifier: ^0.2.5
-        version: 0.2.5(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^0.3.3
+        version: 0.3.3(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1)
 
   packages/test-utils:
     dependencies:
@@ -3447,8 +3447,8 @@ packages:
       ts-interface-checker: 0.1.13
     dev: true
 
-  /@gobob/bob-sdk@2.2.4:
-    resolution: {integrity: sha512-ufBdIBEDXb7/Tzro+C3Ig+cYXiDoaAgYLpyDkxaU4R7Up5MBgGcFadruGQZoSqajkOX9ik0VcvfNb9p16naLbQ==}
+  /@gobob/bob-sdk@2.2.8:
+    resolution: {integrity: sha512-DuPvjbDcsVDIcej8DqCuxo4Cbq4bVcQggBjjFE0dxpdU2nyNPZ5UEmoz9Dx8RY0Ubm8JckkwTsQOkCwW/DAj6Q==}
     dependencies:
       '@scure/base': 1.1.7
       '@scure/btc-signer': 1.3.2
@@ -3460,15 +3460,15 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@gobob/sats-wagmi@0.2.5(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-//+AppugQX4h8HrEMBmis0f/CiSE4dgvGLur9Zjve0ICO4jzt5y+ig/bQwJZImL82zfH1VrN05JiJjQEOkE/+Q==}
+  /@gobob/sats-wagmi@0.3.3(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-Pup+DD39gSB4sZydaEBeFs9l/qr2fLeV/wdUo5gq6PykVvlJYFFFq/5gNPPQguqBC26+sZE8NEevsR1vLfclOQ==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
-      '@gobob/bob-sdk': 2.2.4
+      '@gobob/bob-sdk': 2.2.8
       '@metamask/providers': 12.0.0
       '@scure/base': 1.1.7
       '@scure/btc-signer': 1.3.2
@@ -3479,6 +3479,7 @@ packages:
       bitcoin-address-validation: 2.2.3
       bitcoinjs-lib: 6.1.6
       bs58check: 2.1.2
+      clean-package: 2.2.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       sats-connect: 1.4.1
@@ -4354,6 +4355,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.7
+      napi-wasm: 1.1.3
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -10870,7 +10872,6 @@ packages:
     hasBin: true
     dependencies:
       dot-prop: 6.0.1
-    dev: true
 
   /clean-stack@2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
@@ -12082,7 +12083,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       is-obj: 2.0.0
-    dev: true
 
   /dotenv-expand@10.0.0:
     resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
@@ -14886,7 +14886,6 @@ packages:
   /is-obj@2.0.0:
     resolution: {integrity: sha512-drqDG3cbczxxEJRoOXcOjtdp1J/lyp1mNn0xaznRs8+muBhgQcrnbspox5X5fOw0HnMnbfDzvnEMEtqDEJEo8w==}
     engines: {node: '>=8'}
-    dev: true
 
   /is-object@1.0.2:
     resolution: {integrity: sha512-2rRIahhZr2UWb45fIOuvZGpFtz0TyOZLf32KxBbSoUCeZR495zCKlWUKKUByk3geS2eAs7ZAABt0Y/Rx0GiQGA==}
@@ -17073,6 +17072,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.3:
+    resolution: {integrity: sha512-h/4nMGsHjZDCYmQVNODIrYACVJ+I9KItbG+0si6W/jSjdA9JbWDoU4LLeMXVcEQGHjttI2tuXqDrbGF7qkUHHg==}
+    dev: false
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
@@ -20547,64 +20550,64 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /turbo-darwin-64@2.0.3:
-    resolution: {integrity: sha512-v7ztJ8sxdHw3SLfO2MhGFeeU4LQhFii1hIGs9uBiXns/0YTGOvxLeifnfGqhfSrAIIhrCoByXO7nR9wlm10n3Q==}
+  /turbo-darwin-64@2.1.1:
+    resolution: {integrity: sha512-aYNuJpZlCoi0Htd79fl/2DywpewGKijdXeOfg9KzNuPVKzSMYlAXuAlNGh0MKjiOcyqxQGL7Mq9LFhwA0VpDpQ==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64@2.0.3:
-    resolution: {integrity: sha512-LUcqvkV9Bxtng6QHbevp8IK8zzwbIxM6HMjCE7FEW6yJBN1KwvTtRtsGBwwmTxaaLO0wD1Jgl3vgkXAmQ4fqUw==}
+  /turbo-darwin-arm64@2.1.1:
+    resolution: {integrity: sha512-tifJKD8yHY48rHXPMcM8o1jI/Jk2KCaXiNjTKvvy9Zsim61BZksNVLelIbrRoCGwAN6PUBZO2lGU5iL/TQJ5Pw==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64@2.0.3:
-    resolution: {integrity: sha512-xpdY1suXoEbsQsu0kPep2zrB8ijv/S5aKKrntGuQ62hCiwDFoDcA/Z7FZ8IHQ2u+dpJARa7yfiByHmizFE0r5Q==}
+  /turbo-linux-64@2.1.1:
+    resolution: {integrity: sha512-Js6d/bSQe9DuV9c7ITXYpsU/ADzFHABdz1UIHa7Oqjj9VOEbFeA9WpAn0c+mdJrVD+IXJFbbDZUjN7VYssmtcg==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64@2.0.3:
-    resolution: {integrity: sha512-MBACTcSR874L1FtLL7gkgbI4yYJWBUCqeBN/iE29D+8EFe0d3fAyviFlbQP4K/HaDYet1i26xkkOiWr0z7/V9A==}
+  /turbo-linux-arm64@2.1.1:
+    resolution: {integrity: sha512-LidzTCq0yvQ+N8w8Qub9FmhQ/mmEIeoqFi7DSupekEV2EjvE9jw/zYc9Pk67X+g7dHVfgOnvVzmrjChdxpFePw==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64@2.0.3:
-    resolution: {integrity: sha512-zi3YuKPkM9JxMTshZo3excPk37hUrj5WfnCqh4FjI26ux6j/LJK+Dh3SebMHd9mR7wP9CMam4GhmLCT+gDfM+w==}
+  /turbo-windows-64@2.1.1:
+    resolution: {integrity: sha512-GKc9ZywKwy4xLDhwXd6H07yzl0TB52HjXMrFLyHGhCVnf/w0oq4sLJv2sjbvuarPjsyx4xnCBJ3m3oyL2XmFtA==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64@2.0.3:
-    resolution: {integrity: sha512-wmed4kkenLvRbidi7gISB4PU77ujBuZfgVGDZ4DXTFslE/kYpINulwzkVwJIvNXsJtHqyOq0n6jL8Zwl3BrwDg==}
+  /turbo-windows-arm64@2.1.1:
+    resolution: {integrity: sha512-oFKkMj11KKUv3xSK9/fhAEQTxLUp1Ol1EOktwc32+SFtEU0uls7kosAz0b+qe8k3pJGEMFdDPdqoEjyJidbxtQ==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo@2.0.3:
-    resolution: {integrity: sha512-jF1K0tTUyryEWmgqk1V0ALbSz3VdeZ8FXUo6B64WsPksCMCE48N5jUezGOH2MN0+epdaRMH8/WcPU0QQaVfeLA==}
+  /turbo@2.1.1:
+    resolution: {integrity: sha512-u9gUDkmR9dFS8b5kAYqIETK4OnzsS4l2ragJ0+soSMHh6VEeNHjTfSjk1tKxCqLyziCrPogadxP680J+v6yGHw==}
     hasBin: true
     optionalDependencies:
-      turbo-darwin-64: 2.0.3
-      turbo-darwin-arm64: 2.0.3
-      turbo-linux-64: 2.0.3
-      turbo-linux-arm64: 2.0.3
-      turbo-windows-64: 2.0.3
-      turbo-windows-arm64: 2.0.3
+      turbo-darwin-64: 2.1.1
+      turbo-darwin-arm64: 2.1.1
+      turbo-linux-64: 2.1.1
+      turbo-linux-arm64: 2.1.1
+      turbo-windows-64: 2.1.1
+      turbo-windows-arm64: 2.1.1
     dev: true
 
   /tween-functions@1.2.0:
@@ -21581,7 +21584,7 @@ packages:
       spdy: 4.0.2
       webpack: 5.92.0(@swc/core@1.5.28)(esbuild@0.18.20)
       webpack-dev-middleware: 5.3.4(webpack@5.92.0)
-      ws: 8.17.0
+      ws: 8.17.1
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -21917,7 +21920,6 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
-    dev: false
 
   /ws@8.5.0:
     resolution: {integrity: sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==}
