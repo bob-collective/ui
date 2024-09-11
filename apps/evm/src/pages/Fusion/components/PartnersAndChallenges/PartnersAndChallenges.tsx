@@ -121,7 +121,7 @@ const PartnersAndChallenges = () => {
                   gap='md'
                   harvest={getHarvest(item.ref_code)}
                   isLive={item.live}
-                  logoSrc={getImageUrl(item.name)}
+                  logoSrc={item.logos?.default || getImageUrl(item.name)}
                   name={item.name}
                   url={item?.project_url}
                 />
@@ -150,7 +150,7 @@ const PartnersAndChallenges = () => {
                   gap='md'
                   harvest={getHarvest(item.ref_code)}
                   isLive={item.live}
-                  logoSrc={getImageUrl(item.name)}
+                  logoSrc={item.logos?.default || getImageUrl(item.name)}
                   medal={getMedal(idx)}
                   name={item.name}
                   url={item?.project_url}
@@ -174,7 +174,7 @@ const PartnersAndChallenges = () => {
                   gap='md'
                   harvest={getHarvest(item.ref_code)}
                   isLive={item.live}
-                  logoSrc={getImageUrl(item.name)}
+                  logoSrc={item.logos?.default || getImageUrl(item.name)}
                   name={item.name}
                   url={item?.project_url}
                 />

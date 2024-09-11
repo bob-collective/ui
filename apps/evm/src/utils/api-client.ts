@@ -42,6 +42,9 @@ type Partner = {
   category: string;
   current_points: string;
   live: boolean;
+  logos: {
+    default: string;
+  };
   name: string;
   points_distributed_per_hour: string;
   project_url: string;
