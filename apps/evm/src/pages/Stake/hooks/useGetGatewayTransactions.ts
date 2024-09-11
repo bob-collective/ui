@@ -75,4 +75,3 @@ const useGetGatewayTransactions = () => {
 };
 
 export { useGetGatewayTransactions };
-export type { GatewayTransaction };

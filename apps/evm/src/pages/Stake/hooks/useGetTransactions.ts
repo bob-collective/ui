@@ -3,10 +3,8 @@ import { useAccount } from '@gobob/wagmi';
 
 import { FeatureFlags, useFeatureFlag } from '../../../hooks';
 
-import { GatewayTransaction, useGetGatewayTransactions } from './useGetGatewayTransactions';
-import { BridgeTransaction, useGetBridgeTransactions } from './useGetBridgeTransactions';
-
-type Transaction = BridgeTransaction | GatewayTransaction;
+import { useGetGatewayTransactions } from './useGetGatewayTransactions';
+import { useGetBridgeTransactions } from './useGetBridgeTransactions';
 
 const useGetTransactions = () => {
   const gateway = useGetGatewayTransactions();
@@ -54,4 +52,3 @@ const useGetTransactions = () => {
 };
 
 export { useGetTransactions };
-export type { Transaction, BridgeTransaction, GatewayTransaction };

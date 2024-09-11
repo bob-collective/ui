@@ -526,4 +526,3 @@ const useGetBridgeTransactions = () => {
 };
 
 export { useGetBridgeTransactions };
-export type { BridgeTransaction };
