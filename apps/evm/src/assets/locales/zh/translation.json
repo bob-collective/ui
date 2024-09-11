@@ -126,6 +126,7 @@
     "leaderboard": "排行榜",
     "t_and_c": "条款与条件",
     "fusion": "Fusion",
+    "staking": "質押",
     "bridge": "桥",
     "wallet": "钱包",
     "dev": "开发者",
@@ -164,6 +165,14 @@
   "bridge": {
     "alert": {
       "alex": "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <xLink>公告</xLink>。"
+    }
+  },
+  "staking": {
+    "form": {
+      "title": "質押 BTC"
+    },
+    "projects": {
+      "title": "可用項目"
     }
   }
 }
