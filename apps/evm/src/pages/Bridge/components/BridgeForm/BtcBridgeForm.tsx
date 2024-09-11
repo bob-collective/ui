@@ -264,7 +264,7 @@ const BtcBridgeForm = ({
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
 
-    const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance || 0);
+    const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.value || 0);
 
     const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, satsFeeEstimate);
 
