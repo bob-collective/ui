@@ -14,15 +14,15 @@ import {
   useLocale
 } from '@gobob/ui';
 import { Address, isAddressEqual } from 'viem';
-import { ERC20Token } from '@gobob/currency';
 import { Spice } from '@gobob/icons';
 import { useTheme } from 'styled-components';
 import { useMediaQuery } from '@uidotdev/usehooks';
 
-import { useGetUser } from '../../../../hooks';
+import { useBalances } from '../../../../hooks';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { useGetTokensInfo } from '../../hooks';
 import { useBridgeTokens } from '../../../Bridge/hooks';
+import { calculateAmountUSD } from '../../../../utils';
 
 type Props = {};
 
@@ -33,9 +33,10 @@ type UserAssetsModalProps = Props & InheritAttrs;
 const nativeToken = NATIVE[L2_CHAIN];
 
 const UserAssetsModal = (props: UserAssetsModalProps): JSX.Element => {
-  const { data: user } = useGetUser();
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
   const { locale } = useLocale();
+
+  const { getBalance } = useBalances(L2_CHAIN);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
@@ -44,39 +45,43 @@ const UserAssetsModal = (props: UserAssetsModalProps): JSX.Element => {
 
   const data = tokens
     ?.map((token) => {
-      if (token.l1Currency.isNative) {
-        const stats = user?.depositStats?.find((item) => item.token_name === 'ethereum');
+      const balance = getBalance(token.l2Token.symbol);
 
-        const tokenInfo = tokensInfo?.find((info) => info.symbol === nativeToken.symbol);
+      if (token.l1Currency.isNative) {
+        const tokenInfo = tokensInfo?.find((info) => info.symbol === 'eth');
+        const balanceUSD = balance && calculateAmountUSD(balance, Number(tokenInfo?.latest_price_in_usd) || 0);
 
         return {
-          amount: stats?.total_amount || 0,
+          amount: balance?.toSignificant() || 0,
           logoUrl: token.l1Token.logoUrl,
           symbol: nativeToken.symbol,
-          totalUsd: Number(stats?.total_usd || 0),
-          multiplier: tokenInfo?.multiplier
+          totalUsd: balanceUSD || 0,
+          multiplier: Number(tokenInfo?.multiplier)
         };
       }
 
-      const stats = user?.depositStats?.find(
-        (item) =>
-          token.l1Currency.isToken &&
-          isAddressEqual((token.l1Currency as ERC20Token)?.address, item?.token_address as Address)
-      );
-
       const tokenInfo = tokensInfo?.find((info) => isAddressEqual(info.l2_address as Address, token.l2Token.address));
+      const balanceUSD = tokenInfo?.latest_price_in_usd
+        ? calculateAmountUSD(balance, Number(tokenInfo?.latest_price_in_usd) || 0)
+        : 0;
 
       return {
-        amount: stats?.total_amount || 0,
+        amount: balance?.toSignificant() || 0,
         logoUrl: token.l1Token.logoUrl,
         symbol: token.l1Token.symbol,
-        totalUsd: Number(stats?.total_usd || 0),
-        multiplier: tokenInfo?.multiplier
+        totalUsd: balanceUSD || 0,
+        multiplier: Number(tokenInfo?.multiplier) || '0'
       };
     })
-    .sort((a, b) => b.totalUsd - a.totalUsd);
+    .sort((a, b) => {
+      if (a.totalUsd === b.totalUsd) {
+        return Number(b.multiplier || 0) - Number(a.multiplier || 0); // If 'a' values are equal, sort by 'b'
+      } else {
+        return b.totalUsd - a.totalUsd; // Sort primarily by 'a'
+      }
+    });
 
-  const multiplierEl = (multiplier?: string) => (
+  const multiplierEl = (multiplier?: string | number) => (
     <Flex
       alignItems='center'
       direction={{ base: 'row-reverse', s: 'row' }}
@@ -89,7 +94,7 @@ const UserAssetsModal = (props: UserAssetsModalProps): JSX.Element => {
       ) : (
         <>
           <P color='grey-50' size='s'>
-            {multiplier ? `${multiplier}x` : '-'}
+            {multiplier}x
           </P>
           <Spice size={{ base: 'xs', s: 's' }} />
         </>
@@ -121,8 +126,10 @@ const UserAssetsModal = (props: UserAssetsModalProps): JSX.Element => {
                 gap='s'
                 style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
               >
-                <Span size={{ base: 's', s: 'md' }}>{item.amount}</Span>
-                <Span size={{ base: 's', s: 'md' }}>
+                <Span color={Number(item.amount) === 0 ? 'grey-50' : undefined} size={{ base: 's', s: 'md' }}>
+                  {item.amount}
+                </Span>
+                <Span color={Number(item.amount) === 0 ? 'grey-50' : undefined} size={{ base: 's', s: 'md' }}>
                   ({Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' }).format(Number(item.totalUsd))})
                 </Span>
               </Flex>

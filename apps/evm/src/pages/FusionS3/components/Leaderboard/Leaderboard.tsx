@@ -104,10 +104,12 @@ const Leaderboard = (): JSX.Element => {
 
     switch (tab) {
       case LeaderboardTabs.SEASON: {
+        const [data] = user.season3Data.s3LeaderboardData;
+
         return {
-          rank: user.leaderboardRank.rank,
-          questPoints: user.leaderboardRank.total_quest_points,
-          points: user.leaderboardRank.total_points
+          rank: data.group_rank,
+          questPoints: data.quest_points,
+          points: data.total_points
         };
       }
       case LeaderboardTabs.HOURS_24: {
@@ -133,7 +135,7 @@ const Leaderboard = (): JSX.Element => {
         const [data] = user.season3Data.s3LeaderboardData;
 
         return {
-          rank: data.group_rank,
+          rank: data.quest_rank,
           questPoints: data.quest_points,
           points: data.quest_points
         };
@@ -156,9 +158,7 @@ const Leaderboard = (): JSX.Element => {
 
         return {
           id: `${item.username}${idx}`,
-          // [LeaderboardColumns.RANK]: <Flex paddingY='md'>{item.rank}</Flex>,
-          //TODO: remove any
-          [LeaderboardColumns.INVITED_BY]: (item as any)?.referred_by || '-',
+          [LeaderboardColumns.INVITED_BY]: item?.referred_by || '-',
           [LeaderboardColumns.NAME]: (
             <NameColumn
               name={item.username}
@@ -184,7 +184,7 @@ const Leaderboard = (): JSX.Element => {
 
       let userData: LeaderboardRow | undefined;
 
-      if (isAuthenticated) {
+      if (isAuthenticated && !user?.partner) {
         const userLeaderboardData = getUserData();
 
         if (userLeaderboardData) {

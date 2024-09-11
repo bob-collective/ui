@@ -61,7 +61,7 @@ const FusionPopover = (): JSX.Element | null => {
             <P color='grey-50' size='s'>
               Current Leaderboard Rank
             </P>
-            <P>#{season3leaderboardData.global_rank}</P>
+            <P>#{season3leaderboardData.group_rank}</P>
           </Card>
           <Divider marginY='xs' />
           <P color='grey-50' size='s'>

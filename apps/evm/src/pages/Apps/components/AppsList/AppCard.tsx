@@ -1,21 +1,5 @@
-import { Spice, Twitter } from '@gobob/icons';
-import {
-  Avatar,
-  Card,
-  CardProps,
-  Chip,
-  Dd,
-  Divider,
-  Dl,
-  DlGroup,
-  Dt,
-  Flex,
-  H3,
-  Link,
-  P,
-  SolidShieldCheck,
-  useLocale
-} from '@gobob/ui';
+import { Discord, Spice, Twitter } from '@gobob/icons';
+import { Avatar, Card, CardProps, Chip, Dd, Divider, Dl, DlGroup, Dt, Flex, H3, Link, P, useLocale } from '@gobob/ui';
 
 import { VotingAppData } from '../../hooks';
 import { SpiceChip } from '../SpiceChip';
@@ -86,14 +70,14 @@ const AppCard = ({
             <Flex flex={1} gap='s' justifyContent='space-between'>
               <H3 size='lg'>{name}</H3>
               <Flex alignItems='center' flex='0' gap='md'>
-                <SolidShieldCheck color='grey-50' size='s' />
+                {/* <SolidShieldCheck color='grey-50' size='s' /> */}
                 {discord && (
-                  <Link external href={discord}>
-                    <Twitter color='grey-50' size='s' />
+                  <Link external href={`https://${discord}`}>
+                    <Discord color='grey-50' size='s' />
                   </Link>
                 )}
                 {twitter && (
-                  <Link external href={twitter}>
+                  <Link external href={`https://${twitter}`}>
                     <Twitter color='grey-50' size='s' />
                   </Link>
                 )}

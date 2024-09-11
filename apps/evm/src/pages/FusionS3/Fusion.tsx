@@ -33,12 +33,7 @@ const Fusion = () => {
       <StyledBackgroundOpacity />
       <Main maxWidth='7xl' padding='lg'>
         <SeasonInfo />
-        <UserInfo
-          apps={apps}
-          completedQuestsCount={quests?.uniqueQuestParticipated}
-          isAuthenticated={isAuthenticated}
-          user={user}
-        />
+        <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
         <Challenges quests={quests} />
         <Leaderboard />
       </Main>

@@ -16,34 +16,43 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 
-import { UserResponse } from '../../../../utils';
+import { QuestS3Response, UserResponse } from '../../../../utils';
 import { AppData } from '../../../Apps/hooks';
 import { LoginSection } from '../../../../components';
-import { RoutesPath } from '../../../../constants';
+import { L2_CHAIN, RoutesPath } from '../../../../constants';
+import { useTotalBalance } from '../../../../hooks';
 
 import { StyledDl, StyledLoginCard, StyledOverlay, StyledUnderlay } from './UserInfo.style';
 import { UserInfoCard } from './UserInfoCard';
 import { UserAssetsModal } from './UserAssetsModal';
 import { UserAppsModal } from './UsedAppsModal';
+import { UserReferralModal } from './UserReferralModal';
 
 type UserInfoProps = {
   user?: UserResponse;
   apps: AppData[] | undefined;
-  completedQuestsCount?: number;
+  quests: QuestS3Response | undefined;
   isAuthenticated?: boolean;
 };
 
-const UserInfo = ({ apps, user, completedQuestsCount, isAuthenticated }: UserInfoProps) => {
+const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const { locale } = useLocale();
   const navigate = useNavigate();
   const [, copy] = useCopyToClipboard();
 
+  const { formatted } = useTotalBalance(L2_CHAIN);
+
   const [isUserAssetsModalOpen, setUserAssetsModalOpen] = useState(false);
   const [isUserAppsModalOpen, setUserAppsModalOpen] = useState(false);
-
-  const appsUsedCount = user?.season3Data.harvestedPointsS3.length;
+  const [isUserReferralModalOpen, setUserReferralModalOpen] = useState(false);
 
   const spicePerDay = user?.season3Data.oneDayLeaderboardEntry[0].total_points;
+
+  const harvestedApps = apps?.filter((app) => app.userHarvest);
+
+  const completedQuestsCount = quests?.questBreakdown.filter((quest) => quest.quest_completed).length;
+
+  const hasReferrals = Number(user?.season3Data.s3LeaderboardData[0].ref_points) > 0;
 
   return (
     <div style={{ position: 'relative' }}>
@@ -53,7 +62,7 @@ const UserInfo = ({ apps, user, completedQuestsCount, isAuthenticated }: UserInf
         gap='lg'
         marginTop='5xl'
       >
-        <UserInfoCard description='$172,124.22' title='Assets Deposited'>
+        <UserInfoCard description={formatted} title='Assets Deposited'>
           <Flex gap='md' marginTop='xl'>
             <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserAssetsModalOpen(true)}>
               <Bars3 />
@@ -61,32 +70,41 @@ const UserInfo = ({ apps, user, completedQuestsCount, isAuthenticated }: UserInf
             <Button
               fullWidth
               color='primary'
-              disabled={!isAuthenticated}
               elementType={Link}
-              {...{ href: RoutesPath.BRIDGE }}
+              tabIndex={isAuthenticated ? undefined : -1}
+              {...{ href: RoutesPath.BRIDGE, isDisabled: !isAuthenticated }}
             >
               Bridge More
             </Button>
           </Flex>
           <UserAssetsModal isOpen={isUserAssetsModalOpen} onClose={() => setUserAssetsModalOpen(false)} />
         </UserInfoCard>
-        <UserInfoCard description={appsUsedCount} title='Apps Used' tooltipLabel='TBD'>
+        <UserInfoCard description={harvestedApps?.length || 0} title='Apps Used' tooltipLabel='TBD'>
           <Flex gap='md' marginTop='xl'>
-            <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserAppsModalOpen(true)}>
-              <Bars3 />
-            </Button>
+            {!!harvestedApps?.length && (
+              <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserAppsModalOpen(true)}>
+                <Bars3 />
+              </Button>
+            )}
             <Button
               fullWidth
               disabled={!isAuthenticated}
               elementType={Link}
+              tabIndex={isAuthenticated ? undefined : -1}
               variant='outline'
-              {...{ href: RoutesPath.APPS }}
+              {...{ href: RoutesPath.APPS, isDisabled: !isAuthenticated }}
             >
               Use Apps
               <ArrowRight size='xs' strokeWidth='2' style={{ marginLeft: 4 }} />
             </Button>
           </Flex>
-          <UserAppsModal apps={apps} isOpen={isUserAppsModalOpen} onClose={() => setUserAppsModalOpen(false)} />
+          {!!harvestedApps?.length && (
+            <UserAppsModal
+              apps={harvestedApps}
+              isOpen={isUserAppsModalOpen}
+              onClose={() => setUserAppsModalOpen(false)}
+            />
+          )}
         </UserInfoCard>
         <UserInfoCard description={completedQuestsCount || 0} title='Challenges Solved' tooltipLabel='TBD'>
           <Button
@@ -100,9 +118,11 @@ const UserInfo = ({ apps, user, completedQuestsCount, isAuthenticated }: UserInf
         </UserInfoCard>
         <UserInfoCard description={user?.referral_code} title='Your Referral Code' tooltipLabel='TBD'>
           <Flex gap='md' marginTop='xl'>
-            {/* <Button disabled={!isAuthenticated} variant='outline'>
-              <Bars3 />
-            </Button> */}
+            {hasReferrals && (
+              <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
+                <Bars3 />
+              </Button>
+            )}
             <Button
               fullWidth
               disabled={!isAuthenticated}
@@ -112,6 +132,13 @@ const UserInfo = ({ apps, user, completedQuestsCount, isAuthenticated }: UserInf
               Copy <SolidDocumentDuplicate size='xs' style={{ marginLeft: 4 }} />
             </Button>
           </Flex>
+          {user && hasReferrals && (
+            <UserReferralModal
+              isOpen={isUserReferralModalOpen}
+              user={user}
+              onClose={() => setUserReferralModalOpen(false)}
+            />
+          )}
         </UserInfoCard>
         <UserInfoCard
           description={
@@ -124,7 +151,7 @@ const UserInfo = ({ apps, user, completedQuestsCount, isAuthenticated }: UserInf
               <Flex elementType='span' gap='xs'>
                 <Spice size='xs' />
                 <Span size='xs'>
-                  (+{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerDay || 0)}/ Day)
+                  (+{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerDay || 0)}/Day)
                 </Span>
               </Flex>
             </Flex>

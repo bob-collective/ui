@@ -50,7 +50,7 @@ const ChallengeCard = ({ data, ...props }: ChallengeCardProps) => {
           {!!data?.available_spice && (
             <StyledPrize rounded='s'>
               <Flex alignItems='center' gap='xs'>
-                <Spice color='primary-500' size='xs' />
+                <Spice size='xs' />
                 {Intl.NumberFormat(locale).format(Number(data.available_spice))}
               </Flex>
             </StyledPrize>

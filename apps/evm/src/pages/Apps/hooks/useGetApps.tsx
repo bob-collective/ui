@@ -30,17 +30,22 @@ const useGetApps = () => {
     select: (data): AppData[] => {
       const apps = votingApps?.categories.map((category) => category.apps).flat();
 
-      return data.partners.map((partner) => ({
-        ...partner,
-        logoSrc: getImageUrl(partner.name),
-        voting: apps?.find((app) => partner.ref_code === app.refCode),
-        userHarvest: user?.season3Data.harvestedPointsS3.find((project) => project.partner_refcode === partner.ref_code)
-          ?.total_points,
-        multiplier:
-          partner.min_multiplier === partner.max_multiplier
-            ? `${partner.max_multiplier}x`
-            : `${partner.min_multiplier}x - ${partner.max_multiplier}x`
-      }));
+      return data.partners
+        .filter((partner) => partner.live)
+        .map((partner) => ({
+          ...partner,
+          logoSrc: getImageUrl(partner.name),
+          voting: apps?.find((app) => partner.ref_code === app.refCode),
+          userHarvest: user?.season3Data.harvestedPointsS3.find(
+            (project) => project.partner_refcode === partner.ref_code
+          )?.total_points,
+          multiplier:
+            Number(partner.min_multiplier) > 0 || Number(partner.max_multiplier) > 0
+              ? partner.min_multiplier === partner.max_multiplier
+                ? `${partner.max_multiplier}x`
+                : `${partner.min_multiplier}x - ${partner.max_multiplier}x`
+              : '1x'
+        }));
     }
   });
 };

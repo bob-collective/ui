@@ -218,13 +218,12 @@ interface PartnersS3Response {
 export interface PartnerS3 {
   name: string;
   ref_code: string;
-  category: string;
   live?: boolean;
   project_url: string;
   show_on_app_store: boolean;
   discord_id: any;
   twitter_id: any;
-  categories: any;
+  categories: string[];
   total_distributed_points: string;
   total_points: number;
   total_tvl_points: string;
@@ -260,6 +259,7 @@ interface S3Leaderboard {
   evm_address?: string;
   tvl_points: string;
   received_pts: string;
+  referred_by: string;
   distributed_pts: string;
   quest_points: string;
   quests_breakdown: any;
@@ -281,6 +281,7 @@ interface S3OneDayChange {
   distributed_pts: string;
   quest_points: string;
   quests_breakdown: any;
+  referred_by: string;
   is_partner: boolean;
   ref_points: number;
   global_rank_diff: any;
@@ -297,6 +298,7 @@ interface S3SevenDayChange {
   referral_code: string;
   evm_address: string;
   tvl_points: string;
+  referred_by: string;
   received_pts: string;
   distributed_pts: string;
   quest_points: string;
@@ -317,6 +319,7 @@ interface S3QuestLeaderboard {
   referral_code: string;
   evm_address?: string;
   tvl_points: string;
+  referred_by: string;
   received_pts: string;
   distributed_pts: string;
   quest_points: string;
@@ -340,9 +343,6 @@ export interface TokenInfo {
 
 export interface QuestS3Response {
   questBreakdown: QuestBreakdown[];
-  totalPoints: number;
-  uniqueQuestParticipated: number;
-  totalUniqueQuests: number;
 }
 
 export interface QuestBreakdown {
