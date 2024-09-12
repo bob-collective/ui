@@ -13,11 +13,11 @@ import {
   Avatar,
   Card,
   Flex,
+  InformationCircle,
   Input,
   Item,
   P,
   Select,
-  SolidInformationCircle,
   Switch,
   TokenInput,
   Tooltip,
@@ -374,7 +374,7 @@ const BtcBridgeForm = ({
             <Flex alignItems='center' gap='s'>
               <P>Top up Gas</P>
               <Tooltip color='primary' label='BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB'>
-                <SolidInformationCircle color='grey-50' size='xs' />
+                <InformationCircle color='grey-50' size='xs' />
               </Tooltip>
             </Flex>
             <P color='grey-50' size='xs'>
