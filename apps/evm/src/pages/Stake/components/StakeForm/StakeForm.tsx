@@ -1,21 +1,26 @@
+import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
-import { Token } from '@gobob/currency';
+import { ERC20Token, Ether, Token } from '@gobob/currency';
 import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Alert, Flex } from '@gobob/ui';
 import { Key, useState } from 'react';
-import { useChainId } from '@gobob/wagmi';
 
-import { FeatureFlags, TokenData, useFeatureFlag } from '../../../../hooks';
+import { FeatureFlags, useFeatureFlag } from '../../../../hooks';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import { bridgeKeys } from '../../../../lib/react-query';
 import { StakeOrigin } from '../../Stake';
 import { useGetTransactions } from '../../hooks';
 import { GatewayData, L2BridgeData } from '../../types';
+import { GatewayTransactionModal, StakeTransactionModal } from '../TransactionModal';
 import { UnstakeForm } from '../UnstakeForm';
-import { StakeTransactionModal, GatewayTransactionModal } from '../TransactionModal';
 
 import { BobStakeForm } from './BobStakeForm';
 import { BtcStakeForm } from './BtcStakeForm';
+
+type StrategyData = {
+  raw: GatewayStrategyContract;
+  currency: Ether | ERC20Token;
+};
 
 type TransactionModalState = {
   isOpen: boolean;
@@ -30,7 +35,6 @@ type GatewayTransactionModalState = {
 };
 
 type BridgeFormProps = {
-  chain: ChainId | 'BTC';
   type: 'stake' | 'unstake';
   ticker?: string;
   stakeOrigin?: StakeOrigin;
@@ -39,7 +43,7 @@ type BridgeFormProps = {
   onChangeChain?: (chain: ChainId | 'BTC') => void;
 };
 
-const StakingForm = ({ type = 'stake', stakeOrigin: bridgeOrigin, ticker, chain }: BridgeFormProps): JSX.Element => {
+const StakingForm = ({ type = 'stake', stakeOrigin, ticker }: BridgeFormProps): JSX.Element => {
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
   const { refetchBridgeTxs } = useGetTransactions();
@@ -53,31 +57,21 @@ const StakingForm = ({ type = 'stake', stakeOrigin: bridgeOrigin, ticker, chain 
     step: 'confirmation'
   });
 
-  const chainId = useChainId();
-
-  const { data: btcTokens } = useQuery({
+  const { data: strategies } = useQuery({
     enabled: isBtcGatewayEnabled,
-    queryKey: bridgeKeys.btcTokens(),
+    queryKey: bridgeKeys.strategies(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR,
-    queryFn: async (): Promise<TokenData[]> => {
+    queryFn: async (): Promise<StrategyData[]> => {
       const strategies = await gatewaySDK.getStrategies();
 
-      return strategies.reduce<TokenData[]>((acc, strategy) => {
+      return strategies.reduce<StrategyData[]>((acc, strategy) => {
         const token = strategy.outputToken;
 
         if (token !== null) {
           acc.push({
-            raw: {
-              chainId,
-              address: token.address as `0x${string}`,
-              name: token.symbol,
-              symbol: token.symbol,
-              decimals: token.decimals,
-              logoUrl: token.logo,
-              apiId: ''
-            },
+            raw: strategy,
             currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.symbol)
           });
         }
@@ -119,16 +113,16 @@ const StakingForm = ({ type = 'stake', stakeOrigin: bridgeOrigin, ticker, chain 
   return (
     <>
       <Flex direction='column' marginTop='2xl'>
-        {type === 'unstake' && bridgeOrigin === StakeOrigin.INTERNAL && (
+        {type === 'unstake' && stakeOrigin === StakeOrigin.INTERNAL && (
           <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
             Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
             bridge.
           </Alert>
         )}
-        {bridgeOrigin === StakeOrigin.INTERNAL ? (
-          btcTokens?.length ? (
+        {stakeOrigin === StakeOrigin.INTERNAL ? (
+          strategies?.length ? (
             <BtcStakeForm
-              availableTokens={btcTokens}
+              strategies={strategies}
               type={type}
               onFailGateway={handleCloseGatewayModal}
               onGatewaySuccess={handleGatewaySuccess}
@@ -146,7 +140,7 @@ const StakingForm = ({ type = 'stake', stakeOrigin: bridgeOrigin, ticker, chain 
             />
           )
         ) : (
-          <UnstakeForm chain={chain} type={type} />
+          <UnstakeForm type={type} />
         )}
       </Flex>
       <StakeTransactionModal
@@ -165,3 +159,4 @@ const StakingForm = ({ type = 'stake', stakeOrigin: bridgeOrigin, ticker, chain 
 };
 
 export { StakingForm };
+export { type StrategyData };

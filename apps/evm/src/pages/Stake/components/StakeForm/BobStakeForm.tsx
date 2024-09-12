@@ -15,14 +15,14 @@ import { AuthButton } from '@gobob/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { useBalances } from '../../../../hooks';
 import {
-  BRIDGE_AMOUNT,
-  BRIDGE_GAS_TOKEN,
-  BRIDGE_RECIPIENT,
-  BRIDGE_TICKER,
-  BridgeFormValidationParams,
-  BridgeFormValues,
-  bridgeSchema
-} from '../../../../lib/form/bridge';
+  STAKE_AMOUNT,
+  STAKE_GAS_TOKEN,
+  STAKE_RECIPIENT,
+  STAKE_TICKER,
+  StakeFormValidationParams,
+  StakeFormValues,
+  stakeSchema
+} from '../../../../lib/form/stake';
 import { isFormDisabled } from '../../../../lib/form/utils';
 import {
   BridgeToken,
@@ -368,7 +368,7 @@ const BobStakeForm = ({
   useEffect(() => {
     if (!debouncedAmount) return;
 
-    const amount = form.values[BRIDGE_AMOUNT];
+    const amount = form.values[STAKE_AMOUNT];
 
     if (!amount || isNaN(amount as any) || !selectedCurrency || !selectedToken) return;
 
@@ -396,10 +396,10 @@ const BobStakeForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chain]);
 
-  const handleSubmit = async (data: BridgeFormValues) => {
+  const handleSubmit = async (data: StakeFormValues) => {
     if (!currencyAmount || !selectedToken || !selectedGasToken || isStakingDisabled) return;
 
-    const recipient = (data[BRIDGE_RECIPIENT] as Address) || undefined;
+    const recipient = (data[STAKE_RECIPIENT] as Address) || undefined;
 
     if (type === 'stake') {
       return depositMutation.mutate({
@@ -420,10 +420,10 @@ const BobStakeForm = ({
 
   const initialValues = useMemo(
     () => ({
-      [BRIDGE_AMOUNT]: '',
-      [BRIDGE_TICKER]: ticker,
-      [BRIDGE_GAS_TOKEN]: gasTicker,
-      [BRIDGE_RECIPIENT]: ''
+      [STAKE_AMOUNT]: '',
+      [STAKE_TICKER]: ticker,
+      [STAKE_GAS_TOKEN]: gasTicker,
+      [STAKE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -434,17 +434,17 @@ const BobStakeForm = ({
     [getBalance, selectedCurrency]
   );
 
-  const params: BridgeFormValidationParams = {
-    [BRIDGE_AMOUNT]: {
+  const params: StakeFormValidationParams = {
+    [STAKE_AMOUNT]: {
       minAmount: currencyAmount && new Big(1 / 10 ** currencyAmount?.currency.decimals),
       maxAmount: new Big(tokenBalance?.toExact() || 0)
     },
-    [BRIDGE_RECIPIENT]: !!isSmartAccount
+    [STAKE_RECIPIENT]: !!isSmartAccount
   };
 
-  const form = useForm<BridgeFormValues>({
+  const form = useForm<StakeFormValues>({
     initialValues,
-    validationSchema: bridgeSchema(params),
+    validationSchema: stakeSchema(params),
     onSubmit: handleSubmit,
     hideErrors: 'untouched'
   });
@@ -513,12 +513,12 @@ const BobStakeForm = ({
         type='selectable'
         valueUSD={valueUSD}
         onChangeCurrency={handleChangeTicker}
-        {...mergeProps(form.getSelectableTokenFieldProps({ amount: BRIDGE_AMOUNT, currency: BRIDGE_TICKER }), {
+        {...mergeProps(form.getSelectableTokenFieldProps({ amount: STAKE_AMOUNT, currency: STAKE_TICKER }), {
           onValueChange: (value: string) => setAmount(value)
         })}
       />
       {isSmartAccount && (
-        <Input label='Recipient' placeholder='Enter destination address' {...form.getFieldProps(BRIDGE_RECIPIENT)} />
+        <Input label='Recipient' placeholder='Enter destination address' {...form.getFieldProps(STAKE_RECIPIENT)} />
       )}
       {isStakingDisabled && selectedToken && <StakeAlert token={selectedToken} />}
       <AuthButton
