@@ -35,12 +35,16 @@ const Step = ({
   const theme = useTheme();
   const isTable = useMediaQuery(theme.breakpoints.down('md'));
 
-  const percentage = getPercentage(value, minValue, maxValue) * 100;
-
   const showBar =
-    showBarProp !== undefined ? showBarProp : isTable ? currentValue < value && value - currentValue < 100 : true;
+    showBarProp !== undefined ? showBarProp : isTable ? currentValue < value && value - currentValue < 100000000 : true;
   const showValue =
-    showValueProp !== undefined ? showValueProp : isTable ? currentValue < value && value - currentValue < 100 : true;
+    showValueProp !== undefined
+      ? showValueProp
+      : isTable
+        ? currentValue < value && value - currentValue < 100000000
+        : true;
+
+  const percentage = getPercentage(value, minValue, maxValue) * 100;
 
   return (
     <>
