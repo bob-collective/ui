@@ -155,9 +155,6 @@ const StyledFusionImg = styled.img`
       transform: translateY(-50%);
 
       @media ${theme.breakpoints.down('md')} {
-        left: 50%;
-        right: unset;
-        transform: translate(-50%, -50%);
         opacity: 0.2;
       }
     `;
