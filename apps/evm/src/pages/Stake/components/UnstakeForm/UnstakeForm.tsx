@@ -1,22 +1,15 @@
 import { Flex, P } from '@gobob/ui';
-import { ChainId } from '@gobob/chains';
 
 import { ExternalStakeCard, ExternalBridges } from './ExternalStakeCard';
 
 type UnstakeProps = {
   type: 'stake' | 'unstake';
-  chain: ChainId | 'BTC';
 };
 
-const defaultBridges: ExternalBridges[] = ['meson', 'orbiter-finance', 'owlto-finance', 'relay', 'stargate'];
+const defaultBridges: ExternalBridges[] = ['solvbtc', 'unibtc', 'pell-network'];
 
-const availableBridges: Partial<Record<ChainId | 'BTC', ExternalBridges[]>> = {
-  [ChainId.MERLIN]: ['owlto-finance'],
-  [ChainId.BITLAYER]: ['owlto-finance']
-};
-
-const UnstakeForm = ({ type, chain }: UnstakeProps): JSX.Element => {
-  const bridges = availableBridges[chain] || defaultBridges;
+const UnstakeForm = ({ type }: UnstakeProps): JSX.Element => {
+  const bridges = defaultBridges;
 
   return (
     <Flex direction='column' gap='xl'>

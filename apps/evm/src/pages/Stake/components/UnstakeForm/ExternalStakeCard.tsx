@@ -1,48 +1,39 @@
 import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
+import { BTC } from '@gobob/icons';
 
-import { Meson } from './Meson';
-import { Owl } from './Owl';
-import { Relay } from './Relay';
-import { Stargate } from './Stargate';
+import { SolvBTCBBN } from '../ProjectsList/SolvBTCBBN';
+import { UniBTC } from '../ProjectsList/UniBTC';
+import { PellNetwork } from '../ProjectsList/PellNetwork';
 
-type ExternalBridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
+type ExternalBridges = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network';
 
 // TODO: add missing links
 const bridges: Record<
   ExternalBridges,
   { icon: any | string; href: string | { stake: string; unstake: string }; name: string; disabled: boolean }
 > = {
-  stargate: {
-    href: 'https://stargate.finance/transfer',
-    icon: Stargate,
-    name: 'Stargate',
-    disabled: true
-  },
-  relay: {
-    href: 'https://relay.link/bridge/bob/',
-    icon: Relay,
-    name: 'Relay',
+  solvbtc: {
+    href: 'https://app.solv.finance/solvbtc?network=bob',
+    icon: BTC,
+    name: 'SolvBTC',
     disabled: false
   },
-  meson: {
-    href: 'https://meson.fi/bob',
-    icon: Meson,
-    name: 'Meson',
+  babylon: {
+    href: 'https://app.solv.finance/babylon?network=bob',
+    icon: SolvBTCBBN,
+    name: 'SolBTC.BBN',
     disabled: false
   },
-  'orbiter-finance': {
-    icon: 'https://docs.orbiter.finance/~gitbook/image?url=https%3A%2F%2F1544475235-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F-MY5Qy9GjDHXTy9ppyql%252Fuploads%252Fgit-blob-d43576a05a193419b332d9322d2453c75890ca0a%252Ficon-1.png%3Falt%3Dmedia&width=400&dpr=2&quality=100&sign=f56bd30e6036fd11ede281ea575525fea222f411cb6bc41e55fe9ed4a1b556f7',
-    name: 'Orbiter Finance',
-    disabled: false,
-    href: {
-      stake: 'https://www.orbiter.finance/?dest=BOB',
-      unstake: 'https://www.orbiter.finance/?source=BOB'
-    }
+  unibtc: {
+    href: 'https://app.bedrock.technology/unibtc',
+    icon: UniBTC,
+    name: 'UniBTC',
+    disabled: false
   },
-  'owlto-finance': {
-    href: 'https://owlto.finance/',
-    icon: Owl,
-    name: 'Owlto Finance',
+  'pell-network': {
+    href: 'https://app.pell.network',
+    icon: PellNetwork,
+    name: 'Pell network',
     disabled: false
   }
 };
