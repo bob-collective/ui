@@ -269,7 +269,7 @@ const BobStakeForm = ({
     }
   });
 
-  const isUSDCWithdraw = useMemo(
+  const isUSDCUnstake = useMemo(
     () => currencyAmount && type === 'unstake' && USDC[L2_CHAIN].equals(currencyAmount.currency),
     [type, currencyAmount]
   );
@@ -279,7 +279,7 @@ const BobStakeForm = ({
     approveAsync: approveUSDCAsync,
     isApproving: isApprovingUSDC
   } = useApproval({
-    amount: isUSDCWithdraw ? (currencyAmount as CurrencyAmount<Token>) : undefined,
+    amount: isUSDCUnstake ? (currencyAmount as CurrencyAmount<Token>) : undefined,
     spender: USDCCrossBridgeConfig[L2_CHAIN].l2Bridge as Address
   });
 
