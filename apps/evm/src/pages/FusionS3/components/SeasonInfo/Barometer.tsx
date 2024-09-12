@@ -52,7 +52,9 @@ const Step = ({
           size='xs'
           style={value < maxValue ? { left: `${percentage}%`, transform: 'translateX(-50%)' } : { right: 0 }}
         >
-          {Intl.NumberFormat(locale, { notation: 'compact', currency: 'USD' }).format(value * 1000000)}
+          {Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
+            value * 1000000
+          )}
         </StyledStep>
       )}
     </>
@@ -91,7 +93,7 @@ const Barometer = () => {
       </StyledFilledTrackWrapper>
       <StyledFilledTrackWrapper>
         <StyledTrackTitle size='xs'>Season 3</StyledTrackTitle>
-        <Step showValue currentValue={value} maxValue={maxValue} minValue={minValue} value={35} />
+        <Step showValue currentValue={value} maxValue={maxValue} minValue={minValue} showBar={false} value={35} />
         {!isTable && <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={50} />}
         <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={100} />
         <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={150} />

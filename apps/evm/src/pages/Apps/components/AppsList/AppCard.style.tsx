@@ -12,4 +12,9 @@ const StyledSpiceChipWrapper = styled.div`
   right: ${({ theme }) => theme.spacing('md')};
 `;
 
-export { StyledImgWrapper, StyledSpiceChipWrapper };
+const StyledAnchor = styled.a`
+  text-decoration: none;
+  display: flex;
+`;
+
+export { StyledImgWrapper, StyledAnchor, StyledSpiceChipWrapper };

@@ -37,7 +37,7 @@ const Challenges = ({ quests }: ChallengesProps) => {
   };
 
   return (
-    <Flex direction='column' gap='2xl' marginTop='3xl'>
+    <Flex direction='column' gap='2xl' marginTop='5xl'>
       <H2 id='challenges' size='3xl'>
         Challenges
       </H2>

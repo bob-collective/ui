@@ -4,6 +4,7 @@ import { Flex, H3, Skeleton, useLocale } from '@gobob/ui';
 import { QuestBreakdown, QuestRefCodes } from '../../../../utils';
 
 import {
+  StyledAnchor,
   StyledAvatarWrapper,
   StyledCard,
   StyledCompletedTag,
@@ -11,7 +12,8 @@ import {
   StyledDescription,
   StyledOpacityOverlay,
   StyledPrize,
-  StyledQuestWrapper
+  StyledQuestWrapper,
+  StyledTrapezoid
 } from './Challenges.style';
 
 const questOwnerMap = {
@@ -27,13 +29,26 @@ type ChallengeCardProps = Props;
 
 const ChallengeCard = ({ data, ...props }: ChallengeCardProps) => {
   const { locale } = useLocale();
+
   const QuestOwnerComp = data?.questing_platform_referral_code
     ? questOwnerMap[data?.questing_platform_referral_code as QuestRefCodes]
     : undefined;
 
   return (
-    <a {...props} href={data?.url || '#'} rel='noreferrer' style={{ textDecoration: 'none' }} target='_blank'>
-      <StyledCard isHoverable isPressable gap='xl' marginX='s'>
+    <StyledAnchor {...props} href={data?.url || '#'} rel='noreferrer' target='_blank'>
+      <StyledCard
+        isHoverable
+        isPressable
+        $isFeatured={data?.is_featured}
+        $questOwner={data?.questing_platform_referral_code as QuestRefCodes}
+        gap='xl'
+        marginX='s'
+      >
+        {data?.is_featured && (
+          <StyledTrapezoid background='grey-400' direction='inverted' size='xs'>
+            Featured
+          </StyledTrapezoid>
+        )}
         {data?.quest_completed && <StyledOpacityOverlay />}
         <StyledAvatarWrapper>
           {data?.quest_completed && (
@@ -69,7 +84,7 @@ const ChallengeCard = ({ data, ...props }: ChallengeCardProps) => {
           <Skeleton count={2} height='xl' />
         )}
       </StyledCard>
-    </a>
+    </StyledAnchor>
   );
 };
 

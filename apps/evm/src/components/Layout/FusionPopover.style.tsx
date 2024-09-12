@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Card, Chip, Flex } from '@gobob/ui';
 
 function getImageUrl(name: string) {
@@ -11,6 +11,14 @@ const StyledHarvestCard = styled(Card)`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
+
+  ${({ theme }) => {
+    return css`
+      @media ${theme.breakpoints.up('s')} {
+        min-width: 18rem;
+      }
+    `;
+  }}
 `;
 
 const StyledOpacityOverlay = styled.div`

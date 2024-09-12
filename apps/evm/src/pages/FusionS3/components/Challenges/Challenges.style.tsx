@@ -2,7 +2,15 @@ import styled, { css } from 'styled-components';
 import Slider from 'react-slick';
 import { Card, Chip, Span } from '@gobob/ui';
 
+import { Trapezoid } from '../../../../components';
+import { QuestRefCodes } from '../../../../utils';
+
 import { CubsPath } from './CubsPath';
+
+type StyledCardProps = {
+  $isFeatured?: boolean;
+  $questOwner?: QuestRefCodes;
+};
 
 const StyledAvatarWrapper = styled.div`
   position: relative;
@@ -28,8 +36,11 @@ const StyledQuestWrapper = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(Card)<StyledCardProps>`
   position: relative;
+  border: 2px solid
+    ${({ $isFeatured, $questOwner }) =>
+      $isFeatured && $questOwner ? ($questOwner === QuestRefCodes.INTRACT ? '#25D1F7' : '#C0A1EA') : 'transparent'};
 `;
 
 const StyledOpacityOverlay = styled.div`
@@ -83,6 +94,19 @@ const StyledDescription = styled.div`
   }
 `;
 
+const StyledAnchor = styled.a`
+  text-decoration: none;
+  display: flex;
+  position: relative;
+`;
+
+const StyledTrapezoid = styled(Trapezoid)`
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 export {
   StyledAvatarWrapper,
   StyledOpacityOverlay,
@@ -92,5 +116,7 @@ export {
   StyledQuestWrapper,
   StyledCubsPath,
   StyledCompletedTag,
-  StyledCard
+  StyledCard,
+  StyledAnchor,
+  StyledTrapezoid
 };

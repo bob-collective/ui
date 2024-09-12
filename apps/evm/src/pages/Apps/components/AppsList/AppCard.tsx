@@ -1,10 +1,26 @@
 import { Discord, Spice, Twitter } from '@gobob/icons';
-import { Avatar, Card, CardProps, Chip, Dd, Divider, Dl, DlGroup, Dt, Flex, H3, Link, P, useLocale } from '@gobob/ui';
+import {
+  Avatar,
+  Card,
+  CardProps,
+  Chip,
+  Dd,
+  Divider,
+  Dl,
+  DlGroup,
+  Dt,
+  Flex,
+  H3,
+  Link,
+  P,
+  Span,
+  useLocale
+} from '@gobob/ui';
 
 import { VotingAppData } from '../../hooks';
 import { SpiceChip } from '../SpiceChip';
 
-import { StyledImgWrapper, StyledSpiceChipWrapper } from './AppCard.style';
+import { StyledAnchor, StyledImgWrapper, StyledSpiceChipWrapper } from './AppCard.style';
 
 type Props = {
   name: string;
@@ -47,7 +63,7 @@ const AppCard = ({
   const { locale } = useLocale();
 
   return (
-    <a href={`https://${url}`} rel='noreferrer' style={{ textDecoration: 'none', display: 'flex' }} target='_blank'>
+    <StyledAnchor href={`https://${url}`} rel='noreferrer' target='_blank'>
       <Card {...props} borderColor='grey-300' flex={1} padding='none'>
         <StyledImgWrapper alignItems='center' justifyContent='center' padding='5xl'>
           <Avatar borderColor='grey-300' rounded='md' size='9xl' src={imgSrc} />
@@ -100,10 +116,12 @@ const AppCard = ({
               {userHarvest !== undefined && (
                 <DlGroup justifyContent='space-between'>
                   <Dd color='grey-50'>My Total Harvest</Dd>
-                  <Dt color='primary-400' style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <Spice color='inherit' size='xs' />
-                    {Intl.NumberFormat(locale, { notation: 'compact' }).format(userHarvest || 0)}
-                  </Dt>
+                  <Flex alignItems='center' gap='xs'>
+                    <Spice color='primary-400' size='xs' />
+                    <Span color='primary-400'>
+                      {Intl.NumberFormat(locale, { notation: 'compact' }).format(userHarvest || 0)}
+                    </Span>
+                  </Flex>
                 </DlGroup>
               )}
             </Dl>
@@ -122,7 +140,7 @@ const AppCard = ({
           )}
         </Flex>
       </Card>
-    </a>
+    </StyledAnchor>
   );
 };
 

@@ -98,7 +98,6 @@ const SpiceChip = ({
           background='grey-900'
           borderColor={isLit ? 'primary-500' : 'grey-700'}
           className={className}
-          style={{ padding: 0, flexShrink: 0 }}
         >
           <Flex alignItems='center' elementType='span' gap='xxs' justifyContent='center'>
             {iconPlacement === 'start' && icon}

@@ -51,4 +51,11 @@ const StyledContentWrapper = styled(Flex)`
   z-index: 1;
 `;
 
-export { StyledCard, StyledAvatarWrapper, StyledContentWrapper, StyledMedal, StyledOpacityOverlay };
+const StyledGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  max-width: 21rem;
+`;
+
+export { StyledCard, StyledGrid, StyledAvatarWrapper, StyledContentWrapper, StyledMedal, StyledOpacityOverlay };

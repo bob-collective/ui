@@ -14,6 +14,8 @@ const StyledLottie = styled(Lottie)`
 
 const StyledChip = styled(Chip)<StyledChipProps>`
   cursor: ${({ $isPressable }) => $isPressable && 'pointer'};
+  padding: 0;
+  flex-shrink: 0;
 `;
 
 export { StyledLottie, StyledChip };

@@ -40,7 +40,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const navigate = useNavigate();
   const [, copy] = useCopyToClipboard();
 
-  const { formatted } = useTotalBalance(L2_CHAIN);
+  const { compact } = useTotalBalance(L2_CHAIN);
 
   const [isUserAssetsModalOpen, setUserAssetsModalOpen] = useState(false);
   const [isUserAppsModalOpen, setUserAppsModalOpen] = useState(false);
@@ -60,9 +60,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         aria-hidden={!isAuthenticated && 'true'}
         direction={{ base: 'column', md: 'row' }}
         gap='lg'
-        marginTop='5xl'
+        marginTop={{ base: '5xl', md: '7xl' }}
       >
-        <UserInfoCard description={formatted} title='Assets Deposited'>
+        <UserInfoCard description={compact} title='Assets Deposited'>
           <Flex gap='md' marginTop='xl'>
             <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserAssetsModalOpen(true)}>
               <Bars3 />
@@ -79,7 +79,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           </Flex>
           <UserAssetsModal isOpen={isUserAssetsModalOpen} onClose={() => setUserAssetsModalOpen(false)} />
         </UserInfoCard>
-        <UserInfoCard description={harvestedApps?.length || 0} title='Apps Used' tooltipLabel='TBD'>
+        <UserInfoCard description={harvestedApps?.length || 0} title='Apps Used'>
           <Flex gap='md' marginTop='xl'>
             {!!harvestedApps?.length && (
               <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserAppsModalOpen(true)}>
@@ -106,7 +106,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             />
           )}
         </UserInfoCard>
-        <UserInfoCard description={completedQuestsCount || 0} title='Challenges Solved' tooltipLabel='TBD'>
+        <UserInfoCard description={completedQuestsCount || 0} title='Challenges Solved'>
           <Button
             fullWidth
             disabled={!isAuthenticated}
@@ -116,7 +116,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             Solve Challenges
           </Button>
         </UserInfoCard>
-        <UserInfoCard description={user?.referral_code} title='Your Referral Code' tooltipLabel='TBD'>
+        <UserInfoCard description={user?.referral_code} title='Your Referral Code'>
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (
               <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
@@ -158,7 +158,6 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           }
           flex={1.3}
           title='Season 3 Harvested Spice'
-          tooltipLabel='TBD'
         />
       </StyledDl>
       {!isAuthenticated && (

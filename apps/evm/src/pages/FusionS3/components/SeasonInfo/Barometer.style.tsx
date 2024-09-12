@@ -65,7 +65,8 @@ const StyledFill = styled.div`
   border: none;
   transition: width 100ms;
   will-change: width;
-  background: linear-gradient(270deg, #dd5500 0%, #f79254 100%);
+  background: ${({ theme }) =>
+    `linear-gradient(270deg, ${theme.color('primary-600')} 0%, ${theme.color('primary-400')} 100%)`};
   height: ${({ theme }) => theme.spacing('xl')};
   border-top-right-radius: ${({ theme }) => theme.rounded('xs')};
   border-bottom-right-radius: ${({ theme }) => theme.rounded('xs')};
