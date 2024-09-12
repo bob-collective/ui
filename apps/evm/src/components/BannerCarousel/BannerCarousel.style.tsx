@@ -151,7 +151,7 @@ const StyledFusionImg = styled.img`
       position: absolute;
       top: 50%;
       right: 0;
-      width: 20rem;
+      width: 21rem;
       transform: translateY(-50%);
 
       @media ${theme.breakpoints.down('md')} {
