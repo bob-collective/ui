@@ -90,20 +90,18 @@ const BridgeForm = ({
     queryFn: async (): Promise<TokenData[]> => {
       const tokens = await gatewaySDK.getTokens();
 
-      return tokens.map((token) => {
-        return {
-          raw: {
-            chainId,
-            address: token.address as `0x${string}`,
-            name: token.name,
-            symbol: token.symbol,
-            decimals: token.decimals,
-            logoUrl: token.logoURI,
-            apiId: ''
-          },
-          currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.name)
-        };
-      });
+return tokens.map((token) => ({
+        raw: {
+          chainId,
+          address: token.address as `0x${string}`,
+          name: token.name,
+          symbol: token.symbol,
+          decimals: token.decimals,
+          logoUrl: token.logoURI,
+          apiId: ''
+        },
+        currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.name)
+      }));
     }
   });
 
