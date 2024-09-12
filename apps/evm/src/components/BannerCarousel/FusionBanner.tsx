@@ -1,6 +1,6 @@
 import { Flex, P } from '@gobob/ui';
 
-import fusionEndImg from '../../assets/fusion-end.png';
+import fusionEndImg from '../../assets/fusion-end.jpg';
 
 import { Banner } from './Banner';
 import { StyledFusionImg } from './BannerCarousel.style';
