@@ -372,7 +372,7 @@ const BtcBridgeForm = ({
           <FuelStation color='primary-500' />
           <Flex direction='column'>
             <Flex alignItems='center' gap='s'>
-              <P>Top-up Gas</P>
+              <P>Top up Gas</P>
               <Tooltip color='primary' label='BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB'>
                 <SolidInformationCircle color='grey-50' size='xs' />
               </Tooltip>
