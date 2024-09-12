@@ -220,6 +220,7 @@ export interface PartnerS3 {
   ref_code: string;
   live?: boolean;
   project_url: string;
+  description: string;
   show_on_app_store: boolean;
   discord_id: any;
   twitter_id: any;
@@ -534,8 +535,8 @@ class ApiClient {
     return await response.json();
   }
 
-  async getTokenInfo(): Promise<TokenInfo[]> {
-    const response = await fetch(`${this.baseUrl}/get-token-info`);
+  async getBarometerTVL(): Promise<{ totalTvl: string }> {
+    const response = await fetch(`${this.baseUrl}/get-barometer-tvl`);
 
     return await response.json();
   }

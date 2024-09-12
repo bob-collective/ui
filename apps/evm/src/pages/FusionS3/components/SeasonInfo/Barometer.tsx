@@ -52,24 +52,25 @@ const Step = ({
           size='xs'
           style={value < maxValue ? { left: `${percentage}%`, transform: 'translateX(-50%)' } : { right: 0 }}
         >
-          {Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
-            value * 1000000
-          )}
+          {Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(value)}
         </StyledStep>
       )}
     </>
   );
 };
 
-const Barometer = () => {
+type BarometerProps = {
+  value: number;
+};
+
+// TODO: this specific value is to make progression visible already
+const minValue = 34930000;
+const maxValue = 300000000;
+
+const Barometer = ({ value }: BarometerProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
   const isTable = useMediaQuery(theme.breakpoints.down('md'));
-
-  const value = 39;
-
-  const minValue = 35;
-  const maxValue = 300;
 
   const percentage = getPercentage(value, minValue, maxValue);
 
@@ -93,13 +94,13 @@ const Barometer = () => {
       </StyledFilledTrackWrapper>
       <StyledFilledTrackWrapper>
         <StyledTrackTitle size='xs'>Season 3</StyledTrackTitle>
-        <Step showValue currentValue={value} maxValue={maxValue} minValue={minValue} showBar={false} value={35} />
-        {!isTable && <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={50} />}
-        <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={100} />
-        <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={150} />
-        <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={200} />
-        {!isMobile && <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={250} />}
-        <Step showValue currentValue={value} maxValue={maxValue} minValue={minValue} showBar={false} value={300} />
+        <Step showValue currentValue={value} maxValue={maxValue} minValue={minValue} showBar={false} value={minValue} />
+        {!isTable && <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={50000000} />}
+        <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={100000000} />
+        <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={150000000} />
+        <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={200000000} />
+        {!isMobile && <Step currentValue={value} maxValue={maxValue} minValue={minValue} value={250000000} />}
+        <Step showValue currentValue={value} maxValue={maxValue} minValue={minValue} showBar={false} value={maxValue} />
         <StyledTrack>
           <StyledFill style={barStyle} />
         </StyledTrack>

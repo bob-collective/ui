@@ -60,7 +60,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         aria-hidden={!isAuthenticated && 'true'}
         direction={{ base: 'column', md: 'row' }}
         gap='lg'
-        marginTop={{ base: '5xl', md: '7xl' }}
+        marginTop={{ base: '4xl', md: '6xl' }}
       >
         <UserInfoCard description={compact} title='Assets Deposited'>
           <Flex gap='md' marginTop='xl'>

@@ -41,9 +41,9 @@ const VotingDashboard = ({
         </P>
       </Flex>
       <Flex direction={{ base: 'column', md: 'row' }} gap='xl'>
-        {categories.map((category) => (
+        {categories.map((category, idx) => (
           <AppsLeaderboard
-            key={category?.id}
+            key={idx}
             data={category?.apps}
             isLoading={isLoading}
             isVotingDisabled={isVotingDisabled}

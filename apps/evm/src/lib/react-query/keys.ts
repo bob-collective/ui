@@ -74,5 +74,6 @@ export const fusionKeys = {
   fusion: () => ['fusion'],
   leaderboard: () => [...fusionKeys.fusion(), 'leaderboard'],
   tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],
-  quests: () => [...fusionKeys.fusion(), 'quests']
+  quests: () => [...fusionKeys.fusion(), 'quests'],
+  tvl: () => [...fusionKeys.fusion(), 'tvl']
 };

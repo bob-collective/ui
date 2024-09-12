@@ -3,9 +3,9 @@ import { useState } from 'react';
 
 import { AppData, VotingAppData } from '../../hooks';
 
-import { StyledGrid } from './AppsList.style';
 import { AppCard } from './AppCard';
 import { AppCardSkeleton } from './AppCardSkeleton';
+import { StyledGrid } from './AppsList.style';
 
 type AppsListProps = {
   apps?: AppData[];
@@ -83,6 +83,7 @@ const AppsList = ({
                   <AppCard
                     key={app.ref_code}
                     categories={app.categories}
+                    description={app.description}
                     discord={app.discord_id}
                     imgSrc={app.logoSrc}
                     isVotingDisabled={isVotingDisabled}
@@ -91,9 +92,9 @@ const AppsList = ({
                     spiceMultiplier={app.multiplier}
                     spicePerHour={Number(app.points_distributed_per_hour)}
                     twitter={app.twitter_id}
-                    url={app.project_url}
                     userHarvest={isAuthenticated ? Number(app.userHarvest || 0) : undefined}
                     voting={app.voting}
+                    onPress={() => window.open(app.project_url, '_blank', 'noreferrer')}
                     onVote={onVote}
                   />
                 ))
