@@ -17,7 +17,7 @@ import {
   Item,
   P,
   Select,
-  SolidInformationCircle,
+  InformationCircle,
   Switch,
   TokenInput,
   Tooltip,
@@ -378,7 +378,7 @@ const BtcStakeForm = ({
                 color='primary'
                 label={<P size='xs'>BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB.</P>}
               >
-                <SolidInformationCircle color='grey-50' size='xs' />
+                <InformationCircle color='grey-50' size='xs' />
               </Tooltip>
             </Flex>
             <P color='grey-50' size='xs'>
