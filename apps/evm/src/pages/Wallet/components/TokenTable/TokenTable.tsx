@@ -113,7 +113,7 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   const handlePressBtcBridge = useCallback(() => navigate(`${RoutesPath.HOME}?network=bitcoin`), []);
 
   const btcRow: TokenTableRow = useMemo(() => {
-    const amountCurrency = satsAmount ? CurrencyAmount.fromRawAmount(BITCOIN, satsAmount) : undefined;
+    const amountCurrency = satsAmount ? CurrencyAmount.fromRawAmount(BITCOIN, satsAmount?.value) : undefined;
 
     const balance = amountCurrency?.toExact() || 0;
 
