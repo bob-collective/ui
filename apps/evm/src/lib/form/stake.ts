@@ -3,13 +3,11 @@ import yup, { MaxAmountValidationParams, MinAmountValidationParams } from './yup
 const STAKE_AMOUNT = 'stake-amount';
 const STAKE_STRATEGY = 'stake-strategy';
 const STAKE_RECIPIENT = 'stake-recipient';
-const STAKE_GAS_TOKEN = 'stake-gas-token';
 
 type StakeFormValues = {
   [STAKE_AMOUNT]?: string;
   [STAKE_STRATEGY]?: string;
   [STAKE_RECIPIENT]?: string;
-  [STAKE_GAS_TOKEN]?: string;
 };
 
 type StakeFormValidationParams = {
@@ -25,12 +23,11 @@ const stakeSchema = (params: StakeFormValidationParams) => {
       .maxAmount(params[STAKE_AMOUNT], 'stake')
       .minAmount(params[STAKE_AMOUNT], 'stake'),
     [STAKE_STRATEGY]: yup.string().required(),
-    [STAKE_GAS_TOKEN]: yup.string(),
     [STAKE_RECIPIENT]: params[STAKE_RECIPIENT]
       ? yup.string().required('Recipient is a required field').evmAddress()
       : yup.string()
   });
 };
 
-export { STAKE_AMOUNT, STAKE_STRATEGY, STAKE_RECIPIENT, STAKE_GAS_TOKEN, stakeSchema };
+export { STAKE_AMOUNT, STAKE_STRATEGY, STAKE_RECIPIENT, stakeSchema };
 export type { StakeFormValidationParams, StakeFormValues };

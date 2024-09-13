@@ -1,30 +1,21 @@
 import { Tabs, TabsItem } from '@gobob/ui';
 import { useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Main } from '../../components';
 
 import { StyledCard, StyledFlex } from './Stake.style';
 import { BannerCarousel, ProjectsList, StakingForm } from './components';
 
-enum StakeOrigin {
-  INTERNAL = 'INTERNAL',
-  EXTERNAL = 'EXTERNAL'
-}
-
 const Stake = () => {
-  const location = useLocation();
-
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
   const [type, setType] = useState<'stake' | 'unstake'>((searchParams.get('type') as 'stake') || 'stake');
-  const [stakeOrigin, setStakeOrigin] = useState<StakeOrigin>(StakeOrigin.INTERNAL);
 
   const navigate = useNavigate();
 
   const handleChangeTab = useCallback((key: any) => {
     setType(key as any);
-    setStakeOrigin(key === 'stake' ? StakeOrigin.INTERNAL : StakeOrigin.EXTERNAL);
   }, []);
 
   useEffect(() => {
@@ -50,7 +41,7 @@ const Stake = () => {
               <></>
             </TabsItem>
           </Tabs>
-          <StakingForm stakeOrigin={stakeOrigin} ticker={location.state?.ticker} type={type} />
+          <StakingForm type={type} />
         </StyledCard>
         <ProjectsList />
       </StyledFlex>
@@ -58,4 +49,4 @@ const Stake = () => {
   );
 };
 
-export { Stake, StakeOrigin };
+export { Stake };

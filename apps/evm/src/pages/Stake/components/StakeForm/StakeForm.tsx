@@ -2,19 +2,16 @@ import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
 import { ERC20Token, Ether, Token } from '@gobob/currency';
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Alert, Flex } from '@gobob/ui';
-import { Key, useState } from 'react';
+import { Flex } from '@gobob/ui';
+import { useState } from 'react';
 
 import { FeatureFlags, useFeatureFlag } from '../../../../hooks';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import { bridgeKeys } from '../../../../lib/react-query';
-import { StakeOrigin } from '../../Stake';
-import { useGetTransactions } from '../../hooks';
 import { GatewayData, L2BridgeData } from '../../types';
 import { GatewayTransactionModal, StakeTransactionModal } from '../TransactionModal';
 import { UnstakeForm } from '../UnstakeForm';
 
-import { BobStakeForm } from './BobStakeForm';
 import { BtcStakeForm } from './BtcStakeForm';
 
 type StrategyData = {
@@ -36,17 +33,10 @@ type GatewayTransactionModalState = {
 
 type BridgeFormProps = {
   type: 'stake' | 'unstake';
-  ticker?: string;
-  stakeOrigin?: StakeOrigin;
-  onChangeNetwork?: (network: Key) => void;
-  onChangeOrigin?: (origin: StakeOrigin) => void;
-  onChangeChain?: (chain: ChainId | 'BTC') => void;
 };
 
-const StakingForm = ({ type = 'stake', stakeOrigin, ticker }: BridgeFormProps): JSX.Element => {
+const StakingForm = ({ type = 'stake' }: BridgeFormProps): JSX.Element => {
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
-
-  const { refetchBridgeTxs } = useGetTransactions();
 
   const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
     isOpen: false,
@@ -57,7 +47,7 @@ const StakingForm = ({ type = 'stake', stakeOrigin, ticker }: BridgeFormProps): 
     step: 'confirmation'
   });
 
-  const { data: strategies } = useQuery({
+  const { data: strategies = [] } = useQuery({
     enabled: isBtcGatewayEnabled,
     queryKey: bridgeKeys.strategies(),
     refetchOnWindowFocus: false,
@@ -81,19 +71,6 @@ const StakingForm = ({ type = 'stake', stakeOrigin, ticker }: BridgeFormProps): 
     }
   });
 
-  const handleStartBridge = (data: L2BridgeData) => {
-    setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
-  };
-
-  const handleBridgeSuccess = (data: L2BridgeData) => {
-    refetchBridgeTxs();
-    setBridgeModalState({ isOpen: true, data, step: 'submitted' });
-  };
-
-  const handleStartApproval = (data: L2BridgeData) => {
-    setBridgeModalState({ isOpen: true, data, step: 'approval' });
-  };
-
   const handleCloseModal = () => {
     setBridgeModalState((s) => ({ ...s, isOpen: false }));
   };
@@ -113,32 +90,17 @@ const StakingForm = ({ type = 'stake', stakeOrigin, ticker }: BridgeFormProps): 
   return (
     <>
       <Flex direction='column' marginTop='2xl'>
-        {type === 'unstake' && stakeOrigin === StakeOrigin.INTERNAL && (
-          <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
-            Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
-            bridge.
-          </Alert>
-        )}
-        {stakeOrigin === StakeOrigin.INTERNAL ? (
-          strategies?.length ? (
-            <BtcStakeForm
-              strategies={strategies}
-              type={type}
-              onFailGateway={handleCloseGatewayModal}
-              onGatewaySuccess={handleGatewaySuccess}
-              onStartGateway={handleStartGateway}
-            />
-          ) : (
-            <BobStakeForm
-              ticker={ticker}
-              type={type}
-              onBridgeSuccess={handleBridgeSuccess}
-              // TODO: show error modal
-              onFailBridge={handleCloseModal}
-              onStartApproval={handleStartApproval}
-              onStartBridge={handleStartBridge}
-            />
-          )
+        {type === 'stake' ? (
+          <BtcStakeForm
+            // NOTE: no fallback if strategies are empty
+            // key will indicate to react to rerender once strategies fetched
+            key={strategies.length}
+            strategies={strategies}
+            type={type}
+            onFailGateway={handleCloseGatewayModal}
+            onGatewaySuccess={handleGatewaySuccess}
+            onStartGateway={handleStartGateway}
+          />
         ) : (
           <UnstakeForm type={type} />
         )}
@@ -158,5 +120,4 @@ const StakingForm = ({ type = 'stake', stakeOrigin, ticker }: BridgeFormProps): 
   );
 };
 
-export { StakingForm };
-export { type StrategyData };
+export { StakingForm, type StrategyData };

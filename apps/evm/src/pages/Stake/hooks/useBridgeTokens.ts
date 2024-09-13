@@ -42,4 +42,3 @@ const useBridgeTokens = (l1ChainId: ChainId, l2ChainId: ChainId) => {
 };
 
 export { useBridgeTokens };
-export type { BridgeToken };

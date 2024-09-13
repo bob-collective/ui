@@ -1,5 +1,7 @@
+import { GatewayQuote } from '@gobob/bob-sdk';
 import { AuthButton } from '@gobob/connect-ui';
 import { CurrencyAmount } from '@gobob/currency';
+import { FuelStation } from '@gobob/icons';
 import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
 import {
   BtcAddressType,
@@ -13,11 +15,11 @@ import {
   Avatar,
   Card,
   Flex,
+  InformationCircle,
   Input,
   Item,
   P,
   Select,
-  InformationCircle,
   Switch,
   TokenInput,
   Tooltip,
@@ -30,10 +32,9 @@ import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address } from 'viem';
-import { FuelStation } from '@gobob/icons';
-import { GatewayQuote } from '@gobob/bob-sdk';
 
 import { isProd } from '../../../../constants';
+import { gatewaySDK } from '../../../../lib/bob-sdk';
 import {
   STAKE_AMOUNT,
   STAKE_RECIPIENT,
@@ -43,10 +44,9 @@ import {
   stakeSchema
 } from '../../../../lib/form/stake';
 import { isFormDisabled } from '../../../../lib/form/utils';
+import { bridgeKeys } from '../../../../lib/react-query';
 import { useGetTransactions } from '../../hooks';
 import { GatewayData } from '../../types';
-import { bridgeKeys } from '../../../../lib/react-query';
-import { gatewaySDK } from '../../../../lib/bob-sdk';
 
 import { StrategyData } from './StakeForm';
 
@@ -98,7 +98,7 @@ const BtcStakeForm = ({
   const [amount, setAmount] = useState('');
   const debouncedAmount = useDebounce(amount, 300);
 
-  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0].raw.integration.name);
+  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0]?.raw.integration.name);
 
   const [isGasNeeded, setGasNeeded] = useState(true);
 
@@ -251,7 +251,7 @@ const BtcStakeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setSelectedStrategy(strategies[0].raw.integration.name);
+    setSelectedStrategy(strategies[0]?.raw.integration.name);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [strategies]);
