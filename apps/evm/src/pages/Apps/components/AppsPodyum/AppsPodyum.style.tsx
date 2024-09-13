@@ -1,4 +1,4 @@
-import { Card, Flex } from '@gobob/ui';
+import { Card, Flex, H2 } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
 import { Medal } from '../Medal';
@@ -58,4 +58,22 @@ const StyledGrid = styled.div`
   max-width: 21rem;
 `;
 
-export { StyledCard, StyledGrid, StyledAvatarWrapper, StyledContentWrapper, StyledMedal, StyledOpacityOverlay };
+const StyledH2 = styled(H2)`
+  ${({ theme }) => {
+    return css`
+      @media ${theme.breakpoints.up('md')} {
+        max-width: 24rem;
+      }
+    `;
+  }}
+`;
+
+export {
+  StyledCard,
+  StyledH2,
+  StyledGrid,
+  StyledAvatarWrapper,
+  StyledContentWrapper,
+  StyledMedal,
+  StyledOpacityOverlay
+};

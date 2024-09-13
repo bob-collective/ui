@@ -26,7 +26,7 @@ const StyledLearnButton = styled(Button)`
       width: 100%;
 
       @media ${theme.breakpoints.up('s')} {
-        width: 35%;
+        width: 45%;
       }
     `;
   }}

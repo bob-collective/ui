@@ -1,8 +1,8 @@
-import { CardProps, Flex, H2, P } from '@gobob/ui';
+import { CardProps, Flex } from '@gobob/ui';
 
 import { ResultVotingAppData } from '../../hooks/useGetPodyumData';
 
-import { StyledCard, StyledContentWrapper, StyledGrid, StyledOpacityOverlay } from './AppsPodyum.style';
+import { StyledCard, StyledContentWrapper, StyledGrid, StyledH2, StyledOpacityOverlay } from './AppsPodyum.style';
 import { PodyumSpot } from './PodyumSpot';
 
 type Props = {
@@ -26,14 +26,9 @@ const AppsPodyum = ({ apps }: AppPodyumProps): JSX.Element => {
         justifyContent='space-between'
         padding={{ base: '3xl', md: '5xl' }}
       >
-        <Flex direction='column' flex={1}>
-          <H2 align={{ base: 'center', md: 'start' }} size={{ base: '2xl', md: '4xl' }}>
-            Last Weeks Top Apps
-          </H2>
-          <P align={{ base: 'center', md: 'start' }} size={{ base: 's', md: 'md' }}>
-            Lorem Ipsum Dummy Text - TBA
-          </P>
-        </Flex>
+        <StyledH2 align={{ base: 'center', md: 'start' }} size={{ base: '2xl', md: '4xl' }}>
+          Previous Voting Round Winners
+        </StyledH2>
         <Flex flex={1} justifyContent='center'>
           <StyledGrid>
             <PodyumSpot app={second} spot='second' />

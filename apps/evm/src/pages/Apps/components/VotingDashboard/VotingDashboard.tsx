@@ -1,4 +1,4 @@
-import { Flex, Link, P } from '@gobob/ui';
+import { Flex, P } from '@gobob/ui';
 
 import { VotingAppData, VotingAppsData } from '../../hooks';
 
@@ -33,11 +33,7 @@ const VotingDashboard = ({
           votesRemaining={apps?.votesRemaining}
         />
         <P align='center' color='grey-50' size={{ base: 'xs', s: 's' }}>
-          You can show your support for your favorite projects by clicking on the Flame icon. The more votes a project
-          receives, the more Spice it earns. Cast your votes, back your preferred dapps, and reap more Spice!{' '}
-          <Link color='inherit' href='#' size='inherit' underlined='always' onPress={() => alert('to be implemented')}>
-            View Rules {'>'}
-          </Link>
+          Vote for your projects by clicking on the Flame icon.
         </P>
       </Flex>
       <Flex direction={{ base: 'column', md: 'row' }} gap='xl'>

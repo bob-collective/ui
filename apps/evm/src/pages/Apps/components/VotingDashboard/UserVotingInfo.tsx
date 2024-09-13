@@ -1,4 +1,19 @@
-import { Button, Card, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, P, Skeleton, SolidClock, Span } from '@gobob/ui';
+import {
+  Button,
+  Card,
+  Dd,
+  Divider,
+  Dl,
+  DlGroup,
+  Dt,
+  Flex,
+  Link,
+  P,
+  Skeleton,
+  SolidClock,
+  Span,
+  Tooltip
+} from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
 
 import { SpiceChip } from '../SpiceChip';
@@ -38,10 +53,12 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
           </Flex>
         )}
         <Divider orientation='vertical' />
-        <Flex alignItems='center' gap='s'>
-          <SolidClock color='grey-200' size='s' />
-          {roundEndsAt ? <P>{formatDistanceToNow(roundEndsAt)}</P> : <Skeleton width='4xl' />}
-        </Flex>
+        <Tooltip label='Time left until voting round ends'>
+          <Flex alignItems='center' gap='s'>
+            <SolidClock color='grey-200' size='s' />
+            {roundEndsAt ? <P>{formatDistanceToNow(roundEndsAt)}</P> : <Skeleton width='4xl' />}
+          </Flex>
+        </Tooltip>
       </>
     </Card>
   );

@@ -1,26 +1,22 @@
 import { useAccount } from '@gobob/wagmi';
-import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useLocalStorage } from '@uidotdev/usehooks';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { Geoblock, Main } from '../../components';
+import { LocalStorageKey } from '../../constants';
 import { useGetUser } from '../../hooks';
 import { useGetApps } from '../Apps/hooks';
-import { LocalStorageKey } from '../../constants';
 
-import { Challenges, SeasonInfo, UserInfo, WelcomeModal } from './components';
+import { Challenges, Leaderboard, SeasonInfo, UserInfo, WelcomeModal } from './components';
 import { StyledBackground, StyledBackgroundOpacity } from './Fusion.style';
-import { Leaderboard } from './components';
-import { useGetQuests, useHaltedLockedTokens, useLockedTokens } from './hooks';
+import { useGetQuests } from './hooks';
 
 const Fusion = () => {
   const { address } = useAccount();
   const { data: user } = useGetUser();
   const { data: apps } = useGetApps();
   const { data: quests } = useGetQuests();
-
-  useLockedTokens();
-  useHaltedLockedTokens();
 
   const location = useLocation();
 

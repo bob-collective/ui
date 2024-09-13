@@ -21,10 +21,10 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from 'styled-components';
 import { Address, isAddressEqual } from 'viem';
 
-import { L1_CHAIN } from '../../../../constants';
-import { useGetUser, useTokens } from '../../../../hooks';
+import { L1_CHAIN } from '../../constants';
+import { useGetUser, useTokens } from '../../hooks';
 
-import { StyledDt, StyledTooltipWrapper } from './UserStats.style';
+import { StyledDt, StyledTooltipWrapper } from './WithdrawModal.style';
 
 const nativeToken = NATIVE[L1_CHAIN];
 

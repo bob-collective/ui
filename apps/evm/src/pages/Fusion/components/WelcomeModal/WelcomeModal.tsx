@@ -16,7 +16,7 @@ import {
 import { Spice } from '@gobob/icons';
 
 import { UserResponse } from '../../../../utils';
-import { DeadlineChip } from '../DeadlineChip';
+import { WithdrawAlert } from '../../../../components';
 
 import { StyledBackground, StyledContent, StyledLearnButton } from './WelcomeModal.style';
 
@@ -30,11 +30,10 @@ const WelcomeModal = ({ user, onClose, ...props }: WelcomeModalProps): JSX.Eleme
   const { locale } = useLocale();
 
   return (
-    <Modal {...props} size='xl'>
+    <Modal {...props} size='lg'>
       <ModalBody padding='2xl'>
         <StyledBackground />
         <StyledContent direction='column' gap='2xl'>
-          <DeadlineChip />
           <H3 size='4xl'>
             Welcome to BOB Fusion
             <br />
@@ -60,9 +59,10 @@ const WelcomeModal = ({ user, onClose, ...props }: WelcomeModalProps): JSX.Eleme
               <P size='2xl'>#{user.leaderboardRank.rank}</P>
             </Card>
           </Flex>
-          <Alert status='info' title=' For Season 3, your spice will be reset to 0' variant='outlined'>
+          <Alert status='info' title='For Season 3, your spice will be reset to 0' variant='outlined'>
             Season 1 and 2 spice will be retained and recorded but will no longer be reflected on the leaderboard.
           </Alert>
+          <WithdrawAlert onPressWithdraw={onClose} />
         </StyledContent>
       </ModalBody>
       <ModalFooter direction={{ base: 'column', s: 'row' }} gap='xl'>

@@ -13,6 +13,7 @@ const StyledBackground = styled.div`
   background-image: url(${getImageUrl('podyum-background.png')});
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: 70% 50%;
 `;
 
 const StyledBackgroundOpacity = styled.div`

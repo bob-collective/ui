@@ -1,17 +1,13 @@
-import { Flex, H1, P, Skeleton, useLocale } from '@gobob/ui';
 import { INTERVAL, useQuery } from '@gobob/react-query';
+import { Flex, H1, P } from '@gobob/ui';
 
 import { fusionKeys } from '../../../../lib/react-query';
 import { apiClient } from '../../../../utils';
-import { DeadlineChip } from '../DeadlineChip';
 
 import { Barometer } from './Barometer';
-import { StyledHeaderWrapper, StyledSkeleton } from './SeasonInfo.style';
 
 const SeasonInfo = () => {
-  const { locale } = useLocale();
-
-  const { data: tvl, isLoading } = useQuery({
+  const { data: tvl } = useQuery({
     queryKey: fusionKeys.tvl(),
     queryFn: async () => Number((await apiClient.getBarometerTVL()).totalTvl),
     refetchOnWindowFocus: false,
@@ -19,35 +15,16 @@ const SeasonInfo = () => {
     gcTime: INTERVAL.HOUR
   });
 
-  const isLoadingTvl = isLoading || !tvl;
-
   return (
-    <Flex alignItems='center' direction='column' gap='4xl' paddingY='4xl'>
-      <DeadlineChip />
-      <StyledHeaderWrapper>
-        {isLoadingTvl && (
-          <StyledSkeleton>
-            <Skeleton
-              height={{ base: '5xl', s: '6xl' }}
-              style={{ lineHeight: 'inherit' }}
-              width={{ base: '20rem', s: '23rem' }}
-            />
-          </StyledSkeleton>
-        )}
-        <H1 size={{ base: '4xl', md: '6xl' }} style={{ visibility: isLoadingTvl ? 'hidden' : undefined }}>
-          {Intl.NumberFormat(locale, {
-            currency: 'USD',
-            style: 'currency',
-            notation: 'compact',
-            minimumFractionDigits: 2
-          }).format(tvl || 0)}{' '}
-          DeFi TVL
+    <Flex direction='column' gap='4xl' paddingY='4xl'>
+      <Flex alignItems='center' direction='column' gap='xl'>
+        <H1 align='center' size={{ base: '4xl', md: '5xl' }} weight='semibold'>
+          BOB Fusion - The Final Season
         </H1>
-      </StyledHeaderWrapper>
-      <P align='center' color='grey-50'>
-        Season 3 is live from September 15 to November 25, with a huge 20M prize pool at stake. This is your final
-        opportunity to gather Spice!
-      </P>
+        <P align='center' color='grey-50'>
+          Additional spice bonuses unlocked at each new TVL level.
+        </P>
+      </Flex>
       <Barometer value={tvl} />
     </Flex>
   );

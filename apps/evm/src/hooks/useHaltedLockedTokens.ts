@@ -2,9 +2,10 @@ import { useAccount, usePublicClient } from '@gobob/wagmi';
 import { useMemo } from 'react';
 import { INTERVAL, useQuery } from '@gobob/react-query';
 
-import { ContractType, L1_CHAIN, getContract } from '../../../constants';
-import { TokenData, useTokens } from '../../../hooks';
-import { FusionLockAbi } from '../../../abis/FusionLock.abi';
+import { ContractType, L1_CHAIN, getContract } from '../constants';
+import { FusionLockAbi } from '../abis/FusionLock.abi';
+
+import { TokenData, useTokens } from '.';
 
 const useHaltedLockedTokens = () => {
   const { address } = useAccount();

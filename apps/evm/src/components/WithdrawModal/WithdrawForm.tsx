@@ -9,19 +9,19 @@ import { useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { isAddressEqual } from 'viem';
 
-import { ContractType, L1_CHAIN, contracts } from '../../../../constants';
+import { ContractType, L1_CHAIN, contracts } from '../../constants';
 import { useLockedTokens } from '../../hooks';
 
 type WithdrawFormProps = {
   isSmartAccount?: boolean;
-  onWithdrawalMutationComplete: () => void;
+  onSuccess?: () => void;
 };
 
 const MIN_GAS_FEE = 200000;
 
 const lockContract = contracts[L1_CHAIN as ChainId.ETHEREUM][ContractType.FUSION_LOCK];
 
-const WithdrawForm = ({ isSmartAccount, onWithdrawalMutationComplete }: WithdrawFormProps) => {
+const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
   const { address } = useAccount();
 
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ const WithdrawForm = ({ isSmartAccount, onWithdrawalMutationComplete }: Withdraw
   const handleSuccess = () => {
     toast.success('Withdrawal successful');
     refetchLockedTokens();
-    onWithdrawalMutationComplete();
+    onSuccess?.();
   };
 
   const withdrawToL2Mutation = useMutation({
