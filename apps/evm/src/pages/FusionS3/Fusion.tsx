@@ -44,7 +44,7 @@ const Fusion = () => {
         <Leaderboard />
         {user && (
           <WelcomeModal
-            isOpen={!isHideFusionWelcomeModal}
+            isOpen={!isHideFusionWelcomeModal && isAuthenticated}
             user={user}
             onClose={() => setHideFusionWelcomeModal(true)}
           />

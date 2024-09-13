@@ -1,8 +1,9 @@
-import { Chip, Flex, H1, P, Skeleton, useLocale } from '@gobob/ui';
+import { Flex, H1, P, Skeleton, useLocale } from '@gobob/ui';
 import { INTERVAL, useQuery } from '@gobob/react-query';
 
 import { fusionKeys } from '../../../../lib/react-query';
 import { apiClient } from '../../../../utils';
+import { DeadlineChip } from '../DeadlineChip';
 
 import { Barometer } from './Barometer';
 import { StyledHeaderWrapper, StyledSkeleton } from './SeasonInfo.style';
@@ -18,13 +19,13 @@ const SeasonInfo = () => {
     gcTime: INTERVAL.HOUR
   });
 
+  const isLoadingTvl = isLoading || !tvl;
+
   return (
     <Flex alignItems='center' direction='column' gap='4xl' paddingY='4xl'>
-      <Chip background='grey-500' borderColor='grey-300' size='lg'>
-        Ends 21st Nov 2024
-      </Chip>
+      <DeadlineChip />
       <StyledHeaderWrapper>
-        {isLoading && (
+        {isLoadingTvl && (
           <StyledSkeleton>
             <Skeleton
               height={{ base: '5xl', s: '6xl' }}
@@ -33,7 +34,7 @@ const SeasonInfo = () => {
             />
           </StyledSkeleton>
         )}
-        <H1 size={{ base: '4xl', md: '6xl' }} style={{ visibility: isLoading ? 'hidden' : undefined }}>
+        <H1 size={{ base: '4xl', md: '6xl' }} style={{ visibility: isLoadingTvl ? 'hidden' : undefined }}>
           {Intl.NumberFormat(locale, {
             currency: 'USD',
             style: 'currency',
@@ -47,7 +48,7 @@ const SeasonInfo = () => {
         Season 3 is live from September 15 to November 25, with a huge 20M prize pool at stake. This is your final
         opportunity to gather Spice!
       </P>
-      <Barometer value={tvl || 0} />
+      <Barometer value={tvl} />
     </Flex>
   );
 };

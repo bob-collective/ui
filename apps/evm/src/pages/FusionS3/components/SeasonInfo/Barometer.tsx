@@ -64,14 +64,13 @@ const Step = ({
 };
 
 type BarometerProps = {
-  value: number;
+  value?: number;
 };
 
-// TODO: this specific value is to make progression visible already
-const minValue = 34930000;
+const minValue = 35000000;
 const maxValue = 300000000;
 
-const Barometer = ({ value }: BarometerProps) => {
+const Barometer = ({ value = minValue }: BarometerProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
   const isTable = useMediaQuery(theme.breakpoints.down('md'));
