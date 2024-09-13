@@ -1,4 +1,3 @@
-import { BTC } from '@gobob/icons';
 import { CardProps, Flex, Link, P, Table } from '@gobob/ui';
 
 import { StyledSection } from './ProjectsList.style';
@@ -16,21 +15,21 @@ const projectsColumns = [
 
 // NOTE: mock data
 const projectsRows = [
-  {
-    id: 1,
-    name: (
-      <Flex alignItems='center' gap='s'>
-        <BTC />
-        <P size='md'>SolvBTC</P>
-      </Flex>
-    ),
-    lst: (
-      <Link external href='#' size='md' underlined='always'>
-        0x21...314s
-      </Link>
-    ),
-    apr: <P size='md'>3.00%</P>
-  },
+  // {
+  //   id: 1,
+  //   name: (
+  //     <Flex alignItems='center' gap='s'>
+  //       <BTC />
+  //       <P size='md'>SolvBTC</P>
+  //     </Flex>
+  //   ),
+  //   lst: (
+  //     <Link external href='#' size='md' underlined='always'>
+  //       0x21...314s
+  //     </Link>
+  //   ),
+  //   apr: <P size='md'>3.00%</P>
+  // },
   {
     id: 2,
     name: (
