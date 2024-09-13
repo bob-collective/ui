@@ -24,14 +24,9 @@ const Stake = () => {
 
   const navigate = useNavigate();
 
-  // const [isFaultProofNoticeHidden, setFaultProofNoticeHidden] = useLocalStorage(
-  //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
-  // );
-
   const handleChangeTab = useCallback((key: any) => {
     setType(key as any);
     setStakeOrigin(key === 'stake' ? StakeOrigin.INTERNAL : StakeOrigin.EXTERNAL);
-    // setChain(L1_CHAIN);
   }, []);
 
   useEffect(() => {

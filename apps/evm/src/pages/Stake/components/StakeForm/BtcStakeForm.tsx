@@ -37,7 +37,7 @@ import { isProd } from '../../../../constants';
 import {
   STAKE_AMOUNT,
   STAKE_RECIPIENT,
-  STAKE_TICKER,
+  STAKE_STRATEGY,
   StakeFormValidationParams,
   StakeFormValues,
   stakeSchema
@@ -251,7 +251,7 @@ const BtcStakeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setSelectedStrategy(strategies[0].currency.symbol);
+    setSelectedStrategy(strategies[0].raw.integration.name);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [strategies]);
@@ -297,7 +297,7 @@ const BtcStakeForm = ({
   const initialValues = useMemo(
     () => ({
       [STAKE_AMOUNT]: '',
-      [STAKE_TICKER]: selectedStrategy,
+      [STAKE_STRATEGY]: selectedStrategy,
       [STAKE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -335,13 +335,6 @@ const BtcStakeForm = ({
 
   const isLoading = !isSubmitDisabled && (stakeMutation.isPending || isFetchingQuote);
 
-  // const receiveAmount = useMemo(() => (quoteData ? quoteData.receiveAmount : undefined), [quoteData]);
-
-  // const placeholderAmount = useMemo(
-  //   () => (btcToken ? CurrencyAmount.fromRawAmount(btcToken.currency, 0n) : undefined),
-  //   [btcToken]
-  // );
-
   return (
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
@@ -362,14 +355,14 @@ const BtcStakeForm = ({
         modalProps={{ title: 'Select Strategy', size: 'xs' }}
         size='lg'
         type='modal'
-        {...mergeProps(form.getSelectFieldProps(STAKE_TICKER), {
+        {...mergeProps(form.getSelectFieldProps(STAKE_STRATEGY), {
           onSelectionChange: (value: string) => setSelectedStrategy(value)
         })}
       >
         {(data) => (
           <Item key={data.raw.integration.name} textValue={data.raw.integration.name}>
             <Flex alignItems='center' gap='s'>
-              <Avatar size='2xl' src={data.raw.outputToken?.logo} />
+              <Avatar size='2xl' src={data.raw.integration.logo} />
               <P style={{ color: 'inherit' }}>{data.raw.integration.name}</P>
             </Flex>
           </Item>

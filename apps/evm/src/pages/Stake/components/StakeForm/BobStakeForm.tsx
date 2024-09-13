@@ -18,7 +18,7 @@ import {
   STAKE_AMOUNT,
   STAKE_GAS_TOKEN,
   STAKE_RECIPIENT,
-  STAKE_TICKER,
+  STAKE_STRATEGY,
   StakeFormValidationParams,
   StakeFormValues,
   stakeSchema
@@ -421,7 +421,7 @@ const BobStakeForm = ({
   const initialValues = useMemo(
     () => ({
       [STAKE_AMOUNT]: '',
-      [STAKE_TICKER]: ticker,
+      [STAKE_STRATEGY]: ticker,
       [STAKE_GAS_TOKEN]: gasTicker,
       [STAKE_RECIPIENT]: ''
     }),
@@ -513,7 +513,7 @@ const BobStakeForm = ({
         type='selectable'
         valueUSD={valueUSD}
         onChangeCurrency={handleChangeTicker}
-        {...mergeProps(form.getSelectableTokenFieldProps({ amount: STAKE_AMOUNT, currency: STAKE_TICKER }), {
+        {...mergeProps(form.getSelectableTokenFieldProps({ amount: STAKE_AMOUNT, currency: STAKE_STRATEGY }), {
           onValueChange: (value: string) => setAmount(value)
         })}
       />
