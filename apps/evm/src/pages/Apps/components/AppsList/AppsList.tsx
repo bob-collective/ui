@@ -1,4 +1,4 @@
-import { Flex, H2, H3, Tabs, TabsItem } from '@gobob/ui';
+import { Flex, H2, H3, Skeleton, Tabs, TabsItem } from '@gobob/ui';
 import { useState } from 'react';
 
 import { AppData, VotingAppData } from '../../hooks';
@@ -70,7 +70,13 @@ const AppsList = ({
           ))}
         </Tabs>
       ) : (
-        <Flex style={{ height: '3rem' }} />
+        <Flex alignItems='center' gap='xl' style={{ height: '3rem', overflow: 'hidden', maxWidth: '100%' }}>
+          {Array(7)
+            .fill(undefined)
+            .map((_, idx) => (
+              <Skeleton key={idx} height='4xl' width='10xl' />
+            ))}
+        </Flex>
       )}
       {hasItems || isLoading ? (
         <StyledGrid>

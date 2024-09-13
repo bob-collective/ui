@@ -199,14 +199,14 @@ export interface ResultProject {
 }
 
 // Define the interface for a category
-export interface ResultProjectCategory {
+interface ResultProjectCategory {
   id: number;
   name: string;
   projects: ResultProject[];
 }
 
 // Define the main type for the object
-export interface ResultProjectVotingInfo {
+interface ResultProjectVotingInfo {
   categories: ResultProjectCategory[];
 }
 
@@ -238,7 +238,7 @@ export interface PartnerS3 {
   points_distributed_per_hour_rank: string;
 }
 
-export interface LeaderboardS3Response {
+interface LeaderboardS3Response {
   leaderboardData: LeaderboardData;
   totalDistributedPoints: S3TotalDistributedPoint[];
 }
@@ -334,7 +334,7 @@ interface S3TotalDistributedPoint {
   sum: string;
 }
 
-export interface TokenInfo {
+interface TokenInfo {
   symbol: string;
   decimals: number;
   l2_address: string;

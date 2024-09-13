@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@gobob/chains": "workspace:^",
-    "@gobob/currency": "workspace:^",
-    "@gobob/sats-wagmi": "0.3.2"
+    "@gobob/currency": "workspace:^"
   }
 }

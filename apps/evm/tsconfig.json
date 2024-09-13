@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "sentry.ts", "src/pages/FusionS3/components/Leaderboard/.tsx"],
+  "include": ["src", "sentry.ts", "src/pages/Fusion/components/Leaderboard/.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

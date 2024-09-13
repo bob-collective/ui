@@ -13,6 +13,7 @@ import { L1_CHAIN, RoutesPath, isValidChain } from '../../constants';
 import { useGetUser } from '../../hooks';
 import { signUpKeys } from '../../lib/react-query';
 import { apiClient } from '../../utils';
+import { signUpKeys } from '../../lib/react-query';
 
 import { Auditors, HighlightText, ReferralInput } from './components';
 import { StyledAuthCard, StyledH1 } from './SignUp.style';

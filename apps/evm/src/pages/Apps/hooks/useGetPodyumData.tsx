@@ -1,7 +1,7 @@
 import { useQuery } from '@gobob/react-query';
 
 import { appsKeys } from '../../../lib/react-query';
-import { apiClient, ResultProject, ResultProjectCategory, ResultProjectVotingInfo } from '../../../utils';
+import { apiClient, ResultProject } from '../../../utils';
 
 function getImageUrl(name: string) {
   return new URL(`../../../assets/partners/${name.split(' ').join('').toLowerCase()}.png`, import.meta.url).href;
@@ -10,10 +10,6 @@ function getImageUrl(name: string) {
 type ResultVotingAppData = ResultProject & {
   logoSrc: string;
 };
-
-type ResultVotingAppCategoryData = Omit<ResultProjectCategory, 'projects'> & { apps: ResultVotingAppData[] };
-
-type ResultVotingAppsData = Omit<ResultProjectVotingInfo, 'categories'> & { categories: ResultVotingAppCategoryData[] };
 
 const useGetPodyumData = () => {
   return useQuery({
@@ -53,4 +49,4 @@ const useGetPodyumData = () => {
 };
 
 export { useGetPodyumData };
-export type { ResultVotingAppsData, ResultVotingAppData };
+export type { ResultVotingAppData };

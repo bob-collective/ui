@@ -92,7 +92,6 @@ const StyledStep = styled(Span)`
 
 export {
   StyledTrack,
-  StyledFilledTrack,
   StyledFirstTrack,
   StyledSecondTrack,
   StyledFilledTrackWrapper,

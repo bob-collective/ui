@@ -19,4 +19,8 @@ const StyledSocialsWrapper = styled(Flex)`
   right: ${({ theme }) => theme.spacing('lg')};
 `;
 
-export { StyledSocialsWrapper, StyledCardHeader, StyledSpiceChipWrapper };
+const StyledCategoryList = styled(Flex)`
+  overflow: hidden;
+`;
+
+export { StyledSocialsWrapper, StyledCategoryList, StyledCardHeader, StyledSpiceChipWrapper };

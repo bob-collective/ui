@@ -77,3 +77,8 @@ export const fusionKeys = {
   quests: () => [...fusionKeys.fusion(), 'quests'],
   tvl: () => [...fusionKeys.fusion(), 'tvl']
 };
+
+export const signUpKeys = {
+  signUp: () => ['sign-up'],
+  referralCode: () => ['referral-code']
+};

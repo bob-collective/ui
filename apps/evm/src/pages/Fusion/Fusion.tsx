@@ -11,13 +11,16 @@ import { LocalStorageKey } from '../../constants';
 import { Challenges, SeasonInfo, UserInfo, WelcomeModal } from './components';
 import { StyledBackground, StyledBackgroundOpacity } from './Fusion.style';
 import { Leaderboard } from './components';
-import { useGetQuests } from './hooks';
+import { useGetQuests, useHaltedLockedTokens, useLockedTokens } from './hooks';
 
 const Fusion = () => {
   const { address } = useAccount();
   const { data: user } = useGetUser();
   const { data: apps } = useGetApps();
   const { data: quests } = useGetQuests();
+
+  useLockedTokens();
+  useHaltedLockedTokens();
 
   const location = useLocation();
 

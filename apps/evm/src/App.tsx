@@ -11,7 +11,6 @@ import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
 import { useGetUser, useLogin, useLogout, useTokens } from './hooks';
 import { useBalances } from './hooks/useBalances';
 import { apiClient } from './utils';
-import { useHaltedLockedTokens, useLockedTokens } from './pages/FusionS2/hooks';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
@@ -60,7 +59,7 @@ const AuthCheck = () => {
     const refCode = searchParams.get('refCode');
 
     if ((location.pathname === RoutesPath.HOME || location.pathname === RoutesPath.FUSION) && refCode) {
-      navigate(`${RoutesPath.SIGN_UP}?refCode=${refCode}`);
+      navigate(`${RoutesPath.SIGN_UP}?refCode=${refCode}`, { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -153,7 +152,7 @@ const ScrollToTop = () => {
 
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Apps = lazy(() => import('./pages/Apps'));
-const Fusion = lazy(() => import('./pages/FusionS3'));
+const Fusion = lazy(() => import('./pages/Fusion'));
 const Bridge = lazy(() => import('./pages/Bridge'));
 const Stake = lazy(() => import('./pages/Stake'));
 const Wallet = lazy(() => import('./pages/Wallet'));
@@ -181,8 +180,6 @@ function App() {
   usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
   useBalances(chainId);
   useTokens(chainId);
-  useLockedTokens();
-  useHaltedLockedTokens();
 
   const { reconnect } = useReconnect();
 

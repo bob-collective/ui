@@ -5,6 +5,7 @@ export * from './useGasTokens';
 export * from './useGetBridgeTransactions';
 export * from './useGetGatewayTransactions';
 export * from './useGetTransactions';
+export * from './useTokens';
 export * from './useGetUser';
 export * from './useLogin';
 export * from './useLogout';

@@ -20,7 +20,7 @@ import {
 import { VotingAppData } from '../../hooks';
 import { SpiceChip } from '../SpiceChip';
 
-import { StyledCardHeader, StyledSocialsWrapper, StyledSpiceChipWrapper } from './AppCard.style';
+import { StyledCardHeader, StyledCategoryList, StyledSocialsWrapper, StyledSpiceChipWrapper } from './AppCard.style';
 
 type Props = {
   name: string;
@@ -131,13 +131,13 @@ const AppCard = ({
         {categories && (
           <>
             <Divider marginY='lg' />
-            <Flex gap='md' style={{ overflow: 'hidden' }}>
+            <StyledCategoryList gap='md'>
               {categories?.map((category, idx) => (
                 <Chip key={idx} background='grey-300'>
                   {category}
                 </Chip>
               ))}
-            </Flex>
+            </StyledCategoryList>
           </>
         )}
       </Flex>

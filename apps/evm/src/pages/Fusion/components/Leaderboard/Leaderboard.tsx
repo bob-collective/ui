@@ -64,14 +64,14 @@ enum LeaderboardTabs {
   QUESTS_ONLY = 's3_quest_leaderboard'
 }
 
-export enum LeaderboardColumns {
+enum LeaderboardColumns {
   NAME = 'name',
   INVITED_BY = 'invitedBy',
   QUESTS = 'quests',
   SPICE = 'spice'
 }
 
-export type LeaderboardRow = {
+type LeaderboardRow = {
   id: string;
   [LeaderboardColumns.NAME]: ReactNode;
   [LeaderboardColumns.INVITED_BY]: ReactNode;
