@@ -170,7 +170,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </H3>
               <Divider />
               <P align='center' color='grey-50' size='s'>
-                Set sail on your Season 3 adventure, charting new territories and harvesting Spice along the way.
+                Grab the final opportunity to harvest Spice. Join Season 3.
               </P>
               <Button asChild color='primary' elementType={Link} size='xl' {...{ href: RoutesPath.SIGN_UP }}>
                 Start Harvesting Spice
