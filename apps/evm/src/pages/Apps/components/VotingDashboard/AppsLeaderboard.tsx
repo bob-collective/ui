@@ -7,7 +7,7 @@ import { Medal } from '../Medal';
 import { SpiceChip } from '../SpiceChip';
 import { VotingAppData } from '../../hooks';
 
-import { StyledH3, StyledHeaderWrapper, StyledList, StyledWrapper } from './AppsLeaderboard.style';
+import { StyledH3, StyledHeaderWrapper, StyledList, StyledHeader, StyledWrapper } from './AppsLeaderboard.style';
 
 const Trapezoid = () => {
   const theme = useTheme();
@@ -21,7 +21,7 @@ const Trapezoid = () => {
     >
       <path
         d='M0.5 0.5H12.349C16.3141 0.5 19.9995 2.54263 22.101 5.90501L48.0979 47.5H0.5V0.5Z'
-        fill='#1E2430'
+        fill={theme.color('grey-400')}
         stroke={theme.color('grey-300')}
       />
     </svg>
@@ -48,8 +48,8 @@ const AppsLeaderboard = ({
   onVote
 }: AppsLeaderboardProps): JSX.Element => {
   return (
-    <Flex direction='column' flex={1} style={{ overflow: 'hidden' }}>
-      <StyledWrapper alignItems='center'>
+    <StyledWrapper direction='column' flex={1}>
+      <StyledHeader alignItems='center'>
         <StyledHeaderWrapper borderColor='grey-300' justifyContent='center' padding='none' paddingLeft='2xl'>
           {title ? (
             <StyledH3 noWrap size='md'>
@@ -60,7 +60,7 @@ const AppsLeaderboard = ({
           )}
         </StyledHeaderWrapper>
         <Trapezoid />
-      </StyledWrapper>
+      </StyledHeader>
       <StyledList borderColor='grey-300' gap='md' paddingX='lg' paddingY='lg'>
         {isLoading || !data
           ? [...Array(5).fill(null)].map((_, idx) => (
@@ -101,7 +101,7 @@ const AppsLeaderboard = ({
                 </Fragment>
               ))}
       </StyledList>
-    </Flex>
+    </StyledWrapper>
   );
 };
 

@@ -1,9 +1,10 @@
-import { Card, Flex, H3 } from '@gobob/ui';
+import { Card, customScrollbarCSS, Flex, H3 } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
 const StyledList = styled(Card)`
   border-top-left-radius: 0px;
   overflow: auto;
+  ${customScrollbarCSS}
 
   ${({ theme }) => {
     return css`
@@ -16,7 +17,7 @@ const StyledList = styled(Card)`
   }}
 `;
 
-const StyledWrapper = styled(Flex)`
+const StyledHeader = styled(Flex)`
   margin-bottom: -1px;
 `;
 
@@ -34,4 +35,8 @@ const StyledHeaderWrapper = styled(Card)`
   border-bottom-left-radius: 0px;
 `;
 
-export { StyledList, StyledHeaderWrapper, StyledH3, StyledWrapper };
+const StyledWrapper = styled(Flex)`
+  overflow: hidden;
+`;
+
+export { StyledList, StyledWrapper, StyledHeader, StyledH3, StyledHeaderWrapper };

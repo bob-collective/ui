@@ -84,8 +84,15 @@ const SpiceChip = ({
 
   return (
     <Tooltip
-      isDisabled={!isPressable}
-      label={isLitProp ? 'Remove vote' : isVotingExceeded ? 'Voting limit exceeded' : 'Vote'}
+      label={
+        isPressable
+          ? isLitProp
+            ? 'Remove vote'
+            : isVotingExceeded
+              ? 'Voting limit exceeded'
+              : 'Vote'
+          : 'To cast your vote, please log in'
+      }
     >
       <div
         ref={ref}

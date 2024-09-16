@@ -1,3 +1,4 @@
+import { Flex } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
 const StyledGrid = styled.div`
@@ -21,4 +22,10 @@ const StyledGrid = styled.div`
   }}
 `;
 
-export { StyledGrid };
+const StyledSkeletonsWrapper = styled(Flex)`
+  height: 3rem;
+  overflow: hidden;
+  max-width: 100%;
+`;
+
+export { StyledGrid, StyledSkeletonsWrapper };

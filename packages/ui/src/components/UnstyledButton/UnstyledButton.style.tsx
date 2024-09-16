@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
+import { Typography } from '../../theme';
+
 type StyledButtonProps = {
   $isFocusVisible?: boolean;
+  $size?: Typography;
 };
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -15,6 +18,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   color: inherit;
   touch-action: manipulation;
   outline: ${({ $isFocusVisible }) => !$isFocusVisible && 'none'};
+  ${({ theme, $size }) => $size && theme.typography($size)}
 `;
 
 export { StyledButton };

@@ -90,3 +90,5 @@ export { UnstyledButton } from './UnstyledButton';
 export type { UnstyledButtonProps } from './UnstyledButton';
 
 export { toast, useToast, useToastContainer } from './Toast';
+
+export * from './utils/scroll';

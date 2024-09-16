@@ -5,7 +5,7 @@ import { AppData, VotingAppData } from '../../hooks';
 
 import { AppCard } from './AppCard';
 import { AppCardSkeleton } from './AppCardSkeleton';
-import { StyledGrid } from './AppsList.style';
+import { StyledGrid, StyledSkeletonsWrapper } from './AppsList.style';
 
 type AppsListProps = {
   apps?: AppData[];
@@ -70,13 +70,13 @@ const AppsList = ({
           ))}
         </Tabs>
       ) : (
-        <Flex alignItems='center' gap='xl' style={{ height: '3rem', overflow: 'hidden', maxWidth: '100%' }}>
+        <StyledSkeletonsWrapper alignItems='center' gap='xl'>
           {Array(7)
             .fill(undefined)
             .map((_, idx) => (
               <Skeleton key={idx} height='4xl' width='10xl' />
             ))}
-        </Flex>
+        </StyledSkeletonsWrapper>
       )}
       {hasItems || isLoading ? (
         <StyledGrid>
