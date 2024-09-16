@@ -1,12 +1,10 @@
 import { CurrencyAmount, ERC20Token, Token } from '@gobob/currency';
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { BITCOIN } from '@gobob/tokens';
 import { useAccount } from '@gobob/wagmi';
 import { Address } from 'viem';
 import { ChainId } from '@gobob/chains';
 
-import { L2_CHAIN } from '../../../constants';
-import { FeatureFlags, useFeatureFlag, useTokens } from '../../../hooks';
+import { FeatureFlags, useFeatureFlag } from '../../../hooks';
 import { electrsClient } from '../../../utils';
 import { GatewayDepositSteps } from '../constants';
 import { TransactionType } from '../types';
@@ -18,7 +16,7 @@ type GatewayTransaction = {
   confirmations: number;
   totalConfirmations: number;
   btcTxId: string;
-  amount: CurrencyAmount<ERC20Token>;
+  amount?: CurrencyAmount<ERC20Token>;
   type: TransactionType.Gateway;
 };
 
@@ -48,7 +46,12 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
           )
         };
 
-        const amount = CurrencyAmount.fromRawAmount(BITCOIN, order.satoshis - order.fee);
+        // TODO: move this to the SDK
+        const amount = order.strategyAddress
+          ? order.outputTokenAmount
+            ? CurrencyAmount.fromRawAmount(token.currency as ERC20Token, order.outputTokenAmount)
+            : undefined
+          : CurrencyAmount.fromRawAmount(token.currency as ERC20Token, order.satoshis - order.fee);
 
         const txStatus = await electrsClient.getTxStatus(order.txid);
 
@@ -62,7 +65,7 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
             : 'l2-processing';
 
         return {
-          amount: CurrencyAmount.fromBaseAmount(token.currency as ERC20Token, amount.toExact()),
+          amount,
           btcTxId: order.txid,
           date: new Date(order.timestamp * 1000),
           confirmations,
@@ -76,14 +79,13 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
 };
 
 const useGetGatewayTransactions = () => {
-  const { data: l2Tokens } = useTokens(L2_CHAIN);
   const { address } = useAccount();
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
   return useQuery({
     queryKey: ['gateway-transactions', address],
     queryFn: async () => getGatewayTransactions(address!),
-    enabled: Boolean(address && l2Tokens && isBtcGatewayEnabled),
+    enabled: Boolean(address && isBtcGatewayEnabled),
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,

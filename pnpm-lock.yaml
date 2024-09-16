@@ -181,8 +181,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       '@gobob/bob-sdk':
-        specifier: ^2.3.0
-        version: 2.3.0
+        specifier: ^2.3.1
+        version: 2.3.1
       '@gobob/chains':
         specifier: workspace:^
         version: link:../../packages/chains
@@ -3571,8 +3571,8 @@ packages:
       ts-interface-checker: 0.1.13
     dev: true
 
-  /@gobob/bob-sdk@2.3.0:
-    resolution: {integrity: sha512-NuvExp0CUeOVO2C4G3BW+DYFuwQYJyFPN0XBhmmWJyaVcIpEQIuVMTvHARPLHG6/p1IEqvkXRzJphyU9G4bI1A==}
+  /@gobob/bob-sdk@2.3.1:
+    resolution: {integrity: sha512-e7eq7Pmf/UuyigSGWm+jqW3ih+8ZahaNwRjZeRV3rfuLPO62TXp+/x5/KIZ2bdkPZsmvRAD5VxLsIpQj4xI87Q==}
     dependencies:
       '@scure/base': 1.1.7
       '@scure/btc-signer': 1.3.2
@@ -3592,7 +3592,7 @@ packages:
       react-dom: ^18.2.0
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
-      '@gobob/bob-sdk': 2.3.0
+      '@gobob/bob-sdk': 2.3.1
       '@metamask/providers': 12.0.0
       '@scure/base': 1.1.7
       '@scure/btc-signer': 1.3.2
