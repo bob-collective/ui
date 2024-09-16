@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { BridgeTransaction } from '../../../../hooks';
-import { MessageDirection } from '../../types';
+import { MessageDirection } from '../../../../types';
 import { BridgeStatus } from '../BridgeStatus';
 
 import { TransactionDetails } from './TransactionDetails';

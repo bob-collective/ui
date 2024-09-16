@@ -25,7 +25,7 @@ import {
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
-import { L2BridgeData } from '../../types';
+import { L2BridgeData } from '../../../../types';
 
 import { BridgeAlert } from './BridgeAlert';
 

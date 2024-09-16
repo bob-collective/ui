@@ -17,8 +17,8 @@ import { Address } from '@gobob/wagmi';
 
 import { Chain, TransactionDetails } from '../../../../components';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { MessageDirection } from '../../types';
-import { getDuration } from '../../utils';
+import { MessageDirection } from '../../../../types';
+import { getDuration } from '../../../../utils';
 
 type Props = {
   amount: CurrencyAmount<ERC20Token | Ether>;

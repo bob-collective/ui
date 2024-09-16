@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { FeatureFlags, useFeatureFlag } from '../../../../hooks';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import { bridgeKeys } from '../../../../lib/react-query';
-import { GatewayData, L2BridgeData } from '../../types';
+import { GatewayData, L2BridgeData } from '../../../../types';
 import { GatewayTransactionModal, StakeTransactionModal } from '../TransactionModal';
 import { UnstakeForm } from '../UnstakeForm';
 

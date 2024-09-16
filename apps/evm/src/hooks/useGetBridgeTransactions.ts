@@ -10,7 +10,7 @@ import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals }
 import { L1_CHAIN, L2_CHAIN } from '../constants';
 import { ETH, wstETH } from '../constants/assets';
 import { bridgeKeys, queryClient } from '../lib/react-query';
-import { MessageDirection, MessageStatus, TransactionType } from '../pages/Bridge/types';
+import { MessageDirection, MessageStatus, TransactionType } from '../types';
 
 import { useBridgeTokens } from './useBridgeTokens';
 import { usePublicClientL1, usePublicClientL2 } from './usePublicClient';

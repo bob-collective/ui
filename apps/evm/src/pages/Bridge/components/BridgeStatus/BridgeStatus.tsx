@@ -1,7 +1,7 @@
 import { FlexProps } from '@gobob/ui';
 
 import { BridgeTransaction } from '../../../../hooks';
-import { MessageDirection } from '../../types';
+import { MessageDirection } from '../../../../types';
 
 import { DepositStatus } from './DepositStatus';
 import { WithdrawStatus } from './WithdrawStatus';

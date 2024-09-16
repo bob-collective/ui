@@ -1,4 +1,4 @@
-import { GatewayDepositSteps, GatewaySteps } from '../../constants';
+import { GatewayDepositSteps, GatewaySteps } from '../../../../constants';
 import { GatewayTransaction } from '../../../../hooks';
 import { mempoolUrl } from '../../../../constants';
 

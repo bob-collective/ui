@@ -46,7 +46,7 @@ import {
 } from '../../../../lib/form/stake';
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { bridgeKeys } from '../../../../lib/react-query';
-import { GatewayData } from '../../types';
+import { GatewayData } from '../../../../types';
 
 import { StrategyData } from './StakeForm';
 

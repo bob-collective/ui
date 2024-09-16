@@ -1,5 +1,5 @@
 import { Transaction } from '../../../../hooks/useGetTransactions';
-import { TransactionType } from '../../types';
+import { TransactionType } from '../../../../types';
 
 import { BridgeTransactionItem } from './BridgeTransactionItem';
 import { GatewayTransactionItem } from './GatewayTransactionItem';
