@@ -1,8 +1,14 @@
-import { H1, P } from '@gobob/ui';
+import { H1 } from '@gobob/ui';
 import { useState } from 'react';
 
 import { VotingInfoModal } from './VotingInfoModal';
-import { StyledButton, StyledCard, StyledContentWrapper, StyledOpacityOverlay } from './HeroBanner.style';
+import {
+  StyledButton,
+  StyledCard,
+  StyledContentWrapper,
+  StyledDescription,
+  StyledOpacityOverlay
+} from './HeroBanner.style';
 
 const HeroBanner = (): JSX.Element => {
   const [isOpen, setOpen] = useState(false);
@@ -19,14 +25,14 @@ const HeroBanner = (): JSX.Element => {
         <H1 align={{ base: 'center', md: 'start' }} size={{ base: '2xl', md: '4xl' }}>
           Community Voting {' '}
         </H1>
-        <P align={{ base: 'center', md: 'start' }} size={{ base: 'xs', md: 'md' }} style={{ maxWidth: 700 }}>
+        <StyledDescription align={{ base: 'center', md: 'start' }} size={{ base: 'xs', md: 'md' }}>
           You can now vote with your SPICE. Each user receives three votes to support their favorite apps. Winners will
           be announced every two weeks.{' '}
           <StyledButton size='inherit' onPress={() => setOpen(true)}>
             Read more here
           </StyledButton>
           <VotingInfoModal isOpen={isOpen} onClose={() => setOpen(false)} />
-        </P>
+        </StyledDescription>
       </StyledContentWrapper>
     </StyledCard>
   );

@@ -1,17 +1,5 @@
 import { Spice } from '@gobob/icons';
-import {
-  ArrowRight,
-  Bars3,
-  Button,
-  Divider,
-  Flex,
-  H3,
-  Link,
-  P,
-  SolidDocumentDuplicate,
-  Span,
-  useLocale
-} from '@gobob/ui';
+import { Bars3, Button, Divider, Flex, H3, Link, P, Span, useLocale } from '@gobob/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
@@ -22,7 +10,15 @@ import { LoginSection } from '../../../../components';
 import { L2_CHAIN, RoutesPath } from '../../../../constants';
 import { useTotalBalance } from '../../../../hooks';
 
-import { StyledDl, StyledLoginCard, StyledOverlay, StyledUnderlay } from './UserInfo.style';
+import {
+  StyledArrowRight,
+  StyledDl,
+  StyledLoginCard,
+  StyledOverlay,
+  StyledSolidDocumentDuplicate,
+  StyledUnderlay,
+  StyledUserInfoWrapper
+} from './UserInfo.style';
 import { UserInfoCard } from './UserInfoCard';
 import { UserAssetsModal } from './UserAssetsModal';
 import { UserAppsModal } from './UsedAppsModal';
@@ -55,7 +51,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const hasReferrals = Number(user?.season3Data.s3LeaderboardData[0].ref_points) > 0;
 
   return (
-    <div style={{ position: 'relative' }}>
+    <StyledUserInfoWrapper>
       <StyledDl
         aria-hidden={!isAuthenticated && 'true'}
         direction={{ base: 'column', md: 'row' }}
@@ -95,7 +91,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               {...{ href: RoutesPath.APPS, isDisabled: !isAuthenticated }}
             >
               Use Apps
-              <ArrowRight size='xs' strokeWidth='2' style={{ marginLeft: 4 }} />
+              <StyledArrowRight size='xs' strokeWidth='2' />
             </Button>
           </Flex>
           {!!harvestedApps?.length && (
@@ -129,7 +125,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               variant='outline'
               onPress={() => copy(user?.referral_code || '')}
             >
-              Copy <SolidDocumentDuplicate size='xs' style={{ marginLeft: 4 }} />
+              Copy <StyledSolidDocumentDuplicate size='xs' />
             </Button>
           </Flex>
           {user && hasReferrals && (
@@ -180,7 +176,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           </StyledOverlay>
         </>
       )}
-    </div>
+    </StyledUserInfoWrapper>
   );
 };
 

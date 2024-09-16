@@ -1,4 +1,4 @@
-import { Card, Dl, Flex } from '@gobob/ui';
+import { ArrowRight, Card, Dl, Flex, SolidDocumentDuplicate } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
 const StyledDl = styled(Dl)`
@@ -58,4 +58,31 @@ const StyledLoginCard = styled(Card)`
   max-width: ${({ theme }) => theme.maxWidth('lg')};
 `;
 
-export { StyledDl, StyledLoginCard, StyledOverlay, StyledUnderlay, StyledCard };
+const StyledAmountWrapper = styled(Flex)`
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const StyledUserInfoWrapper = styled.div`
+  position: relative;
+`;
+
+const StyledArrowRight = styled(ArrowRight)`
+  margin-left: ${({ theme }) => theme.spacing('xs')};
+`;
+
+const StyledSolidDocumentDuplicate = styled(SolidDocumentDuplicate)`
+  margin-left: ${({ theme }) => theme.spacing('xs')};
+`;
+
+export {
+  StyledDl,
+  StyledArrowRight,
+  StyledUserInfoWrapper,
+  StyledAmountWrapper,
+  StyledLoginCard,
+  StyledOverlay,
+  StyledUnderlay,
+  StyledSolidDocumentDuplicate,
+  StyledCard
+};

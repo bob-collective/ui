@@ -41,7 +41,6 @@ const Tab = <T extends Record<string, unknown>>({
 
   const handleClick = () => {
     if (!ref?.current || !listRef?.current) return;
-    // TODO: fix focus visible when using keyvoard
     scrollIntoView(ref.current, {
       scrollMode: 'if-needed',
       behavior: 'smooth',

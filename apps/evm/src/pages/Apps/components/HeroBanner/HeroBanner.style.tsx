@@ -1,4 +1,4 @@
-import { Card, Flex, UnstyledButton } from '@gobob/ui';
+import { Card, Flex, P, UnstyledButton } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
 function getImageUrl(name: string) {
@@ -39,4 +39,8 @@ const StyledButton = styled(UnstyledButton)`
   text-decoration: underline;
 `;
 
-export { StyledCard, StyledButton, StyledContentWrapper, StyledOpacityOverlay };
+const StyledDescription = styled(P)`
+  max-width: 43.75rem;
+`;
+
+export { StyledCard, StyledButton, StyledDescription, StyledContentWrapper, StyledOpacityOverlay };

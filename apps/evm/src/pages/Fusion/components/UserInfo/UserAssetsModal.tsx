@@ -24,6 +24,8 @@ import { useGetTokensInfo } from '../../hooks';
 import { useBridgeTokens } from '../../../Bridge/hooks';
 import { calculateAmountUSD } from '../../../../utils';
 
+import { StyledAmountWrapper } from './UserInfo.style';
+
 type Props = {};
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
@@ -119,12 +121,11 @@ const UserAssetsModal = (props: UserAssetsModalProps): JSX.Element => {
                 </Flex>
                 {isMobile && multiplierEl(item.multiplier)}
               </Flex>
-              <Flex
+              <StyledAmountWrapper
                 alignItems={{ base: 'flex-end' }}
                 direction={{ base: 'column', s: 'row' }}
                 flex={{ base: '1 1 60%', s: '1 1 45%' }}
                 gap='s'
-                style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
               >
                 <Span color={Number(item.amount) === 0 ? 'grey-50' : undefined} size={{ base: 's', s: 'md' }}>
                   {item.amount}
@@ -132,7 +133,7 @@ const UserAssetsModal = (props: UserAssetsModalProps): JSX.Element => {
                 <Span color={Number(item.amount) === 0 ? 'grey-50' : undefined} size={{ base: 's', s: 'md' }}>
                   ({Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' }).format(Number(item.totalUsd))})
                 </Span>
-              </Flex>
+              </StyledAmountWrapper>
               {!isMobile && multiplierEl(item.multiplier)}
             </ListItem>
           ))}
