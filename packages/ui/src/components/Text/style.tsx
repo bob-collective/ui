@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
 import { CSSProperties } from 'react';
 
-import { Color, FontWeight, NormalAlignments, Typography } from '../../theme';
+import { Color, FontWeight, NormalAlignments, ResponsiveProp, Typography } from '../../theme';
+import { getResponsiveCSS, getTypographyResponsiveCSS } from '../utils/responsive';
 
 type StyledTextProps = {
   $color: Color;
-  $size: Typography;
+  $size: ResponsiveProp<Typography>;
   $weight: FontWeight;
-  $align?: NormalAlignments;
+  $align?: ResponsiveProp<NormalAlignments>;
   $rows?: number;
   $noWrap?: boolean;
   $fontFamily?: string;
@@ -15,11 +16,11 @@ type StyledTextProps = {
 };
 
 const Text = styled.p<StyledTextProps>`
-  ${({ theme, $size }) => theme.typography($size)}
+  ${({ theme, $size }) => getTypographyResponsiveCSS(theme, $size)}
   line-height: ${({ $lineHeight }) => $lineHeight};
   color: ${({ theme, $color }) => theme.color($color)};
   font-weight: ${({ theme, $weight }) => ($weight === 'inherit' ? $weight : theme.fontWeight($weight))};
-  text-align: ${({ $align }) => $align};
+  ${({ theme, $align }) => getResponsiveCSS(theme, 'text-align', $align)}
   white-space: ${({ $noWrap }) => $noWrap && 'nowrap'};
   font-family: ${({ $fontFamily }) => $fontFamily};
 

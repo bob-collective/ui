@@ -1,12 +1,12 @@
 import { CSSProperties, HTMLAttributes } from 'react';
 
-import { Color, FontWeight, Typography } from '../../theme';
+import { Color, FontWeight, ResponsiveProp, Typography } from '../../theme';
 import { NormalAlignments } from '../../theme';
 
 type Props = {
   color?: Color;
-  size?: Typography;
-  align?: NormalAlignments;
+  size?: ResponsiveProp<Typography>;
+  align?: ResponsiveProp<NormalAlignments>;
   weight?: FontWeight;
   rows?: number;
   noWrap?: boolean;
