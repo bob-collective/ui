@@ -30,7 +30,7 @@ import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
 
 import { isProd } from '../../../../constants';
@@ -89,7 +89,14 @@ const BtcStakeForm = ({
 
   const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
   const { data: satsBalance } = useSatsBalance();
-  const { data: satsFeeEstimate } = useSatsFeeEstimate();
+  const { data: satsFeeEstimate, isError: isSatsFeeEstimateError } = useSatsFeeEstimate();
+
+  const showToast = useRef(true);
+
+  if (isSatsFeeEstimateError && showToast.current) {
+    showToast.current = false;
+    toast.error('Failed to get estimated fee');
+  }
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
 
