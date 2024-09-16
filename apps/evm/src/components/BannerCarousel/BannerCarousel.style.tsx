@@ -126,25 +126,6 @@ const StyledEcosystemImg = styled(EcosystemImg)`
   }}
 `;
 
-const StyledBitgetCampaignImg = styled.img`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      top: 50%;
-      right: ${theme.spacing('3xl')};
-      width: 20rem;
-      transform: translateY(-50%);
-
-      @media ${theme.breakpoints.down('md')} {
-        left: 50%;
-        right: unset;
-        transform: translate(-50%, -50%);
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 const StyledFusionImg = styled.img`
   ${({ theme }) => {
     return css`
@@ -168,7 +149,6 @@ export {
   StyledEcosystemImg,
   StyledFusionImg,
   StyledOnrampImg,
-  StyledBitgetCampaignImg,
   StyledBannerContent,
   StyledBannerTitle
 };
