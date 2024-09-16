@@ -1,2 +1,2 @@
 export { BridgeTransactionModal } from './BridgeTransactionModal';
-export { OnRampTransactionModal } from './OnRampTransactionModal';
+export { GatewayTransactionModal } from './GatewayTransactionModal';

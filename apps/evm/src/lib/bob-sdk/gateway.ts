@@ -1,5 +1,7 @@
-import { GatewayApiClient } from '@gobob/bob-sdk';
+import { GatewaySDK } from '@gobob/bob-sdk';
 
-const gatewayClient = new GatewayApiClient('/onramp-api');
+import { isProd } from '../../constants';
 
-export { gatewayClient };
+const gatewaySDK = new GatewaySDK(isProd ? 'bob' : 'bob-sepolia');
+
+export { gatewaySDK };
