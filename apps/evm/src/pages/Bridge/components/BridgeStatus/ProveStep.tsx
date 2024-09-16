@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { L1_CHAIN } from '../../../../constants';
 import { BridgeSteps } from '../../constants';
-import { BridgeTransaction } from '../../hooks';
+import { BridgeTransaction } from '../../../../hooks';
 import { MessageStatus } from '../../types';
 
 import { StyledStatusActionButton } from './BridgeStatus.style';

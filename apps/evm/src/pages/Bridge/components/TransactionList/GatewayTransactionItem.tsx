@@ -2,7 +2,7 @@ import { Flex, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
 import { L2_CHAIN } from '../../../../constants';
-import { GatewayTransaction } from '../../hooks/useGetTransactions';
+import { GatewayTransaction } from '../../../../hooks';
 import { GatewayStatus } from '../BridgeStatus';
 
 import { TransactionDetails } from './TransactionDetails';

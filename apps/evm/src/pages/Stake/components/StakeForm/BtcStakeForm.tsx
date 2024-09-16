@@ -34,6 +34,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
 
 import { isProd } from '../../../../constants';
+import { useGetTransactions } from '../../../../hooks';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import {
   STAKE_AMOUNT,
@@ -45,7 +46,6 @@ import {
 } from '../../../../lib/form/stake';
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { bridgeKeys } from '../../../../lib/react-query';
-import { useGetTransactions } from '../../hooks';
 import { GatewayData } from '../../types';
 
 import { StrategyData } from './StakeForm';

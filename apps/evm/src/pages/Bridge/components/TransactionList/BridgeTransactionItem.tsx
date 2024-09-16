@@ -2,7 +2,7 @@ import { Flex, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { BridgeTransaction } from '../../hooks';
+import { BridgeTransaction } from '../../../../hooks';
 import { MessageDirection } from '../../types';
 import { BridgeStatus } from '../BridgeStatus';
 

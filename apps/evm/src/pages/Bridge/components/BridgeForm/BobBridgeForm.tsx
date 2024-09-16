@@ -1,19 +1,19 @@
 import { MessageDirection, NumberLike } from '@eth-optimism/sdk';
+import { AuthButton } from '@gobob/connect-ui';
 import { Currency, CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { UINT_256_MAX, useApproval } from '@gobob/hooks';
 import { INTERVAL, useMutation, usePrices, useQuery } from '@gobob/react-query';
 import { USDC } from '@gobob/tokens';
-import { Flex, Input, TokenSelectItemProps, TokenInput, toast, useForm } from '@gobob/ui';
+import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { useAccount, useChainId, useIsContract, usePublicClient } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address } from 'viem';
-import { AuthButton } from '@gobob/connect-ui';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { useBalances } from '../../../../hooks';
+import { BridgeToken, useBalances, useBridgeTokens, useGetTransactions } from '../../../../hooks';
 import {
   BRIDGE_AMOUNT,
   BRIDGE_GAS_TOKEN,
@@ -24,13 +24,7 @@ import {
   bridgeSchema
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
-import {
-  BridgeToken,
-  USDCCrossBridgeConfig,
-  useBridgeTokens,
-  useCrossChainMessenger,
-  useGetTransactions
-} from '../../hooks';
+import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
 import { L2BridgeData } from '../../types';
 
 import { BridgeAlert } from './BridgeAlert';

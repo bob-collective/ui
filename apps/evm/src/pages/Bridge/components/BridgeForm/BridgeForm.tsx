@@ -8,7 +8,7 @@ import { useChainId } from '@gobob/wagmi';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { FeatureFlags, TokenData, useFeatureFlag } from '../../../../hooks';
 import { BridgeOrigin } from '../../Bridge';
-import { useGetTransactions } from '../../hooks';
+import { useGetTransactions } from '../../../../hooks';
 import { L2BridgeData, GatewayData } from '../../types';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';

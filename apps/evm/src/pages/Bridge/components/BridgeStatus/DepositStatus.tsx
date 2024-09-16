@@ -1,6 +1,6 @@
 import { Flex, FlexProps } from '@gobob/ui';
 
-import { BridgeTransaction } from '../../hooks';
+import { BridgeTransaction } from '../../../../hooks';
 import { getOngoingBridgeStep } from '../../utils';
 
 import { BridgeStep } from './BridgeStep';

@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
 import { useAccount } from '@gobob/wagmi';
+import { useEffect, useMemo, useState } from 'react';
 
-import { FeatureFlags, useFeatureFlag } from '../../../hooks';
+import { BridgeTransaction, useGetBridgeTransactions } from './useGetBridgeTransactions';
 
-import { useGetGatewayTransactions } from './useGetGatewayTransactions';
-import { useGetBridgeTransactions } from './useGetBridgeTransactions';
+import { FeatureFlags, GatewayTransaction, useFeatureFlag, useGetGatewayTransactions } from '.';
+
+type Transaction = BridgeTransaction | GatewayTransaction;
 
 const useGetTransactions = () => {
   const gateway = useGetGatewayTransactions();
@@ -52,3 +53,4 @@ const useGetTransactions = () => {
 };
 
 export { useGetTransactions };
+export type { BridgeTransaction, Transaction };

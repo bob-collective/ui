@@ -4,12 +4,13 @@ import { BITCOIN } from '@gobob/tokens';
 import { useAccount } from '@gobob/wagmi';
 import { Address, isAddressEqual } from 'viem';
 
-import { L2_CHAIN } from '../../../constants';
-import { FeatureFlags, TokenData, useFeatureFlag, useTokens } from '../../../hooks';
-import { electrsClient } from '../../../utils';
-import { GatewayDepositSteps } from '../constants';
-import { TransactionType } from '../types';
-import { gatewaySDK } from '../../../lib/bob-sdk';
+import { L2_CHAIN } from '../constants';
+import { gatewaySDK } from '../lib/bob-sdk';
+import { GatewayDepositSteps } from '../pages/Stake/constants';
+import { TransactionType } from '../pages/Stake/types';
+import { electrsClient } from '../utils';
+
+import { FeatureFlags, TokenData, useFeatureFlag, useTokens } from '.';
 
 type GatewayTransaction = {
   status: GatewayDepositSteps;
@@ -75,3 +76,4 @@ const useGetGatewayTransactions = () => {
 };
 
 export { useGetGatewayTransactions };
+export type { GatewayTransaction };

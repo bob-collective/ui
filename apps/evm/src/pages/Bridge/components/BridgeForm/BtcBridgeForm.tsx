@@ -45,7 +45,7 @@ import {
   bridgeSchema
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
-import { useGetTransactions } from '../../hooks';
+import { useGetTransactions } from '../../../../hooks';
 import { GatewayData } from '../../types';
 import { bridgeKeys } from '../../../../lib/react-query';
 import { gatewaySDK } from '../../../../lib/bob-sdk';

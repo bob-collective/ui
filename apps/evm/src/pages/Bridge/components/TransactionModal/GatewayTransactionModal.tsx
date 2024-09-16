@@ -13,7 +13,7 @@ import {
 
 import { Chain, TransactionDetails } from '../../../../components';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { useGetGatewayTransactions } from '../../hooks';
+import { useGetGatewayTransactions } from '../../../../hooks';
 import { GatewayData, TransactionType } from '../../types';
 
 type Props = GatewayData;

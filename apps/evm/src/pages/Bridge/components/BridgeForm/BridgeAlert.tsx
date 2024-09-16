@@ -1,7 +1,7 @@
 import { Alert, P, Link } from '@gobob/ui';
 import { Trans } from 'react-i18next';
 
-import { BridgeToken } from '../../hooks';
+import { BridgeToken } from '../../../../hooks';
 
 type BridgeAlertProps = {
   token: BridgeToken;

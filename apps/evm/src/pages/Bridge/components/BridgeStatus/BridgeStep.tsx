@@ -3,7 +3,7 @@ import { Address } from 'viem';
 import { BridgeSteps, BridgeStepStatus } from '../../constants';
 import { MessageDirection, MessageStatus } from '../../types';
 import { chainL1, chainL2 } from '../../../../constants';
-import { BridgeTransaction } from '../../hooks';
+import { BridgeTransaction } from '../../../../hooks';
 
 import { Pill } from './Pill';
 

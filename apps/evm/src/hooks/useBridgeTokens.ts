@@ -2,8 +2,8 @@ import { ChainId } from '@gobob/chains';
 import { ERC20Token, Ether } from '@gobob/currency';
 import { INTERVAL, useQuery } from '@gobob/react-query';
 
-import { RawToken } from '../../../constants/assets';
-import { useTokens } from '../../../hooks';
+import { RawToken } from '../constants/assets';
+import { useTokens } from '.';
 
 type BridgeToken = {
   l1Token: RawToken;

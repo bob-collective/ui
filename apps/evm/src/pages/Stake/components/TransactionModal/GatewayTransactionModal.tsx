@@ -11,9 +11,9 @@ import {
   Spinner
 } from '@gobob/ui';
 
-import { Chain } from '../../../../components';
-import { L2_CHAIN } from '../../../../constants';
-import { useGetGatewayTransactions } from '../../hooks';
+import { Chain, TransactionDetails } from '../../../../components';
+import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
+import { useGetGatewayTransactions } from '../../../../hooks';
 import { GatewayData, TransactionType } from '../../types';
 
 type Props = GatewayData;
@@ -23,10 +23,8 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type GatewayTransactionModalProps = Props & InheritAttrs;
 
 const GatewayTransactionModal = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   amount,
   txid,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   fee,
   onClose,
   ...props
@@ -62,7 +60,7 @@ const GatewayTransactionModal = ({
             <P align='center' size='xs' weight='medium'>
               Please confirm the transaction in your wallet
             </P>
-            {/* <TransactionDetails amount={amount} chainId={L1_CHAIN} gasEstimate={fee} /> */}
+            <TransactionDetails amount={amount} chainId={L1_CHAIN} gasEstimate={fee} />
           </Flex>
         )}
       </ModalBody>
