@@ -3,7 +3,6 @@ import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
 import { EcosystemImg } from './EcosystemImg';
-import { IntractImg } from './IntractImg';
 import { OnrampImg } from './OnrampImg';
 
 const StyledCarouselWrapper = styled(Card)`
@@ -88,26 +87,6 @@ const StyledBannerTitle = styled(H1)`
   text-overflow: ellipsis;
 `;
 
-const StyledIntractImg = styled(IntractImg)`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      top: 50%;
-      right: 3.275rem;
-      width: 14rem;
-      height: 14rem;
-      transform: translateY(-50%);
-
-      @media ${theme.breakpoints.down('md')} {
-        left: 50%;
-        right: unset;
-        transform: translate(-50%, -50%);
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 const StyledOnrampImg = styled(OnrampImg)`
   position: absolute;
 
@@ -147,19 +126,16 @@ const StyledEcosystemImg = styled(EcosystemImg)`
   }}
 `;
 
-const StyledBitgetCampaignImg = styled.img`
+const StyledFusionImg = styled.img`
   ${({ theme }) => {
     return css`
       position: absolute;
       top: 50%;
-      right: ${theme.spacing('3xl')};
-      width: 20rem;
+      right: 0;
+      width: 21rem;
       transform: translateY(-50%);
 
       @media ${theme.breakpoints.down('md')} {
-        left: 50%;
-        right: unset;
-        transform: translate(-50%, -50%);
         opacity: 0.2;
       }
     `;
@@ -171,9 +147,8 @@ export {
   StyledSlider,
   StyledBanner,
   StyledEcosystemImg,
+  StyledFusionImg,
   StyledOnrampImg,
-  StyledIntractImg,
-  StyledBitgetCampaignImg,
   StyledBannerContent,
   StyledBannerTitle
 };
