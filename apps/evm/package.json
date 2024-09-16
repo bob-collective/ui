@@ -15,7 +15,7 @@
   "dependencies": {
     "@eth-optimism/sdk": "^3.1.6",
     "@ethersproject/providers": "^5.7.2",
-    "@gobob/bob-sdk": "2.2.8",
+    "@gobob/bob-sdk": "^2.2.9",
     "@gobob/chains": "workspace:^",
     "@gobob/connect-ui": "workspace:^",
     "@gobob/currency": "workspace:^",
