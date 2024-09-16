@@ -68,7 +68,12 @@ const BannerCarousel = () => {
   );
 
   const onPressFusionBanner = useCallback(
-    () => window.open('https://discord.com/channels/1214916952288403476/1229368391148634143', '_blank', 'noreferrer'),
+    () =>
+      window.open(
+        'https://discord.com/channels/1214916952288403476/1214920662624370758/1284482326314614856',
+        '_blank',
+        'noreferrer'
+      ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
