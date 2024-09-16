@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { Icon, IconProps } from '@gobob/ui';
 
 const SolvBTCBBN = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
-  <Icon ref={ref} fill='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
+  <Icon ref={ref} fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
     <rect fill='url(#pattern0_2934_8863)' height='24' width='24' />
     <defs>
       <pattern height='1' id='pattern0_2934_8863' patternContentUnits='objectBoundingBox' width='1'>

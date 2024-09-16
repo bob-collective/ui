@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { Icon, IconProps } from '@gobob/ui';
 
 const UniBTC = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
-  <Icon ref={ref} fill='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
+  <Icon ref={ref} fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
     <path
       d='M12.48 0H11.52C5.15768 0 0 5.37258 0 12C0 18.6274 5.15768 24 11.52 24H12.48C18.8423 24 24 18.6274 24 12C24 5.37258 18.8423 0 12.48 0Z'
       fill='#4473F0'
