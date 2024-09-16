@@ -90,7 +90,7 @@ const BridgeForm = ({
     queryFn: async (): Promise<TokenData[]> => {
       const tokens = await gatewaySDK.getTokens();
 
-return tokens.map((token) => ({
+      return tokens.map((token) => ({
         raw: {
           chainId,
           address: token.address as `0x${string}`,

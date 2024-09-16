@@ -12,7 +12,7 @@ type Props = {
   date: Date;
   fromChainId: ChainId | 'BTC';
   toChainId: ChainId | 'BTC';
-  amount: CurrencyAmount<Currency>;
+  amount?: CurrencyAmount<Currency>;
   isExpanded?: boolean;
   onExpand?: () => void;
 };
@@ -53,9 +53,16 @@ const TransactionDetails = ({
             <Chain chainId={toChainId} iconProps={{ size: 'xs' }} labelProps={{ size: 's', weight: 'medium' }} />
           </Flex>
           <Flex gap='md'>
-            <P size='s' weight='medium'>
-              {amount.toExact()} {amount.currency.symbol}
-            </P>
+            {(amount && (
+              <P size='s' weight='medium'>
+                {amount.toExact()} {amount.currency.symbol}
+              </P>
+            )) || (
+              <P size='s' weight='medium'>
+                {' '}
+                Pending{' '}
+              </P>
+            )}
             {isExpandable && <StyledExpandIcon $isExpanded={isExpanded} color='grey-50' size='s' />}
           </Flex>
         </Flex>
