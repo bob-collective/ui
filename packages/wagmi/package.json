@@ -42,10 +42,11 @@
     "react": "^18.2.0"
   },
   "dependencies": {
+    "@binance/w3w-wagmi-connector-v2": "1.2.4-alpha.0",
     "@ethersproject/providers": "^5.7.2",
     "@gobob/chains": "workspace:^",
     "@wagmi/core": "^2.9.1",
-    "wagmi": "^2.8.1",
-    "viem": "^2.10.2"
+    "viem": "^2.10.2",
+    "wagmi": "^2.8.1"
   }
 }

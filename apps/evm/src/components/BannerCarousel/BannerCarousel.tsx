@@ -11,9 +11,8 @@ import { FeatureFlags, useFeatureFlag } from '../../hooks';
 
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
-import { IntractBanner } from './IntractBanner';
 import { OnrampBanner } from './OnrampBanner';
-import { BitgetCampaignBanner } from './BitgetCampaignBanner';
+import { FusionBanner } from './FusionBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -68,14 +67,13 @@ const BannerCarousel = () => {
     []
   );
 
-  const onPressIntractBanner = useCallback(
-    () => window.open('https://www.intract.io/events/66b9e41cc8ff56cba8440d36', '_blank', 'noreferrer'),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
-  const onPressBitgetCampaignBanner = useCallback(
-    () => window.open('https://bitgetwallet.onelink.me/6Vx1/8xbtum2q', '_blank', 'noreferrer'),
+  const onPressFusionBanner = useCallback(
+    () =>
+      window.open(
+        'https://discord.com/channels/1214916952288403476/1214920662624370758/1284482326314614856',
+        '_blank',
+        'noreferrer'
+      ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
@@ -83,8 +81,7 @@ const BannerCarousel = () => {
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
-        <BitgetCampaignBanner onPress={onPressBitgetCampaignBanner} />
-        <IntractBanner onPress={onPressIntractBanner} />
+        <FusionBanner onPress={onPressFusionBanner} />
         <EcosystemBanner onPress={onPressEcosystemBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledSlider>
