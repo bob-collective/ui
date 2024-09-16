@@ -36,10 +36,10 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         },
-        '/onramp-api': {
-          target: env.VITE_ONRAMP_API_URL,
+        '/gateway-api': {
+          target: env.VITE_GATEWAY_API_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/onramp-api/, '')
+          rewrite: (path) => path.replace(/^\/gateway-api/, '')
         },
         '/btc-api': {
           target: env.VITE_BTC_API_URL,

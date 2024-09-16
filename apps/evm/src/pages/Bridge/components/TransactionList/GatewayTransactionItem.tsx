@@ -2,18 +2,18 @@ import { Flex, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
 import { L2_CHAIN } from '../../../../constants';
-import { OnRampTransaction } from '../../hooks/useGetTransactions';
-import { OnRampStatus } from '../BridgeStatus';
+import { GatewayTransaction } from '../../hooks/useGetTransactions';
+import { GatewayStatus } from '../BridgeStatus';
 
 import { TransactionDetails } from './TransactionDetails';
 
-type Props = { data: OnRampTransaction };
+type Props = { data: GatewayTransaction };
 
 type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 
-type OnRampTransactionItemProps = Props & InheritAttrs;
+type GatewayTransactionItemProps = Props & InheritAttrs;
 
-const OnRampTransactionItem = ({ data, ...props }: OnRampTransactionItemProps): JSX.Element => {
+const GatewayTransactionItem = ({ data, ...props }: GatewayTransactionItemProps): JSX.Element => {
   const [isExpanded, setExpanded] = useState(false);
 
   const fromChaindId = 'BTC';
@@ -29,9 +29,9 @@ const OnRampTransactionItem = ({ data, ...props }: OnRampTransactionItemProps): 
         type='deposit'
         onExpand={() => setExpanded((isExpanded) => !isExpanded)}
       />
-      <OnRampStatus data={data} isExpanded={isExpanded} />
+      <GatewayStatus data={data} isExpanded={isExpanded} />
     </Flex>
   );
 };
 
-export { OnRampTransactionItem };
+export { GatewayTransactionItem };

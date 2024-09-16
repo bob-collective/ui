@@ -53,7 +53,7 @@ const BannerCarousel = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
   const navigate = useNavigate();
 
-  const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
+  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
   const onPressEcosystemBanner = useCallback(
     () => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } }),
@@ -83,7 +83,7 @@ const BannerCarousel = () => {
       <StyledSlider {...settings} arrows={isDesktop}>
         <FusionBanner onPress={onPressFusionBanner} />
         <EcosystemBanner onPress={onPressEcosystemBanner} />
-        {isBtcOnRampEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
+        {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledSlider>
     </StyledCarouselWrapper>
   );

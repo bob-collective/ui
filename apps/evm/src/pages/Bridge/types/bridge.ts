@@ -8,7 +8,7 @@ type L2BridgeData = {
   transactionHash?: Address;
 };
 
-type OnRampData = {
+type GatewayData = {
   txid?: string;
   amount: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   fee: CurrencyAmount<Bitcoin>;
@@ -16,7 +16,7 @@ type OnRampData = {
 
 enum TransactionType {
   Bridge,
-  OnRamp
+  Gateway
 }
 
 enum MessageDirection {
@@ -35,4 +35,4 @@ enum MessageStatus {
 }
 
 export { TransactionType, MessageStatus, MessageDirection };
-export type { L2BridgeData, OnRampData };
+export type { L2BridgeData, GatewayData };

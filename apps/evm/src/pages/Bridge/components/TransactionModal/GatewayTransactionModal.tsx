@@ -13,19 +13,25 @@ import {
 
 import { Chain, TransactionDetails } from '../../../../components';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { useGetOnRampTransactions } from '../../hooks';
-import { OnRampData, TransactionType } from '../../types';
+import { useGetGatewayTransactions } from '../../hooks';
+import { GatewayData, TransactionType } from '../../types';
 
-type Props = OnRampData;
+type Props = GatewayData;
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
-type OnRampTransactionModalProps = Props & InheritAttrs;
+type GatewayTransactionModalProps = Props & InheritAttrs;
 
-const OnRampTransactionModal = ({ amount, txid, fee, onClose, ...props }: OnRampTransactionModalProps): JSX.Element => {
-  const { data: transactions } = useGetOnRampTransactions();
+const GatewayTransactionModal = ({
+  amount,
+  txid,
+  fee,
+  onClose,
+  ...props
+}: GatewayTransactionModalProps): JSX.Element => {
+  const { data: transactions } = useGetGatewayTransactions();
 
-  const txData = transactions?.find((tx) => tx.type === TransactionType.OnRamp && tx.btcTxId === txid);
+  const txData = transactions?.find((tx) => tx.type === TransactionType.Gateway && tx.btcTxId === txid);
 
   const isSubmitted = !!txData;
 
@@ -69,4 +75,4 @@ const OnRampTransactionModal = ({ amount, txid, fee, onClose, ...props }: OnRamp
   );
 };
 
-export { OnRampTransactionModal };
+export { GatewayTransactionModal };

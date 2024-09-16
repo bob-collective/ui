@@ -1,16 +1,20 @@
 import { ChainId } from '@gobob/chains';
-import { TBTC, WBTC } from '@gobob/tokens';
 import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
 import { Key, useCallback, useMemo, useState } from 'react';
+import { INTERVAL, useQuery } from '@gobob/react-query';
+import { Token } from '@gobob/currency';
+import { useChainId } from '@gobob/wagmi';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { FeatureFlags, useFeatureFlag, useTokens } from '../../../../hooks';
+import { FeatureFlags, TokenData, useFeatureFlag } from '../../../../hooks';
 import { BridgeOrigin } from '../../Bridge';
 import { useGetTransactions } from '../../hooks';
-import { L2BridgeData, OnRampData } from '../../types';
+import { L2BridgeData, GatewayData } from '../../types';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
-import { BridgeTransactionModal, OnRampTransactionModal } from '../TransactionModal';
+import { BridgeTransactionModal, GatewayTransactionModal } from '../TransactionModal';
+import { gatewaySDK } from '../../../../lib/bob-sdk';
+import { bridgeKeys } from '../../../../lib/react-query';
 
 import { BobBridgeForm } from './BobBridgeForm';
 import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
@@ -22,10 +26,10 @@ type TransactionModalState = {
   data?: L2BridgeData;
 };
 
-type OnRampTransactionModalState = {
+type GatewayTransactionModalState = {
   isOpen: boolean;
   step: 'confirmation' | 'submitted';
-  data?: OnRampData;
+  data?: GatewayData;
 };
 
 type BridgeFormProps = {
@@ -62,7 +66,7 @@ const BridgeForm = ({
   onChangeOrigin,
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
-  const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
+  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
   const { refetchBridgeTxs } = useGetTransactions();
 
@@ -70,9 +74,35 @@ const BridgeForm = ({
     isOpen: false,
     step: 'confirmation'
   });
-  const [onRampModalState, setOnRampModalState] = useState<OnRampTransactionModalState>({
+  const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false,
     step: 'confirmation'
+  });
+
+  const chainId = useChainId();
+
+  const { data: btcTokens } = useQuery({
+    enabled: isBtcGatewayEnabled,
+    queryKey: bridgeKeys.btcTokens(),
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    gcTime: INTERVAL.HOUR,
+    queryFn: async (): Promise<TokenData[]> => {
+      const tokens = await gatewaySDK.getTokens();
+
+return tokens.map((token) => ({
+        raw: {
+          chainId,
+          address: token.address as `0x${string}`,
+          name: token.name,
+          symbol: token.symbol,
+          decimals: token.decimals,
+          logoUrl: token.logoURI,
+          apiId: ''
+        },
+        currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.name)
+      }));
+    }
   });
 
   const handleStartBridge = (data: L2BridgeData) => {
@@ -92,16 +122,16 @@ const BridgeForm = ({
     setBridgeModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleStartOnRamp = (data: OnRampData) => {
-    setOnRampModalState({ isOpen: true, step: 'confirmation', data });
+  const handleStartGateway = (data: GatewayData) => {
+    setGatewayModalState({ isOpen: true, step: 'confirmation', data });
   };
 
-  const handleOnRampSuccess = (data: OnRampData) => {
-    setOnRampModalState({ isOpen: true, step: 'submitted', data });
+  const handleGatewaySuccess = (data: GatewayData) => {
+    setGatewayModalState({ isOpen: false, step: 'submitted', data });
   };
 
-  const handleCloseOnRampModal = () => {
-    setOnRampModalState((s) => ({ ...s, isOpen: false }));
+  const handleCloseGatewayModal = () => {
+    setGatewayModalState((s) => ({ ...s, isOpen: false }));
   };
 
   const handleChangeNetwork = useCallback(
@@ -115,27 +145,15 @@ const BridgeForm = ({
     [onChangeNetwork, onChangeChain]
   );
 
-  const { data: tokens } = useTokens(L2_CHAIN);
-
-  const btcTokens = useMemo(
-    () =>
-      tokens?.filter(
-        (token) =>
-          token.currency.symbol === TBTC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA]?.symbol ||
-          token.currency.symbol === WBTC[L2_CHAIN as ChainId.OLD_BOB_SEPOLIA]?.symbol
-      ),
-    [tokens]
-  );
-
   const availableNetworks = useMemo(() => {
-    const isBtcNetworkAvailable = isBtcOnRampEnabled && type === 'deposit' && !!btcTokens?.length;
+    const isBtcNetworkAvailable = isBtcGatewayEnabled && type === 'deposit' && !!btcTokens?.length;
 
     if (!isBtcNetworkAvailable) {
       return allNetworks.filter((network) => network !== 'BTC');
     }
 
     return allNetworks;
-  }, [btcTokens?.length, isBtcOnRampEnabled, type]);
+  }, [btcTokens?.length, isBtcGatewayEnabled, type]);
 
   const fromChainSelectProps =
     type === 'deposit'
@@ -196,9 +214,9 @@ const BridgeForm = ({
             <BtcBridgeForm
               availableTokens={btcTokens}
               type={type}
-              onFailOnRamp={handleCloseOnRampModal}
-              onOnRampSuccess={handleOnRampSuccess}
-              onStartOnRamp={handleStartOnRamp}
+              onFailGateway={handleCloseGatewayModal}
+              onGatewaySuccess={handleGatewaySuccess}
+              onStartGateway={handleStartGateway}
             />
           ) : (
             <BobBridgeForm
@@ -221,10 +239,10 @@ const BridgeForm = ({
         step={bridgeModalState.step}
         onClose={handleCloseModal}
       />
-      <OnRampTransactionModal
-        {...(onRampModalState.data as Required<OnRampData>)}
-        isOpen={onRampModalState.isOpen}
-        onClose={handleCloseOnRampModal}
+      <GatewayTransactionModal
+        {...(gatewayModalState.data as Required<GatewayData>)}
+        isOpen={gatewayModalState.isOpen}
+        onClose={handleCloseGatewayModal}
       />
     </>
   );

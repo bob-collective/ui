@@ -42,7 +42,7 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type ConnectModalProps = Props & InheritAttrs;
 
-const hasBitkeep = window.bitkeep && window.ethereum;
+const hasBitkeep = (window as any).bitkeep && window.ethereum;
 
 const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
   ({ onClose, isOpen, step: stepProp, type = 'both', onConnectEvm, onConnectBtc, ...props }, ref) => {

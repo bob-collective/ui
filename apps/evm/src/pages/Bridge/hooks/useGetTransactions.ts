@@ -3,21 +3,21 @@ import { useAccount } from '@gobob/wagmi';
 
 import { FeatureFlags, useFeatureFlag } from '../../../hooks';
 
-import { OnRampTransaction, useGetOnRampTransactions } from './useGetOnRampTransactions';
+import { GatewayTransaction, useGetGatewayTransactions } from './useGetGatewayTransactions';
 import { BridgeTransaction, useGetBridgeTransactions } from './useGetBridgeTransactions';
 
-type Transaction = BridgeTransaction | OnRampTransaction;
+type Transaction = BridgeTransaction | GatewayTransaction;
 
 const useGetTransactions = () => {
-  const onramp = useGetOnRampTransactions();
+  const gateway = useGetGatewayTransactions();
   const bridge = useGetBridgeTransactions();
-  const isBtcOnRampEnabled = useFeatureFlag(FeatureFlags.BTC_ONRAMP);
+  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
   const { address } = useAccount();
 
   const isLoading = useMemo(
-    () => (isBtcOnRampEnabled && onramp.isLoading) || bridge.isLoading,
-    [onramp.isLoading, bridge.isLoading, isBtcOnRampEnabled]
+    () => (isBtcGatewayEnabled && gateway.isLoading) || bridge.isLoading,
+    [gateway.isLoading, bridge.isLoading, isBtcGatewayEnabled]
   );
 
   const [isInitialLoading, setInitialLoading] = useState(isLoading);
@@ -37,21 +37,21 @@ const useGetTransactions = () => {
   return useMemo(() => {
     let data;
 
-    if (isBtcOnRampEnabled) {
-      data = onramp.data && bridge.data ? [...onramp.data, ...bridge.data] : undefined;
+    if (isBtcGatewayEnabled) {
+      data = gateway.data && bridge.data ? [...gateway.data, ...bridge.data] : undefined;
     } else {
       data = bridge.data;
     }
 
     return {
       data: data?.sort((a, b) => b.date.getTime() - a.date.getTime()),
-      refetchOnRampTxs: onramp.refetch,
+      refetchGatewayTxs: gateway.refetch,
       refetchBridgeTxs: bridge.refetch,
       isLoading,
       isInitialLoading
     };
-  }, [bridge.data, bridge.refetch, isBtcOnRampEnabled, isInitialLoading, isLoading, onramp.data, onramp.refetch]);
+  }, [bridge.data, bridge.refetch, isBtcGatewayEnabled, isInitialLoading, isLoading, gateway.data, gateway.refetch]);
 };
 
 export { useGetTransactions };
-export type { Transaction, BridgeTransaction, OnRampTransaction };
+export type { Transaction, BridgeTransaction, GatewayTransaction };
