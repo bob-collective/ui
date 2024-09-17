@@ -1,5 +1,5 @@
 import { Spice } from '@gobob/icons';
-import { Bars3, Button, Divider, Flex, H3, Link, P, Span, useLocale } from '@gobob/ui';
+import { Bars3, Button, Divider, DlGroup, Dt, Flex, H3, Link, P, Span, useLocale } from '@gobob/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
@@ -7,8 +7,7 @@ import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { QuestS3Response, UserResponse } from '../../../../utils';
 import { AppData } from '../../../Apps/hooks';
 import { LoginSection } from '../../../../components';
-import { L2_CHAIN, RoutesPath } from '../../../../constants';
-import { useTotalBalance } from '../../../../hooks';
+import { RoutesPath } from '../../../../constants';
 
 import {
   StyledArrowRight,
@@ -20,9 +19,9 @@ import {
   StyledUserInfoWrapper
 } from './UserInfo.style';
 import { UserInfoCard } from './UserInfoCard';
-import { UserAssetsModal } from './UserAssetsModal';
 import { UserAppsModal } from './UsedAppsModal';
 import { UserReferralModal } from './UserReferralModal';
+import { UserAssetsModal } from './UserAssetsModal';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -35,8 +34,6 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const { locale } = useLocale();
   const navigate = useNavigate();
   const [, copy] = useCopyToClipboard();
-
-  const { compact } = useTotalBalance(L2_CHAIN);
 
   const [isUserAssetsModalOpen, setUserAssetsModalOpen] = useState(false);
   const [isUserAppsModalOpen, setUserAppsModalOpen] = useState(false);
@@ -58,10 +55,36 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         gap='lg'
         marginTop={{ base: '4xl', md: '6xl' }}
       >
-        <UserInfoCard description={compact} title='Assets Deposited'>
-          <Flex gap='md' marginTop='xl'>
-            <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserAssetsModalOpen(true)}>
-              <Bars3 />
+        <UserInfoCard
+          description={
+            <Flex alignItems='center' elementType='span' gap='s'>
+              <Spice size='md' />
+              <Span size='inherit'>
+                {Intl.NumberFormat(locale).format(user?.season3Data.s3LeaderboardData[0].total_points || 0)}
+              </Span>
+              <Span size='xs'>
+                (+{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerDay || 0)}/Day)
+              </Span>
+            </Flex>
+          }
+          flex={2}
+          title='Season 3 Harvested Spice'
+        >
+          <DlGroup alignItems='center'>
+            <Dt size='s'>Season 1 & 2 (Completed):</Dt>
+            <Flex alignItems='center' elementType='dd' gap='xs'>
+              <Spice size='xs' />
+              <Span size='xs'>{Intl.NumberFormat(locale).format(user?.leaderboardRank.total_points || 0)}</Span>
+            </Flex>
+          </DlGroup>
+          <Flex gap='md'>
+            <Button
+              fullWidth
+              disabled={!isAuthenticated}
+              variant='outline'
+              onPress={() => setUserAssetsModalOpen(true)}
+            >
+              View Multipliers
             </Button>
             <Button
               fullWidth
@@ -74,6 +97,30 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             </Button>
           </Flex>
           <UserAssetsModal isOpen={isUserAssetsModalOpen} onClose={() => setUserAssetsModalOpen(false)} />
+        </UserInfoCard>
+        <UserInfoCard description={user?.referral_code} title='Your Referral Code'>
+          <Flex gap='md' marginTop='xl'>
+            {hasReferrals && (
+              <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
+                <Bars3 />
+              </Button>
+            )}
+            <Button
+              fullWidth
+              disabled={!isAuthenticated}
+              variant='outline'
+              onPress={() => copy(user?.referral_code || '')}
+            >
+              Copy <StyledSolidDocumentDuplicate size='xs' />
+            </Button>
+          </Flex>
+          {user && hasReferrals && (
+            <UserReferralModal
+              isOpen={isUserReferralModalOpen}
+              user={user}
+              onClose={() => setUserReferralModalOpen(false)}
+            />
+          )}
         </UserInfoCard>
         <UserInfoCard description={harvestedApps?.length || 0} title='Apps Used'>
           <Flex gap='md' marginTop='xl'>
@@ -112,49 +159,6 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             Solve Challenges
           </Button>
         </UserInfoCard>
-        <UserInfoCard description={user?.referral_code} title='Your Referral Code'>
-          <Flex gap='md' marginTop='xl'>
-            {hasReferrals && (
-              <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
-                <Bars3 />
-              </Button>
-            )}
-            <Button
-              fullWidth
-              disabled={!isAuthenticated}
-              variant='outline'
-              onPress={() => copy(user?.referral_code || '')}
-            >
-              Copy <StyledSolidDocumentDuplicate size='xs' />
-            </Button>
-          </Flex>
-          {user && hasReferrals && (
-            <UserReferralModal
-              isOpen={isUserReferralModalOpen}
-              user={user}
-              onClose={() => setUserReferralModalOpen(false)}
-            />
-          )}
-        </UserInfoCard>
-        <UserInfoCard
-          description={
-            <Flex direction='column' elementType='span' gap='xs'>
-              <Span size='inherit'>
-                {Intl.NumberFormat(locale, { notation: 'compact' }).format(
-                  user?.season3Data.s3LeaderboardData[0].total_points || 0
-                )}
-              </Span>
-              <Flex elementType='span' gap='xs'>
-                <Spice size='xs' />
-                <Span size='xs'>
-                  (+{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerDay || 0)}/Day)
-                </Span>
-              </Flex>
-            </Flex>
-          }
-          flex={1.3}
-          title='Season 3 Harvested Spice'
-        />
       </StyledDl>
       {!isAuthenticated && (
         <>

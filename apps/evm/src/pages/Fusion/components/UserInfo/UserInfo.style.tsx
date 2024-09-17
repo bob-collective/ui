@@ -10,13 +10,12 @@ const StyledDl = styled(Dl)`
       grid-template-columns: repeat(1, 1fr);
 
       @media ${theme.breakpoints.up('s')} {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
       }
 
       @media ${theme.breakpoints.up('md')} {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
       }
 
       @media ${theme.breakpoints.up('lg')} {
@@ -30,7 +29,27 @@ const StyledCard = styled(Card)`
   ${({ theme }) => {
     return css`
       @media ${theme.breakpoints.up('s')} {
-        &:last-of-type {
+        &:first-of-type {
+          grid-column: span 3 / span 3;
+        }
+
+        &:nth-of-type(3),
+        &:last-child {
+          grid-column: span 1 / span 1;
+        }
+      }
+
+      @media ${theme.breakpoints.up('md')} {
+        &:first-of-type {
+          grid-column: span 3 / span 3;
+        }
+
+        &:nth-of-type(3) {
+          grid-column: span 1 / span 1;
+        }
+
+        &:nth-of-type(3),
+        &:last-child {
           grid-column: span 2 / span 2;
         }
       }
