@@ -5,7 +5,7 @@ import { Address } from 'viem';
 import { ChainId } from '@gobob/chains';
 
 import { gatewaySDK } from '../lib/bob-sdk';
-import { electrsClient } from '../utils';
+import { esploraClient } from '../utils';
 import { GatewayDepositSteps } from '../constants';
 import { TransactionType } from '../types';
 
@@ -22,41 +22,40 @@ type GatewayTransaction = {
 };
 
 const getGatewayTransactions = async (address: Address): Promise<GatewayTransaction[]> => {
-  const [orders, latestBlock] = await Promise.all([gatewaySDK.getOrders(address), electrsClient.getLatestBlock()]);
+  const [orders, latestBlock] = await Promise.all([gatewaySDK.getOrders(address), esploraClient.getLatestHeight()]);
 
   return (
     await Promise.all(
       orders.map(async (order): Promise<GatewayTransaction | undefined> => {
-        const gatewayToken = order.outputToken ? order.outputToken : order.baseToken;
-        const token = {
-          raw: {
-            chainId: gatewayToken.chainId,
-            address: gatewayToken.address as `0x${string}`,
-            name: gatewayToken.name,
-            symbol: gatewayToken.symbol,
-            decimals: gatewayToken.decimals,
-            logoUrl: gatewayToken.logoURI,
-            apiId: ''
-          },
-          currency: new Token(
-            ChainId.BOB,
-            gatewayToken.address as `0x${string}`,
-            gatewayToken.decimals,
-            gatewayToken.symbol,
-            gatewayToken.name
-          )
-        };
+        const gatewayToken = order.getToken();
+        const gatewayAmount = order.getAmount();
 
-        // TODO: move this to the SDK
-        const amount = order.strategyAddress
-          ? order.outputTokenAmount
-            ? CurrencyAmount.fromRawAmount(token.currency as ERC20Token, order.outputTokenAmount)
-            : undefined
-          : CurrencyAmount.fromRawAmount(token.currency as ERC20Token, order.satoshis - order.fee);
+        let amount: CurrencyAmount<ERC20Token> | undefined;
 
-        const txStatus = await electrsClient.getTxStatus(order.txid);
+        if (gatewayToken && gatewayAmount) {
+          const token = {
+            raw: {
+              chainId: gatewayToken.chainId,
+              address: gatewayToken.address as `0x${string}`,
+              name: gatewayToken.name,
+              symbol: gatewayToken.symbol,
+              decimals: gatewayToken.decimals,
+              logoUrl: gatewayToken.logoURI,
+              apiId: ''
+            },
+            currency: new Token(
+              ChainId.BOB,
+              gatewayToken.address as `0x${string}`,
+              gatewayToken.decimals,
+              gatewayToken.symbol,
+              gatewayToken.name
+            )
+          };
 
-        const confirmations = txStatus.confirmed ? Number(latestBlock) - txStatus.block_height + 1 : 0;
+          amount = CurrencyAmount.fromRawAmount(token.currency as ERC20Token, gatewayAmount);
+        }
+
+        const confirmations = await order.getConfirmations(esploraClient, latestBlock);
         const hasEnoughConfirmations = confirmations >= order.txProofDifficultyFactor;
 
         const status: GatewayDepositSteps = !hasEnoughConfirmations

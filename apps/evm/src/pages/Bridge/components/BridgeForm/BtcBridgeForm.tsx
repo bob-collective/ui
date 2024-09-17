@@ -195,6 +195,7 @@ const BtcBridgeForm = ({
       return {
         receiveAmount: CurrencyAmount.fromBaseAmount(btcToken.currency, btcReceiveAmount.toExact()),
         fee: feeAmount,
+        isStakingToken: !!gatewayQuote.strategyAddress,
         gatewayQuote
       };
     }
@@ -417,6 +418,7 @@ const BtcBridgeForm = ({
         amount={receiveAmount}
         amountPlaceholder={placeholderAmount}
         chainId={L2_CHAIN}
+        currencyOnly={quoteData?.isStakingToken}
         gasEstimate={quoteData?.fee || gasEstimatePlaceholder}
         gasEstimatePlaceholder={gasEstimatePlaceholder}
         gasLabel='Estimated Fee'
