@@ -1,23 +1,12 @@
-import { GatewayStrategyContract } from '@gobob/bob-sdk';
-import { ChainId } from '@gobob/chains';
-import { ERC20Token, Ether, Token } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Flex } from '@gobob/ui';
 import { useState } from 'react';
 
-import { FeatureFlags, useFeatureFlag } from '../../../../hooks';
-import { gatewaySDK } from '../../../../lib/bob-sdk';
-import { bridgeKeys } from '../../../../lib/react-query';
+import { StrategyData } from '../../../../hooks';
 import { GatewayData, L2BridgeData } from '../../../../types';
 import { GatewayTransactionModal, StakeTransactionModal } from '../TransactionModal';
-import { UnstakeForm } from '../UnstakeForm';
+import { Unstake } from '../Unstake';
 
 import { BtcStakeForm } from './BtcStakeForm';
-
-type StrategyData = {
-  raw: GatewayStrategyContract;
-  currency: Ether | ERC20Token;
-};
 
 type TransactionModalState = {
   isOpen: boolean;
@@ -33,11 +22,10 @@ type GatewayTransactionModalState = {
 
 type BridgeFormProps = {
   type: 'stake' | 'unstake';
+  strategies: StrategyData[] | undefined;
 };
 
-const StakingForm = ({ type = 'stake' }: BridgeFormProps): JSX.Element => {
-  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
-
+const StakingForm = ({ type = 'stake', strategies = [] }: BridgeFormProps): JSX.Element => {
   const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
     isOpen: false,
     step: 'confirmation'
@@ -45,30 +33,6 @@ const StakingForm = ({ type = 'stake' }: BridgeFormProps): JSX.Element => {
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false,
     step: 'confirmation'
-  });
-
-  const { data: strategies = [] } = useQuery({
-    enabled: isBtcGatewayEnabled,
-    queryKey: bridgeKeys.strategies(),
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    gcTime: INTERVAL.HOUR,
-    queryFn: async (): Promise<StrategyData[]> => {
-      const strategies = await gatewaySDK.getStrategies();
-
-      return strategies.reduce<StrategyData[]>((acc, strategy) => {
-        const token = strategy.outputToken;
-
-        if (token !== null) {
-          acc.push({
-            raw: strategy,
-            currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.symbol)
-          });
-        }
-
-        return acc;
-      }, []);
-    }
   });
 
   const handleCloseModal = () => {
@@ -102,7 +66,7 @@ const StakingForm = ({ type = 'stake' }: BridgeFormProps): JSX.Element => {
             onStartGateway={handleStartGateway}
           />
         ) : (
-          <UnstakeForm type={type} />
+          <Unstake type={type} />
         )}
       </Flex>
       <StakeTransactionModal

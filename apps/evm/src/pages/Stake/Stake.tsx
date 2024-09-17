@@ -3,12 +3,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Main } from '../../components';
+import { useGetStakeStrategies } from '../../hooks';
 
 import { StyledCard, StyledFlex } from './Stake.style';
-import { BannerCarousel, ProjectsList, StakingForm } from './components';
+import { BannerCarousel, StrategiesList, StakingForm } from './components';
 
 const Stake = () => {
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
+
+  const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakeStrategies();
 
   const [type, setType] = useState<'stake' | 'unstake'>((searchParams.get('type') as 'stake') || 'stake');
 
@@ -30,7 +33,6 @@ const Stake = () => {
   return (
     <Main maxWidth='5xl' padding='md'>
       <BannerCarousel />
-
       <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
         <StyledCard>
           <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
@@ -41,9 +43,9 @@ const Stake = () => {
               <></>
             </TabsItem>
           </Tabs>
-          <StakingForm type={type} />
+          <StakingForm strategies={strategies} type={type} />
         </StyledCard>
-        <ProjectsList />
+        <StrategiesList isLoading={isStrategiesLoading} strategies={strategies} />
       </StyledFlex>
     </Main>
   );

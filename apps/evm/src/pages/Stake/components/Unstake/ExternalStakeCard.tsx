@@ -1,9 +1,9 @@
 import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 import { BTC } from '@gobob/icons';
 
-import { SolvBTCBBN } from '../ProjectsList/SolvBTCBBN';
-import { UniBTC } from '../ProjectsList/UniBTC';
-import { PellNetwork } from '../ProjectsList/PellNetwork';
+import { SolvBTCBBN } from '../StrategiesList/SolvBTCBBN';
+import { UniBTC } from '../StrategiesList/UniBTC';
+import { PellNetwork } from '../StrategiesList/PellNetwork';
 
 type ExternalBridges = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network';
 

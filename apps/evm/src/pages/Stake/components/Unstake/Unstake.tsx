@@ -1,6 +1,6 @@
 import { Flex, P } from '@gobob/ui';
 
-import { ExternalStakeCard, ExternalBridges } from './ExternalStakeCard';
+import { ExternalBridges, ExternalStakeCard } from './ExternalStakeCard';
 
 type UnstakeProps = {
   type: 'stake' | 'unstake';
@@ -8,7 +8,7 @@ type UnstakeProps = {
 
 const defaultBridges: ExternalBridges[] = ['solvbtc', 'unibtc', 'pell-network'];
 
-const UnstakeForm = ({ type }: UnstakeProps): JSX.Element => {
+const Unstake = ({ type }: UnstakeProps): JSX.Element => {
   const bridges = defaultBridges;
 
   return (
@@ -26,4 +26,4 @@ const UnstakeForm = ({ type }: UnstakeProps): JSX.Element => {
   );
 };
 
-export { UnstakeForm };
+export { Unstake };

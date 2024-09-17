@@ -13,3 +13,4 @@ export * from './usePublicClient';
 export * from './useTokens';
 export * from './useTotalBalance';
 export * from './useWalletClient';
+export * from './useStakingStrategies';

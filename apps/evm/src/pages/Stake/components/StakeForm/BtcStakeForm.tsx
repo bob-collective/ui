@@ -47,6 +47,7 @@ import {
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { bridgeKeys } from '../../../../lib/react-query';
 import { GatewayData } from '../../../../types';
+import { PellNetwork } from '../StrategiesList/PellNetwork';
 
 import { StrategyData } from './StakeForm';
 
@@ -125,7 +126,7 @@ const BtcStakeForm = ({
 
   const { data: availableLiquidity, isLoading: isLoadingMaxQuote } = useQuery({
     enabled: Boolean(strategy?.currency),
-    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, strategy?.currency.symbol, 'max'),
+    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, strategy?.currency?.symbol, 'max'),
     refetchInterval: INTERVAL.MINUTE,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -136,7 +137,6 @@ const BtcStakeForm = ({
       const maxQuoteData = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
         toToken: strategy.currency.symbol
-        // strategy.currency?
       });
 
       return CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis);
@@ -163,7 +163,7 @@ const BtcStakeForm = ({
     evmAddress,
     btcAddress,
     isGasNeeded,
-    strategy?.currency.symbol,
+    strategy?.raw.inputToken.symbol,
     Number(currencyAmount?.numerator)
   );
 
@@ -184,11 +184,13 @@ const BtcStakeForm = ({
       const atomicAmount = currencyAmount.numerator.toString();
       const gatewayQuote = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toToken: strategy?.currency.symbol,
         amount: atomicAmount,
         gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
         fromUserAddress: btcAddress,
-        toUserAddress: evmAddress
+        toUserAddress: evmAddress,
+        toChain: strategy.raw.chain.chainId,
+        toToken: strategy.raw.inputToken.symbol,
+        strategyAddress: strategy.raw.address
       });
 
       const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, gatewayQuote.fee);
@@ -369,7 +371,7 @@ const BtcStakeForm = ({
         {(data) => (
           <Item key={data.raw.integration.name} textValue={data.raw.integration.name}>
             <Flex alignItems='center' gap='s'>
-              <Avatar size='2xl' src={data.raw.integration.logo} />
+              {data.raw.integration.logo ? <Avatar size='2xl' src={data.raw.integration.logo} /> : <PellNetwork />}
               <P style={{ color: 'inherit' }}>{data.raw.integration.name}</P>
             </Flex>
           </Item>
@@ -414,7 +416,9 @@ const BtcStakeForm = ({
       )}
       {!hasLiquidity && !isLoadingMaxQuote && (
         <Alert status='warning'>
-          <P size='s'>There is currently no available liquidity to onramp BTC into {strategy?.currency.symbol}.</P>
+          <P size='s'>
+            There is currently no available liquidity to onramp BTC into {strategy?.raw.outputToken?.symbol}.
+          </P>
         </Alert>
       )}
       {/* TODO: uncomment when design clarified */}
