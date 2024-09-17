@@ -188,7 +188,7 @@ const BtcBridgeForm = ({
       return {
         receiveAmount: CurrencyAmount.fromBaseAmount(btcToken.currency, btcReceiveAmount.toExact()),
         fee: feeAmount,
-        isStakingToken: gatewayQuote.baseToken !== gatewayQuote.outputToken,
+        isStakingToken: !!gatewayQuote.strategyAddress,
         gatewayQuote
       };
     }
