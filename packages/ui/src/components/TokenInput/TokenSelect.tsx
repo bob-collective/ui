@@ -30,8 +30,9 @@ const TokenSelect = ({ modalProps, size, featuredItems, ...props }: TokenSelectP
           title: 'Select Token',
           listProps: { maxHeight: '32rem' },
           featuredItems: featuredItems?.map((item) => ({
-            startAdornment: <Avatar size='2xl' src={item.logoUrl} />,
-            children: item.currency.symbol
+            startAdornment: <Avatar size='3xl' src={item.logoUrl} />,
+            children: item.currency.symbol,
+            value: item.currency.symbol
           }))
         },
         modalProps

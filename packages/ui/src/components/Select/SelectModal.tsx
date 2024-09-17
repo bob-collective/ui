@@ -1,21 +1,30 @@
-import { useId } from '@react-aria/utils';
+import { mergeProps, useId } from '@react-aria/utils';
 import { SelectState } from '@react-stately/select';
-import { forwardRef, ReactNode, useState } from 'react';
+import { forwardRef, ReactNode, useRef, useState } from 'react';
 import { useFilter } from '@react-aria/i18n';
+import { useButton } from '@react-aria/button';
+import { PressEvent } from '@react-types/shared';
 
 import { MagnifyingGlass } from '../../icons';
-import { Chip, ChipProps, Flex, Input, ModalHeader, ModalProps, P } from '..';
+import { ChipProps, Flex, Input, ModalHeader, ModalProps, P } from '..';
 import { ListItem, ListProps } from '../List';
 import { ModalDivider } from '../Modal';
 
-import { StyledList, StyledModal, StyledModalBody } from './Select.style';
+import { StyledList, StyledModal, StyledModalBody, StyledModalDivider, StyledSelectableChip } from './Select.style';
+
+const SelectableChip = ({ onPress, ...props }: ChipProps & { onPress?: (e: PressEvent) => void }) => {
+  const ref = useRef(null);
+  const { buttonProps } = useButton({ onPress, elementType: 'div' }, ref);
+
+  return <StyledSelectableChip ref={ref} borderColor='grey-300' size='lg' {...mergeProps(props, buttonProps)} />;
+};
 
 type Props = {
   state: SelectState<unknown>;
   title?: ReactNode;
   listProps?: Omit<ListProps, 'children'>;
   showAutoComplete?: boolean;
-  featuredItems?: Pick<ChipProps, 'startAdornment' | 'endAdornment' | 'children'>[];
+  featuredItems?: Array<Pick<ChipProps, 'startAdornment' | 'endAdornment' | 'children'> & { value: string }>;
 };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
@@ -47,6 +56,10 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
       setSearch(value);
     };
 
+    const handlePressChip = (value: string) => {
+      state.selectionManager.setSelectedKeys(new Set([value]));
+    };
+
     const items = [...state.collection];
 
     const matchedItems = items.filter((item) => contains(item.textValue, search));
@@ -65,7 +78,7 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
         <ModalDivider />
         {(hasFeaturedItems || showAutoComplete) && (
           <>
-            <StyledModalBody>
+            <StyledModalBody gap='lg'>
               {showAutoComplete && (
                 <Input
                   placeholder='Search'
@@ -75,14 +88,21 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
                 />
               )}
               {hasFeaturedItems && (
-                <Flex gap='s'>
-                  {featuredItems.map((item, key) => (
-                    <Chip borderColor='grey-300' {...item} key={key} />
+                <Flex wrap gap='s'>
+                  {featuredItems.map(({ value, ...item }, key) => (
+                    <SelectableChip
+                      key={key}
+                      aria-label={`select ${value}`}
+                      borderColor='grey-300'
+                      size='lg'
+                      onPress={() => handlePressChip(value)}
+                      {...item}
+                    />
                   ))}
                 </Flex>
               )}
             </StyledModalBody>
-            <ModalDivider />
+            <StyledModalDivider />
           </>
         )}
         {hasItems ? (

@@ -57,7 +57,7 @@ const tokenInput: TokenInputTheme = {
   },
   list: {
     base: {
-      padding: `0 ${spacing('xl')}`,
+      padding: `${spacing('s')} ${spacing('xl')} 0 ${spacing('xl')}`,
       overflow: 'auto',
       '> :last-child': {
         marginBottom: spacing('xl')

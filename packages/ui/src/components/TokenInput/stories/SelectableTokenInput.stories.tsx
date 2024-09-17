@@ -23,6 +23,36 @@ const items = [
     currency: { symbol: 'USDC', decimals: 6 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
     balanceUSD: 100
+  },
+  {
+    balance: 100,
+    currency: { symbol: 'WBTC', decimals: 6 } as Currency,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
+    balanceUSD: 100
+  },
+  {
+    balance: 100,
+    currency: { symbol: 'WETH', decimals: 6 } as Currency,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
+    balanceUSD: 100
+  },
+  {
+    balance: 100,
+    currency: { symbol: 'BTC', decimals: 6 } as Currency,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
+    balanceUSD: 100
+  },
+  {
+    balance: 100,
+    currency: { symbol: 'QWER', decimals: 6 } as Currency,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
+    balanceUSD: 100
+  },
+  {
+    balance: 100,
+    currency: { symbol: 'QWWR', decimals: 6 } as Currency,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
+    balanceUSD: 100
   }
 ];
 
@@ -96,7 +126,7 @@ export const SelectableErrorMessage: StoryObj<TokenInputProps> = {
 
 export const AutoComplete: StoryObj<TokenInputProps> = {
   args: {
-    featuredItems: items,
+    featuredItems: items.slice(0, 6),
     selectProps: {
       modalProps: { showAutoComplete: true }
     }
