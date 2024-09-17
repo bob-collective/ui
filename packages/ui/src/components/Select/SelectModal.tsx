@@ -4,16 +4,18 @@ import { forwardRef, ReactNode, useState } from 'react';
 import { useFilter } from '@react-aria/i18n';
 
 import { MagnifyingGlass } from '../../icons';
-import { Input, Modal, ModalHeader, ModalProps, P } from '..';
+import { Chip, ChipProps, Flex, Input, ModalHeader, ModalProps, P } from '..';
 import { ListItem, ListProps } from '../List';
 import { ModalDivider } from '../Modal';
 
-import { StyledList, StyledModalBody } from './Select.style';
+import { StyledList, StyledModal, StyledModalBody } from './Select.style';
 
 type Props = {
   state: SelectState<unknown>;
   title?: ReactNode;
   listProps?: Omit<ListProps, 'children'>;
+  showAutoComplete?: boolean;
+  featuredItems?: Pick<ChipProps, 'startAdornment' | 'endAdornment' | 'children'>[];
 };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
@@ -21,7 +23,7 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type SelectModalProps = Props & InheritAttrs;
 
 const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
-  ({ state, title, onClose, listProps, ...props }, ref): JSX.Element => {
+  ({ state, title, onClose, listProps, showAutoComplete, featuredItems, ...props }, ref): JSX.Element => {
     const headerId = useId();
 
     const [search, setSearch] = useState('');
@@ -29,6 +31,7 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
     const { contains } = useFilter({
       sensitivity: 'base'
     });
+
     const handleSelectionChange: ListProps['onSelectionChange'] = (key) => {
       const [selectedKey] = [...key];
 
@@ -50,23 +53,38 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
 
     const hasItems = !!items.length;
 
+    const hasFeaturedItems = !!featuredItems?.length;
+
     return (
-      <Modal ref={ref} onClose={onClose} {...props}>
+      <StyledModal ref={ref} $showAutoComplete={showAutoComplete} onClose={onClose} {...props}>
         {title && (
           <ModalHeader id={headerId} showDivider={false} size='lg' weight='medium'>
             {title}
           </ModalHeader>
         )}
         <ModalDivider />
-        <StyledModalBody>
-          <Input
-            placeholder='Search'
-            startAdornment={<MagnifyingGlass color='grey-50' />}
-            value={search}
-            onValueChange={handleSearchChange}
-          />
-        </StyledModalBody>
-        <ModalDivider />
+        {(hasFeaturedItems || showAutoComplete) && (
+          <>
+            <StyledModalBody>
+              {showAutoComplete && (
+                <Input
+                  placeholder='Search'
+                  startAdornment={<MagnifyingGlass color='grey-50' />}
+                  value={search}
+                  onValueChange={handleSearchChange}
+                />
+              )}
+              {hasFeaturedItems && (
+                <Flex gap='s'>
+                  {featuredItems.map((item, key) => (
+                    <Chip borderColor='grey-300' {...item} key={key} />
+                  ))}
+                </Flex>
+              )}
+            </StyledModalBody>
+            <ModalDivider />
+          </>
+        )}
         {hasItems ? (
           <StyledList
             {...listProps}
@@ -79,6 +97,7 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
               <ListItem
                 key={item.key}
                 alignItems='center'
+                alignSelf='auto'
                 gap='xs'
                 justifyContent='space-between'
                 textValue={item.textValue}
@@ -90,7 +109,7 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
         ) : (
           <P align='center'>No options</P>
         )}
-      </Modal>
+      </StyledModal>
     );
   }
 );

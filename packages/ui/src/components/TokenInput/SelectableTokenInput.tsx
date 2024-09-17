@@ -7,8 +7,9 @@ import { TokenSelectItemProps, TokenSelect, TokenSelectProps } from './TokenSele
 
 type Props = {
   items?: TokenSelectItemProps[];
+  featuredItems?: TokenSelectItemProps[];
   onChangeCurrency?: (currency: Currency) => void;
-  selectProps?: Omit<TokenSelectProps, 'label' | 'helperTextId' | 'items'>;
+  selectProps?: Omit<TokenSelectProps, 'label' | 'helperTextId' | 'items' | 'featuredItems'>;
 };
 
 type InheritAttrs = Omit<BaseTokenInputProps, keyof Props | 'endAdornment'>;
@@ -28,6 +29,7 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
       humanBalance,
       currency,
       items,
+      featuredItems,
       onClickBalance,
       onChangeCurrency,
       ...props
@@ -62,6 +64,7 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
         aria-describedby={shouldDisplayHelperText ? selectHelperTextId : undefined}
         description={undefined}
         errorMessage={undefined}
+        featuredItems={featuredItems}
         isInvalid={isInvalid}
         items={items}
         value={currency?.symbol}

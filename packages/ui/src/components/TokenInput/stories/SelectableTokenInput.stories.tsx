@@ -93,3 +93,12 @@ export const SelectableErrorMessage: StoryObj<TokenInputProps> = {
     }
   }
 };
+
+export const AutoComplete: StoryObj<TokenInputProps> = {
+  args: {
+    featuredItems: items,
+    selectProps: {
+      modalProps: { showAutoComplete: true }
+    }
+  }
+};

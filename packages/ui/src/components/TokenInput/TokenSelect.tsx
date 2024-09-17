@@ -1,11 +1,12 @@
-import { mergeProps } from '@react-aria/utils';
 import { Currency } from '@gobob/currency';
+import { mergeProps } from '@react-aria/utils';
 
 import { Item, ModalSelectProps, Select } from '../Select';
+import { Avatar } from '../Avatar';
 
+import { Token } from './Token';
 import { StyledTokenSelect } from './TokenInput.style';
 import { TokenListItem } from './TokenListItem';
-import { Token } from './Token';
 
 type TokenSelectItemProps = {
   currency: Currency;
@@ -14,15 +15,27 @@ type TokenSelectItemProps = {
   balanceUSD: number;
 };
 
-type TokenSelectProps = Omit<ModalSelectProps<TokenSelectItemProps>, 'children' | 'type'>;
+type TokenSelectProps = Omit<ModalSelectProps<TokenSelectItemProps>, 'children' | 'type'> & {
+  featuredItems?: TokenSelectItemProps[];
+};
 
-const TokenSelect = ({ modalProps, size, ...props }: TokenSelectProps): JSX.Element => {
+const TokenSelect = ({ modalProps, size, featuredItems, ...props }: TokenSelectProps): JSX.Element => {
   return (
     <Select<TokenSelectItemProps>
       {...props}
       aria-label='select token'
       asSelectTrigger={StyledTokenSelect}
-      modalProps={mergeProps({ title: 'Select Token', listProps: { maxHeight: '32rem' } }, modalProps)}
+      modalProps={mergeProps(
+        {
+          title: 'Select Token',
+          listProps: { maxHeight: '32rem' },
+          featuredItems: featuredItems?.map((item) => ({
+            startAdornment: <Avatar size='2xl' src={item.logoUrl} />,
+            children: item.currency.symbol
+          }))
+        },
+        modalProps
+      )}
       placeholder='Select token'
       renderValue={({ value }) =>
         value ? <Token logoUrl={value.logoUrl} symbol={value.currency.symbol} /> : undefined

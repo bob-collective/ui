@@ -5,7 +5,7 @@ import { List } from '../List';
 import { Span } from '../Text';
 import { Flex } from '../Flex';
 import { ChevronDown } from '../../icons';
-import { ModalBody } from '../Modal';
+import { Modal, ModalBody } from '../Modal';
 
 type StyledTriggerProps = {
   $isOpen?: boolean;
@@ -26,6 +26,10 @@ type StyledTriggerValueProps = {
 type StyledFieldProps = {
   $disabled?: boolean;
   $maxWidth?: Spacing;
+};
+
+type StyledModalProps = {
+  $showAutoComplete?: boolean;
 };
 
 const StyledTrigger = styled.button<StyledTriggerProps>`
@@ -63,7 +67,7 @@ const StyledTriggerValue = styled(Span)<StyledTriggerValueProps>`
   font-weight: inherit;
 `;
 
-const StyledList: any = styled(List)`
+const StyledList = styled(List)`
   ${({ theme }) => theme.tokenInput.list.base};
 `;
 
@@ -81,8 +85,13 @@ const StyledModalBody = styled(ModalBody)`
   flex: 0;
 `;
 
+const StyledModal = styled(Modal)<StyledModalProps>`
+  height: ${({ $showAutoComplete }) => $showAutoComplete && '700px'};
+`;
+
 export {
   StyledField,
+  StyledModal,
   StyledList,
   StyledTrigger,
   StyledChevronDown,
