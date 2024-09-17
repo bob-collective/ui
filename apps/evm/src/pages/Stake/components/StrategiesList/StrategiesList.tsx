@@ -2,7 +2,7 @@ import { Avatar, CardProps, Flex, Link, P, RowProps, Spinner, Table } from '@gob
 import { truncateEthAddress } from '@gobob/utils';
 import { useMemo } from 'react';
 
-import { chainL1, chainL2 } from '../../../../constants';
+import { chainL2 } from '../../../../constants';
 import { StrategyData } from '../StakeForm/StakeForm';
 
 import { StyledSection, StyledStrategiesList } from './StrategiesList.style';
