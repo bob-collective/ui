@@ -1,13 +1,21 @@
-import { Flex } from '@gobob/ui';
-import styled from 'styled-components';
+import { Card, H1 } from '@gobob/ui';
+import styled, { css } from 'styled-components';
 
-const StyledAuthSection = styled(Flex)`
-  width: 100%;
-  max-width: ${({ theme }) => theme.maxWidth('s')};
+const StyledH1 = styled(H1)`
+  ${({ theme }) => {
+    return css`
+      ${theme.typography('2xl')}
+
+      @media ${theme.breakpoints.up('s')} {
+        ${theme.typography('3xl')}
+      }
+    `;
+  }}
 `;
 
-const StyledContainer = styled(Flex)`
-  width: 100%;
+const StyledAuthCard = styled(Card)`
+  max-width: 36rem;
+  overflow: hidden;
 `;
 
-export { StyledAuthSection, StyledContainer };
+export { StyledAuthCard, StyledH1 };

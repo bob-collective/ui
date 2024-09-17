@@ -1,6 +1,5 @@
 export * from './useBalances';
 export * from './useTokens';
-export * from './useGetRefCode';
 export * from './useGetUser';
 export * from './useLogin';
 export * from './useLogout';
