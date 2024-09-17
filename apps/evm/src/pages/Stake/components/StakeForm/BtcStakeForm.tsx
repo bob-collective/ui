@@ -412,7 +412,7 @@ const BtcStakeForm = ({
         </Alert>
       )}
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
-        Bridge Asset
+        Stake
       </AuthButton>
     </Flex>
   );
