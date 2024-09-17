@@ -5,6 +5,7 @@ import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { BridgeTransaction } from '../../../../hooks';
 import { MessageDirection } from '../../../../types';
 import { BridgeStatus } from '../BridgeStatus';
+import { Type } from '../../Bridge';
 
 import { TransactionDetails } from './TransactionDetails';
 
@@ -28,7 +29,7 @@ const BridgeTransactionItem = ({ data, ...props }: BridgeTransactionItemProps): 
         fromChainId={fromChaindId}
         isExpanded={isExpanded}
         toChainId={toChaindId}
-        type={data.direction === MessageDirection.L1_TO_L2 ? 'deposit' : 'withdraw'}
+        type={data.direction === MessageDirection.L1_TO_L2 ? Type.Deposit : Type.Withdraw}
         onExpand={() => setExpanded((isExpanded) => !isExpanded)}
       />
       <BridgeStatus data={data} isExpanded={isExpanded} />

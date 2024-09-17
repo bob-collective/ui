@@ -8,12 +8,17 @@ import { useGetStakeStrategies } from '../../hooks';
 import { StyledCard, StyledFlex } from './Stake.style';
 import { BannerCarousel, StrategiesList, StakingForm } from './components';
 
+enum Type {
+  Stake = 'stake',
+  Unstake = 'unstake'
+}
+
 const Stake = () => {
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
   const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakeStrategies();
 
-  const [type, setType] = useState<'stake' | 'unstake'>((searchParams.get('type') as 'stake') || 'stake');
+  const [type, setType] = useState((searchParams.get('type') as Type) || Type.Stake);
 
   const navigate = useNavigate();
 
@@ -36,10 +41,10 @@ const Stake = () => {
       <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
         <StyledCard>
           <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
-            <TabsItem key='stake' title='Stake'>
+            <TabsItem key={Type.Stake} title='Stake'>
               <></>
             </TabsItem>
-            <TabsItem key='unstake' title='Unstake'>
+            <TabsItem key={Type.Unstake} title='Unstake'>
               <></>
             </TabsItem>
           </Tabs>
@@ -51,4 +56,4 @@ const Stake = () => {
   );
 };
 
-export { Stake };
+export { Stake, Type };

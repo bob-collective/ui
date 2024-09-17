@@ -48,11 +48,12 @@ import { isFormDisabled } from '../../../../lib/form/utils';
 import { bridgeKeys } from '../../../../lib/react-query';
 import { GatewayData } from '../../../../types';
 import { PellNetwork } from '../StrategiesList/PellNetwork';
+import { Type } from '../../Stake';
 
 import { StrategyData } from './StakeForm';
 
 type BtcBridgeFormProps = {
-  type: 'stake' | 'unstake';
+  type: Type;
   strategies: StrategyData[];
   onStartGateway: (data: GatewayData) => void;
   onGatewaySuccess: (data: GatewayData) => void;
@@ -73,10 +74,8 @@ const DUST_THRESHOLD = 1000;
 const MIN_DEPOSIT_AMOUNT = (gasRefill: boolean) =>
   gasRefill ? DUST_THRESHOLD + DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : DUST_THRESHOLD;
 
-// const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
-
 const BtcStakeForm = ({
-  type = 'stake',
+  type = Type.Stake,
   strategies,
   onGatewaySuccess,
   onStartGateway,
@@ -186,10 +185,8 @@ const BtcStakeForm = ({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
         amount: atomicAmount,
         gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        fromUserAddress: btcAddress,
-        toUserAddress: evmAddress,
         toChain: strategy.raw.chain.chainId,
-        toToken: strategy.raw.inputToken.symbol,
+        toToken: strategy.raw.inputToken.address,
         strategyAddress: strategy.raw.address
       });
 
@@ -204,8 +201,6 @@ const BtcStakeForm = ({
       };
     }
   });
-
-  // display starategies in the select box + logo
 
   const stakeMutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
@@ -230,10 +225,7 @@ const BtcStakeForm = ({
         toUserAddress: evmAddress,
         fromUserAddress: connector.paymentAddress!,
         fromUserPublicKey: connector.publicKey,
-        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        toChain: strategy.raw.chain.chainId,
-        toToken: strategy.raw.inputToken.symbol,
-        strategyAddress: strategy.raw.address
+        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0
       });
 
       const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
@@ -268,7 +260,7 @@ const BtcStakeForm = ({
   const handleSubmit = async (data: StakeFormValues) => {
     if (!quoteData || !evmAddress) return;
 
-    if (type === 'stake') {
+    if (type === Type.Stake) {
       return stakeMutation.mutate({
         evmAddress: (data[STAKE_RECIPIENT] as Address) || evmAddress,
         gatewayQuote: quoteData.gatewayQuote
@@ -416,20 +408,9 @@ const BtcStakeForm = ({
       )}
       {!hasLiquidity && !isLoadingMaxQuote && (
         <Alert status='warning'>
-          <P size='s'>
-            There is currently no available liquidity to onramp BTC into {strategy?.raw.outputToken?.symbol}.
-          </P>
+          <P size='s'>Cannot stake into {strategy?.raw.integration.name} due to insufficient liquidity.</P>
         </Alert>
       )}
-      {/* TODO: uncomment when design clarified */}
-      {/* <TransactionDetails
-        amount={receiveAmount}
-        amountPlaceholder={placeholderAmount}
-        chainId={L2_CHAIN}
-        gasEstimate={quoteData?.fee || gasEstimatePlaceholder}
-        gasEstimatePlaceholder={gasEstimatePlaceholder}
-        gasLabel='Estimated Fee'
-      /> */}
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
         Bridge Asset
       </AuthButton>

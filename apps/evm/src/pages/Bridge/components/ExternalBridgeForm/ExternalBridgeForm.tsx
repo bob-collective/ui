@@ -1,10 +1,12 @@
 import { Flex } from '@gobob/ui';
 import { ChainId } from '@gobob/chains';
 
+import { Type } from '../../Bridge';
+
 import { ExternalBridgeCard, ExternalBridges } from './ExternalBridgeCard';
 
 type ExternalBridgeFormProps = {
-  type: 'deposit' | 'withdraw';
+  type: Type;
   chain: ChainId | 'BTC';
 };
 

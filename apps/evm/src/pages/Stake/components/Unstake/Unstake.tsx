@@ -1,9 +1,11 @@
 import { Flex, P } from '@gobob/ui';
 
+import { Type } from '../../Stake';
+
 import { ExternalBridges, ExternalStakeCard } from './ExternalStakeCard';
 
 type UnstakeProps = {
-  type: 'stake' | 'unstake';
+  type: Type;
 };
 
 const defaultBridges: ExternalBridges[] = ['solvbtc', 'unibtc', 'pell-network'];

@@ -4,6 +4,7 @@ import { BTC } from '@gobob/icons';
 import { SolvBTCBBN } from '../StrategiesList/SolvBTCBBN';
 import { UniBTC } from '../StrategiesList/UniBTC';
 import { PellNetwork } from '../StrategiesList/PellNetwork';
+import { Type } from '../../Stake';
 
 type ExternalBridges = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network';
 
@@ -38,7 +39,7 @@ const bridges: Record<
   }
 };
 
-type Props = { type: 'stake' | 'unstake'; bridge: ExternalBridges };
+type Props = { type: Type; bridge: ExternalBridges };
 
 type ExternalBridgeCardProps = Props;
 

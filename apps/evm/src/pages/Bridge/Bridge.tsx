@@ -14,12 +14,17 @@ enum BridgeOrigin {
   EXTERNAL = 'EXTERNAL'
 }
 
+enum Type {
+  Deposit = 'deposit',
+  Withdraw = 'withdraw'
+}
+
 const Bridge = () => {
   const location = useLocation();
 
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
-  const [type, setType] = useState<'deposit' | 'withdraw'>((searchParams.get('type') as 'deposit') || 'deposit');
+  const [type, setType] = useState((searchParams.get('type') as Type) || Type.Deposit);
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.INTERNAL);
 
   const initialChain = useMemo(() => {
@@ -45,9 +50,9 @@ const Bridge = () => {
   //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
   // );
 
-  const handleChangeTab = useCallback((key: any) => {
-    setType(key as any);
-    setBridgeOrigin(key === 'deposit' ? BridgeOrigin.INTERNAL : BridgeOrigin.EXTERNAL);
+  const handleChangeTab = useCallback((key: Key) => {
+    setType(key as Type);
+    setBridgeOrigin((key as Type) === Type.Deposit ? BridgeOrigin.INTERNAL : BridgeOrigin.EXTERNAL);
     setChain(L1_CHAIN);
   }, []);
 
@@ -57,7 +62,7 @@ const Bridge = () => {
         return setBridgeOrigin(BridgeOrigin.INTERNAL);
       }
 
-      if (type === 'deposit' ? network !== L1_CHAIN : network !== L2_CHAIN) {
+      if (type === Type.Deposit ? network !== L1_CHAIN : network !== L2_CHAIN) {
         setBridgeOrigin(BridgeOrigin.EXTERNAL);
       } else {
         setBridgeOrigin(BridgeOrigin.INTERNAL);
@@ -121,10 +126,10 @@ const Bridge = () => {
         <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
           <StyledCard>
             <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
-              <TabsItem key='deposit' title='Deposit'>
+              <TabsItem key={Type.Deposit} title='Deposit'>
                 <></>
               </TabsItem>
-              <TabsItem key='withdraw' title='Withdraw'>
+              <TabsItem key={Type.Withdraw} title='Withdraw'>
                 <></>
               </TabsItem>
             </Tabs>
@@ -145,4 +150,4 @@ const Bridge = () => {
   );
 };
 
-export { Bridge, BridgeOrigin };
+export { Bridge, BridgeOrigin, Type };

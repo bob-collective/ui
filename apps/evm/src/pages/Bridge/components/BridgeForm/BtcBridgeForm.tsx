@@ -49,9 +49,10 @@ import { useGetTransactions } from '../../../../hooks';
 import { GatewayData } from '../../../../types';
 import { bridgeKeys } from '../../../../lib/react-query';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
+import { Type } from '../../Bridge';
 
 type BtcBridgeFormProps = {
-  type: 'deposit' | 'withdraw';
+  type: Type;
   availableTokens: TokenData[];
   onStartGateway: (data: GatewayData) => void;
   onGatewaySuccess: (data: GatewayData) => void;
@@ -75,7 +76,7 @@ const MIN_DEPOSIT_AMOUNT = (gasRefill: boolean) =>
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
 const BtcBridgeForm = ({
-  type = 'deposit',
+  type = Type.Deposit,
   availableTokens,
   onGatewaySuccess,
   onStartGateway,
@@ -259,7 +260,7 @@ const BtcBridgeForm = ({
   const handleSubmit = async (data: BridgeFormValues) => {
     if (!quoteData || !evmAddress) return;
 
-    if (type === 'deposit') {
+    if (type === Type.Deposit) {
       return depositMutation.mutate({
         evmAddress: (data[BRIDGE_RECIPIENT] as Address) || evmAddress,
         gatewayQuote: quoteData.gatewayQuote

@@ -5,6 +5,7 @@ import { StrategyData } from '../../../../hooks';
 import { GatewayData, L2BridgeData } from '../../../../types';
 import { GatewayTransactionModal, StakeTransactionModal } from '../TransactionModal';
 import { Unstake } from '../Unstake';
+import { Type } from '../../Stake';
 
 import { BtcStakeForm } from './BtcStakeForm';
 
@@ -21,11 +22,11 @@ type GatewayTransactionModalState = {
 };
 
 type BridgeFormProps = {
-  type: 'stake' | 'unstake';
+  type: Type;
   strategies: StrategyData[] | undefined;
 };
 
-const StakingForm = ({ type = 'stake', strategies = [] }: BridgeFormProps): JSX.Element => {
+const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): JSX.Element => {
   const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
     isOpen: false,
     step: 'confirmation'
@@ -54,10 +55,8 @@ const StakingForm = ({ type = 'stake', strategies = [] }: BridgeFormProps): JSX.
   return (
     <>
       <Flex direction='column' marginTop='2xl'>
-        {type === 'stake' ? (
+        {type === Type.Stake ? (
           <BtcStakeForm
-            // NOTE: no fallback if strategies are empty
-            // key will indicate to react to rerender once strategies fetched
             key={strategies.length}
             strategies={strategies}
             type={type}

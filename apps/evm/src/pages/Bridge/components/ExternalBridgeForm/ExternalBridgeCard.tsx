@@ -1,5 +1,7 @@
 import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 
+import { Type } from '../../Bridge';
+
 import { Meson } from './Meson';
 import { Owl } from './Owl';
 import { Relay } from './Relay';
@@ -47,7 +49,7 @@ const bridges: Record<
   }
 };
 
-type Props = { type: 'deposit' | 'withdraw'; bridge: ExternalBridges };
+type Props = { type: Type; bridge: ExternalBridges };
 
 type ExternalBridgeCardProps = Props;
 
