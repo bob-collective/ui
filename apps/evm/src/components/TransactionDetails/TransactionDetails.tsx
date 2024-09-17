@@ -33,6 +33,7 @@ type Props = {
   selectProps?: Omit<SelectProps<TokenSelectItemProps>, 'children'>;
   duration?: ReactNode;
   gasLabel?: ReactNode;
+  currencyOnly?: boolean;
 };
 
 type InheritAttrs = Omit<DlProps, keyof Props>;
@@ -50,6 +51,7 @@ const TransactionDetails = ({
   duration,
   selectProps,
   gasLabel = 'Estimated Gas',
+  currencyOnly = false,
   ...props
 }: TransactionDetailsProps): JSX.Element => {
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
@@ -87,13 +89,13 @@ const TransactionDetails = ({
                 <Flex alignItems='flex-end' direction='column' elementType='span' gap='xxs'>
                   {amount.map((asset) => (
                     <Span key={asset.currency.symbol} size='xs'>
-                      <AmountLabel amount={asset} />
+                      <AmountLabel amount={asset} currencyOnly={currencyOnly} />
                     </Span>
                   ))}
                 </Flex>
               ) : (
                 <Span size='xs'>
-                  <AmountLabel amount={amount} />
+                  <AmountLabel amount={amount} currencyOnly={currencyOnly} />
                 </Span>
               )}
             </Dd>
