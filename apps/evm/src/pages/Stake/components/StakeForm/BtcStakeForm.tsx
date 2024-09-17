@@ -406,7 +406,7 @@ const BtcStakeForm = ({
           </P>
         </Alert>
       )}
-      {!hasLiquidity && !isLoadingMaxQuote && (
+      {!hasLiquidity && !isLoadingMaxQuote && strategies.length > 0 && (
         <Alert status='warning'>
           <P size='s'>Cannot stake into {strategy?.raw.integration.name} due to insufficient liquidity.</P>
         </Alert>

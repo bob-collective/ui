@@ -196,20 +196,20 @@ const BridgeForm = ({
           value={bridgeOrigin}
           onValueChange={(value) => onChangeOrigin?.(value as BridgeOrigin)}
         >
-          <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.INTERNAL}>
+          <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.Internal}>
             BOB Bridge
           </StyledRadio>
-          <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.EXTERNAL}>
+          <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.External}>
             3rd Party
           </StyledRadio>
         </RadioGroup>
-        {type === Type.Withdraw && bridgeOrigin === BridgeOrigin.INTERNAL && (
+        {type === Type.Withdraw && bridgeOrigin === BridgeOrigin.Internal && (
           <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
             Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
             bridge.
           </Alert>
         )}
-        {bridgeOrigin === BridgeOrigin.INTERNAL ? (
+        {bridgeOrigin === BridgeOrigin.Internal ? (
           chain === 'BTC' && btcTokens?.length ? (
             <BtcBridgeForm
               availableTokens={btcTokens}
