@@ -12,7 +12,7 @@ import { useGetTransactions } from '../../../../hooks';
 import { L2BridgeData, GatewayData } from '../../../../types';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
-import { BridgeTransactionModal, GatewayTransactionModal } from '../TransactionModal';
+import { BridgeTransactionModal, GatewayTransactionModal } from '../../../../components';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import { bridgeKeys } from '../../../../lib/react-query';
 

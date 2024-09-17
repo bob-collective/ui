@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { StrategyData } from '../../../../hooks';
 import { GatewayData, L2BridgeData } from '../../../../types';
-import { GatewayTransactionModal, StakeTransactionModal } from '../TransactionModal';
+import { GatewayTransactionModal, BridgeTransactionModal } from '../../../../components';
 import { Unstake } from '../Unstake';
 import { Type } from '../../Stake';
 
@@ -68,7 +68,7 @@ const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): J
           <Unstake type={type} />
         )}
       </Flex>
-      <StakeTransactionModal
+      <BridgeTransactionModal
         {...(bridgeModalState.data as Required<L2BridgeData>)}
         isOpen={bridgeModalState.isOpen}
         step={bridgeModalState.step}
