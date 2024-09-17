@@ -5,6 +5,7 @@ import {
   Flex,
   H3,
   H4,
+  Link,
   Modal,
   ModalBody,
   ModalFooter,
@@ -66,7 +67,12 @@ const WelcomeModal = ({ user, onClose, ...props }: WelcomeModalProps): JSX.Eleme
         </StyledContent>
       </ModalBody>
       <ModalFooter direction={{ base: 'column', s: 'row' }} gap='xl'>
-        <StyledLearnButton size='xl' variant='outline'>
+        <StyledLearnButton
+          elementType={Link}
+          size='xl'
+          variant='outline'
+          {...{ href: 'https://blog.gobob.xyz/posts/bob-fusion-the-final-season', external: true }}
+        >
           Learn More {'>'}
         </StyledLearnButton>
         <Button fullWidth color='primary' size='xl' onPress={onClose}>
