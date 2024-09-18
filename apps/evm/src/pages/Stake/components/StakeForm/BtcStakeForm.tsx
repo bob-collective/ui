@@ -106,7 +106,7 @@ const BtcStakeForm = ({
   const [amount, setAmount] = useState('');
   const debouncedAmount = useDebounce(amount, 300);
 
-  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0]?.raw.integration.name);
+  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0]?.raw.integration.slug);
 
   const [isGasNeeded, setGasNeeded] = useState(true);
 
@@ -116,7 +116,7 @@ const BtcStakeForm = ({
   );
 
   const strategy = useMemo(
-    () => strategies.find((strategy) => strategy.raw.integration.name === selectedStrategy)!,
+    () => strategies.find((strategy) => strategy.raw.integration.slug === selectedStrategy)!,
     [selectedStrategy, strategies]
   );
 
@@ -125,8 +125,8 @@ const BtcStakeForm = ({
   }, []);
 
   const { data: availableLiquidity, isLoading: isLoadingMaxQuote } = useQuery({
-    enabled: Boolean(strategy?.currency),
-    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, strategy?.currency?.symbol, 'max'),
+    enabled: Boolean(strategy),
+    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, strategy?.raw.integration.slug, 'max'),
     refetchInterval: INTERVAL.MINUTE,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -151,13 +151,13 @@ const BtcStakeForm = ({
   const quoteDataEnabled = useMemo(() => {
     return Boolean(
       currencyAmount &&
-        strategy?.currency &&
+        strategy &&
         evmAddress &&
         btcAddress &&
         CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
         hasLiquidity
     );
-  }, [currencyAmount, strategy?.currency, evmAddress, btcAddress, debouncedAmount, hasLiquidity, isGasNeeded]);
+  }, [currencyAmount, strategy, evmAddress, btcAddress, debouncedAmount, hasLiquidity, isGasNeeded]);
 
   const quoteQueryKey = bridgeKeys.btcQuote(
     evmAddress,
@@ -179,8 +179,12 @@ const BtcStakeForm = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
+      if (!currencyAmount) return;
+
+      const atomicAmount = currencyAmount.numerator.toString();
       const gatewayQuote = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
+        amount: atomicAmount,
         gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
         toChain: strategy.raw.chain.chainId,
         toToken: strategy.raw.inputToken.address,
@@ -245,7 +249,7 @@ const BtcStakeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setSelectedStrategy(strategies[0]?.raw.integration.name);
+    setSelectedStrategy(strategies[0]?.raw.integration.slug);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [strategies]);
@@ -354,7 +358,7 @@ const BtcStakeForm = ({
         })}
       >
         {(data) => (
-          <Item key={data.raw.integration.name} textValue={data.raw.integration.name}>
+          <Item key={data.raw.integration.slug} textValue={data.raw.integration.name}>
             <Flex alignItems='center' gap='s'>
               {data.raw.integration.logo ? <Avatar size='2xl' src={data.raw.integration.logo} /> : <PellNetwork />}
               <P style={{ color: 'inherit' }}>{data.raw.integration.name}</P>
