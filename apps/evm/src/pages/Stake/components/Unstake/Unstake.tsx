@@ -2,27 +2,36 @@ import { Flex, P } from '@gobob/ui';
 
 import { Type } from '../../Stake';
 
-import { ExternalBridges, ExternalStakeCard } from './ExternalStakeCard';
+import { ExternalBridge, ExternalStakeCard } from './ExternalStakeCard';
+
+type BridgeType = 'LST' | 'Restaking' | 'Lending';
 
 type UnstakeProps = {
   type: Type;
 };
 
-const defaultBridges: ExternalBridges[] = ['solvbtc', 'unibtc', 'pell-network'];
+const defaultBridges: Record<BridgeType, ExternalBridge[]> = {
+  LST: ['solvbtc', 'unibtc'],
+  Restaking: ['pell-network'],
+  Lending: []
+};
 
 const Unstake = ({ type }: UnstakeProps): JSX.Element => {
   const bridges = defaultBridges;
 
   return (
     <Flex direction='column' gap='xl'>
-      <P color='grey-50'>
-        Native BTC unstaking will be available soon. In the meantime, please unstake your balance using the link
-        corresponding to your original deposit:
-      </P>
-      <Flex direction='column' gap='md'>
-        {bridges.map((bridge) => (
-          <ExternalStakeCard key={bridge} bridge={bridge} type={type} />
-        ))}
+      <Flex direction='column' gap='xl'>
+        {Object.entries(bridges).map(([bridgeType, bridges]) => {
+          return bridges.length ? (
+            <Flex key={bridgeType} direction='column' gap='md'>
+              <P size='md'>{bridgeType}</P>
+              {bridges.map((bridge) => (
+                <ExternalStakeCard key={bridge} bridge={bridge} type={type} />
+              ))}
+            </Flex>
+          ) : null;
+        })}
       </Flex>
     </Flex>
   );

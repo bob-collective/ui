@@ -25,9 +25,16 @@ type GatewayTransactionModalState = {
 type BridgeFormProps = {
   type: Type;
   strategies: StrategyData[] | undefined;
+  strategy: StrategyData;
+  onStrategyChange: (strategy: string) => void;
 };
 
-const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): JSX.Element => {
+const StakingForm = ({
+  type = Type.Stake,
+  strategy,
+  onStrategyChange,
+  strategies = []
+}: BridgeFormProps): JSX.Element => {
   const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
     isOpen: false,
     step: 'confirmation'
@@ -60,10 +67,12 @@ const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): J
           <BtcStakeForm
             key={strategies.length}
             strategies={strategies}
+            strategy={strategy}
             type={type}
             onFailGateway={handleCloseGatewayModal}
             onGatewaySuccess={handleGatewaySuccess}
             onStartGateway={handleStartGateway}
+            onStrategyChange={onStrategyChange}
           />
         ) : (
           <Unstake type={type} />

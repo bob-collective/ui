@@ -1,3 +1,3 @@
 export * from './StakeForm';
-export * from './StrategiesList';
+export * from './StrategyDetails';
 export * from '../../../components/BannerCarousel';

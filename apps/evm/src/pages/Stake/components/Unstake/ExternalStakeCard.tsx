@@ -1,16 +1,16 @@
 import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 import { BTC } from '@gobob/icons';
 
-import { SolvBTCBBN } from '../StrategiesList/SolvBTCBBN';
-import { UniBTC } from '../StrategiesList/UniBTC';
-import { PellNetwork } from '../StrategiesList/PellNetwork';
+import { SolvBTCBBN } from '../StrategyDetails/SolvBTCBBN';
+import { UniBTC } from '../StrategyDetails/UniBTC';
+import { PellNetwork } from '../StrategyDetails/PellNetwork';
 import { Type } from '../../Stake';
 
-type ExternalBridges = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network';
+type ExternalBridge = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network';
 
 // TODO: add missing links
 const bridges: Record<
-  ExternalBridges,
+  ExternalBridge,
   { icon: any | string; href: string | { stake: string; unstake: string }; name: string; disabled: boolean }
 > = {
   solvbtc: {
@@ -39,7 +39,7 @@ const bridges: Record<
   }
 };
 
-type Props = { type: Type; bridge: ExternalBridges };
+type Props = { type: Type; bridge: ExternalBridge };
 
 type ExternalBridgeCardProps = Props;
 
@@ -76,4 +76,4 @@ const ExternalStakeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Eleme
 };
 
 export { ExternalStakeCard };
-export type { ExternalBridges };
+export type { ExternalBridge };

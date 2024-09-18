@@ -7,10 +7,10 @@ const StyledSection = styled(Card)`
   max-height: calc(100vh - 16rem);
 `;
 
-const StyledStrategiesList = styled(Flex)`
+const StyledStrategyDetails = styled(Flex)`
   overflow-y: auto;
   flex: 1 1 auto;
   min-height: 7rem;
 `;
 
-export { StyledSection, StyledStrategiesList };
+export { StyledSection, StyledStrategyDetails };
