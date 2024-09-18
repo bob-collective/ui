@@ -3,8 +3,8 @@ import { Key, useCallback, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Main } from '../../components';
-import { useGetStakeStrategies } from '../../hooks';
 
+import { useGetStakingStrategies } from './hooks';
 import { StyledCard, StyledFlex } from './Stake.style';
 import { BannerCarousel, StrategiesList, StakingForm } from './components';
 
@@ -16,7 +16,7 @@ enum Type {
 const Stake = () => {
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
-  const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakeStrategies();
+  const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakingStrategies();
 
   const [type, setType] = useState((searchParams.get('type') as Type) || Type.Stake);
 
