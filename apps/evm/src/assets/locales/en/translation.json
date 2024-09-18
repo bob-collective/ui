@@ -134,7 +134,7 @@
   },
   "wallet": {
     "title": "BOB Wallet",
-    "summary": "View a summary of your wallet on the BOB network.",
+    "summary": "View a summary of your wallet on the BOB network. De-fi positions may not be tracked.",
     "assets": {
       "title": "Total Assets",
       "noAssets": "No assets shown",
