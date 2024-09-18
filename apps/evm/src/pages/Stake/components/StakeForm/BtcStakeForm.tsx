@@ -136,7 +136,9 @@ const BtcStakeForm = ({
       // TODO: error from this isn't propagated
       const maxQuoteData = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toToken: strategy.currency.symbol
+        toChain: strategy.raw.chain.chainId,
+        toToken: strategy.raw.inputToken.address,
+        strategyAddress: strategy.raw.address
       });
 
       return CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis);
