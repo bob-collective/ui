@@ -2,8 +2,8 @@ import { Clock, Flex, FlexProps } from '@gobob/ui';
 import { formatDistanceToNow, isFuture } from 'date-fns';
 import { ReactNode, useMemo } from 'react';
 
-import { BridgeSteps } from '../../constants';
-import { BridgeTransaction } from '../../hooks';
+import { BridgeSteps } from '../../../../constants';
+import { BridgeTransaction } from '../../../../hooks';
 
 import { StyledTimePill } from './BridgeStatus.style';
 import { BridgeStep } from './BridgeStep';

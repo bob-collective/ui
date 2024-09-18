@@ -4,11 +4,12 @@ import { ArrowLongRight, Flex, FlexProps, P, UnstyledButton } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
 
 import { Chain } from '../../../../components';
+import { Type } from '../../Bridge';
 
 import { StyledDetailsButton, StyledExpandIcon } from './TransactionList.style';
 
 type Props = {
-  type: 'deposit' | 'withdraw';
+  type: Type;
   date: Date;
   fromChainId: ChainId | 'BTC';
   toChainId: ChainId | 'BTC';
@@ -31,7 +32,7 @@ const TransactionDetails = ({
   onExpand,
   ...props
 }: TransactionDetailsProps): JSX.Element => {
-  const direactionLabel = type === 'deposit' ? 'Deposit' : 'Withdraw';
+  const direactionLabel = type === Type.Deposit ? 'Deposit' : 'Withdraw';
 
   const isExpandable = !!onExpand;
 

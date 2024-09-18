@@ -7,12 +7,12 @@ import { useChainId } from '@gobob/wagmi';
 
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { FeatureFlags, TokenData, useFeatureFlag } from '../../../../hooks';
-import { BridgeOrigin } from '../../Bridge';
-import { useGetTransactions } from '../../hooks';
-import { L2BridgeData, GatewayData } from '../../types';
+import { BridgeOrigin, Type } from '../../Bridge';
+import { useGetTransactions } from '../../../../hooks';
+import { L2BridgeData, GatewayData } from '../../../../types';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
-import { BridgeTransactionModal, GatewayTransactionModal } from '../TransactionModal';
+import { BridgeTransactionModal, GatewayTransactionModal } from '../../../../components';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import { bridgeKeys } from '../../../../lib/react-query';
 
@@ -34,7 +34,7 @@ type GatewayTransactionModalState = {
 
 type BridgeFormProps = {
   chain: ChainId | 'BTC';
-  type: 'deposit' | 'withdraw';
+  type: Type;
   ticker?: string;
   bridgeOrigin?: BridgeOrigin;
   onChangeNetwork?: (network: Key) => void;
@@ -58,7 +58,7 @@ const allNetworks = [
 ] as const;
 
 const BridgeForm = ({
-  type = 'deposit',
+  type = Type.Deposit,
   bridgeOrigin,
   ticker,
   chain,
@@ -146,7 +146,7 @@ const BridgeForm = ({
   );
 
   const availableNetworks = useMemo(() => {
-    const isBtcNetworkAvailable = isBtcGatewayEnabled && type === 'deposit' && !!btcTokens?.length;
+    const isBtcNetworkAvailable = isBtcGatewayEnabled && type === Type.Deposit && !!btcTokens?.length;
 
     if (!isBtcNetworkAvailable) {
       return allNetworks.filter((network) => network !== 'BTC');
@@ -156,7 +156,7 @@ const BridgeForm = ({
   }, [btcTokens?.length, isBtcGatewayEnabled, type]);
 
   const fromChainSelectProps =
-    type === 'deposit'
+    type === Type.Deposit
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
@@ -166,7 +166,7 @@ const BridgeForm = ({
       : undefined;
 
   const toChainSelectProps =
-    type === 'withdraw'
+    type === Type.Withdraw
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
@@ -176,7 +176,7 @@ const BridgeForm = ({
       : undefined;
 
   const isBobBridgeDisabled =
-    (type === 'deposit' && chain !== L1_CHAIN && chain !== 'BTC') || (type === 'withdraw' && chain !== L1_CHAIN);
+    (type === Type.Deposit && chain !== L1_CHAIN && chain !== 'BTC') || (type === Type.Withdraw && chain !== L1_CHAIN);
 
   const isExternalBridgeDisabled = chain === 'BTC';
 
@@ -184,9 +184,9 @@ const BridgeForm = ({
     <>
       <Flex direction='column' marginTop='2xl'>
         <StyledChainsGrid alignItems='center' gap={{ base: 'md', md: '2xl' }}>
-          <ChainSelect chainId={type === 'deposit' ? chain : L2_CHAIN} selectProps={fromChainSelectProps} />
+          <ChainSelect chainId={type === Type.Deposit ? chain : L2_CHAIN} selectProps={fromChainSelectProps} />
           <ArrowRight size='xs' />
-          <ChainSelect chainId={type === 'withdraw' ? chain : L2_CHAIN} selectProps={toChainSelectProps} />
+          <ChainSelect chainId={type === Type.Withdraw ? chain : L2_CHAIN} selectProps={toChainSelectProps} />
         </StyledChainsGrid>
         <Divider marginY='xl' />
         <RadioGroup
@@ -196,20 +196,20 @@ const BridgeForm = ({
           value={bridgeOrigin}
           onValueChange={(value) => onChangeOrigin?.(value as BridgeOrigin)}
         >
-          <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.INTERNAL}>
+          <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.Internal}>
             BOB Bridge
           </StyledRadio>
-          <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.EXTERNAL}>
+          <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.External}>
             3rd Party
           </StyledRadio>
         </RadioGroup>
-        {type === 'withdraw' && bridgeOrigin === BridgeOrigin.INTERNAL && (
+        {type === Type.Withdraw && bridgeOrigin === BridgeOrigin.Internal && (
           <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
             Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
             bridge.
           </Alert>
         )}
-        {bridgeOrigin === BridgeOrigin.INTERNAL ? (
+        {bridgeOrigin === BridgeOrigin.Internal ? (
           chain === 'BTC' && btcTokens?.length ? (
             <BtcBridgeForm
               availableTokens={btcTokens}

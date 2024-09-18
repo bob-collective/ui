@@ -4,11 +4,12 @@ import { useAccount } from '@gobob/wagmi';
 import { Address } from 'viem';
 import { ChainId } from '@gobob/chains';
 
-import { FeatureFlags, useFeatureFlag } from '../../../hooks';
-import { esploraClient } from '../../../utils';
+import { gatewaySDK } from '../lib/bob-sdk';
+import { esploraClient } from '../utils';
 import { GatewayDepositSteps } from '../constants';
 import { TransactionType } from '../types';
-import { gatewaySDK } from '../../../lib/bob-sdk';
+
+import { FeatureFlags, useFeatureFlag } from './useFeatureFlag';
 
 type GatewayTransaction = {
   status: GatewayDepositSteps;

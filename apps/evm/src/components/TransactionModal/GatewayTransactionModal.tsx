@@ -11,8 +11,8 @@ import {
   Spinner
 } from '@gobob/ui';
 
-import { Chain, TransactionDetails } from '../../../../components';
-import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
+import { Chain, TransactionDetails } from '..';
+import { L1_CHAIN, L2_CHAIN } from '../../constants';
 import { useGetGatewayTransactions } from '../../hooks';
 import { GatewayData, TransactionType } from '../../types';
 

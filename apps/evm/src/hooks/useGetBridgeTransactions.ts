@@ -1,3 +1,4 @@
+import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { INTERVAL, useQueries, useQuery } from '@gobob/react-query';
 import { Address, useAccount } from '@gobob/wagmi';
@@ -5,15 +6,14 @@ import request, { gql } from 'graphql-request';
 import { useCallback } from 'react';
 import { TransactionReceipt, isAddressEqual } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
-import { ChainId } from '@gobob/chains';
 
-import { L1_CHAIN, L2_CHAIN } from '../../../constants';
-import { usePublicClientL1, usePublicClientL2 } from '../../../hooks';
-import { bridgeKeys, queryClient } from '../../../lib/react-query';
+import { L1_CHAIN, L2_CHAIN } from '../constants';
+import { ETH, wstETH } from '../constants/assets';
+import { bridgeKeys, queryClient } from '../lib/react-query';
 import { MessageDirection, MessageStatus, TransactionType } from '../types';
-import { ETH, wstETH } from '../../../constants/assets';
 
 import { useBridgeTokens } from './useBridgeTokens';
+import { usePublicClientL1, usePublicClientL2 } from './usePublicClient';
 
 type BridgeTransaction = {
   from: Address;

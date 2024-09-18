@@ -1,6 +1,6 @@
 import { Flex, FlexProps } from '@gobob/ui';
 
-import { GatewayTransaction } from '../../hooks';
+import { GatewayTransaction } from '../../../../hooks';
 
 import { GatewayStep } from './GatewayStep';
 

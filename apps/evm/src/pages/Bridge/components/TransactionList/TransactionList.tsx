@@ -3,8 +3,8 @@ import { useAccount } from '@gobob/wagmi';
 import { Fragment, useMemo } from 'react';
 
 import { chainL2 } from '../../../../constants';
-import { useGetTransactions } from '../../hooks';
-import { MessageStatus } from '../../types';
+import { useGetTransactions } from '../../../../hooks';
+import { MessageStatus } from '../../../../types';
 
 import { TransactionItem } from './TransactionItem';
 import {

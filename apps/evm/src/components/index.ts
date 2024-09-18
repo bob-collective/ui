@@ -5,3 +5,4 @@ export * from './Layout';
 export * from './Chain';
 export * from './ChainLogo';
 export * from './AmountLabel';
+export * from './TransactionModal';

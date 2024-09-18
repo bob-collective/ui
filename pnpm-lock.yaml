@@ -438,8 +438,8 @@ importers:
   packages/sats-wagmi:
     dependencies:
       '@gobob/sats-wagmi':
-        specifier: ^0.3.4
-        version: 0.3.4(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^0.3.5
+        version: 0.3.5(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1)
 
   packages/test-utils:
     dependencies:
@@ -3584,8 +3584,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@gobob/sats-wagmi@0.3.4(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-HTgoV90G3jWXCYLONUMhfPC0b/aiwgmeETfHO9JiXsYVW0XE7TEEvTFFhgK+umdRWaA5wXGXuu9CLoJCErZj6w==}
+  /@gobob/sats-wagmi@0.3.5(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-ADR1eHQA3on+VYKpowywPyC56kwk9NLg4lipmcwyyj3cauxcOsFia0S7ZM9QESqOTMR0A1xCu24r7P0G1Thw6g==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
       react: ^18.2.0

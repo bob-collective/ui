@@ -3,7 +3,7 @@ import { P } from '@gobob/ui';
 import styled from 'styled-components';
 import { AuthButton } from '@gobob/connect-ui';
 
-import { BridgeStepStatus } from '../../constants';
+import { BridgeStepStatus } from '../../../../constants';
 
 type StyledPillProps = {
   $status: BridgeStepStatus;

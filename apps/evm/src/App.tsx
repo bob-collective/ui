@@ -150,6 +150,7 @@ const ScrollToTop = () => {
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Fusion = lazy(() => import('./pages/Fusion'));
 const Bridge = lazy(() => import('./pages/Bridge'));
+const Stake = lazy(() => import('./pages/Stake'));
 const Wallet = lazy(() => import('./pages/Wallet'));
 const Geoblock = lazy(() => import('./pages/Geoblock'));
 const Custom404 = lazy(() => import('./pages/404'));
@@ -200,6 +201,7 @@ function App() {
               <Route element={<Fusion />} path={RoutesPath.FUSION} />
               <Route element={<Bridge />} path={RoutesPath.BRIDGE} />
               <Route element={<Wallet />} path={RoutesPath.WALLET} />
+              <Route element={<Stake />} path={RoutesPath.STAKE} />
               <Route element={<Geoblock />} path={RoutesPath.GEOBLOCK} />
               <Route element={<Custom404 />} path='*' />
             </Routes>

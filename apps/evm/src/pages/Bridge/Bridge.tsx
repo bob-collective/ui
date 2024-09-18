@@ -10,8 +10,13 @@ import { StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
 
 enum BridgeOrigin {
-  INTERNAL = 'INTERNAL',
-  EXTERNAL = 'EXTERNAL'
+  Internal = 'INTERNAL',
+  External = 'EXTERNAL'
+}
+
+enum Type {
+  Deposit = 'deposit',
+  Withdraw = 'withdraw'
 }
 
 const Bridge = () => {
@@ -19,8 +24,8 @@ const Bridge = () => {
 
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
-  const [type, setType] = useState<'deposit' | 'withdraw'>((searchParams.get('type') as 'deposit') || 'deposit');
-  const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.INTERNAL);
+  const [type, setType] = useState((searchParams.get('type') as Type) || Type.Deposit);
+  const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.Internal);
 
   const initialChain = useMemo(() => {
     const network = searchParams.get('network');
@@ -45,22 +50,22 @@ const Bridge = () => {
   //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
   // );
 
-  const handleChangeTab = useCallback((key: any) => {
-    setType(key as any);
-    setBridgeOrigin(key === 'deposit' ? BridgeOrigin.INTERNAL : BridgeOrigin.EXTERNAL);
+  const handleChangeTab = useCallback((key: Key) => {
+    setType(key as Type);
+    setBridgeOrigin((key as Type) === Type.Deposit ? BridgeOrigin.Internal : BridgeOrigin.External);
     setChain(L1_CHAIN);
   }, []);
 
   const handleChangeNetwork = useCallback(
     (network: Key) => {
       if (network === 'BTC') {
-        return setBridgeOrigin(BridgeOrigin.INTERNAL);
+        return setBridgeOrigin(BridgeOrigin.Internal);
       }
 
-      if (type === 'deposit' ? network !== L1_CHAIN : network !== L2_CHAIN) {
-        setBridgeOrigin(BridgeOrigin.EXTERNAL);
+      if (type === Type.Deposit ? network !== L1_CHAIN : network !== L2_CHAIN) {
+        setBridgeOrigin(BridgeOrigin.External);
       } else {
-        setBridgeOrigin(BridgeOrigin.INTERNAL);
+        setBridgeOrigin(BridgeOrigin.Internal);
       }
     },
     [type]
@@ -97,7 +102,7 @@ const Bridge = () => {
   useEffect(() => {
     if (location?.state?.setBridgeToBtc) {
       setChain('BTC');
-      setBridgeOrigin(BridgeOrigin.INTERNAL);
+      setBridgeOrigin(BridgeOrigin.Internal);
     }
   }, [location]);
 
@@ -121,10 +126,10 @@ const Bridge = () => {
         <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
           <StyledCard>
             <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
-              <TabsItem key='deposit' title='Deposit'>
+              <TabsItem key={Type.Deposit} title='Deposit'>
                 <></>
               </TabsItem>
-              <TabsItem key='withdraw' title='Withdraw'>
+              <TabsItem key={Type.Withdraw} title='Withdraw'>
                 <></>
               </TabsItem>
             </Tabs>
@@ -145,4 +150,4 @@ const Bridge = () => {
   );
 };
 
-export { Bridge, BridgeOrigin };
+export { Bridge, BridgeOrigin, Type };
