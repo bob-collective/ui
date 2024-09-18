@@ -2,7 +2,7 @@ import { Flex } from '@gobob/ui';
 import { useState } from 'react';
 import { Optional } from '@gobob/react-query';
 
-import { StrategyData } from '../../../../hooks';
+import { StrategyData } from '../../hooks';
 import { GatewayData, L2BridgeData } from '../../../../types';
 import { GatewayTransactionModal, BridgeTransactionModal } from '../../../../components';
 import { Unstake } from '../Unstake';
