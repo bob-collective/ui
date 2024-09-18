@@ -8,7 +8,9 @@ import { Type } from './Stake';
 import { StyledCard, StyledFlex } from './Stake.style';
 import { StakingForm, StrategyDetails } from './components';
 
-const StakeContent = ({ isLoading, strategies = [] }: { strategies?: StrategyData[]; isLoading: boolean }) => {
+type StakeContentProps = { strategies: StrategyData[]; isLoading: boolean };
+
+const StakeContent = ({ isLoading, strategies }: StakeContentProps) => {
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
   const [selectedStrategy, setSelectedStrategy] = useState(strategies[0]?.raw.integration.slug);
@@ -50,7 +52,13 @@ const StakeContent = ({ isLoading, strategies = [] }: { strategies?: StrategyDat
             <></>
           </TabsItem>
         </Tabs>
-        <StakingForm strategies={strategies} strategy={strategy} type={type} onStrategyChange={setSelectedStrategy} />
+        <StakingForm
+          key={strategies.length}
+          strategies={strategies}
+          strategy={strategy}
+          type={type}
+          onStrategyChange={setSelectedStrategy}
+        />
       </StyledCard>
       <StrategyDetails isLoading={isLoading} strategy={strategy} />
     </StyledFlex>

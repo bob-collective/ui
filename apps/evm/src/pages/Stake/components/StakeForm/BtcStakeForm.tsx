@@ -246,7 +246,6 @@ const BtcStakeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    onStrategyChange(strategies[0]?.raw.integration.slug);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [strategies]);

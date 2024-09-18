@@ -65,7 +65,6 @@ const StakingForm = ({
       <Flex direction='column' marginTop='2xl'>
         {type === Type.Stake ? (
           <BtcStakeForm
-            key={strategies.length}
             strategies={strategies}
             strategy={strategy}
             type={type}
