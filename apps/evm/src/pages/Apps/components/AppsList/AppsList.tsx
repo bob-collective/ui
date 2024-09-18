@@ -1,5 +1,6 @@
 import { Flex, H2, H3, Skeleton, Tabs, TabsItem } from '@gobob/ui';
-import { useState } from 'react';
+import { useEffect, useId, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { AppData, VotingAppData } from '../../hooks';
 
@@ -28,7 +29,29 @@ const AppsList = ({
   isVotingExceeded,
   onVote
 }: AppsListProps): JSX.Element => {
-  const [tabCategory, setTabCategory] = useState(ALL_CATEGORIES);
+  const navigate = useNavigate();
+
+  const headerId = useId();
+
+  const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
+
+  const [tabCategory, setTabCategory] = useState(searchParams.get('category') || ALL_CATEGORIES);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    searchParams.set('category', tabCategory);
+    navigate({ search: searchParams.toString() }, { replace: true });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tabCategory]);
+
+  useEffect(() => {
+    if (!searchParams.get('category')) return;
+
+    document.getElementById(headerId)?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const categories = apps ? Array.from(new Set(apps.flatMap((app) => app.categories))).sort() : undefined;
 
@@ -52,9 +75,11 @@ const AppsList = ({
 
   return (
     <Flex direction='column' gap='3xl' marginTop='3xl'>
-      <H2 size='3xl'>Discover all Apps</H2>
+      <H2 id={headerId} size='3xl'>
+        Discover all Apps
+      </H2>
       {!isLoading && categories ? (
-        <Tabs variant='light' onSelectionChange={(key) => setTabCategory(key as string)}>
+        <Tabs selectedKey={tabCategory} variant='light' onSelectionChange={(key) => setTabCategory(key as string)}>
           <TabsItem key={ALL_CATEGORIES} title='All Categories'>
             <></>
           </TabsItem>
