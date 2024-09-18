@@ -181,8 +181,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       '@gobob/bob-sdk':
-        specifier: ^2.3.2
-        version: 2.3.2
+        specifier: ^2.3.3
+        version: 2.3.3
       '@gobob/chains':
         specifier: workspace:^
         version: link:../../packages/chains
@@ -438,8 +438,8 @@ importers:
   packages/sats-wagmi:
     dependencies:
       '@gobob/sats-wagmi':
-        specifier: ^0.3.5
-        version: 0.3.5(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^0.3.6
+        version: 0.3.6(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1)
 
   packages/test-utils:
     dependencies:
@@ -3571,8 +3571,8 @@ packages:
       ts-interface-checker: 0.1.13
     dev: true
 
-  /@gobob/bob-sdk@2.3.2:
-    resolution: {integrity: sha512-xMZC8n1hbBPYLn1usD9xpHt94E4qLsHzDmGFN0SAHtXvprdmfaxZaoLfOOuSmrN3/VVq/3lVEivuhA381g0NbA==}
+  /@gobob/bob-sdk@2.3.3:
+    resolution: {integrity: sha512-gA/OmP3B5bsOdosQF+gIffh1/c5NmMOD1EYTdTJDFBpz7wWxDiznIsXrrCoqbWC/B3/MxFaEE+0U8Gsb4za1kQ==}
     dependencies:
       '@scure/base': 1.1.7
       '@scure/btc-signer': 1.3.2
@@ -3584,15 +3584,15 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@gobob/sats-wagmi@0.3.5(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-ADR1eHQA3on+VYKpowywPyC56kwk9NLg4lipmcwyyj3cauxcOsFia0S7ZM9QESqOTMR0A1xCu24r7P0G1Thw6g==}
+  /@gobob/sats-wagmi@0.3.6(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-EjF/BSa3N++EYOI9DLQ/M/+RfZcKb+XOGyO77KCz4PL1EVmVrvG+uMxKHx2LeQ0OyXpWJJELr9BEQtyUxR0hpw==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
-      '@gobob/bob-sdk': 2.3.2
+      '@gobob/bob-sdk': 2.3.3
       '@metamask/providers': 12.0.0
       '@scure/base': 1.1.7
       '@scure/btc-signer': 1.3.2

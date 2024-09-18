@@ -22,22 +22,20 @@ const useGetStakeStrategies = () => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR,
-    queryFn: async (): Promise<StrategyData[]> => {
-      const strategies = await gatewaySDK.getStrategies();
+    queryFn: async () => {
+      return await gatewaySDK.getStrategies();
+    },
+    select: (strategies) =>
+      strategies.map<StrategyData>((strategy) => {
+        const token = strategy.outputToken;
 
-      return strategies
-        .filter((strategy) => strategy.integration.type === 'staking')
-        .map<StrategyData>((strategy) => {
-          const token = strategy.outputToken;
-
-          return {
-            raw: strategy,
-            currency: token
-              ? new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.symbol)
-              : undefined
-          };
-        });
-    }
+        return {
+          raw: strategy,
+          currency: token
+            ? new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.symbol)
+            : undefined
+        };
+      })
   });
 };
 
