@@ -1,5 +1,5 @@
 import { Tabs, TabsItem } from '@gobob/ui';
-import { useCallback, useEffect, useState } from 'react';
+import { Key, useCallback, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Main } from '../../components';
@@ -22,8 +22,8 @@ const Stake = () => {
 
   const navigate = useNavigate();
 
-  const handleChangeTab = useCallback((key: any) => {
-    setType(key as any);
+  const handleChangeTab = useCallback((key: Key) => {
+    setType(key as Type);
   }, []);
 
   useEffect(() => {

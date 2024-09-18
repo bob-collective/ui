@@ -32,7 +32,7 @@ const bridges: Record<
     disabled: false
   },
   'pell-network': {
-    href: 'https://app.pell.network',
+    href: 'https://app.pell.network/restake',
     icon: PellNetwork,
     name: 'Pell network',
     disabled: false
