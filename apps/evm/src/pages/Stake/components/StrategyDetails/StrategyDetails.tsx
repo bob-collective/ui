@@ -1,9 +1,9 @@
-import { Avatar, CardProps, Flex, Link, List, ListItem, P, Spinner } from '@gobob/ui';
+import { Avatar, CardProps, Dd, Dl, DlGroup, Dt, Flex, Link, P, Spinner } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
 import { useMemo } from 'react';
 
-import { StrategyData } from '../StakeForm/StakeForm';
 import { chainL2 } from '../../../../constants';
+import { StrategyData } from '../StakeForm/StakeForm';
 
 import { PellNetwork } from './PellNetwork';
 import { StyledSection, StyledStrategyDetails } from './StrategyDetails.style';
@@ -51,34 +51,29 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
   );
 
   return (
-    <StyledSection gap='xl' padding='none' {...props}>
+    <StyledSection padding='2xl' {...props}>
       <StyledStrategyDetails
         direction='column'
         flex={1}
         gap='xl'
         justifyContent={isLoading || !strategy ? 'center' : undefined}
-        padding='lg'
       >
         {isLoading || !strategy ? (
-          <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
+          <Flex alignItems='center' gap='md' justifyContent='center'>
             <Spinner size='16' thickness={2} />
             <P align='center' size='xs'>
               Fetching staking strategies...
             </P>
           </Flex>
         ) : (
-          <List aria-label='Strategy details' style={{ minWidth: 200 }}>
+          <Dl direction='column'>
             {strategyDetails.map(({ id, name }) => (
-              <ListItem key={id} textValue={name}>
-                <Flex alignItems='center' justifyContent='space-between' style={{ width: '100%' }}>
-                  <P size='md'>{name}</P>
-                  <Flex alignItems='center' gap='s'>
-                    {strategyData[id]}
-                  </Flex>
-                </Flex>
-              </ListItem>
+              <DlGroup key={id} alignItems='center' justifyContent='space-between'>
+                <Dd size='md'>{name}</Dd>
+                <Dt>{strategyData[id] ?? '~'}</Dt>
+              </DlGroup>
             ))}
-          </List>
+          </Dl>
         )}
       </StyledStrategyDetails>
     </StyledSection>

@@ -10,7 +10,7 @@ const StyledSection = styled(Card)`
 const StyledStrategyDetails = styled(Flex)`
   overflow-y: auto;
   flex: 1 1 auto;
-  min-height: 7rem;
+  min-height: 5.5rem;
 `;
 
 export { StyledSection, StyledStrategyDetails };
