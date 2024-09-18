@@ -16,7 +16,7 @@ import { StyledQuestList, StyledSkeletonWrapper } from './Leaderboard.style';
 const SpiceColumn = ({ locale, amount }: { locale: any; amount: number }) => (
   <Flex alignItems='center' gap='s'>
     <Spice />
-    <Span size='inherit'>{Intl.NumberFormat(locale).format(Number(amount))}</Span>
+    <Span size='inherit'>{Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(Number(amount))}</Span>
   </Flex>
 );
 

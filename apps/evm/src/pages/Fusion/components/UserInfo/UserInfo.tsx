@@ -1,5 +1,5 @@
 import { Spice } from '@gobob/icons';
-import { Bars3, Button, Divider, DlGroup, Dt, Flex, H3, Link, P, Span, useLocale } from '@gobob/ui';
+import { ArrowRight, Bars3, Button, Divider, Dl, DlGroup, Dt, Flex, H3, Link, P, Span, useLocale } from '@gobob/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
@@ -8,6 +8,7 @@ import { QuestS3Response, UserResponse } from '../../../../utils';
 import { AppData } from '../../../Apps/hooks';
 import { LoginSection } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
+import { Barometer } from '../SeasonInfo/Barometer';
 
 import {
   StyledArrowRight,
@@ -21,7 +22,6 @@ import {
 import { UserInfoCard } from './UserInfoCard';
 import { UserAppsModal } from './UsedAppsModal';
 import { UserReferralModal } from './UserReferralModal';
-import { UserAssetsModal } from './UserAssetsModal';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -47,57 +47,50 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   const hasReferrals = Number(user?.season3Data.s3LeaderboardData[0].ref_points) > 0;
 
+  const totalPoints = user?.season3Data.s3LeaderboardData[0].total_points || 0;
+
+  const milestoneReward = totalPoints * 2;
+
   return (
-    <StyledUserInfoWrapper>
+    <StyledUserInfoWrapper direction='column'>
+      <Dl flex={1}>
+        <DlGroup alignItems='flex-start' direction='column' flex={1}>
+          <Dt>Season 3 Harvested Spice</Dt>
+          <Flex alignItems='center' elementType='dd' gap='s'>
+            <Span size='4xl'>{Intl.NumberFormat(locale).format(totalPoints)}</Span>
+            <Spice size='md' />
+            <Span size='xs'>(+{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerDay || 0)}/Day)</Span>
+          </Flex>
+        </DlGroup>
+        <Flex alignSelf='center' color='grey-50' elementType={ArrowRight} />
+        <DlGroup alignItems='flex-end' direction='column' flex={1}>
+          <Dt>Early Bird 2x Spice Bonus</Dt>
+          <Flex alignItems='flex-end' direction='column' elementType='dd' gap='s'>
+            <Flex alignItems='center' elementType='dd' gap='s'>
+              <Span size='4xl'>+{Intl.NumberFormat(locale).format(milestoneReward)}</Span>
+              <Spice size='md' />
+            </Flex>
+            <Span color='grey-50'>Unlocks at $50M</Span>
+          </Flex>
+        </DlGroup>
+      </Dl>
+      <Barometer value={45000000} />
+      <Dl>
+        <DlGroup alignItems='center'>
+          <Dt size='s'>Season 1 & 2 Total Spice (Completed):</Dt>
+          <Flex alignItems='center' elementType='dd' gap='xs'>
+            <Spice size='xs' />
+            <Span size='xs'>{Intl.NumberFormat(locale).format(user?.leaderboardRank.total_points || 0)}</Span>
+          </Flex>
+        </DlGroup>
+      </Dl>
       <StyledDl
         aria-hidden={!isAuthenticated && 'true'}
         direction={{ base: 'column', md: 'row' }}
+        flex={1}
         gap='lg'
         marginTop={{ base: '4xl', md: '6xl' }}
       >
-        <UserInfoCard
-          description={
-            <Flex alignItems='center' elementType='span' gap='s'>
-              <Spice size='md' />
-              <Span size='inherit'>
-                {Intl.NumberFormat(locale).format(user?.season3Data.s3LeaderboardData[0].total_points || 0)}
-              </Span>
-              <Span size='xs'>
-                (+{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerDay || 0)}/Day)
-              </Span>
-            </Flex>
-          }
-          flex={2}
-          title='Season 3 Harvested Spice'
-        >
-          <DlGroup alignItems='center'>
-            <Dt size='s'>Season 1 & 2 (Completed):</Dt>
-            <Flex alignItems='center' elementType='dd' gap='xs'>
-              <Spice size='xs' />
-              <Span size='xs'>{Intl.NumberFormat(locale).format(user?.leaderboardRank.total_points || 0)}</Span>
-            </Flex>
-          </DlGroup>
-          <Flex gap='md'>
-            <Button
-              fullWidth
-              disabled={!isAuthenticated}
-              variant='outline'
-              onPress={() => setUserAssetsModalOpen(true)}
-            >
-              View Multipliers
-            </Button>
-            <Button
-              fullWidth
-              color='primary'
-              elementType={Link}
-              tabIndex={isAuthenticated ? undefined : -1}
-              {...{ href: RoutesPath.BRIDGE, isDisabled: !isAuthenticated }}
-            >
-              Bridge More
-            </Button>
-          </Flex>
-          <UserAssetsModal isOpen={isUserAssetsModalOpen} onClose={() => setUserAssetsModalOpen(false)} />
-        </UserInfoCard>
         <UserInfoCard description={user?.referral_code} title='Your Referral Code'>
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (

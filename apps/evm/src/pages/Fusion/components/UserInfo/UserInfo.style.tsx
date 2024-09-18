@@ -82,7 +82,7 @@ const StyledAmountWrapper = styled(Flex)`
   text-overflow: ellipsis;
 `;
 
-const StyledUserInfoWrapper = styled.div`
+const StyledUserInfoWrapper = styled(Flex)`
   position: relative;
 `;
 

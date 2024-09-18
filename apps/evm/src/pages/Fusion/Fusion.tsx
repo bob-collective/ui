@@ -8,8 +8,7 @@ import { LocalStorageKey } from '../../constants';
 import { useGetUser } from '../../hooks';
 import { useGetApps } from '../Apps/hooks';
 
-import { Challenges, Leaderboard, SeasonInfo, UserInfo, WelcomeModal } from './components';
-import { StyledBackground, StyledBackgroundOpacity } from './Fusion.style';
+import { Challenges, Leaderboard, UserInfo, WelcomeModal } from './components';
 import { useGetQuests } from './hooks';
 
 const Fusion = () => {
@@ -34,10 +33,8 @@ const Fusion = () => {
 
   return (
     <Geoblock>
-      <StyledBackground />
-      <StyledBackgroundOpacity />
       <Main maxWidth='7xl' padding='lg'>
-        <SeasonInfo />
+        {/* <SeasonInfo /> */}
         <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
         <Challenges quests={quests} />
         <Leaderboard />
