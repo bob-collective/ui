@@ -32,6 +32,7 @@ import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
+import { Optional } from '@gobob/react-query';
 
 import { isProd } from '../../../../constants';
 import { useGetTransactions } from '../../../../hooks';
@@ -55,8 +56,8 @@ import { StrategyData } from './StakeForm';
 type BtcBridgeFormProps = {
   type: Type;
   strategies: StrategyData[];
-  onStartGateway: (data: GatewayData) => void;
-  onGatewaySuccess: (data: GatewayData) => void;
+  onStartGateway: (data: Optional<GatewayData, 'amount'>) => void;
+  onGatewaySuccess: (data: Optional<GatewayData, 'amount'>) => void;
   onFailGateway: () => void;
 };
 
@@ -178,12 +179,8 @@ const BtcStakeForm = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      if (!currencyAmount || !strategy?.currency) return;
-
-      const atomicAmount = currencyAmount.numerator.toString();
       const gatewayQuote = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        amount: atomicAmount,
         gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
         toChain: strategy.raw.chain.chainId,
         toToken: strategy.raw.inputToken.address,
@@ -192,10 +189,7 @@ const BtcStakeForm = ({
 
       const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, gatewayQuote.fee);
 
-      const btcReceiveAmount = currencyAmount.subtract(feeAmount);
-
       return {
-        receiveAmount: CurrencyAmount.fromBaseAmount(strategy.currency, btcReceiveAmount.toExact()),
         fee: feeAmount,
         gatewayQuote
       };
@@ -214,7 +208,6 @@ const BtcStakeForm = ({
       }
 
       const data = {
-        amount: quoteData.receiveAmount,
         fee: quoteData.fee
       };
 

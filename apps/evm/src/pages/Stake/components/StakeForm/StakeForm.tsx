@@ -1,5 +1,6 @@
 import { Flex } from '@gobob/ui';
 import { useState } from 'react';
+import { Optional } from '@gobob/react-query';
 
 import { StrategyData } from '../../../../hooks';
 import { GatewayData, L2BridgeData } from '../../../../types';
@@ -18,7 +19,7 @@ type TransactionModalState = {
 type GatewayTransactionModalState = {
   isOpen: boolean;
   step: 'confirmation' | 'submitted';
-  data?: GatewayData;
+  data?: Optional<GatewayData, 'amount'>;
 };
 
 type BridgeFormProps = {
@@ -40,11 +41,11 @@ const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): J
     setBridgeModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleStartGateway = (data: GatewayData) => {
+  const handleStartGateway = (data: Optional<GatewayData, 'amount'>) => {
     setGatewayModalState({ isOpen: true, step: 'confirmation', data });
   };
 
-  const handleGatewaySuccess = (data: GatewayData) => {
+  const handleGatewaySuccess = (data: Optional<GatewayData, 'amount'>) => {
     setGatewayModalState({ isOpen: true, step: 'submitted', data });
   };
 
