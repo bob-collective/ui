@@ -147,7 +147,6 @@ const ScrollToTop = () => {
   return null;
 };
 
-// const Home = lazy(() => import('./pages/Home'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Fusion = lazy(() => import('./pages/Fusion'));
 const Bridge = lazy(() => import('./pages/Bridge'));

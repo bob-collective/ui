@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import OtpInput, { OTPInputProps } from 'react-otp-input';
 import { useLabel } from '@react-aria/label';
-import { Flex, P, Link, Label } from '@gobob/ui';
+import { Flex, Label, P } from '@gobob/ui';
 import { mergeProps } from '@react-aria/utils';
 import { useTheme } from 'styled-components';
-import { Trans } from 'react-i18next';
 
 import { useGetRefCode } from '../../hooks';
 
@@ -23,7 +22,7 @@ const ReferralInput = ({ onChange, errorMessage, ...props }: ReferralInputProps)
   const refCode = useGetRefCode();
 
   const [otp, setOtp] = useState(refCode || '');
-  const labelText = 'Enter your access code:';
+  const labelText = 'Enter your access code (optional):';
   const { fieldProps, labelProps } = useLabel({ label: labelText });
 
   const handleChange = useCallback(
@@ -41,25 +40,32 @@ const ReferralInput = ({ onChange, errorMessage, ...props }: ReferralInputProps)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [otp]);
 
+  const hasError = !!errorMessage;
+
   return (
-    <Flex direction='column' gap='lg'>
+    <Flex direction='column' gap='s'>
       <Flex direction='column' gap='lg'>
         {labelText && <Label {...labelProps}>{labelText}</Label>}
         <OtpInput
           {...props}
           skipDefaultStyles
-          containerStyle={{ gap: theme.spacing('md'), justifyContent: 'center', width: '100%' }}
+          containerStyle={{
+            gap: theme.spacing('md'),
+            justifyContent: 'center',
+            width: '100%'
+          }}
           numInputs={6}
-          renderInput={(props) => <StyledBaseInput {...mergeProps(props, fieldProps)} $hasError={!!errorMessage} />}
+          renderInput={(props) => <StyledBaseInput {...mergeProps(props, fieldProps)} $hasError={hasError} />}
           value={otp}
           onChange={handleChange}
         />
       </Flex>
-      <P align='center' size='s'>
-        <Trans
-          components={{ discordLink: <Link external href='https://discord.gg/gobob' size='s' /> }}
-          i18nKey='home.referralCodePrompt'
-        />
+      <P
+        color={hasError ? 'red-500' : undefined}
+        size={{ base: 'xs', s: 's' }}
+        style={{ visibility: hasError ? undefined : 'hidden' }}
+      >
+        {errorMessage || 'Enter referral code (optional)'}
       </P>
     </Flex>
   );

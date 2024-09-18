@@ -1,1 +1,0 @@
-export { BackersCard } from './BackersCard';

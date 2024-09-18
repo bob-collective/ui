@@ -1,9 +1,9 @@
 import { Dl, DlGroup, Dt, Dd, Flex } from '@gobob/ui';
 import { useTranslation } from 'react-i18next';
 
-import trailsOfBitsSrc from '../../assets/trails-of-bits.png';
-import commonPrefixSrc from '../../assets/common-prefix.png';
-import otterSecSrc from '../../assets/otter-sec.png';
+import trailsOfBitsSrc from '../../../../assets/trails-of-bits.png';
+import commonPrefixSrc from '../../../../assets/common-prefix.png';
+import otterSecSrc from '../../../../assets/otter-sec.png';
 
 const Auditors = () => {
   const { t } = useTranslation();

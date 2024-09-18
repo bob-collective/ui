@@ -1,21 +1,21 @@
 import { ChainId } from '@gobob/chains';
 import { useConnectModal } from '@gobob/connect-ui';
-import { Twitter } from '@gobob/icons';
-import { useMutation, useQuery } from '@gobob/react-query';
-import { Button, Card, Flex, H1, P, toast } from '@gobob/ui';
+import { useMutation } from '@gobob/react-query';
+import { Button, Divider, Flex, P, toast } from '@gobob/ui';
 import { useAccount, useSignMessage, useSwitchChain } from '@gobob/wagmi';
-import { useSessionStorage } from '@uidotdev/usehooks';
-import { useEffect, useRef } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { FormEventHandler, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { SiweMessage } from 'siwe';
 
-import { AuthCard, Geoblock, HighlightText, LoginSection, Main } from '../../components';
+import { Geoblock, LoginSection, Main } from '../../components';
 import { L1_CHAIN, RoutesPath, isValidChain } from '../../constants';
 import { useGetUser } from '../../hooks';
+import { signUpKeys } from '../../lib/react-query';
 import { apiClient } from '../../utils';
 
-import { StyledAuthSection, StyledContainer } from './SignUp.style';
+import { Auditors, HighlightText, ReferralInput } from './components';
+import { StyledAuthCard, StyledH1 } from './SignUp.style';
 
 const SignUp = (): JSX.Element | null => {
   const { address, chain } = useAccount();
@@ -23,27 +23,14 @@ const SignUp = (): JSX.Element | null => {
   const { signMessageAsync } = useSignMessage();
   const { open } = useConnectModal();
 
-  let [searchParams, setSearchParams] = useSearchParams();
-  const [isTwitterVisisted, setTwitterVisited] = useSessionStorage('isTwitterVisisted', false);
-
-  const socialAuthToastId = useRef();
-
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { refetch: refetchUser, data: user } = useGetUser({ retry: 5, retryDelay: 1000 });
 
-  const {
-    data: onboarding,
-    isLoading: isLoadingOnboarding,
-    refetch: refectOnboarding
-  } = useQuery({
-    queryKey: ['onboarding'],
-    queryFn: async () => apiClient.getOnboarding(),
-    refetchOnWindowFocus: false
-  });
+  const [referalCode, setReferalCode] = useState('');
 
   const { mutate: signUp, isPending: isLoadingSignUp } = useMutation({
-    mutationKey: ['signUp'],
+    mutationKey: signUpKeys.signUp(),
     mutationFn: async (address: string) => {
       if (!chain) return;
 
@@ -52,7 +39,6 @@ const SignUp = (): JSX.Element | null => {
       const message = new SiweMessage({
         domain: window.location.host,
         address,
-        // TODO: we should define statement that will show up in the wallet when signing
         statement: 'Sign in to BOB Fusion',
         uri: window.location.origin,
         version: '1',
@@ -71,7 +57,6 @@ const SignUp = (): JSX.Element | null => {
     onSuccess: async () => {
       await refetchUser();
 
-      setTwitterVisited(false);
       navigate(RoutesPath.FUSION);
     },
     onError: async (e: any) => {
@@ -83,7 +68,15 @@ const SignUp = (): JSX.Element | null => {
     }
   });
 
-  const hasReferralCode = onboarding?.referral_code;
+  const {
+    mutateAsync: validateReferralCodeAsync,
+    error: referralCodeError,
+    isPending: isPendingValidateReferralCode,
+    reset
+  } = useMutation({
+    mutationKey: signUpKeys.referralCode(),
+    mutationFn: async (code: string) => apiClient.postReferralCode(code)
+  });
 
   useEffect(() => {
     if (user && address) {
@@ -91,36 +84,7 @@ const SignUp = (): JSX.Element | null => {
     }
   }, [user, address, navigate]);
 
-  useEffect(() => {
-    if (!socialAuthToastId.current && searchParams.get('twitterAuth') === 'failed') {
-      setSearchParams({});
-
-      socialAuthToastId.current = toast.error('Twitter account is already being used') as any;
-
-      return;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (isLoadingOnboarding) {
-    return null;
-  }
-
-  if (!hasReferralCode) {
-    return (
-      <Main maxWidth='3xl'>
-        <Flex alignItems='center' flex={1} justifyContent='center' marginTop='4xl'>
-          <AuthCard isLoadingReferralCode={isLoadingOnboarding} onValidReferralCode={() => refectOnboarding()} />
-        </Flex>
-      </Main>
-    );
-  }
-
-  const isTwitterConnected = !!onboarding?.twitter;
-
   const handleLinkWallet = async () => {
-    if (!isTwitterConnected) return;
-
     if (!address) {
       return open({
         onConnectEvm: async ({ address, connector }) => {
@@ -145,69 +109,63 @@ const SignUp = (): JSX.Element | null => {
     return signUp(address);
   };
 
+  const handleChange = (code: string) => {
+    reset();
+    setReferalCode(code);
+  };
+
+  const handleSubmit: FormEventHandler = async (e) => {
+    e.preventDefault();
+
+    if (referalCode) {
+      await validateReferralCodeAsync?.(referalCode);
+    }
+
+    handleLinkWallet();
+  };
+
   return (
     <Geoblock>
-      <Main maxWidth='3xl'>
-        <Flex direction='column' gap='2xl' justifyContent='center'>
-          <H1 align='center' fontFamily='eurostar' size='5xl' weight='bold'>
-            <Trans components={{ highlight: <HighlightText /> }} i18nKey='signUp.title' />
-          </H1>
-          <P align='center' color='grey-50'>
-            {t('signUp.subtitle')}
-          </P>
-          <P align='center' color='grey-50'>
-            {t('signUp.content')}
-          </P>
+      <Main maxWidth='3xl' padding='lg'>
+        <Flex alignItems='center' flex={1} justifyContent='center'>
+          <StyledAuthCard
+            gap='4xl'
+            paddingX={{ base: '2xl', s: '2xl', md: '2xl' }}
+            paddingY={{ base: '4xl', md: '6xl' }}
+          >
+            <Flex alignItems='center' direction='column' gap='2xl' justifyContent='center'>
+              <StyledH1 align='center' fontFamily='eurostar' weight='bold'>
+                {t('home.title')}
+                <br />
+                <HighlightText display='block'>{t('home.subtitle')}</HighlightText>
+              </StyledH1>
+              <P align='center' size='lg' weight='medium'>
+                {t('home.content')}
+              </P>
+            </Flex>
+            <Flex direction='column' gap='4xl' paddingX={{ base: 'none', md: '4xl' }}>
+              <Flex direction='column' elementType='form' gap='s' onSubmit={handleSubmit}>
+                <ReferralInput
+                  errorMessage={
+                    referralCodeError ? 'Invalid referral code. You can try again, or proceed without one.' : undefined
+                  }
+                  onChange={handleChange}
+                />
+                <Button
+                  color='primary'
+                  loading={isPendingValidateReferralCode || isLoadingSignUp}
+                  size='xl'
+                  type='submit'
+                >
+                  {t('home.buttonLabel')}
+                </Button>
+              </Flex>
+              <Auditors />
+              <Divider />
+              <LoginSection />
+            </Flex>
+          </StyledAuthCard>
         </Flex>
-        <StyledContainer alignItems='center' direction='column' justifyContent='center' marginTop='4xl'>
-          <StyledAuthSection direction='column' elementType='ul' gap='4xl'>
-            <Card alignSelf='stretch' elementType='li' gap='xl' padding='4xl'>
-              <P size='s' weight='semibold'>
-                1. {t('signUp.twitterStep')}
-              </P>
-              <Flex direction='column' gap='md'>
-                <Button asChild color='primary' disabled={isTwitterConnected} variant='solid'>
-                  <a href='api/auth/twitter/login'>
-                    <Flex alignItems='center' elementType='span' gap='md'>
-                      {isTwitterConnected ? t('signUp.connected') : t('signUp.connect')} <Twitter color='light' />
-                    </Flex>
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  color='primary'
-                  disabled={!isTwitterConnected || isTwitterVisisted}
-                  variant='solid'
-                  onPress={() => setTwitterVisited(true)}
-                >
-                  <a href='https://x.com/intent/follow?screen_name=build_on_bob' rel='noreferrer' target='_blank'>
-                    <Flex alignItems='center' elementType='span' gap='md'>
-                      {t('signUp.followBOB')} <Twitter color='light' />
-                    </Flex>
-                  </a>
-                </Button>
-              </Flex>
-            </Card>
-            <Card alignSelf='stretch' elementType='li' flex={1} gap='xl' padding='4xl'>
-              <P size='s' weight='semibold'>
-                2. {t('signUp.connectWallet')}
-              </P>
-              <Flex alignItems='center' direction='column' gap='xs'>
-                <Button
-                  fullWidth
-                  color='primary'
-                  disabled={isLoadingOnboarding || !isTwitterConnected || !isTwitterVisisted}
-                  loading={isLoadingSignUp}
-                  variant='solid'
-                  onPress={handleLinkWallet}
-                >
-                  {t('signUp.linkWallet')}
-                </Button>
-              </Flex>
-              <LoginSection direction='column' />
-            </Card>
-          </StyledAuthSection>
-        </StyledContainer>
       </Main>
     </Geoblock>
   );

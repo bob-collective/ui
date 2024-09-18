@@ -57,3 +57,8 @@ export const bridgeKeys = {
   btcTokens: () => ['btc-tokens'],
   strategies: () => ['strategies']
 };
+
+export const signUpKeys = {
+  signUp: () => ['sign-up'],
+  referralCode: () => ['referral-code']
+};
