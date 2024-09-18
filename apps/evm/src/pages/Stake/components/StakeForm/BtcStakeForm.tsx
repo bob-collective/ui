@@ -131,8 +131,6 @@ const BtcStakeForm = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      if (!currencyAmount || !strategy?.currency) return;
-
       // TODO: error from this isn't propagated
       const maxQuoteData = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
