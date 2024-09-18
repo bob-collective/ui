@@ -30,7 +30,7 @@ type StyledFieldProps = {
 };
 
 type StyledModalProps = {
-  $showAutoComplete?: boolean;
+  $isSearchable?: boolean;
 };
 
 const StyledTrigger = styled.button<StyledTriggerProps>`
@@ -87,7 +87,7 @@ const StyledModalBody = styled(ModalBody)`
 `;
 
 const StyledModal = styled(Modal)<StyledModalProps>`
-  height: ${({ $showAutoComplete }) => $showAutoComplete && '700px'};
+  height: ${({ $isSearchable }) => $isSearchable && '700px'};
 `;
 
 const StyledSelectableChip = styled(Chip)`

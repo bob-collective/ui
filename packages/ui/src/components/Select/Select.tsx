@@ -30,7 +30,7 @@ type ListboxAttrs = { type?: 'listbox' };
 
 type ModalAttrs = {
   type?: 'modal';
-  modalProps?: { ref?: React.Ref<HTMLDivElement> } & Omit<SelectModalProps, 'state' | 'isOpen' | 'onClose' | 'id'>;
+  modalProps?: { ref?: ForwardedRef<HTMLInputElement> } & Omit<SelectModalProps, 'state' | 'isOpen' | 'onClose' | 'id'>;
 };
 
 type AriaAttrs<T = SelectObject> = Omit<

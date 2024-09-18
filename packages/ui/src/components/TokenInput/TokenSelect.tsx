@@ -1,5 +1,6 @@
 import { Currency } from '@gobob/currency';
 import { mergeProps } from '@react-aria/utils';
+import { useFilter } from '@react-aria/i18n';
 
 import { Item, ModalSelectProps, Select } from '../Select';
 import { Avatar } from '../Avatar';
@@ -20,6 +21,10 @@ type TokenSelectProps = Omit<ModalSelectProps<TokenSelectItemProps>, 'children' 
 };
 
 const TokenSelect = ({ modalProps, size, featuredItems, ...props }: TokenSelectProps): JSX.Element => {
+  const { contains } = useFilter({
+    sensitivity: 'base'
+  });
+
   return (
     <Select<TokenSelectItemProps>
       {...props}
@@ -28,12 +33,17 @@ const TokenSelect = ({ modalProps, size, featuredItems, ...props }: TokenSelectP
       modalProps={mergeProps(
         {
           title: 'Select Token',
-          listProps: { maxHeight: '32rem' },
+          // TODO: handle height better
+          // listProps: { maxHeight: '32rem' },
           featuredItems: featuredItems?.map((item) => ({
             startAdornment: <Avatar size='3xl' src={item.logoUrl} />,
             children: item.currency.symbol,
             value: item.currency.symbol
-          }))
+          })),
+          // TODO: need to get current search term to compare it
+          searchable: ({ value }: { value: TokenSelectItemProps }) => {
+            return;
+          }
         },
         modalProps
       )}

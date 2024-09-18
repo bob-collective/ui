@@ -8,50 +8,50 @@ import { TokenInput, TokenInputProps } from '..';
 const items = [
   {
     balance: 2,
-    currency: { symbol: 'ETH', decimals: 18 } as Currency,
+    currency: { symbol: 'ETH', name: 'Ethereum', decimals: 18 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     balanceUSD: 900
   },
   {
     balance: 500,
-    currency: { symbol: 'USDT', decimals: 6 } as Currency,
+    currency: { symbol: 'USDT', name: 'USDT', decimals: 6 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
     balanceUSD: 500
   },
   {
     balance: 100,
-    currency: { symbol: 'USDC', decimals: 6 } as Currency,
+    currency: { symbol: 'USDC', name: 'USDC', decimals: 6 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
     balanceUSD: 100
   },
   {
     balance: 100,
-    currency: { symbol: 'WBTC', decimals: 6 } as Currency,
+    currency: { symbol: 'WBTC', name: 'Wrapped Bitcoin', decimals: 6 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
     balanceUSD: 100
   },
   {
     balance: 100,
-    currency: { symbol: 'WETH', decimals: 6 } as Currency,
+    currency: { symbol: 'WETH', name: 'WETH', decimals: 6 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
     balanceUSD: 100
   },
   {
     balance: 100,
-    currency: { symbol: 'BTC', decimals: 6 } as Currency,
+    currency: { symbol: 'BTC', name: 'Bitcoin', decimals: 6 } as Currency,
     logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
     balanceUSD: 100
   },
   {
     balance: 100,
-    currency: { symbol: 'QWER', decimals: 6 } as Currency,
-    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
+    currency: { symbol: 'stETH', name: 'Lido Staked Ether', decimals: 6 } as Currency,
+    logoUrl: 'https://coin-images.coingecko.com/coins/images/13442/large/steth_logo.png?1696513206',
     balanceUSD: 100
   },
   {
     balance: 100,
-    currency: { symbol: 'QWWR', decimals: 6 } as Currency,
-    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
+    currency: { symbol: 'rETH', name: 'Rocket Pool ETH', decimals: 6 } as Currency,
+    logoUrl: 'https://coin-images.coingecko.com/coins/images/20764/large/reth.png?1696520159',
     balanceUSD: 100
   }
 ];
@@ -127,8 +127,6 @@ export const SelectableErrorMessage: StoryObj<TokenInputProps> = {
 export const AutoComplete: StoryObj<TokenInputProps> = {
   args: {
     featuredItems: items.slice(0, 6),
-    selectProps: {
-      modalProps: { showAutoComplete: true }
-    }
+    selectProps: {}
   }
 };
