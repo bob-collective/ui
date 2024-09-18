@@ -32,6 +32,7 @@ import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
+import { Optional } from '@gobob/react-query';
 
 import { isProd } from '../../../../constants';
 import { useGetTransactions } from '../../../../hooks';
@@ -55,8 +56,8 @@ import { StrategyData } from './StakeForm';
 type BtcBridgeFormProps = {
   type: Type;
   strategies: StrategyData[];
-  onStartGateway: (data: GatewayData) => void;
-  onGatewaySuccess: (data: GatewayData) => void;
+  onStartGateway: (data: Optional<GatewayData, 'amount'>) => void;
+  onGatewaySuccess: (data: Optional<GatewayData, 'amount'>) => void;
   onFailGateway: () => void;
 };
 
@@ -105,7 +106,7 @@ const BtcStakeForm = ({
   const [amount, setAmount] = useState('');
   const debouncedAmount = useDebounce(amount, 300);
 
-  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0]?.raw.integration.name);
+  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0]?.raw.integration.slug);
 
   const [isGasNeeded, setGasNeeded] = useState(true);
 
@@ -115,7 +116,7 @@ const BtcStakeForm = ({
   );
 
   const strategy = useMemo(
-    () => strategies.find((strategy) => strategy.raw.integration.name === selectedStrategy)!,
+    () => strategies.find((strategy) => strategy.raw.integration.slug === selectedStrategy)!,
     [selectedStrategy, strategies]
   );
 
@@ -124,18 +125,18 @@ const BtcStakeForm = ({
   }, []);
 
   const { data: availableLiquidity, isLoading: isLoadingMaxQuote } = useQuery({
-    enabled: Boolean(strategy?.currency),
-    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, strategy?.currency?.symbol, 'max'),
+    enabled: Boolean(strategy),
+    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, strategy?.raw.integration.slug, 'max'),
     refetchInterval: INTERVAL.MINUTE,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      if (!currencyAmount || !strategy?.currency) return;
-
       // TODO: error from this isn't propagated
       const maxQuoteData = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toToken: strategy.currency.symbol
+        toChain: strategy.raw.chain.chainId,
+        toToken: strategy.raw.inputToken.address,
+        strategyAddress: strategy.raw.address
       });
 
       return CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis);
@@ -150,13 +151,13 @@ const BtcStakeForm = ({
   const quoteDataEnabled = useMemo(() => {
     return Boolean(
       currencyAmount &&
-        strategy?.currency &&
+        strategy &&
         evmAddress &&
         btcAddress &&
         CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
         hasLiquidity
     );
-  }, [currencyAmount, strategy?.currency, evmAddress, btcAddress, debouncedAmount, hasLiquidity, isGasNeeded]);
+  }, [currencyAmount, strategy, evmAddress, btcAddress, debouncedAmount, hasLiquidity, isGasNeeded]);
 
   const quoteQueryKey = bridgeKeys.btcQuote(
     evmAddress,
@@ -178,7 +179,7 @@ const BtcStakeForm = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      if (!currencyAmount || !strategy?.currency) return;
+      if (!currencyAmount) return;
 
       const atomicAmount = currencyAmount.numerator.toString();
       const gatewayQuote = await gatewaySDK.getQuote({
@@ -192,10 +193,7 @@ const BtcStakeForm = ({
 
       const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, gatewayQuote.fee);
 
-      const btcReceiveAmount = currencyAmount.subtract(feeAmount);
-
       return {
-        receiveAmount: CurrencyAmount.fromBaseAmount(strategy.currency, btcReceiveAmount.toExact()),
         fee: feeAmount,
         gatewayQuote
       };
@@ -214,7 +212,6 @@ const BtcStakeForm = ({
       }
 
       const data = {
-        amount: quoteData.receiveAmount,
         fee: quoteData.fee
       };
 
@@ -252,7 +249,7 @@ const BtcStakeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setSelectedStrategy(strategies[0]?.raw.integration.name);
+    setSelectedStrategy(strategies[0]?.raw.integration.slug);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [strategies]);
@@ -361,7 +358,7 @@ const BtcStakeForm = ({
         })}
       >
         {(data) => (
-          <Item key={data.raw.integration.name} textValue={data.raw.integration.name}>
+          <Item key={data.raw.integration.slug} textValue={data.raw.integration.name}>
             <Flex alignItems='center' gap='s'>
               {data.raw.integration.logo ? <Avatar size='2xl' src={data.raw.integration.logo} /> : <PellNetwork />}
               <P style={{ color: 'inherit' }}>{data.raw.integration.name}</P>
