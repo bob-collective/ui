@@ -166,13 +166,5 @@
     "alert": {
       "alex": "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <xLink>announcement</xLink>."
     }
-  },
-  "staking": {
-    "form": {
-      "title": "Stake BTC"
-    },
-    "projects": {
-      "title": "Projects Available"
-    }
   }
 }
