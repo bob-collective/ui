@@ -9,7 +9,7 @@ export * from './useGetUser';
 export * from './useLogin';
 export * from './useLogout';
 export * from './usePublicClient';
-export * from './useStakingStrategies';
+export * from './useGetStrategies';
 export * from './useTokens';
 export * from './useTotalBalance';
 export * from './useWalletClient';

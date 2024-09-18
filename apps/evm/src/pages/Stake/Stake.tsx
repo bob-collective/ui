@@ -1,7 +1,7 @@
 import { Main } from '../../components';
-import { useGetStakeStrategies } from '../../hooks';
 
 import { BannerCarousel } from './components';
+import { useGetStakingStrategies } from './hooks';
 import { StakeContent } from './StakeContent';
 
 enum Type {
@@ -10,7 +10,7 @@ enum Type {
 }
 
 const Stake = () => {
-  const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakeStrategies();
+  const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakingStrategies();
 
   return (
     <Main maxWidth='5xl' padding='md'>
