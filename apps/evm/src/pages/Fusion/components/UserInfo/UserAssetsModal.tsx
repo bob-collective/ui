@@ -18,10 +18,9 @@ import { Spice } from '@gobob/icons';
 import { useTheme } from 'styled-components';
 import { useMediaQuery } from '@uidotdev/usehooks';
 
-import { useBalances } from '../../../../hooks';
+import { useBalances, useBridgeTokens } from '../../../../hooks';
 import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { useGetTokensInfo } from '../../hooks';
-import { useBridgeTokens } from '../../../Bridge/hooks';
 import { calculateAmountUSD } from '../../../../utils';
 
 import { StyledAmountWrapper } from './UserInfo.style';
