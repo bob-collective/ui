@@ -4,6 +4,7 @@ const BRIDGE_AMOUNT = 'bridge-amount';
 const BRIDGE_TICKER = 'bridge-ticker';
 const BRIDGE_RECIPIENT = 'bridge-recipient';
 const BRIDGE_GAS_TOKEN = 'bridge-gas-token';
+const BRIDGE_BTC_WALLET = 'bridge-btc-wallet';
 
 type BridgeFormValues = {
   [BRIDGE_AMOUNT]?: string;
@@ -15,6 +16,7 @@ type BridgeFormValues = {
 type BridgeFormValidationParams = {
   [BRIDGE_AMOUNT]: MaxAmountValidationParams & MinAmountValidationParams;
   [BRIDGE_RECIPIENT]: boolean;
+  [BRIDGE_BTC_WALLET]: string | undefined | null;
 };
 
 const bridgeSchema = (params: BridgeFormValidationParams) => {
@@ -22,6 +24,7 @@ const bridgeSchema = (params: BridgeFormValidationParams) => {
     [BRIDGE_AMOUNT]: yup
       .string()
       .requiredAmount('bridge')
+      .btcWalletConnected(params[BRIDGE_BTC_WALLET])
       .maxAmount(params[BRIDGE_AMOUNT], 'bridge')
       .minAmount(params[BRIDGE_AMOUNT], 'bridge'),
     [BRIDGE_TICKER]: yup.string().required(),
@@ -32,5 +35,5 @@ const bridgeSchema = (params: BridgeFormValidationParams) => {
   });
 };
 
-export { BRIDGE_AMOUNT, BRIDGE_GAS_TOKEN, BRIDGE_TICKER, BRIDGE_RECIPIENT, bridgeSchema };
+export { BRIDGE_AMOUNT, BRIDGE_GAS_TOKEN, BRIDGE_TICKER, BRIDGE_RECIPIENT, BRIDGE_BTC_WALLET, bridgeSchema };
 export type { BridgeFormValidationParams, BridgeFormValues };
