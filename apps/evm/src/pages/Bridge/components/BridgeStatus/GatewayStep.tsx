@@ -13,6 +13,8 @@ const getLabel = (status: GatewayDepositSteps, confirmations: number, totalConfi
     case 'l2-processing':
     case 'l2-confirmation':
       return 'L2 confirmation';
+    case 'l2-incomplete':
+      return 'L2 incomplete';
   }
 };
 
@@ -28,7 +30,11 @@ const getStatus = (data: GatewayTransaction, step: GatewaySteps) => {
           return 'ongoing';
         case 'l2-confirmation':
           return 'complete';
+        case 'l2-incomplete':
+          return 'failed';
       }
+    case 'l2-incomplete':
+      return data.status === 'l2-incomplete' ? 'failed' : 'idle';
     case 'l2-confirmation':
       return data.status === 'l2-confirmation' ? 'complete' : 'idle';
   }

@@ -14,6 +14,7 @@ type Props = {
   fromChainId: ChainId | 'BTC';
   toChainId: ChainId | 'BTC';
   amount?: CurrencyAmount<Currency>;
+  isPending?: boolean;
   isExpanded?: boolean;
   onExpand?: () => void;
 };
@@ -28,11 +29,12 @@ const TransactionDetails = ({
   fromChainId,
   toChainId,
   amount,
+  isPending,
   isExpanded,
   onExpand,
   ...props
 }: TransactionDetailsProps): JSX.Element => {
-  const direactionLabel = type === Type.Deposit ? 'Deposit' : 'Withdraw';
+  const directionLabel = type === Type.Deposit ? 'Deposit' : 'Withdraw';
 
   const isExpandable = !!onExpand;
 
@@ -40,7 +42,7 @@ const TransactionDetails = ({
     <Flex direction='column' {...props}>
       <Flex justifyContent='space-between'>
         <P color='grey-50' size='xs' weight='semibold'>
-          {direactionLabel}
+          {directionLabel}
         </P>
         <P color='grey-50' size='xs' weight='semibold'>
           {formatDistanceToNow(date)} ago
@@ -54,16 +56,20 @@ const TransactionDetails = ({
             <Chain chainId={toChainId} iconProps={{ size: 'xs' }} labelProps={{ size: 's', weight: 'medium' }} />
           </Flex>
           <Flex gap='md'>
-            {(amount && (
+            {(isPending && (
               <P size='s' weight='medium'>
-                {amount.toExact()} {amount.currency.symbol}
+                Pending
               </P>
-            )) || (
-              <P size='s' weight='medium'>
-                {' '}
-                Pending{' '}
-              </P>
-            )}
+            )) ||
+              (amount && (
+                <P size='s' weight='medium'>
+                  {amount.toExact()} {amount.currency.symbol}
+                </P>
+              )) || (
+                <P size='s' weight='medium'>
+                  Unknown
+                </P>
+              )}
             {isExpandable && <StyledExpandIcon $isExpanded={isExpanded} color='grey-50' size='s' />}
           </Flex>
         </Flex>

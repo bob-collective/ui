@@ -19,10 +19,11 @@ type GatewayTransaction = {
   btcTxId: string;
   amount?: CurrencyAmount<ERC20Token>;
   type: TransactionType.Gateway;
+  isPending: boolean;
 };
 
 const getGatewayTransactions = async (address: Address): Promise<GatewayTransaction[]> => {
-  const [orders, latestBlock] = await Promise.all([gatewaySDK.getOrders(address), esploraClient.getLatestHeight()]);
+  const [orders, latestHeight] = await Promise.all([gatewaySDK.getOrders(address), esploraClient.getLatestHeight()]);
 
   return (
     await Promise.all(
@@ -55,23 +56,27 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
           amount = CurrencyAmount.fromRawAmount(token.currency as ERC20Token, gatewayAmount);
         }
 
-        const confirmations = await order.getConfirmations(esploraClient, latestBlock);
-        const hasEnoughConfirmations = confirmations >= order.txProofDifficultyFactor;
+        const orderStatus = await order.getStatus(esploraClient, latestHeight);
+        const status: GatewayDepositSteps =
+          orderStatus.confirmed === false
+            ? 'btc-confirmation'
+            : !!orderStatus.pending
+              ? 'l2-processing'
+              : orderStatus.success
+                ? 'l2-confirmation'
+                : 'l2-incomplete';
 
-        const status: GatewayDepositSteps = !hasEnoughConfirmations
-          ? 'btc-confirmation'
-          : order.status
-            ? 'l2-confirmation'
-            : 'l2-processing';
+        const isPending = status === 'btc-confirmation' || status === 'l2-processing';
 
         return {
           amount,
           btcTxId: order.txid,
           date: new Date(order.timestamp * 1000),
-          confirmations,
+          confirmations: orderStatus.data.confirmations,
           totalConfirmations: order.txProofDifficultyFactor,
           status,
-          type: TransactionType.Gateway
+          type: TransactionType.Gateway,
+          isPending
         };
       })
     )

@@ -33,13 +33,13 @@ const stakingInfo = {
   'pell-solvbtcbbn': {
     category: 'Restaking',
     website: 'https://app.pell.network/restake',
-    incentives: 'Spice + Solv XP + Babylon Points',
+    incentives: 'Spice + Pell Points + Solv XP + Babylon Points',
     about: 'Restake SolvBTC.BBN into Pell to secure actively validated services via proof of stake mechanism.'
   },
   'pell-unibtc': {
     category: 'Restaking',
     website: 'https://app.pell.network/restake',
-    incentives: 'Spice + Bedrock Diamond + Babylon Points',
+    incentives: 'Spice + Pell Points + Bedrock Diamond + Babylon Points',
     about: 'Restake uniBTC into Pell to secure actively validated services via proof of stake mechanism.'
   },
   'segment-tbtc': {
