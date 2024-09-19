@@ -6,7 +6,7 @@ import { UniBTC } from '../StrategyDetails/UniBTC';
 import { PellNetwork } from '../StrategyDetails/PellNetwork';
 import { Type } from '../../Stake';
 
-type ExternalBridge = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network';
+type ExternalBridge = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network' | 'segment' | 'shoebill';
 
 // TODO: add missing links
 const bridges: Record<
@@ -35,6 +35,18 @@ const bridges: Record<
     href: 'https://app.pell.network/restake',
     icon: PellNetwork,
     name: 'Pell network',
+    disabled: false
+  },
+  segment: {
+    href: 'https://app.segment.finance/#/',
+    icon: BTC,
+    name: 'Segment Finance',
+    disabled: false
+  },
+  shoebill: {
+    href: 'https://bob-btc.shoebill.finance/#/',
+    icon: BTC,
+    name: 'Shoebill Finance',
     disabled: false
   }
 };

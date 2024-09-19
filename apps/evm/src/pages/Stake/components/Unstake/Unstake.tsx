@@ -13,7 +13,7 @@ type UnstakeProps = {
 const defaultBridges: Record<BridgeType, ExternalBridge[]> = {
   LST: ['solvbtc', 'unibtc'],
   Restaking: ['pell-network'],
-  Lending: []
+  Lending: ['segment', 'shoebill']
 };
 
 const Unstake = ({ type }: UnstakeProps): JSX.Element => {
