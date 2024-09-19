@@ -260,7 +260,7 @@ const BtcBridgeForm = ({
     onSuccess: (data) => {
       setAmount('');
       form.resetForm();
-      setReceiveTicker(availableTokens[0].currency.symbol);
+      setReceiveTicker(searchParams.get('receive') ?? initialTicker);
       onGatewaySuccess?.(data);
       refetchGatewayTxs();
       queryClient.removeQueries({ queryKey: quoteQueryKey });
@@ -274,7 +274,7 @@ const BtcBridgeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setReceiveTicker(initialTicker);
+    setReceiveTicker(searchParams.get('receive') ?? initialTicker);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableTokens]);
@@ -320,7 +320,7 @@ const BtcBridgeForm = ({
   const initialValues = useMemo(
     () => ({
       [BRIDGE_AMOUNT]: '',
-      [BRIDGE_TICKER]: receiveTicker,
+      [BRIDGE_TICKER]: searchParams.get('receive') ?? receiveTicker,
       [BRIDGE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
