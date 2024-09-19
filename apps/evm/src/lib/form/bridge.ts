@@ -16,7 +16,7 @@ type BridgeFormValues = {
 type BridgeFormValidationParams = {
   [BRIDGE_AMOUNT]: MaxAmountValidationParams & MinAmountValidationParams;
   [BRIDGE_RECIPIENT]: boolean;
-  [BRIDGE_BTC_WALLET]: string | undefined;
+  [BRIDGE_BTC_WALLET]: string | undefined | null;
 };
 
 const bridgeSchema = (params: BridgeFormValidationParams) => {

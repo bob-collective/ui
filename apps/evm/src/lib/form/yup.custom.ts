@@ -76,6 +76,8 @@ yup.addMethod<yup.StringSchema>(
   'btcWalletConnected',
   function (btcAddress: string, customMessage?: string) {
     return this.test('btcWalletConnected', (_, ctx) => {
+      if (btcAddress === null) return true;
+
       if (!btcAddress) {
         const message = customMessage || 'Bitcoin wallet not connected';
 
@@ -128,7 +130,7 @@ declare module 'yup' {
       action?: string,
       customMessage?: string
     ): StringSchema<TType, TContext>;
-    btcWalletConnected(address?: string, customMessage?: string): StringSchema<TType, TContext>;
+    btcWalletConnected(address?: string | null, customMessage?: string): StringSchema<TType, TContext>;
     btcAddress(network: BitcoinNetwork, customMessage?: string): StringSchema<TType, TContext>;
     evmAddress(customMessage?: string): StringSchema<TType, TContext>;
   }
