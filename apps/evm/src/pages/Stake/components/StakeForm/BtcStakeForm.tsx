@@ -89,7 +89,7 @@ const BtcStakeForm = ({
 }: BtcBridgeFormProps): JSX.Element => {
   const queryClient = useQueryClient();
 
-  const [_, setSearchParams] = useSearchParams(new URLSearchParams(window.location.search));
+  const setSearchParams = useSearchParams(new URLSearchParams(window.location.search))[1];
 
   const { address: evmAddress } = useAccount();
 
