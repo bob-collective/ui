@@ -66,7 +66,7 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
             </P>
           </Flex>
         ) : (
-          <Dl direction='column'>
+          <Dl direction='column' gap='lg'>
             {strategyDetails.map(({ id, name }, index) => (
               <Fragment key={id}>
                 {index !== 0 && <Divider />}
