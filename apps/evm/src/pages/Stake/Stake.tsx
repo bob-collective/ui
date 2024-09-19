@@ -2,6 +2,7 @@ import { Tabs, TabsItem } from '@gobob/ui';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import { isProd } from '../../constants';
 import { Main } from '../../components';
 
 import { BannerCarousel, StakingForm, StrategyDetails } from './components';
@@ -13,13 +14,15 @@ enum Type {
   Unstake = 'unstake'
 }
 
+const INITIAL_SELECTED_STRATEGY_SLUG = 'solv-solvbtcbbn';
+
 const Stake = () => {
   const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakingStrategies();
 
   const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
   const [selectedStrategy, setSelectedStrategy] = useState(
-    searchParams.get('stakeWith') ?? strategies[0]?.raw.integration.slug
+    searchParams.get('stakeWith') ?? (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug)
   );
 
   if (!selectedStrategy && strategies.length > 0) {
