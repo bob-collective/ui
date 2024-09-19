@@ -39,6 +39,7 @@ import { useGetTransactions } from '../../../../hooks';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import {
   STAKE_AMOUNT,
+  STAKE_BTC_WALLET,
   STAKE_RECIPIENT,
   STAKE_STRATEGY,
   StakeFormValidationParams,
@@ -310,7 +311,8 @@ const BtcStakeForm = ({
           : undefined,
       maxAmount: new Big(balanceAmount.toExact())
     },
-    [STAKE_RECIPIENT]: !!isSmartAccount
+    [STAKE_RECIPIENT]: !!isSmartAccount,
+    [STAKE_BTC_WALLET]: btcAddress
   };
 
   const form = useForm<StakeFormValues>({

@@ -16,6 +16,7 @@ import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { BridgeToken, useBalances, useBridgeTokens, useGetTransactions } from '../../../../hooks';
 import {
   BRIDGE_AMOUNT,
+  BRIDGE_BTC_WALLET,
   BRIDGE_GAS_TOKEN,
   BRIDGE_RECIPIENT,
   BRIDGE_TICKER,
@@ -441,7 +442,8 @@ const BobBridgeForm = ({
       minAmount: currencyAmount && new Big(1 / 10 ** currencyAmount?.currency.decimals),
       maxAmount: new Big(tokenBalance?.toExact() || 0)
     },
-    [BRIDGE_RECIPIENT]: !!isSmartAccount
+    [BRIDGE_RECIPIENT]: !!isSmartAccount,
+    [BRIDGE_BTC_WALLET]: null
   };
 
   const form = useForm<BridgeFormValues>({

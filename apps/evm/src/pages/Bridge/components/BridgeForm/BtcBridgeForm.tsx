@@ -38,6 +38,7 @@ import { isProd, L2_CHAIN } from '../../../../constants';
 import { TokenData } from '../../../../hooks';
 import {
   BRIDGE_AMOUNT,
+  BRIDGE_BTC_WALLET,
   BRIDGE_RECIPIENT,
   BRIDGE_TICKER,
   BridgeFormValidationParams,
@@ -313,7 +314,8 @@ const BtcBridgeForm = ({
           : undefined,
       maxAmount: new Big(balanceAmount.toExact())
     },
-    [BRIDGE_RECIPIENT]: !!isSmartAccount
+    [BRIDGE_RECIPIENT]: !!isSmartAccount,
+    [BRIDGE_BTC_WALLET]: btcAddress
   };
 
   const form = useForm<BridgeFormValues>({
