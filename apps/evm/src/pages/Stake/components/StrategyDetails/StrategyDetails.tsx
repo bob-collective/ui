@@ -142,7 +142,9 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
               <Fragment key={id}>
                 {index !== 0 && <Divider />}
                 <DlGroup alignItems='center' justifyContent='space-between'>
-                  <Dd size='md'>{name}</Dd>
+                  <Dd size='md' style={{ minWidth: '15ch' }}>
+                    {name}
+                  </Dd>
                   <Dt>{strategyData[id] ?? '~'}</Dt>
                 </DlGroup>
               </Fragment>
