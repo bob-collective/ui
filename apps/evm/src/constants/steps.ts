@@ -15,9 +15,10 @@ type BridgeWithdrawSteps = (typeof bridgeWithdrawSteps)[number];
 
 type BridgeSteps = BridgeDepositSteps | BridgeWithdrawSteps;
 
-// l2-processing - relayer did not execute the swap
+// l2-processing - relayer did not yet execute the swap
+// l2-incomplete - relayer executed the swap but user did not get staking token
 // l2-confirmation - relayer executed the swap
-const gatewayDepositSteps = ['btc-confirmation', 'l2-processing', 'l2-confirmation'] as const;
+const gatewayDepositSteps = ['btc-confirmation', 'l2-processing', 'l2-incomplete', 'l2-confirmation'] as const;
 
 type GatewayDepositSteps = (typeof gatewayDepositSteps)[number];
 

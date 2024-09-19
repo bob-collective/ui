@@ -26,6 +26,7 @@ const GatewayTransactionItem = ({ data, ...props }: GatewayTransactionItemProps)
         amount={data.amount}
         date={data.date}
         fromChainId={fromChaindId}
+        isPending={data.isPending}
         toChainId={toChaindId}
         type={Type.Deposit}
         onExpand={() => setExpanded((isExpanded) => !isExpanded)}
