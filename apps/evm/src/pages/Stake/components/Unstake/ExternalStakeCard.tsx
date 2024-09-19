@@ -1,16 +1,18 @@
 import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 import { BTC } from '@gobob/icons';
+import { SolvBTCBBN } from '@gobob/icons/src/SolvBTCBBN';
+import { UniBTC } from '@gobob/icons/src/UniBTC';
+import { PellNetwork } from '@gobob/icons/src/PellNetwork';
+import { Segment } from '@gobob/icons/src/Segment';
+import { Shoebill } from '@gobob/icons/src/Shoebill';
 
-import { SolvBTCBBN } from '../StrategiesList/SolvBTCBBN';
-import { UniBTC } from '../StrategiesList/UniBTC';
-import { PellNetwork } from '../StrategiesList/PellNetwork';
 import { Type } from '../../Stake';
 
-type ExternalBridges = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network';
+type ExternalBridge = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network' | 'segment' | 'shoebill';
 
 // TODO: add missing links
 const bridges: Record<
-  ExternalBridges,
+  ExternalBridge,
   { icon: any | string; href: string | { stake: string; unstake: string }; name: string; disabled: boolean }
 > = {
   solvbtc: {
@@ -34,12 +36,24 @@ const bridges: Record<
   'pell-network': {
     href: 'https://app.pell.network/restake',
     icon: PellNetwork,
-    name: 'Pell network',
+    name: 'Pell Network',
+    disabled: false
+  },
+  segment: {
+    href: 'https://app.segment.finance/#/',
+    icon: Segment,
+    name: 'Segment Finance',
+    disabled: false
+  },
+  shoebill: {
+    href: 'https://bob-btc.shoebill.finance/#/',
+    icon: Shoebill,
+    name: 'Shoebill Finance',
     disabled: false
   }
 };
 
-type Props = { type: Type; bridge: ExternalBridges };
+type Props = { type: Type; bridge: ExternalBridge };
 
 type ExternalBridgeCardProps = Props;
 
@@ -76,4 +90,4 @@ const ExternalStakeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Eleme
 };
 
 export { ExternalStakeCard };
-export type { ExternalBridges };
+export type { ExternalBridge };

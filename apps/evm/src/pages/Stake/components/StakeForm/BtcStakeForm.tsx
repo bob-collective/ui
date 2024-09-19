@@ -33,6 +33,7 @@ import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
 import { Optional } from '@gobob/react-query';
+import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 
 import { isProd } from '../../../../constants';
 import { useGetTransactions } from '../../../../hooks';
@@ -49,14 +50,15 @@ import {
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { bridgeKeys } from '../../../../lib/react-query';
 import { GatewayData } from '../../../../types';
-import { PellNetwork } from '../StrategiesList/PellNetwork';
 import { Type } from '../../Stake';
 
 import { StrategyData } from './StakeForm';
 
 type BtcBridgeFormProps = {
   type: Type;
+  strategy: StrategyData;
   strategies: StrategyData[];
+  onStrategyChange: (strategy: string) => void;
   onStartGateway: (data: Optional<GatewayData, 'amount'>) => void;
   onGatewaySuccess: (data: Optional<GatewayData, 'amount'>) => void;
   onFailGateway: () => void;
@@ -78,6 +80,8 @@ const MIN_DEPOSIT_AMOUNT = (gasRefill: boolean) =>
 
 const BtcStakeForm = ({
   type = Type.Stake,
+  strategy,
+  onStrategyChange,
   strategies,
   onGatewaySuccess,
   onStartGateway,
@@ -107,18 +111,11 @@ const BtcStakeForm = ({
   const [amount, setAmount] = useState('');
   const debouncedAmount = useDebounce(amount, 300);
 
-  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0]?.raw.integration.slug);
-
   const [isGasNeeded, setGasNeeded] = useState(true);
 
   const currencyAmount = useMemo(
     () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
     [amount]
-  );
-
-  const strategy = useMemo(
-    () => strategies.find((strategy) => strategy.raw.integration.slug === selectedStrategy)!,
-    [selectedStrategy, strategies]
   );
 
   const handleError = useCallback((e: any) => {
@@ -250,7 +247,6 @@ const BtcStakeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setSelectedStrategy(strategies[0]?.raw.integration.slug);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [strategies]);
@@ -296,7 +292,7 @@ const BtcStakeForm = ({
   const initialValues = useMemo(
     () => ({
       [STAKE_AMOUNT]: '',
-      [STAKE_STRATEGY]: selectedStrategy,
+      [STAKE_STRATEGY]: strategy?.raw.integration.slug,
       [STAKE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -356,7 +352,7 @@ const BtcStakeForm = ({
         size='lg'
         type='modal'
         {...mergeProps(form.getSelectFieldProps(STAKE_STRATEGY), {
-          onSelectionChange: (value: string) => setSelectedStrategy(value)
+          onSelectionChange: (value: string) => onStrategyChange(value)
         })}
       >
         {(data) => (
