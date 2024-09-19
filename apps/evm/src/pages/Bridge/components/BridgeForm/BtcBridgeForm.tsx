@@ -77,6 +77,8 @@ const MIN_DEPOSIT_AMOUNT = (gasRefill: boolean) =>
 
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
+const INITIAL_SELECTED_TOKEN_SYMBOL = 'SolvBTC.BBN';
+
 const BtcBridgeForm = ({
   type = Type.Deposit,
   availableTokens,
@@ -109,7 +111,23 @@ const BtcBridgeForm = ({
   const [amount, setAmount] = useState('');
   const debouncedAmount = useDebounce(amount, 300);
 
-  const [receiveTicker, setReceiveTicker] = useState(searchParams.get('receive') ?? availableTokens[0].currency.symbol);
+  const initialTicker = isProd ? INITIAL_SELECTED_TOKEN_SYMBOL : availableTokens[0].currency.symbol;
+  const [receiveTicker, setReceiveTicker] = useState(searchParams.get('receive') ?? initialTicker);
+
+  useEffect(() => {
+    setSearchParams(
+      (prev) => {
+        const urlSearchParams = new URLSearchParams(prev);
+
+        urlSearchParams.set('receive', receiveTicker);
+        urlSearchParams.set('network', 'bitcoin');
+
+        return urlSearchParams;
+      },
+      { replace: true }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [receiveTicker]);
 
   const [isGasNeeded, setGasNeeded] = useState(true);
 
@@ -255,7 +273,7 @@ const BtcBridgeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setReceiveTicker(availableTokens[0].currency.symbol);
+    setReceiveTicker(initialTicker);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableTokens]);
