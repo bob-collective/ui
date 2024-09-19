@@ -240,6 +240,7 @@ const BtcBridgeForm = ({
     onSuccess: (data) => {
       setAmount('');
       form.resetForm();
+      setReceiveTicker(availableTokens[0].currency.symbol);
       onGatewaySuccess?.(data);
       refetchGatewayTxs();
       queryClient.removeQueries({ queryKey: quoteQueryKey });
