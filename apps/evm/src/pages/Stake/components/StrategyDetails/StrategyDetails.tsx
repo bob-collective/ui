@@ -81,7 +81,7 @@ const getWebsiteUrl = (strategy: StrategyData | undefined) => {
   const websiteUrl = stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website;
 
   return websiteUrl ? (
-    <Link external href={websiteUrl} size='md' underlined='always'>
+    <Link external color='grey-50' href={websiteUrl} size='md' underlined='always'>
       {websiteUrl}
     </Link>
   ) : undefined;
@@ -97,7 +97,9 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
           ) : (
             <PellNetwork />
           )}
-          <P size='md'>{strategy?.raw.integration.name}</P>
+          <P color='grey-50' size='md'>
+            {strategy?.raw.integration.name}
+          </P>
         </Flex>
       ),
       category: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.category,
@@ -106,6 +108,7 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
       token: strategy?.raw.outputToken?.address ? (
         <Link
           external
+          color='grey-50'
           href={new URL(
             `/address/${strategy?.raw.outputToken?.address}`,
             chainL2.blockExplorers?.default.url
@@ -145,7 +148,7 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
                   <Dd size='md' style={{ minWidth: '15ch' }}>
                     {name}
                   </Dd>
-                  <Dt>{strategyData[id] ?? '~'}</Dt>
+                  <Dt style={{ textAlign: 'right' }}>{strategyData[id] ?? '~'}</Dt>
                 </DlGroup>
               </Fragment>
             ))}
