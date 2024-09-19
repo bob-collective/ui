@@ -1,7 +1,7 @@
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { Tabs, TabsItem } from '@gobob/ui';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { Main } from '../../components';
 import { L1_CHAIN, L2_CHAIN } from '../../constants';
@@ -22,7 +22,7 @@ enum Type {
 const Bridge = () => {
   const location = useLocation();
 
-  const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
+  const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
   const [type, setType] = useState((searchParams.get('type') as Type) || Type.Deposit);
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.Internal);
@@ -43,8 +43,6 @@ const Bridge = () => {
   }, []);
 
   const [chain, setChain] = useState<ChainId | 'BTC'>(initialChain);
-
-  const navigate = useNavigate();
 
   // const [isFaultProofNoticeHidden, setFaultProofNoticeHidden] = useLocalStorage(
   //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
@@ -80,24 +78,26 @@ const Bridge = () => {
   // }, [setFaultProofNoticeHidden]);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    searchParams.set('type', type);
-    navigate({ search: searchParams.toString() }, { replace: true });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type]);
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-
     const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
 
-    searchParams.set('network', network);
-    navigate({ search: searchParams.toString() }, { replace: true });
+    setSearchParams(
+      (prev) => {
+        const urlSearchParams = new URLSearchParams(prev);
+
+        urlSearchParams.set('type', type);
+        urlSearchParams.set('network', network);
+
+        if (chain !== 'BTC') {
+          urlSearchParams.delete('receive');
+        }
+
+        return urlSearchParams;
+      },
+      { replace: true }
+    );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chain]);
+  }, [type, chain]);
 
   useEffect(() => {
     if (location?.state?.setBridgeToBtc) {

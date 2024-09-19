@@ -32,6 +32,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
 import { FuelStation } from '@gobob/icons';
 import { GatewayQuote } from '@gobob/bob-sdk';
+import { useSearchParams } from 'react-router-dom';
 
 import { TransactionDetails } from '../../../../components';
 import { isProd, L2_CHAIN } from '../../../../constants';
@@ -86,6 +87,7 @@ const BtcBridgeForm = ({
   const queryClient = useQueryClient();
 
   const { address: evmAddress } = useAccount();
+  const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
@@ -107,7 +109,7 @@ const BtcBridgeForm = ({
   const [amount, setAmount] = useState('');
   const debouncedAmount = useDebounce(amount, 300);
 
-  const [receiveTicker, setReceiveTicker] = useState(availableTokens[0].currency.symbol);
+  const [receiveTicker, setReceiveTicker] = useState(searchParams.get('receive') ?? availableTokens[0].currency.symbol);
 
   const [isGasNeeded, setGasNeeded] = useState(true);
 
@@ -366,7 +368,19 @@ const BtcBridgeForm = ({
         size='lg'
         type='modal'
         {...mergeProps(form.getSelectFieldProps(BRIDGE_TICKER), {
-          onSelectionChange: (value: string) => setReceiveTicker(value)
+          onSelectionChange: (value: string) => {
+            setReceiveTicker(value);
+            setSearchParams(
+              (prev) => {
+                const urlSearchParams = new URLSearchParams(prev);
+
+                urlSearchParams.set('receive', value);
+
+                return urlSearchParams;
+              },
+              { replace: true }
+            );
+          }
         })}
       >
         {(data) => (

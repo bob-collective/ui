@@ -2,7 +2,7 @@ import { GatewayQuote } from '@gobob/bob-sdk';
 import { AuthButton } from '@gobob/connect-ui';
 import { CurrencyAmount } from '@gobob/currency';
 import { FuelStation } from '@gobob/icons';
-import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
+import { INTERVAL, Optional, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
 import {
   BtcAddressType,
   useAccount as useSatsAccount,
@@ -31,8 +31,8 @@ import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Address } from 'viem';
-import { Optional } from '@gobob/react-query';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 
 import { isProd } from '../../../../constants';
@@ -88,6 +88,8 @@ const BtcStakeForm = ({
   onFailGateway
 }: BtcBridgeFormProps): JSX.Element => {
   const queryClient = useQueryClient();
+
+  const [_, setSearchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
   const { address: evmAddress } = useAccount();
 
@@ -352,7 +354,19 @@ const BtcStakeForm = ({
         size='lg'
         type='modal'
         {...mergeProps(form.getSelectFieldProps(STAKE_STRATEGY), {
-          onSelectionChange: (value: string) => onStrategyChange(value)
+          onSelectionChange: (value: string) => {
+            onStrategyChange(value);
+            setSearchParams(
+              (prev) => {
+                const urlSearchParams = new URLSearchParams(prev);
+
+                urlSearchParams.set('stakeWith', value);
+
+                return urlSearchParams;
+              },
+              { replace: true }
+            );
+          }
         })}
       >
         {(data) => (
