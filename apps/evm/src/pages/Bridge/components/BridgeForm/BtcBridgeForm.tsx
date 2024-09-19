@@ -274,7 +274,7 @@ const BtcBridgeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setReceiveTicker(initialTicker);
+    setReceiveTicker(searchParams.get('receive') ?? initialTicker);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableTokens]);
@@ -320,7 +320,7 @@ const BtcBridgeForm = ({
   const initialValues = useMemo(
     () => ({
       [BRIDGE_AMOUNT]: '',
-      [BRIDGE_TICKER]: receiveTicker,
+      [BRIDGE_TICKER]: searchParams.get('receive') ?? receiveTicker,
       [BRIDGE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
