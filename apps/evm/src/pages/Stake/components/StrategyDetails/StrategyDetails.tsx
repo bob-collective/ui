@@ -1,11 +1,11 @@
 import { Avatar, CardProps, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, P, Spinner } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
 import { Fragment, useMemo } from 'react';
+import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 
 import { chainL2 } from '../../../../constants';
 import { StrategyData } from '../StakeForm/StakeForm';
 
-import { PellNetwork } from './PellNetwork';
 import { StyledSection, StyledStrategyDetails } from './StrategyDetails.style';
 
 type TransactionListProps = CardProps & {
@@ -14,7 +14,7 @@ type TransactionListProps = CardProps & {
 };
 
 const strategyDetails = [
-  { id: 'name', name: 'Project Name' },
+  { id: 'name', name: 'Name' },
   { id: 'category', name: 'Category' },
   { id: 'website', name: 'Website' },
   { id: 'incentives', name: 'Incentives' },

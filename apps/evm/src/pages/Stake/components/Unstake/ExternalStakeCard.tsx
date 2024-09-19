@@ -1,9 +1,11 @@
 import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 import { BTC } from '@gobob/icons';
+import { SolvBTCBBN } from '@gobob/icons/src/SolvBTCBBN';
+import { UniBTC } from '@gobob/icons/src/UniBTC';
+import { PellNetwork } from '@gobob/icons/src/PellNetwork';
+import { Segment } from '@gobob/icons/src/Segment';
+import { Shoebill } from '@gobob/icons/src/Shoebill';
 
-import { SolvBTCBBN } from '../StrategyDetails/SolvBTCBBN';
-import { UniBTC } from '../StrategyDetails/UniBTC';
-import { PellNetwork } from '../StrategyDetails/PellNetwork';
 import { Type } from '../../Stake';
 
 type ExternalBridge = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network' | 'segment' | 'shoebill';
@@ -34,18 +36,18 @@ const bridges: Record<
   'pell-network': {
     href: 'https://app.pell.network/restake',
     icon: PellNetwork,
-    name: 'Pell network',
+    name: 'Pell Network',
     disabled: false
   },
   segment: {
     href: 'https://app.segment.finance/#/',
-    icon: BTC,
+    icon: Segment,
     name: 'Segment Finance',
     disabled: false
   },
   shoebill: {
     href: 'https://bob-btc.shoebill.finance/#/',
-    icon: BTC,
+    icon: Shoebill,
     name: 'Shoebill Finance',
     disabled: false
   }

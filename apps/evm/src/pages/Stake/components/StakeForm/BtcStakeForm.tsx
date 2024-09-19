@@ -33,6 +33,7 @@ import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
 import { Optional } from '@gobob/react-query';
+import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 
 import { isProd } from '../../../../constants';
 import { useGetTransactions } from '../../../../hooks';
@@ -48,7 +49,6 @@ import {
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { bridgeKeys } from '../../../../lib/react-query';
 import { GatewayData } from '../../../../types';
-import { PellNetwork } from '../StrategyDetails/PellNetwork';
 import { Type } from '../../Stake';
 
 import { StrategyData } from './StakeForm';

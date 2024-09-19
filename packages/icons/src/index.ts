@@ -30,3 +30,8 @@ export { Twitter } from './Twitter';
 export { UnisatWallet } from './UnisatWallet';
 export { WalletConnect } from './WalletConnect';
 export { Xverse } from './Xverse';
+export { PellNetwork } from './PellNetwork';
+export { Segment } from './Segment';
+export { Shoebill } from './Shoebill';
+export { SolvBTCBBN } from './SolvBTCBBN';
+export { UniBTC } from './UniBTC';
