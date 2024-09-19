@@ -3,6 +3,7 @@ import yup, { MaxAmountValidationParams, MinAmountValidationParams } from './yup
 const STAKE_AMOUNT = 'stake-amount';
 const STAKE_STRATEGY = 'stake-strategy';
 const STAKE_RECIPIENT = 'stake-recipient';
+const STAKE_BTC_WALLET = 'stake-btc-wallet';
 
 type StakeFormValues = {
   [STAKE_AMOUNT]?: string;
@@ -13,6 +14,7 @@ type StakeFormValues = {
 type StakeFormValidationParams = {
   [STAKE_AMOUNT]: MaxAmountValidationParams & MinAmountValidationParams;
   [STAKE_RECIPIENT]: boolean;
+  [STAKE_BTC_WALLET]: string | undefined;
 };
 
 const stakeSchema = (params: StakeFormValidationParams) => {
@@ -20,6 +22,7 @@ const stakeSchema = (params: StakeFormValidationParams) => {
     [STAKE_AMOUNT]: yup
       .string()
       .requiredAmount('stake')
+      .btcWalletConnected(params[STAKE_BTC_WALLET])
       .maxAmount(params[STAKE_AMOUNT], 'stake')
       .minAmount(params[STAKE_AMOUNT], 'stake'),
     [STAKE_STRATEGY]: yup.string().required(),
@@ -29,5 +32,5 @@ const stakeSchema = (params: StakeFormValidationParams) => {
   });
 };
 
-export { STAKE_AMOUNT, STAKE_STRATEGY, STAKE_RECIPIENT, stakeSchema };
+export { STAKE_AMOUNT, STAKE_STRATEGY, STAKE_RECIPIENT, STAKE_BTC_WALLET, stakeSchema };
 export type { StakeFormValidationParams, StakeFormValues };
