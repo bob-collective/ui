@@ -14,10 +14,78 @@ type TransactionListProps = CardProps & {
 };
 
 const strategyDetails = [
-  { id: 'name', name: 'Name' },
-  { id: 'lst', name: 'LST' },
-  { id: 'apr', name: 'APR' }
+  { id: 'name', name: 'Project Name' },
+  { id: 'category', name: 'Category' },
+  { id: 'website', name: 'Website' },
+  { id: 'incentives', name: 'Incentives' },
+  { id: 'token', name: 'Staking Token' },
+  { id: 'about', name: 'About' }
 ] as const;
+
+const stakingInfo = {
+  'bedrock-unibtc': {
+    category: 'Liquid Staking',
+    website: 'https://app.bedrock.technology/unibtc',
+    incentives: 'Spice + Bedrock Diamonds + Babylon Points',
+    about:
+      'uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and Bedrock diamonds.'
+  },
+  'pell-solvbtcbbn': {
+    category: 'Restaking',
+    website: 'https://app.pell.network/restake',
+    incentives: 'Spice + Solv XP + Babylon Points',
+    about: 'Restake SolvBTC.BBN into Pell to secure actively validated services via proof of stake mechanism.'
+  },
+  'pell-unibtc': {
+    category: 'Restaking',
+    website: 'https://app.pell.network/restake',
+    incentives: 'Spice + Bedrock Diamond + Babylon Points',
+    about: 'Restake uniBTC into Pell to secure actively validated services via proof of stake mechanism.'
+  },
+  'segment-tbtc': {
+    category: 'Lending',
+    website: 'https://app.segment.finance/#/',
+    incentives: 'Spice + Segment Points + Supply APR',
+    about: 'Supply tBTC into Segment to earn interest.'
+  },
+  'segment-wbtc': {
+    category: 'Lending',
+    website: 'https://app.segment.finance/#/',
+    incentives: 'Spice + Segment Points + Supply APR',
+    about: 'Supply wBTC into Segment to earn interest.'
+  },
+  'shoebill-tbtc': {
+    category: 'Lending',
+    website: 'https://bob-btc.shoebill.finance/#/',
+    incentives: 'Spice + Shoebill Points + Supply APR',
+    about: 'Supply tBTC into Shoebill to earn interest.'
+  },
+  'shoebill-wbtc': {
+    category: 'Lending',
+    website: 'https://bob-btc.shoebill.finance/#/',
+    incentives: 'Spice + Shoebill Points + Supply APR',
+    about: 'Supply wBTC into Shoebill to earn interest.'
+  },
+  'solv-solvbtcbbn': {
+    category: 'Liquid Staking',
+    website: 'https://app.solv.finance/babylon?network=bob',
+    incentives: 'Spice + Solv XP + Babylon Points',
+    about:
+      'SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points.'
+  }
+};
+
+const stakingInfoAny = stakingInfo as Record<string, (typeof stakingInfo)[keyof typeof stakingInfo] | undefined>;
+
+const getWebsiteUrl = (strategy: StrategyData | undefined) => {
+  const websiteUrl = stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website;
+
+  return websiteUrl ? (
+    <Link external href={websiteUrl} size='md' underlined='always'>
+      {websiteUrl}
+    </Link>
+  ) : undefined;
+};
 
 const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionListProps): JSX.Element => {
   const strategyData = useMemo(
@@ -32,7 +100,10 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
           <P size='md'>{strategy?.raw.integration.name}</P>
         </Flex>
       ),
-      lst: strategy?.raw.outputToken?.address ? (
+      category: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.category,
+      website: getWebsiteUrl(strategy),
+      incentives: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.incentives,
+      token: strategy?.raw.outputToken?.address ? (
         <Link
           external
           href={new URL(
@@ -45,7 +116,7 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
           {truncateEthAddress(strategy?.raw.outputToken?.address)}
         </Link>
       ) : undefined,
-      apr: '~'
+      about: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.about
     }),
     [strategy]
   );
