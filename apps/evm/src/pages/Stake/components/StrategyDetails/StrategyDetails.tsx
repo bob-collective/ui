@@ -1,6 +1,6 @@
-import { Avatar, CardProps, Dd, Dl, DlGroup, Dt, Flex, Link, P, Spinner } from '@gobob/ui';
+import { Avatar, CardProps, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, P, Spinner } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 
 import { chainL2 } from '../../../../constants';
 import { StrategyData } from '../StakeForm/StakeForm';
@@ -67,11 +67,14 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
           </Flex>
         ) : (
           <Dl direction='column'>
-            {strategyDetails.map(({ id, name }) => (
-              <DlGroup key={id} alignItems='center' justifyContent='space-between'>
-                <Dd size='md'>{name}</Dd>
-                <Dt>{strategyData[id] ?? '~'}</Dt>
-              </DlGroup>
+            {strategyDetails.map(({ id, name }, index) => (
+              <Fragment key={id}>
+                {index !== 0 && <Divider />}
+                <DlGroup alignItems='center' justifyContent='space-between'>
+                  <Dd size='md'>{name}</Dd>
+                  <Dt>{strategyData[id] ?? '~'}</Dt>
+                </DlGroup>
+              </Fragment>
             ))}
           </Dl>
         )}
