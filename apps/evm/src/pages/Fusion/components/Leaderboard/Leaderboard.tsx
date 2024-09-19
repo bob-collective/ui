@@ -224,7 +224,7 @@ const Leaderboard = (): JSX.Element => {
     }));
 
   return (
-    <Flex direction='column' gap='2xl' marginTop='3xl'>
+    <Flex direction='column' gap='2xl' marginTop='8xl'>
       <H2 size='3xl'>Leaderboard</H2>
       <Tabs selectedKey={tab} onSelectionChange={(key) => setTab(key as LeaderboardTabs)}>
         <TabsItem key={LeaderboardTabs.SEASON} title='Season Three'>

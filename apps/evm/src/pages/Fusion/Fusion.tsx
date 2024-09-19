@@ -8,7 +8,7 @@ import { LocalStorageKey } from '../../constants';
 import { useGetUser } from '../../hooks';
 import { useGetApps } from '../Apps/hooks';
 
-import { Challenges, Leaderboard, UserInfo, WelcomeModal } from './components';
+import { Challenges, CommunityVoting, Leaderboard, Strategies, UserInfo, WelcomeModal } from './components';
 import { useGetQuests } from './hooks';
 
 const Fusion = () => {
@@ -36,7 +36,9 @@ const Fusion = () => {
       <Main maxWidth='7xl' padding='lg'>
         {/* <SeasonInfo /> */}
         <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
+        <Strategies />
         <Challenges quests={quests} />
+        <CommunityVoting />
         <Leaderboard />
         {user && (
           <WelcomeModal

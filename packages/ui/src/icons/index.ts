@@ -37,6 +37,7 @@ export { PuzzlePiece } from './PuzzlePiece';
 export { QuestionMarkCircle } from './QuestionMarkCircle';
 export { SolidClock } from './SolidClock';
 export { SolidDocumentDuplicate } from './SolidDocumentDuplicate';
+export { SolidGift } from './SolidGift';
 export { SolidInformationCircle } from './SolidInformationCircle';
 export { SolidShieldCheck } from './SolidShieldCheck';
 export { StickyNote } from './StickyNote';

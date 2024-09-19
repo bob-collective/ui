@@ -1,18 +1,20 @@
 import { Spice } from '@gobob/icons';
-import { ArrowRight, Bars3, Button, Divider, Dl, DlGroup, Dt, Flex, H3, Link, P, Span, useLocale } from '@gobob/ui';
+import { Bars3, Button, Divider, Dl, DlGroup, Dt, Flex, H3, Link, P, Span, useLocale, useMediaQuery } from '@gobob/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
+import { useTheme } from 'styled-components';
+import { INTERVAL, useQuery } from '@gobob/react-query';
 
-import { QuestS3Response, UserResponse } from '../../../../utils';
+import { apiClient, QuestS3Response, UserResponse } from '../../../../utils';
 import { AppData } from '../../../Apps/hooks';
 import { LoginSection } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
-import { Barometer } from '../SeasonInfo/Barometer';
+import { fusionKeys } from '../../../../lib/react-query';
 
+import { Barometer } from './Barometer';
 import {
   StyledArrowRight,
-  StyledDl,
   StyledLoginCard,
   StyledOverlay,
   StyledSolidDocumentDuplicate,
@@ -22,6 +24,7 @@ import {
 import { UserInfoCard } from './UserInfoCard';
 import { UserAppsModal } from './UsedAppsModal';
 import { UserReferralModal } from './UserReferralModal';
+import { MultipliersModal } from './MultipliersModal';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -31,11 +34,21 @@ type UserInfoProps = {
 };
 
 const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
   const { locale } = useLocale();
   const navigate = useNavigate();
   const [, copy] = useCopyToClipboard();
 
-  const [isUserAssetsModalOpen, setUserAssetsModalOpen] = useState(false);
+  const { data: tvlLevel } = useQuery({
+    queryKey: fusionKeys.tvlLevel(),
+    queryFn: () => apiClient.getLevelData(),
+    refetchInterval: INTERVAL.MINUTE,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
+  });
+
+  const [isMultipliersModalOpen, setMultipliersModalOpen] = useState(false);
   const [isUserAppsModalOpen, setUserAppsModalOpen] = useState(false);
   const [isUserReferralModalOpen, setUserReferralModalOpen] = useState(false);
 
@@ -49,72 +62,82 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   const totalPoints = user?.season3Data.s3LeaderboardData[0].total_points || 0;
 
-  const milestoneReward = totalPoints * 2;
+  const milestoneReward = totalPoints * Number(tvlLevel?.multiplier || 0);
+
+  const currentLevelTvlGoal = Number(tvlLevel?.tvlGoal || 0);
 
   return (
     <StyledUserInfoWrapper direction='column'>
-      <Dl flex={1}>
+      <Dl direction={{ base: 'column', s: 'row' }} flex={1} margin={{ base: '0 auto' as any, s: 'none' }}>
         <DlGroup alignItems='flex-start' direction='column' flex={1}>
           <Dt>Season 3 Harvested Spice</Dt>
-          <Flex alignItems='center' elementType='dd' gap='s'>
-            <Span size='4xl'>{Intl.NumberFormat(locale).format(totalPoints)}</Span>
-            <Spice size='md' />
-            <Span size='xs'>(+{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerDay || 0)}/Day)</Span>
-          </Flex>
-        </DlGroup>
-        <Flex alignSelf='center' color='grey-50' elementType={ArrowRight} />
-        <DlGroup alignItems='flex-end' direction='column' flex={1}>
-          <Dt>Early Bird 2x Spice Bonus</Dt>
-          <Flex alignItems='flex-end' direction='column' elementType='dd' gap='s'>
-            <Flex alignItems='center' elementType='dd' gap='s'>
-              <Span size='4xl'>+{Intl.NumberFormat(locale).format(milestoneReward)}</Span>
+          <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
+            <Flex alignItems='center' elementType={Span} gap='s' {...{ size: '4xl' }}>
+              {Intl.NumberFormat(locale, { maximumFractionDigits: isMobile ? 0 : 2 }).format(totalPoints)}
               <Spice size='md' />
             </Flex>
-            <Span color='grey-50'>Unlocks at $50M</Span>
+            <Flex alignItems='center' color='grey-50' elementType={Span} gap='xxs' {...{ size: 's' }}>
+              (+{Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(spicePerDay || 0)}
+              <Spice size='xs' />
+              /Day)
+            </Flex>
+          </Flex>
+        </DlGroup>
+        <Flex alignSelf='center' color='grey-50' elementType={Span} {...{ size: '4xl' }}>
+          +
+        </Flex>
+        <DlGroup alignItems={{ base: 'flex-start', s: 'flex-end' }} direction='column' flex={1}>
+          <Dt noWrap>
+            Early Bird (Phase {tvlLevel?.levelNumber || 0}) - {tvlLevel?.multiplier}x Spice Bonus
+          </Dt>
+          <Flex alignItems={{ base: 'flex-start', s: 'flex-end' }} direction='column' elementType='dd'>
+            <Flex alignItems='center' elementType='dd' gap='s'>
+              <Span size='4xl'>
+                {Intl.NumberFormat(locale, { maximumFractionDigits: isMobile ? 0 : 2 }).format(milestoneReward)}
+              </Span>
+              <Spice size='md' />
+            </Flex>
+            <Span color='grey-50' size='s'>
+              Unlocks at{' '}
+              {Intl.NumberFormat(locale, { notation: 'compact', currency: 'USD', style: 'currency' }).format(
+                currentLevelTvlGoal
+              )}
+            </Span>
           </Flex>
         </DlGroup>
       </Dl>
-      <Barometer value={45000000} />
-      <Dl>
-        <DlGroup alignItems='center'>
+      <Barometer
+        level={tvlLevel?.levelNumber ? Number(tvlLevel?.levelNumber) : undefined}
+        maxValue={currentLevelTvlGoal}
+        value={Number(tvlLevel?.currentTvl || 0)}
+      />
+      <Dl marginTop='md'>
+        <DlGroup wrap alignItems='center'>
           <Dt size='s'>Season 1 & 2 Total Spice (Completed):</Dt>
           <Flex alignItems='center' elementType='dd' gap='xs'>
             <Spice size='xs' />
-            <Span size='xs'>{Intl.NumberFormat(locale).format(user?.leaderboardRank.total_points || 0)}</Span>
+            <Span size='xs'>
+              {Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(user?.leaderboardRank.total_points || 0)}
+            </Span>
           </Flex>
         </DlGroup>
       </Dl>
-      <StyledDl
+      <Flex gap='md' justifyContent={{ base: 'center', s: 'flex-end' }} marginTop='2xl'>
+        <Button variant='outline' onPress={() => setMultipliersModalOpen(true)}>
+          View Multipliers
+        </Button>
+        <Button color='primary' elementType={Link} {...{ href: RoutesPath.BRIDGE }}>
+          Bridge More
+        </Button>
+        <MultipliersModal isOpen={isMultipliersModalOpen} onClose={() => setMultipliersModalOpen(false)} />
+      </Flex>
+      <Dl
         aria-hidden={!isAuthenticated && 'true'}
-        direction={{ base: 'column', md: 'row' }}
+        direction={{ base: 'column', s: 'row' }}
         flex={1}
         gap='lg'
-        marginTop={{ base: '4xl', md: '6xl' }}
+        marginTop='2xl'
       >
-        <UserInfoCard description={user?.referral_code} title='Your Referral Code'>
-          <Flex gap='md' marginTop='xl'>
-            {hasReferrals && (
-              <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
-                <Bars3 />
-              </Button>
-            )}
-            <Button
-              fullWidth
-              disabled={!isAuthenticated}
-              variant='outline'
-              onPress={() => copy(user?.referral_code || '')}
-            >
-              Copy <StyledSolidDocumentDuplicate size='xs' />
-            </Button>
-          </Flex>
-          {user && hasReferrals && (
-            <UserReferralModal
-              isOpen={isUserReferralModalOpen}
-              user={user}
-              onClose={() => setUserReferralModalOpen(false)}
-            />
-          )}
-        </UserInfoCard>
         <UserInfoCard description={harvestedApps?.length || 0} title='Apps Used'>
           <Flex gap='md' marginTop='xl'>
             {!!harvestedApps?.length && (
@@ -152,7 +175,31 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             Solve Challenges
           </Button>
         </UserInfoCard>
-      </StyledDl>
+        <UserInfoCard description={user?.referral_code} title='Your Referral Code'>
+          <Flex gap='md' marginTop='xl'>
+            {hasReferrals && (
+              <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
+                <Bars3 />
+              </Button>
+            )}
+            <Button
+              fullWidth
+              disabled={!isAuthenticated}
+              variant='outline'
+              onPress={() => copy(user?.referral_code || '')}
+            >
+              Copy <StyledSolidDocumentDuplicate size='xs' />
+            </Button>
+          </Flex>
+          {user && hasReferrals && (
+            <UserReferralModal
+              isOpen={isUserReferralModalOpen}
+              user={user}
+              onClose={() => setUserReferralModalOpen(false)}
+            />
+          )}
+        </UserInfoCard>
+      </Dl>
       {!isAuthenticated && (
         <>
           <StyledUnderlay />

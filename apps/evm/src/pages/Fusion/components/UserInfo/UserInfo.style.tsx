@@ -1,61 +1,5 @@
-import { ArrowRight, Card, Dl, Flex, SolidDocumentDuplicate } from '@gobob/ui';
-import styled, { css } from 'styled-components';
-
-const StyledDl = styled(Dl)`
-  ${({ theme }) => {
-    return css`
-      display: grid;
-      grid-auto-rows: auto;
-
-      grid-template-columns: repeat(1, 1fr);
-
-      @media ${theme.breakpoints.up('s')} {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-      }
-
-      @media ${theme.breakpoints.up('md')} {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      @media ${theme.breakpoints.up('lg')} {
-        display: flex;
-      }
-    `;
-  }}
-`;
-
-const StyledCard = styled(Card)`
-  ${({ theme }) => {
-    return css`
-      @media ${theme.breakpoints.up('s')} {
-        &:first-of-type {
-          grid-column: span 3 / span 3;
-        }
-
-        &:nth-of-type(3),
-        &:last-child {
-          grid-column: span 1 / span 1;
-        }
-      }
-
-      @media ${theme.breakpoints.up('md')} {
-        &:first-of-type {
-          grid-column: span 3 / span 3;
-        }
-
-        &:nth-of-type(3) {
-          grid-column: span 1 / span 1;
-        }
-
-        &:nth-of-type(3),
-        &:last-child {
-          grid-column: span 2 / span 2;
-        }
-      }
-    `;
-  }}
-`;
+import { ArrowRight, Card, Flex, SolidDocumentDuplicate } from '@gobob/ui';
+import styled from 'styled-components';
 
 const StyledUnderlay = styled.div`
   top: -0.75rem;
@@ -84,6 +28,8 @@ const StyledAmountWrapper = styled(Flex)`
 
 const StyledUserInfoWrapper = styled(Flex)`
   position: relative;
+  max-width: ${({ theme }) => theme.maxWidth('4xl')};
+  margin: 0 auto;
 `;
 
 const StyledArrowRight = styled(ArrowRight)`
@@ -94,14 +40,23 @@ const StyledSolidDocumentDuplicate = styled(SolidDocumentDuplicate)`
   margin-left: ${({ theme }) => theme.spacing('xs')};
 `;
 
+const StyledHarvestArrow = styled(ArrowRight)`
+  transform: rotate(90deg);
+
+  align-self: center;
+
+  @media ${({ theme }) => theme.breakpoints.up('md')} {
+    transform: unset;
+  }
+`;
+
 export {
-  StyledDl,
-  StyledArrowRight,
-  StyledUserInfoWrapper,
   StyledAmountWrapper,
+  StyledArrowRight,
+  StyledHarvestArrow,
   StyledLoginCard,
   StyledOverlay,
-  StyledUnderlay,
   StyledSolidDocumentDuplicate,
-  StyledCard
+  StyledUnderlay,
+  StyledUserInfoWrapper
 };

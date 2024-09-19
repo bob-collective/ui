@@ -541,8 +541,13 @@ class ApiClient {
     return await response.json();
   }
 
-  async getBarometerTVL(): Promise<{ totalTvl: string }> {
-    const response = await fetch(`${this.baseUrl}/get-barometer-tvl`);
+  async getLevelData(): Promise<{
+    currentTvl: string;
+    tvlGoal: string;
+    multiplier: string;
+    levelNumber: string;
+  }> {
+    const response = await fetch(`${this.baseUrl}/get-leveldata`);
 
     return await response.json();
   }

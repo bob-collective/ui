@@ -17,8 +17,8 @@ import {
 import { formatDistanceToNow } from 'date-fns';
 
 import { SpiceChip } from '../SpiceChip';
-import { LoginButton } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
+import { LoginButton } from '../../../../components';
 
 type Props = { isAuthenticated?: boolean; roundEndsAt?: string; votesRemaining?: number };
 

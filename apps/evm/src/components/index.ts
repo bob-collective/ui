@@ -8,3 +8,4 @@ export * from './TransactionDetails';
 export * from './TransactionModal';
 export * from './Trapezoid';
 export * from './WithdrawAlert';
+export * from './LoginButton';
