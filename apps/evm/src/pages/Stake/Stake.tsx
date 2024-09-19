@@ -1,7 +1,8 @@
-import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { Tabs, TabsItem } from '@gobob/ui';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Key, useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
+import { isProd } from '../../constants';
 import { Main } from '../../components';
 
 import { BannerCarousel, StakingForm, StrategyDetails } from './components';
@@ -13,20 +14,22 @@ enum Type {
   Unstake = 'unstake'
 }
 
+const INITIAL_SELECTED_STRATEGY_SLUG = 'solv-solvbtcbbn';
+
 const Stake = () => {
   const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakingStrategies();
 
-  const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
+  const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
-  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0]?.raw.integration.slug);
+  const [selectedStrategy, setSelectedStrategy] = useState(
+    searchParams.get('stakeWith') ?? (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug)
+  );
 
   if (!selectedStrategy && strategies.length > 0) {
     setSelectedStrategy(strategies[0].raw.integration.slug);
   }
 
   const [type, setType] = useState((searchParams.get('type') as Type) || Type.Stake);
-
-  const navigate = useNavigate();
 
   const handleChangeTab = useCallback((key: Key) => {
     setType(key as Type);
@@ -38,13 +41,19 @@ const Stake = () => {
   );
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
+    setSearchParams(
+      (prev) => {
+        const urlSearchParams = new URLSearchParams(prev);
 
-    searchParams.set('type', type);
-    navigate({ search: searchParams.toString() }, { replace: true });
+        urlSearchParams.set('type', type);
+        urlSearchParams.set('stakeWith', selectedStrategy);
 
+        return urlSearchParams;
+      },
+      { replace: true }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type]);
+  }, [type, selectedStrategy]);
 
   return (
     <Main maxWidth='5xl' padding='md'>
