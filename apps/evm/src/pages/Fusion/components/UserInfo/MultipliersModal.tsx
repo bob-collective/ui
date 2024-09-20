@@ -1,12 +1,16 @@
-import { NATIVE } from '@gobob/tokens';
-import { Modal, ModalBody, ModalHeader, ModalProps, P, Skeleton, Span, Table, useLocale } from '@gobob/ui';
-import { ReactNode } from 'react';
+import { Flex, H3, Modal, ModalBody, ModalHeader, ModalProps, P, Skeleton, Span, Table, useLocale } from '@gobob/ui';
+import { ReactNode, useCallback, useId } from 'react';
 import { Address, isAddressEqual } from 'viem';
 
-import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
-import { useBridgeTokens } from '../../../../hooks';
 import { useGetTokensInfo } from '../../hooks';
+import { TokenInfo } from '../../../../utils';
 
+const yieldAssetsAddresses = [
+  '0x236f8c0a61da474db21b693fb2ea7aab0c803894',
+  '0xcc0966d8418d412c599a6421b760a847eb169a8c'
+];
+
+const BASE_MULTIPLIER = 0.5;
 const LEDING_MULTIPLIER = 1.5;
 const DEX_MULTIPLIER = 5;
 
@@ -54,66 +58,95 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type MultipliersModalProps = Props & InheritAttrs;
 
-const nativeToken = NATIVE[L2_CHAIN];
-
 const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
-  const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
   const { locale } = useLocale();
 
-  const { data: tokensInfo, isLoading: isLoadingTokensInfo } = useGetTokensInfo();
+  const { data: tokensInfo } = useGetTokensInfo();
 
-  const data = tokens
-    ?.map((token) => {
-      if (token.l1Currency.isNative) {
-        const tokenInfo = tokensInfo?.find((info) => info.symbol === 'eth');
+  const featuredAssetId = useId();
+  const yieldAssetId = useId();
+  const baseAssetId = useId();
 
-        return {
-          logoUrl: token.l1Token.logoUrl,
-          symbol: nativeToken.symbol,
-          multiplier: Number(tokenInfo?.multiplier)
-        };
-      }
+  const getRow = useCallback(
+    (item: Pick<TokenInfo, 'symbol' | 'multiplier'>, idx: number): TableRow => ({
+      id: idx,
+      [TableColumns.ASSET]: <AssetCell name={item.symbol} />,
+      [TableColumns.HOLDING]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(Number(item.multiplier || 0) * BASE_MULTIPLIER)}x`,
+      [TableColumns.LENDING]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(Number(item.multiplier || 0) * LEDING_MULTIPLIER)}x`,
+      [TableColumns.DEX]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(Number(item.multiplier || 0) * DEX_MULTIPLIER)}x`
+    }),
+    [locale]
+  );
 
-      const tokenInfo = tokensInfo?.find((info) => isAddressEqual(info.l2_address as Address, token.l2Token.address));
+  const sortedData = tokensInfo?.sort((a, b) => {
+    return Number(b.multiplier || 0) - Number(a.multiplier || 0); // If 'a' values are equal, sort by 'b'
+  });
 
-      return {
-        logoUrl: token.l1Token.logoUrl,
-        symbol: token.l1Token.symbol,
-        multiplier: Number(tokenInfo?.multiplier)
-      };
-    })
-    .filter((item) => Boolean(item.multiplier))
-    .sort((a, b) => {
-      return Number(b.multiplier || 0) - Number(a.multiplier || 0); // If 'a' values are equal, sort by 'b'
-    });
-
-  const rows: TableRow[] =
-    !isLoadingTokensInfo && data
-      ? data.map((item, idx) => ({
+  const baseAssetsRows = sortedData
+    ? sortedData
+        ?.filter(
+          (item) =>
+            !yieldAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
+        )
+        // TODO: remove when fBTC is added
+        .filter((item) => item.symbol !== 'fBTC')
+        .map(getRow)
+    : Array(10)
+        .fill(undefined)
+        .map((_, idx) => ({
           id: idx,
-          [TableColumns.ASSET]: <AssetCell name={item.symbol} />,
-          [TableColumns.HOLDING]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(item.multiplier)}x`,
-          [TableColumns.LENDING]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(item.multiplier * LEDING_MULTIPLIER)}x`,
-          [TableColumns.DEX]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(item.multiplier * DEX_MULTIPLIER)}x`
-        }))
-      : Array(10)
-          .fill(undefined)
-          .map((_, idx) => ({
-            id: idx,
-            [TableColumns.ASSET]: <Skeleton width='4xl' />,
-            [TableColumns.HOLDING]: <Skeleton width='4xl' />,
-            [TableColumns.LENDING]: <Skeleton width='4xl' />,
-            [TableColumns.DEX]: <Skeleton width='4xl' />
-          }));
+          [TableColumns.ASSET]: <Skeleton width='4xl' />,
+          [TableColumns.HOLDING]: <Skeleton width='4xl' />,
+          [TableColumns.LENDING]: <Skeleton width='4xl' />,
+          [TableColumns.DEX]: <Skeleton width='4xl' />
+        }));
+
+  const yieldAssetsRows = sortedData
+    ? sortedData
+        ?.filter((item) =>
+          yieldAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
+        )
+        .map(getRow)
+    : Array(2)
+        .fill(undefined)
+        .map((_, idx) => ({
+          id: idx,
+          [TableColumns.ASSET]: <Skeleton width='4xl' />,
+          [TableColumns.HOLDING]: <Skeleton width='4xl' />,
+          [TableColumns.LENDING]: <Skeleton width='4xl' />,
+          [TableColumns.DEX]: <Skeleton width='4xl' />
+        }));
+
+  const featuredAssetsRows = [getRow({ multiplier: '0', symbol: 'fBTC' }, 0)];
 
   return (
-    <Modal {...props} size='lg'>
+    <Modal {...props} size='xl'>
       <ModalHeader showDivider align='start'>
         Multipliers
       </ModalHeader>
       <ModalBody gap='2xl' padding='even'>
         <P color='grey-50'>Bridge High Priority assets to earn multipliers on your spice</P>
-        <Table removeWrapper columns={columns} rows={rows} />
+        <Flex direction='column' gap='md'>
+          <H3 id={featuredAssetId} size='md'>
+            Freatured Assets
+          </H3>
+          <Table removeWrapper aria-labelledby={featuredAssetId} columns={columns} rows={featuredAssetsRows} />
+        </Flex>
+        <Flex direction='column' gap='md'>
+          <H3 id={yieldAssetId} size='md'>
+            Yield Assets
+          </H3>
+          <Table removeWrapper aria-labelledby={yieldAssetId} columns={columns} rows={yieldAssetsRows} />
+        </Flex>
+        <Flex direction='column' gap='md'>
+          <H3 id={baseAssetId} size='md'>
+            Base Assets
+          </H3>
+          <Table removeWrapper aria-labelledby={baseAssetId} columns={columns} rows={baseAssetsRows} />
+        </Flex>
+        <P align='center' color='grey-50' size='xs'>
+          * The multipliers displayed are subject to change based on the payout structure of the respective projects.
+        </P>
       </ModalBody>
     </Modal>
   );

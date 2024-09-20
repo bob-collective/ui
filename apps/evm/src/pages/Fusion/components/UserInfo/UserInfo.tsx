@@ -1,5 +1,20 @@
 import { Spice } from '@gobob/icons';
-import { Bars3, Button, Divider, Dl, DlGroup, Dt, Flex, H3, Link, P, Span, useLocale, useMediaQuery } from '@gobob/ui';
+import {
+  Bars3,
+  Button,
+  Divider,
+  Dl,
+  DlGroup,
+  Dt,
+  Flex,
+  H3,
+  Link,
+  P,
+  Skeleton,
+  Span,
+  useLocale,
+  useMediaQuery
+} from '@gobob/ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
@@ -62,9 +77,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   const totalPoints = user?.season3Data.s3LeaderboardData[0].total_points || 0;
 
-  const milestoneReward = totalPoints * Number(tvlLevel?.multiplier || 0);
+  const milestoneReward = tvlLevel?.multiplier ? totalPoints * Number(tvlLevel?.multiplier) : undefined;
 
-  const currentLevelTvlGoal = Number(tvlLevel?.tvlGoal || 0);
+  const currentLevelTvlGoal = tvlLevel?.tvlGoal ? Number(tvlLevel?.tvlGoal) : 0;
 
   return (
     <StyledUserInfoWrapper direction='column'>
@@ -88,19 +103,36 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         </Flex>
         <DlGroup alignItems={{ base: 'flex-start', s: 'flex-end' }} direction='column' flex={1}>
           <Dt noWrap>
-            Early Bird (Phase {tvlLevel?.levelNumber || 0}) - {tvlLevel?.multiplier}x Spice Bonus
+            {tvlLevel ? (
+              <>
+                {tvlLevel?.levelName} (Phase {tvlLevel?.levelNumber || 0}) - {tvlLevel?.multiplier}x Spice Bonus
+              </>
+            ) : (
+              <Skeleton height='2xl' width='10xl' />
+            )}
           </Dt>
           <Flex alignItems={{ base: 'flex-start', s: 'flex-end' }} direction='column' elementType='dd'>
             <Flex alignItems='center' elementType='dd' gap='s'>
-              <Span size='4xl'>
-                {Intl.NumberFormat(locale, { maximumFractionDigits: isMobile ? 0 : 2 }).format(milestoneReward)}
-              </Span>
+              {milestoneReward !== undefined ? (
+                <Span size='4xl'>
+                  {Intl.NumberFormat(locale, { maximumFractionDigits: isMobile ? 0 : 2 }).format(milestoneReward)}
+                </Span>
+              ) : (
+                <Skeleton height='4xl' style={{ marginBottom: 8 }} width='10xl' />
+              )}
               <Spice size='md' />
             </Flex>
             <Span color='grey-50' size='s'>
-              Unlocks at{' '}
-              {Intl.NumberFormat(locale, { notation: 'compact', currency: 'USD', style: 'currency' }).format(
-                currentLevelTvlGoal
+              {currentLevelTvlGoal !== undefined ? (
+                <>
+                  Unlocks at{' '}
+                  {Intl.NumberFormat(locale, { notation: 'compact', currency: 'USD', style: 'currency' }).format(
+                    currentLevelTvlGoal
+                  )}{' '}
+                  TVL
+                </>
+              ) : (
+                <Skeleton height='xl' width='10xl' />
               )}
             </Span>
           </Flex>

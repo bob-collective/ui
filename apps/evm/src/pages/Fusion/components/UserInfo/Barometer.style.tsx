@@ -24,7 +24,7 @@ const StyledFillAddornment = styled.div`
   display: inline-flex;
   position: absolute;
   top: 50%;
-  transform: translate(-100%, -50%);
+  transform: translate(-50%, -50%);
   transition: width 100ms;
   will-change: width;
   background-color: ${({ theme }) => theme.color('primary-500')};
@@ -58,7 +58,6 @@ const StyledGift = styled(SolidGift)`
   right: 6px;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 0;
 `;
 
 const StyledStep = styled(Flex)`

@@ -26,12 +26,14 @@ type BarometerProps = {
 
 const minValue = 0;
 
-const Barometer = ({ value = minValue, maxValue = minValue, level }: BarometerProps) => {
+const Barometer = ({ value = minValue, maxValue = 100, level }: BarometerProps) => {
   const { locale } = useLocale();
   const percentage = getPercentage(value, minValue, maxValue);
 
   const barStyle: CSSProperties = { width: `${Math.round(percentage * 100)}%` };
-  const addornmentStyle: CSSProperties = { left: `${Math.round(percentage * 100)}%` };
+  const addornmentStyle: CSSProperties = {
+    left: `${Math.round(percentage * 100)}%`
+  };
 
   return (
     <StyledBarometer>
@@ -56,12 +58,13 @@ const Barometer = ({ value = minValue, maxValue = minValue, level }: BarometerPr
           }).format(value)}
         </StyledValue>
       </StyledFillAddornment>
-      <StyledGift color='grey-50' size='xs' />
+      {percentage < 0.98 && <StyledGift color='grey-50' size='xs' />}
       <StyledStep alignItems='center' gap='xs'>
         {level ? (
           <>
             <Span size='xs'>
-              {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', notation: 'compact' }).format(maxValue)}
+              {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', notation: 'compact' }).format(maxValue)}{' '}
+              TVL
             </Span>
             <ArrowRight size='xs' />
             <Span size='xs'>Phase {level + 1}</Span>

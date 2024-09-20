@@ -334,7 +334,7 @@ interface S3TotalDistributedPoint {
   sum: string;
 }
 
-interface TokenInfo {
+export interface TokenInfo {
   symbol: string;
   decimals: number;
   l2_address: string;
@@ -546,6 +546,7 @@ class ApiClient {
     tvlGoal: string;
     multiplier: string;
     levelNumber: string;
+    levelName: string;
   }> {
     const response = await fetch(`${this.baseUrl}/get-leveldata`);
 

@@ -7,7 +7,7 @@ type StrategiesProps = {};
 const Strategies = ({}: StrategiesProps) => {
   return (
     <Flex direction='column' gap='3xl' marginTop='8xl'>
-      <H2 size='3xl'>Community Voting</H2>
+      <H2 size='3xl'>Hot Strategies</H2>
       <Flex direction={{ base: 'column', md: 'row' }} gap='2xl'>
         <StrategyCard description='Supply your BTC LSTs into a lending market on BOB' title='BTC LST Lending' />
         <StrategyCard
