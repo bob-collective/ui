@@ -32,7 +32,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
 import { FuelStation } from '@gobob/icons';
 import { GatewayQuote } from '@gobob/bob-sdk';
-import { useSearchParams } from 'react-router-dom';
 
 import { TransactionDetails } from '../../../../components';
 import { isProd, L2_CHAIN } from '../../../../constants';
@@ -77,8 +76,6 @@ const MIN_DEPOSIT_AMOUNT = (gasRefill: boolean) =>
 
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
-const INITIAL_SELECTED_TOKEN_SYMBOL = 'SolvBTC.BBN';
-
 const BtcBridgeForm = ({
   type = Type.Deposit,
   availableTokens,
@@ -89,7 +86,6 @@ const BtcBridgeForm = ({
   const queryClient = useQueryClient();
 
   const { address: evmAddress } = useAccount();
-  const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
@@ -111,23 +107,7 @@ const BtcBridgeForm = ({
   const [amount, setAmount] = useState('');
   const debouncedAmount = useDebounce(amount, 300);
 
-  const initialTicker = isProd ? INITIAL_SELECTED_TOKEN_SYMBOL : availableTokens[0].currency.symbol;
-  const [receiveTicker, setReceiveTicker] = useState(searchParams.get('receive') ?? initialTicker);
-
-  useEffect(() => {
-    setSearchParams(
-      (prev) => {
-        const urlSearchParams = new URLSearchParams(prev);
-
-        urlSearchParams.set('receive', receiveTicker);
-        urlSearchParams.set('network', 'bitcoin');
-
-        return urlSearchParams;
-      },
-      { replace: true }
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [receiveTicker]);
+  const [receiveTicker, setReceiveTicker] = useState(availableTokens[0].currency.symbol);
 
   const [isGasNeeded, setGasNeeded] = useState(true);
 
@@ -260,7 +240,7 @@ const BtcBridgeForm = ({
     onSuccess: (data) => {
       setAmount('');
       form.resetForm();
-      setReceiveTicker(searchParams.get('receive') ?? initialTicker);
+      setReceiveTicker(availableTokens[0].currency.symbol);
       onGatewaySuccess?.(data);
       refetchGatewayTxs();
       queryClient.removeQueries({ queryKey: quoteQueryKey });
@@ -274,7 +254,7 @@ const BtcBridgeForm = ({
   useEffect(() => {
     form.resetForm();
 
-    setReceiveTicker(searchParams.get('receive') ?? initialTicker);
+    setReceiveTicker(availableTokens[0].currency.symbol);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [availableTokens]);
@@ -320,7 +300,7 @@ const BtcBridgeForm = ({
   const initialValues = useMemo(
     () => ({
       [BRIDGE_AMOUNT]: '',
-      [BRIDGE_TICKER]: searchParams.get('receive') ?? receiveTicker,
+      [BRIDGE_TICKER]: receiveTicker,
       [BRIDGE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -387,19 +367,7 @@ const BtcBridgeForm = ({
         size='lg'
         type='modal'
         {...mergeProps(form.getSelectFieldProps(BRIDGE_TICKER), {
-          onSelectionChange: (value: string) => {
-            setReceiveTicker(value);
-            setSearchParams(
-              (prev) => {
-                const urlSearchParams = new URLSearchParams(prev);
-
-                urlSearchParams.set('receive', value);
-
-                return urlSearchParams;
-              },
-              { replace: true }
-            );
-          }
+          onSelectionChange: (value: string) => setReceiveTicker(value)
         })}
       >
         {(data) => (
