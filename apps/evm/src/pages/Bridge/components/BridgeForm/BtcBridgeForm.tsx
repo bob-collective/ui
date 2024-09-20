@@ -116,7 +116,7 @@ const BtcBridgeForm = ({
       (prev) => {
         const urlSearchParams = new URLSearchParams(prev);
 
-        urlSearchParams.set('receive', receiveTicker);
+        if (receiveTicker) urlSearchParams.set('receive', receiveTicker);
         urlSearchParams.set('network', 'bitcoin');
 
         return urlSearchParams;

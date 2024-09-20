@@ -46,7 +46,7 @@ const Stake = () => {
         const urlSearchParams = new URLSearchParams(prev);
 
         urlSearchParams.set('type', type);
-        urlSearchParams.set('stakeWith', selectedStrategy);
+        if (selectedStrategy) urlSearchParams.set('stakeWith', selectedStrategy);
 
         return urlSearchParams;
       },
