@@ -30,7 +30,7 @@ import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Address } from 'viem';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
@@ -200,6 +200,12 @@ const BtcStakeForm = ({
     }
   });
 
+  const initialValues = {
+    [STAKE_AMOUNT]: '',
+    [STAKE_STRATEGY]: strategy?.raw.integration.slug,
+    [STAKE_RECIPIENT]: ''
+  };
+
   const stakeMutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
     mutationFn: async ({ evmAddress, gatewayQuote }: { evmAddress: Address; gatewayQuote: GatewayQuote }) => {
@@ -235,7 +241,7 @@ const BtcStakeForm = ({
     },
     onSuccess: (data) => {
       setAmount('');
-      form.resetForm();
+      form.resetForm({ values: initialValues });
       onGatewaySuccess?.(data);
       refetchGatewayTxs();
       queryClient.removeQueries({ queryKey: quoteQueryKey });
@@ -245,13 +251,6 @@ const BtcStakeForm = ({
       onFailGateway();
     }
   });
-
-  useEffect(() => {
-    form.resetForm();
-
-    setAmount('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [strategies]);
 
   const handleSubmit = async (data: StakeFormValues) => {
     if (!quoteData || !evmAddress) return;
@@ -291,16 +290,6 @@ const BtcStakeForm = ({
     };
   }, [satsBalance, availableLiquidity, satsFeeEstimate]);
 
-  const initialValues = useMemo(
-    () => ({
-      [STAKE_AMOUNT]: '',
-      [STAKE_STRATEGY]: strategy?.raw.integration.slug,
-      [STAKE_RECIPIENT]: ''
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
   const params: StakeFormValidationParams = {
     [STAKE_AMOUNT]: {
       minAmount:
@@ -320,7 +309,7 @@ const BtcStakeForm = ({
     hideErrors: 'untouched'
   });
 
-  const btcPrice = useMemo(() => getPrice('BTC'), [getPrice]);
+  const btcPrice = getPrice('BTC');
 
   const valueUSD = useMemo(() => new Big(amount || 0).mul(btcPrice || 0).toNumber(), [amount, btcPrice]);
 

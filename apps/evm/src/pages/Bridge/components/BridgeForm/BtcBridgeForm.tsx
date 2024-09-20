@@ -161,21 +161,16 @@ const BtcBridgeForm = ({
     }
   });
 
-  const hasLiquidity = useMemo(
-    () => availableLiquidity?.greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)),
-    [availableLiquidity, isGasNeeded]
-  );
+  const hasLiquidity = availableLiquidity?.greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded));
 
-  const quoteDataEnabled = useMemo(() => {
-    return Boolean(
-      currencyAmount &&
-        btcToken &&
-        evmAddress &&
-        btcAddress &&
-        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
-        hasLiquidity
-    );
-  }, [currencyAmount, btcToken, evmAddress, btcAddress, debouncedAmount, hasLiquidity, isGasNeeded]);
+  const quoteDataEnabled = Boolean(
+    currencyAmount &&
+      btcToken &&
+      evmAddress &&
+      btcAddress &&
+      CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
+      hasLiquidity
+  );
 
   const quoteQueryKey = bridgeKeys.btcQuote(
     evmAddress,
@@ -220,6 +215,12 @@ const BtcBridgeForm = ({
     }
   });
 
+  const initialValues = {
+    [BRIDGE_AMOUNT]: '',
+    [BRIDGE_TICKER]: receiveTicker,
+    [BRIDGE_RECIPIENT]: ''
+  };
+
   const depositMutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
     mutationFn: async ({ evmAddress, gatewayQuote }: { evmAddress: Address; gatewayQuote: GatewayQuote }) => {
@@ -256,8 +257,7 @@ const BtcBridgeForm = ({
     },
     onSuccess: (data) => {
       setAmount('');
-      form.resetForm();
-      setReceiveTicker(availableTokens[0].currency.symbol);
+      form.resetForm({ values: initialValues });
       onGatewaySuccess?.(data);
       refetchGatewayTxs();
       queryClient.removeQueries({ queryKey: quoteQueryKey });
@@ -267,14 +267,6 @@ const BtcBridgeForm = ({
       onFailGateway();
     }
   });
-
-  useEffect(() => {
-    form.resetForm();
-
-    setReceiveTicker(searchParams.get('receive') ?? availableTokens[0].currency.symbol);
-    setAmount('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [availableTokens]);
 
   const handleSubmit = async (data: BridgeFormValues) => {
     if (!quoteData || !evmAddress) return;
@@ -314,16 +306,6 @@ const BtcBridgeForm = ({
     };
   }, [satsBalance, availableLiquidity, satsFeeEstimate]);
 
-  const initialValues = useMemo(
-    () => ({
-      [BRIDGE_AMOUNT]: '',
-      [BRIDGE_TICKER]: receiveTicker,
-      [BRIDGE_RECIPIENT]: ''
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
       minAmount:
@@ -343,7 +325,7 @@ const BtcBridgeForm = ({
     hideErrors: 'untouched'
   });
 
-  const btcPrice = useMemo(() => getPrice('BTC'), [getPrice]);
+  const btcPrice = getPrice('BTC');
 
   const valueUSD = useMemo(() => new Big(amount || 0).mul(btcPrice || 0).toNumber(), [amount, btcPrice]);
 
@@ -356,7 +338,7 @@ const BtcBridgeForm = ({
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
-  const receiveAmount = useMemo(() => (quoteData ? quoteData.receiveAmount : undefined), [quoteData]);
+  const receiveAmount = quoteData ? quoteData.receiveAmount : undefined;
 
   const placeholderAmount = useMemo(
     () => (btcToken ? CurrencyAmount.fromRawAmount(btcToken.currency, 0n) : undefined),
