@@ -12,7 +12,7 @@ const Apps = () => {
 
   const { data: apps, isLoading: isLoadingApps } = useGetApps();
 
-  const { data: podyumApps } = useGetPodyumData();
+  const { data: podyumApps, isLoading: isLoadingPodyumApps } = useGetPodyumData();
 
   const { mutate: vote } = useVote();
 
@@ -24,6 +24,8 @@ const Apps = () => {
   };
 
   const isAuthenticated = Boolean(user && address);
+
+  const hasPodyum = !isLoadingPodyumApps && !!podyumApps?.length;
 
   return (
     <>
@@ -37,7 +39,7 @@ const Apps = () => {
           isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
           onVote={handleVote}
         />
-        <AppsPodyum apps={podyumApps} />
+        {hasPodyum && <AppsPodyum apps={podyumApps} isLoading={isLoadingPodyumApps} />}
         <AppsList
           apps={apps}
           isAuthenticated={isAuthenticated}

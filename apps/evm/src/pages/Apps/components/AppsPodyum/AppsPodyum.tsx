@@ -6,15 +6,16 @@ import { StyledCard, StyledContentWrapper, StyledGrid, StyledH2, StyledOpacityOv
 import { PodyumSpot } from './PodyumSpot';
 
 type Props = {
-  apps?: [ResultVotingAppData, ResultVotingAppData, ResultVotingAppData];
+  apps: [ResultVotingAppData, ResultVotingAppData, ResultVotingAppData];
+  isLoading?: boolean;
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
 
 type AppPodyumProps = Props & InheritAttrs;
 
-const AppsPodyum = ({ apps }: AppPodyumProps): JSX.Element => {
-  const [first, second, third] = apps || [undefined, undefined, undefined];
+const AppsPodyum = ({ apps, isLoading }: AppPodyumProps): JSX.Element => {
+  const [first, second, third] = !isLoading ? apps : [undefined, undefined, undefined];
 
   return (
     <StyledCard borderColor='grey-300' marginTop='3xl' padding='none'>
