@@ -31,8 +31,7 @@ const CommunityVoting = ({}: CommunityVotingProps) => {
       >
         {votingAppsData?.roundEndsAt ? (
           <Chip startAdornment={<SolidClock size='s' />}>
-            {formatDistanceToNow(votingAppsData.roundEndsAt)}
-            until voting round ends
+            {formatDistanceToNow(votingAppsData.roundEndsAt)} until voting round ends
           </Chip>
         ) : (
           <Skeleton height='3xl' width='9xl' />

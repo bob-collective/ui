@@ -22,7 +22,9 @@ const VotingDashboard = ({
   isAuthenticated,
   onVote
 }: VotingDashboardProps): JSX.Element => {
-  const categories = apps?.categories.slice(0, 3) || [undefined, undefined, undefined];
+  const hasCategories = (apps?.categories.length || 0) > 3;
+
+  const categories = hasCategories ? apps?.categories.slice(0, 3) || [] : [undefined, undefined, undefined];
 
   return (
     <Flex direction='column' gap='2xl' marginTop='3xl'>
