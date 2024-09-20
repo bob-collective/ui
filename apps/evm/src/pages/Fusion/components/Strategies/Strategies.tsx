@@ -1,6 +1,15 @@
 import { Flex, H2 } from '@gobob/ui';
 
-import { StrategyCard } from './StrategyCard';
+import { StrategyCard, StrategyCardProps } from './StrategyCard';
+
+const btcLstLendingStrat: StrategyCardProps = {
+  title: 'BTC LST Lending',
+  shortDescription: 'Supply your BTC LSTs into a lending market on BOB',
+  longDescription:
+    'Deposit your BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets.'
+};
+
+const strategies = [btcLstLendingStrat, btcLstLendingStrat, btcLstLendingStrat];
 
 type StrategiesProps = {};
 
@@ -9,12 +18,9 @@ const Strategies = ({}: StrategiesProps) => {
     <Flex direction='column' gap='3xl' marginTop='8xl'>
       <H2 size='3xl'>Hot Strategies</H2>
       <Flex direction={{ base: 'column', md: 'row' }} gap='2xl'>
-        <StrategyCard description='Supply your BTC LSTs into a lending market on BOB' title='BTC LST Lending' />
-        <StrategyCard
-          description='Mint satUSD and supply it into a lending market on BOB'
-          title='Mint and Lend satUSD'
-        />
-        <StrategyCard description='Provide liquidity into Oku DEX' title='DEX Liquidity Provisioning' />
+        {strategies.map((strat, idx) => (
+          <StrategyCard key={idx} {...strat} />
+        ))}
       </Flex>
     </Flex>
   );

@@ -76,7 +76,7 @@ const AppsList = ({
   return (
     <Flex direction='column' gap='3xl' marginTop='3xl'>
       <H2 id={headerId} size='3xl'>
-        Discover all Apps
+        Discover All Apps
       </H2>
       {!isLoading && categories ? (
         <Tabs selectedKey={tabCategory} variant='light' onSelectionChange={(key) => setTabCategory(key as string)}>

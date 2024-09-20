@@ -27,7 +27,7 @@ const AppsPodyum = ({ apps }: AppPodyumProps): JSX.Element => {
         padding={{ base: '3xl', md: '5xl' }}
       >
         <StyledH2 align={{ base: 'center', md: 'start' }} size={{ base: '2xl', md: '4xl' }}>
-          Previous Voting Round Winners
+          Last Week&apos;s Winners
         </StyledH2>
         <Flex flex={1} justifyContent='center'>
           <StyledGrid>

@@ -4,13 +4,13 @@ import { StyledAvatarWrapper, StyledCard } from './Strategies.style';
 
 type Props = {
   title: string;
-  description: string;
-  // reward: number;
+  shortDescription: string;
+  longDescription: string;
 };
 
 type StrategyCardProps = Props;
 
-const StrategyCard = ({ title, description }: StrategyCardProps) => {
+const StrategyCard = ({ title, shortDescription }: StrategyCardProps) => {
   // const { locale } = useLocale();
 
   return (
@@ -23,12 +23,12 @@ const StrategyCard = ({ title, description }: StrategyCardProps) => {
           </Flex>
         </StyledPrize> */}
       </StyledAvatarWrapper>
-      <Flex direction='column' flex={2.5} gap='s'>
+      <Flex direction='column' flex={2.5} gap='s' justifyContent='center'>
         <H3 rows={1} size='md'>
           {title}
         </H3>
         <P color='grey-50' rows={3} size='s'>
-          {description}
+          {shortDescription}
         </P>
       </Flex>
     </StyledCard>
@@ -36,3 +36,4 @@ const StrategyCard = ({ title, description }: StrategyCardProps) => {
 };
 
 export { StrategyCard };
+export type { StrategyCardProps };

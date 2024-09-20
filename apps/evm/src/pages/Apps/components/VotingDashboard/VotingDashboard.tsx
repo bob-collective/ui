@@ -22,7 +22,7 @@ const VotingDashboard = ({
   isAuthenticated,
   onVote
 }: VotingDashboardProps): JSX.Element => {
-  const hasCategories = (apps?.categories.length || 0) > 3;
+  const hasCategories = (apps?.categories.length || 0) >= 3;
 
   const categories = hasCategories ? apps?.categories.slice(0, 3) || [] : [undefined, undefined, undefined];
 
@@ -35,7 +35,7 @@ const VotingDashboard = ({
           votesRemaining={apps?.votesRemaining}
         />
         <P align='center' color='grey-50' size={{ base: 'xs', s: 's' }}>
-          Vote for your projects by clicking on the Flame icon.
+          Vote for your projects by clicking on the Flame icon. One vote for each category.
         </P>
       </Flex>
       <Flex direction={{ base: 'column', md: 'row' }} gap='xl'>
