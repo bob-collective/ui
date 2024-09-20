@@ -14,12 +14,12 @@ type TransactionListProps = CardProps & {
 };
 
 const strategyDetails = [
-  { id: 'name', name: 'Name' },
-  { id: 'category', name: 'Category' },
-  { id: 'website', name: 'Website' },
-  { id: 'incentives', name: 'Incentives' },
-  { id: 'token', name: 'Staking Token' },
-  { id: 'about', name: 'About' }
+  { key: 'name', name: 'Name' },
+  { key: 'category', name: 'Category' },
+  { key: 'website', name: 'Website' },
+  { key: 'incentives', name: 'Incentives' },
+  { key: 'token', name: 'Staking Token' },
+  { key: 'about', name: 'About' }
 ] as const;
 
 const stakingInfo = {
@@ -141,14 +141,14 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
           </Flex>
         ) : (
           <Dl direction='column' gap='lg'>
-            {strategyDetails.map(({ id, name }, index) => (
-              <Fragment key={id}>
+            {strategyDetails.map(({ key, name }, index) => (
+              <Fragment key={key}>
                 {index !== 0 && <Divider />}
                 <DlGroup alignItems='center' justifyContent='space-between'>
                   <Dd size='md' style={{ minWidth: '15ch' }}>
                     {name}
                   </Dd>
-                  <Dt style={{ textAlign: 'right' }}>{strategyData[id] ?? '~'}</Dt>
+                  <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>{strategyData[key] ?? '~'}</Dt>
                 </DlGroup>
               </Fragment>
             ))}

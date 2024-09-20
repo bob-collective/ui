@@ -212,6 +212,7 @@ const BridgeForm = ({
         {bridgeOrigin === BridgeOrigin.Internal ? (
           chain === 'BTC' && btcTokens?.length ? (
             <BtcBridgeForm
+              key={btcTokens.length}
               availableTokens={btcTokens}
               type={type}
               onFailGateway={handleCloseGatewayModal}
