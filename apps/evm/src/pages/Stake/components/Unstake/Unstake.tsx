@@ -11,7 +11,7 @@ type UnstakeProps = {
 };
 
 const defaultBridges: Record<BridgeType, ExternalBridge[]> = {
-  LST: ['solvbtc', 'unibtc'],
+  LST: ['solvbtc-bbn', 'unibtc'],
   Restaking: ['pell-network'],
   Lending: ['segment', 'shoebill']
 };
