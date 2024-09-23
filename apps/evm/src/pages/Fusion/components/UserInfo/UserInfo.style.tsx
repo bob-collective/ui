@@ -1,4 +1,4 @@
-import { ArrowRight, Card, Flex, SolidDocumentDuplicate } from '@gobob/ui';
+import { ArrowRight, Card, Dl, Flex, SolidDocumentDuplicate } from '@gobob/ui';
 import styled from 'styled-components';
 
 const StyledUnderlay = styled.div`
@@ -28,7 +28,6 @@ const StyledAmountWrapper = styled(Flex)`
 
 const StyledUserInfoWrapper = styled(Flex)`
   position: relative;
-  max-width: ${({ theme }) => theme.maxWidth('4xl')};
   margin: 0 auto;
 `;
 
@@ -50,6 +49,45 @@ const StyledHarvestArrow = styled(ArrowRight)`
   }
 `;
 
+const StyledDl = styled(Dl)`
+  display: grid;
+
+  @media ${({ theme }) => theme.breakpoints.up('s')} {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+
+  @media ${({ theme }) => theme.breakpoints.up('lg')} {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+`;
+
+const StyledMainInfo = styled(Card)`
+  order: -1;
+
+  @media ${({ theme }) => theme.breakpoints.up('s')} {
+    grid-column: span 3 / span 3;
+  }
+
+  @media ${({ theme }) => theme.breakpoints.up('lg')} {
+    grid-column: span 5 / span 5;
+  }
+`;
+
+const StyledMeterCard = styled(Card)`
+  order: -1;
+
+  @media ${({ theme }) => theme.breakpoints.up('s')} {
+    grid-column: span 3 / span 3;
+  }
+
+  @media ${({ theme }) => theme.breakpoints.up('lg')} {
+    grid-column: span 2 / span 2;
+    order: unset;
+  }
+`;
+
 export {
   StyledAmountWrapper,
   StyledArrowRight,
@@ -58,5 +96,8 @@ export {
   StyledOverlay,
   StyledSolidDocumentDuplicate,
   StyledUnderlay,
-  StyledUserInfoWrapper
+  StyledUserInfoWrapper,
+  StyledDl,
+  StyledMeterCard,
+  StyledMainInfo
 };

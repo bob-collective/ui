@@ -1,6 +1,6 @@
 import { CSSProperties } from 'styled-components';
 import { BOBLogo } from '@gobob/icons';
-import { ArrowRight, Skeleton, Span, useLocale } from '@gobob/ui';
+import { Skeleton, Span, useLocale } from '@gobob/ui';
 
 import {
   StyledBarometer,
@@ -21,19 +21,22 @@ const getPercentage = (value: number, minValue: number, maxValue: number) => {
 type BarometerProps = {
   value?: number;
   maxValue?: number;
-  level?: number;
 };
 
 const minValue = 0;
 
-const Barometer = ({ value = minValue, maxValue = 100, level }: BarometerProps) => {
+const Barometer = ({ value = minValue, maxValue = 100 }: BarometerProps) => {
   const { locale } = useLocale();
   const percentage = getPercentage(value, minValue, maxValue);
-
   const barStyle: CSSProperties = { width: `${Math.round(percentage * 100)}%` };
   const addornmentStyle: CSSProperties = {
     left: `${Math.round(percentage * 100)}%`
   };
+
+  const isTouchingStart = percentage < 0.09;
+  const isTouchingEnd = percentage > 0.9;
+
+  const isTouchingEnds = isTouchingStart || isTouchingEnd;
 
   return (
     <StyledBarometer>
@@ -45,7 +48,9 @@ const Barometer = ({ value = minValue, maxValue = 100, level }: BarometerProps) 
         <StyledValue
           size='xs'
           style={{
-            transform: percentage > 0.98 ? `translate(-75%,-50%)` : 'translate(-50%,-50%)'
+            left: isTouchingStart ? 0 : isTouchingEnds ? undefined : '50%',
+            right: isTouchingEnd ? 0 : undefined,
+            transform: `translate(${isTouchingEnds ? '0%' : '-50%'},-50%)`
           }}
           weight='bold'
         >
@@ -58,16 +63,13 @@ const Barometer = ({ value = minValue, maxValue = 100, level }: BarometerProps) 
           }).format(value)}
         </StyledValue>
       </StyledFillAddornment>
-      {percentage < 0.98 && <StyledGift color='grey-50' size='xs' />}
+      {percentage < 0.98 && <StyledGift color='grey-50' size='xxs' />}
       <StyledStep alignItems='center' gap='xs'>
-        {level ? (
+        {maxValue ? (
           <>
-            <Span size='xs'>
-              {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', notation: 'compact' }).format(maxValue)}{' '}
-              TVL
+            <Span size='xs' weight='bold'>
+              {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', notation: 'compact' }).format(maxValue)}
             </Span>
-            <ArrowRight size='xs' />
-            <Span size='xs'>Phase {level + 1}</Span>
           </>
         ) : (
           <Skeleton width='6xl' />

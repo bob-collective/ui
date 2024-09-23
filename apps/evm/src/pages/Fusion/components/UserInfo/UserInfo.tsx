@@ -1,9 +1,7 @@
-import { Spice } from '@gobob/icons';
 import {
   Bars3,
   Button,
   Divider,
-  Dl,
   DlGroup,
   Dt,
   Flex,
@@ -20,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useTheme } from 'styled-components';
 import { INTERVAL, useQuery } from '@gobob/react-query';
+import { Spice } from '@gobob/icons';
 
 import { apiClient, QuestS3Response, UserResponse } from '../../../../utils';
 import { AppData } from '../../../Apps/hooks';
@@ -27,10 +26,12 @@ import { LoginSection } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
 import { fusionKeys } from '../../../../lib/react-query';
 
-import { Barometer } from './Barometer';
 import {
   StyledArrowRight,
+  StyledDl,
   StyledLoginCard,
+  StyledMainInfo,
+  StyledMeterCard,
   StyledOverlay,
   StyledSolidDocumentDuplicate,
   StyledUnderlay,
@@ -39,6 +40,7 @@ import {
 import { UserInfoCard } from './UserInfoCard';
 import { UserAppsModal } from './UsedAppsModal';
 import { UserReferralModal } from './UserReferralModal';
+import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
 
 type UserInfoProps = {
@@ -77,99 +79,55 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   const totalPoints = user?.season3Data.s3LeaderboardData[0].total_points || 0;
 
-  const milestoneReward = tvlLevel?.multiplier ? totalPoints * Number(tvlLevel?.multiplier) : undefined;
-
   const currentLevelTvlGoal = tvlLevel?.tvlGoal ? Number(tvlLevel?.tvlGoal) : 0;
 
   return (
     <StyledUserInfoWrapper direction='column'>
-      <Dl direction={{ base: 'column', s: 'row' }} flex={1} margin={{ base: '0 auto' as any, s: 'none' }}>
-        <DlGroup alignItems='flex-start' direction='column' flex={1}>
-          <Dt>Season 3 Harvested Spice</Dt>
-          <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
-            <Flex alignItems='center' elementType={Span} gap='s' {...{ size: '4xl' }}>
-              {Intl.NumberFormat(locale, { maximumFractionDigits: isMobile ? 0 : 2 }).format(totalPoints)}
-              <Spice size='md' />
-            </Flex>
-            <Flex alignItems='center' color='grey-50' elementType={Span} gap='xxs' {...{ size: 's' }}>
-              (+{Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(spicePerDay || 0)}
-              <Spice size='xs' />
-              /Day)
-            </Flex>
-          </Flex>
-        </DlGroup>
-        <Flex alignSelf='center' color='grey-50' elementType={Span} {...{ size: '4xl' }}>
-          +
-        </Flex>
-        <DlGroup alignItems={{ base: 'flex-start', s: 'flex-end' }} direction='column' flex={1}>
-          <Dt noWrap>
-            {tvlLevel ? (
-              <>
-                {tvlLevel?.levelName} (Phase {tvlLevel?.levelNumber || 0}) - {tvlLevel?.multiplier}x Spice Bonus
-              </>
-            ) : (
-              <Skeleton height='2xl' width='10xl' />
-            )}
-          </Dt>
-          <Flex alignItems={{ base: 'flex-start', s: 'flex-end' }} direction='column' elementType='dd'>
-            <Flex alignItems='center' elementType='dd' gap='s'>
-              {milestoneReward !== undefined ? (
-                <Span size='4xl'>
-                  {Intl.NumberFormat(locale, { maximumFractionDigits: isMobile ? 0 : 2 }).format(milestoneReward)}
+      <StyledDl aria-hidden={!isAuthenticated && 'true'} gap='lg' marginTop='2xl'>
+        <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
+          <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
+            <DlGroup alignItems='flex-start' direction='column'>
+              <Dt>Season 3 Harvested Spice</Dt>
+              <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
+                <Flex alignItems='center' elementType={Span} gap='s' {...{ size: '4xl' }}>
+                  {Intl.NumberFormat(locale, { maximumFractionDigits: isMobile ? 0 : 2 }).format(totalPoints)}
+                  <Spice size='md' />
+                </Flex>
+                <Flex alignItems='center' color='grey-50' elementType={Span} gap='xxs' {...{ size: 's' }}>
+                  (+{Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(spicePerDay || 0)}
+                  <Spice size='xs' />
+                  /Day)
+                </Flex>
+              </Flex>
+            </DlGroup>
+            <DlGroup wrap alignItems='center' gap='xs'>
+              <Dt size='s'>Season 1 & 2 Total Spice (Completed):</Dt>
+              <Flex alignItems='center' elementType='dd' gap='xs'>
+                <Spice size='xs' />
+                <Span size='xs'>
+                  {Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(
+                    user?.leaderboardRank.total_points || 0
+                  )}
                 </Span>
-              ) : (
-                <Skeleton height='4xl' style={{ marginBottom: 8 }} width='10xl' />
-              )}
-              <Spice size='md' />
-            </Flex>
-            <Span color='grey-50' size='s'>
-              {currentLevelTvlGoal !== undefined ? (
-                <>
-                  Unlocks at{' '}
-                  {Intl.NumberFormat(locale, { notation: 'compact', currency: 'USD', style: 'currency' }).format(
-                    currentLevelTvlGoal
-                  )}{' '}
-                  TVL
-                </>
-              ) : (
-                <Skeleton height='xl' width='10xl' />
-              )}
-            </Span>
+              </Flex>
+            </DlGroup>
           </Flex>
-        </DlGroup>
-      </Dl>
-      <Barometer
-        level={tvlLevel?.levelNumber ? Number(tvlLevel?.levelNumber) : undefined}
-        maxValue={currentLevelTvlGoal}
-        value={Number(tvlLevel?.currentTvl || 0)}
-      />
-      <Dl marginTop='md'>
-        <DlGroup wrap alignItems='center'>
-          <Dt size='s'>Season 1 & 2 Total Spice (Completed):</Dt>
-          <Flex alignItems='center' elementType='dd' gap='xs'>
-            <Spice size='xs' />
-            <Span size='xs'>
-              {Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(user?.leaderboardRank.total_points || 0)}
-            </Span>
+          <Flex
+            alignItems='center'
+            flex={1}
+            gap='md'
+            justifyContent={{ base: 'center', s: 'flex-end' }}
+            marginTop='2xl'
+          >
+            <Button variant='outline' onPress={() => setMultipliersModalOpen(true)}>
+              View Multipliers
+            </Button>
+            <Button color='primary' elementType={Link} {...{ href: RoutesPath.BRIDGE }}>
+              Bridge More
+            </Button>
+            <MultipliersModal isOpen={isMultipliersModalOpen} onClose={() => setMultipliersModalOpen(false)} />
           </Flex>
-        </DlGroup>
-      </Dl>
-      <Flex gap='md' justifyContent={{ base: 'center', s: 'flex-end' }} marginTop='2xl'>
-        <Button variant='outline' onPress={() => setMultipliersModalOpen(true)}>
-          View Multipliers
-        </Button>
-        <Button color='primary' elementType={Link} {...{ href: RoutesPath.BRIDGE }}>
-          Bridge More
-        </Button>
-        <MultipliersModal isOpen={isMultipliersModalOpen} onClose={() => setMultipliersModalOpen(false)} />
-      </Flex>
-      <Dl
-        aria-hidden={!isAuthenticated && 'true'}
-        direction={{ base: 'column', s: 'row' }}
-        flex={1}
-        gap='lg'
-        marginTop='2xl'
-      >
+        </StyledMainInfo>
         <UserInfoCard description={harvestedApps?.length || 0} title='Apps Used'>
           <Flex gap='md' marginTop='xl'>
             {!!harvestedApps?.length && (
@@ -231,7 +189,25 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             />
           )}
         </UserInfoCard>
-      </Dl>
+        <StyledMeterCard gap='s' justifyContent='space-between'>
+          <Flex direction='column'>
+            {tvlLevel ? (
+              <>
+                <Dt color='light' size='2xl'>
+                  {tvlLevel?.levelName}
+                </Dt>
+                <Span size='s'>{tvlLevel?.levelDescription}</Span>
+              </>
+            ) : (
+              <Flex direction='column'>
+                <Skeleton height='3xl' width='10xl' />
+                <Skeleton marginTop='s' width='50%' />
+              </Flex>
+            )}
+          </Flex>
+          <Barometer maxValue={currentLevelTvlGoal} value={tvlLevel !== undefined ? Number(tvlLevel?.currentTvl) : 0} />
+        </StyledMeterCard>
+      </StyledDl>
       {!isAuthenticated && (
         <>
           <StyledUnderlay />

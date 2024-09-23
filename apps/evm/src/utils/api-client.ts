@@ -547,6 +547,7 @@ class ApiClient {
     multiplier: string;
     levelNumber: string;
     levelName: string;
+    levelDescription: string;
   }> {
     const response = await fetch(`${this.baseUrl}/get-leveldata`);
 

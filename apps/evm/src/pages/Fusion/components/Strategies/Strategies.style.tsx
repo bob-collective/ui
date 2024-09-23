@@ -48,6 +48,7 @@ const StyledGrid = styled(Flex)`
 
   @media ${({ theme }) => theme.breakpoints.up('md')} {
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
 
     ${StyledCard} {
       grid-column: span 1 / span 1;
