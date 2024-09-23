@@ -8,7 +8,7 @@ import { Shoebill } from '@gobob/icons/src/Shoebill';
 
 import { Type } from '../../Stake';
 
-type ExternalBridge = 'solvbtc' | 'babylon' | 'unibtc' | 'pell-network' | 'segment' | 'shoebill';
+type ExternalBridge = 'solvbtc' | 'solvbtc-bbn' | 'unibtc' | 'pell-network' | 'segment' | 'shoebill';
 
 // TODO: add missing links
 const bridges: Record<
@@ -21,10 +21,10 @@ const bridges: Record<
     name: 'SolvBTC',
     disabled: false
   },
-  babylon: {
+  'solvbtc-bbn': {
     href: 'https://app.solv.finance/babylon?network=bob',
     icon: SolvBTCBBN,
-    name: 'SolBTC.BBN',
+    name: 'SolvBTC.BBN',
     disabled: false
   },
   unibtc: {
