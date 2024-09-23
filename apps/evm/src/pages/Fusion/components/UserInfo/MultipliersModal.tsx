@@ -32,7 +32,7 @@ type TableRow = {
 };
 
 const columns = [
-  { id: TableColumns.ASSET, name: 'Asset' },
+  { id: TableColumns.ASSET, width: 160, name: 'Asset' },
   { id: TableColumns.HOLDING, name: 'Holding' },
   {
     id: TableColumns.LENDING,
@@ -128,7 +128,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
         <P color='grey-50'>Bridge High Priority assets to earn multipliers on your spice</P>
         <Flex direction='column' gap='md'>
           <H3 id={featuredAssetId} size='md'>
-            Freatured Assets
+            Featured Assets
           </H3>
           <Table removeWrapper aria-labelledby={featuredAssetId} columns={columns} rows={featuredAssetsRows} />
         </Flex>

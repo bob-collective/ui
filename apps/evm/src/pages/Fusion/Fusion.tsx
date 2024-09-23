@@ -1,14 +1,23 @@
 import { useAccount } from '@gobob/wagmi';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Flex, H1, Link, P } from '@gobob/ui';
 
 import { Geoblock, Main } from '../../components';
 import { LocalStorageKey } from '../../constants';
 import { useGetUser } from '../../hooks';
 import { useGetApps } from '../Apps/hooks';
 
-import { Challenges, CommunityVoting, Leaderboard, Strategies, UserInfo, WelcomeModal } from './components';
+import {
+  Challenges,
+  CommunityVoting,
+  Leaderboard,
+  Strategies,
+  UserInfo,
+  WelcomeBackModal,
+  WelcomeModal
+} from './components';
 import { useGetQuests } from './hooks';
 
 const Fusion = () => {
@@ -19,9 +28,15 @@ const Fusion = () => {
 
   const location = useLocation();
 
+  const [isHideFusionWelcomeBackModal, setHideFusionWelcomeBackModal] = useLocalStorage<boolean>(
+    LocalStorageKey.HIDE_FUSION_WELCOME_BACK_MODAL
+  );
+
   const [isHideFusionWelcomeModal, setHideFusionWelcomeModal] = useLocalStorage<boolean>(
     LocalStorageKey.HIDE_FUSION_WELCOME_MODAL
   );
+
+  const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
   useEffect(() => {
     if (location.state?.scrollChallenges) {
@@ -30,23 +45,54 @@ const Fusion = () => {
   }, [location]);
 
   const isAuthenticated = Boolean(user && address);
+  const hasPastHarvest = user && user.leaderboardRank.total_points > 0;
 
   return (
     <Geoblock>
       <Main maxWidth='7xl' padding='lg'>
-        {/* <SeasonInfo /> */}
+        <Flex direction='column' gap='lg'>
+          <H1 size='4xl'>BOB Fusion: The Final Season</H1>
+          <P color='grey-50'>
+            Harvest Spice by bridging assets to BOB and using in apps.
+            <br />
+            The final season of Fusion will progress in short phases with special bonuses to help boost your total
+            harvest.{' '}
+            <Link
+              color='light'
+              size='inherit'
+              underlined='always'
+              {...{ href: 'https://blog.gobob.xyz/posts/bob-fusion-the-final-season', external: true }}
+            >
+              Learn More
+            </Link>
+          </P>
+        </Flex>
         <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
         <Strategies />
         <Challenges quests={quests} />
         <CommunityVoting />
         <Leaderboard />
-        {user && (
-          <WelcomeModal
-            isOpen={!isHideFusionWelcomeModal && isAuthenticated}
-            user={user}
-            onClose={() => setHideFusionWelcomeModal(true)}
-          />
-        )}
+        {user ? (
+          hasPastHarvest ? (
+            <WelcomeBackModal
+              isOpen={!isHideFusionWelcomeBackModal && isAuthenticated}
+              user={user}
+              onClose={() => setHideFusionWelcomeBackModal(true)}
+            />
+          ) : (
+            <WelcomeModal
+              isOpen={isFusionWelcomeModalOpen && isAuthenticated}
+              user={user}
+              onClose={(hideAlways) => {
+                if (hideAlways) {
+                  setHideFusionWelcomeModal(true);
+                }
+
+                setFusionWelcomeModalOpen(false);
+              }}
+            />
+          )
+        ) : null}
       </Main>
     </Geoblock>
   );

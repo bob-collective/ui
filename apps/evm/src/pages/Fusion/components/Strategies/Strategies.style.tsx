@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import { QuestRefCodes } from '../../../../utils';
 
+function getImageUrl(name: string) {
+  return new URL(`../../../../assets/${name}`, import.meta.url).href;
+}
+
 type StyledCardProps = {
   $isFeatured?: boolean;
   $questOwner?: QuestRefCodes;
@@ -15,7 +19,10 @@ const StyledBannerWrapper = styled(Flex)`
 const StyledBanner = styled(Flex)`
   position: absolute;
   inset: 0;
-  background: linear-gradient(146.29deg, #5d1b9f 20.01%, #f35d00 104.68%);
+  background-image: url(${getImageUrl('spice-shape-background.jpg')});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
 `;
 
 const StyledPrize = styled(Chip)`

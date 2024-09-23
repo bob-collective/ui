@@ -82,8 +82,8 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const currentLevelTvlGoal = tvlLevel?.tvlGoal ? Number(tvlLevel?.tvlGoal) : 0;
 
   return (
-    <StyledUserInfoWrapper direction='column'>
-      <StyledDl aria-hidden={!isAuthenticated && 'true'} gap='lg' marginTop='2xl'>
+    <StyledUserInfoWrapper direction='column' marginTop='4xl'>
+      <StyledDl aria-hidden={!isAuthenticated && 'true'} gap='lg'>
         <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
           <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
             <DlGroup alignItems='flex-start' direction='column'>
@@ -123,7 +123,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               View Multipliers
             </Button>
             <Button color='primary' elementType={Link} {...{ href: RoutesPath.BRIDGE }}>
-              Bridge More
+              Bridge Assets
             </Button>
             <MultipliersModal isOpen={isMultipliersModalOpen} onClose={() => setMultipliersModalOpen(false)} />
           </Flex>
@@ -173,12 +173,12 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </Button>
             )}
             <Button
-              fullWidth
+              isIconOnly
               disabled={!isAuthenticated}
               variant='outline'
               onPress={() => copy(user?.referral_code || '')}
             >
-              Copy <StyledSolidDocumentDuplicate size='xs' />
+              <StyledSolidDocumentDuplicate size='xs' />
             </Button>
           </Flex>
           {user && hasReferrals && (

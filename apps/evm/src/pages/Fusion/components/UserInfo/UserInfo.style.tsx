@@ -28,7 +28,6 @@ const StyledAmountWrapper = styled(Flex)`
 
 const StyledUserInfoWrapper = styled(Flex)`
   position: relative;
-  margin: 0 auto;
 `;
 
 const StyledArrowRight = styled(ArrowRight)`

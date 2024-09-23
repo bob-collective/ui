@@ -14,21 +14,23 @@ const VotingInfoModal = (props: VotingInfoModalProps): JSX.Element => {
       </ModalHeader>
       <ModalBody gap='2xl' padding='even'>
         <P color='grey-50'>
-          A user can reassign their vote as many times as they like. Their vote is only locked in at the end of each
-          round.
+          Community voting allows you to use your Spice total to support your favourite BOB apps. Each week the projects
+          with the most community votes will receive a Spice bonus which they can distribute to their users.
           <br />
           <br />
-          Users vote with their Season 3 spice: When voting, a user’s spice total is added to the project’s vote total,
-          for example if a user with 1M spice votes for a project then 1M is added to the project’s vote total. Please
-          note that when you vote, you don’t give away your spice but your spice harvest is used to represent the weight
-          of your vote.
+          You can vote for one app in each of the three categories each week. When you vote, your Spice total is added
+          to the projects vote total.
           <br />
           <br />
-          A voting round lasts about 2 weeks, more information about the round can be found on the voting dashboard.
+          Please note that when you vote, you do not give away or lose any of your harvest. Your total is simply used to
+          calculate the weight of your vote.
           <br />
           <br />
-          At the end of each round the top-placing projects will receive a spice bonus which they can distribute to
-          their users.
+          You can reassign your vote as many times as you like in a given voting round. The vote is only locked in at
+          the end of the round.
+          <br />
+          <br />
+          Each voting round lasts about 1 week. More information about each round can be found on the voting dashboard.
         </P>
       </ModalBody>
     </Modal>

@@ -46,6 +46,7 @@ const Barometer = ({ value = minValue, maxValue = 100 }: BarometerProps) => {
       <StyledFillAddornment style={addornmentStyle}>
         <BOBLogo />
         <StyledValue
+          noWrap
           size='xs'
           style={{
             left: isTouchingStart ? 0 : isTouchingEnds ? undefined : '50%',
@@ -60,7 +61,8 @@ const Barometer = ({ value = minValue, maxValue = 100 }: BarometerProps) => {
             maximumFractionDigits: 2,
             minimumFractionDigits: 2,
             notation: 'compact'
-          }).format(value)}
+          }).format(value)}{' '}
+          TVL
         </StyledValue>
       </StyledFillAddornment>
       {percentage < 0.98 && <StyledGift color='grey-50' size='xxs' />}

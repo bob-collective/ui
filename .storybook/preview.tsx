@@ -42,7 +42,7 @@ const preview: Preview = {
       return (
         <QueryClientProvider client={queryClient}>
           <WagmiProvider>
-            <SatsWagmiConfig network='testnet'>
+            <SatsWagmiConfig queryClient={queryClient}>
               <BOBUIProvider locale={locale}>
                 <CSSReset />
                 <div dir={direction} lang={locale}>

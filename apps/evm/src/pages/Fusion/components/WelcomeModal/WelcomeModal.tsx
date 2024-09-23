@@ -1,82 +1,58 @@
-import {
-  Alert,
-  Button,
-  Card,
-  Flex,
-  H3,
-  H4,
-  Link,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalProps,
-  P,
-  Span,
-  useLocale
-} from '@gobob/ui';
-import { Spice } from '@gobob/icons';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import { Button, Card, Flex, H3, Modal, ModalBody, ModalFooter, ModalProps, Span, Switch } from '@gobob/ui';
+import { useState } from 'react';
 
 import { UserResponse } from '../../../../utils';
-import { WithdrawAlert } from '../../../../components';
 
-import { StyledBackground, StyledContent, StyledLearnButton } from './WelcomeModal.style';
-
-type Props = { user: UserResponse };
+type Props = { user: UserResponse; onClose: (hideForever: boolean) => void };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type WelcomeModalProps = Props & InheritAttrs;
 
-const WelcomeModal = ({ user, onClose, ...props }: WelcomeModalProps): JSX.Element => {
-  const { locale } = useLocale();
+const WelcomeModal = ({ onClose, ...props }: WelcomeModalProps): JSX.Element => {
+  const [shouldHideForever, setShouldHideForever] = useState(false);
 
   return (
     <Modal {...props} size='lg'>
-      <ModalBody padding='2xl'>
-        <StyledBackground />
-        <StyledContent direction='column' gap='2xl'>
-          <H3 size='4xl'>
-            Welcome to BOB Fusion
-            <br />
-            <Span color='primary-500' size='inherit'>
-              Season 3!
+      <ModalBody gap='lg' padding='2xl'>
+        <H3 size='3xl'>
+          Welcome to BOB Fusion
+          <br />
+          <Span color='primary-500' size='inherit'>
+            The final season
+          </Span>
+        </H3>
+        <Flex direction='column' elementType='ol' gap='lg'>
+          <Flex direction='column' elementType='li' gap='lg'>
+            <Card background='grey-700' elementType={Span} padding='md'>
+              Step One
+            </Card>
+            <Span color='grey-50'>
+              Step One Bridge your assets to BOB to start harvesting Spice.
+              <br />
+              TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers” button.
             </Span>
-          </H3>
-          <P size='s'>
-            This will be the Final season with 20 Million Spice up for grabs. Bridge your assets to BOB, unlock new DeFi
-            opportunities and refer others to get Spice bonus.
-          </P>
-          <H4 size='2xl'>Your Performance till now (S01 + S02)</H4>
-          <Flex direction={{ base: 'column', s: 'row' }} gap='lg'>
-            <Card background='grey-500' flex={1} gap='s' rounded='lg' style={{ opacity: 0.9 }}>
-              <P color='grey-50'>Spice Harvested</P>
-              <Flex alignItems='center' gap='s'>
-                <Spice />
-                <P size='2xl'>{Intl.NumberFormat(locale).format(user.leaderboardRank.total_points)}</P>
-              </Flex>
-            </Card>
-            <Card background='grey-500' flex={1} gap='s' rounded='lg' style={{ opacity: 0.9 }}>
-              <P color='grey-50'>Season 2 Final Rank</P>
-              <P size='2xl'>#{user.leaderboardRank.rank}</P>
-            </Card>
           </Flex>
-          <Alert status='info' title='For Season 3, your spice will be reset to 0' variant='outlined'>
-            Season 1 and 2 spice will be retained and recorded but will no longer be reflected on the leaderboard.
-          </Alert>
-          <WithdrawAlert onPressWithdraw={onClose} />
-        </StyledContent>
+          <Flex direction='column' elementType='li' gap='lg'>
+            <Card background='grey-700' elementType={Span} padding='md'>
+              Step Two
+            </Card>
+            <Span color='grey-50'>
+              Use your bridged assets in apps to maximise your Spice harvest.
+              <br />
+              TIP: Some types of apps offer greater multipliers than others. Explore the “Hot Strategies” section to
+              learn more.
+            </Span>
+          </Flex>
+        </Flex>
       </ModalBody>
-      <ModalFooter direction={{ base: 'column', s: 'row' }} gap='xl'>
-        <StyledLearnButton
-          elementType={Link}
-          size='xl'
-          variant='outline'
-          {...{ href: 'https://blog.gobob.xyz/posts/bob-fusion-the-final-season', external: true }}
-        >
-          Learn More {'>'}
-        </StyledLearnButton>
-        <Button fullWidth color='primary' size='xl' onPress={onClose}>
-          Start Harvesting Season 03 
+      <ModalFooter direction='column' elementType='form' gap='xl'>
+        <Switch isSelected={shouldHideForever} onChange={(e) => setShouldHideForever(e.target.checked)}>
+          Don&apos;t show this message again
+        </Switch>
+        <Button fullWidth color='primary' size='xl' onPress={() => onClose?.(shouldHideForever)}>
+          Start Harvesting
         </Button>
       </ModalFooter>
     </Modal>

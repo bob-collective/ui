@@ -23,11 +23,12 @@ const questOwnerMap = {
 
 type Props = {
   data?: QuestBreakdown;
+  isDisabled?: boolean;
 };
 
 type ChallengeCardProps = Props;
 
-const ChallengeCard = ({ data, ...props }: ChallengeCardProps) => {
+const ChallengeCard = ({ data, isDisabled, ...props }: ChallengeCardProps) => {
   const { locale } = useLocale();
 
   const QuestOwnerComp = data?.questing_platform_referral_code
@@ -42,6 +43,7 @@ const ChallengeCard = ({ data, ...props }: ChallengeCardProps) => {
         $isFeatured={data?.is_featured}
         $questOwner={data?.questing_platform_referral_code as QuestRefCodes}
         gap='xl'
+        isDisabled={isDisabled}
         marginX='s'
       >
         {data?.is_featured && (

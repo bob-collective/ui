@@ -6,7 +6,18 @@ import { CardProps } from '../Card';
 import { BaseTable, BaseTableProps } from './BaseTable';
 import { StyledCard } from './Table.style';
 
-type ColumnProps = { name: ReactNode; id: string | number; hideHeader?: boolean };
+type ColumnSize = number | `${number}` | `${number}%`;
+
+type ColumnProps = {
+  name: ReactNode;
+  id: string | number;
+  hideHeader?: boolean;
+  width?: ColumnSize | null;
+  /** The minimum width of the column. */
+  minWidth?: ColumnSize | null;
+  /** The maximum width of the column. */
+  maxWidth?: ColumnSize | null;
+};
 
 type RowProps = {
   id: string | number;

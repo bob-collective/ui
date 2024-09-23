@@ -21,7 +21,6 @@ type Props = {
 type StrategyCardProps = Props;
 
 const StrategyCard = ({ title, longDescription, rewards, shortDescription, steps }: StrategyCardProps) => {
-  // const { locale } = useLocale();
   const [isOpen, setOpen] = useState(false);
 
   const stepId = useId();
@@ -31,7 +30,7 @@ const StrategyCard = ({ title, longDescription, rewards, shortDescription, steps
     <StyledCard isHoverable isPressable direction='row' flex={1} padding='none' onPress={() => setOpen(true)}>
       <StyledBannerWrapper flex={1}>
         <StyledBanner alignItems='center' justifyContent='center'>
-          <Spice size='3xl' />
+          <Spice color='primary-500' filter='drop-shadow(0px 0px 10px #F25D00)' size='3xl' />
         </StyledBanner>
       </StyledBannerWrapper>
       <Flex direction='column' flex={2} gap='s' justifyContent='center' padding='lg'>

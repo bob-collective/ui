@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Slider from 'react-slick';
-import { Card, Chip, Span } from '@gobob/ui';
+import { Card, Chip, Flex, Span } from '@gobob/ui';
 
 import { Trapezoid } from '../../../../components';
 import { QuestRefCodes } from '../../../../utils';
@@ -107,7 +107,31 @@ const StyledTrapezoid = styled(Trapezoid)`
   transform: translateX(-50%);
 `;
 
+const StyledSliderWrapper = styled(Flex)`
+  position: relative;
+  pointer-events: none;
+`;
+
+const StyledUnderlay = styled.div`
+  top: -0.75rem;
+  bottom: -0.75rem;
+  left: -0.75rem;
+  right: -0.75rem;
+  position: absolute;
+  z-index: 1;
+  backdrop-filter: blur(4px);
+`;
+
+const StyledOverlay = styled(Flex)`
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+`;
+
 export {
+  StyledUnderlay,
+  StyledOverlay,
+  StyledSliderWrapper,
   StyledAvatarWrapper,
   StyledOpacityOverlay,
   StyledDescription,

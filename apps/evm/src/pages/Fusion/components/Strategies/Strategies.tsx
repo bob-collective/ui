@@ -4,7 +4,7 @@ import { StrategyCard, StrategyCardProps } from './StrategyCard';
 import { StyledGrid } from './Strategies.style';
 
 const btcLstLendingStrat: StrategyCardProps = {
-  title: 'BTC LST Lending',
+  title: 'BTC LSTs Lending',
   shortDescription: 'Supply your BTC LSTs into a lending market on BOB',
   longDescription:
     'Deposit your BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets.',
@@ -25,7 +25,7 @@ const btcLstLendingStrat: StrategyCardProps = {
     'Lending rate of BTC LSTs on the Lending & Borrowing platform',
     'Spice rewards (Medium)',
     'Lending protocol rewards (multiplied by how often users repeat step 3)',
-    'BTC LST points (multiplied by how often users repeat step 3)',
+    'BTC LSTs points (multiplied by how often users repeat step 3)',
     'Babylon points (multiplied by how often users repeat step 3)'
   ]
 };
@@ -61,7 +61,7 @@ const mintAndLendSatUsd: StrategyCardProps = {
     'Spice rewards (Medium)',
     'Lending protocol rewards (multiplied by how often users repeat step 4)',
     'Satoshi protocol rewards (multiplied by how often users repeat step 4)',
-    'BTC LST points (multiplied by how often users repeat step 4)',
+    'BTC LSTs points (multiplied by how often users repeat step 4)',
     'Babylon points (multiplied by how often users repeat step 4)'
   ]
 };
