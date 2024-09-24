@@ -21,11 +21,6 @@ const StyledLoginCard = styled(Card)`
   max-width: ${({ theme }) => theme.maxWidth('lg')};
 `;
 
-const StyledAmountWrapper = styled(Flex)`
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
 const StyledUserInfoWrapper = styled(Flex)`
   position: relative;
 `;
@@ -36,16 +31,6 @@ const StyledArrowRight = styled(ArrowRight)`
 
 const StyledSolidDocumentDuplicate = styled(SolidDocumentDuplicate)`
   margin-left: ${({ theme }) => theme.spacing('xs')};
-`;
-
-const StyledHarvestArrow = styled(ArrowRight)`
-  transform: rotate(90deg);
-
-  align-self: center;
-
-  @media ${({ theme }) => theme.breakpoints.up('md')} {
-    transform: unset;
-  }
 `;
 
 const StyledDl = styled(Dl)`
@@ -88,9 +73,7 @@ const StyledMeterCard = styled(Card)`
 `;
 
 export {
-  StyledAmountWrapper,
   StyledArrowRight,
-  StyledHarvestArrow,
   StyledLoginCard,
   StyledOverlay,
   StyledSolidDocumentDuplicate,

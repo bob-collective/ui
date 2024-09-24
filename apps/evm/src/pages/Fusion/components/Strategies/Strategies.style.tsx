@@ -1,4 +1,4 @@
-import { Card, Chip, Flex, H4 } from '@gobob/ui';
+import { Card, Flex, H4 } from '@gobob/ui';
 import styled from 'styled-components';
 
 import { QuestRefCodes } from '../../../../utils';
@@ -23,13 +23,6 @@ const StyledBanner = styled(Flex)`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
-`;
-
-const StyledPrize = styled(Chip)`
-  position: absolute;
-  bottom: ${({ theme }) => theme.spacing('xl')};
-  left: 50%;
-  transform: translateX(-50%);
 `;
 
 const StyledCard = styled(Card)<StyledCardProps>`
@@ -105,6 +98,5 @@ export {
   StyledGrid,
   StyledTitle,
   StyledBanner,
-  StyledCard,
-  StyledPrize
+  StyledCard
 };
