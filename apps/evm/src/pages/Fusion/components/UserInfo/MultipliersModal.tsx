@@ -63,7 +63,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
 
   const { data: tokensInfo } = useGetTokensInfo();
 
-  // const featuredAssetId = useId();
+  const featuredAssetId = useId();
   const yieldAssetId = useId();
   const baseAssetId = useId();
 
@@ -118,7 +118,9 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
           [TableColumns.DEX]: <Skeleton width='4xl' />
         }));
 
-  // const featuredAssetsRows = [getRow({ multiplier: '0', symbol: 'fBTC' }, 0)];
+  const featuredAssetsRows = [
+    getRow({ multiplier: sortedData?.find((item) => item.symbol === 'fBTC')?.multiplier || '0', symbol: 'fBTC' }, 0)
+  ];
 
   return (
     <Modal {...props} size='xl'>
@@ -127,12 +129,12 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
       </ModalHeader>
       <ModalBody gap='2xl' padding='even'>
         <P color='grey-50'>Bridge High Priority assets to earn multipliers on your spice</P>
-        {/* <Flex direction='column' gap='md'>
+        <Flex direction='column' gap='md'>
           <H3 id={featuredAssetId} size='md'>
             Featured Assets
           </H3>
           <Table removeWrapper aria-labelledby={featuredAssetId} columns={columns} rows={featuredAssetsRows} />
-        </Flex> */}
+        </Flex>
         <Flex direction='column' gap='md'>
           <H3 id={yieldAssetId} size='md'>
             Yield Assets
