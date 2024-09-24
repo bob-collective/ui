@@ -64,10 +64,19 @@ const AppsList = ({
     : undefined;
 
   const sortedList = list?.sort((a, b) => {
-    if (!isAuthenticated || Number(b.userHarvest || 0) === Number(a.userHarvest || 0)) {
-      return Number(b.points_distributed_per_hour_rank || 0) - Number(a.points_distributed_per_hour_rank || 0); // If 'a' values are equal, sort by 'b'
+    if (!isAuthenticated) {
+      // Sort solely by points_distributed_per_hour_rank if not authenticated
+      return Number(b.points_distributed_per_hour_rank || 0) - Number(a.points_distributed_per_hour_rank || 0);
     } else {
-      return Number(b.userHarvest) - Number(b.userHarvest);
+      // First sort by userHarvest
+      const userHarvestDifference = Number(b.userHarvest || 0) - Number(a.userHarvest || 0);
+
+      // If userHarvest is equal, sort by points_distributed_per_hour_rank
+      if (userHarvestDifference === 0) {
+        return Number(b.points_distributed_per_hour_rank || 0) - Number(a.points_distributed_per_hour_rank || 0);
+      }
+
+      return userHarvestDifference;
     }
   });
 

@@ -35,7 +35,7 @@ const VotingDashboard = ({
           votesRemaining={apps?.votesRemaining}
         />
         <P align='center' color='grey-50' size={{ base: 'xs', s: 's' }}>
-          Vote for your projects by clicking on the Flame icon. One vote for each category.
+          Vote for maximum three projects per week by clicking on the flame icon.
         </P>
       </Flex>
       <Flex direction={{ base: 'column', md: 'row' }} gap='xl'>

@@ -19,6 +19,7 @@ import {
   WelcomeModal
 } from './components';
 import { useGetQuests } from './hooks';
+import { StyledWrapper } from './Fusion.style';
 
 const Fusion = () => {
   const { address } = useAccount();
@@ -50,22 +51,26 @@ const Fusion = () => {
   return (
     <Geoblock>
       <Main maxWidth='7xl' padding='lg'>
-        <Flex direction='column' gap='lg'>
-          <H1 size='4xl'>BOB Fusion: The Final Season</H1>
-          <P color='grey-50'>
-            Harvest Spice by depositing into BOB apps, voting, and solving challenges. Keep an eye out for special
-            events.{' '}
-            <Link
-              color='light'
-              size='inherit'
-              underlined='always'
-              {...{ href: 'https://blog.gobob.xyz/posts/bob-fusion-the-final-season', external: true }}
-            >
-              Learn More
-            </Link>
-          </P>
-        </Flex>
-        <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
+        <StyledWrapper direction='column' paddingBottom='4xl'>
+          {/* <StyledBackground />
+          <StyledBgDots src={heroDotsSrc} /> */}
+          <Flex direction='column' gap='lg'>
+            <H1 size='4xl'>BOB Fusion: The Final Season</H1>
+            <P color='grey-50'>
+              Harvest Spice by depositing into BOB apps, voting, and solving challenges. Keep an eye out for special
+              events.{' '}
+              <Link
+                color='light'
+                size='inherit'
+                underlined='always'
+                {...{ href: 'https://blog.gobob.xyz/posts/bob-fusion-the-final-season', external: true }}
+              >
+                Learn More
+              </Link>
+            </P>
+          </Flex>
+          <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
+        </StyledWrapper>
         <Strategies />
         <Challenges quests={quests} />
         <CommunityVoting />

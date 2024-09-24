@@ -48,8 +48,8 @@ const useGetApps = () => {
             multiplier:
               Number(partner.min_multiplier) > 0 || Number(partner.max_multiplier) > 0
                 ? partner.min_multiplier === partner.max_multiplier
-                  ? `${partner.max_multiplier}x`
-                  : `${partner.min_multiplier}x - ${partner.max_multiplier}x`
+                  ? `${Number(partner.max_multiplier) * 2}x`
+                  : `${Number(partner.min_multiplier) * 2}x - ${Number(partner.max_multiplier) * 2}x`
                 : '1x'
           };
         });

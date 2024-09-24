@@ -43,4 +43,13 @@ const StyledDescription = styled(P)`
   max-width: 43.75rem;
 `;
 
-export { StyledCard, StyledButton, StyledDescription, StyledContentWrapper, StyledOpacityOverlay };
+const StyledList = styled(Flex)`
+  list-style-type: disc;
+
+  li,
+  li::marker {
+    color: ${({ theme }) => theme.color('grey-50')};
+  }
+`;
+
+export { StyledCard, StyledList, StyledButton, StyledDescription, StyledContentWrapper, StyledOpacityOverlay };

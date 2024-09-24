@@ -119,7 +119,7 @@ const isComingSoon = true;
 
 const Strategies = ({}: StrategiesProps) => {
   return (
-    <Flex direction='column' gap='3xl' marginTop='8xl'>
+    <Flex direction='column' gap='3xl' marginTop='4xl'>
       <H2 size='3xl'>Hot Strategies</H2>
       <StyledWrapper>
         {isComingSoon && (
