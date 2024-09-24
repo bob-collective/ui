@@ -18,7 +18,7 @@ const AppsPodyum = ({ apps, isLoading }: AppPodyumProps): JSX.Element => {
   const [first, second, third] = !isLoading ? apps : [undefined, undefined, undefined];
 
   return (
-    <StyledCard borderColor='grey-300' marginTop='3xl' padding='none'>
+    <StyledCard borderColor='grey-300' marginTop='4xl' padding='none'>
       <StyledOpacityOverlay />
       <StyledContentWrapper
         alignItems='center'

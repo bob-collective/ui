@@ -83,7 +83,7 @@ const AppsList = ({
   const hasItems = !!sortedList?.length;
 
   return (
-    <Flex direction='column' gap='3xl' marginTop='3xl'>
+    <Flex direction='column' gap='3xl' marginTop='4xl'>
       <H2 id={headerId} size='3xl'>
         Discover All Apps
       </H2>
