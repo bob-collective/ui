@@ -173,7 +173,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           )}
         </UserInfoCard>
         <StyledMeterCard gap='s' justifyContent='space-between'>
-          <Flex direction='column'>
+          <Flex direction='column' gap='md'>
             {tvlLevel ? (
               <>
                 <Dt color='light' size='2xl'>

@@ -74,6 +74,14 @@ interface SevenDayLeaderboardEntry {
   referred_by: string;
 }
 
+interface RefPointsBreakdown {
+  referral_code: string;
+  username: string;
+  referred_by: string;
+  direct_referral: boolean;
+  ref_points: number;
+}
+
 interface Season3Data {
   usedProjects: any[];
   s3LeaderboardData: S3LeaderboardData[];
@@ -84,6 +92,7 @@ interface Season3Data {
     partner_refcode: string;
     total_points: string;
   }>;
+  refPointsBreakdown: RefPointsBreakdown[];
 }
 
 export type UserResponse = {

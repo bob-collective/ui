@@ -48,6 +48,7 @@ const StyledValue = styled(Span)`
 const StyledBarometer = styled.div`
   position: relative;
   padding: ${({ theme }) => `${theme.spacing('4xl')} 0`};
+  margin-bottom: ${({ theme }) => `-${theme.spacing('lg')}`};
   width: calc(100% - 14px);
   align-self: center;
 `;

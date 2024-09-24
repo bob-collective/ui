@@ -1,7 +1,30 @@
-import { Dd, Dl, DlGroup, Dt, Modal, ModalBody, ModalHeader, ModalProps, P } from '@gobob/ui';
+import { Dd, Dl, DlGroup, Dt, Modal, ModalBody, ModalHeader, ModalProps, P, Table } from '@gobob/ui';
+import { ReactNode } from 'react';
 
 import { UserResponse } from '../../../../utils';
 import { SpiceAmount } from '../../../../components';
+
+enum TableColumns {
+  USERNAME = 'username',
+  REFERRED_BY = 'referred-by',
+  SPICE_EARNED = 'spice-earned'
+}
+
+type TableRow = {
+  id: number;
+  [TableColumns.USERNAME]: ReactNode;
+  [TableColumns.SPICE_EARNED]: ReactNode;
+  [TableColumns.REFERRED_BY]: ReactNode;
+};
+
+const columns = [
+  { id: TableColumns.USERNAME, name: 'Username' },
+  {
+    id: TableColumns.SPICE_EARNED,
+    name: 'Earned Spice'
+  },
+  { id: TableColumns.REFERRED_BY, name: 'Referred by' }
+];
 
 type Props = {
   user: UserResponse;
@@ -12,6 +35,15 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type UserReferralModalProps = Props & InheritAttrs;
 
 const UserReferralModal = ({ user, ...props }: UserReferralModalProps): JSX.Element => {
+  const rows: TableRow[] = user.season3Data.refPointsBreakdown
+    .sort((a, b) => b.ref_points - a.ref_points)
+    .map((item, idx) => ({
+      id: idx,
+      [TableColumns.USERNAME]: item.username,
+      [TableColumns.SPICE_EARNED]: <SpiceAmount amount={item.ref_points} />,
+      [TableColumns.REFERRED_BY]: item.direct_referral ? 'You' : item.referred_by
+    }));
+
   return (
     <Modal {...props} size='lg'>
       <ModalHeader showDivider align='start'>
@@ -30,6 +62,7 @@ const UserReferralModal = ({ user, ...props }: UserReferralModalProps): JSX.Elem
             </Dd>
           </DlGroup>
         </Dl>
+        <Table removeWrapper aria-label='referral table' columns={columns} rows={rows} />
       </ModalBody>
     </Modal>
   );
