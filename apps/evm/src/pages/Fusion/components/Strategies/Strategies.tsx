@@ -1,7 +1,7 @@
-import { Flex, H2, Link } from '@gobob/ui';
+import { Card, Flex, H2, Link, P } from '@gobob/ui';
 
 import { StrategyCard, StrategyCardProps } from './StrategyCard';
-import { StyledGrid } from './Strategies.style';
+import { StyledGrid, StyledOverlay, StyledUnderlay, StyledWrapper } from './Strategies.style';
 
 const btcLstLendingStrat: StrategyCardProps = {
   title: 'BTC LSTs Lending',
@@ -115,15 +115,29 @@ const strategies = [btcLstLendingStrat, mintAndLendSatUsd, dexLiquidityPovisioni
 
 type StrategiesProps = {};
 
+const isComingSoon = true;
+
 const Strategies = ({}: StrategiesProps) => {
   return (
     <Flex direction='column' gap='3xl' marginTop='8xl'>
       <H2 size='3xl'>Hot Strategies</H2>
-      <StyledGrid gap='2xl'>
-        {strategies.map((strat, idx) => (
-          <StrategyCard key={idx} {...strat} />
-        ))}
-      </StyledGrid>
+      <StyledWrapper>
+        {isComingSoon && (
+          <>
+            <StyledUnderlay />
+            <StyledOverlay alignItems='center' justifyContent='center'>
+              <Card borderColor='grey-300' paddingX='lg' paddingY='md' rounded='md'>
+                <P size='xl'>Coming Soon</P>
+              </Card>
+            </StyledOverlay>
+          </>
+        )}
+        <StyledGrid gap='2xl'>
+          {strategies.map((strat, idx) => (
+            <StrategyCard key={idx} isDisabled={isComingSoon} {...strat} />
+          ))}
+        </StyledGrid>
+      </StyledWrapper>
     </Flex>
   );
 };

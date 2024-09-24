@@ -45,7 +45,7 @@ const Fusion = () => {
   }, [location]);
 
   const isAuthenticated = Boolean(user && address);
-  const hasPastHarvest = user && user.leaderboardRank.total_points > 0;
+  const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
 
   return (
     <Geoblock>
@@ -53,10 +53,8 @@ const Fusion = () => {
         <Flex direction='column' gap='lg'>
           <H1 size='4xl'>BOB Fusion: The Final Season</H1>
           <P color='grey-50'>
-            Harvest Spice by bridging assets to BOB and using in apps.
-            <br />
-            The final season of Fusion will progress in short phases with special bonuses to help boost your total
-            harvest.{' '}
+            Harvest Spice by depositing into BOB apps, voting, and solving challenges. Keep an eye out for special
+            events.{' '}
             <Link
               color='light'
               size='inherit'

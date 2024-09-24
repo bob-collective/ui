@@ -16,18 +16,27 @@ type Props = {
   longDescription: ReactNode;
   steps: Step[];
   rewards: string[];
+  isDisabled?: boolean;
 };
 
 type StrategyCardProps = Props;
 
-const StrategyCard = ({ title, longDescription, rewards, shortDescription, steps }: StrategyCardProps) => {
+const StrategyCard = ({ title, longDescription, rewards, shortDescription, steps, isDisabled }: StrategyCardProps) => {
   const [isOpen, setOpen] = useState(false);
 
   const stepId = useId();
   const rewardsId = useId();
 
   return (
-    <StyledCard isHoverable isPressable direction='row' flex={1} padding='none' onPress={() => setOpen(true)}>
+    <StyledCard
+      isHoverable
+      isPressable
+      direction='row'
+      flex={1}
+      isDisabled={isDisabled}
+      padding='none'
+      onPress={() => setOpen(true)}
+    >
       <StyledBannerWrapper flex={1}>
         <StyledBanner alignItems='center' justifyContent='center'>
           <Spice color='primary-500' filter='drop-shadow(0px 0px 10px #F25D00)' size='3xl' />

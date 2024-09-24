@@ -16,6 +16,7 @@ import { useFocusRing } from '@react-aria/focus';
 import { useGetUser, useHaltedLockedTokens, useLockedTokens } from '../../hooks';
 import { WithdrawAlert } from '../WithdrawAlert';
 import { WithdrawModal } from '../WithdrawModal';
+import { SpiceAmount } from '../SpiceAmount';
 
 import { StyledChip, StyledContentWrapper, StyledHarvestCard, StyledOpacityOverlay } from './FusionPopover.style';
 
@@ -57,10 +58,7 @@ const FusionPopover = (): JSX.Element | null => {
                 <P color='grey-50' size='s'>
                   Current Harvest
                 </P>
-                <Flex alignItems='center' gap='s'>
-                  <Spice size='s' />
-                  <P>{Intl.NumberFormat(locale).format(season3TotalPoints)}</P>
-                </Flex>
+                <SpiceAmount amount={season3TotalPoints} />
               </StyledContentWrapper>
             </StyledHarvestCard>
             <Card background='grey-500' rounded='lg'>
@@ -69,25 +67,26 @@ const FusionPopover = (): JSX.Element | null => {
               </P>
               <P>#{season3leaderboardData.group_rank}</P>
             </Card>
-            <Divider marginY='xs' />
-            <P color='grey-50' size='s'>
-              Season 1 & 2 (Completed)
-            </P>
-            <Card background='grey-500' rounded='lg'>
+            <>
+              <Divider marginY='xs' />
               <P color='grey-50' size='s'>
-                Total Harvest
+                Season 1 & 2 (Completed)
               </P>
-              <Flex alignItems='center' gap='s'>
-                <Spice size='s' />
-                <P>{Intl.NumberFormat(locale).format(user.leaderboardRank.total_points)}</P>
-              </Flex>
-            </Card>
-            <Card background='grey-500' rounded='lg'>
-              <P color='grey-50' size='s'>
-                Season 2 Final Rank
-              </P>
-              <P>#{user.leaderboardRank.rank}</P>
-            </Card>
+              <Card background='grey-500' rounded='lg'>
+                <P color='grey-50' size='s'>
+                  Total Harvest
+                </P>
+                <SpiceAmount amount={user.leaderboardRank?.total_points || 0} />
+              </Card>
+              {user.leaderboardRank?.rank && (
+                <Card background='grey-500' rounded='lg'>
+                  <P color='grey-50' size='s'>
+                    Season 2 Final Rank
+                  </P>
+                  <P>#{user.leaderboardRank?.rank}</P>
+                </Card>
+              )}
+            </>
             <WithdrawAlert />
           </PopoverBody>
         </PopoverContent>

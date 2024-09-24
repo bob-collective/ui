@@ -17,9 +17,9 @@ type AppsListProps = {
   isVotingExceeded?: boolean;
 };
 
-const ALL_CATEGORIES = 'all';
+const ALL_APPS = 'all';
 
-const MY_HARVESTERS = 'my-harvesters';
+const MY_APPS = 'my-apps';
 
 const AppsList = ({
   apps,
@@ -35,7 +35,7 @@ const AppsList = ({
 
   const [searchParams] = useSearchParams(new URLSearchParams(window.location.search));
 
-  const [tabCategory, setTabCategory] = useState(searchParams.get('category') || ALL_CATEGORIES);
+  const [tabCategory, setTabCategory] = useState(searchParams.get('category') || ALL_APPS);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -56,9 +56,9 @@ const AppsList = ({
   const categories = apps ? Array.from(new Set(apps.flatMap((app) => app.categories))).sort() : undefined;
 
   const list = apps
-    ? tabCategory === ALL_CATEGORIES
+    ? tabCategory === ALL_APPS
       ? apps
-      : tabCategory === MY_HARVESTERS
+      : tabCategory === MY_APPS
         ? apps.filter((app) => app.userHarvest)
         : apps.filter((app) => app.categories.includes(tabCategory))
     : undefined;
@@ -80,11 +80,11 @@ const AppsList = ({
       </H2>
       {!isLoading && categories ? (
         <Tabs selectedKey={tabCategory} variant='light' onSelectionChange={(key) => setTabCategory(key as string)}>
-          <TabsItem key={ALL_CATEGORIES} title='All Categories'>
+          <TabsItem key={ALL_APPS} title='All Apps'>
             <></>
           </TabsItem>
           {isAuthenticated && (
-            <TabsItem key={MY_HARVESTERS} title='My Harvesters'>
+            <TabsItem key={MY_APPS} title='My Apps'>
               <></>
             </TabsItem>
           )}

@@ -99,7 +99,7 @@ export type UserResponse = {
   data: any;
   created_at: Date;
   updated_at: Date;
-  leaderboardRank: {
+  leaderboardRank?: {
     user_address: string;
     total_points: number;
     total_reward_points: number;

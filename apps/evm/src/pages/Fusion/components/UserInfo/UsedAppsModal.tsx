@@ -1,7 +1,7 @@
-import { Avatar, Flex, List, ListItem, Modal, ModalBody, ModalHeader, ModalProps, P, Span, useLocale } from '@gobob/ui';
-import { Spice } from '@gobob/icons';
+import { Avatar, Flex, List, ListItem, Modal, ModalBody, ModalHeader, ModalProps, P, Span } from '@gobob/ui';
 
 import { AppData } from '../../../Apps/hooks';
+import { SpiceAmount } from '../../../../components';
 
 type Props = {
   apps: AppData[];
@@ -12,8 +12,6 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type UserAppsModalProps = Props & InheritAttrs;
 
 const UserAppsModal = ({ apps, ...props }: UserAppsModalProps): JSX.Element => {
-  const { locale } = useLocale();
-
   return (
     <Modal {...props} size='lg'>
       <ModalHeader showDivider align='start'>
@@ -31,10 +29,7 @@ const UserAppsModal = ({ apps, ...props }: UserAppsModalProps): JSX.Element => {
                   <Avatar rounded='md' size='6xl' src={app.logoSrc} />
                   <Span>{app.name}</Span>
                 </Flex>
-                <Flex alignItems='center' gap='s'>
-                  <Spice size='s' />
-                  <Span>{Intl.NumberFormat(locale, { notation: 'compact' }).format(Number(app.userHarvest) || 0)}</Span>
-                </Flex>
+                <SpiceAmount compact amount={Number(app.userHarvest) || 0} />
               </Flex>
             </ListItem>
           ))}

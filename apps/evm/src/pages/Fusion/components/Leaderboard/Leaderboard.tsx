@@ -3,22 +3,17 @@ import { Chip, Flex, H2, Skeleton, Span, Table, Tabs, TabsItem, useLocale } from
 import { useAccount } from '@gobob/wagmi';
 import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
-import { Spice } from '@gobob/icons';
 
 import { useGetUser } from '../../../../hooks';
 import { QuestRefCodes, apiClient } from '../../../../utils';
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 import { fusionKeys } from '../../../../lib/react-query';
 import { Medal } from '../../../Apps/components/Medal';
+import { SpiceAmount } from '../../../../components';
 
 import { StyledQuestList, StyledSkeletonWrapper } from './Leaderboard.style';
 
-const SpiceColumn = ({ locale, amount }: { locale: any; amount: number }) => (
-  <Flex alignItems='center' gap='s'>
-    <Spice />
-    <Span size='inherit'>{Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(Number(amount))}</Span>
-  </Flex>
-);
+const SpiceColumn = ({ amount }: { amount: number }) => <SpiceAmount amount={amount} />;
 
 const NameColumn = ({ rank, name }: { rank: number; name: string }) => (
   <Flex alignItems='center' gap='s'>
@@ -174,10 +169,7 @@ const Leaderboard = (): JSX.Element => {
             />
           ),
           [LeaderboardColumns.SPICE]: (
-            <SpiceColumn
-              amount={isQuestLeaderboard ? Number(item.quest_points) : Number(item.total_points)}
-              locale={locale}
-            />
+            <SpiceColumn amount={isQuestLeaderboard ? Number(item.quest_points) : Number(item.total_points)} />
           )
         };
       });
@@ -192,7 +184,7 @@ const Leaderboard = (): JSX.Element => {
             id: userRankKey,
             invitedBy: user.referred_by,
             name: <NameColumn name={user.username} rank={Number(userLeaderboardData.rank)} />,
-            spice: <SpiceColumn amount={Number(userLeaderboardData.points)} locale={locale} />,
+            spice: <SpiceColumn amount={Number(userLeaderboardData.points)} />,
             quests: user.quests_breakdown && (
               <QuestsColumn
                 earnedSpice={Number(user.total_quest_points)}

@@ -76,4 +76,35 @@ const StyledTitle = styled(H4)`
   padding: ${({ theme }) => `${theme.spacing('s')} ${theme.spacing('lg')}`};
 `;
 
-export { StyledBannerWrapper, StyledGrid, StyledTitle, StyledBanner, StyledCard, StyledPrize };
+const StyledWrapper = styled(Flex)`
+  position: relative;
+  pointer-events: none;
+`;
+
+const StyledUnderlay = styled.div`
+  top: -0.75rem;
+  bottom: -0.75rem;
+  left: -0.75rem;
+  right: -0.75rem;
+  position: absolute;
+  z-index: 1;
+  backdrop-filter: blur(4px);
+`;
+
+const StyledOverlay = styled(Flex)`
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+`;
+
+export {
+  StyledBannerWrapper,
+  StyledUnderlay,
+  StyledOverlay,
+  StyledWrapper,
+  StyledGrid,
+  StyledTitle,
+  StyledBanner,
+  StyledCard,
+  StyledPrize
+};

@@ -18,7 +18,7 @@ const UserInfoCard = ({ description, title, tooltipLabel, children, ...props }: 
         <Dt>{title}</Dt>
         {tooltipLabel && (
           <Tooltip label={tooltipLabel}>
-            <SolidInformationCircle size='s' />
+            <SolidInformationCircle color='grey-50' size='s' />
           </Tooltip>
         )}
       </Flex>

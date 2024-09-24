@@ -2,7 +2,9 @@ import {
   Alert,
   Button,
   Card,
-  Flex,
+  Dd,
+  Dl,
+  Dt,
   H3,
   H4,
   Link,
@@ -11,13 +13,11 @@ import {
   ModalFooter,
   ModalProps,
   P,
-  Span,
-  useLocale
+  Span
 } from '@gobob/ui';
-import { Spice } from '@gobob/icons';
 
 import { UserResponse } from '../../../../utils';
-import { WithdrawAlert } from '../../../../components';
+import { SpiceAmount, WithdrawAlert } from '../../../../components';
 
 import { StyledLearnButton } from './WelcomeBackModal.style';
 
@@ -28,8 +28,6 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type WelcomeBackModalProps = Props & InheritAttrs;
 
 const WelcomeBackModal = ({ user, onClose, ...props }: WelcomeBackModalProps): JSX.Element => {
-  const { locale } = useLocale();
-
   return (
     <Modal {...props} size='lg'>
       <ModalBody gap='xl' padding='2xl'>
@@ -45,23 +43,18 @@ const WelcomeBackModal = ({ user, onClose, ...props }: WelcomeBackModalProps): J
           refer a friend to receive a share of all the Spice they collect.
         </P>
         <H4 size='2xl'>Your performance in seasons 1 & 2</H4>
-        <Flex direction={{ base: 'column', s: 'row' }} gap='lg'>
+        <Dl direction={{ base: 'column', s: 'row' }} gap='lg'>
           <Card background='grey-500' flex={1} gap='s' rounded='lg' style={{ opacity: 0.9 }}>
-            <P color='grey-50'>Total Spice Harvested</P>
-            <Flex alignItems='center' gap='s'>
-              <Spice />
-              <P size='2xl'>
-                {Intl.NumberFormat(locale, { notation: 'compact', maximumFractionDigits: 2 }).format(
-                  user.leaderboardRank.total_points
-                )}
-              </P>
-            </Flex>
+            <Dt color='grey-50'>Total Spice Harvested</Dt>
+            <Dd size='2xl'>
+              <SpiceAmount amount={user.leaderboardRank?.total_points || 0} size='inherit' />
+            </Dd>
           </Card>
           <Card background='grey-500' flex={1} gap='s' rounded='lg' style={{ opacity: 0.9 }}>
-            <P color='grey-50'>Final Leaderboard Rank</P>
-            <P size='2xl'>#{user.leaderboardRank.rank}</P>
+            <Dt color='grey-50'>Final Leaderboard Rank</Dt>
+            <P size='2xl'>#{user.leaderboardRank?.rank || '-'}</P>
           </Card>
-        </Flex>
+        </Dl>
         <Alert status='info' title='The leaderboard resets for the new season' variant='outlined'>
           Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest.
         </Alert>

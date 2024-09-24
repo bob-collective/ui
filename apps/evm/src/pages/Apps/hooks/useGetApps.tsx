@@ -7,8 +7,10 @@ import { useGetUser } from '../../../hooks';
 import { useGetVotingApps, VotingAppData } from './useGetVotingApps';
 
 function getImageUrl(name: string) {
-  return new URL(`../../../assets/partners/${name.split(' ').join('').toLowerCase()}.png`, import.meta.url).href;
+  return new URL(`../../../assets/partners/${name.split(' ').join('').toLowerCase()}.png`, import.meta.url);
 }
+
+const fallbackImg = new URL(`../../../assets/spice-shape-background.jpg`, import.meta.url);
 
 type AppData = PartnerS3 & {
   logoSrc: string;
@@ -32,20 +34,25 @@ const useGetApps = () => {
 
       return data.partners
         .filter((partner) => partner.live)
-        .map((partner) => ({
-          ...partner,
-          logoSrc: getImageUrl(partner.name),
-          voting: apps?.find((app) => partner.ref_code === app.refCode),
-          userHarvest: user?.season3Data.harvestedPointsS3.find(
-            (project) => project.partner_refcode === partner.ref_code
-          )?.total_points,
-          multiplier:
-            Number(partner.min_multiplier) > 0 || Number(partner.max_multiplier) > 0
-              ? partner.min_multiplier === partner.max_multiplier
-                ? `${partner.max_multiplier}x`
-                : `${partner.min_multiplier}x - ${partner.max_multiplier}x`
-              : '1x'
-        }));
+        .map((partner) => {
+          const imageUrl = getImageUrl(partner.name);
+          const hasImg = !imageUrl.href.endsWith('undefined');
+
+          return {
+            ...partner,
+            logoSrc: hasImg ? imageUrl.href : fallbackImg.href,
+            voting: apps?.find((app) => partner.ref_code === app.refCode),
+            userHarvest: user?.season3Data.harvestedPointsS3.find(
+              (project) => project.partner_refcode === partner.ref_code
+            )?.total_points,
+            multiplier:
+              Number(partner.min_multiplier) > 0 || Number(partner.max_multiplier) > 0
+                ? partner.min_multiplier === partner.max_multiplier
+                  ? `${partner.max_multiplier}x`
+                  : `${partner.min_multiplier}x - ${partner.max_multiplier}x`
+                : '1x'
+          };
+        });
     }
   });
 };
