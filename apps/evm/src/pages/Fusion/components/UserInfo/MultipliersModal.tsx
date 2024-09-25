@@ -88,8 +88,8 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
           (item) =>
             !yieldAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
         )
-        // TODO: remove when fBTC is added
-        .filter((item) => item.symbol !== 'fBTC')
+        // TODO: remove when FBTC is added
+        .filter((item) => item.symbol !== 'FBTC')
         .filter((item) => Number(item.multiplier) > 0)
         .map(getRow)
     : Array(10)
@@ -119,7 +119,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
         }));
 
   const featuredAssetsRows = [
-    getRow({ multiplier: sortedData?.find((item) => item.symbol === 'fBTC')?.multiplier || '0', symbol: 'fBTC' }, 0)
+    getRow({ multiplier: sortedData?.find((item) => item.symbol === 'FBTC')?.multiplier || '0', symbol: 'FBTC' }, 0)
   ];
 
   return (

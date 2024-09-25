@@ -14,7 +14,7 @@ const btcLstLendingStrat: StrategyCardProps = {
     {
       description: 'Optional:',
       subSteps: [
-        { description: 'Use the deposited BTC LST as collateral to borrow wBTC, tBTC or fBTC' },
+        { description: 'Use the deposited BTC LST as collateral to borrow wBTC, tBTC or FBTC' },
         { description: 'Mint more BTC LSTs with the borrowed asset from step 3a' },
         { description: 'Deposit into lending as collateral' },
         { description: 'Repeat steps 3a to 3c multiple times' }
