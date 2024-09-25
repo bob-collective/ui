@@ -3,16 +3,16 @@ import { useAccount } from '@gobob/wagmi';
 import { Main } from '../../components';
 import { useGetUser } from '../../hooks';
 
-import { AppsList, AppsPodyum, HeroBanner, VotingDashboard } from './components';
+import { AppsList, AppsPodium, HeroBanner, VotingDashboard } from './components';
 import { useGetApps, useGetVotingApps, useVote, VotingAppData } from './hooks';
-import { useGetPodyumData } from './hooks/useGetPodyumData';
+import { useGetPodiumData } from './hooks/useGetPodiumData';
 
 const Apps = () => {
   const { data: votingAppsData, isLoading: isLoadingVotingApps } = useGetVotingApps();
 
   const { data: apps, isLoading: isLoadingApps } = useGetApps();
 
-  const { data: podyumApps, isLoading: isLoadingPodyumApps } = useGetPodyumData();
+  const { data: podiumApps, isLoading: isLoadingPodiumApps } = useGetPodiumData();
 
   const { mutate: vote } = useVote();
 
@@ -25,7 +25,7 @@ const Apps = () => {
 
   const isAuthenticated = Boolean(user && address);
 
-  const hasPodyum = !isLoadingPodyumApps && !!podyumApps?.length;
+  const hasPodium = !isLoadingPodiumApps && !!podiumApps?.length;
 
   return (
     <>
@@ -39,7 +39,7 @@ const Apps = () => {
           isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
           onVote={handleVote}
         />
-        {hasPodyum && <AppsPodyum apps={podyumApps} isLoading={isLoadingPodyumApps} />}
+        {hasPodium && <AppsPodium apps={podiumApps} isLoading={isLoadingPodiumApps} />}
         <AppsList
           apps={apps}
           isAuthenticated={isAuthenticated}

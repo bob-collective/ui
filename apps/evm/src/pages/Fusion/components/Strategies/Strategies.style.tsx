@@ -34,7 +34,12 @@ const StyledGrid = styled(Flex)`
   display: grid;
   width: 100%;
 
-  @media ${({ theme }) => theme.breakpoints.up('s')} {
+  grid-template-columns: 1fr;
+
+  grid-template-rows: 1fr 1fr;
+
+  // TODO: uncomment once last strat is add back
+  /* @media ${({ theme }) => theme.breakpoints.up('s')} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 
@@ -58,6 +63,11 @@ const StyledGrid = styled(Flex)`
         grid-column-start: unset;
       }
     }
+  } */
+
+  @media ${({ theme }) => theme.breakpoints.up('md')} {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
   }
 `;
 
@@ -73,7 +83,6 @@ const StyledTitle = styled(H4)`
 const StyledWrapper = styled(Flex)`
   width: 100%;
   position: relative;
-  pointer-events: none;
 `;
 
 const StyledUnderlay = styled.div`

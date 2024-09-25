@@ -11,7 +11,7 @@ type ResultVotingAppData = ResultProject & {
   logoSrc: string;
 };
 
-const useGetPodyumData = () => {
+const useGetPodiumData = () => {
   return useQuery({
     queryKey: appsKeys.appsResultVotes(),
     queryFn: async () => apiClient.getLastVotingResults(),
@@ -48,5 +48,5 @@ const useGetPodyumData = () => {
   });
 };
 
-export { useGetPodyumData };
+export { useGetPodiumData };
 export type { ResultVotingAppData };

@@ -205,7 +205,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             ) : (
               <Flex direction='column'>
                 <Skeleton height='3xl' width='10xl' />
-                <Skeleton marginTop='s' width='50%' />
+                <Skeleton count={2} marginTop='s' />
               </Flex>
             )}
           </Flex>

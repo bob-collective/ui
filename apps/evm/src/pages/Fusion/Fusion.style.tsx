@@ -5,12 +5,14 @@ import { Main } from '../../components';
 
 const StyledHeroSectionWrapper = styled(Flex)`
   position: relative;
+  width: 100%;
 `;
 
 const StyledHeroSection = styled(Flex)`
   margin: 7.75rem auto 0 auto;
   max-width: ${({ theme }) => theme.maxWidth('7xl')};
   z-index: 1;
+  width: 100%;
 `;
 
 const StyledBgDots = styled.img`

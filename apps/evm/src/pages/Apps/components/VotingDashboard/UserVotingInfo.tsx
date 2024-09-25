@@ -42,7 +42,7 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
         ) : (
           <Flex alignItems='center' gap='md'>
             <LoginButton color='primary' size='s'>
-              Login
+              Log in
             </LoginButton>
             <Span color='grey-50' size='s'>
               or

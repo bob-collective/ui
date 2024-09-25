@@ -1,8 +1,8 @@
 import { Avatar, Flex, FlexProps, P, Skeleton, Spacing } from '@gobob/ui';
 
-import { ResultVotingAppData } from '../../hooks/useGetPodyumData';
+import { ResultVotingAppData } from '../../hooks';
 
-import { StyledAvatarWrapper, StyledMedal } from './AppsPodyum.style';
+import { StyledAvatarWrapper, StyledMedal } from './AppsPodium.style';
 
 type Spot = 'first' | 'second' | 'third';
 
@@ -31,9 +31,9 @@ type Props = {
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
-type PodyumSpotProps = Props & InheritAttrs;
+type PodiumSpotProps = Props & InheritAttrs;
 
-const PodyumSpot = ({ app, spot, ...props }: PodyumSpotProps): JSX.Element => {
+const PodiumSpot = ({ app, spot, ...props }: PodiumSpotProps): JSX.Element => {
   return (
     <Flex alignItems='center' direction='column' gap={{ base: 's', md: 'lg' }} {...props}>
       <StyledAvatarWrapper>
@@ -67,4 +67,4 @@ const PodyumSpot = ({ app, spot, ...props }: PodyumSpotProps): JSX.Element => {
   );
 };
 
-export { PodyumSpot };
+export { PodiumSpot };

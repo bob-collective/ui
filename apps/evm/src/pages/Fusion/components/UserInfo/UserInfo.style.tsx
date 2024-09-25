@@ -23,6 +23,7 @@ const StyledLoginCard = styled(Card)`
 
 const StyledUserInfoWrapper = styled(Flex)`
   position: relative;
+  width: 100%;
 `;
 
 const StyledArrowRight = styled(ArrowRight)`

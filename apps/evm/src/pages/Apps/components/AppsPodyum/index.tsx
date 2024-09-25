@@ -1,1 +1,0 @@
-export { AppsPodyum } from './AppsPodyum';

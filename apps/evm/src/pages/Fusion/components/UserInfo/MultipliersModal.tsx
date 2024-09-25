@@ -7,7 +7,8 @@ import { TokenInfo } from '../../../../utils';
 
 const yieldAssetsAddresses = [
   '0x236f8c0a61da474db21b693fb2ea7aab0c803894',
-  '0xcc0966d8418d412c599a6421b760a847eb169a8c'
+  '0xcc0966d8418d412c599a6421b760a847eb169a8c',
+  '0x1fcca65fb6ae3b2758b9b2b394cb227eae404e1e'
 ];
 
 const BASE_MULTIPLIER = 0.5;

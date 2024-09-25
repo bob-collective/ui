@@ -1,9 +1,9 @@
 import { CardProps, Flex } from '@gobob/ui';
 
-import { ResultVotingAppData } from '../../hooks/useGetPodyumData';
+import { ResultVotingAppData } from '../../hooks';
 
-import { StyledCard, StyledContentWrapper, StyledGrid, StyledH2, StyledOpacityOverlay } from './AppsPodyum.style';
-import { PodyumSpot } from './PodyumSpot';
+import { StyledCard, StyledContentWrapper, StyledGrid, StyledH2, StyledOpacityOverlay } from './AppsPodium.style';
+import { PodiumSpot } from './PodiumSpot';
 
 type Props = {
   apps: [ResultVotingAppData, ResultVotingAppData, ResultVotingAppData];
@@ -12,9 +12,9 @@ type Props = {
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
 
-type AppPodyumProps = Props & InheritAttrs;
+type AppPodiumProps = Props & InheritAttrs;
 
-const AppsPodyum = ({ apps, isLoading }: AppPodyumProps): JSX.Element => {
+const AppsPodium = ({ apps, isLoading }: AppPodiumProps): JSX.Element => {
   const [first, second, third] = !isLoading ? apps : [undefined, undefined, undefined];
 
   return (
@@ -32,9 +32,9 @@ const AppsPodyum = ({ apps, isLoading }: AppPodyumProps): JSX.Element => {
         </StyledH2>
         <Flex flex={1} justifyContent='center'>
           <StyledGrid>
-            <PodyumSpot app={second} spot='second' />
-            <PodyumSpot app={first} marginLeft={{ base: 'md', md: '2xl' }} spot='first' />
-            <PodyumSpot app={third} marginLeft={{ base: 'xxs', md: 'lg' }} spot='third' />
+            <PodiumSpot app={second} spot='second' />
+            <PodiumSpot app={first} marginLeft={{ base: 'md', md: '2xl' }} spot='first' />
+            <PodiumSpot app={third} marginLeft={{ base: 'xxs', md: 'lg' }} spot='third' />
           </StyledGrid>
         </Flex>
       </StyledContentWrapper>
@@ -42,4 +42,4 @@ const AppsPodyum = ({ apps, isLoading }: AppPodyumProps): JSX.Element => {
   );
 };
 
-export { AppsPodyum };
+export { AppsPodium };

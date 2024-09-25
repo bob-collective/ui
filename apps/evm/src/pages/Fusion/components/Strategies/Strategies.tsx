@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Card, Flex, H2, Link, P } from '@gobob/ui';
 
 import { StrategyCard, StrategyCardProps } from './StrategyCard';
@@ -111,11 +112,11 @@ const dexLiquidityPovisioning: StrategyCardProps = {
   ]
 };
 
-const strategies = [btcLstLendingStrat, mintAndLendSatUsd, dexLiquidityPovisioning];
+const strategies = [btcLstLendingStrat, mintAndLendSatUsd];
 
 type StrategiesProps = {};
 
-const isComingSoon = true;
+const isComingSoon = false;
 
 const Strategies = ({}: StrategiesProps) => {
   return (

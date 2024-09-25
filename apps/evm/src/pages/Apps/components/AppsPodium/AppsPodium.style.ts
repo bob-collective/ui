@@ -10,7 +10,7 @@ function getImageUrl(name: string) {
 const StyledCard = styled(Card)`
   position: relative;
 
-  background-image: url(${getImageUrl('podyum-background.png')});
+  background-image: url(${getImageUrl('podium-background.png')});
   background-repeat: no-repeat;
   background-size: cover;
 
