@@ -1,5 +1,5 @@
 import { ChipTheme } from '../../components';
-import { rounded, transition, typography } from '../../core';
+import { rounded, spacing, transition, typography } from '../../core';
 
 import { color } from './colors';
 
@@ -12,16 +12,38 @@ const chip: ChipTheme = {
   },
   size: {
     s: {
-      base: { height: '1.5rem', paddingLeft: '0.25rem', paddingRight: '0.25rem', ...typography('xs') },
-      content: { paddingLeft: '0.25rem', paddingRight: '0.25rem' }
+      base: { height: '1.5rem', paddingLeft: spacing('xs'), paddingRight: spacing('xs'), ...typography('xs') },
+      content: {
+        base: { paddingLeft: spacing('xs'), paddingRight: spacing('xs') },
+        adornment: {
+          start: { paddingLeft: spacing('xs'), paddingRight: spacing('xs') },
+          end: { paddingLeft: spacing('xs'), paddingRight: spacing('xs') },
+          both: { paddingLeft: spacing('xs'), paddingRight: spacing('xs') }
+        }
+      }
     },
     md: {
-      base: { height: '1.75rem', paddingLeft: '0.25rem', paddingRight: '0.25rem', ...typography('s') },
-      content: { paddingLeft: '0.5rem', paddingRight: '0.5rem' }
+      base: { height: '1.75rem', paddingLeft: spacing('xs'), paddingRight: spacing('xs'), ...typography('s') },
+
+      content: {
+        base: { paddingLeft: spacing('md'), paddingRight: spacing('md') },
+        adornment: {
+          start: { paddingLeft: spacing('xs'), paddingRight: spacing('md') },
+          end: { paddingLeft: spacing('md'), paddingRight: spacing('xs') },
+          both: { paddingLeft: spacing('xs'), paddingRight: spacing('xs') }
+        }
+      }
     },
     lg: {
-      base: { height: '2rem', paddingLeft: '0.5rem', paddingRight: '0.5rem', ...typography('md') },
-      content: { paddingLeft: '0.5rem', paddingRight: '0.5rem' }
+      base: { height: '2rem', paddingLeft: spacing('md'), paddingRight: spacing('md'), ...typography('md') },
+      content: {
+        base: { paddingLeft: spacing('md'), paddingRight: spacing('md') },
+        adornment: {
+          start: { paddingLeft: spacing('xs'), paddingRight: spacing('md') },
+          end: { paddingLeft: spacing('md'), paddingRight: spacing('xs') },
+          both: { paddingLeft: spacing('xs'), paddingRight: spacing('xs') }
+        }
+      }
     }
   }
 };

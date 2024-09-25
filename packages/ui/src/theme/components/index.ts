@@ -16,6 +16,7 @@ export * from './progress-bar';
 export * from './radio';
 export * from './scroll';
 export * from './select';
+export * from './skeleton';
 export * from './spinner';
 export * from './stepper';
 export * from './switch';

@@ -82,7 +82,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
     const handleResetStep = () => setStep(undefined);
 
     const handleClose = useCallback(() => {
-      onClose();
+      onClose?.();
 
       // avoid content shift before the modal close
       setTimeout(() => handleResetStep(), 150);

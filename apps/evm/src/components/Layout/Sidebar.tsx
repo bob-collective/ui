@@ -37,6 +37,7 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
           <Flex direction='column' flex={1} justifyContent='space-between'>
             <Nav direction='column' gap='3xl'>
               <NavItem to={RoutesPath.BRIDGE}>{t('navigation.bridge')}</NavItem>
+              <NavItem to={RoutesPath.APPS}>Apps</NavItem>
               <NavItem to={RoutesPath.WALLET}>{t('navigation.wallet')}</NavItem>
               <NavItem to={RoutesPath.STAKE}>{t('navigation.stake')}</NavItem>
               <NavItem to={RoutesPath.FUSION}>{t('navigation.fusion')}</NavItem>

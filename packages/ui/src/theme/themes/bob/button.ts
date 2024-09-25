@@ -53,11 +53,11 @@ const button: ButtonTheme = {
       color: {
         default: {
           base: {
-            backgroundColor: color('grey-500'),
+            backgroundColor: color('grey-400'),
             color: color('light')
           },
           hover: {
-            backgroundColor: color('grey-400')
+            backgroundColor: hexToRgba(color('grey-400'), 80)
           }
         },
         primary: {

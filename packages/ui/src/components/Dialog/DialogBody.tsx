@@ -5,7 +5,7 @@ import { StyledDialogBody } from './Dialog.style';
 
 type Props = {
   maxHeight?: Spacing;
-  padding?: 'even' | 'uneven' | 'none';
+  padding?: FlexProps['padding'] | 'even' | 'uneven' | 'none';
 };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;

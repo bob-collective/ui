@@ -2,6 +2,8 @@ import { StyledObject } from 'styled-components';
 
 type TabsSize = 's' | 'md' | 'lg';
 
+type TabsVariant = 'solid' | 'light';
+
 type TabsTheme = {
   wrapper: StyledObject<object>;
   tab: {
@@ -9,6 +11,15 @@ type TabsTheme = {
     hover: StyledObject<object>;
     selected: StyledObject<object>;
   };
+  variant: Record<
+    TabsVariant,
+    {
+      wrapper: StyledObject<object>;
+      tab: {
+        selected: StyledObject<object>;
+      };
+    }
+  >;
   size: Record<
     TabsSize,
     {
@@ -19,4 +30,4 @@ type TabsTheme = {
   >;
 };
 
-export type { TabsSize, TabsTheme };
+export type { TabsSize, TabsTheme, TabsVariant };

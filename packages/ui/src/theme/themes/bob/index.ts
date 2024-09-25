@@ -16,7 +16,9 @@ import { link } from './link';
 import { list } from './list';
 import { progressBar } from './progress-bar';
 import { radio } from './radio';
+import { scroll } from './scroll';
 import { select } from './select';
+import { skeleton } from './skeleton';
 import { spinner } from './spinner';
 import { stepper } from './stepper';
 import { _switch } from './switch';
@@ -24,7 +26,6 @@ import { table } from './table';
 import { tabs } from './tabs';
 import { tokenInput } from './token-input';
 import { tooltip } from './tooltip';
-import { scroll } from './scroll';
 
 const bobTheme = defineTheme({
   colors,
@@ -48,6 +49,7 @@ const bobTheme = defineTheme({
   table,
   tabs,
   scroll,
+  skeleton,
   select,
   stepper,
   label,

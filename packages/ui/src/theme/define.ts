@@ -16,13 +16,14 @@ import {
   ListTheme,
   ProgressBarTheme,
   RadioTheme,
+  ScrollTheme,
   SelectTheme,
+  SkeletonTheme,
   SpinnerTheme,
   StepperTheme,
   SwitchTheme,
   TableTheme,
   TabsTheme,
-  ScrollTheme,
   TokenInputTheme,
   TooltipTheme
 } from './components';
@@ -75,6 +76,7 @@ type ThemeParams = {
   tabs: TabsTheme;
   table: TableTheme;
   scroll: ScrollTheme;
+  skeleton: SkeletonTheme;
   stepper: StepperTheme;
   label: LabelTheme;
   helperText: HelperTextTheme;

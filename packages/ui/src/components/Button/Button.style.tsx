@@ -17,6 +17,7 @@ const StyledButton = styled(UnstyledButton)<StyledButtonProps>`
   justify-content: center;
   width: ${(props) => (props.$fullWidth ? '100%' : 'auto')};
   border: 0px solid;
+  white-space: nowrap;
 
   user-select: none;
 

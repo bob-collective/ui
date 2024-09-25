@@ -24,6 +24,7 @@ export { OKXWallet } from './OKXWallet';
 export { Optimism } from './Optimism';
 export { Polygon } from './Polygon';
 export { RabbyWallet } from './RabbyWallet';
+export { Spice } from './Spice';
 export { TalismanWallet } from './TalismanWallet';
 export { TrustWallet } from './TrustWallet';
 export { Twitter } from './Twitter';

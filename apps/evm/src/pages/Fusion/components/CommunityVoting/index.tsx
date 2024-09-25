@@ -1,0 +1,1 @@
+export { CommunityVoting } from './CommunityVoting';

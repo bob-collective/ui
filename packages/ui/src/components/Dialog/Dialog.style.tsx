@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { DialogSize, Spacing } from '../../theme';
-import { Flex } from '../Flex';
+import { Flex, FlexProps } from '../Flex';
 import { H3 } from '../Text';
 import { Button } from '../Button';
 import { Divider } from '../Divider';
@@ -12,7 +12,7 @@ type StyledDialogProps = {
 
 type StyledDialogBodyProps = {
   $maxHeight?: Spacing;
-  $padding: 'even' | 'uneven' | 'none';
+  $padding?: FlexProps['padding'] | 'even' | 'uneven' | 'none';
 };
 
 const StyledDialog = styled.section<StyledDialogProps>`
@@ -44,7 +44,11 @@ const StyledDialogHeader = styled(H3)`
 `;
 
 const StyledDialogBody = styled(Flex)<StyledDialogBodyProps>`
-  ${({ theme, $padding }) => $padding !== 'none' && theme.dialog.body[$padding]};
+  ${({ theme, $padding }) =>
+    ($padding !== 'none' && theme.dialog.body[$padding as 'even']) ||
+    css`
+      padding: ${theme.spacing($padding as Spacing)};
+    `};
   max-height: ${({ theme, $maxHeight }) => $maxHeight && theme.spacing($maxHeight)};
 
   flex: 1 1 auto;

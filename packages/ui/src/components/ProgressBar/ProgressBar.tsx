@@ -1,13 +1,20 @@
 import { AriaProgressBarProps, useProgressBar } from '@react-aria/progress';
 import { CSSProperties } from 'react';
+import { mergeProps } from '@react-aria/utils';
 
 import { Color, ProgressBarSize } from '../../theme';
 import { Flex, FlexProps } from '../Flex';
 import { Span } from '../Text';
 
-import { StyledFill, StyledTrack } from './ProgressBar.style';
+import { StyledFill, StyledTrack, StyledWrapper } from './ProgressBar.style';
 
-type Props = { color?: Color; showValueLabel?: boolean; size?: ProgressBarSize };
+type Props = {
+  color?: Color | string;
+  showValueLabel?: boolean;
+  size?: ProgressBarSize;
+  fullWidth?: boolean;
+  rounded?: boolean;
+};
 
 type AriaAttrs = Omit<AriaProgressBarProps, keyof Props>;
 
@@ -26,26 +33,25 @@ const ProgressBar = (props: ProgressBarProps): JSX.Element => {
     size = 'md',
     showValueLabel,
     label,
-    className,
-    style,
-    hidden
+    fullWidth,
+    rounded
   } = props;
 
   const percentage = (value - minValue) / (maxValue - minValue);
   const barStyle: CSSProperties = { width: `${Math.round(percentage * 100)}%` };
 
   return (
-    <Flex className={className} direction='column' gap='s' hidden={hidden} style={style} {...progressBarProps}>
+    <StyledWrapper $fullWidth={fullWidth} direction='column' gap='s' {...mergeProps(progressBarProps, props)}>
       {(label || showValueLabel) && (
         <Flex gap='s'>
           {label && <Span {...labelProps}>{label}</Span>}
           {showValueLabel && <Span>{progressBarProps['aria-valuetext']}</Span>}
         </Flex>
       )}
-      <StyledTrack $size={size}>
+      <StyledTrack $rounded={rounded} $size={size}>
         <StyledFill $color={color} $size={size} style={barStyle} />
       </StyledTrack>
-    </Flex>
+    </StyledWrapper>
   );
 };
 

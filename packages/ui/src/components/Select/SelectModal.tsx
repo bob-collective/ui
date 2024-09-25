@@ -25,11 +25,11 @@ const SelectModal = forwardRef<HTMLDivElement, SelectModalProps>(
       const [selectedKey] = [...key];
 
       if (!selectedKey) {
-        return onClose();
+        return onClose?.();
       }
 
       state.selectionManager.setSelectedKeys(key);
-      onClose();
+      onClose?.();
     };
 
     const items = [...state.collection];
