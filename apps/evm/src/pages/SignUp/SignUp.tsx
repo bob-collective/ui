@@ -5,7 +5,7 @@ import { Button, Divider, Flex, P, toast } from '@gobob/ui';
 import { useAccount, useSignMessage, useSwitchChain } from '@gobob/wagmi';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SiweMessage } from 'siwe';
 
 import { Geoblock, LoginSection, Main } from '../../components';
@@ -23,11 +23,14 @@ const SignUp = (): JSX.Element | null => {
   const { signMessageAsync } = useSignMessage();
   const { open } = useConnectModal();
 
+  const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { refetch: refetchUser, data: user } = useGetUser({ retry: 5, retryDelay: 1000 });
 
   const [referalCode, setReferalCode] = useState('');
+
+  console.log(location.state);
 
   const { mutate: signUp, isPending: isLoadingSignUp } = useMutation({
     mutationKey: signUpKeys.signUp(),
@@ -57,7 +60,7 @@ const SignUp = (): JSX.Element | null => {
     onSuccess: async () => {
       await refetchUser();
 
-      navigate(RoutesPath.FUSION);
+      navigate(location.state.redirect || RoutesPath.FUSION);
     },
     onError: async (e: any) => {
       if (e.code === 4001) {
@@ -80,8 +83,9 @@ const SignUp = (): JSX.Element | null => {
 
   useEffect(() => {
     if (user && address) {
-      navigate(RoutesPath.FUSION);
+      navigate(location.state?.redirect || RoutesPath.FUSION);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, address, navigate]);
 
   const handleLinkWallet = async () => {

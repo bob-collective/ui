@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  CardProps,
   Dd,
   Divider,
   Dl,
@@ -15,18 +16,24 @@ import {
   Tooltip
 } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
-import { SpiceChip } from '../SpiceChip';
-import { RoutesPath } from '../../../../constants';
 import { LoginButton } from '../../../../components';
+import { RoutesPath } from '../../../../constants';
+import { VotingAppsData } from '../../hooks';
+import { SpiceChip } from '../SpiceChip';
 
-type Props = { isAuthenticated?: boolean; roundEndsAt?: string; votesRemaining?: number };
+type Props = { isAuthenticated?: boolean; apps?: VotingAppsData };
 
-type UserVotingInfoProps = Props;
+type InheritAttrs = Omit<CardProps, keyof Props>;
 
-const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVotingInfoProps): JSX.Element => {
+type UserVotingInfoProps = Props & InheritAttrs;
+
+const UserVotingInfo = ({ isAuthenticated, apps, ...props }: UserVotingInfoProps): JSX.Element => {
+  const navigate = useNavigate();
+
   return (
-    <Card borderColor='grey-300' direction='row' gap='md' padding={isAuthenticated ? 'xl' : 'lg'}>
+    <Card borderColor='grey-300' direction='row' gap='md' padding={isAuthenticated ? 'xl' : 'lg'} {...props}>
       <>
         {isAuthenticated ? (
           <Dl>
@@ -48,7 +55,9 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
               or
             </Span>
             <Button asChild color='primary' size='s' variant='ghost'>
-              <Link href={RoutesPath.SIGN_UP}>Create Account</Link>
+              <Link href={RoutesPath.SIGN_UP} {...{ state: { redirect: RoutesPath.APPS } }}>
+                Create Account
+              </Link>
             </Button>
           </Flex>
         )}
@@ -56,7 +65,7 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
         <Tooltip label='Time left until voting round ends'>
           <Flex alignItems='center' gap='s'>
             <SolidClock color='grey-200' size='s' />
-            {roundEndsAt ? <P>{formatDistanceToNow(roundEndsAt)}</P> : <Skeleton width='4xl' />}
+            {apps?.roundEndsAt ? <P>{formatDistanceToNow(apps.roundEndsAt)}</P> : <Skeleton width='4xl' />}
           </Flex>
         </Tooltip>
       </>
