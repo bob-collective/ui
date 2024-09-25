@@ -67,51 +67,6 @@ const mintAndLendSatUsd: StrategyCardProps = {
   ]
 };
 
-const dexLiquidityPovisioning: StrategyCardProps = {
-  title: 'DEX Liquidity Provisioning',
-  shortDescription: 'Provide liquidity into Oku DEX',
-  longDescription: (
-    <>
-      Provide liquidity into any AMM pool on{' '}
-      <Link
-        external
-        color='inherit'
-        href='https://oku.trade/app/bob/?utm_source=BOB'
-        size='inherit'
-        underlined='always'
-      >
-        Oku DEX
-      </Link>{' '}
-      to earn trading fees and incentives
-    </>
-  ),
-  steps: [
-    {
-      description: (
-        <>
-          Follow the steps of{' '}
-          <Link
-            external
-            color='inherit'
-            href='https://docs.oku.trade/home/features/position-manager'
-            size='inherit'
-            underlined='always'
-          >
-            this guide
-          </Link>{' '}
-          to provide liquity into a DEX pool on Oku. Users will need to actively monitor their position, especially if
-          the position has a small range
-        </>
-      )
-    }
-  ],
-  rewards: [
-    'Spice rewards (High)',
-    'BTC LST points (if BTC LSTs are supplied)',
-    'Babylon points (if BTC LSTs are supplied)'
-  ]
-};
-
 const strategies = [btcLstLendingStrat, mintAndLendSatUsd];
 
 type StrategiesProps = {};
