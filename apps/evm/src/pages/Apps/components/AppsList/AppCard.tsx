@@ -87,7 +87,7 @@ const AppCard = ({
         <Flex direction='column' justifyContent='center'>
           <H3 size='lg'>{name}</H3>
           {description && (
-            <P color='grey-50' rows={2} size='s'>
+            <P color='grey-50' rows={3} size='s'>
               {description}
             </P>
           )}
