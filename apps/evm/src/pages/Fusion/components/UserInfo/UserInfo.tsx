@@ -1,5 +1,21 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Bars3, Button, Dd, Divider, DlGroup, Dt, Flex, H3, Link, P, Skeleton, Span } from '@gobob/ui';
+import {
+  Bars3,
+  Button,
+  Dd,
+  Divider,
+  DlGroup,
+  Dt,
+  Flex,
+  H3,
+  Link,
+  P,
+  Skeleton,
+  SolidInformationCircle,
+  Span,
+  Tooltip,
+  UnstyledButton
+} from '@gobob/ui';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -70,9 +86,10 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             <DlGroup alignItems='flex-start' direction='column'>
               <Dt>Season 3 Harvested Spice</Dt>
               <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
-                <SpiceAmount amount={totalPoints} gap='md' size='4xl' />
+                <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
                 <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
-                  (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/Day)
+                  (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}
+                  /Day)
                 </Flex>
               </Flex>
             </DlGroup>
@@ -177,7 +194,12 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             {tvlLevel ? (
               <>
                 <Dt color='light' size='2xl'>
-                  {tvlLevel?.levelName}
+                  {tvlLevel?.levelName}{' '}
+                  <Tooltip label={tvlLevel.levelHelperText} trigger='focus'>
+                    <UnstyledButton>
+                      <SolidInformationCircle color='grey-50' size='s' />
+                    </UnstyledButton>
+                  </Tooltip>
                 </Dt>
                 <Span color='grey-50' size='s'>
                   {tvlLevel?.levelDescription}

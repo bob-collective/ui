@@ -39,6 +39,7 @@ const StyledMain = styled(Main)`
 const StyledContent = styled(Flex)`
   max-width: ${({ theme }) => theme.maxWidth('7xl')};
   margin: 0 auto;
+  width: 100%;
 `;
 
 const StyledStrategiesWrapper = styled(Flex)`

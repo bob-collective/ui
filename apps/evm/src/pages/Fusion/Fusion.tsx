@@ -87,7 +87,7 @@ const Fusion = () => {
             <Strategies />
           </StyledContent>
         </StyledStrategiesWrapper>
-        <StyledContent direction='column' paddingX='lg'>
+        <StyledContent direction='column' paddingBottom='2xl' paddingX='lg'>
           <Challenges quests={quests} />
           <CommunityVoting />
           <Leaderboard />

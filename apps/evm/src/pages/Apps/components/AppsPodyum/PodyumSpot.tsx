@@ -56,7 +56,13 @@ const PodyumSpot = ({ app, spot, ...props }: PodyumSpotProps): JSX.Element => {
           />
         )}
       </StyledAvatarWrapper>
-      {app ? <P size={{ base: 's', md: 'md' }}>{app.name}</P> : <Skeleton width='5xl' />}
+      {app ? (
+        <P align='center' size={{ base: 's', md: 'md' }}>
+          {app.name}
+        </P>
+      ) : (
+        <Skeleton width='5xl' />
+      )}
     </Flex>
   );
 };

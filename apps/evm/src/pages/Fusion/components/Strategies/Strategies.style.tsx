@@ -32,6 +32,7 @@ const StyledCard = styled(Card)<StyledCardProps>`
 
 const StyledGrid = styled(Flex)`
   display: grid;
+  width: 100%;
 
   @media ${({ theme }) => theme.breakpoints.up('s')} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -70,6 +71,7 @@ const StyledTitle = styled(H4)`
 `;
 
 const StyledWrapper = styled(Flex)`
+  width: 100%;
   position: relative;
   pointer-events: none;
 `;
