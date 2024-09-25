@@ -229,6 +229,7 @@ export interface PartnerS3 {
   ref_code: string;
   live?: boolean;
   project_url: string;
+  logos?: { default: string };
   description: string;
   show_on_app_store: boolean;
   discord_id: any;

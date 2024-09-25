@@ -35,12 +35,17 @@ const useGetApps = () => {
       return data.partners
         .filter((partner) => partner.live)
         .map((partner) => {
-          const imageUrl = getImageUrl(partner.name);
-          const hasImg = !imageUrl.href.endsWith('undefined');
+          // Prioritize using the default logo from partner data
+          let logoSrc = partner.logos?.default || getImageUrl(partner.name).href;
+
+          // If the image URL construction failed, use fallback image
+          if (!partner.logos?.default && logoSrc.endsWith('undefined')) {
+            logoSrc = fallbackImg.href;
+          }
 
           return {
             ...partner,
-            logoSrc: hasImg ? imageUrl.href : fallbackImg.href,
+            logoSrc,
             voting: apps?.find((app) => partner.ref_code === app.refCode),
             userHarvest: user?.season3Data.harvestedPointsS3.find(
               (project) => project.partner_refcode === partner.ref_code

@@ -13,8 +13,7 @@ import {
   Skeleton,
   SolidInformationCircle,
   Span,
-  Tooltip,
-  UnstyledButton
+  Tooltip
 } from '@gobob/ui';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useState } from 'react';
@@ -195,10 +194,8 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               <>
                 <Dt color='light' size='2xl'>
                   {tvlLevel?.levelName}{' '}
-                  <Tooltip label={tvlLevel.levelHelperText} trigger='focus'>
-                    <UnstyledButton>
-                      <SolidInformationCircle color='grey-50' size='s' />
-                    </UnstyledButton>
+                  <Tooltip label={tvlLevel.levelHelperText}>
+                    <SolidInformationCircle color='grey-50' size='s' />
                   </Tooltip>
                 </Dt>
                 <Span color='grey-50' size='s'>
