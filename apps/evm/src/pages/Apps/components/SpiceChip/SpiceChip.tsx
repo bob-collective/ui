@@ -18,6 +18,7 @@ type Props = {
   isDisabled?: boolean;
   onPress?: (e: PressEvent) => void;
   isVotingExceeded?: boolean;
+  hideTooltip?: boolean;
 };
 
 type InheritAttrs = Omit<ChipProps, keyof Props | 'children'>;
@@ -32,6 +33,7 @@ const SpiceChip = ({
   onPress,
   className,
   isVotingExceeded,
+  hideTooltip,
   ...props
 }: SpiceChipProps): JSX.Element => {
   const { locale } = useLocale();
@@ -84,6 +86,7 @@ const SpiceChip = ({
 
   return (
     <Tooltip
+      isDisabled={hideTooltip}
       label={
         isPressable
           ? isLitProp

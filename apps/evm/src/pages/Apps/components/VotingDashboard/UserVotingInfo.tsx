@@ -35,7 +35,7 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
                 Votes Left:
               </Dt>
               <Dd>
-                <SpiceChip isLit amount={votesRemaining || 0} />
+                <SpiceChip hideTooltip isLit amount={votesRemaining || 0} />
               </Dd>
             </DlGroup>
           </Dl>
