@@ -26,8 +26,7 @@ const HeroBanner = (): JSX.Element => {
           Community Voting {' '}
         </H1>
         <StyledDescription align={{ base: 'center', md: 'start' }} color='grey-50' size={{ base: 'xs', md: 'md' }}>
-          Use your Spice total to support your favourite BOB builders. You can cast up to three votes, choosing
-          whichever builders you like, in any category. Winners will be announced each week.
+          Use your Spice total to support your favourite BOB builders. Winners will be announced each week.
           <StyledButton size='inherit' onPress={() => setOpen(true)}>
             Read more here
           </StyledButton>

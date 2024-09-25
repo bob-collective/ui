@@ -38,8 +38,7 @@ const CommunityVoting = ({}: CommunityVotingProps) => {
         )}
         <H2 size='3xl'>Community Voting</H2>
         <P color='grey-50'>
-          Use your Spice total to support your favourite BOB builders. You can cast up to three votes, choosing
-          whichever builders you like, in any category. Winners will be announced each week.
+          Use your Spice total to support your favourite BOB builders. Winners will be announced each week.
         </P>
         <Button elementType={Link} size='xl' variant='outline' {...{ href: RoutesPath.APPS }}>
           Vote
