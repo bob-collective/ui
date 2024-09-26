@@ -157,13 +157,9 @@ const getStatus = (step: BridgeSteps, status: MessageStatus | null, direction: M
 
       return getBridgeStepStatus(step, currentStep);
     }
+    case 'l1-confirmation':
     case 'relay': {
       const step = withdrawOrder[MessageStatus.READY_FOR_RELAY];
-
-      return getBridgeStepStatus(step, currentStep);
-    }
-    case 'l1-confirmation': {
-      const step = withdrawOrder[MessageStatus.RELAYED];
 
       return getBridgeStepStatus(step, currentStep);
     }
