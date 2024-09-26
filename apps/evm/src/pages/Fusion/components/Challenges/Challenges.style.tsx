@@ -120,6 +120,7 @@ const StyledUnderlay = styled.div`
   position: absolute;
   z-index: 1;
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 `;
 
 const StyledOverlay = styled(Flex)`
