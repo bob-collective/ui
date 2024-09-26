@@ -12,6 +12,7 @@ import { FeatureFlags, useFeatureFlag } from '../../hooks';
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
+import { FusionBanner } from './FusionBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -36,7 +37,7 @@ function PrevArrow(props: any) {
 const settings: Settings = {
   dots: true,
   infinite: true,
-  autoplay: true,
+  autoplay: false,
   speed: 500,
   autoplaySpeed: 10000,
   cssEase: 'linear',
@@ -66,9 +67,21 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressFusionBanner = useCallback(
+    () =>
+      window.open(
+        'https://discord.com/channels/1214916952288403476/1214920662624370758/1284482326314614856',
+        '_blank',
+        'noreferrer'
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
+        <FusionBanner onPress={onPressFusionBanner} />
         <EcosystemBanner onPress={onPressEcosystemBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledSlider>
