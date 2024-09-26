@@ -1,33 +1,39 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Card, Flex, H2, Link, P } from '@gobob/ui';
 
+import { RoutesPath } from '../../../../constants';
+
 import { StrategyCard, StrategyCardProps } from './StrategyCard';
 import { StyledGrid, StyledOverlay, StyledUnderlay, StyledWrapper } from './Strategies.style';
 
 const btcLstLendingStrat: StrategyCardProps = {
-  title: 'BTC LSTs Lending',
-  shortDescription: 'Supply your BTC LSTs into a lending market on BOB',
-  longDescription:
-    'Deposit your BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets.',
+  title: 'BTC LST Lending',
+  shortDescription: 'Use BTC LSTs as collateral to borrow other assets',
+  longDescription: 'Deposit BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets.',
   steps: [
-    { description: 'One-click stake your BTC and receive BTC LSTs on BOB' },
-    { description: 'Deposit any eligible BTC LST into a lending market on BOB' },
     {
-      description: 'Optional:',
-      subSteps: [
-        { description: 'Use the deposited BTC LST as collateral to borrow wBTC, tBTC or FBTC' },
-        { description: 'Mint more BTC LSTs with the borrowed asset from step 3a' },
-        { description: 'Deposit into lending as collateral' },
-        { description: 'Repeat steps 3a to 3c multiple times' }
-      ]
-    }
+      description: (
+        <>
+          <Link href={RoutesPath.STAKE} underlined='always'>
+            Stake your BTC with 1-click
+          </Link>{' '}
+          and receive BTC LSTs on BOB.
+        </>
+      )
+    },
+    { description: 'Deposit any eligible BTC LSTs into a lending market on BOB.' },
+    {
+      description: 'Use the deposited BTC LSTs as collateral to borrow wBTC, tBTC or FBTC.'
+    },
+    { description: 'Mint more BTC LSTs with these borrowed assets.' },
+    { description: "Optional: It's possible to repeat steps 2-4 multiple times." }
   ],
   rewards: [
-    'Lending rate of BTC LSTs on the Lending & Borrowing platform',
-    'Spice rewards (Medium)',
-    'Lending protocol rewards (multiplied by how often users repeat step 3)',
-    'BTC LSTs points (multiplied by how often users repeat step 3)',
-    'Babylon points (multiplied by how often users repeat step 3)'
+    'Spice points (Medium)',
+    'Lending rate of BTC LSTs',
+    'Lending protocol points',
+    'LST provider points',
+    'Babylon points'
   ]
 };
 
@@ -44,30 +50,132 @@ const mintAndLendSatUsd: StrategyCardProps = {
     </>
   ),
   steps: [
-    { description: 'One-click stake your BTC and receive BTC LSTs on BOB' },
-    { description: 'Deposit your BTC LSTs into Satoshi Protocol to mint satUSD' },
-    { description: 'Supply the newly minted satUSD into a lending protocol on BOB (insert list/links to dApps)' },
     {
-      description: 'Optional:',
-      subSteps: [
-        { description: 'Use the deposited satUSD as collateral to borrow any BTC LST' },
-        { description: 'Mint more satUSD with the borrowed asset from step 4a' },
-        { description: 'Deposit into lending as collateral' },
-        { description: 'Repeat steps 4a to 4c multiple times' }
-      ]
+      description: (
+        <>
+          <Link href={RoutesPath.STAKE} underlined='always'>
+            Stake your BTC with 1-click
+          </Link>{' '}
+          and receive BTC LSTs on BOB.
+        </>
+      )
+    },
+    {
+      description: (
+        <>
+          Deposit your BTC LSTs into{' '}
+          <Link external color='inherit' href='https://app.satoshiprotocol.org/' size='inherit' underlined='always'>
+            Satoshi Protocol
+          </Link>{' '}
+          to mint satUSD.
+        </>
+      )
+    },
+    {
+      description: (
+        <>
+          Supply the newly minted satUSD into a{' '}
+          <Link
+            color='inherit'
+            href={`${RoutesPath.APPS}?category=Lending+%26+Borrowing`}
+            size='inherit'
+            underlined='always'
+          >
+            lending protocol on BOB
+          </Link>
+          .
+        </>
+      )
+    },
+    {
+      description: 'Use the deposited satUSD as collateral to borrow any BTC LST.'
+    },
+    {
+      description: "Optional: It's possible to repeat steps 2-4 multiple times."
     }
   ],
   rewards: [
-    'Lending rate of satUSD',
     'Spice rewards (Medium)',
-    'Lending protocol rewards (multiplied by how often users repeat step 4)',
-    'Satoshi protocol rewards (multiplied by how often users repeat step 4)',
-    'BTC LSTs points (multiplied by how often users repeat step 4)',
-    'Babylon points (multiplied by how often users repeat step 4)'
+    'Lending rate of satUSD',
+    'Lending protocol points',
+    'Satoshi protocol points',
+    'LST provider points',
+    'Babylon points'
   ]
 };
 
-const strategies = [btcLstLendingStrat, mintAndLendSatUsd];
+const dexLiquidityPovisioning: StrategyCardProps = {
+  title: 'DEX Liquidity Provisioning',
+  shortDescription: 'Provide liquidity into Oku DEX',
+  longDescription: (
+    <>
+      Provide liquidity into any AMM pool on{' '}
+      <Link
+        external
+        color='inherit'
+        href='https://oku.trade/app/bob/?utm_source=BOB'
+        size='inherit'
+        underlined='always'
+      >
+        Oku DEX
+      </Link>{' '}
+      to earn trading fees and incentives
+    </>
+  ),
+  steps: [
+    {
+      description: (
+        <>
+          Follow the steps of{' '}
+          <Link
+            external
+            color='inherit'
+            href='https://docs.oku.trade/home/features/position-manager'
+            size='inherit'
+            underlined='always'
+          >
+            this guide
+          </Link>{' '}
+          to provide liquity into a DEX pool on Oku.
+        </>
+      )
+    },
+    { description: 'Maximum points will be received by providing BTC LST liquidity.' },
+    { description: 'You will need to actively monitor your position, especially if it has a small range.' }
+  ],
+  rewards: ['Spice rewards (Higher)', 'LST provider points', 'Babylon points']
+};
+
+const bridgeBtcLstToBob: StrategyCardProps = {
+  title: 'Bridge BTC LSTs to BOB',
+  shortDescription: 'Bridge BTC LSTs to BOB',
+  longDescription:
+    'If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice.',
+  steps: [
+    {
+      description: (
+        <>
+          Use any of the{' '}
+          <Link
+            external
+            color='inherit'
+            href={`${RoutesPath.STAKE}?type=stake&stakeWith=solv-solvbtcbbn`}
+            size='inherit'
+            underlined='always'
+          >
+            supported bridges
+          </Link>
+          .
+        </>
+      )
+    },
+    { description: 'Select the wrapped Bitcoin asset and the amount that you want to bridge.' },
+    { description: 'Chose any of the existing liquid staking provider to mint your BTC LST.' }
+  ],
+  rewards: ['Spice points (Lower)', 'LST provider points', 'Babylon points']
+};
+
+const strategies = [btcLstLendingStrat, mintAndLendSatUsd, dexLiquidityPovisioning, bridgeBtcLstToBob].slice(0, 2);
 
 type StrategiesProps = {};
 
