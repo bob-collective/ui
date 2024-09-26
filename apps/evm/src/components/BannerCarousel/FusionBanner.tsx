@@ -16,11 +16,7 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => (
       <Flex alignItems='center'>
         <BannerTitle>BOB Fusion: The Final Season</BannerTitle>
       </Flex>
-      <P color='grey-50'>
-        Read the official Fusion Guide on the new BOB Blog and
-        <br />
-        start harvesting Spice now.
-      </P>
+      <P color='grey-50'>Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now.</P>
     </StyledBannerContent>
     <StyledFusionImg src={fusionEndImg} />
   </Banner>

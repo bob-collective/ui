@@ -12,6 +12,7 @@ const StyledCarouselWrapper = styled(Card)`
 `;
 
 const StyledBannerContent = styled(Flex)`
+  max-width: ${({ theme }) => theme.maxWidth('md')};
   z-index: 1;
 `;
 
