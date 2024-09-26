@@ -12,6 +12,7 @@ import { FeatureFlags, useFeatureFlag } from '../../hooks';
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
+import { FusionBanner } from './FusionBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -66,9 +67,16 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressFusionBanner = useCallback(
+    () => window.open('https://blog.gobob.xyz/posts/bob-fusion-the-final-season', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
+        <FusionBanner onPress={onPressFusionBanner} />
         <EcosystemBanner onPress={onPressEcosystemBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledSlider>
