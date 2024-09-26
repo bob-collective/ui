@@ -175,7 +175,7 @@ const bridgeBtcLstToBob: StrategyCardProps = {
   rewards: ['Spice points (Lower)', 'LST provider points', 'Babylon points']
 };
 
-const strategies = [btcLstLendingStrat, mintAndLendSatUsd, dexLiquidityPovisioning, bridgeBtcLstToBob].slice(0, 2);
+const strategies = [btcLstLendingStrat, mintAndLendSatUsd, dexLiquidityPovisioning, bridgeBtcLstToBob].slice(0, 3);
 
 type StrategiesProps = {};
 
