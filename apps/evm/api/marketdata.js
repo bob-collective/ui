@@ -9,7 +9,7 @@ const headers = {
   "cache-control": "public, max-age=120, s-maxage=120, stale-while-revalidate=300, stale-if-error=300"
 }
 
-function coingecko() {
+function coingecko(request) {
   const url = new URL('https://api.coingecko.com/api/v3/simple/price?' + new URL(request.url).searchParams)
   const reqHeaders = { "accept": "application/json" }
 
@@ -30,7 +30,7 @@ export default async (request) => {
     })
   }
 
-  const cgResp = await coingecko()
+  const cgResp = await coingecko(request)
   if (!cgResp.ok) {
     const errMsg = await cgResp.text()
     throw new Error(errMsg)
