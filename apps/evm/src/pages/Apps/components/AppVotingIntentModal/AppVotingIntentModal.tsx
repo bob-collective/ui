@@ -13,14 +13,12 @@ import {
   ModalHeader,
   ModalProps,
   P,
-  Span,
-  Link
+  Span
 } from '@gobob/ui';
 
 import { AppData, VotingAppData, VotingAppsData } from '../../hooks';
 import { SpiceChip } from '../SpiceChip';
-import { LoginButton } from '../../../../components';
-import { RoutesPath } from '../../../../constants';
+import { LoginButton, SignUpButton } from '../../../../components';
 
 type Props = {
   app: AppData;
@@ -54,11 +52,11 @@ const AppVotingIntentModal = ({
             <DlGroup alignItems='center'>
               <Dt color='light'>Votes left:</Dt>
               <Dd>
-                <SpiceChip isLit amount={apps?.votesRemaining || 0} />
+                <SpiceChip hideTooltip isLit amount={apps?.votesRemaining || 0} />
               </Dd>
             </DlGroup>
             <P align='center' color='grey-50' size='s'>
-              Vote for maximum three projects per week by clicking on the flame icon.
+              Vote by clicking on the flame icon.
             </P>
           </Dl>
         ) : (
@@ -71,9 +69,7 @@ const AppVotingIntentModal = ({
               <Span color='grey-50' size='s'>
                 or
               </Span>
-              <Button asChild color='primary' size='s' variant='ghost'>
-                <Link href={RoutesPath.SIGN_UP}>Create Account</Link>
-              </Button>
+              <SignUpButton color='primary' variant='ghost' />
             </Flex>
           </Flex>
         )}

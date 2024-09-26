@@ -225,6 +225,10 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 
           if (walletConnect?.contains(el)) return false;
 
+          const binanceModal = document.getElementById('binanceW3W-wrapper');
+
+          if (binanceModal) return false;
+
           return true;
         }}
         onClose={handleClose}

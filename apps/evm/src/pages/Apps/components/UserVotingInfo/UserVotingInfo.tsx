@@ -1,25 +1,7 @@
-import {
-  Button,
-  Card,
-  CardProps,
-  Dd,
-  Divider,
-  Dl,
-  DlGroup,
-  Dt,
-  Flex,
-  Link,
-  P,
-  Skeleton,
-  SolidClock,
-  Span,
-  Tooltip
-} from '@gobob/ui';
+import { Card, CardProps, Dd, Divider, Dl, DlGroup, Dt, Flex, P, Skeleton, SolidClock, Span, Tooltip } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
-import { useNavigate } from 'react-router-dom';
 
-import { LoginButton } from '../../../../components';
-import { RoutesPath } from '../../../../constants';
+import { LoginButton, SignUpButton } from '../../../../components';
 import { VotingAppsData } from '../../hooks';
 import { SpiceChip } from '../SpiceChip';
 
@@ -30,8 +12,6 @@ type InheritAttrs = Omit<CardProps, keyof Props>;
 type UserVotingInfoProps = Props & InheritAttrs;
 
 const UserVotingInfo = ({ isAuthenticated, apps, ...props }: UserVotingInfoProps): JSX.Element => {
-  const navigate = useNavigate();
-
   return (
     <Card borderColor='grey-300' direction='row' gap='md' padding={isAuthenticated ? 'xl' : 'lg'} {...props}>
       <>
@@ -54,11 +34,7 @@ const UserVotingInfo = ({ isAuthenticated, apps, ...props }: UserVotingInfoProps
             <Span color='grey-50' size='s'>
               or
             </Span>
-            <Button asChild color='primary' size='s' variant='ghost'>
-              <Link href={RoutesPath.SIGN_UP} {...{ state: { redirect: RoutesPath.APPS } }}>
-                Create Account
-              </Link>
-            </Button>
+            <SignUpButton color='primary' size='s' variant='ghost' />
           </Flex>
         )}
         <Divider orientation='vertical' />
