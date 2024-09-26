@@ -38,8 +38,7 @@ const StyledGrid = styled(Flex)`
 
   grid-template-rows: 1fr 1fr;
 
-  // TODO: uncomment once last strat is add back
-  /* @media ${({ theme }) => theme.breakpoints.up('s')} {
+  @media ${({ theme }) => theme.breakpoints.up('s')} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 
@@ -63,11 +62,6 @@ const StyledGrid = styled(Flex)`
         grid-column-start: unset;
       }
     }
-  } */
-
-  @media ${({ theme }) => theme.breakpoints.up('md')} {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
   }
 `;
 
