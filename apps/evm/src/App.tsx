@@ -8,7 +8,7 @@ import { ConnectProvider } from '@gobob/connect-ui';
 
 import { Header, Layout, Main, Sidebar } from './components';
 import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
-import { useGetUser, useLogin, useLogout, useTokens } from './hooks';
+import { FeatureFlags, useFeatureFlag, useGetUser, useLogin, useLogout, useTokens } from './hooks';
 import { useBalances } from './hooks/useBalances';
 import { apiClient } from './utils';
 
@@ -181,6 +181,8 @@ function App() {
   useBalances(chainId);
   useTokens(chainId);
 
+  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
+
   const { reconnect } = useReconnect();
 
   useEffect(() => {
@@ -203,7 +205,7 @@ function App() {
               <Route element={<Fusion />} path={RoutesPath.FUSION} />
               <Route element={<Apps />} path={RoutesPath.APPS} />
               <Route element={<Bridge />} path={RoutesPath.BRIDGE} />
-              <Route element={<Wallet />} path={RoutesPath.WALLET} />
+              {isWalletEnabled && <Route element={<Wallet />} path={RoutesPath.WALLET} />}
               <Route element={<Stake />} path={RoutesPath.STAKE} />
               <Route element={<Geoblock />} path={RoutesPath.GEOBLOCK} />
               <Route element={<Custom404 />} path='*' />
