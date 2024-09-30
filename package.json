@@ -11,6 +11,7 @@
     "lint": "eslint packages/**/src apps/**/src --ext .ts,.tsx,.js --config .eslintrc.json --cache",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "turbo typecheck",
+    "install": "turbo run install",
     "format:check": "prettier --check packages/**/src apps/**/src --cache",
     "format:write": "prettier --write packages/**/src apps/**/src --cache",
     "files:check": "knip --config knip.config.js",
