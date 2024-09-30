@@ -34,7 +34,7 @@ const Fusion = () => {
   const { address } = useAccount();
   const { data: user } = useGetUser();
   const { data: apps } = useGetApps();
-  const { data: quests } = useGetQuests();
+  const { data: quests, isLoading: isLoadingQuests } = useGetQuests();
 
   const location = useLocation();
 
@@ -88,7 +88,7 @@ const Fusion = () => {
           </StyledContent>
         </StyledStrategiesWrapper>
         <StyledContent direction='column' paddingBottom='2xl' paddingX='lg'>
-          <Challenges quests={quests} />
+          <Challenges isLoading={isLoadingQuests} quests={quests} />
           <CommunityVoting />
           <Leaderboard />
           {user ? (

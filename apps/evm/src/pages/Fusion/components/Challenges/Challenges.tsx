@@ -18,11 +18,10 @@ const settings: Settings = {
 
 type ChallengesProps = {
   quests: QuestS3Response | undefined;
+  isLoading: boolean;
 };
 
-const isComingSoon = true;
-
-const Challenges = ({ quests }: ChallengesProps) => {
+const Challenges = ({ quests, isLoading }: ChallengesProps) => {
   const sliderRef = useRef<Slider>(null);
 
   const theme = useTheme();
@@ -38,44 +37,36 @@ const Challenges = ({ quests }: ChallengesProps) => {
     sliderRef.current?.slickPrev();
   };
 
+  const slidesToShow = isLargeDesktop ? 4 : isDesktop ? 3 : isTable ? 2 : 1.25;
+
+  const hasQuest = !isLoading && !!quests?.questBreakdown.length;
+
+  const showArrows = (quests?.questBreakdown.length || 0) > slidesToShow;
+
   return (
     <Flex direction='column' gap='2xl' marginTop='8xl'>
       <H2 id='challenges' size='3xl'>
         Challenges
       </H2>
-      <StyledSliderWrapper direction='column' gap='2xl'>
-        {isComingSoon && (
+      <StyledSliderWrapper direction='column' gap='2xl' style={{ pointerEvents: !hasQuest ? 'none' : undefined }}>
+        {!hasQuest && (
           <>
             <StyledUnderlay />
             <StyledOverlay alignItems='center' justifyContent='center'>
               <Card borderColor='grey-300' paddingX='lg' paddingY='md' rounded='md'>
-                <P size='xl'>Coming Soon</P>
+                <P align='center' size='xl'>
+                  There are currently no ongoing challenges
+                </P>
               </Card>
             </StyledOverlay>
           </>
         )}
-        <StyledSlider
-          ref={sliderRef}
-          {...settings}
-          slidesToShow={isLargeDesktop ? 4 : isDesktop ? 3 : isTable ? 2 : 1.25}
-        >
-          {isComingSoon
-            ? Array(4)
+        <StyledSlider ref={sliderRef} {...settings} slidesToShow={slidesToShow}>
+          {isLoading
+            ? Array(6)
                 .fill(undefined)
-                .map((_, idx) => (
-                  <ChallengeCard
-                    key={idx}
-                    isDisabled
-                    data={
-                      {
-                        quest_name: 'Fusion Quest',
-                        url: '#',
-                        description: 'Complete this fusion quest and earn amazing prizes'
-                      } as any
-                    }
-                  />
-                ))
-            : quests
+                .map((_, idx) => <ChallengeCard key={idx} data={undefined} />)
+            : hasQuest
               ? quests.questBreakdown
                   .sort((a, b) => {
                     // First, compare "is_featured" to prioritize featured quests.
@@ -89,18 +80,32 @@ const Challenges = ({ quests }: ChallengesProps) => {
                     return 0; // if they're both featured/non-featured and completed/non-completed equally, keep their order
                   })
                   .map((quest) => <ChallengeCard key={quest.quest_id} data={quest} />)
-              : Array(6)
+              : Array(5)
                   .fill(undefined)
-                  .map((_, idx) => <ChallengeCard key={idx} data={undefined} />)}
+                  .map((_, idx) => (
+                    <ChallengeCard
+                      key={idx}
+                      isDisabled
+                      data={
+                        {
+                          quest_name: 'Fusion Quest',
+                          url: '#',
+                          description: 'Complete this fusion quest and earn amazing prizes'
+                        } as any
+                      }
+                    />
+                  ))}
         </StyledSlider>
-        <Flex gap='md' justifyContent='flex-end'>
-          <Button isIconOnly disabled={isComingSoon} onPress={handlePrevious}>
-            <ChevronLeft strokeWidth='3' />
-          </Button>
-          <Button isIconOnly disabled={isComingSoon} onClick={handleNext}>
-            <ChevronRight strokeWidth='3' />
-          </Button>
-        </Flex>
+        {showArrows && (
+          <Flex gap='md' justifyContent='flex-end'>
+            <Button isIconOnly disabled={!hasQuest} onPress={handlePrevious}>
+              <ChevronLeft strokeWidth='3' />
+            </Button>
+            <Button isIconOnly disabled={!hasQuest} onClick={handleNext}>
+              <ChevronRight strokeWidth='3' />
+            </Button>
+          </Flex>
+        )}
       </StyledSliderWrapper>
     </Flex>
   );
