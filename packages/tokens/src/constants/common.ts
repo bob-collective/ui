@@ -42,7 +42,7 @@ const commonTokens = tokenList.tokens.reduce<Record<CommonToken, Record<ChainId,
 
 export const USDC = commonTokens[CommonToken.USDC];
 
-export const WBTC = commonTokens[CommonToken.USDC];
+export const WBTC = commonTokens[CommonToken.WBTC];
 
 export const TBTC = commonTokens[CommonToken.tBTC];
 
