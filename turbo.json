@@ -5,7 +5,7 @@
     "build": {
       "outputs": ["dist/**", "storybook-static/**"],
       "dependsOn": ["^build"],
-      "cache": true
+      "cache": false
     },
     "lint": {
       "outputs": [],
