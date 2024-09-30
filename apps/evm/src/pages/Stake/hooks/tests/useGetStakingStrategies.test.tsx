@@ -3,7 +3,7 @@ import { ChainId } from '@gobob/chains';
 import { Token } from '@gobob/currency';
 import { QueryClient, QueryClientProvider } from '@gobob/react-query';
 import { renderHook } from '@testing-library/react-hooks';
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { Address } from 'viem';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
