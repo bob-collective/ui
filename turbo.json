@@ -2,10 +2,6 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "tasks": {
-    "install": {
-      "outputs": [],
-      "cache": false
-    },
     "build": {
       "outputs": ["dist/**", "storybook-static/**"],
       "dependsOn": ["^build"],
