@@ -1,26 +1,13 @@
-import { Card, Flex, H2 } from '@gobob/ui';
-import styled, { css } from 'styled-components';
+import { Card, Flex } from '@gobob/ui';
+import styled from 'styled-components';
 
 import { Medal } from '../Medal';
 
 import { Confetti } from './Confetti';
-import { Podiums } from './Podiums';
 
 type StyledPodiumCardProps = {
   $color: { border: string; background: string };
 };
-
-const StyledCard = styled(Card)`
-  position: relative;
-`;
-
-const StyledOpacityOverlay = styled.div`
-  position: absolute;
-  inset: 0;
-
-  background: linear-gradient(91.45deg, rgba(0, 0, 0, 0) 26.23%, rgba(0, 0, 0, 0.5) 63.34%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
-`;
 
 const StyledAvatarWrapper = styled.div`
   position: relative;
@@ -33,29 +20,11 @@ const StyledMedal = styled(Medal)`
   left: 0.25rem;
 `;
 
-const StyledContentWrapper = styled(Flex)`
-  z-index: 1;
-`;
-
-const StyledGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: end;
-  max-width: 21rem;
-`;
-
-const StyledH2 = styled(H2)`
-  ${({ theme }) => {
-    return css`
-      @media ${theme.breakpoints.up('md')} {
-        max-width: 24rem;
-      }
-    `;
-  }}
-`;
 const StyledPodiumCard = styled(Card)<StyledPodiumCardProps>`
   position: relative;
   background-color: unset;
+  overflow-y: hidden;
+  overflow-x: visible;
 
   &::before {
     content: ' ';
@@ -76,11 +45,7 @@ const StyledPodiumCard = styled(Card)<StyledPodiumCardProps>`
     z-index: 0;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.1),
-      /* fully opaque at the bottom */ rgba(0, 0, 0, 0) /* fully transparent at the top */
-    );
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
   }
 `;
 
@@ -95,22 +60,47 @@ const StyledConfetti = styled(Confetti)`
   position: absolute;
   z-index: 0;
   inset: 0;
+
+  @media ${({ theme }) => theme.breakpoints.down('md')} {
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 450px;
+    width: 100%;
+  }
 `;
 
-const StyledPodiums = styled(Podiums)`
-  width: 100%;
+const StyledPodiumWrapper = styled(Flex)`
+  margin-bottom: -2px;
+`;
+
+const StyledUnderlay = styled.div`
+  top: -0.75rem;
+  bottom: -0.75rem;
+  left: -0.75rem;
+  right: -0.75rem;
+  position: absolute;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+`;
+
+const StyledOverlay = styled(Flex)`
+  position: absolute;
+  inset: 0;
+  z-index: 101;
+`;
+
+const StyledPodiums = styled(Flex)`
+  max-width: ${({ theme }) => theme.maxWidth('md')};
 `;
 
 export {
-  StyledCard,
-  StyledH2,
-  StyledGrid,
   StyledAvatarWrapper,
-  StyledContentWrapper,
-  StyledMedal,
-  StyledPodiumCard,
-  StyledOpacityOverlay,
   StyledConfetti,
+  StyledMedal,
+  StyledOverlay,
+  StyledPodiumCard,
+  StyledPodiumCardInner,
   StyledPodiums,
-  StyledPodiumCardInner
+  StyledPodiumWrapper,
+  StyledUnderlay
 };

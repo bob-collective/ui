@@ -208,14 +208,14 @@ export interface ResultProject {
 }
 
 // Define the interface for a category
-interface ResultProjectCategory {
+export interface ResultProjectCategory {
   id: number;
   name: string;
   projects: ResultProject[];
 }
 
 // Define the main type for the object
-interface ResultProjectVotingInfo {
+export interface ResultProjectVotingInfo {
   categories: ResultProjectCategory[];
 }
 

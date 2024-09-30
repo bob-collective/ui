@@ -1,8 +1,9 @@
-import { Avatar, Flex, FlexProps, P, Skeleton, Spacing } from '@gobob/ui';
+import { Avatar, Flex, FlexProps, Skeleton, Spacing, Tooltip } from '@gobob/ui';
 
-import { ResultVotingAppData } from '../../hooks';
+import { ResultProject } from '../../../../utils';
 
-import { StyledAvatarWrapper, StyledMedal } from './AppsPodium.style';
+import { StyledAvatarWrapper, StyledMedal, StyledPodiumWrapper } from './AppsPodium.style';
+import { Podium } from './Podium';
 
 type Spot = 'first' | 'second' | 'third';
 
@@ -12,10 +13,16 @@ const mobileSpotMap: Record<Spot, Spacing> = {
   third: '6xl'
 };
 
-const desktopSpotMap: Record<Spot, Spacing> = {
-  first: '10xl',
+const smallDesktopSpotMap: Record<Spot, Spacing> = {
+  first: '9xl',
   second: '8xl',
   third: '7xl'
+};
+
+const largeDesktopSpotMap: Record<Spot, Spacing> = {
+  first: '10xl',
+  second: '9xl',
+  third: '8xl'
 };
 
 const numericSpotMap: Record<Spot, 1 | 2 | 3> = {
@@ -24,47 +31,53 @@ const numericSpotMap: Record<Spot, 1 | 2 | 3> = {
   third: 3
 };
 
+const podiumWidthMap: Record<Spot, string | undefined> = {
+  first: '95%',
+  second: '85%',
+  third: '75%'
+};
+
 type Props = {
-  app?: ResultVotingAppData;
+  app?: ResultProject;
   spot: Spot;
+  isComingSoon: boolean;
 };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
 type PodiumSpotProps = Props & InheritAttrs;
 
-const PodiumSpot = ({ app, spot, ...props }: PodiumSpotProps): JSX.Element => {
-  return (
-    <Flex alignItems='center' direction='column' gap={{ base: 's', md: 'lg' }} {...props}>
-      <StyledAvatarWrapper>
-        <StyledMedal
-          fontSize={{ base: 's', md: 'md' }}
-          position={numericSpotMap[spot]}
-          size={{ base: 'lg', md: 'xl' }}
-        />
-        {app ? (
+const PodiumSpot = ({ app, spot, isComingSoon, ...props }: PodiumSpotProps): JSX.Element => (
+  <Flex alignItems='center' direction='column' flex={1} gap='lg' justifyContent='flex-end' {...props}>
+    <StyledAvatarWrapper>
+      <StyledMedal fontSize='md' position={numericSpotMap[spot]} size='xl' />
+      {app ? (
+        <Tooltip label='Oku Trade'>
           <Avatar
             borderColor='grey-300'
             rounded='md'
-            size={{ base: mobileSpotMap[spot], md: desktopSpotMap[spot] }}
-            src={app.logoSrc}
+            size={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
+            src='http://localhost:5050/src/assets/partners/okutrade.png'
           />
-        ) : (
-          <Skeleton
-            height={{ base: mobileSpotMap[spot], md: desktopSpotMap[spot] }}
-            width={{ base: mobileSpotMap[spot], md: desktopSpotMap[spot] }}
-          />
-        )}
-      </StyledAvatarWrapper>
-      {app ? (
-        <P align='center' size={{ base: 's', md: 'md' }}>
-          {app.name}
-        </P>
+        </Tooltip>
+      ) : isComingSoon ? (
+        <Avatar
+          borderColor='grey-300'
+          rounded='md'
+          size={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
+          src=''
+        />
       ) : (
-        <Skeleton width='5xl' />
+        <Skeleton
+          height={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
+          width={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
+        />
       )}
-    </Flex>
-  );
-};
+    </StyledAvatarWrapper>
+    <StyledPodiumWrapper alignItems='flex-end' style={{ width: podiumWidthMap[spot] }}>
+      <Podium width='100%' />
+    </StyledPodiumWrapper>
+  </Flex>
+);
 
 export { PodiumSpot };
