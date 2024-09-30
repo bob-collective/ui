@@ -1,6 +1,6 @@
 import { ChainId } from '@gobob/chains';
 import { Bitcoin, ERC20Token } from '@gobob/currency';
-import commonTokensConfig from 'common-tokens';
+import tokenList from 'tokenlist';
 
 enum CommonToken {
   DAI = 'DAI',
@@ -28,7 +28,7 @@ function isCommonToken(symbol: string): symbol is CommonToken {
   return commonTokenSet.has(symbol);
 }
 
-const commonTokens = commonTokensConfig.tokens.reduce<Record<CommonToken, Record<ChainId, ERC20Token>>>(
+const commonTokens = tokenList.tokens.reduce<Record<CommonToken, Record<ChainId, ERC20Token>>>(
   (acc, { symbol, chainId, address, decimals, name }) => {
     if (isCommonToken(symbol)) {
       if (acc[symbol] === undefined) acc[symbol] = {} as Record<ChainId, ERC20Token>;
