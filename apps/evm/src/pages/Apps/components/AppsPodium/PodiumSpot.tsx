@@ -40,14 +40,13 @@ const podiumWidthMap: Record<Spot, string | undefined> = {
 type Props = {
   app?: ResultVotingAppData;
   spot: Spot;
-  isComingSoon: boolean;
 };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
 type PodiumSpotProps = Props & InheritAttrs;
 
-const PodiumSpot = ({ app, spot, isComingSoon, ...props }: PodiumSpotProps): JSX.Element => {
+const PodiumSpot = ({ app, spot, ...props }: PodiumSpotProps): JSX.Element => {
   const { locale } = useLocale();
 
   return (
@@ -63,13 +62,6 @@ const PodiumSpot = ({ app, spot, isComingSoon, ...props }: PodiumSpotProps): JSX
               src={app.logoSrc}
             />
           </Tooltip>
-        ) : isComingSoon ? (
-          <Avatar
-            borderColor='grey-300'
-            rounded='md'
-            size={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
-            src=''
-          />
         ) : (
           <Skeleton
             height={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}

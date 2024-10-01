@@ -24,13 +24,13 @@ const cardsColors = {
   }
 };
 
-type Props = { isComingSoon: boolean; category?: ResultVotingAppCategory; color: 'red' | 'purple' | 'pink' };
+type Props = { category?: ResultVotingAppCategory; color: 'red' | 'purple' | 'pink' };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
 
 type PodiumSpotProps = Props & InheritAttrs;
 
-const PodiumCategory = ({ category, isComingSoon, color: colorProp, ...props }: PodiumSpotProps): JSX.Element => {
+const PodiumCategory = ({ category, color: colorProp, ...props }: PodiumSpotProps): JSX.Element => {
   const color = cardsColors[colorProp];
 
   const [first, second, third] = (category?.projects || []).sort((a, b) => b.rank - a.rank);
@@ -44,13 +44,13 @@ const PodiumCategory = ({ category, isComingSoon, color: colorProp, ...props }: 
           rounded={{ bottomLeft: 's', bottomRight: 's' }}
           size='lg'
         >
-          {isComingSoon ? 'Category' : category?.name || <Skeleton width='9xl' />}
+          {category?.name || <Skeleton width='9xl' />}
         </Trapezoid>
         <StyledConfetti />
         <StyledPodiums gap='lg' marginX='lg'>
-          <PodiumSpot app={first} isComingSoon={isComingSoon} spot='second' />
-          <PodiumSpot app={second} isComingSoon={isComingSoon} spot='first' />
-          <PodiumSpot app={third} isComingSoon={isComingSoon} spot='third' />
+          <PodiumSpot app={first} spot='second' />
+          <PodiumSpot app={second} spot='first' />
+          <PodiumSpot app={third} spot='third' />
         </StyledPodiums>
       </StyledPodiumCardInner>
     </StyledPodiumCard>
