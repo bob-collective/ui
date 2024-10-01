@@ -59,13 +59,13 @@
   },
   "devDependencies": {
     "@gobob/test-utils": "workspace:^",
-    "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/big.js": "^6.2.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
     "eslint": "^8.45.0",
+    "jsdom": "^25.0.1",
     "vite": "^4.4.5",
     "vite-plugin-node-polyfills": "^0.15.0",
     "vite-plugin-wasm": "^3.3.0"
