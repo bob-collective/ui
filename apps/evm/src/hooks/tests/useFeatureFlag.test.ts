@@ -11,7 +11,7 @@ describe('useFeatureFlag', () => {
 
     const { result } = renderHook(() => useFeatureFlag(FeatureFlags.BTC_GATEWAY));
 
-    expect(result.current).toBe(true);
+    expect(result.current).toBeTruthy();
   });
 
   it('should return false when BTC_GATEWAY feature flag is disabled', async () => {
@@ -21,7 +21,7 @@ describe('useFeatureFlag', () => {
 
     const { result } = renderHook(() => useFeatureFlag(FeatureFlags.BTC_GATEWAY));
 
-    expect(result.current).toBe(false);
+    expect(result.current).toBeFalsy();
   });
 
   it('should return false when BTC_GATEWAY feature flag is undefined', async () => {
@@ -31,6 +31,6 @@ describe('useFeatureFlag', () => {
 
     const { result } = renderHook(() => useFeatureFlag(FeatureFlags.BTC_GATEWAY));
 
-    expect(result.current).toBe(false);
+    expect(result.current).toBeFalsy();
   });
 });

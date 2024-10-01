@@ -34,6 +34,7 @@ describe('useGetStrategies hook', () => {
     await waitFor(() => result.current.isSuccess);
 
     expect(result.current.data).toEqual(mockData);
+    expect(gatewaySDK.getStrategies).toHaveBeenCalledWith();
     expect(gatewaySDK.getStrategies).toHaveBeenCalledTimes(1);
   });
 
@@ -67,6 +68,6 @@ describe('useGetStrategies hook', () => {
       wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     });
 
-    expect(result.current.isLoading).toBe(true);
+    expect(result.current.isLoading).toBeTruthy();
   });
 });
