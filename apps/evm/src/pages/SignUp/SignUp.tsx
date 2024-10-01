@@ -5,11 +5,11 @@ import { Button, Divider, Flex, P, toast } from '@gobob/ui';
 import { useAccount, useSignMessage, useSwitchChain } from '@gobob/wagmi';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SiweMessage } from 'siwe';
 
 import { Geoblock, LoginSection, Main } from '../../components';
-import { L1_CHAIN, RoutesPath, isValidChain } from '../../constants';
+import { L2_CHAIN, RoutesPath, isValidChain } from '../../constants';
 import { useGetUser } from '../../hooks';
 import { signUpKeys } from '../../lib/react-query';
 import { apiClient } from '../../utils';
@@ -22,6 +22,9 @@ const SignUp = (): JSX.Element | null => {
   const { switchChainAsync } = useSwitchChain();
   const { signMessageAsync } = useSignMessage();
   const { open } = useConnectModal();
+
+  const location = useLocation();
+  const redirectPath = location.state.redirect || RoutesPath.FUSION;
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -57,7 +60,7 @@ const SignUp = (): JSX.Element | null => {
     onSuccess: async () => {
       await refetchUser();
 
-      navigate(RoutesPath.FUSION);
+      navigate(redirectPath);
     },
     onError: async (e: any) => {
       if (e.code === 4001) {
@@ -80,8 +83,9 @@ const SignUp = (): JSX.Element | null => {
 
   useEffect(() => {
     if (user && address) {
-      navigate(RoutesPath.FUSION);
+      navigate(redirectPath);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, address, navigate]);
 
   const handleLinkWallet = async () => {
@@ -90,7 +94,7 @@ const SignUp = (): JSX.Element | null => {
         onConnectEvm: async ({ address, connector }) => {
           if (!address) return;
           if (!isValidChain((await connector?.getChainId()) as ChainId)) {
-            const chain = await connector?.switchChain?.({ chainId: L1_CHAIN });
+            const chain = await connector?.switchChain?.({ chainId: L2_CHAIN });
 
             if (!chain) {
               return toast.error('Something went wrong. Please try connecting your wallet again.');
@@ -103,7 +107,7 @@ const SignUp = (): JSX.Element | null => {
     }
 
     if (!chain || (chain && !isValidChain(chain?.id))) {
-      await switchChainAsync({ chainId: L1_CHAIN });
+      await switchChainAsync({ chainId: L2_CHAIN });
     }
 
     return signUp(address);
@@ -162,7 +166,7 @@ const SignUp = (): JSX.Element | null => {
               </Flex>
               <Auditors />
               <Divider />
-              <LoginSection />
+              <LoginSection onLogin={() => navigate(redirectPath)} />
             </Flex>
           </StyledAuthCard>
         </Flex>

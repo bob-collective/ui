@@ -19,7 +19,7 @@ import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LoginSection, SpiceAmount } from '../../../../components';
+import { LoginSection, SignUpButton, SpiceAmount } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
 import { fusionKeys } from '../../../../lib/react-query';
 import { apiClient, QuestS3Response, UserResponse } from '../../../../utils';
@@ -224,9 +224,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               <P align='center' color='grey-50' size='s'>
                 Grab the final opportunity to harvest Spice. Join Season 3.
               </P>
-              <Button asChild color='primary' elementType={Link} size='xl' {...{ href: RoutesPath.SIGN_UP }}>
+              <SignUpButton color='primary' size='xl'>
                 Start Harvesting Spice
-              </Button>
+              </SignUpButton>
               <LoginSection direction={{ base: 'column', s: 'row' }} />
             </StyledLoginCard>
           </StyledOverlay>

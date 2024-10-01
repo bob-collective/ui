@@ -10,3 +10,4 @@ export * from './Trapezoid';
 export * from './WithdrawAlert';
 export * from './LoginButton';
 export * from './SpiceAmount';
+export * from './SignUpButton';

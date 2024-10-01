@@ -1,9 +1,9 @@
 import { Flex, P } from '@gobob/ui';
 
 import { VotingAppData, VotingAppsData } from '../../hooks';
+import { UserVotingInfo } from '../UserVotingInfo';
 
 import { AppsLeaderboard } from './AppsLeaderboard';
-import { UserVotingInfo } from './UserVotingInfo';
 
 type VotingDashboardProps = {
   isLoading?: boolean;
@@ -29,11 +29,7 @@ const VotingDashboard = ({
   return (
     <Flex direction='column' gap='2xl' marginTop='3xl'>
       <Flex alignItems='center' direction='column' gap='2xl' justifyContent='space-between'>
-        <UserVotingInfo
-          isAuthenticated={isAuthenticated}
-          roundEndsAt={apps?.roundEndsAt}
-          votesRemaining={apps?.votesRemaining}
-        />
+        <UserVotingInfo apps={apps} isAuthenticated={isAuthenticated} />
         <P align='center' color='grey-50' size={{ base: 'xs', s: 's' }}>
           Vote for maximum three projects per week by clicking on the flame icon.
         </P>

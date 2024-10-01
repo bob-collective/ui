@@ -1,32 +1,19 @@
-import {
-  Button,
-  Card,
-  Dd,
-  Divider,
-  Dl,
-  DlGroup,
-  Dt,
-  Flex,
-  Link,
-  P,
-  Skeleton,
-  SolidClock,
-  Span,
-  Tooltip
-} from '@gobob/ui';
+import { Card, CardProps, Dd, Divider, Dl, DlGroup, Dt, Flex, P, Skeleton, SolidClock, Span, Tooltip } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
 
+import { LoginButton, SignUpButton } from '../../../../components';
+import { VotingAppsData } from '../../hooks';
 import { SpiceChip } from '../SpiceChip';
-import { RoutesPath } from '../../../../constants';
-import { LoginButton } from '../../../../components';
 
-type Props = { isAuthenticated?: boolean; roundEndsAt?: string; votesRemaining?: number };
+type Props = { isAuthenticated?: boolean; apps?: VotingAppsData };
 
-type UserVotingInfoProps = Props;
+type InheritAttrs = Omit<CardProps, keyof Props>;
 
-const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVotingInfoProps): JSX.Element => {
+type UserVotingInfoProps = Props & InheritAttrs;
+
+const UserVotingInfo = ({ isAuthenticated, apps, ...props }: UserVotingInfoProps): JSX.Element => {
   return (
-    <Card borderColor='grey-300' direction='row' gap='md' padding={isAuthenticated ? 'xl' : 'lg'}>
+    <Card borderColor='grey-300' direction='row' gap='md' padding={isAuthenticated ? 'xl' : 'lg'} {...props}>
       <>
         {isAuthenticated ? (
           <Dl>
@@ -35,7 +22,7 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
                 Votes Left:
               </Dt>
               <Dd>
-                <SpiceChip hideTooltip isLit amount={votesRemaining || 0} />
+                <SpiceChip hideTooltip isLit amount={apps?.votesRemaining || 0} />
               </Dd>
             </DlGroup>
           </Dl>
@@ -47,16 +34,14 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
             <Span color='grey-50' size='s'>
               or
             </Span>
-            <Button asChild color='primary' size='s' variant='ghost'>
-              <Link href={RoutesPath.SIGN_UP}>Create Account</Link>
-            </Button>
+            <SignUpButton color='primary' size='s' variant='ghost' />
           </Flex>
         )}
         <Divider orientation='vertical' />
         <Tooltip label='Time left until voting round ends'>
           <Flex alignItems='center' gap='s'>
             <SolidClock color='grey-200' size='s' />
-            {roundEndsAt ? <P>{formatDistanceToNow(roundEndsAt)}</P> : <Skeleton width='4xl' />}
+            {apps?.roundEndsAt ? <P>{formatDistanceToNow(apps.roundEndsAt)}</P> : <Skeleton width='4xl' />}
           </Flex>
         </Tooltip>
       </>
