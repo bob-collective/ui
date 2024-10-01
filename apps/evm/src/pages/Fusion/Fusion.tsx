@@ -11,7 +11,7 @@ import { useGetApps } from '../Apps/hooks';
 import heroDotsSrc from '../../assets/hero-dots.svg';
 
 import {
-  Challenges,
+  Quest,
   CommunityVoting,
   Leaderboard,
   Strategies,
@@ -88,7 +88,7 @@ const Fusion = () => {
           </StyledContent>
         </StyledStrategiesWrapper>
         <StyledContent direction='column' paddingBottom='2xl' paddingX='lg'>
-          <Challenges quests={quests} />
+          <Quest quests={quests} />
           <CommunityVoting />
           <Leaderboard />
           {user ? (
