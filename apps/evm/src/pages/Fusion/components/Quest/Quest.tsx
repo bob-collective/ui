@@ -6,21 +6,16 @@ import { QuestS3Response } from '../../../../utils';
 
 import { StyledCard, StyledDescription, StyledIntract, StyledOpacityOverlay } from './Quest.style';
 
-type QuestProps = { quests: QuestS3Response | undefined };
+type QuestProps = { quests: QuestS3Response | undefined; id: string };
 
-const Quest = ({ quests }: QuestProps) => {
+const Quest = ({ id, quests }: QuestProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
   const [intractQuest] = quests?.questBreakdown || [];
 
   return (
-    <Flex
-      direction={{ base: 'column-reverse', s: 'row-reverse' }}
-      gap='3xl'
-      marginTop='8xl'
-      style={{ position: 'relative' }}
-    >
+    <Flex direction={{ base: 'column-reverse', s: 'row-reverse' }} gap='3xl' id={id} marginTop='8xl'>
       {!isMobile && (
         <StyledCard borderColor='grey-300' flex={0.4}>
           <StyledOpacityOverlay />
