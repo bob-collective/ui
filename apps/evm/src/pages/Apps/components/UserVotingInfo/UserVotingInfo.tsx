@@ -22,7 +22,7 @@ const UserVotingInfo = ({ isAuthenticated, apps, ...props }: UserVotingInfoProps
                 Votes Left:
               </Dt>
               <Dd>
-                <SpiceChip hideTooltip isLit amount={votesRemaining || 0} />
+                <SpiceChip hideTooltip isLit amount={apps?.votesRemaining || 0} />
               </Dd>
             </DlGroup>
           </Dl>
