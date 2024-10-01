@@ -12,7 +12,7 @@ const Apps = () => {
 
   const { data: apps, isLoading: isLoadingApps } = useGetApps();
 
-  const { data: podiumApps } = useGetPodiumData();
+  const { data: podiumResults } = useGetPodiumData();
 
   const { mutate: vote } = useVote();
 
@@ -37,7 +37,7 @@ const Apps = () => {
           isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
           onVote={handleVote}
         />
-        <AppsPodium apps={podiumApps} roundEndsAt={votingAppsData?.roundEndsAt} />
+        <AppsPodium results={podiumResults} />
         <AppsList
           apps={apps}
           isAuthenticated={isAuthenticated}

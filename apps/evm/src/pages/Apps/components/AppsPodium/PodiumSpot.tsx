@@ -1,6 +1,6 @@
-import { Avatar, Flex, FlexProps, Skeleton, Spacing, Tooltip } from '@gobob/ui';
+import { Avatar, Flex, FlexProps, Skeleton, Spacing, Tooltip, useLocale } from '@gobob/ui';
 
-import { ResultProject } from '../../../../utils';
+import { ResultVotingAppData } from '../../hooks';
 
 import { StyledAvatarWrapper, StyledMedal, StyledPodiumWrapper } from './AppsPodium.style';
 import { Podium } from './Podium';
@@ -38,7 +38,7 @@ const podiumWidthMap: Record<Spot, string | undefined> = {
 };
 
 type Props = {
-  app?: ResultProject;
+  app?: ResultVotingAppData;
   spot: Spot;
   isComingSoon: boolean;
 };
@@ -47,37 +47,41 @@ type InheritAttrs = Omit<FlexProps, keyof Props>;
 
 type PodiumSpotProps = Props & InheritAttrs;
 
-const PodiumSpot = ({ app, spot, isComingSoon, ...props }: PodiumSpotProps): JSX.Element => (
-  <Flex alignItems='center' direction='column' flex={1} gap='lg' justifyContent='flex-end' {...props}>
-    <StyledAvatarWrapper>
-      <StyledMedal fontSize='md' position={numericSpotMap[spot]} size='xl' />
-      {app ? (
-        <Tooltip label='Oku Trade'>
+const PodiumSpot = ({ app, spot, isComingSoon, ...props }: PodiumSpotProps): JSX.Element => {
+  const { locale } = useLocale();
+
+  return (
+    <Flex alignItems='center' direction='column' flex={1} gap='lg' justifyContent='flex-end' {...props}>
+      <StyledAvatarWrapper>
+        <StyledMedal fontSize='md' position={numericSpotMap[spot]} size='xl' />
+        {app ? (
+          <Tooltip label={`${app.name} - ${Intl.NumberFormat(locale, { notation: 'compact' }).format(app.weight)}`}>
+            <Avatar
+              borderColor='grey-300'
+              rounded='md'
+              size={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
+              src={app.logoSrc}
+            />
+          </Tooltip>
+        ) : isComingSoon ? (
           <Avatar
             borderColor='grey-300'
             rounded='md'
             size={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
-            src='http://localhost:5050/src/assets/partners/okutrade.png'
+            src=''
           />
-        </Tooltip>
-      ) : isComingSoon ? (
-        <Avatar
-          borderColor='grey-300'
-          rounded='md'
-          size={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
-          src=''
-        />
-      ) : (
-        <Skeleton
-          height={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
-          width={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
-        />
-      )}
-    </StyledAvatarWrapper>
-    <StyledPodiumWrapper alignItems='flex-end' style={{ width: podiumWidthMap[spot] }}>
-      <Podium width='100%' />
-    </StyledPodiumWrapper>
-  </Flex>
-);
+        ) : (
+          <Skeleton
+            height={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
+            width={{ base: mobileSpotMap[spot], s: smallDesktopSpotMap[spot], lg: largeDesktopSpotMap[spot] }}
+          />
+        )}
+      </StyledAvatarWrapper>
+      <StyledPodiumWrapper alignItems='flex-end' style={{ width: podiumWidthMap[spot] }}>
+        <Podium width='100%' />
+      </StyledPodiumWrapper>
+    </Flex>
+  );
+};
 
 export { PodiumSpot };

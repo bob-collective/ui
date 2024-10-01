@@ -3,14 +3,9 @@ import { INTERVAL, useQuery } from '@gobob/react-query';
 import { appsKeys } from '../../../lib/react-query';
 import { apiClient, PartnerS3 } from '../../../utils';
 import { useGetUser } from '../../../hooks';
+import { getAppLogo } from '../utils';
 
 import { useGetVotingApps, VotingAppData } from './useGetVotingApps';
-
-function getImageUrl(name: string) {
-  return new URL(`../../../assets/partners/${name.split(' ').join('').toLowerCase()}.png`, import.meta.url);
-}
-
-const fallbackImg = new URL(`../../../assets/spice-shape-background.jpg`, import.meta.url);
 
 type AppData = PartnerS3 & {
   logoSrc: string;
@@ -35,17 +30,9 @@ const useGetApps = () => {
       return data.partners
         .filter((partner) => partner.live)
         .map((partner) => {
-          // Prioritize using the default logo from partner data
-          let logoSrc = partner.logos?.default || getImageUrl(partner.name).href;
-
-          // If the image URL construction failed, use fallback image
-          if (!partner.logos?.default && logoSrc.endsWith('undefined')) {
-            logoSrc = fallbackImg.href;
-          }
-
           return {
             ...partner,
-            logoSrc,
+            logoSrc: getAppLogo(partner.name, partner.logos),
             voting: apps?.find((app) => partner.ref_code === app.refCode),
             userHarvest: user?.season3Data.harvestedPointsS3.find(
               (project) => project.partner_refcode === partner.ref_code

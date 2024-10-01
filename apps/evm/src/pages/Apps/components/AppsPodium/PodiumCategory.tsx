@@ -1,7 +1,7 @@
 import { CardProps, Skeleton } from '@gobob/ui';
 
 import { Trapezoid } from '../../../../components';
-import { ResultProjectCategory } from '../../../../utils';
+import { ResultVotingAppCategory } from '../../hooks';
 
 import { StyledConfetti, StyledPodiumCard, StyledPodiumCardInner, StyledPodiums } from './AppsPodium.style';
 import { PodiumSpot } from './PodiumSpot';
@@ -24,7 +24,7 @@ const cardsColors = {
   }
 };
 
-type Props = { isComingSoon: boolean; category?: ResultProjectCategory; color: 'red' | 'purple' | 'pink' };
+type Props = { isComingSoon: boolean; category?: ResultVotingAppCategory; color: 'red' | 'purple' | 'pink' };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
 

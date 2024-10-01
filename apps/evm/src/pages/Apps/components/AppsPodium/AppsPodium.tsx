@@ -1,24 +1,22 @@
 import { Card, CardProps, Flex, H3, P } from '@gobob/ui';
-import { formatDistanceToNow } from 'date-fns';
 
-import { ResultProjectVotingInfo } from '../../../../utils';
+import { ResultVotingAppInfo } from '../../hooks';
 
 import { StyledOverlay, StyledUnderlay } from './AppsPodium.style';
 import { PodiumCategory } from './PodiumCategory';
 
 type Props = {
-  apps?: ResultProjectVotingInfo;
-  roundEndsAt?: string;
+  results?: ResultVotingAppInfo;
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
 
 type AppPodiumProps = Props & InheritAttrs;
 
-const isComingSoon = false;
+const isComingSoon = true;
 
-const AppsPodium = ({ apps, roundEndsAt }: AppPodiumProps): JSX.Element => {
-  const [categoryOne, categoryTwo, categoryThree] = apps?.categories || [undefined, undefined, undefined];
+const AppsPodium = ({ results }: AppPodiumProps): JSX.Element => {
+  const [categoryOne, categoryTwo, categoryThree] = results?.categories || [undefined, undefined, undefined];
 
   return (
     <Flex direction='column' gap='3xl' marginTop='4xl'>
@@ -30,9 +28,7 @@ const AppsPodium = ({ apps, roundEndsAt }: AppPodiumProps): JSX.Element => {
             <StyledOverlay alignItems='center' justifyContent='center'>
               <Card borderColor='grey-300' paddingX='lg' paddingY='md' rounded='md'>
                 <P align='center' size='xl'>
-                  {roundEndsAt
-                    ? `${formatDistanceToNow(roundEndsAt)} left until the winners are announced!`
-                    : 'Coming Soon'}
+                  Coming Soon
                 </P>
               </Card>
             </StyledOverlay>
