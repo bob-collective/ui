@@ -17,7 +17,7 @@ const CommunityVoting = ({}: CommunityVotingProps) => {
   return (
     <Flex direction={{ base: 'column-reverse', s: 'row' }} gap='3xl' marginTop='8xl'>
       {!isMobile && (
-        <StyledCard borderColor='grey-300' flex={1}>
+        <StyledCard borderColor='grey-300' flex={0.4}>
           <StyledOpacityOverlay />
           <StyledSpice />
         </StyledCard>

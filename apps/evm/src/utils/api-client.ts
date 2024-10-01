@@ -358,7 +358,7 @@ export interface QuestS3Response {
   questBreakdown: QuestBreakdown[];
 }
 
-export interface QuestBreakdown {
+interface QuestBreakdown {
   quest_id: string;
   total_received_xp: string;
   available_xp: string;

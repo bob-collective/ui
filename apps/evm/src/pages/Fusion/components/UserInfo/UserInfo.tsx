@@ -148,16 +148,16 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         </UserInfoCard>
         <UserInfoCard
           description={completedQuestsCount || 0}
-          title='Challenges Solved'
+          title='Quests Solved'
           tooltipLabel='The number of Intract and Galxe tasks that you have completed'
         >
           <Button
             fullWidth
             disabled={!isAuthenticated}
             variant='outline'
-            onPress={() => navigate(RoutesPath.FUSION, { state: { scrollChallenges: true } })}
+            onPress={() => navigate(RoutesPath.FUSION, { state: { scrollQuests: true } })}
           >
-            Solve Challenges
+            Solve Quests
           </Button>
         </UserInfoCard>
         <UserInfoCard

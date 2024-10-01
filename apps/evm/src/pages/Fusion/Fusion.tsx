@@ -1,6 +1,6 @@
 import { useAccount } from '@gobob/wagmi';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Flex, H1, Link, P } from '@gobob/ui';
 
@@ -11,7 +11,7 @@ import { useGetApps } from '../Apps/hooks';
 import heroDotsSrc from '../../assets/hero-dots.svg';
 
 import {
-  Challenges,
+  Quest,
   CommunityVoting,
   Leaderboard,
   Strategies,
@@ -36,6 +36,8 @@ const Fusion = () => {
   const { data: apps } = useGetApps();
   const { data: quests } = useGetQuests();
 
+  const questsSectionId = useId();
+
   const location = useLocation();
 
   const [isHideFusionWelcomeBackModal, setHideFusionWelcomeBackModal] = useLocalStorage<boolean>(
@@ -49,9 +51,10 @@ const Fusion = () => {
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
   useEffect(() => {
-    if (location.state?.scrollChallenges) {
-      document.getElementById('challenges')?.scrollIntoView?.({ behavior: 'smooth' });
+    if (location.state?.scrollQuests) {
+      document.getElementById(questsSectionId)?.scrollIntoView?.({ behavior: 'smooth' });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   const isAuthenticated = Boolean(user && address);
@@ -67,7 +70,7 @@ const Fusion = () => {
             <Flex direction='column' gap='lg'>
               <H1 size='4xl'>BOB Fusion: The Final Season</H1>
               <P color='grey-50'>
-                Harvest Spice by depositing into BOB apps, voting, and solving challenges. Keep an eye out for special
+                Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special
                 events.{' '}
                 <Link
                   color='light'
@@ -88,7 +91,7 @@ const Fusion = () => {
           </StyledContent>
         </StyledStrategiesWrapper>
         <StyledContent direction='column' paddingBottom='2xl' paddingX='lg'>
-          <Challenges quests={quests} />
+          <Quest id={questsSectionId} quests={quests} />
           <CommunityVoting />
           <Leaderboard />
           {user ? (
