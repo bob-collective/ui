@@ -1,44 +1,44 @@
-import { CardProps, Flex } from '@gobob/ui';
+import { Card, CardProps, Flex, H3, P } from '@gobob/ui';
 
-import { ResultVotingAppData } from '../../hooks';
+import { ResultVotingAppInfo } from '../../hooks';
 
-import { StyledCard, StyledContentWrapper, StyledGrid, StyledH2, StyledOpacityOverlay } from './AppsPodium.style';
-import { PodiumSpot } from './PodiumSpot';
+import { StyledOverlay, StyledUnderlay } from './AppsPodium.style';
+import { PodiumCategory } from './PodiumCategory';
 
 type Props = {
-  apps: [ResultVotingAppData, ResultVotingAppData, ResultVotingAppData];
-  isLoading?: boolean;
+  results?: ResultVotingAppInfo;
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
 
 type AppPodiumProps = Props & InheritAttrs;
 
-const AppsPodium = ({ apps, isLoading }: AppPodiumProps): JSX.Element => {
-  const [first, second, third] = !isLoading ? apps : [undefined, undefined, undefined];
+const isComingSoon = true;
+
+const AppsPodium = ({ results }: AppPodiumProps): JSX.Element => {
+  const [categoryOne, categoryTwo, categoryThree] = results?.categories || [undefined, undefined, undefined];
 
   return (
-    <StyledCard borderColor='grey-300' marginTop='4xl' padding='none'>
-      <StyledOpacityOverlay />
-      <StyledContentWrapper
-        alignItems='center'
-        direction={{ base: 'column', md: 'row' }}
-        gap='3xl'
-        justifyContent='space-between'
-        padding={{ base: '3xl', md: '5xl' }}
-      >
-        <StyledH2 align={{ base: 'center', md: 'start' }} size={{ base: '2xl', md: '4xl' }}>
-          Last Week&apos;s Winners
-        </StyledH2>
-        <Flex flex={1} justifyContent='center'>
-          <StyledGrid>
-            <PodiumSpot app={second} spot='second' />
-            <PodiumSpot app={first} marginLeft={{ base: 'md', md: '2xl' }} spot='first' />
-            <PodiumSpot app={third} marginLeft={{ base: 'xxs', md: 'lg' }} spot='third' />
-          </StyledGrid>
-        </Flex>
-      </StyledContentWrapper>
-    </StyledCard>
+    <Flex direction='column' gap='3xl' marginTop='4xl'>
+      <H3 size='3xl'>Last Week&apos;s Winners</H3>
+      <Flex wrap direction={{ base: 'column', md: 'row' }} gap='md' style={{ position: 'relative' }}>
+        {isComingSoon && (
+          <>
+            <StyledUnderlay />
+            <StyledOverlay alignItems='center' justifyContent='center'>
+              <Card borderColor='grey-300' paddingX='lg' paddingY='md' rounded='md'>
+                <P align='center' size='xl'>
+                  Coming Soon
+                </P>
+              </Card>
+            </StyledOverlay>
+          </>
+        )}
+        <PodiumCategory category={categoryOne} color='red' isComingSoon={isComingSoon} />
+        <PodiumCategory category={categoryTwo} color='purple' isComingSoon={isComingSoon} />
+        <PodiumCategory category={categoryThree} color='pink' isComingSoon={isComingSoon} />
+      </Flex>
+    </Flex>
   );
 };
 

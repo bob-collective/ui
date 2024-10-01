@@ -1,7 +1,7 @@
 import { Color, Rounded, TextProps } from '@gobob/ui';
 import { HtmlHTMLAttributes } from 'react';
 
-import { StyledSpan } from './Trapezoid.style';
+import { StyledSpan, StyledWrapper } from './Trapezoid.style';
 
 type Props = {
   size?: TextProps['size'];
@@ -9,6 +9,7 @@ type Props = {
   rounded?: Rounded | { topLeft?: Rounded; topRight?: Rounded; bottomLeft?: Rounded; bottomRight?: Rounded };
   direction?: 'normal' | 'inverted';
   background?: Color;
+  borderColor?: Color | string;
 };
 
 type NativeAttrs = Omit<HtmlHTMLAttributes<unknown>, keyof Props>;
@@ -21,13 +22,22 @@ const Trapezoid = ({
   children,
   direction = 'normal',
   background = 'grey-500',
+  borderColor,
+  rounded,
   ...props
 }: TrapezoidProps) => (
-  <div {...props}>
-    <StyledSpan $background={background} $direction={direction} color={color} size={size}>
+  <StyledWrapper {...props}>
+    <StyledSpan
+      $background={background}
+      $borderColor={borderColor}
+      $direction={direction}
+      $rounded={rounded}
+      color={color}
+      size={size}
+    >
       {children}
     </StyledSpan>
-  </div>
+  </StyledWrapper>
 );
 
 export { Trapezoid };

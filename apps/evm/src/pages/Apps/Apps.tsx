@@ -12,7 +12,7 @@ const Apps = () => {
 
   const { data: apps, isLoading: isLoadingApps } = useGetApps();
 
-  const { data: podiumApps, isLoading: isLoadingPodiumApps } = useGetPodiumData();
+  const { data: podiumResults } = useGetPodiumData();
 
   const { mutate: vote } = useVote();
 
@@ -24,8 +24,6 @@ const Apps = () => {
   };
 
   const isAuthenticated = Boolean(user && address);
-
-  const hasPodium = !isLoadingPodiumApps && !!podiumApps?.length;
 
   return (
     <>
@@ -39,7 +37,7 @@ const Apps = () => {
           isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
           onVote={handleVote}
         />
-        {hasPodium && <AppsPodium apps={podiumApps} isLoading={isLoadingPodiumApps} />}
+        <AppsPodium results={podiumResults} />
         <AppsList
           apps={apps}
           isAuthenticated={isAuthenticated}

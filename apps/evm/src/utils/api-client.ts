@@ -183,6 +183,7 @@ export interface Project {
   refCode: string;
   userHasVotedFor: boolean;
   isPreviousRoundWinner: boolean;
+  logos: { default?: string };
 }
 
 // Define the interface for a category
@@ -204,18 +205,19 @@ export interface ResultProject {
   weight: number;
   rank: number;
   refCode: string;
-  prizePoints: number;
+  userHasVotedFor: boolean;
+  logos: { default?: string };
 }
 
 // Define the interface for a category
-interface ResultProjectCategory {
+export interface ResultProjectCategory {
   id: number;
   name: string;
   projects: ResultProject[];
 }
 
 // Define the main type for the object
-interface ResultProjectVotingInfo {
+export interface ResultProjectVotingInfo {
   categories: ResultProjectCategory[];
 }
 
@@ -229,7 +231,7 @@ export interface PartnerS3 {
   ref_code: string;
   live?: boolean;
   project_url: string;
-  logos?: { default: string };
+  logos: { default?: string };
   description: string;
   show_on_app_store: boolean;
   discord_id: any;

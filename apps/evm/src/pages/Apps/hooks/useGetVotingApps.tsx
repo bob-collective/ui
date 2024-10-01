@@ -3,12 +3,7 @@ import { useAccount } from '@gobob/wagmi';
 
 import { appsKeys } from '../../../lib/react-query';
 import { apiClient, Project, ProjectCategory, ProjectVotingInfo } from '../../../utils';
-
-function getImageUrl(name: string) {
-  return new URL(`../../../assets/partners/${name.split(' ').join('').toLowerCase()}.png`, import.meta.url);
-}
-
-const fallbackImg = new URL(`../../../assets/spice-shape-background.jpg`, import.meta.url);
+import { getAppLogo } from '../utils';
 
 type VotingAppData = Project & {
   logoSrc: string;
@@ -34,12 +29,9 @@ const useGetVotingApps = () => {
         categories: data.categories.map((category) => ({
           ...category,
           apps: category.projects.map((project): VotingAppData => {
-            const imageUrl = getImageUrl(project.name);
-            const hasImg = !imageUrl.href.endsWith('undefined');
-
             return {
               ...project,
-              logoSrc: hasImg ? getImageUrl(project.name).href : fallbackImg.href
+              logoSrc: getAppLogo(project.name, project.logos)
             };
           })
         }))
