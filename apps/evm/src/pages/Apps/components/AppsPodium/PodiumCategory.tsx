@@ -33,7 +33,7 @@ type PodiumSpotProps = Props & InheritAttrs;
 const PodiumCategory = ({ category, color: colorProp, ...props }: PodiumSpotProps): JSX.Element => {
   const color = cardsColors[colorProp];
 
-  const [first, second, third] = (category?.projects || []).sort((a, b) => b.rank - a.rank);
+  const [first, second, third] = (category?.projects || []).sort((a, b) => a.rank - b.rank);
 
   return (
     <StyledPodiumCard $color={color} flex={1} padding='none' {...props}>
@@ -48,8 +48,8 @@ const PodiumCategory = ({ category, color: colorProp, ...props }: PodiumSpotProp
         </Trapezoid>
         <StyledConfetti />
         <StyledPodiums gap='lg' marginX='lg'>
-          <PodiumSpot app={first} spot='second' />
-          <PodiumSpot app={second} spot='first' />
+          <PodiumSpot app={second} spot='second' />
+          <PodiumSpot app={first} spot='first' />
           <PodiumSpot app={third} spot='third' />
         </StyledPodiums>
       </StyledPodiumCardInner>
