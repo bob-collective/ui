@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { MultiplierTable } from './MultiplierTable';
 import { StyledList, StyledTableP } from './Info.style';
 
-import infoSpiceAccrualSrc from '@/assets/info-spice-accrual.gif';
 import { NotionLinks, SocialLinks } from '@/constants';
 
 const columnsSpiceAccrual = [
@@ -217,7 +216,7 @@ const Info = () => {
                 project to project (e.g. special bonuses or requirements). DYOR.
               </P>
               <P>Spice Accrual Example: Visual</P>
-              <Image alt='spice accrual example' src={infoSpiceAccrualSrc} />
+              <Image alt='spice accrual example' src='assets/info-spice-accrual.gif' />
               <P>Spice Accrual Example: Visual</P>
               <Table columns={columnsSpiceAccrual} rows={rowsSpiceAccrual} wrapperProps={{ padding: 'lg' }} />
             </Flex>
