@@ -149,7 +149,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         <UserInfoCard
           description={completedQuestsCount || 0}
           title='Quests Completed'
-          tooltipLabel='The number of Intract and Galxe tasks that you have completed'
+          tooltipLabel='The number of Intract and Galxe quests that you have completed'
         >
           <Button
             fullWidth
