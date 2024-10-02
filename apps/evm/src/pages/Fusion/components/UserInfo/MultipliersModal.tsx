@@ -129,7 +129,9 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
         Multipliers
       </ModalHeader>
       <ModalBody gap='2xl' padding='even'>
-        <P color='grey-50'>Bridge High Priority assets to earn multipliers on your spice</P>
+        <P color='grey-50'>
+          Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest.
+        </P>
         <Flex direction='column' gap='md'>
           <H3 id={featuredAssetId} size='md'>
             Featured Assets
