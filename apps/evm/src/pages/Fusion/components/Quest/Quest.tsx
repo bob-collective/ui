@@ -52,7 +52,7 @@ const Quest = ({ id, quests }: QuestProps) => {
           variant='outline'
           {...{ external: true, href: intractQuest?.url, disabled: !intractQuest }}
         >
-          View Quest
+          View Quests
         </Button>
       </Flex>
     </Flex>
