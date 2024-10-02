@@ -1,3 +1,5 @@
+'use client';
+
 import { GatewayQuote } from '@gobob/bob-sdk';
 import { AuthButton } from '@gobob/connect-ui';
 import { CurrencyAmount } from '@gobob/currency';

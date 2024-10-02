@@ -1,6 +1,5 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { QueryClientProvider, usePrices, useQuery } from '@gobob/react-query';
 import { SatsWagmiConfig } from '@gobob/sats-wagmi';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P, toast } from '@gobob/ui';
@@ -14,21 +13,18 @@ import {
   watchAccount
 } from '@gobob/wagmi';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
+import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { Chain } from 'viem';
+import { ConnectProvider } from '@gobob/connect-ui';
 
 import { useHaltedLockedTokens, useLockedTokens } from './fusion/hooks';
 
 import { queryClient } from '@/lib/react-query';
 import { useBalances, useGetUser, useLogin, useLogout, useTokens } from '@/hooks';
 import { bitcoinNetwork, isProd, isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
-import { Header, Layout, Main, Sidebar } from '@/components';
+import { Header, Layout, Sidebar } from '@/components';
 import { apiClient } from '@/utils';
 import { StyledComponentsRegistry } from '@/lib/styled-components/registry';
-
-const ConnectProvider = dynamic(() => import('@gobob/connect-ui').then((mod) => mod.ConnectProvider), {
-  ssr: false
-});
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
@@ -170,26 +166,12 @@ export function Providers({ children }: PropsWithChildren) {
       <QueryClientProvider client={queryClient}>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}>
-          <CSSReset />
-          <NestedProviders />
+          <NestedProviders>{children}</NestedProviders>
         </SatsWagmiConfig>
       </QueryClientProvider>
     </WagmiProvider>
   );
 }
-
-// using Main just so we can show the background wallpaper
-const Fallback = () => {
-  const pathname = usePathname();
-
-  if (pathname === RoutesPath.HOME) return null;
-
-  return (
-    <Main>
-      <div />
-    </Main>
-  );
-};
 
 function NestedProviders({ children }: PropsWithChildren) {
   const router = useRouter();
@@ -206,19 +188,19 @@ function NestedProviders({ children }: PropsWithChildren) {
 
   useEffect(() => {
     reconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [reconnect]);
 
   return (
     <StyledComponentsRegistry>
       <BOBUIProvider navigate={router.push}>
         <ConnectProvider type='both'>
+          <CSSReset />
           <ScrollToTop />
           <AuthCheck />
           <Layout>
             <Sidebar />
             <Header />
-            <Suspense fallback={<Fallback />}>{children}</Suspense>
+            {children}
           </Layout>
         </ConnectProvider>
       </BOBUIProvider>

@@ -1,3 +1,5 @@
+'use client';
+
 import { AuthButton } from '@gobob/connect-ui';
 import { CurrencyAmount, Token } from '@gobob/currency';
 import { useMutation, usePrices } from '@gobob/react-query';
