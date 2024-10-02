@@ -1,3 +1,5 @@
+'use client';
+
 import { Overlay as AriaOverlay } from '@react-aria/overlays';
 import { ReactNode, RefObject, useCallback, useState } from 'react';
 

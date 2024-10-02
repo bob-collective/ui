@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, ReactNode, RefObject, createContext, useContext, useRef, useState } from 'react';
 import { mergeProps } from '@react-aria/utils';
 

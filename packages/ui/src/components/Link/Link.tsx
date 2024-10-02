@@ -26,7 +26,7 @@ type InheritAttrs = Omit<TextProps, keyof Props & AriaAttrs & NativeAttrs>;
 type LinkProps = Props & NativeAttrs & InheritAttrs & AriaAttrs;
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ external, underlined = 'none', icon, children, href, className, ...props }, ref): JSX.Element => {
+  ({ external, underlined = 'none', icon, children, href = '', className, ...props }, ref): JSX.Element => {
     const linkRef = useDOMRef(ref);
 
     const elementType = href ? 'a' : 'span';

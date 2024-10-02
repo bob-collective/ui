@@ -1,3 +1,5 @@
+'use client';
+
 import { useAccordionItem } from '@react-aria/accordion';
 import { FocusRing, useFocusRing } from '@react-aria/focus';
 import { mergeProps } from '@react-aria/utils';
