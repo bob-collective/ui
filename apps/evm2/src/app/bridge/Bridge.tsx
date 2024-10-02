@@ -1,10 +1,12 @@
+'use client';
+
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { Tabs, TabsItem } from '@gobob/ui';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 import { StyledCard, StyledFlex } from './Bridge.style';
-import { BannerCarousel, BridgeForm, TransactionList } from './components/page';
+import { BannerCarousel, BridgeForm, TransactionList } from './components';
 
 import { Main } from '@/components';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';

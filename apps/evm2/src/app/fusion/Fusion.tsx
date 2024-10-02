@@ -1,3 +1,5 @@
+'use client';
+
 import { Flex, Tabs, TabsItem } from '@gobob/ui';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
