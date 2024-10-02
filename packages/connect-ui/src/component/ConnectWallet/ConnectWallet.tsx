@@ -1,3 +1,5 @@
+'use client';
+
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { SatsConnector } from '@gobob/sats-wagmi';
 import { Connector, useAccount, useConnect, Address } from '@gobob/wagmi';

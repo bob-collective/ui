@@ -1,3 +1,5 @@
+'use client';
+
 import { ChainId } from '@gobob/chains';
 import { useConnectModal } from '@gobob/connect-ui';
 import { useMutation } from '@gobob/react-query';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Card, Dd, Dl, DlGroup, Dt, Flex, H1, P } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { useTranslation } from 'next-i18next';

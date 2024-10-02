@@ -1,3 +1,5 @@
+'use client';
+
 import { UseMutationOptions, useMutation } from '@gobob/react-query';
 import { useChainId, useSignMessage } from '@gobob/wagmi';
 import { SiweMessage } from 'siwe';

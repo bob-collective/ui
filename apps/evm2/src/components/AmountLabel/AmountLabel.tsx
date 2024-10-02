@@ -1,3 +1,5 @@
+'use client';
+
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/react-query';
 import { useCurrencyFormatter } from '@gobob/ui';

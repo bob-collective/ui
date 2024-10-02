@@ -2,10 +2,13 @@ import { withSentryConfig } from '@sentry/nextjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n: {
-    locales: ['en', 'zh'],
-    defaultLocale: 'en'
+  compiler: {
+    styledComponents: true
   },
+  // i18n: {
+  //   locales: ['en', 'zh'],
+  //   defaultLocale: 'en'
+  // },
   async rewrites() {
     return [
       {
@@ -22,17 +25,15 @@ const nextConfig = {
       }
     ];
   },
-  reactStrictMode: true,
+  // reactStrictMode: true,
   webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      window: false
-    };
+    config.externals.push('pino-pretty', 'encoding');
 
     return config;
   }
 };
 
-export default withSentryConfig(nextConfig, {
-  hideSourceMaps: true
-});
+export default nextConfig;
+// export default withSentryConfig(nextConfig, {
+//   hideSourceMaps: true
+// });

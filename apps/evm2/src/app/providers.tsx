@@ -24,6 +24,7 @@ import { useBalances, useGetUser, useLogin, useLogout, useTokens } from '@/hooks
 import { bitcoinNetwork, isProd, isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
 import { Header, Layout, Main, Sidebar } from '@/components';
 import { apiClient } from '@/utils';
+import { StyledComponentsRegistry } from '@/lib/styled-components/registry';
 
 const ConnectProvider = dynamic(() => import('@gobob/connect-ui').then((mod) => mod.ConnectProvider), {
   ssr: false
@@ -209,16 +210,18 @@ function NestedProviders({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <BOBUIProvider navigate={router.push}>
-      {/* <ConnectProvider type='both'> */}
-      <ScrollToTop />
-      <AuthCheck />
-      <Layout>
-        <Sidebar />
-        <Header />
-        <Suspense fallback={<Fallback />}>{children}</Suspense>
-      </Layout>
-      {/* </ConnectProvider> */}
-    </BOBUIProvider>
+    <StyledComponentsRegistry>
+      <BOBUIProvider navigate={router.push}>
+        <ConnectProvider type='both'>
+          <ScrollToTop />
+          <AuthCheck />
+          <Layout>
+            <Sidebar />
+            <Header />
+            <Suspense fallback={<Fallback />}>{children}</Suspense>
+          </Layout>
+        </ConnectProvider>
+      </BOBUIProvider>
+    </StyledComponentsRegistry>
   );
 }
