@@ -32,8 +32,8 @@ const commonTokens = tokenList.tokens.reduce<Partial<Record<CommonToken, Partial
   (acc, { symbol, chainId, address, decimals, name }) => {
     if (isCommonToken(symbol)) {
       if (acc[symbol] === undefined) acc[symbol] = {} as Record<ChainId, ERC20Token>;
-      if (acc[symbol])
-        acc[symbol]![chainId as ChainId] = new ERC20Token(chainId, address as `0x${string}`, decimals, symbol, name);
+
+      acc[symbol]![chainId as ChainId] = new ERC20Token(chainId, address as `0x${string}`, decimals, symbol, name);
     }
 
     return acc;

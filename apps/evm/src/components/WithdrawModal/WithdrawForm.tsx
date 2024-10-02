@@ -33,7 +33,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
   const { data: lockedTokens, refetch: refetchLockedTokens } = useLockedTokens();
 
   const otherTokens = useMemo(() => {
-    if (!USDT || !USDT[L1_CHAIN as ChainId.ETHEREUM]) return [];
+    if (!USDT?.[L1_CHAIN as ChainId.ETHEREUM]) return [];
 
     return lockedTokens?.filter(
       (token) => !isAddressEqual(token.raw.address, USDT![L1_CHAIN as ChainId.ETHEREUM]!.address)
@@ -41,7 +41,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
   }, [lockedTokens]);
 
   const isUSDTWithdrawNeeded = useMemo(() => {
-    if (!USDT || !USDT![L1_CHAIN as ChainId.ETHEREUM]) return false;
+    if (!USDT?.[L1_CHAIN as ChainId.ETHEREUM]) return false;
 
     return !!lockedTokens?.find((token) =>
       isAddressEqual(token.raw.address, USDT![L1_CHAIN as ChainId.ETHEREUM]!.address)
@@ -57,8 +57,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
   const withdrawToL2Mutation = useMutation({
     mutationKey: ['withdrawToL2', address],
     mutationFn: async () => {
-      if (!otherTokens || !lockedTokens || !address || !publicClient || !USDT || !USDT[L1_CHAIN as ChainId.ETHEREUM])
-        return;
+      if (!otherTokens || !lockedTokens || !address || !publicClient || !USDT?.[L1_CHAIN as ChainId.ETHEREUM]) return;
 
       if (isUSDTWithdrawNeeded) {
         const otherTokensAddress = otherTokens.map((token) => token.raw.address);

@@ -11,7 +11,7 @@ import { wstETH } from '../../../constants/assets';
 
 class USDCBridgeAdapter extends StandardBridgeAdapter {
   async supportsTokenPair(l1Token: AddressLike, l2Token: AddressLike): Promise<boolean> {
-    if (!USDC || !USDC[L1_CHAIN]) return false;
+    if (!USDC?.[L1_CHAIN]) return false;
 
     return (
       isAddressEqual(l1Token as Address, USDC[L1_CHAIN]!.address) &&
