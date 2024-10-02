@@ -495,6 +495,9 @@ importers:
       '@gobob/currency':
         specifier: workspace:^
         version: link:../currency
+      tokenlist:
+        specifier: github:bob-collective/ethereum-optimism.github.io#master
+        version: github.com/bob-collective/ethereum-optimism.github.io/c7f0decaefaa53f1bb7aca9f6432c27d3573c815
 
   packages/ui:
     dependencies:

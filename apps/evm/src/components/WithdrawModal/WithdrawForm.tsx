@@ -32,17 +32,21 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
 
   const { data: lockedTokens, refetch: refetchLockedTokens } = useLockedTokens();
 
-  const otherTokens = useMemo(
-    () =>
-      lockedTokens?.filter((token) => !isAddressEqual(token.raw.address, USDT[L1_CHAIN as ChainId.ETHEREUM].address)),
-    [lockedTokens]
-  );
+  const otherTokens = useMemo(() => {
+    if (!USDT || !USDT[L1_CHAIN as ChainId.ETHEREUM]) return [];
 
-  const isUSDTWithdrawNeeded = useMemo(
-    () =>
-      !!lockedTokens?.find((token) => isAddressEqual(token.raw.address, USDT[L1_CHAIN as ChainId.ETHEREUM].address)),
-    [lockedTokens]
-  );
+    return lockedTokens?.filter(
+      (token) => !isAddressEqual(token.raw.address, USDT![L1_CHAIN as ChainId.ETHEREUM]!.address)
+    );
+  }, [lockedTokens]);
+
+  const isUSDTWithdrawNeeded = useMemo(() => {
+    if (!USDT || !USDT![L1_CHAIN as ChainId.ETHEREUM]) return false;
+
+    return !!lockedTokens?.find((token) =>
+      isAddressEqual(token.raw.address, USDT![L1_CHAIN as ChainId.ETHEREUM]!.address)
+    );
+  }, [lockedTokens]);
 
   const handleSuccess = () => {
     toast.success('Withdrawal successful');
@@ -53,7 +57,8 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
   const withdrawToL2Mutation = useMutation({
     mutationKey: ['withdrawToL2', address],
     mutationFn: async () => {
-      if (!otherTokens || !lockedTokens || !address || !publicClient) return;
+      if (!otherTokens || !lockedTokens || !address || !publicClient || !USDT || !USDT[L1_CHAIN as ChainId.ETHEREUM])
+        return;
 
       if (isUSDTWithdrawNeeded) {
         const otherTokensAddress = otherTokens.map((token) => token.raw.address);
@@ -69,7 +74,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
           abi: lockContract.abi,
           address: lockContract.address,
           functionName: 'withdrawDepositsToL1',
-          args: [[USDT[L1_CHAIN as ChainId.ETHEREUM].address]]
+          args: [[USDT[L1_CHAIN as ChainId.ETHEREUM]!.address]]
         });
 
         const [l2Receipt, l1Receipt] = await Promise.all([

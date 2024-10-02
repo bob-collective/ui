@@ -268,7 +268,7 @@ const BobBridgeForm = ({
   });
 
   const isUSDCWithdraw = useMemo(
-    () => currencyAmount && type === Type.Withdraw && USDC[L2_CHAIN].equals(currencyAmount.currency),
+    () => currencyAmount && type === Type.Withdraw && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency),
     [type, currencyAmount]
   );
 

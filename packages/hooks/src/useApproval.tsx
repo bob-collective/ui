@@ -14,12 +14,14 @@ export const useGetApprovalData = (amount: CurrencyAmount<Token> | undefined, sp
   const { allowance, refetch } = useTokenAllowance({ token: amount?.currency, owner: address, spender });
 
   const isRevokeRequired = useMemo((): boolean => {
+    if (!amount) return false;
+
     const isMainnetUSDT =
-      amount?.currency?.chainId === ethereumTokens.usdt.chainId &&
+      amount?.currency?.chainId === ethereumTokens.usdt?.chainId &&
       isAddressEqual(amount.currency.address, ethereumTokens.usdt.address);
 
     const isSepoliaUSDT =
-      amount?.currency?.chainId === sepoliaTokens.usdt.chainId &&
+      amount?.currency?.chainId === sepoliaTokens.usdt?.chainId &&
       isAddressEqual(amount.currency.address, sepoliaTokens.usdt.address);
 
     if (!isMainnetUSDT && !isSepoliaUSDT) return false;
@@ -53,7 +55,7 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
   const { isRevokeRequired, isApproveRequired, allowance, refetch } = useGetApprovalData(tokenAmount, spender);
 
   const abi = useMemo(
-    () => (tokenAmount?.currency.symbol === USDT_ETH.symbol ? USDTAbi : erc20Abi) as typeof erc20Abi,
+    () => (tokenAmount?.currency.symbol === USDT_ETH?.symbol ? USDTAbi : erc20Abi) as typeof erc20Abi,
     [tokenAmount]
   );
 
