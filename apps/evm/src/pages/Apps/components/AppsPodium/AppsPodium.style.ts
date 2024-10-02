@@ -73,22 +73,6 @@ const StyledPodiumWrapper = styled(Flex)`
   margin-bottom: -2px;
 `;
 
-const StyledUnderlay = styled.div`
-  top: -0.75rem;
-  bottom: -0.75rem;
-  left: -0.75rem;
-  right: -0.75rem;
-  position: absolute;
-  z-index: 100;
-  backdrop-filter: blur(4px);
-`;
-
-const StyledOverlay = styled(Flex)`
-  position: absolute;
-  inset: 0;
-  z-index: 101;
-`;
-
 const StyledPodiums = styled(Flex)`
   max-width: ${({ theme }) => theme.maxWidth('md')};
 `;
@@ -97,10 +81,8 @@ export {
   StyledAvatarWrapper,
   StyledConfetti,
   StyledMedal,
-  StyledOverlay,
   StyledPodiumCard,
   StyledPodiumCardInner,
   StyledPodiums,
-  StyledPodiumWrapper,
-  StyledUnderlay
+  StyledPodiumWrapper
 };
