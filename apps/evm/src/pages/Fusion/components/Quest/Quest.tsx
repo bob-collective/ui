@@ -36,9 +36,12 @@ const Quest = ({ id, quests }: QuestProps) => {
         ) : (
           <Skeleton height='3xl' width='9xl' />
         )}
-        <H2 size='3xl'>Quest</H2>
+        <H2 size='3xl'>Quests</H2>
         {intractQuest ? (
-          <StyledDescription dangerouslySetInnerHTML={{ __html: intractQuest.description }} />
+          <StyledDescription>
+            Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an
+            additional 62,500 Spice.
+          </StyledDescription>
         ) : (
           <Skeleton count={3} height='xl' />
         )}
@@ -49,7 +52,7 @@ const Quest = ({ id, quests }: QuestProps) => {
           variant='outline'
           {...{ external: true, href: intractQuest?.url, disabled: !intractQuest }}
         >
-          View Quest
+          View Quests
         </Button>
       </Flex>
     </Flex>
