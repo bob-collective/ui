@@ -15,6 +15,8 @@ type TokenInputTheme = Omit<InputTheme, 'adornment' | 'sizes'> & {
     base: StyledObject<object>;
     item: {
       ticker: StyledObject<object>;
+      name: StyledObject<object>;
+      amount: StyledObject<object>;
       usd: StyledObject<object>;
       img: StyledObject<object>;
     };

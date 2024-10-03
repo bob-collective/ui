@@ -1,6 +1,6 @@
 import { chain, useId } from '@react-aria/utils';
 import { Key, forwardRef, useCallback } from 'react';
-import { Currency } from '@gobob/currency';
+import { EvmCurrencies } from '@gobob/currency';
 
 import { BaseTokenInput, BaseTokenInputProps } from './BaseTokenInput';
 import { TokenSelectItemProps, TokenSelect, TokenSelectProps } from './TokenSelect';
@@ -8,8 +8,9 @@ import { TokenSelectItemProps, TokenSelect, TokenSelectProps } from './TokenSele
 type Props = {
   items?: TokenSelectItemProps[];
   featuredItems?: TokenSelectItemProps[];
-  onChangeCurrency?: (currency: Currency) => void;
+  onChangeCurrency?: (currency: EvmCurrencies) => void;
   selectProps?: Omit<TokenSelectProps, 'label' | 'helperTextId' | 'items' | 'featuredItems'>;
+  currency?: EvmCurrencies;
 };
 
 type InheritAttrs = Omit<BaseTokenInputProps, keyof Props | 'endAdornment'>;
@@ -39,8 +40,8 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
     const selectHelperTextId = useId();
 
     const handleSelectionChange = useCallback(
-      (ticker: Key) => {
-        const item = items?.find((item) => item.currency.symbol === ticker);
+      (key: Key) => {
+        const item = items?.find((item) => item.currency.address.toLowerCase() === (key as string).toLowerCase());
 
         if (item) {
           onChangeCurrency?.(item.currency);
@@ -67,7 +68,7 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
         featuredItems={featuredItems}
         isInvalid={isInvalid}
         items={items}
-        value={currency?.symbol}
+        value={currency?.address}
         onSelectionChange={chain(onSelectionChange, handleSelectionChange)}
       />
     );

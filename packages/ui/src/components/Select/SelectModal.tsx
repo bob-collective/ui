@@ -1,13 +1,13 @@
 import { mergeProps, useId } from '@react-aria/utils';
 import { SelectState } from '@react-stately/select';
-import { ForwardedRef, forwardRef, ReactNode, useRef, useState } from 'react';
+import { CSSProperties, ForwardedRef, forwardRef, ReactNode, useRef, useState } from 'react';
 import { useButton } from '@react-aria/button';
 import { Node, PressEvent } from '@react-types/shared';
 
 import { MagnifyingGlass } from '../../icons';
-import { ChipProps, Flex, Input, ModalHeader, ModalProps } from '..';
+import { ChipProps, Flex, Input, ModalHeader, ModalProps, P } from '..';
 import { ListProps } from '../List';
-import { ModalDivider } from '../Modal';
+import { Spacing } from '../../theme';
 
 import { StyledModal, StyledModalBody, StyledModalDivider, StyledSelectableChip } from './Select.style';
 import { SelectModalList, SelectModalListProps } from './SelectModalList';
@@ -27,6 +27,7 @@ type Props<T = SelectObject> = {
   listProps?: Omit<ListProps, 'children' | 'searchable'>;
   searchable?: SelectModalListProps<T>['searchable'];
   featuredItems?: Array<Pick<ChipProps, 'startAdornment' | 'endAdornment' | 'children'> & { value: string }>;
+  height?: CSSProperties['height'] | Spacing;
 };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
@@ -34,7 +35,7 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type SelectModalProps<T = SelectObject> = Props<T> & InheritAttrs;
 
 const SelectModal = <T extends SelectObject = SelectObject>(
-  { state, title, listProps, searchable, featuredItems, ...props }: SelectModalProps<T>,
+  { state, title, listProps, height, searchable, featuredItems, ...props }: SelectModalProps<T>,
   ref: ForwardedRef<HTMLDivElement>
 ): JSX.Element => {
   const headerId = useId();
@@ -58,14 +59,14 @@ const SelectModal = <T extends SelectObject = SelectObject>(
 
   const items = [...state.collection] as Node<T>[];
 
+  // TODO: featured items should be scrollable with list
   return (
-    <StyledModal ref={ref} $isSearchable={isSearchable} {...props}>
+    <StyledModal ref={ref} $height={height} {...props}>
       {title && (
-        <ModalHeader id={headerId} showDivider={false} size='lg' weight='medium'>
+        <ModalHeader id={headerId} size='lg' weight='medium'>
           {title}
         </ModalHeader>
       )}
-      <ModalDivider />
       {(hasFeaturedItems || isSearchable) && (
         <>
           <StyledModalBody gap='lg'>
@@ -91,8 +92,14 @@ const SelectModal = <T extends SelectObject = SelectObject>(
                 ))}
               </Flex>
             )}
+            {!!search && (
+              <Flex alignItems='center' color='grey-50' elementType={P} gap='s'>
+                <MagnifyingGlass color='grey-50' size='s' />
+                Search results
+              </Flex>
+            )}
           </StyledModalBody>
-          <StyledModalDivider />
+          {!search && <StyledModalDivider />}
         </>
       )}
       <SelectModalList<T>

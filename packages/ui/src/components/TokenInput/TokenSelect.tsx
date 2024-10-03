@@ -1,52 +1,56 @@
-import { Currency } from '@gobob/currency';
-import { mergeProps } from '@react-aria/utils';
+import { EvmCurrencies } from '@gobob/currency';
 import { useFilter } from '@react-aria/i18n';
+import { mergeProps } from '@react-aria/utils';
 
-import { Item, ModalSelectProps, Select } from '../Select';
 import { Avatar } from '../Avatar';
+import { Item, ModalSelectProps, Select } from '../Select';
 
 import { Token } from './Token';
 import { StyledTokenSelect } from './TokenInput.style';
 import { TokenListItem } from './TokenListItem';
 
 type TokenSelectItemProps = {
-  currency: Currency;
+  currency: EvmCurrencies;
   logoUrl: string;
-  balance: string | number;
-  balanceUSD: number;
+  balance?: {
+    amount: string | number;
+    usd: number;
+  };
 };
 
-type TokenSelectProps = Omit<ModalSelectProps<TokenSelectItemProps>, 'children' | 'type'> & {
+type TokenSelectProps = Omit<ModalSelectProps<TokenSelectItemProps>, 'children' | 'type' | 'value' | 'defaultValue'> & {
   featuredItems?: TokenSelectItemProps[];
+  value?: string;
+  defaultValue?: string;
 };
 
-const TokenSelect = ({ modalProps, size, featuredItems, ...props }: TokenSelectProps): JSX.Element => {
+const TokenSelect = ({ modalProps: modalPropsProp, size, featuredItems, ...props }: TokenSelectProps): JSX.Element => {
+  // TODO: filtering to be replaced with backend approach?
   const { contains } = useFilter({
     sensitivity: 'base'
   });
+
+  const modalProps: TokenSelectProps['modalProps'] = {
+    title: 'Select Token',
+    height: '700px',
+    featuredItems: featuredItems?.map((item) => ({
+      startAdornment: <Avatar size='3xl' src={item.logoUrl} />,
+      children: item.currency.symbol,
+      value: item.currency.address
+    })),
+    searchable: (searchTerm: string, item: TokenSelectItemProps) => {
+      return (
+        contains(searchTerm, item.currency.symbol) || (!!item.currency.name && contains(searchTerm, item.currency.name))
+      );
+    }
+  };
 
   return (
     <Select<TokenSelectItemProps>
       {...props}
       aria-label='select token'
       asSelectTrigger={StyledTokenSelect}
-      modalProps={mergeProps(
-        {
-          title: 'Select Token',
-          // TODO: handle height better
-          // listProps: { maxHeight: '32rem' },
-          featuredItems: featuredItems?.map((item) => ({
-            startAdornment: <Avatar size='3xl' src={item.logoUrl} />,
-            children: item.currency.symbol,
-            value: item.currency.symbol
-          })),
-          // TODO: need to get current search term to compare it
-          searchable: ({ value }: { value: TokenSelectItemProps }) => {
-            return;
-          }
-        },
-        modalProps
-      )}
+      modalProps={mergeProps(modalProps, modalPropsProp)}
       placeholder='Select token'
       renderValue={({ value }) =>
         value ? <Token logoUrl={value.logoUrl} symbol={value.currency.symbol} /> : undefined
@@ -54,11 +58,13 @@ const TokenSelect = ({ modalProps, size, featuredItems, ...props }: TokenSelectP
       size={size === 'lg' ? 'md' : size}
       type='modal'
     >
-      {(data: TokenSelectItemProps) => (
-        <Item key={data.currency.symbol} textValue={data.currency.symbol}>
-          <TokenListItem {...data} />
-        </Item>
-      )}
+      {(data: TokenSelectItemProps) => {
+        return (
+          <Item key={data.currency.address} textValue={data.currency.address}>
+            <TokenListItem {...data} />
+          </Item>
+        );
+      }}
     </Select>
   );
 };

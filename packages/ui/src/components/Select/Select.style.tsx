@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { CSSProperties } from 'react';
 
 import { hexToRgba, InputSizes, Spacing } from '../../theme';
 import { List } from '../List';
@@ -30,7 +31,7 @@ type StyledFieldProps = {
 };
 
 type StyledModalProps = {
-  $isSearchable?: boolean;
+  $height?: Spacing | CSSProperties['height'];
 };
 
 const StyledTrigger = styled.button<StyledTriggerProps>`
@@ -87,7 +88,7 @@ const StyledModalBody = styled(ModalBody)`
 `;
 
 const StyledModal = styled(Modal)<StyledModalProps>`
-  height: ${({ $isSearchable }) => $isSearchable && '700px'};
+  height: ${({ $height, theme }) => theme.spacing($height as Spacing)};
 `;
 
 const StyledSelectableChip = styled(Chip)`

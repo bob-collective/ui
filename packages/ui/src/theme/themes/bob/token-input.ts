@@ -64,7 +64,17 @@ const tokenInput: TokenInputTheme = {
       }
     },
     item: {
+      name: {
+        color: color('light'),
+        fontWeight: fontWeight('medium'),
+        ...typography('lg')
+      },
       ticker: {
+        color: color('grey-50'),
+        fontWeight: fontWeight('medium'),
+        ...typography('s')
+      },
+      amount: {
         color: color('light'),
         fontWeight: fontWeight('medium'),
         ...typography('md')
@@ -75,8 +85,8 @@ const tokenInput: TokenInputTheme = {
         ...typography('s')
       },
       img: {
-        height: spacing('4xl'),
-        width: spacing('4xl')
+        height: spacing('5xl'),
+        width: spacing('5xl')
       }
     }
   }
