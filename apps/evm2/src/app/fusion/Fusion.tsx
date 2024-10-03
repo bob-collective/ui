@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, Tabs, TabsItem } from '@gobob/ui';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { useLocalStorage, useSessionStorage } from '@uidotdev/usehooks';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Key, useCallback, useEffect } from 'react';
 
@@ -10,9 +10,9 @@ import { AllUsersLeaderboard, Dashboard, Info, PartnersAndChallenges, QuestUsers
 
 import { BannerCarousel, Geoblock, Main } from '@/components';
 import { LocalStorageKey } from '@/constants';
+import { SessionStorageKey } from '@/types/session-storage';
 
 const Fusion = () => {
-  // const [searchParams, setSearchParams] = useSearchParams(new URLSearchParams('tab=dashboard'));
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -24,12 +24,14 @@ const Fusion = () => {
     LocalStorageKey.HIDE_INFO_TAB_UNVISITED_MARK,
     selectedTabKey === 'info'
   );
+  const [scrollEcosystem, setScrollEcosystem] = useSessionStorage(SessionStorageKey.SCROLL_ECOSYSTEM, false);
 
   useEffect(() => {
-    if (location.state?.scrollEcosystem && selectedTabKey === 'dashboard') {
+    if (scrollEcosystem && selectedTabKey === 'dashboard') {
+      setScrollEcosystem(false);
       document.getElementById('ecosystem')?.scrollIntoView?.();
     }
-  }, [selectedTabKey]);
+  }, [scrollEcosystem, selectedTabKey, setScrollEcosystem]);
 
   const handleSelectionChange = useCallback(
     (key: Key) => {

@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSessionStorage } from '@uidotdev/usehooks';
 
 import { RoutesPath } from '../../constants';
 import { FeatureFlags, useFeatureFlag } from '../../hooks';
@@ -15,6 +16,8 @@ import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
+
+import { SessionStorageKey } from '@/types/session-storage';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -56,17 +59,25 @@ const BannerCarousel = () => {
   const router = useRouter();
 
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
+  const setScrollEcosystem = useSessionStorage(SessionStorageKey.SCROLL_ECOSYSTEM, false)[1];
+  const setBridgeToBtc = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false)[1];
 
   const onPressEcosystemBanner = useCallback(
     // WARN: nextjs router does not support state passing
-    () => router.push(RoutesPath.FUSION, { state: { scrollEcosystem: true } }),
+    () => {
+      setScrollEcosystem(true);
+      router.push(RoutesPath.FUSION);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const onPressOnrampBanner = useCallback(
     // WARN: nextjs router does not support state passing
-    () => router.push(RoutesPath.BRIDGE, { state: { setBridgeToBtc: true } }),
+    () => {
+      setBridgeToBtc(true);
+      router.push(RoutesPath.BRIDGE);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );

@@ -4,12 +4,14 @@ import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { Tabs, TabsItem } from '@gobob/ui';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { useSessionStorage } from '@uidotdev/usehooks';
 
 import { StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
 
 import { Main } from '@/components';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { SessionStorageKey } from '@/types/session-storage';
 
 enum BridgeOrigin {
   Internal = 'INTERNAL',
@@ -96,12 +98,16 @@ const Bridge = () => {
     }
   }, [type, chain, searchParams, router]);
 
+  const [bridgeToBtc, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false);
+  const [ticker] = useSessionStorage(SessionStorageKey.TICKER, undefined);
+
   useEffect(() => {
-    if (location?.state?.setBridgeToBtc) {
+    if (bridgeToBtc) {
+      setBridgeToBtc(false);
       setChain('BTC');
       setBridgeOrigin(BridgeOrigin.Internal);
     }
-  }, [location]);
+  }, [bridgeToBtc, location, setBridgeToBtc]);
 
   return (
     <>
@@ -133,7 +139,7 @@ const Bridge = () => {
             <BridgeForm
               bridgeOrigin={bridgeOrigin}
               chain={chain}
-              ticker={location.state?.ticker}
+              ticker={ticker}
               type={type}
               onChangeChain={handleChangeChain}
               onChangeNetwork={handleChangeNetwork}

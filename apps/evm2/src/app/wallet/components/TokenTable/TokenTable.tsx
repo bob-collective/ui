@@ -11,6 +11,7 @@ import Big from 'big.js';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useSessionStorage } from '@uidotdev/usehooks';
 
 import { ReceiveTokenModal } from '../ReceiveTokenModal';
 import { SendTokenModal } from '../SendTokenModal';
@@ -20,6 +21,7 @@ import { ButtonGroup } from './ButtonGroup';
 import { ChainLogo, ChainLogoProps } from '@/components';
 import { L2_CHAIN, RoutesPath } from '@/constants';
 import { TokenData, useBalances, useTokens } from '@/hooks';
+import { SessionStorageKey } from '@/types/session-storage';
 
 const AmountCell = ({ amount, valueUSD }: { amount: string | number; valueUSD: string }) => (
   <Flex alignItems='flex-start' direction='column'>
@@ -91,6 +93,7 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   const t = useTranslations();
 
   const router = useRouter();
+  const setTicker = useSessionStorage<string | undefined>(SessionStorageKey.TICKER, undefined)[1];
 
   const [sendModal, setSendModalState] = useState<{ isOpen: boolean; token?: TokenData | 'btc' }>({ isOpen: false });
   const [receiveModal, setReceiveModalState] = useState<{ isOpen: boolean; token?: TokenData | 'btc' }>({
@@ -109,11 +112,14 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
     { name: '', id: TokenTableColumns.ACTION }
   ];
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // WARN: nextjs router does not support state passing
-  const handlePressBridge = useCallback((ticker: string) => router.push(RoutesPath.HOME, { state: { ticker } }), []);
+  const handlePressBridge = useCallback(
+    (ticker: string) => {
+      setTicker(ticker);
+      router.push(RoutesPath.HOME);
+    },
+    [router, setTicker]
+  );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handlePressBtcBridge = useCallback(() => router.push(`${RoutesPath.HOME}?network=bitcoin`), []);
 
   const btcRow: TokenTableRow = useMemo(() => {
