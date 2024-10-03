@@ -16,7 +16,7 @@ import {
   Tooltip,
   useMediaQuery
 } from '@gobob/ui';
-import { ReactNode, useCallback } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { useTheme } from 'styled-components';
 import { MedalBronze, MedalGold, MedalSilver } from '@gobob/icons';
 import Image from 'next/image';
@@ -25,7 +25,7 @@ import { StyledCategoryTag, StyledIconWrapper, StyledLiveTag, StyledPartnerCard 
 
 type Props = {
   category: string;
-  logoSrc: string | ReactNode;
+  logoSrc: string;
   name: string;
   url: string;
   distributedSpice?: string;
@@ -53,6 +53,7 @@ const PartnerCard = ({
 }: PartnerCardProps): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [partnerLogoSrc, setPartnerLogoSrc] = useState(logoSrc);
 
   const getMedalIcon = useCallback(() => {
     if (!medal) return;
@@ -105,12 +106,9 @@ const PartnerCard = ({
             <Image
               alt={name}
               height='52'
-              src={logoSrc}
+              src={partnerLogoSrc}
               width='52'
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null; // prevents looping
-                currentTarget.src = getFallbackImage();
-              }}
+              onError={() => setPartnerLogoSrc(getFallbackImage())}
             />
           ) : (
             logoSrc
