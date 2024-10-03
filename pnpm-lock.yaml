@@ -391,18 +391,9 @@ importers:
       graphql-request:
         specifier: ^6.1.0
         version: 6.1.0(graphql@16.8.1)
-      i18next:
-        specifier: ^23.15.1
-        version: 23.15.1
-      i18next-browser-languagedetector:
-        specifier: ^8.0.0
-        version: 8.0.0
       next:
         specifier: 14.2.13
         version: 14.2.13(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@18.3.1)(react@18.3.1)
-      next-i18next:
-        specifier: ^15.3.1
-        version: 15.3.1(i18next@23.15.1)(next@14.2.13)(react-i18next@14.1.2)(react@18.3.1)
       next-intl:
         specifier: ^3.20.0
         version: 3.20.0(next@14.2.13)(react@18.3.1)
@@ -415,9 +406,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
-      react-i18next:
-        specifier: ^14.1.2
-        version: 14.1.2(i18next@23.15.1)(react-dom@18.3.1)(react@18.3.1)
       react-otp-input:
         specifier: ^3.1.1
         version: 3.1.1(react-dom@18.3.1)(react@18.3.1)
@@ -458,9 +446,6 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.3.0
-      '@vitejs/plugin-react':
-        specifier: ^4.0.3
-        version: 4.3.1(vite@4.5.3)
       eslint:
         specifier: ^8
         version: 8.57.0
@@ -470,15 +455,6 @@ importers:
       typescript:
         specifier: ^5
         version: 5.4.5
-      vite:
-        specifier: ^4.4.5
-        version: 4.5.3(@types/node@20.14.2)
-      vite-plugin-node-polyfills:
-        specifier: ^0.15.0
-        version: 0.15.0(vite@4.5.3)
-      vite-plugin-wasm:
-        specifier: ^3.3.0
-        version: 3.3.0(vite@4.5.3)
 
   packages/chains: {}
 
@@ -12383,6 +12359,7 @@ packages:
   /core-js@3.37.1:
     resolution: {integrity: sha512-Xn6qmxrQZyB0FFY8E3bgRXei3lWDJHhvI+u0q9TKIYM49G8pAr0FgnnrFRAmsbptZL1yxRADVXn+x5AGsbBfyw==}
     requiresBuild: true
+    dev: true
 
   /core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
@@ -15769,16 +15746,6 @@ packages:
       '@babel/runtime': 7.24.7
     dev: false
 
-  /i18next-browser-languagedetector@8.0.0:
-    resolution: {integrity: sha512-zhXdJXTTCoG39QsrOCiOabnWj2jecouOqbchu3EfhtSHxIB5Uugnm9JaizenOy39h7ne3+fLikIjeW88+rgszw==}
-    dependencies:
-      '@babel/runtime': 7.24.7
-    dev: false
-
-  /i18next-fs-backend@2.3.2:
-    resolution: {integrity: sha512-LIwUlkqDZnUI8lnUxBnEj8K/FrHQTT/Sc+1rvDm9E8YvvY5YxzoEAASNx+W5M9DfD5s77lI5vSAFWeTp26B/3Q==}
-    dev: false
-
   /i18next@22.5.1:
     resolution: {integrity: sha512-8TGPgM3pAD+VRsMtUMNknRz3kzqwp/gPALrWMsDnmC1mKqJwpWyooQRLMcbTwq8z8YwSmuj+ZYvc+xCuEpkssA==}
     dependencies:
@@ -15787,12 +15754,6 @@ packages:
 
   /i18next@23.11.5:
     resolution: {integrity: sha512-41pvpVbW9rhZPk5xjCX2TPJi2861LEig/YRhUkY+1FQ2IQPS0bKUDYnEqY8XPPbB48h1uIwLnP9iiEfuSl20CA==}
-    dependencies:
-      '@babel/runtime': 7.24.7
-    dev: false
-
-  /i18next@23.15.1:
-    resolution: {integrity: sha512-wB4abZ3uK7EWodYisHl/asf8UYEhrI/vj/8aoSsrj/ZDxj4/UXPOa1KvFt1Fq5hkUHquNqwFlDprmjZ8iySgYA==}
     dependencies:
       '@babel/runtime': 7.24.7
     dev: false
@@ -18420,26 +18381,6 @@ packages:
   /neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  /next-i18next@15.3.1(i18next@23.15.1)(next@14.2.13)(react-i18next@14.1.2)(react@18.3.1):
-    resolution: {integrity: sha512-+pa2pZJb7B6k5PKW3TLVMmAodqkNaOBWVYlpWX56mgcEJz0UMW+MKSdKM9Z72CHp6Bp48g7OWwDnLqxXNp/84w==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      i18next: '>= 23.7.13'
-      next: '>= 12.0.0'
-      react: ^18.2.0
-      react-i18next: '>= 13.5.0'
-    dependencies:
-      '@babel/runtime': 7.24.7
-      '@types/hoist-non-react-statics': 3.3.5
-      core-js: 3.37.1
-      hoist-non-react-statics: 3.3.2
-      i18next: 23.15.1
-      i18next-fs-backend: 2.3.2
-      next: 14.2.13(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@18.3.1)(react@18.3.1)
-      react: 18.3.1
-      react-i18next: 14.1.2(i18next@23.15.1)(react-dom@18.3.1)(react@18.3.1)
-    dev: false
-
   /next-intl@3.20.0(next@14.2.13)(react@18.3.1):
     resolution: {integrity: sha512-0bCZcc38HfAZk/T+PNNcnJZknC+caS5rBK+WYRd1HsOL5O6puEu2H3kya8oT9s8piHjrTf7P0UHeahOFleOnrw==}
     peerDependencies:
@@ -20021,26 +19962,6 @@ packages:
       '@babel/runtime': 7.24.7
       html-parse-stringify: 3.0.1
       i18next: 23.11.5
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    dev: false
-
-  /react-i18next@14.1.2(i18next@23.15.1)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-FSIcJy6oauJbGEXfhUgVeLzvWBhIBIS+/9c6Lj4niwKZyGaGb4V4vUbATXSlsHJDXXB+ociNxqFNiFuV1gmoqg==}
-    peerDependencies:
-      i18next: '>= 23.2.3'
-      react: ^18.2.0
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.24.7
-      html-parse-stringify: 3.0.1
-      i18next: 23.15.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: false
