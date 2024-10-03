@@ -122,6 +122,21 @@ const StyledFusionImg = styled.img`
   }}
 `;
 
+const StyledXImg = styled.img`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 46%;
+      right: 1.5rem;
+      width: 21rem;
+      transform: translateY(-50%);
+      @media ${theme.breakpoints.down('md')} {
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
 const StyledEcosystemImg = styled(EcosystemImg)`
   ${({ theme }) => {
     return css`
@@ -149,6 +164,7 @@ export {
   StyledEcosystemImg,
   StyledFusionImg,
   StyledOnrampImg,
+  StyledXImg,
   StyledBannerContent,
   StyledBannerTitle
 };
