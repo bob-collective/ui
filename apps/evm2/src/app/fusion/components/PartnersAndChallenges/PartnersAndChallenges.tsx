@@ -10,7 +10,7 @@ import { useGetUser } from '@/hooks';
 import { apiClient } from '@/utils';
 
 function getImageUrl(name: string) {
-  return new URL(`@/assets/partners/${name.split(' ').join('').toLowerCase()}.png`, process.url).href;
+  return `/assets/partners/${name.split(' ').join('').toLowerCase()}.png`;
 }
 
 const PartnersAndChallenges = () => {

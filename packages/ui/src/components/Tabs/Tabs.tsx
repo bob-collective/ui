@@ -1,3 +1,5 @@
+'use client';
+
 import { useFocusRing } from '@react-aria/focus';
 import { useTabList } from '@react-aria/tabs';
 import { mergeProps } from '@react-aria/utils';

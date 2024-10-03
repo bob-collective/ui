@@ -1,5 +1,3 @@
-'use client';
-
 import { toast } from '@gobob/ui';
 import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Button, Flex, FlexProps, P } from '@gobob/ui';

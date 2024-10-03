@@ -216,7 +216,7 @@ const Info = () => {
                 project to project (e.g. special bonuses or requirements). DYOR.
               </P>
               <P>Spice Accrual Example: Visual</P>
-              <Image alt='spice accrual example' src='assets/info-spice-accrual.gif' />
+              <Image alt='spice accrual example' src='/assets/info-spice-accrual.gif' />
               <P>Spice Accrual Example: Visual</P>
               <Table columns={columnsSpiceAccrual} rows={rowsSpiceAccrual} wrapperProps={{ padding: 'lg' }} />
             </Flex>

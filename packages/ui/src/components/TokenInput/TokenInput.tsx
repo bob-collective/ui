@@ -1,3 +1,5 @@
+'use client';
+
 import { mergeProps, useId } from '@react-aria/utils';
 import { ChangeEvent, FocusEvent, forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { Currency } from '@gobob/currency';

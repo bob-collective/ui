@@ -5,10 +5,10 @@ const nextConfig = {
   compiler: {
     styledComponents: true
   },
-  // i18n: {
-  //   locales: ['en', 'zh'],
-  //   defaultLocale: 'en'
-  // },
+  i18n: {
+    locales: ['en', 'zh'],
+    defaultLocale: 'en'
+  },
   async rewrites() {
     return [
       {
@@ -33,7 +33,6 @@ const nextConfig = {
   }
 };
 
-export default nextConfig;
-// export default withSentryConfig(nextConfig, {
-//   hideSourceMaps: true
-// });
+export default withSentryConfig(nextConfig, {
+  hideSourceMaps: true
+});

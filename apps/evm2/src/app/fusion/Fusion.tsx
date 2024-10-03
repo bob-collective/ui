@@ -29,7 +29,7 @@ const Fusion = () => {
     if (location.state?.scrollEcosystem && selectedTabKey === 'dashboard') {
       document.getElementById('ecosystem')?.scrollIntoView?.();
     }
-  }, [location, selectedTabKey]);
+  }, [selectedTabKey]);
 
   const handleSelectionChange = useCallback(
     (key: Key) => {
@@ -37,11 +37,12 @@ const Fusion = () => {
         setInfoTabMarkHidden(true);
       }
 
-      const url = new URL(pathname!);
+      if (pathname) {
+        const url = new URL(pathname, window.location.origin);
 
-      url.searchParams.set('tab', key as string);
-
-      router.push(url.toString());
+        url.searchParams.set('tab', key as string);
+        router.push(url.toString());
+      }
     },
     [isInfoTabMarkHidden, pathname, router, setInfoTabMarkHidden]
   );

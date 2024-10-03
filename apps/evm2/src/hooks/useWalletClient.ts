@@ -1,5 +1,3 @@
-'use client';
-
 import { useAccount } from '@gobob/wagmi';
 import { useMemo } from 'react';
 import { createWalletClient, custom } from 'viem';

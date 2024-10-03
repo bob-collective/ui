@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Flex, H1, P } from '@gobob/ui';
 import { Discord, Twitter } from '@gobob/icons';
 

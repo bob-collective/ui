@@ -1,5 +1,6 @@
 import { MaxWidth, ResponsiveProp, Spacing, Span } from '@gobob/ui';
 import { Drawer, Flex } from '@gobob/ui';
+import Image from 'next/image';
 import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
@@ -51,7 +52,7 @@ const StyledMain = styled.main<StyledMainProps>`
 `;
 
 // TODO: to be removed
-const StyledBackground = styled.img`
+const StyledBackground = styled(Image)`
   position: absolute;
   top: 0;
   left: 0;

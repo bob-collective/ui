@@ -1,3 +1,5 @@
+'use client';
+
 import { useTableHeaderRow } from '@react-aria/table';
 import { mergeProps } from '@react-aria/utils';
 import { TableState } from '@react-stately/table';

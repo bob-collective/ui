@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Button,
   CardProps,
@@ -39,7 +37,7 @@ type Props = {
 type PartnerCardProps = Props & Omit<CardProps, keyof Props>;
 
 function getFallbackImage() {
-  return new URL(`@/assets/partners/default.png`, process.url).href;
+  return `/assets/partners/default.png`;
 }
 
 const PartnerCard = ({
@@ -106,8 +104,9 @@ const PartnerCard = ({
           {typeof logoSrc === 'string' ? (
             <Image
               alt={name}
+              height='52'
               src={logoSrc}
-              width={52}
+              width='52'
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = getFallbackImage();

@@ -1,3 +1,5 @@
+'use client';
+
 import { useFocusRing } from '@react-aria/focus';
 import { usePress } from '@react-aria/interactions';
 import { AriaSwitchProps, useSwitch } from '@react-aria/switch';

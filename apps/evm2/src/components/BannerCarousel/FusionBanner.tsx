@@ -14,7 +14,7 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => (
       <BannerTitle>BOB Fusion S02 is Ending Soon!</BannerTitle>
     </Flex>
     <P color='grey-50'>Check out the announcement in Discord</P>
-    <StyledFusionImg src='assets/fusion-end.jpg' />
+    <StyledFusionImg alt='Fusion end' height='336' src='/assets/fusion-end.jpg' width='336' />
   </Banner>
 );
 

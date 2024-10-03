@@ -1,12 +1,9 @@
 import { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
-import { Syne, Inter } from 'next/font/google';
 
 import { Providers } from './providers';
 import './index.css';
-
-const syne = Syne({ subsets: ['latin'], display: 'swap' });
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
+import './global.css';
 
 export const metadata: Metadata = {
   title: 'BOB',
@@ -35,7 +32,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <link href='https://fonts.googleapis.com' rel='preconnect' />
         <link crossOrigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect' />
       </head>
-      <body className={`${syne.className} ${inter.className}`}>
+      <body>
         <div id='root'>
           <Providers>{children}</Providers>
         </div>

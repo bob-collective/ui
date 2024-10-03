@@ -1,6 +1,7 @@
 import { Card, Flex, H1 } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
+import Image from 'next/image';
 
 import { EcosystemImg } from './EcosystemImg';
 import { OnrampImg } from './OnrampImg';
@@ -126,7 +127,7 @@ const StyledEcosystemImg = styled(EcosystemImg)`
   }}
 `;
 
-const StyledFusionImg = styled.img`
+const StyledFusionImg = styled(Image)`
   ${({ theme }) => {
     return css`
       position: absolute;

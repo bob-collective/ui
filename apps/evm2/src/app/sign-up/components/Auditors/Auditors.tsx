@@ -2,10 +2,6 @@ import { Dl, DlGroup, Dt, Dd, Flex } from '@gobob/ui';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 
-import trailsOfBitsSrc from '@/assets/trails-of-bits.png';
-import commonPrefixSrc from '@/assets/common-prefix.png';
-import otterSecSrc from '@/assets/otter-sec.png';
-
 const Auditors = () => {
   const { t } = useTranslation();
 
@@ -23,7 +19,7 @@ const Auditors = () => {
               rel='noreferrer'
               target='_blank'
             >
-              <Image alt='Trails of Bits auditor' height='24' src={trailsOfBitsSrc} width='40' />
+              <Image alt='Trails of Bits auditor' height='24' src='/assets/trails-of-bits.png' width='40' />
             </a>
             <a
               aria-label='navigate to Common Prefix audit'
@@ -31,7 +27,7 @@ const Auditors = () => {
               rel='noreferrer'
               target='_blank'
             >
-              <Image alt='Common Prefix auditor' height='10' src={commonPrefixSrc} width='105' />
+              <Image alt='Common Prefix auditor' height='10' src='/assets/common-prefix.png' width='105' />
             </a>
             <a
               aria-label='navigate to OtterSec audit'
@@ -39,7 +35,7 @@ const Auditors = () => {
               rel='noreferrer'
               target='_blank'
             >
-              <Image alt='OtterSec auditor' height='16' src={otterSecSrc} width='76' />
+              <Image alt='OtterSec auditor' height='16' src='/assets/otter-sec.png' width='76' />
             </a>
           </Flex>
         </Dd>

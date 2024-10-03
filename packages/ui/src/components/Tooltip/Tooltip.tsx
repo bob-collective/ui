@@ -1,3 +1,5 @@
+'use client';
+
 import { PositionAria, useOverlayPosition } from '@react-aria/overlays';
 import { AriaTooltipProps, useTooltip, useTooltipTrigger } from '@react-aria/tooltip';
 import { mergeProps } from '@react-aria/utils';
