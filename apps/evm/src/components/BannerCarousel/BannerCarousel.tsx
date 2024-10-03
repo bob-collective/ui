@@ -13,6 +13,7 @@ import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
+import { XBanner } from './XBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -37,7 +38,7 @@ function PrevArrow(props: any) {
 const settings: Settings = {
   dots: true,
   infinite: true,
-  autoplay: true,
+  autoplay: false,
   speed: 500,
   autoplaySpeed: 10000,
   cssEase: 'linear',
@@ -73,12 +74,19 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressXBanner = useCallback(
+    () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
         <FusionBanner onPress={onPressFusionBanner} />
         <EcosystemBanner onPress={onPressEcosystemBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
+        <XBanner onPress={onPressXBanner} />
       </StyledSlider>
     </StyledCarouselWrapper>
   );
