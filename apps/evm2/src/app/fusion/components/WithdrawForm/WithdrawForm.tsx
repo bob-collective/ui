@@ -25,7 +25,7 @@ const lockContract = contracts[L1_CHAIN as ChainId.ETHEREUM][ContractType.FUSION
 const WithdrawForm = ({ isSmartAccount, onWithdrawalMutationComplete }: WithdrawFormProps) => {
   const { address } = useAccount();
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const { writeContractAsync } = useWriteContract();
 

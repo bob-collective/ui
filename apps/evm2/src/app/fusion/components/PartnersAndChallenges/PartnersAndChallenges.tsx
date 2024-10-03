@@ -18,7 +18,7 @@ const PartnersAndChallenges = () => {
 
   const { data: user } = useGetUser();
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const { data: partners, isLoading } = useQuery({
     queryKey: ['partners'],

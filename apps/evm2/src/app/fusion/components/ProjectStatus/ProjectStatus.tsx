@@ -1,13 +1,13 @@
 import { Flex, H2, P, Span, Stepper, StepperItem } from '@gobob/ui';
 import { useId } from '@react-aria/utils';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 import { StyledWrapper } from './ProjectStatus.style';
 
 const ProjectStatus = () => {
   const statusId = useId();
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <StyledWrapper direction='column' gap='3xl' justifyContent='space-between'>

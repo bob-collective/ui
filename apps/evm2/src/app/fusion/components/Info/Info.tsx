@@ -126,7 +126,7 @@ const AccordionItemTitle = ({ title, isHigh, isLow, isMedium }: { title: ReactNo
 );
 
 const Info = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <Flex direction='column' gap='2xl' marginTop='3xl'>

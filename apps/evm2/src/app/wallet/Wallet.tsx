@@ -2,7 +2,7 @@
 
 import { Button, Card, Dd, Dl, DlGroup, Dt, Flex, H1, P } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { AuthButton, useConnectModal } from '@gobob/connect-ui';
 
 import { TokenTable } from './components';
@@ -16,7 +16,7 @@ const Wallet = () => {
   const { open } = useConnectModal();
   const { formatted } = useTotalBalance(L2_CHAIN);
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const isOnL2Chain = chain && isL2Chain(chain);
 

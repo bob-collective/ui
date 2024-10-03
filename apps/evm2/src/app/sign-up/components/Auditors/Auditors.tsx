@@ -1,9 +1,9 @@
 import { Dl, DlGroup, Dt, Dd, Flex } from '@gobob/ui';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 const Auditors = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <Dl gap='md' justifyContent='center'>

@@ -1,5 +1,5 @@
 import { Button, Flex, XMark, useMediaQuery } from '@gobob/ui';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useTheme } from 'styled-components';
 
 import { Logo } from '../Logo';
@@ -18,7 +18,7 @@ type SidebarProps = Props;
 
 const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
   const { isSidebarOpen, setSidebarOpen } = useLayoutContext();
-  const { t } = useTranslation();
+  const t = useTranslations();
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));

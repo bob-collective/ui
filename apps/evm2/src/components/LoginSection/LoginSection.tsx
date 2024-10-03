@@ -1,7 +1,7 @@
 import { toast } from '@gobob/ui';
 import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Button, Flex, FlexProps, P } from '@gobob/ui';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useConnectModal } from '@gobob/connect-ui';
 
 import { L1_CHAIN, isValidChain } from '@/constants';
@@ -19,7 +19,7 @@ const LoginSection = ({ direction = { base: 'column', md: 'row' }, ...props }: L
   const { refetch: refetchUser } = useGetUser({ retry: 5, retryDelay: 1000 });
   const { address, chain } = useAccount();
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const { mutate: login, isPending: isLoadingLogin } = useLogin({
     onSuccess: async () => {

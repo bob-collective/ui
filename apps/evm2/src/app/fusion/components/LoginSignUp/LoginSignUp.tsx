@@ -1,12 +1,12 @@
 import { Button, Divider, Flex, H2, P } from '@gobob/ui';
 import { Link } from '@gobob/ui';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 import { LoginSection } from '@/components';
 import { RoutesPath } from '@/constants';
 
 const LoginSignUp = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <Flex direction='column' flex={1} gap='2xl' justifyContent='space-between'>

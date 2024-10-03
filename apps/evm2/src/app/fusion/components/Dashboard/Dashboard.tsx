@@ -1,6 +1,6 @@
 import { Card, Flex, P, Link, Alert } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
 import { LoginSignUp } from '../LoginSignUp';
@@ -13,7 +13,7 @@ import { useGetUser } from '@/hooks';
 const Dashboard = () => {
   const { address } = useAccount();
   const { data: user } = useGetUser();
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const isAuthenticated = !!address && !!user;
 

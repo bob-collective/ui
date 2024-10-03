@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components';
 import { useMediaQuery } from '@gobob/ui';
 import { ReactNode, useState } from 'react';
 import { chain } from '@react-aria/utils';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 import { ButtonGroupMobile } from './ButtonGroupMobile';
 
@@ -31,7 +31,7 @@ const ButtonGroup = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   if (isMobile) {
     return (

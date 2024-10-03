@@ -1,10 +1,10 @@
 import { DlGroup, Dt, Dd } from '@gobob/ui';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 import { useGetUser } from '@/hooks';
 
 const Position = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const { data: user } = useGetUser();
 

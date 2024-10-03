@@ -1,6 +1,6 @@
 import { useLocale } from '@gobob/ui';
 import { DlGroup, Dt, Dd } from '@gobob/ui';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useRef } from 'react';
 import { CountUp } from 'countup.js';
 
@@ -8,7 +8,7 @@ import { useGetUser } from '@/hooks';
 
 const Spice = () => {
   const { locale } = useLocale();
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const spiceCountRef = useRef(null);
 

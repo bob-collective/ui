@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 
 import { Providers } from './providers';
 import './index.css';
@@ -25,16 +27,22 @@ export const metadata: Metadata = {
   ]
 };
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({ children }: PropsWithChildren) {
+  const locale = await getLocale();
+
+  const messages = await getMessages();
+
   return (
-    <html lang='en'>
+    <html lang={locale}>
       <head>
         <link href='https://fonts.googleapis.com' rel='preconnect' />
         <link crossOrigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect' />
       </head>
       <body>
         <div id='root'>
-          <Providers>{children}</Providers>
+          <NextIntlClientProvider messages={messages}>
+            <Providers>{children}</Providers>
+          </NextIntlClientProvider>
         </div>
         {/* <!-- Fathom - beautiful, simple website analytics --> */}
         <script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />

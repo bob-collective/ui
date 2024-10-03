@@ -17,7 +17,7 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { useMemo } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useTheme } from 'styled-components';
 import { isAddressEqual } from 'viem';
 
@@ -35,7 +35,7 @@ const DepositedAssets = () => {
   const format = useCurrencyFormatter();
   const { data: tokens } = useTokens(L1_CHAIN);
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const depositedAssets = useMemo(
     () =>

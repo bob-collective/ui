@@ -6,7 +6,7 @@ import { useMutation } from '@gobob/react-query';
 import { Button, Divider, Flex, P, toast } from '@gobob/ui';
 import { useAccount, useSignMessage, useSwitchChain } from '@gobob/wagmi';
 import { FormEventHandler, useEffect, useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { SiweMessage } from 'siwe';
 
@@ -26,7 +26,7 @@ const SignUp = (): JSX.Element | null => {
   const { open } = useConnectModal();
 
   const router = useRouter();
-  const { t } = useTranslation();
+  const t = useTranslations();
   const { refetch: refetchUser, data: user } = useGetUser({ retry: 5, retryDelay: 1000 });
 
   const [referalCode, setReferalCode] = useState('');

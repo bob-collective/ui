@@ -10,7 +10,7 @@ import { Avatar, Flex, Span, Table, TableProps, useCurrencyFormatter } from '@go
 import Big from 'big.js';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 import { ReceiveTokenModal } from '../ReceiveTokenModal';
 import { SendTokenModal } from '../SendTokenModal';
@@ -88,7 +88,7 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   const { address: btcAddress } = useSatsAccount();
   const { data: satsAmount } = useSatsBalance();
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const router = useRouter();
 

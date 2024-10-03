@@ -14,7 +14,7 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useTheme } from 'styled-components';
 
 import { Logo } from '../Logo';
@@ -37,7 +37,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
   const { setSidebarOpen } = useLayoutContext();
   const [isOpen, setOpen] = useState(false);
 
-  const { t } = useTranslation();
+  const t = useTranslations();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
