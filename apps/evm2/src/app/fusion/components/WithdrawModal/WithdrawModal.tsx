@@ -1,12 +1,12 @@
 import { Dd, Divider, Dl, DlGroup, Dt, Flex, H2, Modal, ModalBody, ModalHeader, ModalProps, P, Link } from '@gobob/ui';
 import { useLocale } from '@gobob/ui';
-import { t } from 'i18next';
-import { Trans } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
-import { useGetUser } from '@/hooks';
 import { WithdrawForm } from '../WithdrawForm';
 import { DepositedAssets } from '../UserStats/DepositedAssets';
+
+import { useGetUser } from '@/hooks';
 
 type Props = {
   isSmartAccount?: boolean;
@@ -21,6 +21,7 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
   const { data: user } = useGetUser();
 
   const { locale } = useLocale();
+  const t = useTranslations();
 
   const twitterMessage = useMemo(
     () =>
@@ -40,28 +41,24 @@ const WithdrawModal = ({ isSmartAccount, onClose, onWithdrawalMutationComplete, 
       </ModalHeader>
       <ModalBody gap='lg'>
         <P color='grey-50' size='s'>
-          <Trans
-            i18nKey='fusion.withdrawModal.summary'
-            values={{
-              totalSpice: Intl.NumberFormat(locale).format(user?.leaderboardRank?.total_reward_points ?? 0),
-              rank: user?.leaderboardRank.rank
-            }}
-          />
+          {t('fusion.withdrawModal.summary', {
+            totalSpice: Intl.NumberFormat(locale).format(user?.leaderboardRank?.total_reward_points ?? 0),
+            rank: user?.leaderboardRank.rank
+          })}
         </P>
         <P color='grey-50' size='s'>
-          <Trans
-            components={{
-              xLink: (
-                <Link
-                  external
-                  className='twitter-share-button'
-                  href={`https://twitter.com/intent/tweet?text=${twitterMessage}`}
-                  size='s'
-                />
-              )
-            }}
-            i18nKey='fusion.withdrawModal.share'
-          />
+          {t.rich('fusion.withdrawModal.share', {
+            xLink: (chunk) => (
+              <Link
+                external
+                className='twitter-share-button'
+                href={`https://twitter.com/intent/tweet?text=${twitterMessage}`}
+                size='s'
+              >
+                {chunk}
+              </Link>
+            )
+          })}
         </P>
         <P color='grey-50' size='s'>
           {t('fusion.withdrawModal.seasonTwoDescription')}

@@ -31,7 +31,7 @@
     },
     "withdrawModal": {
       "title": "第一季已结束 - 欢迎来到第二季！",
-      "summary": "恭喜！您对 BOB 成长的初步贡献为您赢得了 {{totalSpice}} Spice！您在第一季排行榜上排名为 {{rank}}。",
+      "summary": "恭喜！您对 BOB 成长的初步贡献为您赢得了 {totalSpice} Spice！您在第一季排行榜上排名为 {rank}。",
       "share": "<xLink>与您的朋友分享您的成功</xLink>邀请他们参与Fuision，并赚取他们收获的 Spice 的15%！",
       "seasonTwoDescription": "桥接资产，提供流动性，进行链上交易，并通过推荐扩展您的网络，飞速攀升排行榜。",
       "lockedFunds": "锁定资金",
@@ -154,11 +154,11 @@
       },
       "send": {
         "label": "发送",
-        "ariaLabel": "发送 {{ticker}}"
+        "ariaLabel": "发送 {ticker}"
       },
       "receive": {
         "label": "接收",
-        "ariaLabel": "接收 {{ticker}}"
+        "ariaLabel": "接收 {ticker}"
       }
     }
   },

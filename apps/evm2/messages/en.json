@@ -31,7 +31,7 @@
     },
     "withdrawModal": {
       "title": "Season 1 has ended - Welcome to Season 2!",
-      "summary": "Congratulations! Your initial contribution to BOB’s growth earned you {{totalSpice}} Spice! This has secured you position {{rank}} on the leaderboard for Season 1.",
+      "summary": "Congratulations! Your initial contribution to BOB’s growth earned you {totalSpice} Spice! This has secured you position {rank} on the leaderboard for Season 1.",
       "share": "<xLink>Share your success with your friends</xLink> and invite them to join the Fusion campaign, earn 15% for every Spice they harvest!",
       "seasonTwoDescription": "Bridge assets, provide liquidity, transact on-chain, and expand your network through referrals to climb the leaderboard faster than ever.",
       "lockedFunds": "Locked Funds",
@@ -154,11 +154,11 @@
       },
       "send": {
         "label": "Send",
-        "ariaLabel": "Send {{ticker}}"
+        "ariaLabel": "Send {ticker}"
       },
       "receive": {
         "label": "Receive",
-        "ariaLabel": "Receive {{ticker}}"
+        "ariaLabel": "Receive {ticker}"
       }
     }
   },

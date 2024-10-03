@@ -1,6 +1,6 @@
 import { Accordion, AccordionItem, Alert, Card, Flex, H1, H2, P, Span, Table, Link } from '@gobob/ui';
 import { ReactNode } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { MultiplierTable } from './MultiplierTable';
@@ -267,13 +267,18 @@ const Info = () => {
           {t('fusion.community.title')}
         </H2>
         <P color='grey-50'>
-          <Trans
-            components={{
-              xLink: <Link external href='https://twitter.com/build_on_bob' />,
-              discordLink: <Link external href='https://discord.gg/gobob' />
-            }}
-            i18nKey='fusion.community.content'
-          />
+          {t.rich('fusion.community.content', {
+            xLink: (chunk) => (
+              <Link external href='https://twitter.com/build_on_bob'>
+                {chunk}
+              </Link>
+            ),
+            discordLink: (chunk) => (
+              <Link external href='https://discord.gg/gobob'>
+                {chunk}
+              </Link>
+            )
+          })}
         </P>
       </Card>
       <Card gap='lg'>

@@ -6,7 +6,7 @@ import { AuthButton } from '@gobob/connect-ui';
 import { useAccount, usePublicClient, useWriteContract } from '@gobob/wagmi';
 import { P, Span } from '@gobob/ui';
 import { useMemo } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import { isAddressEqual } from 'viem';
 
 import { useLockedTokens } from '../../hooks';
@@ -181,10 +181,12 @@ const WithdrawForm = ({ isSmartAccount, onWithdrawalMutationComplete }: Withdraw
         </AuthButton>
       )}
       <P color='grey-50' size='s'>
-        <Trans
-          components={{ strong: <Span color='grey-50' size='s' weight='semibold' /> }}
-          i18nKey='fusion.withdrawModal.withdrawDescription'
-        />
+        {
+          (t('fusion.withdrawModal.withdrawDescription'),
+          {
+            strong: <Span color='grey-50' size='s' weight='semibold' />
+          })
+        }
       </P>
       <AuthButton
         chain={L1_CHAIN}

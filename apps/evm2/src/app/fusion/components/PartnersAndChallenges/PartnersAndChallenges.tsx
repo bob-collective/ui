@@ -1,6 +1,6 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Flex, H2, H3, InformationCircle, P, Spinner, Link, useLocale } from '@gobob/ui';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import { useCallback, useMemo } from 'react';
 
 import { PartnerCard } from './PartnerCard';
@@ -94,18 +94,17 @@ const PartnersAndChallenges = () => {
               {t('fusion.challenges.title')}
             </H2>
             <P color='grey-50'>
-              <Trans
-                components={{
-                  challengeLink: (
-                    <Link
-                      external
-                      href='https://www.intract.io/explore?query=BOB+Summer+Fest&hideCompleted=true&hideExpired=true&sortBy=participation'
-                      size='s'
-                    />
-                  )
-                }}
-                i18nKey='fusion.challenges.content'
-              />
+              {t.rich('fusion.challenges.content', {
+                challengeLink: (chunk) => (
+                  <Link
+                    external
+                    href='https://www.intract.io/explore?query=BOB+Summer+Fest&hideCompleted=true&hideExpired=true&sortBy=participation'
+                    size='s'
+                  >
+                    {chunk}
+                  </Link>
+                )
+              })}
             </P>
             <StyledGrid>
               {questPartners?.map((item, idx) => (
