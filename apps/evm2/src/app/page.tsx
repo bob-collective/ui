@@ -1,3 +1,3 @@
-export default function Page() {
-  return <button type='button'>Dashboard</button>;
-}
+import { Bridge } from './bridge/Bridge';
+
+export default Bridge;
