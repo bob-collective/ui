@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 // TODO: Move this to hooks package
 const useGeoblocking = (): void => {
-  const isGeoblockEnabled = process.env.NEXT_PUBLIC_GEOBLOCK_ENABLED === 'false';
+  const isGeoblockEnabled = process.env.NEXT_PUBLIC_GEOBLOCK_ENABLED === 'true';
 
   useEffect(() => {
     if (!isGeoblockEnabled) return;

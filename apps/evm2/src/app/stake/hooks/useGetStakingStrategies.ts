@@ -3,7 +3,7 @@ import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
 import { ERC20Token, Ether, Token } from '@gobob/currency';
 
-import { FeatureFlags, useFeatureFlag, useGetStrategies } from '@/hooks';
+import { FeatureFlags, useFeatureFlag, useGetStrategies } from '../../../hooks';
 
 type StrategyData = {
   raw: GatewayStrategyContract;

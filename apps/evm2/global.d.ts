@@ -11,6 +11,7 @@ declare global {
       NEXT_PUBLIC_MARKET_DATA_API: string;
       NEXT_PUBLIC_GEOBLOCK_ENABLED: `${boolean}`;
       NEXT_PUBLIC_FEATURE_FLAG_BTC_GATEWAY: 'enabled' | 'disabled';
+      NEXT_PUBLIC_FEATURE_FLAG_WALLET: 'enabled' | 'disabled';
       NEXT_PUBLIC_INDEXER_URL: string;
       NEXT_PUBLIC_SENTRY_AUTH_TOKEN: string;
       NEXT_PUBLIC_SENTRY_URL: string;

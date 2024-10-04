@@ -10,6 +10,8 @@ export * from './useLogin';
 export * from './useLogout';
 export * from './usePublicClient';
 export * from './useGetStrategies';
+export * from './useLockedTokens';
+export * from './useHaltedLockedTokens';
 export * from './useTokens';
 export * from './useTotalBalance';
 export * from './useWalletClient';

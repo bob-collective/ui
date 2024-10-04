@@ -14,7 +14,7 @@ type MainProps = Props;
 
 const Main = ({ children, maxWidth, padding = '4xl', hasBackgroundImg, ...props }: MainProps): JSX.Element => (
   <StyledMain $maxWidth={maxWidth} $padding={padding} {...props}>
-    {hasBackgroundImg && <StyledBackground alt='background' src='assets/spice-machine-opacity.jpg' />}
+    {hasBackgroundImg && <StyledBackground alt='background' src='/assets/spice-machine-opacity.jpg' />}
     <StyledContent>{children}</StyledContent>
   </StyledMain>
 );

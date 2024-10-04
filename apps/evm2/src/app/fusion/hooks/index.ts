@@ -1,2 +1,2 @@
-export { useLockedTokens } from './useLockedTokens';
-export { useHaltedLockedTokens } from './useHaltedLockedTokens';
+export * from './useGetTokensInfo';
+export * from './useGetQuests';

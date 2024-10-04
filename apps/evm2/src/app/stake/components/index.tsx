@@ -1,3 +1,3 @@
-export { StakingForm } from './StakeForm';
-export { StrategyDetails } from './StrategyDetails';
-export { BannerCarousel } from '@/components/BannerCarousel';
+export * from './StakeForm';
+export * from './StrategyDetails';
+export * from '@/components/BannerCarousel';

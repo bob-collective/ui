@@ -1,86 +1,124 @@
 'use client';
 
-import { Flex, Tabs, TabsItem } from '@gobob/ui';
+import { useAccount } from '@gobob/wagmi';
 import { useLocalStorage, useSessionStorage } from '@uidotdev/usehooks';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { Key, useCallback, useEffect } from 'react';
+import { useEffect, useId, useState } from 'react';
+import { Flex, H1, Link, P } from '@gobob/ui';
 
-import { StyledUpdateMark } from './Fusion.style';
-import { AllUsersLeaderboard, Dashboard, Info, PartnersAndChallenges, QuestUsersLeaderboard } from './components';
+import { Geoblock } from '../../components';
+import { LocalStorageKey } from '../../constants';
+import { useGetApps } from '../apps/hooks';
 
-import { BannerCarousel, Geoblock, Main } from '@/components';
-import { LocalStorageKey } from '@/constants';
-import { SessionStorageKey } from '@/types/session-storage';
+import {
+  Quest,
+  CommunityVoting,
+  Leaderboard,
+  Strategies,
+  UserInfo,
+  WelcomeBackModal,
+  WelcomeModal
+} from './components';
+import { useGetQuests } from './hooks';
+import {
+  StyledBackground,
+  StyledBgDots,
+  StyledMain,
+  StyledHeroSectionWrapper,
+  StyledHeroSection,
+  StyledContent,
+  StyledStrategiesWrapper
+} from './Fusion.style';
+
+import { useGetUser } from '@/hooks';
+import { SessionStorageKey } from '@/types';
 
 const Fusion = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  const { address } = useAccount();
+  const { data: user } = useGetUser();
+  const { data: apps } = useGetApps();
+  const { data: quests } = useGetQuests();
 
-  const pathname = usePathname();
+  const questsSectionId = useId();
 
-  const selectedTabKey = searchParams?.get('tab') || undefined;
+  const [scrollQuests, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false);
 
-  const [isInfoTabMarkHidden, setInfoTabMarkHidden] = useLocalStorage(
-    LocalStorageKey.HIDE_INFO_TAB_UNVISITED_MARK,
-    selectedTabKey === 'info'
+  const [isHideFusionWelcomeBackModal, setHideFusionWelcomeBackModal] = useLocalStorage<boolean>(
+    LocalStorageKey.HIDE_FUSION_WELCOME_BACK_MODAL
   );
-  const [scrollEcosystem, setScrollEcosystem] = useSessionStorage(SessionStorageKey.SCROLL_ECOSYSTEM, false);
+
+  const [isHideFusionWelcomeModal, setHideFusionWelcomeModal] = useLocalStorage<boolean>(
+    LocalStorageKey.HIDE_FUSION_WELCOME_MODAL
+  );
+
+  const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
   useEffect(() => {
-    if (scrollEcosystem && selectedTabKey === 'dashboard') {
-      setScrollEcosystem(false);
-      document.getElementById('ecosystem')?.scrollIntoView?.();
+    if (scrollQuests) {
+      setScrollQuests(false);
+      document.getElementById(questsSectionId)?.scrollIntoView?.({ behavior: 'smooth' });
     }
-  }, [scrollEcosystem, selectedTabKey, setScrollEcosystem]);
+  }, []);
 
-  const handleSelectionChange = useCallback(
-    (key: Key) => {
-      if (key === 'info' && !isInfoTabMarkHidden) {
-        setInfoTabMarkHidden(true);
-      }
-
-      if (pathname) {
-        const url = new URL(pathname, window.location.origin);
-
-        url.searchParams.set('tab', key as string);
-        router.push(url.toString());
-      }
-    },
-    [isInfoTabMarkHidden, pathname, router, setInfoTabMarkHidden]
-  );
+  const isAuthenticated = Boolean(user && address);
+  const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
 
   return (
     <Geoblock>
-      <Main maxWidth='4xl'>
-        <Flex direction='column' gap='lg'>
-          <BannerCarousel />
-          <Tabs selectedKey={selectedTabKey} onSelectionChange={handleSelectionChange}>
-            <TabsItem key='dashboard' title='Dashboard'>
-              <Flex direction='column'>
-                <Dashboard />
-                <PartnersAndChallenges />
-              </Flex>
-            </TabsItem>
-            <TabsItem key='leaderboard' title='Leaderboard'>
-              <AllUsersLeaderboard />
-            </TabsItem>
-            <TabsItem key='quest-leaderboard' title='Quest Leaderboard'>
-              <QuestUsersLeaderboard />
-            </TabsItem>
-            <TabsItem
-              key='info'
-              title={
-                <>
-                  Info
-                  {!isInfoTabMarkHidden && <StyledUpdateMark />}
-                </>
-              }
-            >
-              <Info />
-            </TabsItem>
-          </Tabs>
-        </Flex>
-      </Main>
+      <StyledMain padding='none'>
+        <StyledHeroSectionWrapper direction='column' paddingBottom='9xl' paddingX='lg'>
+          <StyledBackground />
+          <StyledBgDots alt='Hero dots' height='10' src='/assets/hero-dots.svg' width='10' />
+          <StyledHeroSection direction='column'>
+            <Flex direction='column' gap='lg'>
+              <H1 size='4xl'>BOB Fusion: The Final Season</H1>
+              <P color='grey-50'>
+                Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special
+                events.{' '}
+                <Link
+                  color='light'
+                  size='inherit'
+                  underlined='always'
+                  {...{ href: 'https://blog.gobob.xyz/posts/bob-fusion-the-final-season', external: true }}
+                >
+                  Learn More
+                </Link>
+              </P>
+            </Flex>
+            <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
+          </StyledHeroSection>
+        </StyledHeroSectionWrapper>
+        <StyledStrategiesWrapper direction='column' paddingBottom='7xl' paddingTop='6xl' paddingX='lg'>
+          <StyledContent>
+            <Strategies />
+          </StyledContent>
+        </StyledStrategiesWrapper>
+        <StyledContent direction='column' paddingBottom='2xl' paddingX='lg'>
+          <Quest id={questsSectionId} quests={quests} />
+          <CommunityVoting />
+          <Leaderboard />
+          {user ? (
+            hasPastHarvest ? (
+              <WelcomeBackModal
+                isOpen={!isHideFusionWelcomeBackModal && isAuthenticated}
+                user={user}
+                onClose={() => setHideFusionWelcomeBackModal(true)}
+              />
+            ) : (
+              <WelcomeModal
+                isOpen={isFusionWelcomeModalOpen && isAuthenticated}
+                user={user}
+                onClose={(hideAlways) => {
+                  if (hideAlways) {
+                    setHideFusionWelcomeModal(true);
+                  }
+
+                  setFusionWelcomeModalOpen(false);
+                }}
+              />
+            )
+          ) : null}
+        </StyledContent>
+      </StyledMain>
     </Geoblock>
   );
 };

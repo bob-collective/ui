@@ -1,7 +1,7 @@
 import { ChainId } from '@gobob/chains';
 import { usePrices } from '@gobob/react-query';
 import { useMemo } from 'react';
-import { useCurrencyFormatter } from '@gobob/ui';
+import { useCurrencyFormatter, useLocale } from '@gobob/ui';
 import Big from 'big.js';
 
 import { useBalances } from './useBalances';
@@ -10,6 +10,7 @@ const useTotalBalance = (chainId: ChainId) => {
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
   const { balances } = useBalances(chainId);
   const format = useCurrencyFormatter();
+  const { locale } = useLocale();
 
   return useMemo(() => {
     const total = Object.values(balances).reduce(
@@ -19,9 +20,12 @@ const useTotalBalance = (chainId: ChainId) => {
 
     return {
       formatted: format(total.toNumber()),
+      compact: Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
+        total.toNumber()
+      ),
       amount: total
     };
-  }, [balances, format, getPrice]);
+  }, [balances, format, getPrice, locale]);
 };
 
 export { useTotalBalance };

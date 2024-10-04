@@ -1,11 +1,11 @@
 import { Address } from 'viem';
 
-import { Pill } from './Pill';
+import { BridgeSteps, BridgeStepStatus } from '../../../../constants';
+import { MessageDirection, MessageStatus } from '../../../../types';
+import { chainL1, chainL2 } from '../../../../constants';
+import { BridgeTransaction } from '../../../../hooks';
 
-import { BridgeSteps, BridgeStepStatus } from '@/constants';
-import { MessageDirection, MessageStatus } from '@/types';
-import { chainL1, chainL2 } from '@/constants';
-import { BridgeTransaction } from '@/hooks';
+import { Pill } from './Pill';
 
 const getLabel = (stage: BridgeSteps, status: BridgeStepStatus, isActing?: boolean, isActionSuccessful?: boolean) => {
   switch (stage) {
@@ -157,13 +157,9 @@ const getStatus = (step: BridgeSteps, status: MessageStatus | null, direction: M
 
       return getBridgeStepStatus(step, currentStep);
     }
+    case 'l1-confirmation':
     case 'relay': {
       const step = withdrawOrder[MessageStatus.READY_FOR_RELAY];
-
-      return getBridgeStepStatus(step, currentStep);
-    }
-    case 'l1-confirmation': {
-      const step = withdrawOrder[MessageStatus.RELAYED];
 
       return getBridgeStepStatus(step, currentStep);
     }

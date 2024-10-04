@@ -17,6 +17,8 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'styled-components';
 
+import { useFeatureFlag, FeatureFlags } from '../../hooks';
+import { DocsLinks, RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
 
@@ -24,8 +26,7 @@ import { StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
-
-import { DocsLinks, RoutesPath } from '@/constants';
+import { FusionPopover } from './FusionPopover';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 
@@ -40,6 +41,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
   const t = useTranslations();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
 
   return (
     <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>
@@ -58,9 +60,14 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
               <NavItem href={RoutesPath.BRIDGE} size='s'>
                 {t('navigation.bridge')}
               </NavItem>
-              <NavItem href={RoutesPath.WALLET} size='s'>
-                {t('navigation.wallet')}
+              <NavItem href={RoutesPath.APPS} size='s'>
+                Apps
               </NavItem>
+              {isWalletEnabled && (
+                <NavItem href={RoutesPath.WALLET} size='s'>
+                  {t('navigation.wallet')}
+                </NavItem>
+              )}
               <NavItem href={RoutesPath.STAKE} size='s'>
                 {t('navigation.stake')}
               </NavItem>
@@ -100,6 +107,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
             <SocialsGroup variant='ghost' />
           </>
         )}
+        <FusionPopover />
         <ConnectWallet variant='ghost' />
       </Flex>
     </StyledHeader>

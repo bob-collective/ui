@@ -1,1 +1,1 @@
-export { type StrategyData, useGetStakingStrategies } from './useGetStakingStrategies';
+export * from './useGetStakingStrategies';

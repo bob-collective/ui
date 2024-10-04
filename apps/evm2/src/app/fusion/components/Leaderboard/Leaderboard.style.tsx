@@ -1,14 +1,14 @@
-import { Span, Table } from '@gobob/ui';
+import { Flex } from '@gobob/ui';
 import styled from 'styled-components';
 
-const StyledGrid = styled(Span)`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 80px;
+const StyledQuestList = styled(Flex)`
+  :last-child:not(:first-child) {
+    margin-left: -${({ theme }) => theme.spacing('s')};
+  }
 `;
 
-const StyledTable = styled(Table)`
-  max-height: calc(100dvh - 13rem);
+const StyledSkeletonWrapper = styled(Flex)`
+  height: ${({ theme }) => theme.spacing('4xl')};
 `;
 
-export { StyledGrid, StyledTable };
+export { StyledQuestList, StyledSkeletonWrapper };

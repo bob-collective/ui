@@ -1,1 +1,10 @@
-export { Wallet as default } from './Wallet';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
+import { Wallet } from './Wallet';
+
+export default function Page() {
+  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
+
+  if (!isWalletEnabled) return;
+
+  return <Wallet />;
+}

@@ -17,8 +17,6 @@ import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { Chain } from 'viem';
 import { ConnectProvider } from '@gobob/connect-ui';
 
-import { useHaltedLockedTokens, useLockedTokens } from './fusion/hooks';
-
 import { queryClient } from '@/lib/react-query';
 import { useBalances, useGetUser, useLogin, useLogout, useTokens } from '@/hooks';
 import { bitcoinNetwork, isProd, isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
@@ -181,8 +179,6 @@ function NestedProviders({ children }: PropsWithChildren) {
   usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
   useBalances(chainId);
   useTokens(chainId);
-  useLockedTokens();
-  useHaltedLockedTokens();
 
   const { reconnect } = useReconnect();
 

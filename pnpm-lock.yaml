@@ -350,8 +350,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       '@gobob/bob-sdk':
-        specifier: ^2.3.4
-        version: 2.3.4
+        specifier: ^2.3.5
+        version: 2.3.5
       '@gobob/chains':
         specifier: workspace:^
         version: link:../../packages/chains
@@ -385,6 +385,15 @@ importers:
       '@gobob/wagmi':
         specifier: workspace:^
         version: link:../../packages/wagmi
+      '@react-aria/button':
+        specifier: ^3.8.1
+        version: 3.9.5(react@18.3.1)
+      '@react-aria/focus':
+        specifier: ^3.14.0
+        version: 3.17.1(react@18.3.1)
+      '@react-aria/interactions':
+        specifier: ^3.21.3
+        version: 3.21.3(react@18.3.1)
       '@react-aria/label':
         specifier: ^3.7.6
         version: 3.7.8(react@18.3.1)
@@ -403,6 +412,9 @@ importers:
       '@uidotdev/usehooks':
         specifier: ^2.4.1
         version: 2.4.1(react-dom@18.3.1)(react@18.3.1)
+      '@vitejs/plugin-react':
+        specifier: ^4.0.3
+        version: 4.3.1(vite@4.5.3)
       big.js:
         specifier: ^6.2.1
         version: 6.2.1
@@ -415,6 +427,9 @@ importers:
       graphql-request:
         specifier: ^6.1.0
         version: 6.1.0(graphql@16.8.1)
+      lottie-react:
+        specifier: ^2.4.0
+        version: 2.4.0(react-dom@18.3.1)(react@18.3.1)
       next:
         specifier: 14.2.13
         version: 14.2.13(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@18.3.1)(react@18.3.1)
@@ -448,6 +463,9 @@ importers:
       styled-components:
         specifier: ^6.0.8
         version: 6.1.11(react-dom@18.3.1)(react@18.3.1)
+      use-count-up:
+        specifier: ^3.0.1
+        version: 3.0.1(react@18.3.1)
       viem:
         specifier: ^2.10.2
         version: 2.13.8(typescript@5.4.5)(zod@3.23.8)
@@ -458,6 +476,9 @@ importers:
       '@gobob/test-utils':
         specifier: workspace:^
         version: link:../../packages/test-utils
+      '@testing-library/react-hooks':
+        specifier: ^8.0.1
+        version: 8.0.1(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
       '@types/big.js':
         specifier: ^6.2.0
         version: 6.2.2
@@ -883,7 +904,7 @@ packages:
       '@babel/traverse': 7.24.7
       '@babel/types': 7.24.7
       convert-source-map: 2.0.0
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -2365,7 +2386,7 @@ packages:
     dependencies:
       '@binance/w3w-types': 1.1.4
       '@binance/w3w-utils': 1.1.4
-      ws: 8.17.1
+      ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -3695,19 +3716,6 @@ packages:
       ts-interface-checker: 0.1.13
     dev: true
 
-  /@gobob/bob-sdk@2.3.4:
-    resolution: {integrity: sha512-7Z1MJgB0qQOzKlLPgbnJ4IutjGJ+543ltUV9mD8WMOkaJCmeeOY91fCO0MqaSK1mR67VeAo4i7e6V/Wo/zNaHw==}
-    dependencies:
-      '@scure/base': 1.1.7
-      '@scure/btc-signer': 1.3.2
-      bitcoin-address-validation: 2.2.3
-      bitcoinjs-lib: 6.1.6
-      ethers: 6.13.2
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-    dev: false
-
   /@gobob/bob-sdk@2.3.5:
     resolution: {integrity: sha512-tpiBSDTTow+7eMIpf66ae6GnqQ3YMLRQdQxhghX6vlz7uQS/Q93ztQoeKSUrm94tIblnTmtHtG56nciDVWSraA==}
     dependencies:
@@ -4092,7 +4100,7 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       '@jridgewell/set-array': 1.2.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
       '@jridgewell/trace-mapping': 0.3.25
 
   /@jridgewell/resolve-uri@3.1.2:
@@ -4119,13 +4127,13 @@ packages:
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
 
   /@jridgewell/trace-mapping@0.3.9:
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
 
   /@json-rpc-tools/provider@1.7.6:
     resolution: {integrity: sha512-z7D3xvJ33UfCGv77n40lbzOYjZKVM3k2+5cV7xS8G6SCvKTzMkhkUYuD/qzQUNT4cG/lv0e9mRToweEEVLVVmA==}
@@ -9985,7 +9993,6 @@ packages:
       vite: 4.5.3(@types/node@20.14.2)
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /@vitest/eslint-plugin@1.1.5(@typescript-eslint/utils@8.8.0)(eslint@8.57.0)(typescript@5.4.5)(vitest@2.1.2):
     resolution: {integrity: sha512-a02F1HAJ/A1ietP96QDxkRqZROdgCJvNXSkmHAXTcTHnmj9Hh2gqi7x4M+miOj1sDIef2qGqE8zmMBb2PgTE8w==}
@@ -14665,7 +14672,7 @@ packages:
     engines: {node: '>= 10.17.0'}
     hasBin: true
     dependencies:
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -18001,7 +18008,7 @@ packages:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
     engines: {node: '>=12'}
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
     dev: true
 
   /magic-string@0.30.10:
@@ -18018,7 +18025,7 @@ packages:
     resolution: {integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==}
     engines: {node: '>=12'}
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
     dev: false
 
   /make-dir@1.3.0:
@@ -18644,7 +18651,7 @@ packages:
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
       css-tree: 1.1.3
       csstype: 3.1.3
       fastest-stable-stringify: 2.0.2
@@ -23349,7 +23356,6 @@ packages:
       rollup: 3.29.4
     optionalDependencies:
       fsevents: 2.3.3
-    dev: true
 
   /vite@5.2.13(@types/node@20.14.2):
     resolution: {integrity: sha512-SSq1noJfY9pR3I1TUENL3rQYDQCFqgD+lM6fTRAM8Nv6Lsg5hDLaXkjETVeBt+7vZBCMoibD+6IWnT2mJ+Zb/A==}
@@ -23695,7 +23701,7 @@ packages:
       spdy: 4.0.2
       webpack: 5.92.0(@swc/core@1.5.28)(esbuild@0.18.20)
       webpack-dev-middleware: 5.3.4(webpack@5.92.0)
-      ws: 8.17.1
+      ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -24056,7 +24062,6 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
-    dev: true
 
   /ws@8.5.0:
     resolution: {integrity: sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==}

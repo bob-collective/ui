@@ -13,6 +13,7 @@ const StyledCarouselWrapper = styled(Card)`
 `;
 
 const StyledBannerContent = styled(Flex)`
+  max-width: ${({ theme }) => theme.maxWidth('md')};
   z-index: 1;
 `;
 
@@ -107,6 +108,36 @@ const StyledOnrampImg = styled(OnrampImg)`
   }}
 `;
 
+const StyledFusionImg = styled(Image)`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 21rem;
+      transform: translateY(-50%);
+      @media ${theme.breakpoints.down('md')} {
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
+const StyledXImg = styled(Image)`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 46%;
+      right: 1.5rem;
+      width: 21rem;
+      transform: translateY(-50%);
+      @media ${theme.breakpoints.down('md')} {
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
 const StyledEcosystemImg = styled(EcosystemImg)`
   ${({ theme }) => {
     return css`
@@ -127,22 +158,6 @@ const StyledEcosystemImg = styled(EcosystemImg)`
   }}
 `;
 
-const StyledFusionImg = styled(Image)`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      top: 50%;
-      right: 0;
-      width: 21rem;
-      transform: translateY(-50%);
-
-      @media ${theme.breakpoints.down('md')} {
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 export {
   StyledCarouselWrapper,
   StyledSlider,
@@ -150,6 +165,7 @@ export {
   StyledEcosystemImg,
   StyledFusionImg,
   StyledOnrampImg,
+  StyledXImg,
   StyledBannerContent,
   StyledBannerTitle
 };

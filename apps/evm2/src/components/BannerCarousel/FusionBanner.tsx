@@ -1,21 +1,25 @@
 import { Flex, P } from '@gobob/ui';
 
 import { Banner } from './Banner';
-import { StyledFusionImg } from './BannerCarousel.style';
+import { StyledBannerContent, StyledFusionImg } from './BannerCarousel.style';
 import { BannerTitle } from './BannerTitle';
 
 type FusionBannerProps = {
   onPress?: () => void;
 };
 
-const FusionBanner = ({ onPress }: FusionBannerProps) => (
-  <Banner isPressable direction='column' onPress={onPress}>
-    <Flex alignItems='center'>
-      <BannerTitle>BOB Fusion S02 is Ending Soon!</BannerTitle>
-    </Flex>
-    <P color='grey-50'>Check out the announcement in Discord</P>
-    <StyledFusionImg alt='Fusion end' height='336' src='/assets/fusion-end.jpg' width='336' />
-  </Banner>
-);
+const FusionBanner = ({ onPress }: FusionBannerProps) => {
+  return (
+    <Banner isPressable direction='column' justifyContent='center' onPress={onPress}>
+      <StyledBannerContent direction='column'>
+        <Flex alignItems='center'>
+          <BannerTitle>BOB Fusion: The Final Season</BannerTitle>
+        </Flex>
+        <P color='grey-50'>Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now.</P>
+      </StyledBannerContent>
+      <StyledFusionImg alt='Fusion season three' height='336' src='/assets/fusion-season-three.png' width='336' />
+    </Banner>
+  );
+};
 
 export { FusionBanner };

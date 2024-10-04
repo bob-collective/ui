@@ -1,6 +1,4 @@
 import * as Sentry from '@sentry/nextjs';
-// import { useEffect } from 'react';
-// import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType } from 'react-router-dom';
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_URL,

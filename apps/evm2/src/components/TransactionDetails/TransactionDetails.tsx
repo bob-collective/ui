@@ -16,12 +16,11 @@ import {
 import { ReactNode, useMemo } from 'react';
 import { ChainId } from '@gobob/chains';
 
+import { useBalances, useGasTokens } from '../../hooks';
 import { AmountLabel } from '../AmountLabel';
+import { calculateAmountUSD } from '../../utils';
 
 import { StyledDlGroup, StyledDt, StyledSelect } from './TransactionDetails.style';
-
-import { useBalances, useGasTokens } from '@/hooks';
-import { calculateAmountUSD } from '@/utils';
 
 type Props = {
   chainId: ChainId;

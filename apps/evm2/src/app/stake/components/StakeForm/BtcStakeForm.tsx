@@ -1,5 +1,3 @@
-'use client';
-
 import { GatewayQuote } from '@gobob/bob-sdk';
 import { AuthButton } from '@gobob/connect-ui';
 import { CurrencyAmount } from '@gobob/currency';
@@ -33,17 +31,13 @@ import { mergeProps } from '@react-aria/utils';
 import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Address } from 'viem';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 
-import { Type } from '../../Stake';
-
-import { StrategyData } from './StakeForm';
-
-import { isProd } from '@/constants';
-import { useGetTransactions } from '@/hooks';
-import { gatewaySDK } from '@/lib/bob-sdk';
+import { isProd } from '../../../../constants';
+import { useGetTransactions } from '../../../../hooks';
+import { gatewaySDK } from '../../../../lib/bob-sdk';
 import {
   STAKE_AMOUNT,
   STAKE_BTC_WALLET,
@@ -52,10 +46,13 @@ import {
   StakeFormValidationParams,
   StakeFormValues,
   stakeSchema
-} from '@/lib/form/stake';
-import { isFormDisabled } from '@/lib/form/utils';
-import { bridgeKeys } from '@/lib/react-query';
-import { GatewayData } from '@/types';
+} from '../../../../lib/form/stake';
+import { isFormDisabled } from '../../../../lib/form/utils';
+import { bridgeKeys } from '../../../../lib/react-query';
+import { GatewayData } from '../../../../types';
+import { Type } from '../../Stake';
+
+import { StrategyData } from './StakeForm';
 
 type BtcBridgeFormProps = {
   type: Type;
@@ -92,8 +89,7 @@ const BtcStakeForm = ({
 }: BtcBridgeFormProps): JSX.Element => {
   const queryClient = useQueryClient();
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const setSearchParams = useSearchParams(new URLSearchParams(window.location.search))[1];
 
   const { address: evmAddress } = useAccount();
 
@@ -349,12 +345,16 @@ const BtcStakeForm = ({
         {...mergeProps(form.getSelectFieldProps(STAKE_STRATEGY), {
           onSelectionChange: (value: string) => {
             onStrategyChange(value);
-            if (searchParams) {
-              const urlSearchParams = new URLSearchParams(searchParams);
+            setSearchParams(
+              (prev) => {
+                const urlSearchParams = new URLSearchParams(prev);
 
-              urlSearchParams.set('stakeWith', value);
-              router.replace('?' + urlSearchParams);
-            }
+                urlSearchParams.set('stakeWith', value);
+
+                return urlSearchParams;
+              },
+              { replace: true }
+            );
           }
         })}
       >
