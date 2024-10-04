@@ -1,13 +1,14 @@
 import { Dd, Dl, DlGroup, Dt, Modal, ModalBody, ModalHeader } from '@gobob/ui';
 import { useLocale } from '@gobob/ui';
-import { t } from 'i18next';
+import { useTranslations } from 'next-intl';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 
-import { useGetUser } from '../../hooks';
 import { useLayoutContext } from '../Layout';
 
 import { WithdrawForm } from './WithdrawForm';
 import { DepositedAssets } from './DepositedAssets';
+
+import { useGetUser } from '@/hooks';
 
 const WithdrawModal = () => {
   const { data: user } = useGetUser();
@@ -16,6 +17,7 @@ const WithdrawModal = () => {
   const { isWithdrawAssetsOpen, setWithdrawAssetsOpen } = useLayoutContext();
 
   const { locale } = useLocale();
+  const t = useTranslations();
 
   const handleClose = () => setWithdrawAssetsOpen(false);
 

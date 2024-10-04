@@ -1,6 +1,7 @@
 export * from './useBalances';
 export * from './useBridgeTokens';
 export * from './useFeatureFlag';
+export * from './useGeoblock';
 export * from './useGasTokens';
 export * from './useGetBridgeTransactions';
 export * from './useGetGatewayTransactions';

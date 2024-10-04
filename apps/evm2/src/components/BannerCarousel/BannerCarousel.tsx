@@ -9,15 +9,14 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSessionStorage } from '@uidotdev/usehooks';
 
-import { RoutesPath } from '../../constants';
-import { FeatureFlags, useFeatureFlag } from '../../hooks';
-
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
 
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
+import { RoutesPath } from '@/constants';
 import { SessionStorageKey } from '@/types';
 
 function NextArrow(props: any) {

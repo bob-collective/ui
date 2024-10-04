@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { Optional } from '@gobob/react-query';
 
 import { StrategyData } from '../../hooks';
-import { GatewayData, L2BridgeData } from '../../../../types';
-import { GatewayTransactionModal, BridgeTransactionModal } from '../../../../components';
 import { Unstake } from '../Unstake';
 import { Type } from '../../Stake';
 
 import { BtcStakeForm } from './BtcStakeForm';
+
+import { GatewayData, L2BridgeData } from '@/types';
+import { GatewayTransactionModal, BridgeTransactionModal } from '@/components';
 
 type TransactionModalState = {
   isOpen: boolean;

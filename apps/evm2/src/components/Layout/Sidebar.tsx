@@ -2,15 +2,16 @@ import { Button, Flex, XMark, useMediaQuery } from '@gobob/ui';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'styled-components';
 
-import { DocsLinks, RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
-import { useFeatureFlag, FeatureFlags } from '../../hooks';
 
 import { StyledDrawer } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
+
+import { DocsLinks, RoutesPath } from '@/constants';
+import { useFeatureFlag, FeatureFlags } from '@/hooks';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 

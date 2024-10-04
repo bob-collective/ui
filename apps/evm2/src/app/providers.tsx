@@ -22,7 +22,7 @@ import { useBalances, useGetUser, useLogin, useLogout, useTokens } from '@/hooks
 import { bitcoinNetwork, isProd, isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
 import { Header, Layout, Sidebar } from '@/components';
 import { apiClient } from '@/utils';
-import { StyledComponentsRegistry } from '@/lib/styled-components/registry';
+import { StyledComponentsRegistry } from '@/lib/styled-components';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);

@@ -12,9 +12,10 @@ import {
 } from '@gobob/ui';
 
 import { Chain, TransactionDetails } from '..';
-import { L1_CHAIN, L2_CHAIN } from '../../constants';
-import { useGetGatewayTransactions } from '../../hooks';
-import { GatewayData, TransactionType } from '../../types';
+
+import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { GatewayData, TransactionType } from '@/types';
+import { useGetGatewayTransactions } from '@/hooks';
 
 type Props = GatewayData;
 

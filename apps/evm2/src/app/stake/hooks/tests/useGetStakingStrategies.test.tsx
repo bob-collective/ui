@@ -7,20 +7,21 @@ import { PropsWithChildren } from 'react';
 import { Address } from 'viem';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
-vi.mock('../../../../lib/bob-sdk', () => ({
+vi.mock('@/lib/bob-sdk', () => ({
   gatewaySDK: {
     getStrategies: vi.fn()
   }
 }));
 
-vi.mock('../../../../hooks/useFeatureFlag', () => ({
+vi.mock('@/hooks/useFeatureFlag', () => ({
   FeatureFlags: { BTC_GATEWAY: vi.fn() },
   useFeatureFlag: vi.fn()
 }));
 
-import { useFeatureFlag } from '../../../../hooks/useFeatureFlag';
-import { gatewaySDK } from '../../../../lib/bob-sdk';
 import { useGetStakingStrategies } from '../useGetStakingStrategies';
+
+import { useFeatureFlag } from '@/hooks';
+import { gatewaySDK } from '@/lib/bob-sdk';
 
 const mockStrategy: GatewayStrategyContract = {
   id: 'testnet-strategy',

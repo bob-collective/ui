@@ -4,6 +4,8 @@ const config = {
   ignoreBinaries: ['synpress:run'],
   ignore: [
     'apps/evm/api/**',
+    'apps/evm2/api/**',
+    'apps/evm2/src/i18n/**',
     'apps/evm/src/pages/FusionS2/**',
     'packages/currency/src/constants.ts',
     'packages/sats-wagmi/package.json',

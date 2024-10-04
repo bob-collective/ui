@@ -1,9 +1,9 @@
 import { ChainId } from '@gobob/chains';
 import { Card, Item, SelectProps } from '@gobob/ui';
 
-import { Chain } from '@/components';
-
 import { StyledSelect } from './ChainSelect.style';
+
+import { Chain } from '@/components';
 
 type Props = {
   chainId: ChainId | 'BTC';

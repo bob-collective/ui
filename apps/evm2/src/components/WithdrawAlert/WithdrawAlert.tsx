@@ -1,8 +1,9 @@
 import { Alert, AlertProps, Button, Flex, P } from '@gobob/ui';
 import { chain } from '@react-aria/utils';
 
-import { useLockedTokens } from '../../hooks';
 import { useLayoutContext } from '../Layout';
+
+import { useLockedTokens } from '@/hooks';
 
 type Props = { onPressWithdraw?: () => void };
 

@@ -1,8 +1,8 @@
-import { Transaction } from '@/hooks/useGetTransactions';
-import { TransactionType } from '@/types';
-
 import { BridgeTransactionItem } from './BridgeTransactionItem';
 import { GatewayTransactionItem } from './GatewayTransactionItem';
+
+import { Transaction } from '@/hooks/useGetTransactions';
+import { TransactionType } from '@/types';
 
 type TransactionItemProps = { data: Transaction };
 

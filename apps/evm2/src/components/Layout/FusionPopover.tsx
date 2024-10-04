@@ -13,12 +13,13 @@ import {
 import { Spice } from '@gobob/icons';
 import { useFocusRing } from '@react-aria/focus';
 
-import { useGetUser, useHaltedLockedTokens, useLockedTokens } from '../../hooks';
 import { WithdrawAlert } from '../WithdrawAlert';
 import { WithdrawModal } from '../WithdrawModal';
 import { SpiceAmount } from '../SpiceAmount';
 
 import { StyledChip, StyledContentWrapper, StyledHarvestCard, StyledOpacityOverlay } from './FusionPopover.style';
+
+import { useGetUser, useHaltedLockedTokens, useLockedTokens } from '@/hooks';
 
 const FusionPopover = (): JSX.Element | null => {
   const { data: user } = useGetUser();

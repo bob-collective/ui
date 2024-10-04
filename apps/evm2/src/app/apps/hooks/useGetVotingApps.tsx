@@ -1,9 +1,10 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
 import { useAccount } from '@gobob/wagmi';
 
-import { appsKeys } from '@/lib/react-query';
 import { apiClient, Project, ProjectCategory, ProjectVotingInfo } from '../../../utils';
 import { getAppLogo } from '../utils';
+
+import { appsKeys } from '@/lib/react-query';
 
 type VotingAppData = Project & {
   logoSrc: string;

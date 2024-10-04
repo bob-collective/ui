@@ -1,10 +1,11 @@
 import { CardProps, Skeleton } from '@gobob/ui';
 
-import { Trapezoid } from '@/components';
 import { ResultVotingAppCategory } from '../../hooks';
 
 import { StyledConfetti, StyledPodiumCard, StyledPodiumCardInner, StyledPodiums } from './AppsPodium.style';
 import { PodiumSpot } from './PodiumSpot';
+
+import { Trapezoid } from '@/components';
 
 const cardsColors = {
   red: {

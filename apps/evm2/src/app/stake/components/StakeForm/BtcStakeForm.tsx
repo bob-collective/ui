@@ -35,9 +35,13 @@ import { useSearchParams } from 'next/navigation';
 import { Address } from 'viem';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 
-import { isProd } from '../../../../constants';
-import { useGetTransactions } from '../../../../hooks';
-import { gatewaySDK } from '../../../../lib/bob-sdk';
+import { Type } from '../../Stake';
+
+import { StrategyData } from './StakeForm';
+
+import { isProd } from '@/constants';
+import { useGetTransactions } from '@/hooks';
+import { gatewaySDK } from '@/lib/bob-sdk';
 import {
   STAKE_AMOUNT,
   STAKE_BTC_WALLET,
@@ -46,13 +50,10 @@ import {
   StakeFormValidationParams,
   StakeFormValues,
   stakeSchema
-} from '../../../../lib/form/stake';
-import { isFormDisabled } from '../../../../lib/form/utils';
-import { bridgeKeys } from '../../../../lib/react-query';
-import { GatewayData } from '../../../../types';
-import { Type } from '../../Stake';
-
-import { StrategyData } from './StakeForm';
+} from '@/lib/form/stake';
+import { isFormDisabled } from '@/lib/form/utils';
+import { bridgeKeys } from '@/lib/react-query';
+import { GatewayData } from '@/types';
 
 type BtcBridgeFormProps = {
   type: Type;

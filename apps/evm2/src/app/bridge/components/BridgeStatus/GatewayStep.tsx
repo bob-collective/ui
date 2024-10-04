@@ -1,8 +1,8 @@
+import { Pill } from './Pill';
+
 import { GatewayDepositSteps, GatewaySteps } from '@/constants';
 import { GatewayTransaction } from '@/hooks';
 import { mempoolUrl } from '@/constants';
-
-import { Pill } from './Pill';
 
 const getLabel = (status: GatewayDepositSteps, confirmations: number, totalConfirmations: number) => {
   switch (status) {

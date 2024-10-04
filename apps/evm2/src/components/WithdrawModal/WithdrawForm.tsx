@@ -9,8 +9,8 @@ import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { isAddressEqual } from 'viem';
 
-import { ContractType, L1_CHAIN, contracts } from '../../constants';
-import { useLockedTokens } from '../../hooks';
+import { ContractType, L1_CHAIN, contracts } from '@/constants';
+import { useLockedTokens } from '@/hooks';
 
 type WithdrawFormProps = {
   isSmartAccount?: boolean;

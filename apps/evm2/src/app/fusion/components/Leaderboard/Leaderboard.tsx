@@ -4,14 +4,15 @@ import { useAccount } from '@gobob/wagmi';
 import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
 
-import { useGetUser } from '../../../../hooks';
-import { QuestRefCodes, apiClient } from '../../../../utils';
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
-import { fusionKeys } from '../../../../lib/react-query';
 import { Medal } from '../../../apps/components/Medal';
-import { SpiceAmount } from '../../../../components';
 
 import { StyledQuestList, StyledSkeletonWrapper } from './Leaderboard.style';
+
+import { useGetUser } from '@/hooks';
+import { QuestRefCodes, apiClient } from '@/utils';
+import { fusionKeys } from '@/lib/react-query';
+import { SpiceAmount } from '@/components';
 
 const SpiceColumn = ({ amount }: { amount: number }) => <SpiceAmount amount={amount} />;
 
