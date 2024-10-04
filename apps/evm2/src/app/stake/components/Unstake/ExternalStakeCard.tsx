@@ -13,6 +13,7 @@ type ExternalBridge = 'solvbtc' | 'solvbtc-bbn' | 'unibtc' | 'pell-network' | 's
 // TODO: add missing links
 const bridges: Record<
   ExternalBridge,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   { icon: any | string; href: string | { stake: string; unstake: string }; name: string; disabled: boolean }
 > = {
   solvbtc: {

@@ -21,8 +21,10 @@ const sendTokenSchema = (params: SendTokenFormValidationParams) => {
   let recipient = yup.string().required('Recipient is a required field');
 
   if (params[SEND_TOKEN_RECIPIENT] === 'btc') {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recipient = (recipient as any).btcAddress(bitcoinNetwork);
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recipient = (recipient as any).evmAddress();
   }
 

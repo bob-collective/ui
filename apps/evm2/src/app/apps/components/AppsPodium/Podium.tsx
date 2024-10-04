@@ -1,4 +1,6 @@
-const Podium = (props: any) => (
+import { HTMLAttributes } from 'react';
+
+const Podium = (props: HTMLAttributes<SVGSVGElement>) => (
   <svg
     fill='none'
     viewBox='0 0 164 99'

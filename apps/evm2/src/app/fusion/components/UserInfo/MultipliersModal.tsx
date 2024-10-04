@@ -53,7 +53,7 @@ const columns = [
   }
 ];
 
-type Props = {};
+type Props = object;
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 

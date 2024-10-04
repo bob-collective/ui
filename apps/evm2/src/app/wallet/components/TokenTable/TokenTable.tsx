@@ -71,7 +71,7 @@ type TokenTableRow = {
   [TokenTableColumns.ACTION]: ReactNode;
 };
 
-type Props = {};
+type Props = object;
 
 type InheritAttrs = Omit<TableProps, keyof Props | 'columns' | 'rows'>;
 
@@ -102,6 +102,7 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
 
   const getUsdValue = useCallback(
     (ticker: string, amount: string | number) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       !isNaN(amount as any) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
     [getPrice]
   );
@@ -120,7 +121,7 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
     [router, setTicker]
   );
 
-  const handlePressBtcBridge = useCallback(() => router.push(`${RoutesPath.HOME}?network=bitcoin`), []);
+  const handlePressBtcBridge = useCallback(() => router.push(`${RoutesPath.HOME}?network=bitcoin`), [router]);
 
   const btcRow: TokenTableRow = useMemo(() => {
     const amountCurrency = satsAmount ? CurrencyAmount.fromRawAmount(BITCOIN, satsAmount.value) : undefined;

@@ -7,7 +7,7 @@ import { RoutesPath } from '../../../../constants';
 
 import { StyledCard, StyledOpacityOverlay, StyledSpice } from './CommunityVoting.style';
 
-type CommunityVotingProps = {};
+type CommunityVotingProps = object;
 
 const CommunityVoting = ({}: CommunityVotingProps) => {
   const theme = useTheme();

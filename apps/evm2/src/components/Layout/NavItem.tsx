@@ -33,6 +33,7 @@ const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): 
         <StyledNavLink color='light' size={size} weight='medium'>
           <Flex alignItems='center' direction='row' elementType='span' gap='s'>
             <StyledAnchor
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               {...(props as any)}
               ref={ref}
               href={href}

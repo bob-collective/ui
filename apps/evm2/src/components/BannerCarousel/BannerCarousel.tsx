@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import { Settings } from 'react-slick';
 import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
-import { useCallback } from 'react';
+import { HTMLAttributes, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSessionStorage } from '@uidotdev/usehooks';
 
@@ -19,7 +19,7 @@ import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { RoutesPath } from '@/constants';
 import { SessionStorageKey } from '@/types';
 
-function NextArrow(props: any) {
+function NextArrow(props: Pick<HTMLAttributes<HTMLButtonElement>, 'className' | 'style' | 'onClick'>) {
   const { className, style, onClick } = props;
 
   return (
@@ -29,7 +29,7 @@ function NextArrow(props: any) {
   );
 }
 
-function PrevArrow(props: any) {
+function PrevArrow(props: Pick<HTMLAttributes<HTMLButtonElement>, 'className' | 'style' | 'onClick'>) {
   const { className, style, onClick } = props;
 
   return (

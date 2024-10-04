@@ -17,6 +17,7 @@ type LogoProps = Props & InheritAttrs;
 const Logo = ({ isTestnet, isFusion, href = '/', onPress, ...props }: LogoProps) => (
   <Flex alignItems='center' gap='s'>
     <StyledLogo
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       {...(props as any)}
       aria-label='navigate to home page'
       href={href}

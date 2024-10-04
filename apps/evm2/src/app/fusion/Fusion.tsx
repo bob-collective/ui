@@ -57,7 +57,7 @@ const Fusion = () => {
       setScrollQuests(false);
       document.getElementById(questsSectionId)?.scrollIntoView?.({ behavior: 'smooth' });
     }
-  }, []);
+  }, [questsSectionId, scrollQuests, setScrollQuests]);
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;

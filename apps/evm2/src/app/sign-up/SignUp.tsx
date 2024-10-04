@@ -61,6 +61,7 @@ const SignUp = (): JSX.Element | null => {
 
       router.push(RoutesPath.FUSION);
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: async (e: any) => {
       if (e.code === 4001) {
         toast.error('User rejected the request');

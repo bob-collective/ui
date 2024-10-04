@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { LoginButton } from '../LoginButton';
 
-type Props = {};
+type Props = object;
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 

@@ -93,12 +93,14 @@ const BobBridgeForm = ({
 
   const currencyAmount = useMemo(
     () =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       selectedCurrency && !isNaN(amount as any)
         ? CurrencyAmount.fromBaseAmount(selectedCurrency, amount || 0)
         : undefined,
     [selectedCurrency, amount]
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleError = useCallback((e: any) => {
     if (e.code === 4001) {
       toast.error('User rejected the request');
@@ -376,6 +378,7 @@ const BobBridgeForm = ({
 
     const amount = form.values[BRIDGE_AMOUNT];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (!amount || isNaN(amount as any) || !selectedCurrency || !selectedToken) return;
 
     // TODO: change currency
@@ -472,6 +475,7 @@ const BobBridgeForm = ({
 
   const getUsdValue = useCallback(
     (ticker: string, amount: string | number) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       !isNaN(amount as any) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
     [getPrice]
   );
@@ -511,6 +515,7 @@ const BobBridgeForm = ({
   const humanBalance = tokenBalance?.toSignificant();
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
         balance={balance}

@@ -1,4 +1,6 @@
-const Confetti = (props: any) => (
+import { HTMLAttributes } from 'react';
+
+const Confetti = (props: HTMLAttributes<SVGSVGElement>) => (
   <svg fill='none' viewBox='0 0 442 327' xmlns='http://www.w3.org/2000/svg' {...props}>
     <rect
       fill='#FF7272'

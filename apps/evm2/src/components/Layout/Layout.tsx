@@ -3,7 +3,7 @@ import { HTMLAttributes } from 'react';
 import { StyledLayout } from './Layout.style';
 import { LayoutProvider } from './LayoutContext';
 
-type Props = {};
+type Props = object;
 
 type NattiveAttrs = Omit<HTMLAttributes<unknown>, keyof Props>;
 

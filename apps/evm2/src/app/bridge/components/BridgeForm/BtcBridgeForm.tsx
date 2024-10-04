@@ -130,6 +130,7 @@ const BtcBridgeForm = ({
   const [isGasNeeded, setGasNeeded] = useState(true);
 
   const currencyAmount = useMemo(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
     [amount]
   );
@@ -139,7 +140,7 @@ const BtcBridgeForm = ({
     [availableTokens, receiveTicker]
   );
 
-  const handleError = useCallback((e: any) => {
+  const handleError = useCallback((e: Error) => {
     toast.error(e.message);
   }, []);
 
@@ -347,6 +348,7 @@ const BtcBridgeForm = ({
   );
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
         balance={balanceAmount.toExact()}

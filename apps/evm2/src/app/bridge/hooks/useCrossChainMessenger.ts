@@ -149,9 +149,11 @@ const useCrossChainMessenger = () => {
 
   return useMemo(
     () =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       chain && isL1Chain(chain as any)
         ? createCrossChainMessenger(l1Signer, l2Provider)
-        : chain && isL2Chain(chain as any)
+        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          chain && isL2Chain(chain as any)
           ? createCrossChainMessenger(l1Provider, l2Signer)
           : createCrossChainMessenger(l1Provider, l2Provider),
     [chain, l1Provider, l1Signer, l2Provider, l2Signer]

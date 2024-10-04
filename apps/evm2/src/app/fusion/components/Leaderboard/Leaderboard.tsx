@@ -37,7 +37,7 @@ const QuestsColumn = ({
   earnedSpice,
   locale
 }: {
-  locale: any;
+  locale: Intl.LocalesArgument;
   hasGalxe: boolean;
   hasIntract: boolean;
   earnedSpice?: number;

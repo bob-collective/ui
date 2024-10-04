@@ -34,6 +34,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Address } from 'viem';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
+import { useRouter } from 'next/router';
 
 import { Type } from '../../Stake';
 
@@ -90,9 +91,9 @@ const BtcStakeForm = ({
 }: BtcBridgeFormProps): JSX.Element => {
   const queryClient = useQueryClient();
 
-  const setSearchParams = useSearchParams(new URLSearchParams(window.location.search))[1];
-
   const { address: evmAddress } = useAccount();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
@@ -117,11 +118,12 @@ const BtcStakeForm = ({
   const [isGasNeeded, setGasNeeded] = useState(true);
 
   const currencyAmount = useMemo(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
     [amount]
   );
 
-  const handleError = useCallback((e: any) => {
+  const handleError = useCallback((e: Error) => {
     toast.error(e.message);
   }, []);
 
@@ -324,6 +326,7 @@ const BtcStakeForm = ({
   const isLoading = !isSubmitDisabled && (stakeMutation.isPending || isFetchingQuote);
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
         balance={balanceAmount.toExact()}
@@ -346,16 +349,12 @@ const BtcStakeForm = ({
         {...mergeProps(form.getSelectFieldProps(STAKE_STRATEGY), {
           onSelectionChange: (value: string) => {
             onStrategyChange(value);
-            setSearchParams(
-              (prev) => {
-                const urlSearchParams = new URLSearchParams(prev);
+            if (searchParams) {
+              const urlSearchParams = new URLSearchParams(searchParams);
 
-                urlSearchParams.set('stakeWith', value);
-
-                return urlSearchParams;
-              },
-              { replace: true }
-            );
+              urlSearchParams.set('receive', value);
+              router.replace('?' + urlSearchParams);
+            }
           }
         })}
       >

@@ -177,7 +177,7 @@ const bridgeBtcLstToBob: StrategyCardProps = {
 
 const strategies = [btcLstLendingStrat, mintAndLendSatUsd, dexLiquidityPovisioning, bridgeBtcLstToBob].slice(0, 3);
 
-type StrategiesProps = {};
+type StrategiesProps = object;
 
 const isComingSoon = false;
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { INTERVAL, useQueries, useQuery } from '@gobob/react-query';

@@ -7,7 +7,7 @@ import { mergeProps } from '@react-aria/utils';
 import { L1_CHAIN, isValidChain } from '@/constants';
 import { useGetUser, useLogin } from '@/hooks';
 
-type Props = {};
+type Props = object;
 
 type InheritAttrs = Omit<ButtonProps, keyof Props>;
 
@@ -23,6 +23,7 @@ const LoginButton = (props: LoginButtonProps): JSX.Element => {
     onSuccess: async () => {
       refetchUser();
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (e: any) => {
       if (e.code === 4001) {
         toast.error('User rejected the request');

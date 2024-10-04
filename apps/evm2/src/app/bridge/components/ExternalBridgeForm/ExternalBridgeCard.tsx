@@ -12,6 +12,7 @@ type ExternalBridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owl
 // TODO: add missing links
 const bridges: Record<
   ExternalBridges,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   { icon: any | string; href: string | { deposit: string; withdraw: string }; name: string; disabled: boolean }
 > = {
   stargate: {

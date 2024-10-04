@@ -71,6 +71,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
 
   const currencyAmount = useMemo(
     () =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       !isNaN(amount as any)
         ? CurrencyAmount.fromBaseAmount(currency, amount || 0)
         : CurrencyAmount.fromRawAmount(currency, 0n),
@@ -101,7 +102,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
   };
 
   const handleClose = useCallback(() => {
-    onClose();
+    onClose?.();
     setAmount('');
     setGasTicker(nativeToken.symbol);
     setRecipient('');
@@ -193,6 +194,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
 
   const getUsdValue = useCallback(
     (ticker: string, amount: string | number) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       !isNaN(amount as any) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
     [getPrice]
   );

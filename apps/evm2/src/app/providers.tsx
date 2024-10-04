@@ -41,6 +41,7 @@ const AuthCheck = () => {
     onSuccess: async () => {
       await refetchUser();
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (e: any) => {
       if (e.code === 4001) {
         toast.error('User rejected the request');

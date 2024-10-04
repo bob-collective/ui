@@ -46,6 +46,7 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
 
       const { output, withdrawal } = await publicClientL1.waitToProve({
         receipt,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         targetChain: walletClientL2.chain as any
       });
 
@@ -54,6 +55,7 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
         withdrawal
       });
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const hash = await walletClientL1?.proveWithdrawal(args as any);
 
       return { hash };
@@ -84,6 +86,7 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
       const [withdrawal] = getWithdrawals(receiptL2);
 
       const hash = await walletClientL1.finalizeWithdrawal({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         targetChain: walletClientL2.chain as any,
         withdrawal,
         account: address
