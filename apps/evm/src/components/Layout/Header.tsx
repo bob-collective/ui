@@ -18,11 +18,13 @@ import { useTheme } from 'styled-components';
 import { DocsLinks, RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
+import { useFeatureFlag, FeatureFlags } from '../../hooks';
 
 import { StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
+import { FusionPopover } from './FusionPopover';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 
@@ -37,6 +39,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
   const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
 
   return (
     <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>
@@ -55,9 +58,14 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
               <NavItem size='s' to={RoutesPath.BRIDGE}>
                 {t('navigation.bridge')}
               </NavItem>
-              <NavItem size='s' to={RoutesPath.WALLET}>
-                {t('navigation.wallet')}
+              <NavItem size='s' to={RoutesPath.APPS}>
+                Apps
               </NavItem>
+              {isWalletEnabled && (
+                <NavItem size='s' to={RoutesPath.WALLET}>
+                  {t('navigation.wallet')}
+                </NavItem>
+              )}
               <NavItem size='s' to={RoutesPath.STAKE}>
                 {t('navigation.stake')}
               </NavItem>
@@ -97,6 +105,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
             <SocialsGroup variant='ghost' />
           </>
         )}
+        <FusionPopover />
         <ConnectWallet variant='ghost' />
       </Flex>
     </StyledHeader>

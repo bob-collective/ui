@@ -2,15 +2,7 @@ import { forwardRef } from 'react';
 import { Icon, IconProps } from '@gobob/ui';
 
 const Intract = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
-  <Icon
-    ref={ref}
-    fill='none'
-    height='720'
-    viewBox='0 0 649 720'
-    width='649'
-    xmlns='http://www.w3.org/2000/svg'
-    {...props}
-  >
+  <Icon ref={ref} fill='none' viewBox='0 0 649 720' xmlns='http://www.w3.org/2000/svg' {...props}>
     <g filter='url(#filter0_ii_137_24)'>
       <path
         d='M276.374 12.9023C306.155 -4.30078 342.847 -4.30078 372.628 12.9023L600.876 144.75C630.657 161.954 649 193.746 649 228.152V491.849C649 526.255 630.657 558.048 600.876 575.251L372.628 707.102C342.847 724.299 306.155 724.299 276.374 707.102L48.1267 575.251C18.3458 558.048 0 526.255 0 491.849V228.152C0 193.746 18.3458 161.954 48.1267 144.75L276.374 12.9023Z'

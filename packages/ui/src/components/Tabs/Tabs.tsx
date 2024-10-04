@@ -2,18 +2,18 @@
 
 import { useFocusRing } from '@react-aria/focus';
 import { useTabList } from '@react-aria/tabs';
-import { mergeProps } from '@react-aria/utils';
 import { useTabListState } from '@react-stately/tabs';
 import { CollectionChildren, Key } from '@react-types/shared';
 import { HTMLAttributes, forwardRef, useEffect, useState } from 'react';
 import { useFocusWithin, useHover } from '@react-aria/interactions';
+import { mergeProps } from '@react-aria/utils';
 
 import { useDOMRef } from '../../hooks';
-import { AlignItems, TabsSize } from '../../theme';
+import { AlignItems, TabsSize, TabsVariant } from '../../theme';
 
 import { Tab } from './Tab';
 import { TabPanel } from './TabPanel';
-import { StyledTabs, TabList, TabListWrapper, TabSelection } from './Tabs.style';
+import { StyledTabs, TabList, TabSelection } from './Tabs.style';
 
 type Props = {
   defaultSelectedKey?: Key;
@@ -24,6 +24,7 @@ type Props = {
   fullWidth?: boolean;
   size?: TabsSize;
   align?: AlignItems;
+  variant?: TabsVariant;
 };
 
 type NativeAttrs = Omit<HTMLAttributes<unknown>, keyof Props>;
@@ -32,7 +33,17 @@ type TabsProps = Props & NativeAttrs;
 
 const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   (
-    { children, className, style, panel, fullWidth = false, size = 'md', align = 'flex-start', ...props },
+    {
+      children,
+      className,
+      style,
+      panel,
+      fullWidth = false,
+      size = 'md',
+      align = 'flex-start',
+      variant = 'solid',
+      ...props
+    },
     ref
   ): JSX.Element => {
     const ariaProps = { children: children as CollectionChildren<Record<string, unknown>>, ...props };
@@ -69,31 +80,34 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
 
     return (
       <StyledTabs className={className} style={style}>
-        <TabListWrapper $align={align} $fullWidth={fullWidth} $size={size}>
+        <TabList
+          ref={tabsListRef}
+          $align={align}
+          $fullWidth={fullWidth}
+          $size={size}
+          $variant={variant}
+          {...mergeProps(tabListProps, focusRingProps, focusWithinProps)}
+        >
           <TabSelection
             $isFocusWithin={isFocusWithin}
             $isHovered={isHovered}
             $size={size}
             $transform={activeTabStyle.transform}
+            $variant={variant}
             $width={activeTabStyle.width}
           />
-          <TabList
-            {...mergeProps(tabListProps, focusRingProps, focusWithinProps)}
-            ref={tabsListRef}
-            $fullWidth={fullWidth}
-          >
-            {[...state.collection].map((item) => (
-              <Tab
-                key={item.key}
-                fullWidth={fullWidth}
-                item={item}
-                size={size}
-                state={state}
-                {...(item.key === state.selectedKey ? hoverProps : undefined)}
-              />
-            ))}
-          </TabList>
-        </TabListWrapper>
+          {[...state.collection].map((item) => (
+            <Tab
+              key={item.key}
+              fullWidth={fullWidth}
+              item={item}
+              listRef={tabsListRef}
+              size={size}
+              state={state}
+              {...(item.key === state.selectedKey ? hoverProps : undefined)}
+            />
+          ))}
+        </TabList>
         <TabPanel key={state.selectedItem?.key} state={state}>
           {panel}
         </TabPanel>

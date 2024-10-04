@@ -1,11 +1,11 @@
 import { SVGAttributes, forwardRef } from 'react';
 
-import { Color, IconsSizes } from '../../theme';
+import { Color, IconsSizes, ResponsiveProp } from '../../theme';
 
 import { StyledIcon } from './Icon.style';
 
 type Props = {
-  size?: IconsSizes;
+  size?: ResponsiveProp<IconsSizes>;
   color?: Color;
 };
 

@@ -18,7 +18,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
+    "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "settings": {
@@ -80,5 +80,19 @@
         "next": ["const", "let", "var"]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["apps/evm/**/*.test.tsx?"],
+      "extends": [
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:testing-library/react",
+        "plugin:@vitest/legacy-recommended"
+      ],
+      "plugins": ["react", "unused-imports", "import", "@typescript-eslint", "jsx-a11y", "prettier", "@vitest"]
+    }
+  ]
 }

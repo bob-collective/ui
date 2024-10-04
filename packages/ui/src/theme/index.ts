@@ -1,6 +1,7 @@
 export type {
   AlertStatus,
   AlertVariant,
+  TabsVariant,
   ButtonColors,
   ButtonSizes,
   ButtonVariants,

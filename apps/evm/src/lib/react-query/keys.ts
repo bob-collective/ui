@@ -62,3 +62,18 @@ export const signUpKeys = {
   signUp: () => ['sign-up'],
   referralCode: () => ['referral-code']
 };
+
+export const appsKeys = {
+  apps: () => ['apps'],
+  appsVotes: (address: Address | undefined) => [...appsKeys.apps(), 'votes', address],
+  appsResultVotes: () => [...appsKeys.apps(), 'result-votes'],
+  vote: (address: Address | undefined) => [appsKeys.apps(), 'vote', address]
+};
+
+export const fusionKeys = {
+  fusion: () => ['fusion'],
+  leaderboard: () => [...fusionKeys.fusion(), 'leaderboard'],
+  tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],
+  quests: () => [...fusionKeys.fusion(), 'quests'],
+  tvlLevel: () => [...fusionKeys.fusion(), 'tvl-level']
+};

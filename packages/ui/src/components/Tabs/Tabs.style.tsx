@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { TabsSize } from '../../theme';
+import { TabsSize, TabsVariant } from '../../theme';
 import { AlignItems } from '../../theme';
 import { hideScrollbar } from '../utils/visually-hidden';
 
@@ -10,13 +10,14 @@ const StyledTabs = styled.div`
   width: 100%;
 `;
 
-type TabListWrapperProps = {
+type TabListProps = {
   $fullWidth: boolean;
   $size: TabsSize;
   $align: AlignItems;
+  $variant: TabsVariant;
 };
 
-const TabListWrapper = styled.div<TabListWrapperProps>`
+const TabList = styled.div<TabListProps>`
   display: ${({ $fullWidth }) => ($fullWidth ? 'flex' : 'inline-flex')};
   align-self: ${({ $align, $fullWidth }) => !$fullWidth && $align};
   position: relative;
@@ -27,15 +28,7 @@ const TabListWrapper = styled.div<TabListWrapperProps>`
   ${hideScrollbar()}
 
   ${({ theme }) => theme.tabs.wrapper};
-`;
-
-type TabListProps = {
-  $fullWidth: boolean;
-};
-
-const TabList = styled.div<TabListProps>`
-  display: ${({ $fullWidth }) => ($fullWidth ? 'flex' : 'inline-flex')};
-  width: 100%;
+  ${({ theme, $variant }) => theme.tabs.variant[$variant].wrapper};
 `;
 
 type StyledTabProps = {
@@ -57,6 +50,7 @@ const StyledTab = styled.div<StyledTabProps>`
   text-overflow: ellipsis;
   position: relative;
   outline: ${({ $isFocusVisible }) => !$isFocusVisible && 'none'};
+  white-space: nowrap;
 
   ${({ theme, $size }) => css`
     ${theme.tabs.tab.base}
@@ -74,6 +68,7 @@ type TabSelectionProps = {
   $size: TabsSize;
   $isHovered: boolean;
   $isFocusWithin: boolean;
+  $variant: TabsVariant;
 };
 
 const TabSelection = styled.div<TabSelectionProps>`
@@ -86,6 +81,7 @@ const TabSelection = styled.div<TabSelectionProps>`
   transform: ${(props) => props.$transform};
 
   ${({ theme }) => theme.tabs.tab.selected};
+  ${({ theme, $variant }) => theme.tabs.variant[$variant].tab.selected};
 `;
 
-export { StyledTab, StyledTabs, TabList, TabListWrapper, TabSelection };
+export { StyledTab, StyledTabs, TabList, TabSelection };

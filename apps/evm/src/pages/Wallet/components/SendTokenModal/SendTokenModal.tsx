@@ -99,7 +99,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
   };
 
   const handleClose = useCallback(() => {
-    onClose();
+    onClose?.();
     setAmount('');
     setGasTicker(nativeToken.symbol);
     setRecipient('');

@@ -23,7 +23,12 @@ const TableColumnHeader = ({ column, state, ...props }: TableColumnHeaderProps):
   const { columnHeaderProps } = useTableColumnHeader({ node: column }, state, ref);
 
   return (
-    <StyledTableColumnHeader ref={ref} colSpan={column.colspan} {...mergeProps(props, columnHeaderProps)}>
+    <StyledTableColumnHeader
+      ref={ref}
+      colSpan={column.colspan}
+      style={{ width: column.props.width, minWidth: column.props.minWidth, maxWidth: column.props.maxWidth }}
+      {...mergeProps(props, columnHeaderProps)}
+    >
       {column.props?.hideHeader ? <VisuallyHidden>{column.rendered}</VisuallyHidden> : column.rendered}
     </StyledTableColumnHeader>
   );

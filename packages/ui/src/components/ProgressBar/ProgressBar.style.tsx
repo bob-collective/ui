@@ -1,14 +1,20 @@
 import styled, { css } from 'styled-components';
 
 import { Color, ProgressBarSize } from '../../theme';
+import { Flex } from '../Flex';
 
 type StyledTrackProps = {
   $size: ProgressBarSize;
+  $rounded?: boolean;
 };
 
 type StyledFillProps = {
-  $color?: Color;
+  $color?: Color | string;
   $size: ProgressBarSize;
+};
+
+type StyledWrapperProps = {
+  $fullWidth?: boolean;
 };
 
 const StyledTrack = styled.div<StyledTrackProps>`
@@ -16,6 +22,7 @@ const StyledTrack = styled.div<StyledTrackProps>`
   z-index: 1;
   width: 100%;
   min-width: ${({ theme }) => theme.spacing('2xl')};
+  border-radius: ${({ $rounded, theme }) => $rounded && theme.rounded('full')};
 
   ${({ theme, $size }) => css`
     min-width: ${theme.spacing('2xl')};
@@ -30,14 +37,17 @@ const StyledFill = styled.div<StyledFillProps>`
   will-change: width;
 
   ${({ theme, $size, $color }) => {
-    const { backgroundColor, ...fillCss } = theme.progressBar.fill;
-
     return css`
-      background: ${($color && theme.color($color)) || backgroundColor};
-      ${fillCss}
+      ${theme.progressBar.fill}
       ${theme.progressBar.size[$size].fill}
+
+      background: ${$color && (theme.color($color as Color) || $color)};
     `;
   }}
 `;
 
-export { StyledFill, StyledTrack };
+const StyledWrapper = styled(Flex)<StyledWrapperProps>`
+  width: ${({ $fullWidth }) => $fullWidth && '100%'};
+`;
+
+export { StyledFill, StyledWrapper, StyledTrack };

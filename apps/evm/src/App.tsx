@@ -8,10 +8,9 @@ import { ConnectProvider } from '@gobob/connect-ui';
 
 import { Header, Layout, Main, Sidebar } from './components';
 import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
-import { useGetUser, useLogin, useLogout, useTokens } from './hooks';
+import { FeatureFlags, useFeatureFlag, useGetUser, useLogin, useLogout, useTokens } from './hooks';
 import { useBalances } from './hooks/useBalances';
 import { apiClient } from './utils';
-import { useHaltedLockedTokens, useLockedTokens } from './pages/Fusion/hooks';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
@@ -49,14 +48,18 @@ const AuthCheck = () => {
     }
   });
 
-  const { logout } = useLogout();
+  const { logout } = useLogout({
+    onSuccess: () => {
+      refetchUser();
+    }
+  });
   const watchAccountRef = useRef<() => void>();
 
   useEffect(() => {
     const refCode = searchParams.get('refCode');
 
     if ((location.pathname === RoutesPath.HOME || location.pathname === RoutesPath.FUSION) && refCode) {
-      navigate(`${RoutesPath.SIGN_UP}?refCode=${refCode}`);
+      navigate(`${RoutesPath.SIGN_UP}?refCode=${refCode}`, { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -101,7 +104,7 @@ const AuthCheck = () => {
       !isLoggingIn &&
       !isCheckingFusionUser &&
       isFusionUser &&
-      location.pathname === RoutesPath.FUSION
+      (location.pathname === RoutesPath.FUSION || location.pathname === RoutesPath.APPS)
     ) {
       checkLogin(address, chain);
     }
@@ -148,6 +151,7 @@ const ScrollToTop = () => {
 };
 
 const SignUp = lazy(() => import('./pages/SignUp'));
+const Apps = lazy(() => import('./pages/Apps'));
 const Fusion = lazy(() => import('./pages/Fusion'));
 const Bridge = lazy(() => import('./pages/Bridge'));
 const Stake = lazy(() => import('./pages/Stake'));
@@ -176,8 +180,8 @@ function App() {
   usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
   useBalances(chainId);
   useTokens(chainId);
-  useLockedTokens();
-  useHaltedLockedTokens();
+
+  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
 
   const { reconnect } = useReconnect();
 
@@ -199,8 +203,9 @@ function App() {
               <Route element={<Bridge />} path={RoutesPath.HOME} />
               <Route element={<SignUp />} path={RoutesPath.SIGN_UP} />
               <Route element={<Fusion />} path={RoutesPath.FUSION} />
+              <Route element={<Apps />} path={RoutesPath.APPS} />
               <Route element={<Bridge />} path={RoutesPath.BRIDGE} />
-              <Route element={<Wallet />} path={RoutesPath.WALLET} />
+              {isWalletEnabled && <Route element={<Wallet />} path={RoutesPath.WALLET} />}
               <Route element={<Stake />} path={RoutesPath.STAKE} />
               <Route element={<Geoblock />} path={RoutesPath.GEOBLOCK} />
               <Route element={<Custom404 />} path='*' />

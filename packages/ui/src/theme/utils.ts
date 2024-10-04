@@ -3,11 +3,18 @@ const rem = (value: number, base = 16) => `${(1 / base) * value}rem`;
 const style =
   <T extends Record<string, any>>(baseStyle: T) =>
   (key: keyof typeof baseStyle, unit: 'rem' | 'px' = 'rem', base = 16) => {
-    if (unit === 'px') {
-      return `${baseStyle[key]}px`;
+    const value = baseStyle[key];
+
+    // TODO: handle this better
+    if (value === undefined) {
+      return key;
     }
 
-    return rem(baseStyle[key], base);
+    if (unit === 'px') {
+      return `${value}px`;
+    }
+
+    return rem(value, base);
   };
 
 // MEMO: only supports 6 digits hex

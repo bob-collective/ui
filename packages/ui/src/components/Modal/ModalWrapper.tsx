@@ -13,7 +13,7 @@ type Props = {
   children: ReactNode;
   placement?: 'top' | 'center';
   isOpen?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   wrapperRef: RefObject<HTMLDivElement>;
   size: DialogSize;
   maxHeight?: CSSProperties['maxHeight'];

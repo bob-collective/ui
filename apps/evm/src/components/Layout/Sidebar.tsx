@@ -5,6 +5,7 @@ import { useTheme } from 'styled-components';
 import { DocsLinks, RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
+import { useFeatureFlag, FeatureFlags } from '../../hooks';
 
 import { StyledDrawer } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
@@ -21,6 +22,7 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
 
   if (isMobile) {
     const handleClose = () => setSidebarOpen(false);
@@ -37,7 +39,8 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
           <Flex direction='column' flex={1} justifyContent='space-between'>
             <Nav direction='column' gap='3xl'>
               <NavItem to={RoutesPath.BRIDGE}>{t('navigation.bridge')}</NavItem>
-              <NavItem to={RoutesPath.WALLET}>{t('navigation.wallet')}</NavItem>
+              <NavItem to={RoutesPath.APPS}>Apps</NavItem>
+              {isWalletEnabled && <NavItem to={RoutesPath.WALLET}>{t('navigation.wallet')}</NavItem>}
               <NavItem to={RoutesPath.STAKE}>{t('navigation.stake')}</NavItem>
               <NavItem to={RoutesPath.FUSION}>{t('navigation.fusion')}</NavItem>
               <NavItem isExternal to='https://safe.gobob.xyz/welcome'>

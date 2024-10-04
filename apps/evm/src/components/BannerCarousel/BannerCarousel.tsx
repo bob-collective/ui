@@ -13,6 +13,7 @@ import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
+import { XBanner } from './XBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -37,7 +38,7 @@ function PrevArrow(props: any) {
 const settings: Settings = {
   dots: true,
   infinite: true,
-  autoplay: true,
+  autoplay: false,
   speed: 500,
   autoplaySpeed: 10000,
   cssEase: 'linear',
@@ -68,12 +69,13 @@ const BannerCarousel = () => {
   );
 
   const onPressFusionBanner = useCallback(
-    () =>
-      window.open(
-        'https://discord.com/channels/1214916952288403476/1214920662624370758/1284482326314614856',
-        '_blank',
-        'noreferrer'
-      ),
+    () => window.open('https://blog.gobob.xyz/posts/bob-fusion-the-final-season', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const onPressXBanner = useCallback(
+    () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer'),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
@@ -84,6 +86,7 @@ const BannerCarousel = () => {
         <FusionBanner onPress={onPressFusionBanner} />
         <EcosystemBanner onPress={onPressEcosystemBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
+        <XBanner onPress={onPressXBanner} />
       </StyledSlider>
     </StyledCarouselWrapper>
   );

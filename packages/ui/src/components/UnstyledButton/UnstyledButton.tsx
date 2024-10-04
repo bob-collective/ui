@@ -6,12 +6,14 @@ import { Slot } from '@radix-ui/react-slot';
 import { useFocusRing } from '@react-aria/focus';
 
 import { useDOMRef } from '../../hooks';
+import { Typography } from '../../theme';
 
 import { StyledButton } from './UnstyledButton.style';
 
 type Props = {
   asChild?: boolean;
   onPress?: (e: PressEvent) => void;
+  size?: Typography;
 };
 
 type NativeAttrs = Omit<ButtonHTMLAttributes<unknown>, keyof Props>;
@@ -19,7 +21,7 @@ type NativeAttrs = Omit<ButtonHTMLAttributes<unknown>, keyof Props>;
 type UnstyledButtonProps = Props & NativeAttrs;
 
 const UnstyledButton = forwardRef<HTMLButtonElement, UnstyledButtonProps>(
-  ({ onPress, asChild, ...props }, ref): JSX.Element => {
+  ({ onPress, asChild, size, ...props }, ref): JSX.Element => {
     const domRef = useDOMRef(ref);
 
     const { buttonProps } = useButton({ onPress, ...props }, domRef);
@@ -31,6 +33,7 @@ const UnstyledButton = forwardRef<HTMLButtonElement, UnstyledButtonProps>(
       <StyledButton
         ref={domRef}
         $isFocusVisible={isFocusVisible}
+        $size={size}
         as={Comp}
         {...mergeProps(props, focusProps, buttonProps)}
       />

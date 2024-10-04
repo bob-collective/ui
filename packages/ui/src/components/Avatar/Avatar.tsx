@@ -1,13 +1,14 @@
-import { ImgHTMLAttributes } from 'react';
+import { forwardRef, ImgHTMLAttributes } from 'react';
 
-import { Color, Rounded, Spacing } from '../../theme';
+import { Color, ResponsiveProp, Rounded, Spacing } from '../../theme';
 
 import { StyledAvatar } from './Avatar.style';
 
 type Props = {
-  size?: Spacing;
+  size?: ResponsiveProp<Spacing>;
   background?: Color;
   rounded?: Rounded;
+  borderColor?: Color;
 };
 
 type InheritAttrs = Omit<ImgHTMLAttributes<unknown>, keyof Props>;
@@ -15,9 +16,20 @@ type InheritAttrs = Omit<ImgHTMLAttributes<unknown>, keyof Props>;
 type AvatarProps = Props & InheritAttrs;
 
 // TODO: add fallback?
-const Avatar = ({ size = '4xl', background, rounded = 'full', ...props }: AvatarProps) => (
-  <StyledAvatar $background={background} $rounded={rounded} $size={size} {...props} />
+const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
+  ({ size = '4xl', background, rounded = 'full', borderColor, ...props }, ref) => (
+    <StyledAvatar
+      ref={ref}
+      $background={background}
+      $borderColor={borderColor}
+      $rounded={rounded}
+      $size={size}
+      {...props}
+    />
+  )
 );
+
+Avatar.displayName = 'Avatar';
 
 export { Avatar };
 export type { AvatarProps };

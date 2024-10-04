@@ -31,7 +31,7 @@ const getConfig = ({ isProd }: Config) => {
       metadata: {
         name: 'BOB',
         description: 'BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum',
-        url: 'https://www.gobob.xyz',
+        url: 'https://www.app.gobob.xyz',
         icons: ['https://uploads-ssl.webflow.com/64e85c2f3609488b3ed725f4/64ecae53ef4b561482f1c49f_bob1.jpg']
       }
     }),

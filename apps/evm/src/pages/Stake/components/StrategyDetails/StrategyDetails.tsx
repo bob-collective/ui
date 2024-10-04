@@ -54,6 +54,18 @@ const stakingInfo = {
     incentives: 'Spice + Segment Points + Supply APR',
     about: 'Supply wBTC into Segment to earn interest.'
   },
+  'segment-sesolvbtcbbn': {
+    category: 'Lending',
+    website: 'https://app.segment.finance/#/',
+    incentives: 'Spice + Segment Points + Supply APR + Solv XP + Babylon Points',
+    about: 'Supply seSOLVBTCBBN into Segment to earn interest.'
+  },
+  'segment-seunibtc': {
+    category: 'Lending',
+    website: 'https://app.segment.finance/#/',
+    incentives: 'Spice + Segment Points + Supply APR + Bedrock Diamonds + Babylon Points',
+    about: 'Supply seUNIBTC into Segment to earn interest.'
+  },
   'shoebill-tbtc': {
     category: 'Lending',
     website: 'https://bob-btc.shoebill.finance/#/',
