@@ -11,7 +11,7 @@ type BridgeAlertProps = {
 const BridgeAlert = ({ token }: BridgeAlertProps): JSX.Element | null => {
   const t = useTranslations();
 
-  const assetMessage: Record<string, string> = useMemo(
+  const assetMessage: Record<string, ReturnType<typeof t.rich>> = useMemo(
     () => ({
       alexgo: t.rich('bridge.alert.alex', {
         xLink: (chunk) => (

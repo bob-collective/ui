@@ -1,6 +1,6 @@
-import { HTMLAttributes } from 'react';
+import { SVGAttributes } from 'react';
 
-const Confetti = (props: HTMLAttributes<SVGSVGElement>) => (
+const Confetti = (props: SVGAttributes<SVGSVGElement>) => (
   <svg fill='none' viewBox='0 0 442 327' xmlns='http://www.w3.org/2000/svg' {...props}>
     <rect
       fill='#FF7272'

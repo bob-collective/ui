@@ -32,31 +32,31 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
       <StyledDrawer elementType='nav' isOpen={isSidebarOpen} onClose={handleClose}>
         <Flex direction='column' flex={1} gap='4xl' padding='2xl'>
           <Flex alignItems='center' justifyContent='space-between'>
-            <Logo isFusion={isFusion} isTestnet={isTestnet} onPress={handleClose} />
+            <Logo href={RoutesPath.HOME} isFusion={isFusion} isTestnet={isTestnet} onPress={handleClose} />
             <Button isIconOnly variant='ghost' onPress={handleClose}>
               <XMark size='s' />
             </Button>
           </Flex>
           <Flex direction='column' flex={1} justifyContent='space-between'>
             <Nav direction='column' gap='3xl'>
-              <NavItem to={RoutesPath.BRIDGE}>{t('navigation.bridge')}</NavItem>
-              <NavItem to={RoutesPath.APPS}>Apps</NavItem>
-              {isWalletEnabled && <NavItem to={RoutesPath.WALLET}>{t('navigation.wallet')}</NavItem>}
-              <NavItem to={RoutesPath.STAKE}>{t('navigation.stake')}</NavItem>
-              <NavItem to={RoutesPath.FUSION}>{t('navigation.fusion')}</NavItem>
-              <NavItem isExternal to='https://safe.gobob.xyz/welcome'>
+              <NavItem href={RoutesPath.BRIDGE}>{t('navigation.bridge')}</NavItem>
+              <NavItem href={RoutesPath.APPS}>Apps</NavItem>
+              {isWalletEnabled && <NavItem href={RoutesPath.WALLET}>{t('navigation.wallet')}</NavItem>}
+              <NavItem href={RoutesPath.STAKE}>{t('navigation.stake')}</NavItem>
+              <NavItem href={RoutesPath.FUSION}>{t('navigation.fusion')}</NavItem>
+              <NavItem isExternal href='https://safe.gobob.xyz/welcome'>
                 {t('navigation.multisig')}
               </NavItem>
               <NavItem
                 isExternal
-                to='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
+                href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
               >
                 {t('navigation.t_and_c')}
               </NavItem>
-              <NavItem isExternal to={DocsLinks.HOME}>
+              <NavItem isExternal href={DocsLinks.HOME}>
                 {t('navigation.dev')}
               </NavItem>
-              <NavItem isExternal to='https://gobob.xyz/'>
+              <NavItem isExternal href='https://gobob.xyz/'>
                 {t('navigation.about')}
               </NavItem>
             </Nav>

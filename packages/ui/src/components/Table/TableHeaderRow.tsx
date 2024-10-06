@@ -13,7 +13,7 @@ type Props = {
   item: GridNode<Record<string, any>>;
 };
 
-type NativeAttrs = Omit<HTMLAttributes<HTMLTableCellElement>, keyof Props>;
+type NativeAttrs = Omit<HTMLAttributes<HTMLTableRowElement>, keyof Props>;
 
 type TableHeaderRowProps = Props & NativeAttrs;
 
