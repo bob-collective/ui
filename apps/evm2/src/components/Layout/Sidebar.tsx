@@ -10,8 +10,8 @@ import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 
-import { useFeatureFlag, FeatureFlags } from '@/hooks';
 import { DocsLinks, RoutesPath } from '@/constants';
+import { useFeatureFlag, FeatureFlags } from '@/hooks';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 

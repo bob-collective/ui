@@ -8,8 +8,8 @@ import { BannerCarousel, StakingForm, StrategyDetails } from './components';
 import { useGetStakingStrategies } from './hooks';
 import { StyledCard, StyledFlex } from './Stake.style';
 
-import { Main } from '@/components';
 import { isProd } from '@/constants';
+import { Main } from '@/components';
 
 enum Type {
   Stake = 'stake',

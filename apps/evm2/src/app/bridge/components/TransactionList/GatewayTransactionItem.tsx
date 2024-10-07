@@ -6,8 +6,8 @@ import { Type } from '../../Bridge';
 
 import { TransactionDetails } from './TransactionDetails';
 
-import { GatewayTransaction } from '@/hooks';
 import { L2_CHAIN } from '@/constants';
+import { GatewayTransaction } from '@/hooks';
 
 type Props = { data: GatewayTransaction };
 

@@ -7,13 +7,13 @@ import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Token } from '@gobob/currency';
 import { useChainId } from '@gobob/wagmi';
 
-import { ExternalBridgeForm } from '../ExternalBridgeForm';
-import { ChainSelect } from '../ChainSelect';
 import { BridgeOrigin, Type } from '../../Bridge';
+import { ChainSelect } from '../ChainSelect';
+import { ExternalBridgeForm } from '../ExternalBridgeForm';
 
+import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 import { BobBridgeForm } from './BobBridgeForm';
-import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { FeatureFlags, TokenData, useFeatureFlag } from '@/hooks';
