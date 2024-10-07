@@ -6,7 +6,6 @@ const config = {
     'apps/evm/api/**',
     'apps/evm2/api/**',
     'apps/evm2/src/i18n/**',
-    'apps/evm/src/pages/FusionS2/**',
     'packages/currency/src/constants.ts',
     'packages/sats-wagmi/package.json',
     '.storybook/vite.config.ts'

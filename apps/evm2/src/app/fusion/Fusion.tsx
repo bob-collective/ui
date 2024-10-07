@@ -67,7 +67,7 @@ const Fusion = () => {
       <StyledMain padding='none'>
         <StyledHeroSectionWrapper direction='column' paddingBottom='9xl' paddingX='lg'>
           <StyledBackground />
-          <StyledBgDots alt='Hero dots' height='10' src='/assets/hero-dots.svg' width='10' />
+          <StyledBgDots alt='Hero dots' height='774' src='/assets/hero-dots.svg' width='1733' />
           <StyledHeroSection direction='column'>
             <Flex direction='column' gap='lg'>
               <H1 size='4xl'>BOB Fusion: The Final Season</H1>

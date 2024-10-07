@@ -16,7 +16,7 @@ const XBanner = ({ onPress }: XBannerProps) => (
       </Flex>
       <P color='grey-50'>Go follow @build_on_bob</P>
     </StyledBannerContent>
-    <StyledXImg alt='x' height='336' src='/assets/x.png' width='336' />
+    <StyledXImg alt='x' height='123' src='/assets/x.png' width='336' />
   </Banner>
 );
 
