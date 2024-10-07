@@ -4,8 +4,8 @@ import { useAccount } from '@gobob/wagmi';
 import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
 
-import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 import { Medal } from '../../../apps/components/Medal';
+import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 
 import { StyledQuestList, StyledSkeletonWrapper } from './Leaderboard.style';
 

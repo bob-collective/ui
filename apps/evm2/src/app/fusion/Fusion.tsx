@@ -29,8 +29,8 @@ import {
   StyledStrategiesWrapper
 } from './Fusion.style';
 
-import { useGetUser } from '@/hooks';
 import { SessionStorageKey } from '@/types';
+import { useGetUser } from '@/hooks';
 
 const Fusion = () => {
   const { address } = useAccount();

@@ -14,8 +14,8 @@ import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address } from 'viem';
 
-import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
 import { Type } from '../../Bridge';
+import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
 
 import { BridgeAlert } from './BridgeAlert';
 

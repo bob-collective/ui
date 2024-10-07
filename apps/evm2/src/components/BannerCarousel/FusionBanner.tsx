@@ -16,7 +16,7 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => (
       </Flex>
       <P color='grey-50'>Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now.</P>
     </StyledBannerContent>
-    <StyledFusionImg alt='Fusion season three' src='/assets/fusion-season-three.png' width='336' height='144' />
+    <StyledFusionImg alt='Fusion season three' height='144' src='/assets/fusion-season-three.png' width='336' />
   </Banner>
 );
 
