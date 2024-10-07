@@ -2,10 +2,12 @@ import { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
+import { Inter } from 'next/font/google';
 
 import { Providers } from './providers';
 import './index.css';
-import './global.css';
+
+export const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'BOB',
@@ -33,10 +35,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={inter.className}>
       <head>
         <link href='https://fonts.googleapis.com' rel='preconnect' />
-        <link crossOrigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect' />
       </head>
       <body>
         <div id='root'>

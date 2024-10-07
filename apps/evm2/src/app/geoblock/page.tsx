@@ -9,7 +9,7 @@ export default function Geoblock(): JSX.Element {
   return (
     <Main maxWidth='4xl'>
       <Flex alignItems='center' direction='column' gap='2xl' justifyContent='center' style={{ minHeight: '80vh' }}>
-        <H1 align='center' fontFamily='Syne' size='5xl' weight='bold'>
+        <H1 align='center' size='5xl' weight='bold'>
           We&apos;re Sorry
         </H1>
         <P align='center'>
