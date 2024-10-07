@@ -55,7 +55,6 @@
   "devDependencies": {
     "@gobob/test-utils": "workspace:^",
     "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/dom": "^10.4.0",
     "@types/big.js": "^6.2.0",
     "@types/node": "^20",
     "@types/react": "^18",
