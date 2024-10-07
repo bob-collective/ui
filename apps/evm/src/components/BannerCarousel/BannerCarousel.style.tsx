@@ -2,9 +2,6 @@ import { Card, Flex, H1 } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
-import { EcosystemImg } from './EcosystemImg';
-import { OnrampImg } from './OnrampImg';
-
 const StyledCarouselWrapper = styled(Card)`
   position: relative;
   text-decoration: none;
@@ -88,25 +85,6 @@ const StyledBannerTitle = styled(H1)`
   text-overflow: ellipsis;
 `;
 
-const StyledOnrampImg = styled(OnrampImg)`
-  position: absolute;
-
-  ${({ theme }) => {
-    return css`
-      height: 4rem;
-      right: ${theme.spacing('7xl')};
-
-      @media ${theme.breakpoints.down('md')} {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        /* height: 3rem; */
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 const StyledFusionImg = styled.img`
   ${({ theme }) => {
     return css`
@@ -137,33 +115,11 @@ const StyledXImg = styled.img`
   }}
 `;
 
-const StyledEcosystemImg = styled(EcosystemImg)`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      top: 50%;
-      right: 0.275rem;
-      width: 26rem;
-      height: 26rem;
-      transform: translateY(-50%);
-
-      @media ${theme.breakpoints.down('md')} {
-        left: 50%;
-        right: unset;
-        transform: translate(-50%, -50%);
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 export {
   StyledCarouselWrapper,
   StyledSlider,
   StyledBanner,
-  StyledEcosystemImg,
   StyledFusionImg,
-  StyledOnrampImg,
   StyledXImg,
   StyledBannerContent,
   StyledBannerTitle

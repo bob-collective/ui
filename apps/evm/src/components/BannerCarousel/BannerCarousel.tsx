@@ -4,14 +4,8 @@ import { Settings } from 'react-slick';
 import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { RoutesPath } from '../../constants';
-import { FeatureFlags, useFeatureFlag } from '../../hooks';
-
-import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
-import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
 
@@ -38,7 +32,7 @@ function PrevArrow(props: any) {
 const settings: Settings = {
   dots: true,
   infinite: true,
-  autoplay: false,
+  autoplay: true,
   speed: 500,
   autoplaySpeed: 10000,
   cssEase: 'linear',
@@ -52,21 +46,6 @@ const settings: Settings = {
 const BannerCarousel = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
-  const navigate = useNavigate();
-
-  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
-
-  const onPressEcosystemBanner = useCallback(
-    () => navigate(RoutesPath.FUSION, { state: { scrollEcosystem: true } }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
-  const onPressOnrampBanner = useCallback(
-    () => navigate(RoutesPath.BRIDGE, { state: { setBridgeToBtc: true } }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
 
   const onPressFusionBanner = useCallback(
     () => window.open('https://blog.gobob.xyz/posts/bob-fusion-the-final-season', '_blank', 'noreferrer'),
@@ -83,10 +62,8 @@ const BannerCarousel = () => {
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
-        <FusionBanner onPress={onPressFusionBanner} />
-        <EcosystemBanner onPress={onPressEcosystemBanner} />
-        {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
         <XBanner onPress={onPressXBanner} />
+        <FusionBanner onPress={onPressFusionBanner} />
       </StyledSlider>
     </StyledCarouselWrapper>
   );
