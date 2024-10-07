@@ -6,8 +6,8 @@ import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useSessionStorage } from '@uidotdev/usehooks';
 
-import { StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
+import { StyledCard, StyledFlex } from './Bridge.style';
 
 import { Main } from '@/components';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';

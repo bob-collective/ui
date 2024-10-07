@@ -1,8 +1,8 @@
 import { Flex, FlexProps } from '@gobob/ui';
 import { useMemo } from 'react';
 
-import { StyledStatusActionButton } from './BridgeStatus.style';
 import { BridgeStep } from './BridgeStep';
+import { StyledStatusActionButton } from './BridgeStatus.style';
 
 import { L1_CHAIN } from '@/constants';
 import { BridgeSteps } from '@/constants';

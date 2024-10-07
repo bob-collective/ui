@@ -13,8 +13,8 @@ import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSessionStorage } from '@uidotdev/usehooks';
 
-import { ReceiveTokenModal } from '../ReceiveTokenModal';
 import { SendTokenModal } from '../SendTokenModal';
+import { ReceiveTokenModal } from '../ReceiveTokenModal';
 
 import { ButtonGroup } from './ButtonGroup';
 

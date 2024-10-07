@@ -10,8 +10,8 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { SiweMessage } from 'siwe';
 
-import { Auditors, HighlightText, ReferralInput } from './components';
 import { StyledAuthCard, StyledH1 } from './SignUp.style';
+import { Auditors, HighlightText, ReferralInput } from './components';
 
 import { Geoblock, LoginSection, Main } from '@/components';
 import { L1_CHAIN, RoutesPath, isValidChain } from '@/constants';

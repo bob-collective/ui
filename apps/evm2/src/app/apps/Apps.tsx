@@ -6,8 +6,8 @@ import { AppsList, AppsPodium, HeroBanner, VotingDashboard } from './components'
 import { useGetApps, useGetVotingApps, useVote, VotingAppData } from './hooks';
 import { useGetPodiumData } from './hooks/useGetPodiumData';
 
-import { Main } from '@/components';
 import { useGetUser } from '@/hooks';
+import { Main } from '@/components';
 
 const Apps = () => {
   const { data: votingAppsData, isLoading: isLoadingVotingApps } = useGetVotingApps();

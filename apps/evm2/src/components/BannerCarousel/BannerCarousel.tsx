@@ -15,9 +15,9 @@ import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
 
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
-import { RoutesPath } from '@/constants';
 import { SessionStorageKey } from '@/types';
+import { RoutesPath } from '@/constants';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
 
 function NextArrow(props: Pick<HTMLAttributes<HTMLButtonElement>, 'className' | 'style' | 'onClick'>) {
   const { className, style, onClick } = props;
