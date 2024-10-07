@@ -2,6 +2,7 @@ import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { Fragment, useMemo } from 'react';
 
+import { TransactionItem } from './TransactionItem';
 import {
   StyledSection,
   StyledSpan,
@@ -9,7 +10,6 @@ import {
   StyledTransactionList,
   StyledTransactionListWrapper
 } from './TransactionList.style';
-import { TransactionItem } from './TransactionItem';
 
 import { chainL2 } from '@/constants';
 import { useGetTransactions } from '@/hooks';

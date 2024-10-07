@@ -10,8 +10,8 @@ import { Type } from '../../Stake';
 
 import { BtcStakeForm } from './BtcStakeForm';
 
-import { GatewayTransactionModal, BridgeTransactionModal } from '@/components';
 import { GatewayData, L2BridgeData } from '@/types';
+import { GatewayTransactionModal, BridgeTransactionModal } from '@/components';
 
 type TransactionModalState = {
   isOpen: boolean;
