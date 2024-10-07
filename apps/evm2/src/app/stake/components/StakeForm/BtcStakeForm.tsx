@@ -1,3 +1,5 @@
+'use client';
+
 import { GatewayQuote } from '@gobob/bob-sdk';
 import { AuthButton } from '@gobob/connect-ui';
 import { CurrencyAmount } from '@gobob/currency';
@@ -34,7 +36,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Address } from 'viem';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import { Type } from '../../Stake';
 
