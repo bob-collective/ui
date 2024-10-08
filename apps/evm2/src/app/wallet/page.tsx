@@ -5,7 +5,7 @@ import { FeatureFlags, useFeatureFlag } from '@/hooks';
 export default function Page() {
   const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
 
-  if (!isWalletEnabled) return;
+  if (!isWalletEnabled) return null;
 
   return <Wallet />;
 }

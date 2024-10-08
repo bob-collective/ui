@@ -619,8 +619,8 @@ importers:
   packages/sats-wagmi:
     dependencies:
       '@gobob/sats-wagmi':
-        specifier: ^0.3.7
-        version: 0.3.7(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^0.3.9
+        version: 0.3.9(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1)
 
   packages/test-utils:
     dependencies:
@@ -3726,8 +3726,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@gobob/sats-wagmi@0.3.7(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-PGoGjnQMv5XsqgZIxdEZPqziCKoE2hWLHBPtB8pjRHKHPayUAZZR7rWvi/dEquOMkXOFvL0Nxpv0jgODabFXBQ==}
+  /@gobob/sats-wagmi@0.3.9(@tanstack/react-query@5.44.0)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-sR2OA6FsZEU44L1jNmfXMnrGS5Yu1EdSCl1oec1aeOp3hqT5FRUJgNf80DaPo9QAzZWO4AG7k9thDGDVwsyBYQ==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
       react: ^18.2.0
@@ -3739,7 +3739,6 @@ packages:
       '@scure/base': 1.1.7
       '@scure/btc-signer': 1.3.2
       '@tanstack/react-query': 5.44.0(react@18.3.1)
-      '@uidotdev/usehooks': 2.4.1(react-dom@18.3.1)(react@18.3.1)
       async-retry: 1.3.3
       bip32: 4.0.0
       bitcoin-address-validation: 2.2.3
@@ -3749,6 +3748,7 @@ packages:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       sats-connect: 1.4.1
+      usehooks-ts: 3.1.0(react@18.3.1)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -4424,7 +4424,7 @@ packages:
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.7
       '@types/debug': 4.1.12
-      debug: 4.3.7(supports-color@8.1.1)
+      debug: 4.3.7
       pony-cause: 2.1.11
       semver: 7.6.3
       uuid: 9.0.1
@@ -13020,6 +13020,18 @@ packages:
       ms: 2.1.2
       supports-color: 8.1.1
 
+  /debug@4.3.7:
+    resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.3
+    dev: false
+
   /debug@4.3.7(supports-color@8.1.1):
     resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
     engines: {node: '>=6.0'}
@@ -13996,7 +14008,7 @@ packages:
         optional: true
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
-      debug: 4.3.5(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
       enhanced-resolve: 5.17.0
       eslint: 8.57.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.13.0)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)

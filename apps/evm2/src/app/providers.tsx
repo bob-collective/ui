@@ -15,9 +15,7 @@ export function Providers({ children }: PropsWithChildren) {
     <WagmiProvider isProd={isProd}>
       <QueryClientProvider client={queryClient}>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-        {/* <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}> */}
         <NestedProviders>{children}</NestedProviders>
-        {/* </SatsWagmiConfig> */}
       </QueryClientProvider>
     </WagmiProvider>
   );
