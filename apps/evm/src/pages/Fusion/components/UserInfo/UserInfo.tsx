@@ -53,7 +53,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const navigate = useNavigate();
   const [, copy] = useCopyToClipboard();
 
-  const { data: tvlLevel } = useQuery({
+  const { data: tvlLevel, isLoading: isLoadingTvlLevel } = useQuery({
     queryKey: fusionKeys.tvlLevel(),
     queryFn: () => apiClient.getLevelData(),
     refetchInterval: INTERVAL.MINUTE,
@@ -75,7 +75,12 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   const totalPoints = user?.season3Data.s3LeaderboardData[0].total_points || 0;
 
-  const currentLevelTvlGoal = tvlLevel?.tvlGoal ? Number(tvlLevel?.tvlGoal) : 0;
+  const currentTvl = Number(tvlLevel?.currentTvl || 0);
+  const currentLevelTvlGoal = isLoadingTvlLevel
+    ? 0
+    : tvlLevel?.tvlGoal
+      ? Number(tvlLevel.tvlGoal)
+      : currentTvl + currentTvl * 0.2;
 
   return (
     <StyledUserInfoWrapper direction='column' marginTop='4xl'>
@@ -188,26 +193,35 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         </UserInfoCard>
         <StyledMeterCard gap='s' justifyContent='space-between'>
           <Flex direction='column' gap='md'>
-            {tvlLevel ? (
+            {isLoadingTvlLevel ? (
+              <Flex direction='column'>
+                <Skeleton height='3xl' width='10xl' />
+                <Skeleton count={2} marginTop='s' />
+              </Flex>
+            ) : tvlLevel?.levelName ? (
               <>
                 <Dt color='light' size='2xl'>
-                  {tvlLevel?.levelName}{' '}
+                  {tvlLevel.levelName}{' '}
                   <Tooltip label={tvlLevel.levelHelperText}>
                     <SolidInformationCircle color='grey-50' size='s' />
                   </Tooltip>
                 </Dt>
                 <Span color='grey-50' size='s'>
-                  {tvlLevel?.levelDescription}
+                  {tvlLevel.levelDescription}
                 </Span>
               </>
             ) : (
-              <Flex direction='column'>
-                <Skeleton height='3xl' width='10xl' />
-                <Skeleton count={2} marginTop='s' />
-              </Flex>
+              <>
+                <Dt color='light' size='2xl'>
+                  BOB TVL Progress
+                </Dt>
+                <Span color='grey-50' size='s'>
+                  No new goal at the moment. Stay tuned for updates!
+                </Span>
+              </>
             )}
           </Flex>
-          <Barometer maxValue={currentLevelTvlGoal} value={tvlLevel !== undefined ? Number(tvlLevel?.currentTvl) : 0} />
+          <Barometer maxValue={currentLevelTvlGoal} showGoal={!!tvlLevel?.tvlGoal} value={currentTvl} />
         </StyledMeterCard>
       </StyledDl>
       {!isAuthenticated && (
