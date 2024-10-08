@@ -15,15 +15,11 @@ import {
   Span,
   Tooltip
 } from '@gobob/ui';
-import { useCopyToClipboard, useSessionStorage } from '@uidotdev/usehooks';
+import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { LoginSection, SpiceAmount } from '../../../../components';
-import { RoutesPath } from '../../../../constants';
-import { fusionKeys } from '../../../../lib/react-query';
-import { apiClient, QuestS3Response, UserResponse } from '../../../../utils';
-import { AppData } from '../../../apps/hooks';
+import { AppData } from '../../../_apps/hooks';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -42,6 +38,10 @@ import {
 import { UserInfoCard } from './UserInfoCard';
 import { UserReferralModal } from './UserReferralModal';
 
+import { LoginSection, SpiceAmount } from '@/components';
+import { isClient, RoutesPath } from '@/constants';
+import { fusionKeys } from '@/lib/react-query';
+import { apiClient, QuestS3Response, UserResponse } from '@/utils';
 import { SessionStorageKey } from '@/types';
 
 type UserInfoProps = {
@@ -53,7 +53,9 @@ type UserInfoProps = {
 
 const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const router = useRouter();
-  const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false);
+  const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
+    initializeWithValue: isClient
+  });
   const [, copy] = useCopyToClipboard();
 
   const { data: tvlLevel } = useQuery({

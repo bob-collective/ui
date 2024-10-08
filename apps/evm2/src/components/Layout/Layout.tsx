@@ -1,3 +1,5 @@
+'use client';
+
 import { HTMLAttributes } from 'react';
 
 import { StyledLayout } from './Layout.style';

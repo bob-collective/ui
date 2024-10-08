@@ -11,7 +11,7 @@ import Big from 'big.js';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useSessionStorage } from '@uidotdev/usehooks';
+import { useSessionStorage } from 'usehooks-ts';
 
 import { ReceiveTokenModal } from '../ReceiveTokenModal';
 import { SendTokenModal } from '../SendTokenModal';
@@ -19,7 +19,7 @@ import { SendTokenModal } from '../SendTokenModal';
 import { ButtonGroup } from './ButtonGroup';
 
 import { ChainLogo, ChainLogoProps } from '@/components';
-import { L2_CHAIN, RoutesPath } from '@/constants';
+import { isClient, L2_CHAIN, RoutesPath } from '@/constants';
 import { TokenData, useBalances, useTokens } from '@/hooks';
 import { SessionStorageKey } from '@/types/session-storage';
 
@@ -93,7 +93,9 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   const t = useTranslations();
 
   const router = useRouter();
-  const setTicker = useSessionStorage<string | undefined>(SessionStorageKey.TICKER, undefined)[1];
+  const setTicker = useSessionStorage<string | undefined>(SessionStorageKey.TICKER, undefined, {
+    initializeWithValue: isClient
+  })[1];
 
   const [sendModal, setSendModalState] = useState<{ isOpen: boolean; token?: TokenData | 'btc' }>({ isOpen: false });
   const [receiveModal, setReceiveModalState] = useState<{ isOpen: boolean; token?: TokenData | 'btc' }>({

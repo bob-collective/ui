@@ -1,33 +1,33 @@
 'use client';
 
-import { useAccount } from '@gobob/wagmi';
-import { useLocalStorage, useSessionStorage } from '@uidotdev/usehooks';
-import { useEffect, useId, useState } from 'react';
 import { Flex, H1, Link, P } from '@gobob/ui';
+import { useAccount } from '@gobob/wagmi';
+import { useEffect, useId, useState } from 'react';
+import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
 import { Geoblock } from '../../components';
-import { LocalStorageKey } from '../../constants';
-import { useGetApps } from '../apps/hooks';
+import { isClient, LocalStorageKey } from '../../constants';
+import { useGetApps } from '../_apps/hooks';
 
 import {
-  Quest,
   CommunityVoting,
   Leaderboard,
+  Quest,
   Strategies,
   UserInfo,
   WelcomeBackModal,
   WelcomeModal
 } from './components';
-import { useGetQuests } from './hooks';
 import {
   StyledBackground,
   StyledBgDots,
-  StyledMain,
-  StyledHeroSectionWrapper,
-  StyledHeroSection,
   StyledContent,
+  StyledHeroSection,
+  StyledHeroSectionWrapper,
+  StyledMain,
   StyledStrategiesWrapper
 } from './Fusion.style';
+import { useGetQuests } from './hooks';
 
 import { useGetUser } from '@/hooks';
 import { SessionStorageKey } from '@/types';
@@ -40,14 +40,20 @@ const Fusion = () => {
 
   const questsSectionId = useId();
 
-  const [scrollQuests, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false);
+  const [scrollQuests, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
+    initializeWithValue: isClient
+  });
 
   const [isHideFusionWelcomeBackModal, setHideFusionWelcomeBackModal] = useLocalStorage<boolean>(
-    LocalStorageKey.HIDE_FUSION_WELCOME_BACK_MODAL
+    LocalStorageKey.HIDE_FUSION_WELCOME_BACK_MODAL,
+    false,
+    { initializeWithValue: isClient }
   );
 
   const [isHideFusionWelcomeModal, setHideFusionWelcomeModal] = useLocalStorage<boolean>(
-    LocalStorageKey.HIDE_FUSION_WELCOME_MODAL
+    LocalStorageKey.HIDE_FUSION_WELCOME_MODAL,
+    false,
+    { initializeWithValue: isClient }
   );
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);

@@ -24,7 +24,6 @@ const nextConfig = {
       }
     ];
   },
-  // reactStrictMode: true,
   webpack: (config) => {
     config.externals.push('pino-pretty', 'encoding');
 
@@ -32,6 +31,4 @@ const nextConfig = {
   }
 };
 
-export default withSentryConfig(withNextIntl(nextConfig), {
-  hideSourceMaps: true
-});
+export default withSentryConfig(withNextIntl(nextConfig));

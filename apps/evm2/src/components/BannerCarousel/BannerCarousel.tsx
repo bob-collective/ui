@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 import { HTMLAttributes, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSessionStorage } from '@uidotdev/usehooks';
+import { useSessionStorage } from 'usehooks-ts';
 
 import { EcosystemBanner } from './EcosystemBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
@@ -16,7 +16,7 @@ import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
 
 import { FeatureFlags, useFeatureFlag } from '@/hooks';
-import { RoutesPath } from '@/constants';
+import { isClient, RoutesPath } from '@/constants';
 import { SessionStorageKey } from '@/types';
 
 function NextArrow(props: Pick<HTMLAttributes<HTMLButtonElement>, 'className' | 'style' | 'onClick'>) {
@@ -59,8 +59,12 @@ const BannerCarousel = () => {
   const router = useRouter();
 
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
-  const setScrollEcosystem = useSessionStorage(SessionStorageKey.SCROLL_ECOSYSTEM, false)[1];
-  const setBridgeToBtc = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false)[1];
+  const setScrollEcosystem = useSessionStorage(SessionStorageKey.SCROLL_ECOSYSTEM, false, {
+    initializeWithValue: isClient
+  })[1];
+  const setBridgeToBtc = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
+    initializeWithValue: isClient
+  })[1];
 
   const onPressEcosystemBanner = useCallback(
     () => {

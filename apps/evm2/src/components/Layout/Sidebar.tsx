@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Flex, XMark, useMediaQuery } from '@gobob/ui';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'styled-components';

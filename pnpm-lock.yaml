@@ -451,6 +451,9 @@ importers:
       use-count-up:
         specifier: ^3.0.1
         version: 3.0.1(react@18.3.1)
+      usehooks-ts:
+        specifier: ^3.1.0
+        version: 3.1.0(react@18.3.1)
       viem:
         specifier: ^2.10.2
         version: 2.13.8(typescript@5.4.5)(zod@3.23.8)
@@ -23027,6 +23030,16 @@ packages:
     peerDependencies:
       react: ^18.2.0
     dependencies:
+      react: 18.3.1
+    dev: false
+
+  /usehooks-ts@3.1.0(react@18.3.1):
+    resolution: {integrity: sha512-bBIa7yUyPhE1BCc0GmR96VU/15l/9gP1Ch5mYdLcFBaFGQsdmXkvjV0TtOqW1yUd6VjIwDunm+flSciCQXujiw==}
+    engines: {node: '>=16.15.0'}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      lodash.debounce: 4.0.8
       react: 18.3.1
     dev: false
 

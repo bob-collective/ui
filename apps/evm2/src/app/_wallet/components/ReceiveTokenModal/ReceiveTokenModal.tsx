@@ -16,7 +16,7 @@ import { BITCOIN } from '@gobob/tokens';
 import QRCode from 'react-qr-code';
 import { useAccount } from '@gobob/wagmi';
 import { useAccount as useSatsWagmi } from '@gobob/sats-wagmi';
-import { useCopyToClipboard } from '@uidotdev/usehooks';
+import { useCopyToClipboard } from 'usehooks-ts';
 
 import { TokenData } from '@/hooks';
 

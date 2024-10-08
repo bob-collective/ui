@@ -2,15 +2,15 @@
 
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { Tabs, TabsItem } from '@gobob/ui';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useSessionStorage } from '@uidotdev/usehooks';
+import { useSessionStorage } from 'usehooks-ts';
 
 import { StyledCard, StyledFlex } from './Bridge.style';
 import { BannerCarousel, BridgeForm, TransactionList } from './components';
 
 import { Main } from '@/components';
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { isClient, L1_CHAIN, L2_CHAIN } from '@/constants';
 import { SessionStorageKey } from '@/types/session-storage';
 
 enum BridgeOrigin {
@@ -98,8 +98,12 @@ const Bridge = () => {
     }
   }, [type, chain, searchParams, router]);
 
-  const [bridgeToBtc, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false);
-  const [ticker] = useSessionStorage(SessionStorageKey.TICKER, undefined);
+  const [bridgeToBtc, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
+    initializeWithValue: isClient
+  });
+  const [ticker] = useSessionStorage(SessionStorageKey.TICKER, undefined, {
+    initializeWithValue: isClient
+  });
 
   useEffect(() => {
     if (bridgeToBtc) {

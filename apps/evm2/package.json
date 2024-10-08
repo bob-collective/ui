@@ -49,6 +49,7 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.0.8",
     "use-count-up": "^3.0.1",
+    "usehooks-ts": "^3.1.0",
     "viem": "^2.10.2",
     "yup": "^0.32.11"
   },

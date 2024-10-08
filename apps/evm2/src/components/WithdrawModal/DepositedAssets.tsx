@@ -1,3 +1,5 @@
+'use client';
+
 import { ERC20Token } from '@gobob/currency';
 import { NATIVE } from '@gobob/tokens';
 import {
