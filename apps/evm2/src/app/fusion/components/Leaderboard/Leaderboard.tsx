@@ -5,7 +5,7 @@ import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
 
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
-import { Medal } from '../../../_apps/components/Medal';
+import { Medal } from '../../../apps/components/Medal';
 
 import { StyledQuestList, StyledSkeletonWrapper } from './Leaderboard.style';
 

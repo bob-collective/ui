@@ -19,7 +19,7 @@ import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { AppData } from '../../../_apps/hooks';
+import { AppData } from '../../../apps/hooks';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';

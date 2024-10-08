@@ -8,6 +8,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true
   },
+  productionBrowserSourceMaps: true,
   async rewrites() {
     return [
       {

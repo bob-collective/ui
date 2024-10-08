@@ -7,7 +7,7 @@ import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
 import { Geoblock } from '../../components';
 import { isClient, LocalStorageKey } from '../../constants';
-import { useGetApps } from '../_apps/hooks';
+import { useGetApps } from '../apps/hooks';
 
 import {
   CommunityVoting,
