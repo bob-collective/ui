@@ -171,9 +171,11 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           tooltipLabel='Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer'
         >
           <Flex gap='md' marginTop='xl'>
-            <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
-              <Bars3 />
-            </Button>
+            {hasReferrals && (
+              <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
+                <Bars3 />
+              </Button>
+            )}
             <Button
               fullWidth
               disabled={!isAuthenticated}
