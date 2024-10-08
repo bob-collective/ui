@@ -19,7 +19,7 @@ import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LoginSection, SpiceAmount } from '../../../../components';
+import { LoginSection, SignUpButton, SpiceAmount } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
 import { fusionKeys } from '../../../../lib/react-query';
 import { apiClient, QuestS3Response, UserResponse } from '../../../../utils';
@@ -163,21 +163,19 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         <UserInfoCard
           description={user?.referral_code}
           title='Your Referral Code'
-          tooltipLabel='Share this code with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer'
+          tooltipLabel='Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer'
         >
           <Flex gap='md' marginTop='xl'>
-            {hasReferrals && (
-              <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
-                <Bars3 />
-              </Button>
-            )}
+            <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
+              <Bars3 />
+            </Button>
             <Button
               fullWidth
               disabled={!isAuthenticated}
               variant='outline'
-              onPress={() => copy(user?.referral_code || '')}
+              onPress={() => copy(`${window.location.href}?refCode=${user?.referral_code || ''}`)}
             >
-              Copy <StyledSolidDocumentDuplicate size='xs' />
+              Copy referral URL <StyledSolidDocumentDuplicate size='xs' />
             </Button>
           </Flex>
           {user && hasReferrals && (
@@ -224,9 +222,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               <P align='center' color='grey-50' size='s'>
                 Grab the final opportunity to harvest Spice. Join Season 3.
               </P>
-              <Button asChild color='primary' elementType={Link} size='xl' {...{ href: RoutesPath.SIGN_UP }}>
+              <SignUpButton color='primary' size='xl'>
                 Start Harvesting Spice
-              </Button>
+              </SignUpButton>
               <LoginSection direction={{ base: 'column', s: 'row' }} />
             </StyledLoginCard>
           </StyledOverlay>
