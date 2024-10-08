@@ -13,6 +13,7 @@ import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
+import { BinanceCampaignBanner } from './BinanceCampaignBanner';
 
 function NextArrow(props: any) {
   const { className, style, onClick } = props;
@@ -77,6 +78,7 @@ const BannerCarousel = () => {
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
         <XBanner onPress={onPressXBanner} />
+        <BinanceCampaignBanner onPress={onPressXBanner} />
         <FusionBanner onPress={onPressFusionBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledSlider>
