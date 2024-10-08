@@ -3,8 +3,9 @@ import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Button } from '@gobob/ui';
 import { useConnectModal } from '@gobob/connect-ui';
 import { mergeProps } from '@react-aria/utils';
+import { ChainId } from '@gobob/chains';
 
-import { L1_CHAIN, isValidChain } from '../../constants';
+import { L1_CHAIN, L2_CHAIN, isValidChain } from '../../constants';
 import { useGetUser, useLogin } from '../../hooks';
 
 type Props = {};
@@ -34,7 +35,20 @@ const LoginButton = (props: LoginButtonProps): JSX.Element => {
 
   const handlePress = async () => {
     if (!address) {
-      return open();
+      return open({
+        onConnectEvm: async ({ address, connector }) => {
+          if (!address) return;
+          if (!isValidChain((await connector?.getChainId()) as ChainId)) {
+            const chain = await connector?.switchChain?.({ chainId: L2_CHAIN });
+
+            if (!chain) {
+              return toast.error('Something went wrong. Please try connecting your wallet again.');
+            }
+          }
+
+          return login(address);
+        }
+      });
     }
 
     if (!chain || (chain && !isValidChain(chain?.id))) {
