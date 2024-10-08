@@ -74,11 +74,17 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressBinanceCampaignBanner = useCallback(
+    () => window.open('https://www.binance.com/en/activity/mission/bob-campaign', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
         <XBanner onPress={onPressXBanner} />
-        <BinanceCampaignBanner onPress={onPressXBanner} />
+        <BinanceCampaignBanner onPress={onPressBinanceCampaignBanner} />
         <FusionBanner onPress={onPressFusionBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledSlider>
