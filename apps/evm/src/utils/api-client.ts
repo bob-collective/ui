@@ -352,6 +352,8 @@ export interface TokenInfo {
   l2_address: string;
   multiplier: string;
   latest_price_in_usd: string;
+  logos: string[];
+  incentives: string[];
 }
 
 export interface QuestS3Response {

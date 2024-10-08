@@ -1,4 +1,17 @@
-import { Flex, H3, Modal, ModalBody, ModalHeader, ModalProps, P, Skeleton, Span, Table, useLocale } from '@gobob/ui';
+import {
+  Avatar,
+  Flex,
+  H3,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalProps,
+  P,
+  Skeleton,
+  Span,
+  Table,
+  useLocale
+} from '@gobob/ui';
 import { ReactNode, useCallback, useId } from 'react';
 import { Address, isAddressEqual } from 'viem';
 
@@ -11,17 +24,27 @@ const yieldAssetsAddresses = [
   '0x1fcca65fb6ae3b2758b9b2b394cb227eae404e1e'
 ];
 
+const freaturedAssetsAddresses = ['0xc96de26018a54d51c097160568752c4e3bd6c364'];
+
 const BASE_MULTIPLIER = 0.5;
 const LEDING_MULTIPLIER = 1.5;
 const DEX_MULTIPLIER = 5;
 
-const AssetCell = ({ name }: { name: string }) => <Span size='inherit'>{name}</Span>;
+const AssetCell = ({ name, logo }: { name: string; logo?: string }) => (
+  <Flex alignItems='center' gap='s'>
+    {logo && <Avatar alt={name} size='xl' src={logo} />}
+    <Span size='inherit'>{name}</Span>
+  </Flex>
+);
+
+const RewardsCell = ({ incentives }: { incentives: string[] }) => <Span size='inherit'>{incentives.join(' + ')}</Span>;
 
 enum TableColumns {
   ASSET = 'asset',
   HOLDING = 'holding',
   LENDING = 'lending',
-  DEX = 'DEX'
+  DEX = 'DEX',
+  REWARDS = 'REWARDS'
 }
 
 type TableRow = {
@@ -30,10 +53,11 @@ type TableRow = {
   [TableColumns.HOLDING]: ReactNode;
   [TableColumns.LENDING]: ReactNode;
   [TableColumns.DEX]: ReactNode;
+  [TableColumns.REWARDS]: ReactNode;
 };
 
 const columns = [
-  { id: TableColumns.ASSET, width: 160, name: 'Asset' },
+  { id: TableColumns.ASSET, minWidth: 140, name: 'Asset' },
   { id: TableColumns.HOLDING, name: 'Holding' },
   {
     id: TableColumns.LENDING,
@@ -48,6 +72,15 @@ const columns = [
     name: (
       <Span noWrap size='inherit' weight='inherit'>
         DEX *
+      </Span>
+    )
+  },
+  {
+    id: TableColumns.REWARDS,
+    minWidth: 250,
+    name: (
+      <Span noWrap size='inherit' weight='inherit'>
+        Rewards
       </Span>
     )
   }
@@ -69,12 +102,23 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
   const baseAssetId = useId();
 
   const getRow = useCallback(
-    (item: Pick<TokenInfo, 'symbol' | 'multiplier'>, idx: number): TableRow => ({
+    (item: TokenInfo, idx: number): TableRow => ({
       id: idx,
-      [TableColumns.ASSET]: <AssetCell name={item.symbol} />,
+      [TableColumns.ASSET]: <AssetCell logo={item.logos[0]} name={item.symbol} />,
       [TableColumns.HOLDING]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(Number(item.multiplier || 0) * BASE_MULTIPLIER)}x`,
-      [TableColumns.LENDING]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(Number(item.multiplier || 0) * LEDING_MULTIPLIER)}x`,
-      [TableColumns.DEX]: `${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(Number(item.multiplier || 0) * DEX_MULTIPLIER)}x`
+      [TableColumns.LENDING]: (
+        <Span
+          color='yellow-500'
+          size='inherit'
+        >{`${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(Number(item.multiplier || 0) * LEDING_MULTIPLIER)}x`}</Span>
+      ),
+      [TableColumns.DEX]: (
+        <Span
+          color='green-500'
+          size='inherit'
+        >{`${Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(Number(item.multiplier || 0) * DEX_MULTIPLIER)}x`}</Span>
+      ),
+      [TableColumns.REWARDS]: item.incentives ? <RewardsCell incentives={item.incentives} /> : undefined
     }),
     [locale]
   );
@@ -100,7 +144,8 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
           [TableColumns.ASSET]: <Skeleton width='4xl' />,
           [TableColumns.HOLDING]: <Skeleton width='4xl' />,
           [TableColumns.LENDING]: <Skeleton width='4xl' />,
-          [TableColumns.DEX]: <Skeleton width='4xl' />
+          [TableColumns.DEX]: <Skeleton width='4xl' />,
+          [TableColumns.REWARDS]: <Skeleton width='4xl' />
         }));
 
   const yieldAssetsRows = sortedData
@@ -116,15 +161,29 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
           [TableColumns.ASSET]: <Skeleton width='4xl' />,
           [TableColumns.HOLDING]: <Skeleton width='4xl' />,
           [TableColumns.LENDING]: <Skeleton width='4xl' />,
-          [TableColumns.DEX]: <Skeleton width='4xl' />
+          [TableColumns.DEX]: <Skeleton width='4xl' />,
+          [TableColumns.REWARDS]: <Skeleton width='4xl' />
         }));
 
-  const featuredAssetsRows = [
-    getRow({ multiplier: sortedData?.find((item) => item.symbol === 'FBTC')?.multiplier || '0', symbol: 'FBTC' }, 0)
-  ];
+  const featuredAssetsRows = sortedData
+    ? sortedData
+        ?.filter((item) =>
+          freaturedAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
+        )
+        .map(getRow)
+    : Array(2)
+        .fill(undefined)
+        .map((_, idx) => ({
+          id: idx,
+          [TableColumns.ASSET]: <Skeleton width='4xl' />,
+          [TableColumns.HOLDING]: <Skeleton width='4xl' />,
+          [TableColumns.LENDING]: <Skeleton width='4xl' />,
+          [TableColumns.DEX]: <Skeleton width='4xl' />,
+          [TableColumns.REWARDS]: <Skeleton width='4xl' />
+        }));
 
   return (
-    <Modal {...props} size='xl'>
+    <Modal {...props} size='3xl'>
       <ModalHeader showDivider align='start'>
         Multipliers
       </ModalHeader>
@@ -132,23 +191,38 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
         <P color='grey-50'>
           Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest.
         </P>
-        <Flex direction='column' gap='md'>
+        <Flex direction='column' flex={1} gap='md'>
           <H3 id={featuredAssetId} size='md'>
             Featured Assets
           </H3>
-          <Table removeWrapper aria-labelledby={featuredAssetId} columns={columns} rows={featuredAssetsRows} />
+          <Table
+            aria-labelledby={featuredAssetId}
+            columns={columns}
+            rows={featuredAssetsRows}
+            wrapperProps={{ padding: 'none' }}
+          />
         </Flex>
-        <Flex direction='column' gap='md'>
+        <Flex direction='column' flex={1} gap='md'>
           <H3 id={yieldAssetId} size='md'>
             Yield Assets
           </H3>
-          <Table removeWrapper aria-labelledby={yieldAssetId} columns={columns} rows={yieldAssetsRows} />
+          <Table
+            aria-labelledby={yieldAssetId}
+            columns={columns}
+            rows={yieldAssetsRows}
+            wrapperProps={{ padding: 'none' }}
+          />
         </Flex>
-        <Flex direction='column' gap='md'>
+        <Flex direction='column' flex={1} gap='md'>
           <H3 id={baseAssetId} size='md'>
             Base Assets
           </H3>
-          <Table removeWrapper aria-labelledby={baseAssetId} columns={columns} rows={baseAssetsRows} />
+          <Table
+            aria-labelledby={baseAssetId}
+            columns={columns}
+            rows={baseAssetsRows}
+            wrapperProps={{ padding: 'none' }}
+          />
         </Flex>
         <P align='center' color='grey-50' size='xs'>
           * The multipliers displayed are subject to change based on the payout structure of the respective projects.
