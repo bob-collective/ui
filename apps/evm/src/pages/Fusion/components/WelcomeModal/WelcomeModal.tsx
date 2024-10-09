@@ -20,7 +20,7 @@ const WelcomeModal = ({ onClose, ...props }: WelcomeModalProps): JSX.Element => 
     <Modal {...props} size='lg'>
       <ModalBody gap='lg' padding='2xl'>
         <H3 size='3xl'>
-          {t('fusion.welcomeModal.subtitle')}
+          {t('fusion.welcomeModal.title')}
           <br />
           <Span color='primary-500' size='inherit'>
             {t('fusion.welcomeModal.subtitle')}
