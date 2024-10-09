@@ -1,6 +1,6 @@
 'use client';
 
-import { ConnectWallet } from '@gobob/connect-ui';
+import dynamic from 'next/dynamic';
 import {
   Bars3,
   Button,
@@ -27,6 +27,8 @@ import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 import { FusionPopover } from './FusionPopover';
+
+const ConnectWallet = dynamic(() => import('@gobob/connect-ui').then((mod) => mod.ConnectWallet), { ssr: false });
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 

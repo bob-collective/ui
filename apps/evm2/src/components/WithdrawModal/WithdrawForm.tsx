@@ -1,8 +1,10 @@
+'use client';
+
+import dynamic from 'next/dynamic';
 import { ChainId } from '@gobob/chains';
 import { useMutation } from '@gobob/react-query';
 import { USDT } from '@gobob/tokens';
 import { toast } from '@gobob/ui';
-import { AuthButton } from '@gobob/connect-ui';
 import { useAccount, usePublicClient, useWriteContract } from '@gobob/wagmi';
 import { P, Span } from '@gobob/ui';
 import { useMemo } from 'react';
@@ -11,6 +13,8 @@ import { isAddressEqual } from 'viem';
 
 import { ContractType, L1_CHAIN, contracts } from '@/constants';
 import { useLockedTokens } from '@/hooks';
+
+const AuthButton = dynamic(() => import('@gobob/connect-ui').then((mod) => mod.AuthButton), { ssr: false });
 
 type WithdrawFormProps = {
   isSmartAccount?: boolean;

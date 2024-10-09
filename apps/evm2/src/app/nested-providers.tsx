@@ -1,8 +1,7 @@
 'use client';
 
-import { ConnectProvider } from '@gobob/connect-ui';
+import dynamic from 'next/dynamic';
 import { usePrices, useQuery } from '@gobob/react-query';
-import { SatsWagmiConfig } from '@gobob/sats-wagmi';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P, toast } from '@gobob/ui';
 import { useAccount, useChainId, useConfig, useReconnect, useSwitchChain, watchAccount } from '@gobob/wagmi';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -10,11 +9,12 @@ import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { Chain } from 'viem';
 
 import { Header, Layout, Sidebar } from '@/components';
-import { bitcoinNetwork, isClient, isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
+import { isClient, isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
 import { useBalances, useGetUser, useLogin, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
 import { apiClient } from '@/utils';
-import { queryClient } from '@/lib/react-query';
+
+const ConnectProvider = dynamic(() => import('@gobob/connect-ui').then((mod) => mod.ConnectProvider), { ssr: false });
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
@@ -167,21 +167,19 @@ export function NestedProviders({ children }: PropsWithChildren) {
   }, [reconnect]);
 
   return (
-    <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}>
-      <StyledComponentsRegistry>
-        <BOBUIProvider navigate={router.push}>
-          <ConnectProvider type='both'>
-            <CSSReset />
-            <ScrollToTop />
-            <AuthCheck />
-            <Layout>
-              <Sidebar />
-              <Header />
-              {children}
-            </Layout>
-          </ConnectProvider>
-        </BOBUIProvider>
-      </StyledComponentsRegistry>
-    </SatsWagmiConfig>
+    <StyledComponentsRegistry>
+      <BOBUIProvider navigate={router.push}>
+        <ConnectProvider type='both'>
+          <CSSReset />
+          <ScrollToTop />
+          <AuthCheck />
+          <Layout>
+            <Sidebar />
+            <Header />
+            {children}
+          </Layout>
+        </ConnectProvider>
+      </BOBUIProvider>
+    </StyledComponentsRegistry>
   );
 }
