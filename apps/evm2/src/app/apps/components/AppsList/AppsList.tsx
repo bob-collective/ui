@@ -10,8 +10,6 @@ import { AppCard } from './AppCard';
 import { AppCardSkeleton } from './AppCardSkeleton';
 import { StyledGrid, StyledSkeletonsWrapper } from './AppsList.style';
 
-import { isClient } from '@/constants';
-
 type AppsListProps = {
   apps?: AppData[];
   isLoading?: boolean;
@@ -42,13 +40,10 @@ const AppsList = ({
   const [tabCategory, setTabCategory] = useState(searchParams.get('category') || ALL_APPS);
 
   useEffect(() => {
-    if (isClient) {
-      const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = new URLSearchParams(window.location.search);
 
-      searchParams.set('category', tabCategory);
-      router.replace('?' + searchParams);
-    }
-
+    searchParams.set('category', tabCategory);
+    router.replace('?' + searchParams);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabCategory]);
 
@@ -141,7 +136,7 @@ const AppsList = ({
                     userHarvest={isAuthenticated ? Number(app.userHarvest || 0) : undefined}
                     voting={app.voting}
                     onPress={() => {
-                      if (isClient) window.open(app.project_url, '_blank', 'noreferrer');
+                      window.open(app.project_url, '_blank', 'noreferrer');
                     }}
                     onVote={onVote}
                   />

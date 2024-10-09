@@ -9,7 +9,7 @@ import { ConnectProvider } from '@gobob/connect-ui';
 import { Chain } from 'viem';
 
 import { Header, Layout, Sidebar } from '@/components';
-import { isClient, isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
+import { isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
 import { useBalances, useGetUser, useLogin, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
 import { apiClient } from '@/utils';
@@ -143,7 +143,7 @@ const ScrollToTop = () => {
 
   // Automatically scrolls to top whenever pathname changes
   useEffect(() => {
-    if (isClient) window?.scrollTo(0, 0);
+    window?.scrollTo(0, 0);
   }, [pathname]);
 
   return null;
