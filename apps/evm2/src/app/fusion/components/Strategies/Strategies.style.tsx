@@ -3,10 +3,6 @@ import styled from 'styled-components';
 
 import { QuestRefCodes } from '../../../../utils';
 
-function getImageUrl(name: string) {
-  return new URL(`../../../../assets/${name}`, import.meta.url).href;
-}
-
 type StyledCardProps = {
   $isFeatured?: boolean;
   $questOwner?: QuestRefCodes;
@@ -19,7 +15,7 @@ const StyledBannerWrapper = styled(Flex)`
 const StyledBanner = styled(Flex)`
   position: absolute;
   inset: 0;
-  background-image: url(${getImageUrl('spice-shape-background.jpg')});
+  background-image: url(/assets/spice-shape-background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;

@@ -1,5 +1,5 @@
 function getImageUrl(name: string) {
-  return `./assets/partners/${name.split(' ').join('').toLowerCase()}.png`;
+  return `/assets/partners/${name.split(' ').join('').toLowerCase()}.png`;
 }
 
 const fallbackImg = '/assets/spice-shape-background.jpg';

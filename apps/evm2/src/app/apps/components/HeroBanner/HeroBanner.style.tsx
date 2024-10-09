@@ -1,14 +1,10 @@
 import { Card, Flex, P, UnstyledButton } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 
-function getImageUrl(name: string) {
-  return new URL(`../../../../assets/${name}`, import.meta.url).href;
-}
-
 const StyledCard = styled(Card)`
   position: relative;
 
-  background-image: url(${getImageUrl('apps-leaderboard-hero.png')});
+  background-image: url(/assets/apps-leaderboard-hero.png);
   background-repeat: no-repeat;
   background-size: cover;
 

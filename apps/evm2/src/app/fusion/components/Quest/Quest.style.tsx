@@ -2,13 +2,9 @@ import { Intract } from '@gobob/icons';
 import { Card } from '@gobob/ui';
 import styled from 'styled-components';
 
-function getImageUrl(name: string) {
-  return new URL(`../../../../assets/${name}`, import.meta.url).href;
-}
-
 const StyledCard = styled(Card)`
   position: relative;
-  background-image: url(${getImageUrl('welcome-season-3.jpg')});
+  background-image: url(/assets/welcome-season-3.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
