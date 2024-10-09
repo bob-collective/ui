@@ -96,7 +96,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
                 <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
                   (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}
-                  {t('fusion.userInfo.barometer.daySuffix')})
+                  {t('fusion.userInfo.daySuffix')})
                 </Flex>
               </Flex>
             </DlGroup>
