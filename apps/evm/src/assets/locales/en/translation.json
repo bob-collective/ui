@@ -33,7 +33,69 @@
       "cta": "View Quests"
     },
     "strategies": {},
-    "userInfo": {},
+    "userInfo": {
+      "harvestedSpice": "Season 3 Harvested Spice",
+      "daySuffix": "/Day",
+      "completedSpice": "Season 1 & 2 Total Spice (Completed):",
+      "viewMultipliersCta": "View Multipliers",
+      "bridgeAssetsCta": "Bridge Assets",
+      "cards": {
+        "apps": {
+          "title": "Apps Used",
+          "tooltip": "The number of BOB ecosystem apps that you have harvested Spice with",
+          "cta": "Use Apps"
+        },
+        "quests": {
+          "title": "Quests Completed",
+          "tooltip": "The number of Intract and Galxe quests that you have completed'",
+          "cta": "View Quests"
+        },
+        "referrals": {
+          "title": "Your Referral Code",
+          "tooltip": "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer'",
+          "cta": "Copy referral URL"
+        }
+      },
+      "tvlFallback": {
+        "title": "BOB TVL Progress",
+        "description": "No new goal at the moment. Stay tuned for updates!"
+      },
+      "login": {
+        "title": "Log in to View Dashboard",
+        "description": "Grab the final opportunity to harvest Spice. Join Season 3.",
+        "cta": "Start Harvesting Spice",
+        "alreadyHarvesting": "Already Harvesting?",
+        "alreadyHarvestingCta": "Login with wallet"
+      },
+      "userReferralModal": {
+        "title": "Your Active Referrals",
+        "description": "Here are your active referrals and the Spice they&apos;re currently earning for you. The more they earn, the more you benefit!",
+        "referralSpice": "Total Referrals Earnings"
+      },
+      "barometer": {
+        "tvlLabel": "TVL"
+      },
+      "multipliersModal": {
+        "title": "Multipliers",
+        "description": "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest.",
+        "columns": {
+          "asset": "Asset",
+          "holding": "Holding",
+          "lending": "Lending, Restaking, CDP *",
+          "dex": "DEX *"
+        },
+        "sections": {
+          "featured": "Featured Assets",
+          "yield": "Yield Assets",
+          "base": "Base Assets"
+        },
+        "disclaimer": "* The multipliers displayed are subject to change based on the payout structure of the respective projects."
+      },
+      "usedAppsModal": {
+        "title": "Spice Earned Across Apps",
+        "description": "Below is the Spice you've harvested from apps. Keep participating to increase your future harvest!"
+      }
+    },
     "welcomeBackModal": {},
     "welcomeModal": {}
   },
