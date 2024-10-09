@@ -4,7 +4,7 @@ import { usePrices, useQuery } from '@gobob/react-query';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P, toast } from '@gobob/ui';
 import { useAccount, useChainId, useConfig, useReconnect, useSwitchChain, watchAccount } from '@gobob/wagmi';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 import { ConnectProvider } from '@gobob/connect-ui';
 import { Chain } from 'viem';
 
@@ -170,7 +170,9 @@ export function NestedProviders({ children }: PropsWithChildren) {
         <ConnectProvider type='both'>
           <CSSReset />
           <ScrollToTop />
-          <AuthCheck />
+          <Suspense>
+            <AuthCheck />
+          </Suspense>
           <Layout>
             <Sidebar />
             <Header />

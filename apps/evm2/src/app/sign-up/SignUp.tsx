@@ -5,7 +5,7 @@ import { useConnectModal } from '@gobob/connect-ui';
 import { useMutation } from '@gobob/react-query';
 import { Button, Divider, Flex, P, toast } from '@gobob/ui';
 import { useAccount, useSignMessage, useSwitchChain } from '@gobob/wagmi';
-import { FormEventHandler, useEffect, useState } from 'react';
+import { FormEventHandler, Suspense, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { SiweMessage } from 'siwe';
@@ -148,12 +148,16 @@ const SignUp = (): JSX.Element | null => {
             </Flex>
             <Flex direction='column' gap='4xl' paddingX={{ base: 'none', md: '4xl' }}>
               <Flex direction='column' elementType='form' gap='s' onSubmit={handleSubmit}>
-                <ReferralInput
-                  errorMessage={
-                    referralCodeError ? 'Invalid referral code. You can try again, or proceed without one.' : undefined
-                  }
-                  onChange={handleChange}
-                />
+                <Suspense>
+                  <ReferralInput
+                    errorMessage={
+                      referralCodeError
+                        ? 'Invalid referral code. You can try again, or proceed without one.'
+                        : undefined
+                    }
+                    onChange={handleChange}
+                  />
+                </Suspense>
                 <Button
                   color='primary'
                   loading={isPendingValidateReferralCode || isLoadingSignUp}

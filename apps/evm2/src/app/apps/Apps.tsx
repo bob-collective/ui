@@ -9,7 +9,11 @@ import { useGetPodiumData } from './hooks/useGetPodiumData';
 import { Main } from '@/components';
 import { useGetUser } from '@/hooks';
 
-const Apps = () => {
+interface Props {
+  searchParams: { category: string };
+}
+
+const Apps = ({ searchParams }: Props) => {
   const { data: votingAppsData, isLoading: isLoadingVotingApps } = useGetVotingApps();
 
   const { data: apps, isLoading: isLoadingApps } = useGetApps();
@@ -46,6 +50,7 @@ const Apps = () => {
           isLoading={isLoadingApps}
           isVotingDisabled={!user}
           isVotingExceeded={votingAppsData && votingAppsData.votesRemaining <= 0}
+          searchParams={searchParams}
           onVote={handleVote}
         />
       </Main>

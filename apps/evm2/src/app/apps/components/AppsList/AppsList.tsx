@@ -1,8 +1,8 @@
 'use client';
 
 import { Flex, H2, H3, Skeleton, Tabs, TabsItem } from '@gobob/ui';
-import { useEffect, useId, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useId, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { AppData, VotingAppData } from '../../hooks';
 
@@ -17,6 +17,7 @@ type AppsListProps = {
   isAuthenticated: boolean;
   isVotingDisabled?: boolean;
   isVotingExceeded?: boolean;
+  searchParams: { category: string };
 };
 
 const ALL_APPS = 'all';
@@ -29,26 +30,24 @@ const AppsList = ({
   isAuthenticated,
   isVotingDisabled,
   isVotingExceeded,
-  onVote
+  onVote,
+  searchParams
 }: AppsListProps): JSX.Element => {
   const router = useRouter();
 
   const headerId = useId();
 
-  const searchParams = useSearchParams();
-
-  const [tabCategory, setTabCategory] = useState(searchParams.get('category') || ALL_APPS);
+  const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
+  const [tabCategory, setTabCategory] = useState(urlSearchParams.get('category') || ALL_APPS);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-
-    searchParams.set('category', tabCategory);
-    router.replace('?' + searchParams);
+    urlSearchParams.set('category', tabCategory);
+    router.replace('?' + urlSearchParams);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabCategory]);
 
   useEffect(() => {
-    if (!searchParams.get('category')) return;
+    if (!urlSearchParams.get('category')) return;
 
     document.getElementById(headerId)?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
     // eslint-disable-next-line react-hooks/exhaustive-deps

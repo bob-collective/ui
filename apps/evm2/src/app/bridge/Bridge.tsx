@@ -2,7 +2,7 @@
 
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { Tabs, TabsItem } from '@gobob/ui';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSessionStorage } from 'usehooks-ts';
 
@@ -23,16 +23,20 @@ enum Type {
   Withdraw = 'withdraw'
 }
 
-const Bridge = () => {
+interface Props {
+  searchParams: { type: Type; network: string };
+}
+
+const Bridge = ({ searchParams }: Props) => {
   const location = usePathname();
-  const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [type, setType] = useState((searchParams?.get('type') as Type) || Type.Deposit);
+  const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
+  const [type, setType] = useState((urlSearchParams.get('type') as Type) || Type.Deposit);
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.Internal);
 
   const initialChain = useMemo(() => {
-    const network = searchParams?.get('network');
+    const network = urlSearchParams.get('network');
 
     if (!network) {
       return L1_CHAIN;
@@ -84,19 +88,15 @@ const Bridge = () => {
   useEffect(() => {
     const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
 
-    if (searchParams) {
-      const urlSearchParams = new URLSearchParams(searchParams);
+    urlSearchParams.set('type', type);
+    urlSearchParams.set('network', network);
 
-      urlSearchParams.set('type', type);
-      urlSearchParams.set('network', network);
-
-      if (chain !== 'BTC') {
-        urlSearchParams.delete('receive');
-      }
-
-      router.replace('?' + urlSearchParams);
+    if (chain !== 'BTC') {
+      urlSearchParams.delete('receive');
     }
-  }, [type, chain, searchParams, router]);
+
+    router.replace('?' + urlSearchParams);
+  }, [type, chain, urlSearchParams, router]);
 
   const [bridgeToBtc, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
     initializeWithValue: isClient
