@@ -6,6 +6,9 @@
     "home": "Take 'em home"
   },
   "fusion": {
+    "title": "BOB Fusion: The Final Season",
+    "description": "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events",
+    "cta": "Learn More",
     "communityVoting": {
       "title": "Community Voting",
       "roundEnd": "{{timeRemaining}} until voting round ends",

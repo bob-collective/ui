@@ -3,6 +3,7 @@ import { useLocalStorage } from '@uidotdev/usehooks';
 import { useEffect, useId, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Flex, H1, Link, P } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
 
 import { Geoblock } from '../../components';
 import { LocalStorageKey } from '../../constants';
@@ -36,6 +37,8 @@ const Fusion = () => {
   const { data: apps } = useGetApps();
   const { data: quests } = useGetQuests();
 
+  const { t } = useTranslation();
+
   const questsSectionId = useId();
 
   const location = useLocation();
@@ -68,17 +71,16 @@ const Fusion = () => {
           <StyledBgDots src={heroDotsSrc} />
           <StyledHeroSection direction='column'>
             <Flex direction='column' gap='lg'>
-              <H1 size='4xl'>BOB Fusion: The Final Season</H1>
+              <H1 size='4xl'>{t('fusion.title')}</H1>
               <P color='grey-50'>
-                Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special
-                events.{' '}
+                {t('fusion.description')}{' '}
                 <Link
                   color='light'
                   size='inherit'
                   underlined='always'
                   {...{ href: 'https://blog.gobob.xyz/posts/bob-fusion-the-final-season', external: true }}
                 >
-                  Learn More
+                  {t('fusion.cta')}
                 </Link>
               </P>
             </Flex>
