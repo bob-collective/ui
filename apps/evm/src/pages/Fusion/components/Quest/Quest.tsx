@@ -34,14 +34,14 @@ const Quest = ({ id, quests }: QuestProps) => {
       >
         {intractQuest ? (
           <Chip startAdornment={<SolidClock size='s' />}>
-            {t('fusion.quest.questEnd', { timeRemaining: formatDistanceToNow(intractQuest.end_date) })}
+            {t('fusion.quests.questEnd', { timeRemaining: formatDistanceToNow(intractQuest.end_date) })}
           </Chip>
         ) : (
           <Skeleton height='3xl' width='9xl' />
         )}
-        <H2 size='3xl'>{t('fusion.quest.title')}</H2>
+        <H2 size='3xl'>{t('fusion.quests.title')}</H2>
         {intractQuest ? (
-          <StyledDescription>{t('fusion.quest.description')}</StyledDescription>
+          <StyledDescription>{t('fusion.quests.description')}</StyledDescription>
         ) : (
           <Skeleton count={3} height='xl' />
         )}

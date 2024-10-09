@@ -29,7 +29,7 @@
         "questsOnly": "Quests Only"
       }
     },
-    "quest": {
+    "quests": {
       "title": "Quests",
       "questEnd": "{{timeRemaining}} until quest ends",
       "description": "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice.",
