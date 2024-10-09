@@ -253,6 +253,63 @@
       "startCta": "Start Harvesting"
     }
   },
+  "apps": {
+    "list": {
+      "discoverAll": "Discover All Apps",
+      "allApps": "All Apps",
+      "myApps": "My apps",
+      "noApps": "There are no apps to be displayed",
+      "card": {
+        "spicePerHour": "Spice Per Hour",
+        "spiceMultiplier": "Spice Multiplier",
+        "harvest": "My Total Harvest"
+      }
+    },
+    "podium": {
+      "winners": "Last Week's Winners"
+    },
+    "heroBanner": {
+      "title": "Community Voting",
+      "description": "Use your Spice total to support your favourite BOB builders. Winners will be announced each week.",
+      "cta": "Read more here"
+    },
+    "votingInfoModal": {
+      "title": "Community Voting Information",
+      "support": {
+        "title": "Support your favourite BOB apps",
+        "content": {
+          "one": "When you vote for a project, your Spice total is added to their vote total.",
+          "two": "Each week the projects with the most votes will receive a Spice bonus which they can distribute to their users."
+        }
+      },
+      "howToVote": {
+        "title": "How to vote:",
+        "content": {
+          "one": {
+            "prefix": "Click the",
+            "suffix": "icon next to your favourite apps"
+          },
+          "two": "Vote for maximum three projects per week",
+          "three": "You can change your votes at any time before the end of the weekly voting period<"
+        }
+      },
+      "pleaseNote": {
+        "title": "Please note:",
+        "content": "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
+      }
+    },
+    "votingDashboard": {
+      "explainer": "Vote for maximum three projects per week by clicking on the flame icon",
+      "userVotingInfo": {
+        "votesLeft": "Votes Left:"
+      },
+      "login": {
+        "cta": "Log In",
+        "separator": "or",
+        "createAccount": "Create Account"
+      }
+    }
+  },
   "home": {
     "title": "THE FIRST HYBRID L2",
     "subtitle": "POWERED BY BTC & ETH",
