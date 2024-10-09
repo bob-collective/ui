@@ -35,7 +35,129 @@
       "description": "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice.",
       "cta": "View Quests"
     },
-    "strategies": {},
+    "strategies": {
+      "title": "Hot Strategies",
+      "comingSoon": "Coming Soon",
+      "btcLstLendingStrat": {
+        "title": "BTC LST Lending",
+        "shortDescription": "Use BTC LSTs as collateral to borrow other assets",
+        "longDescription": "Deposit BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets.",
+        "steps": {
+          "one": {
+            "linkText": "Stake your BTC with 1-click",
+            "description": "and receive BTC LSTs on BOB."
+          },
+          "two": {
+            "description": "Deposit any eligible BTC LSTs into a lending market on BOB."
+          },
+          "three": {
+            "description": "Use the deposited BTC LSTs as collateral to borrow wBTC, tBTC or FBTC."
+          },
+          "four": {
+            "description": "Mint more BTC LSTs with these borrowed assets."
+          },
+          "five": {
+            "description": "Optional: It's possible to repeat steps 2-4 multiple times."
+          }
+        },
+        "rewards": {
+          "one": "Spice points (Medium)",
+          "two": "Lending rate of BTC LSTs",
+          "three": "Lending protocol points",
+          "four": "LST provider points",
+          "five": "Babylon points"
+        }
+      },
+      "mintAndLendSatUsd": {
+        "title": "Mint and Lend satUSD",
+        "shortDescription": "Mint satUSD and supply it into a lending market on BOB'",
+        "longDescription": {
+          "prefix": "Deposit your BTC LSTs into",
+          "linkText": "Satoshi Protocol",
+          "suffix": "to mint satUSD and deposit that into a lending market on BOB"
+        },
+        "steps": {
+          "one": {
+            "linkText": "Stake your BTC with 1-click",
+            "description": "and receive BTC LSTs on BOB."
+          },
+          "two": {
+            "prefix": "Deposit your BTC LSTs into",
+            "linkText": "Satoshi Protocol",
+            "suffix": "to mint satUSD."
+          },
+          "three": {
+            "prefix": "Supply the newly minted satUSD into a",
+            "linkText": "lending protocol on BOB",
+            "suffix": "."
+          },
+          "four": {
+            "description": "Use the deposited satUSD as collateral to borrow any BTC LST."
+          },
+          "five": {
+            "description": "Optional: It's possible to repeat steps 2-4 multiple times."
+          }
+        },
+        "rewards": {
+          "one": "Spice rewards (Medium)'",
+          "two": "Lending rate of satUSD",
+          "three": "Lending protocol points",
+          "four": "Satoshi protocol points",
+          "five": "LST provider points",
+          "six": "Babylon points"
+        }
+      },
+      "dexLiquidityPovisioning": {
+        "title": "DEX Liquidity Provisioning",
+        "shortDescription": "Provide liquidity into Oku DEX",
+        "longDescription": {
+          "prefix": "Provide liquidity into any AMM pool on",
+          "linkText": "Oku DEX",
+          "suffix": "to earn trading fees and incentives"
+        },
+        "steps": {
+          "one": {
+            "prefix": "Follow the steps of",
+            "linkText": "this guide",
+            "suffix": "to provide liquity into a DEX pool on Oku."
+          },
+          "two": {
+            "description": "Maximum points will be received by providing BTC LST liquidity."
+          },
+          "three": {
+            "description": "You will need to actively monitor your position, especially if it has a small range."
+          }
+        },
+        "rewards": {
+          "one": "Spice rewards (Higher)",
+          "two": "LST provider points",
+          "three": "Babylon points'"
+        }
+      },
+      "bridgeBtcLstToBob": {
+        "title": "Bridge BTC LSTs to BOB",
+        "shortDescription": "Bridge BTC LSTs to BOB",
+        "longDescription": "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice.",
+        "steps": {
+          "one": {
+            "prefix": "Use any of the",
+            "linkText": "supported bridges",
+            "suffix": "."
+          },
+          "two": {
+            "description": "Select the wrapped Bitcoin asset and the amount that you want to bridge."
+          },
+          "three": {
+            "description": "Choose any of the existing liquid staking provider to mint your BTC LST."
+          }
+        },
+        "rewards": {
+          "one": "Spice points (Lower)",
+          "two": "LST provider points",
+          "three": "Babylon points'"
+        }
+      }
+    },
     "userInfo": {
       "harvestedSpice": "Season 3 Harvested Spice",
       "daySuffix": "/Day",
