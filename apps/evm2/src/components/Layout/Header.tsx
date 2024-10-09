@@ -1,6 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { ConnectWallet } from '@gobob/connect-ui';
 import {
   Bars3,
   Button,
@@ -13,22 +13,20 @@ import {
   PopoverTrigger,
   useMediaQuery
 } from '@gobob/ui';
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { useTheme } from 'styled-components';
 
-import { useFeatureFlag, FeatureFlags } from '../../hooks';
 import { DocsLinks, RoutesPath } from '../../constants';
+import { FeatureFlags, useFeatureFlag } from '../../hooks';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
 
+import { FusionPopover } from './FusionPopover';
 import { StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
-import { FusionPopover } from './FusionPopover';
-
-const ConnectWallet = dynamic(() => import('@gobob/connect-ui').then((mod) => mod.ConnectWallet), { ssr: false });
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 

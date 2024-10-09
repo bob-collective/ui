@@ -50,7 +50,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
     const { disconnect } = useDisconnect();
     const { connectors, connectAsync } = useConnect();
     const [step, setStep] = useState<WalletType | undefined>(stepProp);
-    const hasBitkeep = typeof window !== undefined ? (window as any).bitkeep && window.ethereum : undefined;
+    const [hasBitkeep, setHasBitkeep] = useState();
+
+    useEffect(() => {
+      setHasBitkeep((window as any).bitkeep && window.ethereum);
+    }, []);
 
     const { address: btcWalletAddress, connector: btcWalletConnector } = useSatsAccount({ onConnect: onConnectBtc });
     const { disconnect: btcWalletDisconnect } = useSatsDisconnect();

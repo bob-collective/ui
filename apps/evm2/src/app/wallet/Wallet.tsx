@@ -1,15 +1,15 @@
 'use client';
 
+import { AuthButton, useConnectModal } from '@gobob/connect-ui';
 import { Button, Card, Dd, Dl, DlGroup, Dt, Flex, H1, P } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { useTranslations } from 'next-intl';
-import { AuthButton, useConnectModal } from '@gobob/connect-ui';
 
 import { TokenTable } from './components';
 
 import { Main } from '@/components';
-import { useTotalBalance } from '@/hooks';
 import { L2_CHAIN, isL2Chain } from '@/constants';
+import { useTotalBalance } from '@/hooks';
 
 const Wallet = () => {
   const { address, chain } = useAccount();

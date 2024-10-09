@@ -30,7 +30,7 @@ import {
 } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
-import { useDebounce } from '@uidotdev/usehooks';
+import { useDebounceValue } from 'usehooks-ts';
 import Big from 'big.js';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -114,8 +114,7 @@ const BtcStakeForm = ({
 
   const { refetchGatewayTxs } = useGetTransactions();
 
-  const [amount, setAmount] = useState('');
-  const debouncedAmount = useDebounce(amount, 300);
+  const [amount, setAmount] = useDebounceValue('', 300);
 
   const [isGasNeeded, setGasNeeded] = useState(true);
 
@@ -159,10 +158,10 @@ const BtcStakeForm = ({
         strategy &&
         evmAddress &&
         btcAddress &&
-        CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
+        CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
         hasLiquidity
     );
-  }, [currencyAmount, strategy, evmAddress, btcAddress, debouncedAmount, hasLiquidity, isGasNeeded]);
+  }, [currencyAmount, strategy, evmAddress, btcAddress, amount, hasLiquidity, isGasNeeded]);
 
   const quoteQueryKey = bridgeKeys.btcQuote(
     evmAddress,

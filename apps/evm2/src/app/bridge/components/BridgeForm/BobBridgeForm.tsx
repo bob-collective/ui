@@ -9,7 +9,7 @@ import { USDC } from '@gobob/tokens';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { useAccount, useChainId, useIsContract, usePublicClient } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
-import { useDebounce } from '@uidotdev/usehooks';
+import { useDebounceValue } from 'usehooks-ts';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address } from 'viem';
@@ -67,8 +67,7 @@ const BobBridgeForm = ({
 
   const messenger = useCrossChainMessenger();
 
-  const [amount, setAmount] = useState('');
-  const debouncedAmount = useDebounce(amount, 300);
+  const [amount, setAmount] = useDebounceValue('', 300);
 
   const { isContract: isSmartAccount } = useIsContract({ address, chainId: bridgeChainId });
 
@@ -374,19 +373,19 @@ const BobBridgeForm = ({
   };
 
   useEffect(() => {
-    if (!debouncedAmount) return;
+    if (!amount) return;
 
-    const amount = form.values[BRIDGE_AMOUNT];
+    const formAmount = form.values[BRIDGE_AMOUNT];
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (!amount || isNaN(amount as any) || !selectedCurrency || !selectedToken) return;
+    if (!formAmount || isNaN(formAmount as any) || !selectedCurrency || !selectedToken) return;
 
     // TODO: change currency
-    const currencyAmount = CurrencyAmount.fromBaseAmount(selectedCurrency, amount);
+    const currencyAmount = CurrencyAmount.fromBaseAmount(selectedCurrency, formAmount);
 
     handleChangeCurrencyAmount(currencyAmount, selectedToken);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedAmount]);
+  }, [amount]);
 
   useEffect(() => {
     form.resetForm();

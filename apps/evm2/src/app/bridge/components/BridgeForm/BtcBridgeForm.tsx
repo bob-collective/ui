@@ -28,7 +28,7 @@ import {
 } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
-import { useDebounce } from '@uidotdev/usehooks';
+import { useDebounceValue } from 'usehooks-ts';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
@@ -110,8 +110,7 @@ const BtcBridgeForm = ({
 
   const { refetchGatewayTxs } = useGetTransactions();
 
-  const [amount, setAmount] = useState('');
-  const debouncedAmount = useDebounce(amount, 300);
+  const [amount, setAmount] = useDebounceValue('', 300);
 
   const [receiveTicker, setReceiveTicker] = useState(
     searchParams?.get('receive') ?? availableTokens[0].currency.symbol
@@ -170,7 +169,7 @@ const BtcBridgeForm = ({
       btcToken &&
       evmAddress &&
       btcAddress &&
-      CurrencyAmount.fromBaseAmount(BITCOIN, debouncedAmount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
+      CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
       hasLiquidity
   );
 

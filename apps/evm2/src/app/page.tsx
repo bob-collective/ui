@@ -1,7 +1,3 @@
-// import Bridge from '../rrrr/bridge/page';
+import Bridge from './bridge/page';
 
-// export default Bridge;
-
-export default function A() {
-  return <div>asdasd</div>;
-}
+export default Bridge;

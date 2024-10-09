@@ -1,11 +1,11 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { usePrices, useQuery } from '@gobob/react-query';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P, toast } from '@gobob/ui';
 import { useAccount, useChainId, useConfig, useReconnect, useSwitchChain, watchAccount } from '@gobob/wagmi';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { ConnectProvider } from '@gobob/connect-ui';
 import { Chain } from 'viem';
 
 import { Header, Layout, Sidebar } from '@/components';
@@ -13,8 +13,6 @@ import { isClient, isValidChain, L1_CHAIN, RoutesPath } from '@/constants';
 import { useBalances, useGetUser, useLogin, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
 import { apiClient } from '@/utils';
-
-const ConnectProvider = dynamic(() => import('@gobob/connect-ui').then((mod) => mod.ConnectProvider), { ssr: false });
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
