@@ -14,6 +14,11 @@
     },
     "leaderboard": {
       "title": "Leaderboard",
+      "columns": {
+        "name": "Name",
+        "spice": "Spice",
+        "quests": "Quests"
+      },
       "tabs": {
         "seasonThree": "Season Three",
         "last24Hours": "Last 24 Hours",
@@ -21,8 +26,12 @@
         "questsOnly": "Quests Only"
       }
     },
-    "leaderboards": {},
-    "quest": {},
+    "quest": {
+      "title": "Quests",
+      "questEnd": "{{timeRemaining}} until quest ends",
+      "description": "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice.",
+      "cta": "View Quests"
+    },
     "strategies": {},
     "userInfo": {},
     "welcomeBackModal": {},

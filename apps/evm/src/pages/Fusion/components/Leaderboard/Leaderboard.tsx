@@ -73,12 +73,6 @@ type LeaderboardRow = {
   [LeaderboardColumns.QUESTS]: ReactNode;
 };
 
-const columns = [
-  { name: 'Name', id: LeaderboardColumns.NAME },
-  { name: 'Spice', id: LeaderboardColumns.SPICE },
-  { name: 'Quests', id: LeaderboardColumns.QUESTS }
-];
-
 const userRankKey = 'userRankKey';
 
 const Leaderboard = (): JSX.Element => {
@@ -92,6 +86,12 @@ const Leaderboard = (): JSX.Element => {
   const [tab, setTab] = useState(LeaderboardTabs.SEASON);
 
   const isAuthenticated = address && user;
+
+  const columns = [
+    { name: t('fusion.leaderboard.columns.name'), id: LeaderboardColumns.NAME },
+    { name: t('fusion.leaderboard.columns.spice'), id: LeaderboardColumns.SPICE },
+    { name: t('fusion.leaderboard.columns.quests'), id: LeaderboardColumns.QUESTS }
+  ];
 
   const getUserData = useCallback(() => {
     if (!isAuthenticated) return;
