@@ -18,9 +18,9 @@ const BinanceCampaignBanner = ({ onPress }: BinanceCampaignBannerProps) => (
     </StyledBannerContent>
     <StyledBinanceCampaignImg
       alt='Binance campaign banner'
-      height='312'
+      height='145'
       src='/assets/binance-campaign.png'
-      width='725'
+      width='336'
     />
   </Banner>
 );
