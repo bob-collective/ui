@@ -32,7 +32,7 @@ const Bridge = ({ searchParams }: Props) => {
   const router = useRouter();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
-  const [type, setType] = useState((urlSearchParams.get('type') as Type) || Type.Deposit);
+  const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.Internal);
 
   const initialChain = useMemo(() => {
@@ -56,11 +56,15 @@ const Bridge = ({ searchParams }: Props) => {
   //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
   // );
 
-  const handleChangeTab = useCallback((key: Key) => {
-    setType(key as Type);
-    setBridgeOrigin((key as Type) === Type.Deposit ? BridgeOrigin.Internal : BridgeOrigin.External);
-    setChain(L1_CHAIN);
-  }, []);
+  const handleChangeTab = useCallback(
+    (key: Key) => {
+      setBridgeOrigin((key as Type) === Type.Deposit ? BridgeOrigin.Internal : BridgeOrigin.External);
+      setChain(L1_CHAIN);
+      urlSearchParams.set('type', key as string);
+      router.replace('?' + urlSearchParams);
+    },
+    [router, urlSearchParams]
+  );
 
   const handleChangeNetwork = useCallback(
     (network: Key) => {
@@ -80,10 +84,6 @@ const Bridge = ({ searchParams }: Props) => {
   const handleChangeOrigin = useCallback((origin: BridgeOrigin) => setBridgeOrigin(origin), []);
 
   const handleChangeChain = useCallback((chain: ChainId | 'BTC') => setChain(chain), []);
-
-  // const handleCloseFaultProofNotice = useCallback(() => {
-  //   setFaultProofNoticeHidden(true);
-  // }, [setFaultProofNoticeHidden]);
 
   useEffect(() => {
     const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
@@ -117,19 +117,6 @@ const Bridge = ({ searchParams }: Props) => {
     <>
       <Main maxWidth='5xl' padding='md'>
         <BannerCarousel />
-
-        {/* {!isFaultProofNoticeHidden && (
-          <Alert marginTop='xl' status='info' onClose={handleCloseFaultProofNotice}>
-            <P size='s'>
-              <Strong size='inherit'>NOTICE: Fault Proofs are coming to BOB.</Strong> Withdrawals starting on July 4
-              will need to be proven again after July 10, requiring at least 7 days to be finalised. Consider waiting
-              until the upgrade is complete or using 3rd Party bridge for withdrawals during this period.{' '}
-              <Link external icon href={`${DocsLinks.OP_STACK}#settlement--fraud-proofs`} size='inherit'>
-                Click here for more info.
-              </Link>
-            </P>
-          </Alert>
-        )} */}
         <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
           <StyledCard>
             <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>

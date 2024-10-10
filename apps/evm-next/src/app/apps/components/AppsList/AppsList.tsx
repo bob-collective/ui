@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, H2, H3, Skeleton, Tabs, TabsItem } from '@gobob/ui';
-import { useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { AppData, VotingAppData } from '../../hooks';
@@ -38,20 +38,13 @@ const AppsList = ({
   const headerId = useId();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
-  const [tabCategory, setTabCategory] = useState(urlSearchParams.get('category') || ALL_APPS);
-
-  useEffect(() => {
-    urlSearchParams.set('category', tabCategory);
-    router.replace('?' + urlSearchParams);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabCategory]);
+  const tabCategory = urlSearchParams.get('category') || ALL_APPS;
 
   useEffect(() => {
     if (!urlSearchParams.get('category')) return;
 
     document.getElementById(headerId)?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [urlSearchParams]);
 
   const categories = apps ? Array.from(new Set(apps.flatMap((app) => app.categories))).sort() : undefined;
 
@@ -88,7 +81,14 @@ const AppsList = ({
         Discover All Apps
       </H2>
       {!isLoading && categories ? (
-        <Tabs selectedKey={tabCategory} variant='light' onSelectionChange={(key) => setTabCategory(key as string)}>
+        <Tabs
+          selectedKey={tabCategory}
+          variant='light'
+          onSelectionChange={(key) => {
+            urlSearchParams.set('category', key as string);
+            router.replace('?' + urlSearchParams, { scroll: false });
+          }}
+        >
           <TabsItem key={ALL_APPS} title='All Apps'>
             <></>
           </TabsItem>
@@ -134,9 +134,7 @@ const AppsList = ({
                     twitter={app.twitter_id}
                     userHarvest={isAuthenticated ? Number(app.userHarvest || 0) : undefined}
                     voting={app.voting}
-                    onPress={() => {
-                      window.open(app.project_url, '_blank', 'noreferrer');
-                    }}
+                    onPress={() => window.open(app.project_url, '_blank', 'noreferrer')}
                     onVote={onVote}
                   />
                 ))

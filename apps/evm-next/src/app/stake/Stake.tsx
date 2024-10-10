@@ -1,7 +1,7 @@
 'use client';
 
 import { Tabs, TabsItem } from '@gobob/ui';
-import { Key, useCallback, useEffect, useMemo, useState } from 'react';
+import { Key, useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { BannerCarousel, StakingForm, StrategyDetails } from './components';
@@ -28,31 +28,32 @@ function Stake({ searchParams }: Props) {
   const router = useRouter();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
-  const [selectedStrategy, setSelectedStrategy] = useState(
-    urlSearchParams.get('stakeWith') ?? (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug)
+  const selectedStrategy =
+    urlSearchParams.get('stakeWith') ?? (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug);
+  const type = (urlSearchParams.get('type') as Type) || Type.Stake;
+
+  useEffect(() => {
+    if (!urlSearchParams.get('type') || !urlSearchParams.get('stakeWith')) {
+      urlSearchParams.set('type', type);
+      urlSearchParams.set('stakeWith', selectedStrategy);
+
+      router.replace('?' + urlSearchParams);
+    }
+  }, [router, selectedStrategy, type, urlSearchParams]);
+
+  const handleChangeTab = useCallback(
+    (key: Key) => {
+      urlSearchParams.set('type', key as string);
+
+      router.replace('?' + urlSearchParams);
+    },
+    [router, urlSearchParams]
   );
-
-  if (!selectedStrategy && strategies.length > 0) {
-    setSelectedStrategy(strategies[0].raw.integration.slug);
-  }
-
-  const [type, setType] = useState((urlSearchParams.get('type') as Type) || Type.Stake);
-
-  const handleChangeTab = useCallback((key: Key) => {
-    setType(key as Type);
-  }, []);
 
   const strategy = useMemo(
     () => strategies.find((strategy) => strategy.raw.integration.slug === selectedStrategy)!,
     [selectedStrategy, strategies]
   );
-
-  useEffect(() => {
-    urlSearchParams.set('type', type);
-    if (selectedStrategy) urlSearchParams.set('stakeWith', selectedStrategy);
-
-    router.replace('?' + urlSearchParams);
-  }, [type, selectedStrategy, router, urlSearchParams]);
 
   return (
     <Main maxWidth='5xl' padding='md'>
@@ -72,7 +73,11 @@ function Stake({ searchParams }: Props) {
             strategies={strategies}
             strategy={strategy}
             type={type}
-            onStrategyChange={setSelectedStrategy}
+            onStrategyChange={(strategySlug) => {
+              urlSearchParams.set('stakeWith', strategySlug);
+
+              router.replace('?' + urlSearchParams);
+            }}
           />
         </StyledCard>
         <StrategyDetails isLoading={isStrategiesLoading} strategy={strategy} />
