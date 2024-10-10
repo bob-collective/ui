@@ -4,9 +4,9 @@ const config = {
   ignoreBinaries: ['synpress:run'],
   ignore: [
     'apps/evm/api/**',
-    'apps/evm2/api/**',
-    'apps/evm2/src/i18n/**',
-    'apps/evm2/sentry.ts',
+    'apps/evm-next/api/**',
+    'apps/evm-next/src/i18n/**',
+    'apps/evm-next/sentry.ts',
     'packages/currency/src/constants.ts',
     'packages/sats-wagmi/package.json',
     '.storybook/vite.config.ts'
