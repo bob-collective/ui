@@ -9,7 +9,7 @@ import { HTMLAttributes, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSessionStorage } from 'usehooks-ts';
 
-import { EcosystemBanner } from './EcosystemBanner';
+import { BinanceCampaignBanner } from './BinanceCampaignBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
 import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
@@ -42,7 +42,7 @@ function PrevArrow(props: Pick<HTMLAttributes<HTMLButtonElement>, 'className' | 
 const settings: Settings = {
   dots: true,
   infinite: true,
-  autoplay: false,
+  autoplay: true,
   speed: 500,
   autoplaySpeed: 10000,
   cssEase: 'linear',
@@ -59,21 +59,9 @@ const BannerCarousel = () => {
   const router = useRouter();
 
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
-  const setScrollEcosystem = useSessionStorage(SessionStorageKey.SCROLL_ECOSYSTEM, false, {
-    initializeWithValue: isClient
-  })[1];
   const setBridgeToBtc = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
     initializeWithValue: isClient
   })[1];
-
-  const onPressEcosystemBanner = useCallback(
-    () => {
-      setScrollEcosystem(true);
-      router.push(RoutesPath.FUSION);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
 
   const onPressOnrampBanner = useCallback(
     () => {
@@ -96,13 +84,19 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressBinanceCampaignBanner = useCallback(
+    () => window.open('https://www.binance.com/en/activity/mission/bob-campaign', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
       <StyledSlider {...settings} arrows={isDesktop}>
-        <FusionBanner onPress={onPressFusionBanner} />
-        <EcosystemBanner onPress={onPressEcosystemBanner} />
-        {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
         <XBanner onPress={onPressXBanner} />
+        <BinanceCampaignBanner onPress={onPressBinanceCampaignBanner} />
+        <FusionBanner onPress={onPressFusionBanner} />
+        {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledSlider>
     </StyledCarouselWrapper>
   );

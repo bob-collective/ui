@@ -14,7 +14,7 @@ const XBanner = ({ onPress }: XBannerProps) => (
       <Flex alignItems='center'>
         <BannerTitle>Follow us on X</BannerTitle>
       </Flex>
-      <P color='grey-50'>Go follow @build_on_bob</P>
+      <P color='grey-50'>To stay up-to date with the BOB ecosystem follow @build_on_bob.</P>
     </StyledBannerContent>
     <StyledXImg alt='x' height='123' src='/assets/x.png' width='336' />
   </Banner>

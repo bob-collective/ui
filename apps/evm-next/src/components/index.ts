@@ -9,4 +9,5 @@ export * from './TransactionModal';
 export * from './Trapezoid';
 export * from './WithdrawAlert';
 export * from './LoginButton';
+export * from './SignUpButton';
 export * from './SpiceAmount';

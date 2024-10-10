@@ -21,11 +21,12 @@ const getPercentage = (value: number, minValue: number, maxValue: number) => {
 type BarometerProps = {
   value?: number;
   maxValue?: number;
+  showGoal?: boolean;
 };
 
 const minValue = 0;
 
-const Barometer = ({ value = minValue, maxValue = 100 }: BarometerProps) => {
+const Barometer = ({ value = minValue, maxValue = 100, showGoal }: BarometerProps) => {
   const { locale } = useLocale();
   const percentage = getPercentage(value, minValue, maxValue);
   const barStyle: CSSProperties = { width: `${Math.round(percentage * 100)}%` };
@@ -66,17 +67,21 @@ const Barometer = ({ value = minValue, maxValue = 100 }: BarometerProps) => {
         </StyledValue>
       </StyledFillAddornment>
       {percentage < 0.98 && <StyledGift color='grey-50' size='xxs' />}
-      <StyledStep alignItems='center' gap='xs'>
-        {maxValue ? (
-          <>
-            <Span size='xs' weight='bold'>
-              {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', notation: 'compact' }).format(maxValue)}
-            </Span>
-          </>
-        ) : (
-          <Skeleton width='6xl' />
-        )}
-      </StyledStep>
+      {showGoal && (
+        <StyledStep alignItems='center' gap='xs'>
+          {maxValue ? (
+            <>
+              <Span size='xs' weight='bold'>
+                {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', notation: 'compact' }).format(
+                  maxValue
+                )}
+              </Span>
+            </>
+          ) : (
+            <Skeleton width='6xl' />
+          )}
+        </StyledStep>
+      )}
     </StyledBarometer>
   );
 };

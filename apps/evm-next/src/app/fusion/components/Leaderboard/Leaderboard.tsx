@@ -62,7 +62,6 @@ enum LeaderboardTabs {
 
 enum LeaderboardColumns {
   NAME = 'name',
-  INVITED_BY = 'invitedBy',
   QUESTS = 'quests',
   SPICE = 'spice'
 }
@@ -70,14 +69,12 @@ enum LeaderboardColumns {
 type LeaderboardRow = {
   id: string;
   [LeaderboardColumns.NAME]: ReactNode;
-  [LeaderboardColumns.INVITED_BY]: ReactNode;
   [LeaderboardColumns.SPICE]: ReactNode;
   [LeaderboardColumns.QUESTS]: ReactNode;
 };
 
 const columns = [
   { name: 'Name', id: LeaderboardColumns.NAME },
-  { name: 'Invited By', id: LeaderboardColumns.INVITED_BY },
   { name: 'Spice', id: LeaderboardColumns.SPICE },
   { name: 'Quests', id: LeaderboardColumns.QUESTS }
 ];
@@ -154,7 +151,6 @@ const Leaderboard = (): JSX.Element => {
 
         return {
           id: `${item.username}${idx}`,
-          [LeaderboardColumns.INVITED_BY]: item?.referred_by || '-',
           [LeaderboardColumns.NAME]: (
             <NameColumn
               name={item.username}
@@ -183,7 +179,6 @@ const Leaderboard = (): JSX.Element => {
         if (userLeaderboardData) {
           userData = {
             id: userRankKey,
-            invitedBy: user.referred_by,
             name: <NameColumn name={user.username} rank={Number(userLeaderboardData.rank)} />,
             spice: <SpiceColumn amount={Number(userLeaderboardData.points)} />,
             quests: user.quests_breakdown && (
@@ -211,7 +206,6 @@ const Leaderboard = (): JSX.Element => {
           <Skeleton height='2xl' width='10xl' />
         </StyledSkeletonWrapper>
       ),
-      invitedBy: <Skeleton height='2xl' width='8xl' />,
       spice: <Skeleton height='2xl' width='7xl' />,
       quests: <Skeleton height='2xl' width='6xl' />
     }));
