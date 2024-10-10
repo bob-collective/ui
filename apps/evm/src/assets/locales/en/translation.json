@@ -348,6 +348,11 @@
       "connect": "Please connect a wallet",
       "connectLabel": "Connect Wallet"
     },
+    "tokenTable": {
+      "asset": "Asset",
+      "balance": "Balance",
+      "connectBtcLabel": "Connect BTC Wallet"
+    },
     "tooltips": {
       "bridge": {
         "label": "Bridge",
