@@ -2,7 +2,6 @@ import { Card, Flex, H1 } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
 
-import { EcosystemImg } from './EcosystemImg';
 import { OnrampImg } from './OnrampImg';
 
 const StyledCarouselWrapper = styled(Card)`
@@ -122,6 +121,21 @@ const StyledFusionImg = styled.img`
   }}
 `;
 
+const StyledBinanceCampaignImg = styled.img`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 21rem;
+      transform: translateY(-50%);
+      @media ${theme.breakpoints.down('md')} {
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
 const StyledXImg = styled.img`
   ${({ theme }) => {
     return css`
@@ -137,31 +151,11 @@ const StyledXImg = styled.img`
   }}
 `;
 
-const StyledEcosystemImg = styled(EcosystemImg)`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      top: 50%;
-      right: 0.275rem;
-      width: 26rem;
-      height: 26rem;
-      transform: translateY(-50%);
-
-      @media ${theme.breakpoints.down('md')} {
-        left: 50%;
-        right: unset;
-        transform: translate(-50%, -50%);
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 export {
   StyledCarouselWrapper,
   StyledSlider,
   StyledBanner,
-  StyledEcosystemImg,
+  StyledBinanceCampaignImg,
   StyledFusionImg,
   StyledOnrampImg,
   StyledXImg,

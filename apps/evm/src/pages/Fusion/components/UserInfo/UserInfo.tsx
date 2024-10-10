@@ -19,7 +19,7 @@ import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LoginSection, SpiceAmount } from '../../../../components';
+import { LoginSection, SignUpButton, SpiceAmount } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
 import { fusionKeys } from '../../../../lib/react-query';
 import { apiClient, QuestS3Response, UserResponse } from '../../../../utils';
@@ -53,7 +53,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const navigate = useNavigate();
   const [, copy] = useCopyToClipboard();
 
-  const { data: tvlLevel } = useQuery({
+  const { data: tvlLevel, isLoading: isLoadingTvlLevel } = useQuery({
     queryKey: fusionKeys.tvlLevel(),
     queryFn: () => apiClient.getLevelData(),
     refetchInterval: INTERVAL.MINUTE,
@@ -75,7 +75,12 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   const totalPoints = user?.season3Data.s3LeaderboardData[0].total_points || 0;
 
-  const currentLevelTvlGoal = tvlLevel?.tvlGoal ? Number(tvlLevel?.tvlGoal) : 0;
+  const currentTvl = Number(tvlLevel?.currentTvl || 0);
+  const currentLevelTvlGoal = isLoadingTvlLevel
+    ? 0
+    : tvlLevel?.tvlGoal
+      ? Number(tvlLevel.tvlGoal)
+      : currentTvl + currentTvl * 0.2;
 
   return (
     <StyledUserInfoWrapper direction='column' marginTop='4xl'>
@@ -163,7 +168,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         <UserInfoCard
           description={user?.referral_code}
           title='Your Referral Code'
-          tooltipLabel='Share this code with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer'
+          tooltipLabel='Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer'
         >
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (
@@ -175,9 +180,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               fullWidth
               disabled={!isAuthenticated}
               variant='outline'
-              onPress={() => copy(user?.referral_code || '')}
+              onPress={() => copy(`${window.location.href}?refCode=${user?.referral_code || ''}`)}
             >
-              Copy <StyledSolidDocumentDuplicate size='xs' />
+              Copy referral URL <StyledSolidDocumentDuplicate size='xs' />
             </Button>
           </Flex>
           {user && hasReferrals && (
@@ -190,26 +195,35 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         </UserInfoCard>
         <StyledMeterCard gap='s' justifyContent='space-between'>
           <Flex direction='column' gap='md'>
-            {tvlLevel ? (
+            {isLoadingTvlLevel ? (
+              <Flex direction='column'>
+                <Skeleton height='3xl' width='10xl' />
+                <Skeleton count={2} marginTop='s' />
+              </Flex>
+            ) : tvlLevel?.levelName ? (
               <>
                 <Dt color='light' size='2xl'>
-                  {tvlLevel?.levelName}{' '}
+                  {tvlLevel.levelName}{' '}
                   <Tooltip label={tvlLevel.levelHelperText}>
                     <SolidInformationCircle color='grey-50' size='s' />
                   </Tooltip>
                 </Dt>
                 <Span color='grey-50' size='s'>
-                  {tvlLevel?.levelDescription}
+                  {tvlLevel.levelDescription}
                 </Span>
               </>
             ) : (
-              <Flex direction='column'>
-                <Skeleton height='3xl' width='10xl' />
-                <Skeleton count={2} marginTop='s' />
-              </Flex>
+              <>
+                <Dt color='light' size='2xl'>
+                  BOB TVL Progress
+                </Dt>
+                <Span color='grey-50' size='s'>
+                  No new goal at the moment. Stay tuned for updates!
+                </Span>
+              </>
             )}
           </Flex>
-          <Barometer maxValue={currentLevelTvlGoal} value={tvlLevel !== undefined ? Number(tvlLevel?.currentTvl) : 0} />
+          <Barometer maxValue={currentLevelTvlGoal} showGoal={!!tvlLevel?.tvlGoal} value={currentTvl} />
         </StyledMeterCard>
       </StyledDl>
       {!isAuthenticated && (
@@ -224,9 +238,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               <P align='center' color='grey-50' size='s'>
                 Grab the final opportunity to harvest Spice. Join Season 3.
               </P>
-              <Button asChild color='primary' elementType={Link} size='xl' {...{ href: RoutesPath.SIGN_UP }}>
+              <SignUpButton color='primary' size='xl'>
                 Start Harvesting Spice
-              </Button>
+              </SignUpButton>
               <LoginSection direction={{ base: 'column', s: 'row' }} />
             </StyledLoginCard>
           </StyledOverlay>
