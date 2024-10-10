@@ -185,7 +185,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               variant='outline'
               onPress={() => copy(`${window.location.href}?refCode=${user?.referral_code || ''}`)}
             >
-              {t('fusion.userInfo.cards.quests.cta')} <StyledSolidDocumentDuplicate size='xs' />
+              {t('fusion.userInfo.cards.referrals.cta')} <StyledSolidDocumentDuplicate size='xs' />
             </Button>
           </Flex>
           {user && hasReferrals && (
