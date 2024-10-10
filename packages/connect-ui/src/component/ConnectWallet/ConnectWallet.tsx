@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { SatsConnector } from '@gobob/sats-wagmi';
 import { Connector, useAccount, useConnect, Address } from '@gobob/wagmi';
@@ -26,16 +27,20 @@ const Label = ({
   btcConnector?: SatsConnector;
   connectType: ConnectType;
 }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if ((!evmConnector && !btcConnector) || !mounted) {
+    return 'Connect Wallet';
+  }
+
   if (isPending) {
     return 'Authorize Wallet';
   }
 
   if (connectType === 'evm' && address) {
     return <EvmAddressLabel address={address} elementType='span' />;
-  }
-
-  if (!evmConnector && !btcConnector) {
-    return 'Connect Wallet';
   }
 
   return (
