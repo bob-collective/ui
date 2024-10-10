@@ -1,9 +1,14 @@
 'use client';
 
+import { Metadata } from 'next';
 import { Button, Flex, H1, P } from '@gobob/ui';
 import { Discord, Twitter } from '@gobob/icons';
 
 import { Main } from '@/components';
+
+export const metadata: Metadata = {
+  title: 'BOB | Geoblock'
+};
 
 export default function Geoblock(): JSX.Element {
   return (
