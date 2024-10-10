@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { SatsConnector } from '@gobob/sats-wagmi';
 import { Connector, useAccount, useConnect, Address } from '@gobob/wagmi';
 import { Avatar, Button, ButtonProps, Flex, Span } from '@gobob/ui';
 import { chain } from '@react-aria/utils';
+import { useIsClient } from 'usehooks-ts';
 
 import { EvmAddressLabel } from '../EvmAddressLabel';
 import { WalletIcon } from '../WalletIcon';
@@ -27,11 +27,9 @@ const Label = ({
   btcConnector?: SatsConnector;
   connectType: ConnectType;
 }) => {
-  const [mounted, setMounted] = useState(false);
+  const isClient = useIsClient();
 
-  useEffect(() => setMounted(true), []);
-
-  if ((!evmConnector && !btcConnector) || !mounted) {
+  if ((!evmConnector && !btcConnector) || !isClient) {
     return 'Connect Wallet';
   }
 

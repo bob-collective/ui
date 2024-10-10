@@ -1,6 +1,7 @@
 import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { Fragment, useMemo } from 'react';
+import { useIsClient } from 'usehooks-ts';
 
 import { TransactionItem } from './TransactionItem';
 import {
@@ -20,6 +21,7 @@ type TransactionListProps = CardProps;
 const TransactionList = (props: TransactionListProps): JSX.Element => {
   const { address, chain } = useAccount();
   const { data: transactions, isInitialLoading } = useGetTransactions();
+  const isClient = useIsClient();
 
   const pendingInteractions = useMemo(
     () =>
@@ -61,7 +63,7 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
           justifyContent={isInitialLoading || !transactions?.length ? 'center' : undefined}
           paddingY='xl'
         >
-          {isInitialLoading ? (
+          {!isClient || isInitialLoading ? (
             <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
               <Spinner size='16' thickness={2} />
               <P align='center' size='xs'>

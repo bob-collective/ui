@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 import { HTMLAttributes, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSessionStorage } from 'usehooks-ts';
+import { useSessionStorage, useIsClient } from 'usehooks-ts';
 
 import { BinanceCampaignBanner } from './BinanceCampaignBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
@@ -16,7 +16,7 @@ import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
 
 import { FeatureFlags, useFeatureFlag } from '@/hooks';
-import { isClient, RoutesPath } from '@/constants';
+import { RoutesPath } from '@/constants';
 import { SessionStorageKey } from '@/types';
 
 function NextArrow(props: Pick<HTMLAttributes<HTMLButtonElement>, 'className' | 'style' | 'onClick'>) {
@@ -57,6 +57,7 @@ const BannerCarousel = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
   const router = useRouter();
+  const isClient = useIsClient();
 
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
   const setBridgeToBtc = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
@@ -92,7 +93,7 @@ const BannerCarousel = () => {
 
   return (
     <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
-      <StyledSlider {...settings} arrows={isDesktop}>
+      <StyledSlider {...settings} arrows={isDesktop && isClient}>
         <XBanner onPress={onPressXBanner} />
         <BinanceCampaignBanner onPress={onPressBinanceCampaignBanner} />
         <FusionBanner onPress={onPressFusionBanner} />
