@@ -4,11 +4,7 @@ import { Fire } from '../SpiceChip/Fire';
 
 import { StyledList } from './HeroBanner.style';
 
-type Props = object;
-
-type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
-
-type VotingInfoModalProps = Props & InheritAttrs;
+type VotingInfoModalProps = Omit<ModalProps, 'children'>;
 
 const VotingInfoModal = (props: VotingInfoModalProps): JSX.Element => {
   return (

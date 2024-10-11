@@ -5,11 +5,7 @@ import { HTMLAttributes } from 'react';
 import { StyledLayout } from './Layout.style';
 import { LayoutProvider } from './LayoutContext';
 
-type Props = object;
-
-type NattiveAttrs = Omit<HTMLAttributes<unknown>, keyof Props>;
-
-type LayoutProps = Props & NattiveAttrs;
+type LayoutProps = HTMLAttributes<HTMLDivElement>;
 
 const Layout = ({ children, ...props }: LayoutProps): JSX.Element => {
   return (

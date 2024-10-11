@@ -71,11 +71,7 @@ type TokenTableRow = {
   [TokenTableColumns.ACTION]: ReactNode;
 };
 
-type Props = object;
-
-type InheritAttrs = Omit<TableProps, keyof Props | 'columns' | 'rows'>;
-
-type TokenTableProps = Props & InheritAttrs;
+type TokenTableProps = Omit<TableProps, 'columns' | 'rows'>;
 
 const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   const { data: tokens } = useTokens(L2_CHAIN);

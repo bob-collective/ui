@@ -8,11 +8,7 @@ import { ChainId } from '@gobob/chains';
 import { L1_CHAIN, L2_CHAIN, isValidChain } from '@/constants';
 import { useGetUser, useLogin } from '@/hooks';
 
-type Props = object;
-
-type InheritAttrs = Omit<ButtonProps, keyof Props>;
-
-type LoginButtonProps = Props & InheritAttrs;
+type LoginButtonProps = ButtonProps;
 
 const LoginButton = (props: LoginButtonProps): JSX.Element => {
   const { switchChainAsync } = useSwitchChain();

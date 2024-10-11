@@ -3,11 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { LoginButton } from '../LoginButton';
 
-type Props = object;
-
-type InheritAttrs = Omit<FlexProps, keyof Props>;
-
-type LoginSectionProps = Props & InheritAttrs;
+type LoginSectionProps = FlexProps;
 
 const LoginSection = ({ direction = { base: 'column', md: 'row' }, ...props }: LoginSectionProps): JSX.Element => {
   const t = useTranslations();
