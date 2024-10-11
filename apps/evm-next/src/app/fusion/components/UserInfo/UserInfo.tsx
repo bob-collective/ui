@@ -59,7 +59,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   const { data: tvlLevel, isLoading: isLoadingTvlLevel } = useQuery({
     queryKey: fusionKeys.tvlLevel(),
-    queryFn: () => apiClient.getLevelData(),
+    queryFn: apiClient.getLevelData,
     refetchInterval: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,
     refetchOnMount: false

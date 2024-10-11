@@ -2,9 +2,9 @@ import { Button, Chip, Flex, H2, Link, Skeleton, SolidClock, useMediaQuery } fro
 import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
 
-import { QuestS3Response } from '../../../../utils';
-
 import { StyledCard, StyledDescription, StyledIntract, StyledOpacityOverlay } from './Quest.style';
+
+import { QuestS3Response } from '@/utils';
 
 type QuestProps = { quests: QuestS3Response | undefined; id: string };
 

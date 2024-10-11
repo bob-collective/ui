@@ -4,8 +4,8 @@ import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { ChainId } from '@gobob/chains';
 
-import { L2_CHAIN, isValidChain } from '../../constants';
-import { useSignUp } from '../../hooks';
+import { L2_CHAIN, isValidChain } from '@/constants';
+import { useSignUp } from '@/hooks';
 
 type Props = object;
 

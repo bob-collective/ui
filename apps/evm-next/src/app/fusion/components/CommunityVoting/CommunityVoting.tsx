@@ -2,10 +2,10 @@ import { Button, Chip, Flex, H2, Link, P, Skeleton, SolidClock, useMediaQuery } 
 import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
 
-import { useGetVotingApps } from '../../../apps/hooks';
-import { RoutesPath } from '../../../../constants';
-
 import { StyledCard, StyledOpacityOverlay, StyledSpice } from './CommunityVoting.style';
+
+import { useGetVotingApps } from '@/app/apps/hooks';
+import { RoutesPath } from '@/constants';
 
 type CommunityVotingProps = object;
 

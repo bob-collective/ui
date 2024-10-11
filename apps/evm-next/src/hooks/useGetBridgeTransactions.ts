@@ -8,13 +8,12 @@ import { useCallback } from 'react';
 import { TransactionReceipt, isAddressEqual } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
 
-import { L1_CHAIN, L2_CHAIN } from '../constants';
-import { ETH, wstETH } from '../constants/assets';
-import { bridgeKeys, queryClient } from '../lib/react-query';
-import { MessageDirection, MessageStatus, TransactionType } from '../types';
-
 import { useBridgeTokens } from './useBridgeTokens';
 import { usePublicClientL1, usePublicClientL2 } from './usePublicClient';
+
+import { L1_CHAIN, L2_CHAIN, ETH, wstETH } from '@/constants';
+import { bridgeKeys, queryClient } from '@/lib/react-query';
+import { MessageDirection, MessageStatus, TransactionType } from '@/types';
 
 type BridgeTransaction = {
   from: Address;
@@ -452,7 +451,7 @@ const useGetBridgeTransactions = () => {
 
   const transactions = useQuery({
     queryKey: bridgeKeys.transactions(address),
-    queryFn: async () => fetchTransactions(address!),
+    queryFn: () => fetchTransactions(address!),
     enabled: Boolean(address && tokens),
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,

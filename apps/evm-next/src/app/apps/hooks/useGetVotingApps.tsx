@@ -19,7 +19,7 @@ const useGetVotingApps = () => {
 
   return useQuery({
     queryKey: appsKeys.appsVotes(address),
-    queryFn: async () => apiClient.getVotes(),
+    queryFn: () => apiClient.getVotes(),
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,

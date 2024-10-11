@@ -23,10 +23,9 @@ import { useTranslations } from 'next-intl';
 import { useTheme } from 'styled-components';
 import { Address, isAddressEqual } from 'viem';
 
-import { L1_CHAIN } from '../../constants';
-
 import { StyledDt, StyledTooltipWrapper } from './WithdrawModal.style';
 
+import { L1_CHAIN } from '@/constants';
 import { useGetUser, useTokens } from '@/hooks';
 
 const nativeToken = NATIVE[L1_CHAIN];

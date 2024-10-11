@@ -21,7 +21,7 @@ const useGetApps = () => {
 
   return useQuery({
     queryKey: appsKeys.apps(),
-    queryFn: async () => apiClient.getSeason3Partners(),
+    queryFn: () => apiClient.getSeason3Partners(),
     gcTime: INTERVAL.HOUR,
     refetchOnWindowFocus: false,
     refetchOnMount: false,

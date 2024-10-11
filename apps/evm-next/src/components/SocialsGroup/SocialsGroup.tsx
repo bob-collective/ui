@@ -1,7 +1,7 @@
 import { Button, ButtonProps, Flex, FlexProps } from '@gobob/ui';
 import { Discord, Twitter } from '@gobob/icons';
 
-import { DocsLinks } from '../../constants';
+import { DocsLinks } from '@/constants';
 
 type Props = {
   showDocs?: boolean;

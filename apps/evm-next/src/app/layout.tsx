@@ -30,9 +30,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-  const locale = await getLocale();
-
-  const messages = await getMessages();
+  const [locale, messages] = await Promise.all([getLocale(), getMessages()]);
 
   return (
     <html className={inter.className} lang={locale}>

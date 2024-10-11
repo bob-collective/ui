@@ -5,10 +5,10 @@ import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
 
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
-import { Medal } from '../../../apps/components/Medal';
 
 import { StyledQuestList, StyledSkeletonWrapper } from './Leaderboard.style';
 
+import { Medal } from '@/app/apps/components/Medal';
 import { useGetUser } from '@/hooks';
 import { QuestRefCodes, apiClient } from '@/utils';
 import { fusionKeys } from '@/lib/react-query';

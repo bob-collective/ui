@@ -44,7 +44,7 @@ const AppsList = ({
     if (!urlSearchParams.get('category')) return;
 
     document.getElementById(headerId)?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
-  }, [urlSearchParams]);
+  }, [urlSearchParams, headerId]);
 
   const categories = apps ? Array.from(new Set(apps.flatMap((app) => app.categories))).sort() : undefined;
 

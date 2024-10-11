@@ -3,10 +3,11 @@ import { truncateEthAddress } from '@gobob/utils';
 import { Fragment, useMemo } from 'react';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 
-import { chainL2 } from '../../../../constants';
 import { StrategyData } from '../StakeForm/StakeForm';
 
 import { StyledSection, StyledStrategyDetails } from './StrategyDetails.style';
+
+import { chainL2 } from '@/constants';
 
 type TransactionListProps = CardProps & {
   strategy: StrategyData | undefined;

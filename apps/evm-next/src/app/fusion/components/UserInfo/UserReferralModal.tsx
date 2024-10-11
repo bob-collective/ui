@@ -1,8 +1,8 @@
 import { Dd, Dl, DlGroup, Dt, Modal, ModalBody, ModalHeader, ModalProps, P, Table } from '@gobob/ui';
 import { ReactNode } from 'react';
 
-import { UserResponse } from '../../../../utils';
-import { SpiceAmount } from '../../../../components';
+import { UserResponse } from '@/utils';
+import { SpiceAmount } from '@/components';
 
 enum TableColumns {
   USERNAME = 'username',

@@ -1,7 +1,7 @@
 import { Card, Flex, H4 } from '@gobob/ui';
 import styled from 'styled-components';
 
-import { QuestRefCodes } from '../../../../utils';
+import { QuestRefCodes } from '@/utils';
 
 type StyledCardProps = {
   $isFeatured?: boolean;

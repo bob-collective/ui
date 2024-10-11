@@ -15,11 +15,12 @@ import {
 } from '@gobob/ui';
 import { Address } from '@gobob/wagmi';
 
-import { L1_CHAIN, L2_CHAIN } from '../../constants';
-import { MessageDirection } from '../../types';
-import { getDuration } from '../../utils';
 import { Chain } from '../Chain';
 import { TransactionDetails } from '../TransactionDetails';
+
+import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { MessageDirection } from '@/types';
+import { getDuration } from '@/utils';
 
 type Props = {
   amount: CurrencyAmount<ERC20Token | Ether>;

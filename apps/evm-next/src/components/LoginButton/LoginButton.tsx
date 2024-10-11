@@ -5,8 +5,8 @@ import { useConnectModal } from '@gobob/connect-ui';
 import { mergeProps } from '@react-aria/utils';
 import { ChainId } from '@gobob/chains';
 
-import { L1_CHAIN, L2_CHAIN, isValidChain } from '../../constants';
-import { useGetUser, useLogin } from '../../hooks';
+import { L1_CHAIN, L2_CHAIN, isValidChain } from '@/constants';
+import { useGetUser, useLogin } from '@/hooks';
 
 type Props = object;
 

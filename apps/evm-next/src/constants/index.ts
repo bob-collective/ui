@@ -1,3 +1,4 @@
+export * from './assets';
 export * from './bitcoin';
 export * from './chain';
 export * from './contracts';

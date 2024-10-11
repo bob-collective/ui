@@ -16,10 +16,10 @@ import {
   Span
 } from '@gobob/ui';
 
-import { UserResponse } from '../../../../utils';
-import { SpiceAmount, WithdrawAlert } from '../../../../components';
-
 import { StyledLearnButton } from './WelcomeBackModal.style';
+
+import { UserResponse } from '@/utils';
+import { SpiceAmount, WithdrawAlert } from '@/components';
 
 type Props = { user: UserResponse };
 

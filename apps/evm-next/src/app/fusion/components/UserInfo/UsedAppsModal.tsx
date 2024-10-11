@@ -1,7 +1,7 @@
 import { Avatar, Flex, List, ListItem, Modal, ModalBody, ModalHeader, ModalProps, P, Span } from '@gobob/ui';
 
-import { AppData } from '../../../apps/hooks';
-import { SpiceAmount } from '../../../../components';
+import { AppData } from '@/app/apps/hooks';
+import { SpiceAmount } from '@/components';
 
 type Props = {
   apps: AppData[];

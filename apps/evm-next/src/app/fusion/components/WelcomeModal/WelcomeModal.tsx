@@ -2,7 +2,7 @@
 import { Button, Card, Flex, H3, Modal, ModalBody, ModalFooter, ModalProps, Span, Switch } from '@gobob/ui';
 import { useState } from 'react';
 
-import { UserResponse } from '../../../../utils';
+import { UserResponse } from '@/utils';
 
 type Props = { user: UserResponse; onClose: (hideForever: boolean) => void };
 

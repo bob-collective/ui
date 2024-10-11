@@ -19,7 +19,7 @@ type ResultVotingAppInfo = ResultProjectVotingInfo & {
 const useGetPodiumData = () => {
   return useQuery({
     queryKey: appsKeys.appsResultVotes(),
-    queryFn: async () => apiClient.getLastVotingResults(),
+    queryFn: () => apiClient.getLastVotingResults(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     select: (data): ResultVotingAppInfo => {

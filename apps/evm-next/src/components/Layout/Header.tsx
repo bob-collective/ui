@@ -17,8 +17,6 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
 
-import { DocsLinks, RoutesPath } from '../../constants';
-import { FeatureFlags, useFeatureFlag } from '../../hooks';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
 
@@ -27,6 +25,9 @@ import { StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
+
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
+import { DocsLinks, RoutesPath } from '@/constants';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 

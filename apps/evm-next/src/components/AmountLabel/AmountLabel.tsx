@@ -3,7 +3,7 @@ import { usePrices } from '@gobob/react-query';
 import { useCurrencyFormatter } from '@gobob/ui';
 import { useMemo } from 'react';
 
-import { calculateAmountUSD } from '../../utils';
+import { calculateAmountUSD } from '@/utils';
 
 type Props = {
   amount?: CurrencyAmount<Currency>;

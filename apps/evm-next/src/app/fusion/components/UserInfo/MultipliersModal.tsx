@@ -3,7 +3,8 @@ import { ReactNode, useCallback, useId } from 'react';
 import { Address, isAddressEqual } from 'viem';
 
 import { useGetTokensInfo } from '../../hooks';
-import { TokenInfo } from '../../../../utils';
+
+import { TokenInfo } from '@/utils';
 
 const yieldAssetsAddresses = [
   '0x236f8c0a61da474db21b693fb2ea7aab0c803894',

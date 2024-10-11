@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Card, Flex, H2, Link, P } from '@gobob/ui';
 
-import { RoutesPath } from '../../../../constants';
-
 import { StrategyCard, StrategyCardProps } from './StrategyCard';
 import { StyledGrid, StyledOverlay, StyledUnderlay, StyledWrapper } from './Strategies.style';
+
+import { RoutesPath } from '@/constants';
 
 const btcLstLendingStrat: StrategyCardProps = {
   title: 'BTC LST Lending',
