@@ -33,7 +33,9 @@ const Bridge = ({ searchParams }: Props) => {
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
-  const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(BridgeOrigin.Internal);
+  const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(
+    type === Type.Deposit ? BridgeOrigin.Internal : BridgeOrigin.External
+  );
 
   const initialChain = useMemo(() => {
     const network = urlSearchParams.get('network');
