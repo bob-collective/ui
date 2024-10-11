@@ -26,7 +26,7 @@ import {
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
-import { L2BridgeData } from '../../../../types';
+import { BridgeTransaction, InitBridgeTransaction, MessageStatus, TransactionType } from '../../../../types';
 import { Type } from '../../Bridge';
 
 import { BridgeAlert } from './BridgeAlert';
@@ -34,9 +34,9 @@ import { BridgeAlert } from './BridgeAlert';
 type BobBridgeFormProps = {
   type: Type;
   ticker?: string;
-  onStartBridge?: (data: L2BridgeData) => void;
-  onBridgeSuccess?: (data: L2BridgeData) => void;
-  onStartApproval?: (data: L2BridgeData) => void;
+  onStartBridge?: (data: InitBridgeTransaction) => void;
+  onBridgeSuccess?: (data: BridgeTransaction) => void;
+  onStartApproval?: (data: InitBridgeTransaction) => void;
   onFailBridge?: () => void;
 };
 
@@ -198,7 +198,6 @@ const BobBridgeForm = ({
     mutationKey: ['deposit', address],
     mutationFn: async ({
       currencyAmount,
-      selectedGasToken,
       selectedToken,
       recipient
     }: {
@@ -206,7 +205,7 @@ const BobBridgeForm = ({
       selectedGasToken: BridgeToken;
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
       recipient: Address;
-    }) => {
+    }): Promise<BridgeTransaction> => {
       if (!messenger) {
         throw new Error('Missing messenger');
       }
@@ -215,10 +214,14 @@ const BobBridgeForm = ({
         throw new Error('Allowance data missing');
       }
 
-      const data = {
+      const data: InitBridgeTransaction = {
         amount: currencyAmount,
-        gasEstimate: gasEstimateMutation.data || CurrencyAmount.fromRawAmount(selectedGasToken.l1Currency, 0n),
-        direction: MessageDirection.L1_TO_L2
+        direction: MessageDirection.L1_TO_L2,
+        from: address!,
+        to: recipient,
+        l1Token: selectedToken.l1Token.address,
+        l2Token: selectedToken.l2Token.address,
+        type: TransactionType.Bridge
       };
 
       if (currencyAmount.currency.isNative) {
@@ -228,7 +231,9 @@ const BobBridgeForm = ({
 
         return {
           ...data,
-          transactionHash: tx.hash as Address
+          transactionHash: tx.hash as Address,
+          status: MessageStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
+          date: new Date()
         };
       }
 
@@ -251,7 +256,9 @@ const BobBridgeForm = ({
 
       return {
         ...data,
-        transactionHash: tx.hash as Address
+        transactionHash: tx.hash as Address,
+        status: MessageStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
+        date: new Date()
       };
     },
     onSuccess: (data) => {
@@ -285,23 +292,25 @@ const BobBridgeForm = ({
     mutationKey: ['withdraw', address],
     mutationFn: async ({
       currencyAmount,
-      selectedGasToken,
       selectedToken,
       recipient
     }: {
       selectedToken: BridgeToken;
-      selectedGasToken: BridgeToken;
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
       recipient: Address;
-    }) => {
+    }): Promise<BridgeTransaction> => {
       if (!messenger) {
         throw new Error('Missing messenger');
       }
 
-      const data = {
+      const data: InitBridgeTransaction = {
         amount: currencyAmount,
-        gasEstimate: gasEstimateMutation.data || CurrencyAmount.fromRawAmount(selectedGasToken.l2Currency, 0n),
-        direction: MessageDirection.L2_TO_L1
+        direction: MessageDirection.L2_TO_L1,
+        from: address!,
+        to: recipient,
+        l1Token: selectedToken.l1Token.address,
+        l2Token: selectedToken.l2Token.address,
+        type: TransactionType.Bridge
       };
 
       if (currencyAmount.currency.isNative) {
@@ -311,7 +320,9 @@ const BobBridgeForm = ({
 
         return {
           ...data,
-          transactionHash: tx.hash as Address
+          transactionHash: tx.hash as Address,
+          status: MessageStatus.STATE_ROOT_NOT_PUBLISHED,
+          date: new Date()
         };
       }
 
@@ -337,7 +348,9 @@ const BobBridgeForm = ({
 
       return {
         ...data,
-        transactionHash: tx.hash as Address
+        transactionHash: tx.hash as Address,
+        status: MessageStatus.STATE_ROOT_NOT_PUBLISHED,
+        date: new Date()
       };
     },
     onSuccess: (data) => {
@@ -415,7 +428,6 @@ const BobBridgeForm = ({
 
     return withdrawMutation.mutate({
       currencyAmount,
-      selectedGasToken,
       selectedToken,
       recipient
     });

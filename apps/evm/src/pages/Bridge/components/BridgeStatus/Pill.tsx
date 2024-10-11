@@ -29,7 +29,14 @@ const Pill = ({ label, status, href }: PillProps): JSX.Element => {
   const icon = getPillIcon(status);
 
   return (
-    <StyledPill external $status={status} as={href ? undefined : Span} href={href} size='xs' weight='medium'>
+    <StyledPill
+      $status={status}
+      as={href ? undefined : Span}
+      href={href}
+      size='xs'
+      weight='medium'
+      {...(href ? { external: true } : undefined)}
+    >
       {icon}
       {label}
       {href && <ArrowTopRightOnSquare size='xs' />}

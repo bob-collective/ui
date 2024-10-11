@@ -9,7 +9,7 @@ import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { FeatureFlags, TokenData, useFeatureFlag } from '../../../../hooks';
 import { BridgeOrigin, Type } from '../../Bridge';
 import { useGetTransactions } from '../../../../hooks';
-import { L2BridgeData, GatewayData } from '../../../../types';
+import { BridgeTransaction, InitBridgeTransaction, GatewayData } from '../../../../types';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../../components';
@@ -22,9 +22,10 @@ import { BtcBridgeForm } from './BtcBridgeForm';
 
 type TransactionModalState = {
   isOpen: boolean;
-  step: 'approval' | 'confirmation' | 'submitted';
-  data?: L2BridgeData;
-};
+} & (
+  | { step: 'approval' | 'confirmation'; data?: InitBridgeTransaction }
+  | { step: 'submitted'; data?: BridgeTransaction }
+);
 
 type GatewayTransactionModalState = {
   isOpen: boolean;
@@ -66,9 +67,7 @@ const BridgeForm = ({
   onChangeOrigin,
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
-  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
-
-  const { refetchBridgeTxs } = useGetTransactions();
+  const { refetchBridgeTxs, addBridgePlaceholderTransaction } = useGetTransactions();
 
   const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
     isOpen: false,
@@ -80,6 +79,8 @@ const BridgeForm = ({
   });
 
   const chainId = useChainId();
+
+  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
   const { data: btcTokens } = useQuery({
     enabled: isBtcGatewayEnabled,
@@ -105,16 +106,18 @@ const BridgeForm = ({
     }
   });
 
-  const handleStartBridge = (data: L2BridgeData) => {
+  const handleStartBridge = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
   };
 
-  const handleBridgeSuccess = (data: L2BridgeData) => {
+  const handleBridgeSuccess = (data: BridgeTransaction) => {
+    addBridgePlaceholderTransaction(data);
+
     refetchBridgeTxs();
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
   };
 
-  const handleStartApproval = (data: L2BridgeData) => {
+  const handleStartApproval = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'approval' });
   };
 
@@ -234,12 +237,15 @@ const BridgeForm = ({
           <ExternalBridgeForm chain={chain} type={type} />
         )}
       </Flex>
-      <BridgeTransactionModal
-        {...(bridgeModalState.data as Required<L2BridgeData>)}
-        isOpen={bridgeModalState.isOpen}
-        step={bridgeModalState.step}
-        onClose={handleCloseModal}
-      />
+      {bridgeModalState.data && (
+        <BridgeTransactionModal
+          // MEMO: casting any because typescript does not know how to handle this union type
+          data={bridgeModalState.data as any}
+          isOpen={bridgeModalState.isOpen}
+          step={bridgeModalState.step}
+          onClose={handleCloseModal}
+        />
+      )}
       <GatewayTransactionModal
         {...(gatewayModalState.data as Required<GatewayData>)}
         isOpen={gatewayModalState.isOpen}

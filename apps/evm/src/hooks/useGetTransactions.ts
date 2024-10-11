@@ -1,5 +1,8 @@
-import { useAccount } from '@gobob/wagmi';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import { useStore } from '@tanstack/react-store';
+import { useConfig, watchAccount } from '@gobob/wagmi';
+
+import { store } from '../lib/store';
 
 import { BridgeTransaction, useGetBridgeTransactions } from './useGetBridgeTransactions';
 
@@ -8,32 +11,44 @@ import { FeatureFlags, GatewayTransaction, useFeatureFlag, useGetGatewayTransact
 type Transaction = BridgeTransaction | GatewayTransaction;
 
 const useGetTransactions = () => {
+  const config = useConfig();
+
   const gateway = useGetGatewayTransactions();
   const bridge = useGetBridgeTransactions();
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
-  const { address } = useAccount();
+  const isInitialLoading = useStore(store, (state) => state.bridge.transactions.isInitialLoading);
 
-  const isLoading = useMemo(
-    () => (isBtcGatewayEnabled && gateway.isLoading) || bridge.isLoading,
-    [gateway.isLoading, bridge.isLoading, isBtcGatewayEnabled]
-  );
+  const isLoading = (isBtcGatewayEnabled && gateway.isLoading) || bridge.isLoading;
 
-  const [isInitialLoading, setInitialLoading] = useState(isLoading);
+  const watchAccountRef = useRef<() => void>();
 
   useEffect(() => {
-    if (isInitialLoading) {
-      setInitialLoading(isLoading);
-    }
-  }, [isLoading, isInitialLoading]);
+    watchAccountRef.current = watchAccount(config, {
+      onChange: (account) => {
+        if (account.address) {
+          store.setState((state) => ({
+            ...state,
+            bridge: { transactions: { ...state.bridge.transactions, isInitialLoading: true } }
+          }));
+        }
+      }
+    });
+
+    // Cleanup by calling unwatch to unsubscribe from the account change event
+    return () => watchAccountRef.current?.();
+  }, [config]);
 
   useEffect(() => {
-    if (address) {
-      setInitialLoading(isLoading);
+    if (isInitialLoading && !isLoading) {
+      store.setState((state) => ({
+        ...state,
+        bridge: { transactions: { ...state.bridge.transactions, isInitialLoading: false } }
+      }));
     }
-  }, [address, isLoading]);
+  }, [isInitialLoading, isLoading]);
 
-  return useMemo(() => {
+  const data = useMemo(() => {
     let data;
 
     if (isBtcGatewayEnabled) {
@@ -42,14 +57,18 @@ const useGetTransactions = () => {
       data = bridge.data;
     }
 
-    return {
-      data: data?.sort((a, b) => b.date.getTime() - a.date.getTime()),
-      refetchGatewayTxs: gateway.refetch,
-      refetchBridgeTxs: bridge.refetch,
-      isLoading,
-      isInitialLoading
-    };
-  }, [bridge.data, bridge.refetch, isBtcGatewayEnabled, isInitialLoading, isLoading, gateway.data, gateway.refetch]);
+    return data?.sort((a, b) => b.date.getTime() - a.date.getTime());
+  }, [bridge.data, gateway.data, isBtcGatewayEnabled]);
+
+  return {
+    data,
+    refetchGatewayTxs: gateway.refetch,
+    refetchBridgeTxs: bridge.refetch,
+    addBridgePlaceholderTransaction: bridge.addPlaceholderTransaction,
+    isPending: (isBtcGatewayEnabled && gateway.isPending) || bridge.isPending,
+    isInitialLoading,
+    isLoading
+  };
 };
 
 export { useGetTransactions };

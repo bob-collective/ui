@@ -1,4 +1,3 @@
-import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import {
   ArrowLongRight,
   Button,
@@ -13,37 +12,37 @@ import {
   Span,
   Spinner
 } from '@gobob/ui';
-import { Address } from '@gobob/wagmi';
 
 import { L1_CHAIN, L2_CHAIN } from '../../constants';
-import { MessageDirection } from '../../types';
+import { BridgeTransaction, InitBridgeTransaction, MessageDirection } from '../../types';
 import { getDuration } from '../../utils';
 import { Chain } from '../Chain';
 import { TransactionDetails } from '../TransactionDetails';
 
-type Props = {
-  amount: CurrencyAmount<ERC20Token | Ether>;
-  gasEstimate: CurrencyAmount<ERC20Token | Ether>;
-  direction: MessageDirection;
-  transactionHash?: Address;
-  step: 'approval' | 'confirmation' | 'submitted';
-};
+type Props =
+  | {
+      data: InitBridgeTransaction;
+      step: 'approval' | 'confirmation';
+    }
+  | {
+      data: BridgeTransaction;
+      step: 'submitted';
+    };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type BridgeTransactionModalProps = Props & InheritAttrs;
 
 const BridgeTransactionModal = ({
-  transactionHash,
-  direction,
-  amount,
-  gasEstimate,
+  data,
   onClose,
   isOpen,
   step,
   ...props
 }: BridgeTransactionModalProps): JSX.Element => {
-  const isSubmitted = !!transactionHash && step === 'submitted';
+  const { direction, amount, gasEstimate } = data;
+
+  const isSubmitted = step === 'submitted' && !!data.transactionHash;
   const title =
     step === 'submitted'
       ? 'Transaction Submitted'

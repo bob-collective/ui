@@ -1,5 +1,5 @@
 import { AuthButton } from '@gobob/connect-ui';
-import { CurrencyAmount } from '@gobob/currency';
+import { CurrencyAmount, ERC20Token } from '@gobob/currency';
 import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
 import {
   BtcAddressType,
@@ -48,7 +48,7 @@ import {
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
 import { useGetTransactions } from '../../../../hooks';
-import { GatewayData } from '../../../../types';
+import { GatewayTransaction, InitGatewayTransaction, TransactionType } from '../../../../types';
 import { bridgeKeys } from '../../../../lib/react-query';
 import { gatewaySDK } from '../../../../lib/bob-sdk';
 import { Type } from '../../Bridge';
@@ -56,8 +56,8 @@ import { Type } from '../../Bridge';
 type BtcBridgeFormProps = {
   type: Type;
   availableTokens: TokenData[];
-  onStartGateway: (data: GatewayData) => void;
-  onGatewaySuccess: (data: GatewayData) => void;
+  onStartGateway: (data: InitGatewayTransaction) => void;
+  onGatewaySuccess: (data: GatewayTransaction) => void;
   onFailGateway: () => void;
 };
 
@@ -207,7 +207,7 @@ const BtcBridgeForm = ({
       const btcReceiveAmount = currencyAmount.subtract(feeAmount);
 
       return {
-        receiveAmount: CurrencyAmount.fromBaseAmount(btcToken.currency, btcReceiveAmount.toExact()),
+        receiveAmount: CurrencyAmount.fromBaseAmount(btcToken.currency as ERC20Token, btcReceiveAmount.toExact()),
         fee: feeAmount,
         isStakingToken: !!gatewayQuote.strategyAddress,
         gatewayQuote
@@ -223,7 +223,13 @@ const BtcBridgeForm = ({
 
   const depositMutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
-    mutationFn: async ({ evmAddress, gatewayQuote }: { evmAddress: Address; gatewayQuote: GatewayQuote }) => {
+    mutationFn: async ({
+      evmAddress,
+      gatewayQuote
+    }: {
+      evmAddress: Address;
+      gatewayQuote: GatewayQuote;
+    }): Promise<GatewayTransaction> => {
       if (!connector) {
         throw new Error('Connector missing');
       }
@@ -232,9 +238,10 @@ const BtcBridgeForm = ({
         throw new Error('Quote Data missing');
       }
 
-      const data = {
+      const data: InitGatewayTransaction = {
         amount: quoteData.receiveAmount,
-        fee: quoteData.fee
+        fee: quoteData.fee,
+        type: TransactionType.Gateway
       };
 
       onStartGateway(data);
@@ -251,9 +258,17 @@ const BtcBridgeForm = ({
 
       // NOTE: user does not broadcast the tx, that is done by
       // the relayer after it is validated
-      const txid = await gatewaySDK.finalizeOrder(uuid, bitcoinTxHex);
+      const btcTxId = await gatewaySDK.finalizeOrder(uuid, bitcoinTxHex);
 
-      return { ...data, txid };
+      return {
+        ...data,
+        btcTxId,
+        date: new Date(),
+        totalConfirmations: quoteData.gatewayQuote.txProofDifficultyFactor,
+        confirmations: 0,
+        isPending: false,
+        status: 'btc-confirmation'
+      };
     },
     onSuccess: (data) => {
       setAmount('');

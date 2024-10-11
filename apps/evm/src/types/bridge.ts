@@ -1,18 +1,45 @@
-import { Bitcoin, Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
-import { Address } from 'viem';
+import { Bitcoin, CurrencyAmount, EvmCurrencies, Token } from '@gobob/currency';
+import { Address, TransactionReceipt } from 'viem';
 
-type L2BridgeData = {
-  amount: CurrencyAmount<ERC20Token | Ether>;
-  gasEstimate: CurrencyAmount<ERC20Token | Ether>;
+import { GatewayDepositSteps } from '../constants';
+
+type BridgeTransaction = {
+  type: TransactionType.Bridge;
+  from: Address;
+  to: Address;
+  l1Token: Address;
+  l2Token: Address;
+  amount: CurrencyAmount<EvmCurrencies>;
+  gasEstimate?: CurrencyAmount<EvmCurrencies>;
+  data?: string;
+  date: Date;
+  blockNumber?: number;
+  transactionHash: Address;
+  l1Receipt?: TransactionReceipt;
+  l2Receipt?: TransactionReceipt;
+  statusEndDate?: Date;
   direction: MessageDirection;
-  transactionHash?: Address;
+  status: MessageStatus | null;
 };
 
-type GatewayData = {
-  txid?: string;
-  amount: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
-  fee: CurrencyAmount<Bitcoin>;
+type InitBridgeTransaction = Omit<
+  BridgeTransaction,
+  'transactionHash' | 'blockNumber' | 'status' | 'data' | 'date' | 'l1Receipt' | 'l2Receipt' | 'statusEndDate'
+>;
+
+type GatewayTransaction = {
+  type: TransactionType.Gateway;
+  status: GatewayDepositSteps;
+  date: Date;
+  confirmations: number;
+  totalConfirmations: number;
+  btcTxId: string;
+  amount: CurrencyAmount<Token>;
+  fee?: CurrencyAmount<Bitcoin>;
+  isPending: boolean;
 };
+
+type InitGatewayTransaction = Pick<GatewayTransaction, 'type' | 'amount' | 'fee'>;
 
 enum TransactionType {
   Bridge,
@@ -35,4 +62,4 @@ enum MessageStatus {
 }
 
 export { TransactionType, MessageStatus, MessageDirection };
-export type { L2BridgeData, GatewayData };
+export type { GatewayTransaction, InitGatewayTransaction, BridgeTransaction, InitBridgeTransaction };

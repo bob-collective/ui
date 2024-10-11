@@ -1,4 +1,4 @@
-import { CurrencyAmount, ERC20Token, Token } from '@gobob/currency';
+import { CurrencyAmount, Token } from '@gobob/currency';
 import { INTERVAL, useQuery } from '@gobob/react-query';
 import { useAccount } from '@gobob/wagmi';
 import { Address } from 'viem';
@@ -7,20 +7,9 @@ import { ChainId } from '@gobob/chains';
 import { gatewaySDK } from '../lib/bob-sdk';
 import { esploraClient } from '../utils';
 import { GatewayDepositSteps } from '../constants';
-import { TransactionType } from '../types';
+import { GatewayTransaction, TransactionType } from '../types';
 
 import { FeatureFlags, useFeatureFlag } from './useFeatureFlag';
-
-type GatewayTransaction = {
-  status: GatewayDepositSteps;
-  date: Date;
-  confirmations: number;
-  totalConfirmations: number;
-  btcTxId: string;
-  amount?: CurrencyAmount<ERC20Token>;
-  type: TransactionType.Gateway;
-  isPending: boolean;
-};
 
 const getGatewayTransactions = async (address: Address): Promise<GatewayTransaction[]> => {
   const [orders, latestHeight] = await Promise.all([gatewaySDK.getOrders(address), esploraClient.getLatestHeight()]);
@@ -31,30 +20,30 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
         const gatewayToken = order.getToken();
         const gatewayAmount = order.getAmount();
 
-        let amount: CurrencyAmount<ERC20Token> | undefined;
-
-        if (gatewayToken && gatewayAmount) {
-          const token = {
-            raw: {
-              chainId: gatewayToken.chainId,
-              address: gatewayToken.address as `0x${string}`,
-              name: gatewayToken.name,
-              symbol: gatewayToken.symbol,
-              decimals: gatewayToken.decimals,
-              logoUrl: gatewayToken.logoURI,
-              apiId: ''
-            },
-            currency: new Token(
-              ChainId.BOB,
-              gatewayToken.address as `0x${string}`,
-              gatewayToken.decimals,
-              gatewayToken.symbol,
-              gatewayToken.name
-            )
-          };
-
-          amount = CurrencyAmount.fromRawAmount(token.currency as ERC20Token, gatewayAmount);
+        if (!gatewayToken || !gatewayAmount) {
+          return undefined;
         }
+
+        const token = {
+          raw: {
+            chainId: gatewayToken.chainId,
+            address: gatewayToken.address as `0x${string}`,
+            name: gatewayToken.name,
+            symbol: gatewayToken.symbol,
+            decimals: gatewayToken.decimals,
+            logoUrl: gatewayToken.logoURI,
+            apiId: ''
+          },
+          currency: new Token(
+            ChainId.BOB,
+            gatewayToken.address as `0x${string}`,
+            gatewayToken.decimals,
+            gatewayToken.symbol,
+            gatewayToken.name
+          )
+        };
+
+        const amount = CurrencyAmount.fromRawAmount(token.currency, gatewayAmount);
 
         const orderStatus = await order.getStatus(esploraClient, latestHeight);
         const status: GatewayDepositSteps =

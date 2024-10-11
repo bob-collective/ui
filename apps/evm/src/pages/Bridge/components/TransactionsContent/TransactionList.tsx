@@ -19,16 +19,16 @@ type TransactionListProps = CardProps;
 
 const TransactionList = (props: TransactionListProps): JSX.Element => {
   const { address, chain } = useAccount();
-  const { data: transactions, isInitialLoading, isPending } = useGetTransactions();
+  const { data: transactions, isInitialLoading } = useGetTransactions();
 
   const pendingInteractions = useMemo(
     () =>
-      !isPending &&
+      !isInitialLoading &&
       transactions?.filter(
         (transaction) =>
           transaction.status === MessageStatus.READY_TO_PROVE || transaction.status === MessageStatus.READY_FOR_RELAY
       ).length,
-    [transactions, isPending]
+    [transactions, isInitialLoading]
   );
 
   const title = (
@@ -49,8 +49,6 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
 
   const txsUrl = address ? `${explorerUrl}/address/${address}` : `${explorerUrl}`;
 
-  const hasData = !!transactions?.length;
-
   return (
     <StyledSection gap='xl' paddingX='4xl' paddingY='3xl' {...props}>
       <H2 size='md'>{title}</H2>
@@ -60,7 +58,7 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
           direction='column'
           flex={1}
           gap='xl'
-          justifyContent={isInitialLoading || !hasData ? 'center' : undefined}
+          justifyContent={isInitialLoading || !transactions?.length ? 'center' : undefined}
           paddingY='xl'
         >
           {isInitialLoading ? (
@@ -72,7 +70,7 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
             </Flex>
           ) : (
             <>
-              {hasData ? (
+              {transactions?.length ? (
                 transactions.map((transaction, idx) => (
                   <Fragment key={idx}>
                     <TransactionItem data={transaction} />

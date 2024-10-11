@@ -168,14 +168,25 @@ const getStatus = (step: BridgeSteps, status: MessageStatus | null, direction: M
   return 'complete';
 };
 
-const getStepUrl = (step: BridgeSteps, l1TransactionHash?: Address, l2TransactionHash?: Address) => {
+const getStepUrl = (
+  step: BridgeSteps,
+  transactionHash: Address,
+  l1TransactionHash?: Address,
+  l2TransactionHash?: Address
+) => {
   switch (step) {
-    case 'deposit':
-    case 'l1-confirmation':
+    case 'deposit': {
+      return `${chainL2.blockExplorers?.default.url}/tx/${transactionHash}`;
+    }
+    case 'l1-confirmation': {
       return l1TransactionHash ? `${chainL1.blockExplorers?.default.url}/tx/${l1TransactionHash}` : undefined;
-    case 'withdraw':
-    case 'l2-confirmation':
+    }
+    case 'withdraw': {
+      return `${chainL2.blockExplorers?.default.url}/tx/${transactionHash}`;
+    }
+    case 'l2-confirmation': {
       return l2TransactionHash ? `${chainL2.blockExplorers?.default.url}/tx/${l2TransactionHash}` : undefined;
+    }
     default:
       return undefined;
   }
@@ -189,13 +200,13 @@ type BridgeStepProps = {
 };
 
 const BridgeStep = ({ data, isActing, isActionSuccessful, step }: BridgeStepProps): JSX.Element => {
-  const { status: messageStatus, l1Receipt, l2Receipt, direction } = data;
+  const { status: messageStatus, l1Receipt, l2Receipt, direction, transactionHash } = data;
 
   if (step === undefined) {
     return <Pill label='Unknown' status='idle' />;
   }
 
-  const href = getStepUrl(step, l1Receipt?.transactionHash, l2Receipt?.transactionHash);
+  const href = getStepUrl(step, transactionHash, l1Receipt?.transactionHash, l2Receipt?.transactionHash);
 
   const status = getStatus(step, messageStatus, direction);
 

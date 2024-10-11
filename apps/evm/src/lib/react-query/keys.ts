@@ -4,6 +4,7 @@ type TransactionType = 'deposit' | 'withdraw';
 
 export const bridgeKeys = {
   transactions: (address: Address | undefined) => ['bridge-transactions', address],
+  unconfirmedTransactions: (address: Address | undefined) => [...bridgeKeys.transactions(address), 'unconfirmed'],
   transaction: (address: Address | undefined, hash: Address, type: TransactionType) => [
     ...bridgeKeys.transactions(address),
     hash,
