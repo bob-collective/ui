@@ -24,7 +24,7 @@ const yieldAssetsAddresses = [
   '0x1fcca65fb6ae3b2758b9b2b394cb227eae404e1e'
 ];
 
-const freaturedAssetsAddresses = ['0xc96de26018a54d51c097160568752c4e3bd6c364'];
+const featuredAssetsAddresses = ['0xc96de26018a54d51c097160568752c4e3bd6c364'];
 
 const BASE_MULTIPLIER = 0.5;
 const LEDING_MULTIPLIER = 1.5;
@@ -168,7 +168,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
   const featuredAssetsRows = sortedData
     ? sortedData
         ?.filter((item) =>
-          freaturedAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
+          featuredAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
         )
         .map(getRow)
     : Array(2)
