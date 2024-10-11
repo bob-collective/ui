@@ -87,11 +87,7 @@ const columns = [
   }
 ];
 
-type Props = {};
-
-type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
-
-type MultipliersModalProps = Props & InheritAttrs;
+type MultipliersModalProps = Omit<ModalProps, 'children'>;
 
 const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
   const { locale } = useLocale();
