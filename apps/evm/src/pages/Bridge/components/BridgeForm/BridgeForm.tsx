@@ -9,7 +9,12 @@ import { L1_CHAIN, L2_CHAIN } from '../../../../constants';
 import { FeatureFlags, TokenData, useFeatureFlag } from '../../../../hooks';
 import { BridgeOrigin, Type } from '../../Bridge';
 import { useGetTransactions } from '../../../../hooks';
-import { BridgeTransaction, InitBridgeTransaction, GatewayData } from '../../../../types';
+import {
+  BridgeTransaction,
+  InitBridgeTransaction,
+  GatewayTransaction,
+  InitGatewayTransaction
+} from '../../../../types';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../../components';
@@ -29,9 +34,7 @@ type TransactionModalState = {
 
 type GatewayTransactionModalState = {
   isOpen: boolean;
-  step: 'confirmation' | 'submitted';
-  data?: GatewayData;
-};
+} & ({ step: 'confirmation'; data?: InitGatewayTransaction } | { step: 'submitted'; data?: GatewayTransaction });
 
 type BridgeFormProps = {
   chain: ChainId | 'BTC';
@@ -67,7 +70,7 @@ const BridgeForm = ({
   onChangeOrigin,
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
-  const { refetchBridgeTxs, addBridgePlaceholderTransaction } = useGetTransactions();
+  const { refetchBridgeTxs, addPlaceholderTransaction } = useGetTransactions();
 
   const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
     isOpen: false,
@@ -111,7 +114,7 @@ const BridgeForm = ({
   };
 
   const handleBridgeSuccess = (data: BridgeTransaction) => {
-    addBridgePlaceholderTransaction(data);
+    addPlaceholderTransaction.bridge(data);
 
     refetchBridgeTxs();
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
@@ -121,15 +124,17 @@ const BridgeForm = ({
     setBridgeModalState({ isOpen: true, data, step: 'approval' });
   };
 
-  const handleCloseModal = () => {
+  const handleCloseBridgeModal = () => {
     setBridgeModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleStartGateway = (data: GatewayData) => {
+  const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, step: 'confirmation', data });
   };
 
-  const handleGatewaySuccess = (data: GatewayData) => {
+  const handleGatewaySuccess = (data: GatewayTransaction) => {
+    // addPlaceholderTransaction.gateway(data);
+
     setGatewayModalState({ isOpen: false, step: 'submitted', data });
   };
 
@@ -228,7 +233,7 @@ const BridgeForm = ({
               type={type}
               onBridgeSuccess={handleBridgeSuccess}
               // TODO: show error modal
-              onFailBridge={handleCloseModal}
+              onFailBridge={handleCloseBridgeModal}
               onStartApproval={handleStartApproval}
               onStartBridge={handleStartBridge}
             />
@@ -243,14 +248,18 @@ const BridgeForm = ({
           data={bridgeModalState.data as any}
           isOpen={bridgeModalState.isOpen}
           step={bridgeModalState.step}
-          onClose={handleCloseModal}
+          onClose={handleCloseBridgeModal}
         />
       )}
-      <GatewayTransactionModal
-        {...(gatewayModalState.data as Required<GatewayData>)}
-        isOpen={gatewayModalState.isOpen}
-        onClose={handleCloseGatewayModal}
-      />
+      {bridgeModalState.data && (
+        <GatewayTransactionModal
+          // MEMO: casting any because typescript does not know how to handle this union type
+          data={gatewayModalState.data as any}
+          isOpen={gatewayModalState.isOpen}
+          step={gatewayModalState.step}
+          onClose={handleCloseGatewayModal}
+        />
+      )}
     </>
   );
 };

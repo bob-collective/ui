@@ -127,13 +127,13 @@ export const bobSepolia = defineChain({
     l2OutputOracle: {
       [sepoliaSourceId]: {
         address: '0xd1cBBC06213B7E14e99aDFfFeF1C249E6f9537e0',
-        blockCreated: 4462615
+        blockCreated: 6404317
       }
     },
     portal: {
       [sepoliaSourceId]: {
         address: '0xBAAf3BAfdbd660380938b27d21c31bB7D072a799',
-        blockCreated: 4462615
+        blockCreated: 6404317
       }
     }
   },

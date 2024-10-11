@@ -64,7 +64,10 @@ const useGetTransactions = () => {
     data,
     refetchGatewayTxs: gateway.refetch,
     refetchBridgeTxs: bridge.refetch,
-    addBridgePlaceholderTransaction: bridge.addPlaceholderTransaction,
+    addPlaceholderTransaction: {
+      bridge: bridge.addPlaceholderTransaction,
+      gateway: gateway.addPlaceholderTransaction
+    },
     isPending: (isBtcGatewayEnabled && gateway.isPending) || bridge.isPending,
     isInitialLoading,
     isLoading

@@ -36,7 +36,6 @@
     "@sentry/react": "^8.15.0",
     "@sentry/vite-plugin": "^2.20.1",
     "@tanstack/react-store": "^0.5.5",
-    "@tanstack/store": "^0.5.5",
     "@types/react-slick": "^0.23.13",
     "@uidotdev/usehooks": "^2.4.1",
     "big.js": "^6.2.1",

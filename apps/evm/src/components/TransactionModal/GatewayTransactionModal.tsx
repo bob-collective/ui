@@ -13,27 +13,25 @@ import {
 
 import { Chain, TransactionDetails } from '..';
 import { L1_CHAIN, L2_CHAIN } from '../../constants';
-import { useGetGatewayTransactions } from '../../hooks';
-import { GatewayData, TransactionType } from '../../types';
-
-type Props = GatewayData;
+import { GatewayTransaction, InitGatewayTransaction } from '../../types';
+type Props =
+  | {
+      data: InitGatewayTransaction;
+      step: 'confirmation';
+    }
+  | {
+      data: GatewayTransaction;
+      step: 'submitted';
+    };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type GatewayTransactionModalProps = Props & InheritAttrs;
 
-const GatewayTransactionModal = ({
-  amount,
-  txid,
-  fee,
-  onClose,
-  ...props
-}: GatewayTransactionModalProps): JSX.Element => {
-  const { data: transactions } = useGetGatewayTransactions();
+const GatewayTransactionModal = ({ data, step, onClose, ...props }: GatewayTransactionModalProps): JSX.Element => {
+  const { amount, fee } = data;
 
-  const txData = transactions?.find((tx) => tx.type === TransactionType.Gateway && tx.btcTxId === txid);
-
-  const isSubmitted = !!txData;
+  const isSubmitted = step === 'submitted';
 
   const title = isSubmitted ? 'Transaction submitted' : 'Waiting for confirmation';
 

@@ -182,7 +182,7 @@ const useGetBridgeTransactions = () => {
   const publicClientL1 = usePublicClientL1();
   const publicClientL2 = usePublicClientL2();
 
-  const unconfirmedTransactions = useStore(store, (state) => state.bridge.transactions.unconfirmed);
+  const unconfirmedTransactions = useStore(store, (state) => state.bridge.transactions.bridge.unconfirmed);
 
   const getTxReceipt = useCallback(
     async (address: Address, transactionHash: Address, chain: 'l1' | 'l2'): Promise<TransactionReceipt | undefined> => {
@@ -536,7 +536,10 @@ const useGetBridgeTransactions = () => {
       bridge: {
         transactions: {
           ...state.bridge.transactions,
-          unconfirmed: [...state.bridge.transactions.unconfirmed, data]
+          bridge: {
+            ...state.bridge.transactions.bridge,
+            unconfirmed: [...state.bridge.transactions.bridge.unconfirmed, data]
+          }
         }
       }
     }));

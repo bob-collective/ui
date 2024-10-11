@@ -42,13 +42,15 @@ const BridgeTransactionModal = ({
 }: BridgeTransactionModalProps): JSX.Element => {
   const { direction, amount, gasEstimate } = data;
 
-  const isSubmitted = step === 'submitted' && !!data.transactionHash;
+  const isSubmitted = step === 'submitted';
+
   const title =
     step === 'submitted'
       ? 'Transaction Submitted'
       : step === 'confirmation'
         ? 'Waiting for confirmation'
         : 'Waiting for approval';
+
   const isL1ToL2 = direction === MessageDirection.L1_TO_L2;
 
   const duration = getDuration(direction);

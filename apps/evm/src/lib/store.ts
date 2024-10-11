@@ -1,11 +1,16 @@
-import { Store as StoreLib } from '@tanstack/store';
+import { Store as StoreLib } from '@tanstack/react-store';
 
-import { BridgeTransaction } from '../types';
+import { BridgeTransaction, GatewayTransaction } from '../types';
 
 type BridgeStore = {
   transactions: {
     isInitialLoading: boolean;
-    unconfirmed: BridgeTransaction[];
+    bridge: {
+      unconfirmed: BridgeTransaction[];
+    };
+    gateway: {
+      unconfirmed: GatewayTransaction[];
+    };
   };
 };
 
@@ -17,10 +22,14 @@ const store = new StoreLib<Store>({
   bridge: {
     transactions: {
       isInitialLoading: true,
-      unconfirmed: []
+      bridge: {
+        unconfirmed: []
+      },
+      gateway: {
+        unconfirmed: []
+      }
     }
   }
 });
 
 export { store };
-export type { Store };
