@@ -26,6 +26,7 @@ type Props = {
   name: string;
   description?: string;
   categories?: string[];
+  incentives: string[];
   imgSrc: string;
   spicePerHour: number;
   spiceMultiplier: string;
@@ -46,6 +47,7 @@ const AppCard = ({
   name,
   description,
   categories,
+  incentives,
   imgSrc,
   voting,
   spicePerHour,
@@ -106,7 +108,7 @@ const AppCard = ({
         </StyledSocialsWrapper>
       </StyledCardHeader>
       <Divider />
-      <Flex direction='column' paddingX='xl' paddingY='lg'>
+      <Flex direction='column' flex={1} justifyContent='space-between' paddingX='xl' paddingY='lg'>
         <Dl direction='column' gap='xxs'>
           <DlGroup justifyContent='space-between'>
             <Dd color='grey-50'>Spice Per Hour</Dd>
@@ -116,6 +118,18 @@ const AppCard = ({
             <Dd color='grey-50'>Spice Multiplier</Dd>
             <Dt color='grey-50'>{spiceMultiplier}</Dt>
           </DlGroup>
+          {!!incentives.length && (
+            <DlGroup alignItems='flex-start' gap='xl' justifyContent='space-between'>
+              <Dd color='grey-50'>Rewards</Dd>
+              <Flex wrap elementType='dt' gap='s'>
+                {incentives.map((incentive, idx) => (
+                  <Chip key={idx} background='grey-800' borderColor='primary-500' size='s'>
+                    {incentive}
+                  </Chip>
+                ))}
+              </Flex>
+            </DlGroup>
+          )}
           {userHarvest !== undefined && (
             <DlGroup justifyContent='space-between'>
               <Dd color='grey-50'>My Total Harvest</Dd>
@@ -129,7 +143,7 @@ const AppCard = ({
           )}
         </Dl>
         {categories && (
-          <>
+          <Flex direction='column'>
             <Divider marginY='lg' />
             <StyledCategoryList gap='md'>
               {categories?.map((category, idx) => (
@@ -138,7 +152,7 @@ const AppCard = ({
                 </Chip>
               ))}
             </StyledCategoryList>
-          </>
+          </Flex>
         )}
       </Flex>
     </Card>
