@@ -45,11 +45,11 @@ const AuthButton = ({
   if (!isClient) {
     const buttonProps = {
       onPress: () => open(),
-      children: 'Connect Wallet',
+      children: 'Loading...',
       ...props
     };
 
-    return <Button {...buttonProps} />;
+    return <Button loading {...buttonProps} />;
   }
 
   // Comes first because if the connection includes evm, the priority is always evm

@@ -3,7 +3,7 @@
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { SatsConnector } from '@gobob/sats-wagmi';
 import { Connector, useAccount, useConnect, Address } from '@gobob/wagmi';
-import { Avatar, Button, ButtonProps, Flex, Span } from '@gobob/ui';
+import { Avatar, Button, ButtonProps, Flex, Skeleton, Span } from '@gobob/ui';
 import { chain } from '@react-aria/utils';
 import { useIsClient } from 'usehooks-ts';
 
@@ -29,13 +29,11 @@ const Label = ({
 }) => {
   const isClient = useIsClient();
 
-  if ((!evmConnector && !btcConnector) || !isClient) {
-    return 'Connect Wallet';
-  }
+  if (!isClient) return <Skeleton height='3xl' width='9xl' />;
 
-  if (isPending) {
-    return 'Authorize Wallet';
-  }
+  if (!evmConnector && !btcConnector) return 'Connect Wallet';
+
+  if (isPending) return 'Authorize Wallet';
 
   if (connectType === 'evm' && address) {
     return <EvmAddressLabel address={address} elementType='span' />;
