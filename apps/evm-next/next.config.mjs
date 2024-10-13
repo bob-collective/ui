@@ -8,18 +8,18 @@ const nextConfig = {
   experimental: {
     swcPlugins: [['@lingui/swc-plugin', {}]]
   },
-  async rewrites() {
+  rewrites() {
     return [
       {
-        source: '/:lang/api/:path*',
+        source: '/api/:path*',
         destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`
       },
       {
-        source: '/:lang/gateway-api/:path*',
+        source: '/gateway-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_GATEWAY_API_URL}/:path*`
       },
       {
-        source: '/:lang/btc-api/:path*',
+        source: '/btc-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_BTC_API_URL}/:path*`
       }
     ];
