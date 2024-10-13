@@ -29,6 +29,20 @@ In the following environments:
 
 It does not currently support any mobile wallets.
 
+## LinguiJS Integration
+
+LinguiJs is integrated with standard Next.js i18n support for using [middleware](https://nextjs.org/docs/app/building-your-application/routing/internationalization).
+
+Open [http://localhost:3000/es](http://localhost:3000/es) with your browser to prerender page in different language.
+
+## LinguiJS Related Commands
+
+Extract messages from sourcecode:
+
+```bash
+pnpm lingui:extract
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

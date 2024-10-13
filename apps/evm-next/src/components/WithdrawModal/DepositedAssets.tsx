@@ -19,7 +19,7 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { useMemo } from 'react';
-import { useTranslations } from 'next-intl';
+import { Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 import { Address, isAddressEqual } from 'viem';
 
@@ -36,8 +36,6 @@ const DepositedAssets = () => {
   const { data: user } = useGetUser();
   const format = useCurrencyFormatter();
   const { data: tokens } = useTokens(L1_CHAIN);
-
-  const t = useTranslations();
 
   const depositedAssets = useMemo(
     () =>
@@ -79,7 +77,7 @@ const DepositedAssets = () => {
   const lockedAmounts = !!depositedAssets?.length && (
     <Flex direction='column' gap='s'>
       <P size='xs' weight='bold'>
-        {t('fusion.userStats.lockedCapitalBreakdown')}
+        <Trans>Locked Capital Breakdown</Trans>
       </P>
       {depositedAssets}
     </Flex>
@@ -88,7 +86,7 @@ const DepositedAssets = () => {
   return (
     <DlGroup alignItems='flex-start' direction='column'>
       <StyledDt size='s' weight='semibold'>
-        {t('fusion.userStats.lockedAmount')}
+        <Trans>Locked Amount</Trans>
         {lockedAmounts &&
           (isMobile ? (
             <Popover>

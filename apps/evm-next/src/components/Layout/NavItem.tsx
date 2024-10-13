@@ -5,6 +5,7 @@ import { ReactNode, useRef } from 'react';
 import { LinkProps } from 'next/link';
 import { ArrowTopRightOnSquare } from '@gobob/ui';
 import { usePathname } from 'next/navigation';
+import { useLingui } from '@lingui/react';
 
 import { StyledAnchor, StyledNativeNavLink, StyledNavLink } from './Layout.style';
 
@@ -24,6 +25,7 @@ const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): 
   const ref = useRef(null);
   const { setSidebarOpen } = useLayoutContext();
   const pathname = usePathname();
+  const { i18n } = useLingui();
 
   const handlePress = () => setSidebarOpen(false);
 
@@ -51,10 +53,17 @@ const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): 
     );
   }
 
+  const localizedHref = `/${i18n.locale}${href}`;
+
   return (
     <li>
-      <StyledNativeNavLink {...props} ref={ref} href={href} onClick={handlePress} onKeyDown={handlePress}>
-        <StyledNavLink as={Span} color={pathname === href ? 'primary-500' : 'light'} size={size} weight='medium'>
+      <StyledNativeNavLink {...props} ref={ref} href={localizedHref} onClick={handlePress} onKeyDown={handlePress}>
+        <StyledNavLink
+          as={Span}
+          color={pathname === localizedHref ? 'primary-500' : 'light'}
+          size={size}
+          weight='medium'
+        >
           {children}
         </StyledNavLink>
       </StyledNativeNavLink>

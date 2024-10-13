@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Flex, XMark, useMediaQuery } from '@gobob/ui';
-import { useTranslations } from 'next-intl';
+import { Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 
 import { Logo } from '../Logo';
@@ -21,7 +21,6 @@ type SidebarProps = Props;
 
 const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
   const { isSidebarOpen, setSidebarOpen } = useLayoutContext();
-  const t = useTranslations();
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
@@ -41,25 +40,37 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
           </Flex>
           <Flex direction='column' flex={1} justifyContent='space-between'>
             <Nav direction='column' gap='3xl'>
-              <NavItem href={RoutesPath.BRIDGE}>{t('navigation.bridge')}</NavItem>
-              <NavItem href={RoutesPath.APPS}>Apps</NavItem>
-              {isWalletEnabled && <NavItem href={RoutesPath.WALLET}>{t('navigation.wallet')}</NavItem>}
-              <NavItem href={RoutesPath.STAKE}>{t('navigation.stake')}</NavItem>
-              <NavItem href={RoutesPath.FUSION}>{t('navigation.fusion')}</NavItem>
+              <NavItem href={RoutesPath.BRIDGE}>
+                <Trans>Bridge</Trans>
+              </NavItem>
+              <NavItem href={RoutesPath.APPS}>
+                <Trans>Apps</Trans>
+              </NavItem>
+              {isWalletEnabled && (
+                <NavItem href={RoutesPath.WALLET}>
+                  <Trans>Wallet</Trans>
+                </NavItem>
+              )}
+              <NavItem href={RoutesPath.STAKE}>
+                <Trans>Stake</Trans>
+              </NavItem>
+              <NavItem href={RoutesPath.FUSION}>
+                <Trans>Fusion</Trans>
+              </NavItem>
               <NavItem isExternal href='https://safe.gobob.xyz/welcome'>
-                {t('navigation.multisig')}
+                <Trans>Multisig</Trans>
               </NavItem>
               <NavItem
                 isExternal
                 href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
               >
-                {t('navigation.t_and_c')}
+                <Trans>T&Cs</Trans>
               </NavItem>
               <NavItem isExternal href={DocsLinks.HOME}>
-                {t('navigation.dev')}
+                <Trans>Dev</Trans>
               </NavItem>
               <NavItem isExternal href='https://gobob.xyz/'>
-                {t('navigation.about')}
+                <Trans>About</Trans>
               </NavItem>
             </Nav>
             <SocialsGroup />

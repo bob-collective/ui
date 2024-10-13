@@ -1,23 +1,19 @@
 import { Flex, FlexProps, P } from '@gobob/ui';
-import { useTranslations } from 'next-intl';
+import { Trans } from '@lingui/macro';
 
 import { LoginButton } from '../LoginButton';
 
 type LoginSectionProps = FlexProps;
 
-const LoginSection = ({ direction = { base: 'column', md: 'row' }, ...props }: LoginSectionProps): JSX.Element => {
-  const t = useTranslations();
-
-  return (
-    <Flex alignItems='center' direction={direction} gap='xs' justifyContent='center' {...props}>
-      <P size='s' weight='bold'>
-        {t('home.loginLabel')}
-      </P>
-      <LoginButton color='primary' size='s' variant='ghost'>
-        {t('home.loginButtonText')}
-      </LoginButton>
-    </Flex>
-  );
-};
+const LoginSection = ({ direction = { base: 'column', md: 'row' }, ...props }: LoginSectionProps): JSX.Element => (
+  <Flex alignItems='center' direction={direction} gap='xs' justifyContent='center' {...props}>
+    <P size='s' weight='bold'>
+      <Trans>Already harvesting?</Trans>
+    </P>
+    <LoginButton color='primary' size='s' variant='ghost'>
+      <Trans>Login with wallet</Trans>
+    </LoginButton>
+  </Flex>
+);
 
 export { LoginSection };

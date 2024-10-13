@@ -1,5 +1,6 @@
 import { Alert, AlertProps, Button, Flex, P } from '@gobob/ui';
 import { chain } from '@react-aria/utils';
+import { Trans } from '@lingui/macro';
 
 import { useLayoutContext } from '../Layout';
 
@@ -25,9 +26,11 @@ const WithdrawAlert = ({ onPressWithdraw, ...props }: WithdrawAlertProps): JSX.E
   return (
     <Alert {...props} status='warning' variant='outlined'>
       <Flex direction='column' gap='md'>
-        <P size='inherit'>You still have assets locked in Season One. Please redeem your funds</P>
+        <P size='inherit'>
+          <Trans>You still have assets locked in Season One. Please redeem your funds</Trans>
+        </P>
         <Button fullWidth color='primary' onPress={chain(onPressWithdraw, handlePress)}>
-          Withdraw Assets
+          <Trans>Withdraw Assets</Trans>
         </Button>
       </Flex>
     </Alert>

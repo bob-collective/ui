@@ -225,7 +225,7 @@ const useGetBridgeTransactions = () => {
 
       const [l2Hash] = getL2TransactionHashes(l1Receipt);
 
-      const l2Receipt = await getTxReceipt(address!, l2Hash, 'l2');
+      const l2Receipt = await getTxReceipt(address!, l2Hash!, 'l2');
 
       if (!l2Receipt) {
         return { l1Receipt, status: MessageStatus.UNCONFIRMED_L1_TO_L2_MESSAGE };
@@ -269,7 +269,7 @@ const useGetBridgeTransactions = () => {
 
           const timeToFinalize = await publicClientL1
             .getTimeToFinalize({
-              withdrawalHash: message.withdrawalHash,
+              withdrawalHash: message!.withdrawalHash,
               targetChain: publicClientL1.chain as any
             })
             .catch(() => undefined);

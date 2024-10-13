@@ -17,6 +17,7 @@ type OverlayProps = {
   onExit?: () => void;
   onExiting?: () => void;
   onExited?: () => void;
+  hidden?: boolean;
 };
 
 const Overlay = ({
@@ -29,7 +30,8 @@ const Overlay = ({
   onEntered,
   onExit,
   onExiting,
-  onExited
+  onExited,
+  hidden
 }: OverlayProps): JSX.Element | null => {
   const [exited, setExited] = useState(!isOpen);
 
@@ -59,7 +61,7 @@ const Overlay = ({
 
   return (
     <AriaOverlay portalContainer={container}>
-      <StyledOverlayWrapper>
+      <StyledOverlayWrapper hidden={hidden}>
         <OpenTransition
           appear
           in={isOpen}

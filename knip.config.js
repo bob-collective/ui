@@ -10,7 +10,8 @@ const config = {
     'packages/currency/src/constants.ts',
     'packages/sats-wagmi/package.json',
     '.storybook/vite.config.ts'
-  ]
+  ],
+  ignoreDependencies: ['@lingui/swc-plugin', '@lingui/loader']
 };
 
 export default config;

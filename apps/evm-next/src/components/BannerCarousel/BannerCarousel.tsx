@@ -8,6 +8,8 @@ import { useTheme } from 'styled-components';
 import { HTMLAttributes, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSessionStorage, useIsClient } from 'usehooks-ts';
+import { t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
 import { BinanceCampaignBanner } from './BinanceCampaignBanner';
 import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
@@ -54,6 +56,7 @@ const settings: Settings = {
 };
 
 const BannerCarousel = () => {
+  const { i18n } = useLingui();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
   const router = useRouter();
@@ -92,7 +95,11 @@ const BannerCarousel = () => {
   );
 
   return (
-    <StyledCarouselWrapper aria-label='navigate to ecosystem section in fusion page' paddingX='none' paddingY='none'>
+    <StyledCarouselWrapper
+      aria-label={t(i18n)`navigate to ecosystem section in fusion page`}
+      paddingX='none'
+      paddingY='none'
+    >
       <StyledSlider {...settings} arrows={isDesktop && isClient}>
         <XBanner onPress={onPressXBanner} />
         <BinanceCampaignBanner onPress={onPressBinanceCampaignBanner} />

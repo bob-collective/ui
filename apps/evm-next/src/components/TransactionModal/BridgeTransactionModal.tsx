@@ -14,6 +14,7 @@ import {
   Spinner
 } from '@gobob/ui';
 import { Address } from '@gobob/wagmi';
+import { Trans } from '@lingui/macro';
 
 import { Chain } from '../Chain';
 import { TransactionDetails } from '../TransactionDetails';
@@ -46,11 +47,13 @@ const BridgeTransactionModal = ({
 }: BridgeTransactionModalProps): JSX.Element => {
   const isSubmitted = !!transactionHash && step === 'submitted';
   const title =
-    step === 'submitted'
-      ? 'Transaction Submitted'
-      : step === 'confirmation'
-        ? 'Waiting for confirmation'
-        : 'Waiting for approval';
+    step === 'submitted' ? (
+      <Trans>Transaction Submitted</Trans>
+    ) : step === 'confirmation' ? (
+      <Trans>Waiting for confirmation</Trans>
+    ) : (
+      <Trans>Waiting for approval</Trans>
+    );
   const isL1ToL2 = direction === MessageDirection.L1_TO_L2;
 
   const duration = getDuration(direction);
@@ -73,18 +76,23 @@ const BridgeTransactionModal = ({
         {isSubmitted ? (
           <Flex direction='column' gap='md'>
             <P size='xs'>
-              Your assets will be delivered shortly, with an estimated arrival time of aprox.{' '}
+              <Trans>Your assets will be delivered shortly, with an estimated arrival time of aprox. </Trans>
               <Span size='xs'>{duration}</Span>
-              {isL1ToL2 ? '' : ', due to the challenge period'}. We will provide you with updates accordingly. You can
-              monitor the progress on your bridge page; it will be marked as complete once the process has concluded.
+              {isL1ToL2 ? '' : <Trans>, due to the challenge period</Trans>}.{' '}
+              <Trans>
+                We will provide you with updates accordingly. You can monitor the progress on your bridge page; it will
+                be marked as complete once the process has concluded.
+              </Trans>
             </P>
           </Flex>
         ) : (
           <Flex alignSelf='normal' direction='column' gap='lg'>
             <P align='center' size='xs' weight='medium'>
-              {step === 'confirmation'
-                ? 'Please confirm transaction in your wallet'
-                : `Please confirm allowance approval for ${amount.currency.symbol} in your wallet`}
+              {step === 'confirmation' ? (
+                <Trans>Please confirm transaction in your wallet</Trans>
+              ) : (
+                <Trans>Please confirm allowance approval for {amount.currency.symbol} in your wallet</Trans>
+              )}
             </P>
             <TransactionDetails
               amount={amount}
@@ -98,7 +106,7 @@ const BridgeTransactionModal = ({
       {isSubmitted && (
         <ModalFooter>
           <Button color='primary' onPress={onClose}>
-            Close
+            <Trans>Close</Trans>
           </Button>
         </ModalFooter>
       )}

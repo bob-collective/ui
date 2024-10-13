@@ -8,7 +8,7 @@ import { Overlay } from '../Overlay';
 import { PopoverContentWrapper } from './PopoverContentWrapper';
 import { usePopoverContext } from './PopoverContext';
 
-type Props = { children?: ReactNode };
+type Props = { children?: ReactNode; hidden?: boolean };
 
 type PopoverContentProps = Props;
 

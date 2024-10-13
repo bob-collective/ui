@@ -19,7 +19,7 @@ type StyledFlexProps = {
   StyledPaddingProps;
 
 const StyledFlex = styled.div<StyledFlexProps>`
-  display: flex;
+  display: ${({ hidden }) => (hidden ? 'none' : 'flex')};
   align-self: ${(props) => props.$alignSelf};
   ${(props) => marginCSS(props)};
   ${(props) => paddingCSS(props)};

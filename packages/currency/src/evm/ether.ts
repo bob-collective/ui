@@ -29,7 +29,7 @@ export class Ether extends NativeCurrency {
       this._etherCache[chainId] = new Ether(chainId);
     }
 
-    return this._etherCache[chainId];
+    return this._etherCache[chainId]!;
   }
 
   public equals(other: Currency): boolean {

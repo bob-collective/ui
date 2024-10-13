@@ -1,35 +1,40 @@
 import { withSentryConfig } from '@sentry/nextjs';
-import createNextIntlPlugin from 'next-intl/plugin';
-
-const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: {
     styledComponents: true
   },
-  productionBrowserSourceMaps: true,
+  experimental: {
+    swcPlugins: [['@lingui/swc-plugin', {}]]
+  },
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
+        source: '/:lang/api/:path*',
         destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`
       },
       {
-        source: '/gateway-api/:path*',
+        source: '/:lang/gateway-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_GATEWAY_API_URL}/:path*`
       },
       {
-        source: '/btc-api/:path*',
+        source: '/:lang/btc-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_BTC_API_URL}/:path*`
       }
     ];
   },
   webpack: (config) => {
     config.externals.push('pino-pretty', 'encoding');
+    config.module.rules.push({
+      test: /\.po$/,
+      use: {
+        loader: '@lingui/loader'
+      }
+    });
 
     return config;
   }
 };
 
-export default withSentryConfig(withNextIntl(nextConfig));
+export default withSentryConfig(nextConfig);

@@ -45,7 +45,7 @@ const useBalances = (chainId: ChainId) => {
           ...result,
           [token.raw.symbol]: CurrencyAmount.fromRawAmount(
             token.currency,
-            (balancesMulticallResult[index].result as bigint) || 0n
+            (balancesMulticallResult[index]?.result as bigint) || 0n
           )
         }),
         {} as Balances

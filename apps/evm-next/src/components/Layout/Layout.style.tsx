@@ -69,18 +69,14 @@ const StyledContent = styled.div`
   position: relative;
 `;
 
-type StyledNavLinkProps = {
-  $isActive?: boolean;
-};
-
-const StyledNativeNavLink = styled(Link)<StyledNavLinkProps>`
+const StyledNativeNavLink = styled(Link)`
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 `;
 
-const StyledNavLink = styled(Span)<StyledNavLinkProps>`
+const StyledNavLink = styled(Span)`
   ${({ theme }) => theme.transition('common', 'normal')}
 
   &:hover {

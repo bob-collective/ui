@@ -1,9 +1,10 @@
-import { useConnectModal } from '@gobob/connect-ui';
 import { Button, ButtonProps, toast } from '@gobob/ui';
 import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { ChainId } from '@gobob/chains';
+import { Trans } from '@lingui/macro';
 
+import { useConnectModal } from '@/connect-ui';
 import { L2_CHAIN, isValidChain } from '@/constants';
 import { useSignUp } from '@/hooks';
 
@@ -25,7 +26,7 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
             const chain = await connector?.switchChain?.({ chainId: L2_CHAIN });
 
             if (!chain) {
-              return toast.error('Something went wrong. Please try connecting your wallet again.');
+              return toast.error(<Trans>Something went wrong. Please try connecting your wallet again.</Trans>);
             }
           }
 

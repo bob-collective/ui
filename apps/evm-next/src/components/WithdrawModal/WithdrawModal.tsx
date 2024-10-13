@@ -1,6 +1,6 @@
 import { Dd, Dl, DlGroup, Dt, Modal, ModalBody, ModalHeader } from '@gobob/ui';
 import { useLocale } from '@gobob/ui';
-import { useTranslations } from 'next-intl';
+import { Trans } from '@lingui/macro';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 
 import { useLayoutContext } from '../Layout';
@@ -17,7 +17,6 @@ const WithdrawModal = () => {
   const { isWithdrawAssetsOpen, setWithdrawAssetsOpen } = useLayoutContext();
 
   const { locale } = useLocale();
-  const t = useTranslations();
 
   const handleClose = () => setWithdrawAssetsOpen(false);
 
@@ -29,7 +28,7 @@ const WithdrawModal = () => {
           <DepositedAssets />
           <DlGroup alignItems='flex-start' direction='column' flex={0.5}>
             <Dt size='s' weight='semibold'>
-              {t('fusion.withdrawModal.currentSpice')}
+              <Trans>Current Spice</Trans>
             </Dt>
             <Dd weight='bold'>{Intl.NumberFormat(locale).format(user?.leaderboardRank?.total_reward_points ?? 0)}</Dd>
           </DlGroup>

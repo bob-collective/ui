@@ -5,7 +5,7 @@ export const trimDecimals = (value: string, decimals: number) => {
     return value;
   }
 
-  const offsetDecimals = decimalGroups[1].length - decimals;
+  const offsetDecimals = decimalGroups[1]!.length - decimals;
 
   return offsetDecimals > 0 ? value.slice(0, value.length - offsetDecimals) : value;
 };
