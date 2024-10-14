@@ -18,6 +18,7 @@ import {
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { LoginSection, SignUpButton, SpiceAmount } from '../../../../components';
 import { RoutesPath } from '../../../../constants';
@@ -52,6 +53,8 @@ type UserInfoProps = {
 const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const navigate = useNavigate();
   const [, copy] = useCopyToClipboard();
+
+  const { t } = useTranslation();
 
   const { data: tvlLevel, isLoading: isLoadingTvlLevel } = useQuery({
     queryKey: fusionKeys.tvlLevel(),
@@ -88,17 +91,17 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
           <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
             <DlGroup alignItems='flex-start' direction='column'>
-              <Dt>Season 3 Harvested Spice</Dt>
+              <Dt>{t('fusion.userInfo.harvestedSpice')}</Dt>
               <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
                 <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
                   (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}
-                  /Day)
+                  {t('fusion.userInfo.daySuffix')})
                 </Flex>
               </Flex>
             </DlGroup>
             <DlGroup wrap alignItems='center' gap='xs'>
-              <Dt size='s'>Season 1 & 2 Total Spice (Completed):</Dt>
+              <Dt size='s'>{t('fusion.userInfo.barometer.completedSpice')}</Dt>
               <Dd>
                 <SpiceAmount amount={user?.leaderboardRank?.total_points || 0} size='md' />
               </Dd>
@@ -112,18 +115,18 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             marginTop='2xl'
           >
             <Button variant='outline' onPress={() => setMultipliersModalOpen(true)}>
-              View Multipliers
+              {t('fusion.userInfo.viewMultipliersCta')}
             </Button>
             <Button color='primary' elementType={Link} {...{ href: RoutesPath.BRIDGE }}>
-              Bridge Assets
+              {t('fusion.userInfo.bridgeAssetsCta')}
             </Button>
             <MultipliersModal isOpen={isMultipliersModalOpen} onClose={() => setMultipliersModalOpen(false)} />
           </Flex>
         </StyledMainInfo>
         <UserInfoCard
           description={harvestedApps?.length || 0}
-          title='Apps Used'
-          tooltipLabel='The number of BOB ecosystem apps that you have harvested Spice with'
+          title={t('fusion.userInfo.cards.apps.title')}
+          tooltipLabel={t('fusion.userInfo.cards.apps.tooltip')}
         >
           <Flex gap='md' marginTop='xl'>
             {!!harvestedApps?.length && (
@@ -139,7 +142,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               variant='outline'
               {...{ href: RoutesPath.APPS, isDisabled: !isAuthenticated }}
             >
-              Use Apps
+              {t('fusion.userInfo.cards.apps.cta')}
               <StyledArrowRight size='xs' strokeWidth='2' />
             </Button>
           </Flex>
@@ -153,8 +156,8 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         </UserInfoCard>
         <UserInfoCard
           description={completedQuestsCount || 0}
-          title='Quests Completed'
-          tooltipLabel='The number of Intract and Galxe quests that you have completed'
+          title={t('fusion.userInfo.cards.quests.title')}
+          tooltipLabel={t('fusion.userInfo.cards.quests.tooltip')}
         >
           <Button
             fullWidth
@@ -162,13 +165,13 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             variant='outline'
             onPress={() => navigate(RoutesPath.FUSION, { state: { scrollQuests: true } })}
           >
-            View Quests
+            {t('fusion.userInfo.cards.quests.cta')}
           </Button>
         </UserInfoCard>
         <UserInfoCard
           description={user?.referral_code}
-          title='Your Referral Code'
-          tooltipLabel='Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer'
+          title={t('fusion.userInfo.cards.referrals.title')}
+          tooltipLabel={t('fusion.userInfo.cards.referrals.tooltip')}
         >
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (
@@ -182,7 +185,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               variant='outline'
               onPress={() => copy(`${window.location.href}?refCode=${user?.referral_code || ''}`)}
             >
-              Copy referral URL <StyledSolidDocumentDuplicate size='xs' />
+              {t('fusion.userInfo.cards.referrals.cta')} <StyledSolidDocumentDuplicate size='xs' />
             </Button>
           </Flex>
           {user && hasReferrals && (
@@ -215,10 +218,10 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             ) : (
               <>
                 <Dt color='light' size='2xl'>
-                  BOB TVL Progress
+                  {t('fusion.userInfo.tvlFallback.title')}
                 </Dt>
                 <Span color='grey-50' size='s'>
-                  No new goal at the moment. Stay tuned for updates!
+                  {t('fusion.userInfo.cards.tvlFallback.description')}
                 </Span>
               </>
             )}
@@ -232,14 +235,14 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           <StyledOverlay alignItems='center' justifyContent='center'>
             <StyledLoginCard shadowed borderColor='grey-300' gap='lg'>
               <H3 align='center' size='md'>
-                Log in to View Dashboard
+                {t('fusion.userInfo.login.title')}
               </H3>
               <Divider />
               <P align='center' color='grey-50' size='s'>
-                Grab the final opportunity to harvest Spice. Join Season 3.
+                {t('fusion.userInfo.login.description')}
               </P>
               <SignUpButton color='primary' size='xl'>
-                Start Harvesting Spice
+                {t('fusion.userInfo.login.cta')}
               </SignUpButton>
               <LoginSection direction={{ base: 'column', s: 'row' }} />
             </StyledLoginCard>

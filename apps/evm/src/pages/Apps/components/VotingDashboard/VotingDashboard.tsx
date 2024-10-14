@@ -1,4 +1,5 @@
 import { Flex, P } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
 
 import { VotingAppData, VotingAppsData } from '../../hooks';
 
@@ -26,6 +27,8 @@ const VotingDashboard = ({
 
   const categories = hasCategories ? apps?.categories.slice(0, 3) || [] : [undefined, undefined, undefined];
 
+  const { t } = useTranslation();
+
   return (
     <Flex direction='column' gap='2xl' marginTop='3xl'>
       <Flex alignItems='center' direction='column' gap='2xl' justifyContent='space-between'>
@@ -35,7 +38,7 @@ const VotingDashboard = ({
           votesRemaining={apps?.votesRemaining}
         />
         <P align='center' color='grey-50' size={{ base: 'xs', s: 's' }}>
-          Vote for maximum three projects per week by clicking on the flame icon.
+          {t('apps.votingDashboard.explainer')}
         </P>
       </Flex>
       <Flex direction={{ base: 'column', md: 'row' }} gap='xl'>

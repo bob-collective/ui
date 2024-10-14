@@ -15,6 +15,7 @@ import {
   P,
   Span
 } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
 
 import { UserResponse } from '../../../../utils';
 import { SpiceAmount, WithdrawAlert } from '../../../../components';
@@ -28,35 +29,36 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type WelcomeBackModalProps = Props & InheritAttrs;
 
 const WelcomeBackModal = ({ user, onClose, ...props }: WelcomeBackModalProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <Modal {...props} size='lg'>
       <ModalBody gap='xl' padding='2xl'>
         <H3 size='3xl'>
-          Welcome to BOB Fusion
+          {t('fusion.welcomeBackModal.title')}
           <br />
           <Span color='primary-500' size='inherit'>
-            The final season
+            {t('fusion.welcomeBackModal.subtitle')}
           </Span>
         </H3>
         <P color='grey-50' size='s'>
-          Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and
-          refer a friend to receive a share of all the Spice they collect.
+          {t('fusion.welcomeBackModal.description')}
         </P>
-        <H4 size='2xl'>Your performance in seasons 1 & 2</H4>
+        <H4 size='2xl'>{t('fusion.welcomeBackModal.performance.title')}</H4>
         <Dl direction={{ base: 'column', s: 'row' }} gap='lg'>
           <Card background='grey-500' flex={1} gap='s' rounded='lg' style={{ opacity: 0.9 }}>
-            <Dt color='grey-50'>Total Spice Harvested</Dt>
+            <Dt color='grey-50'>{t('fusion.welcomeBackModal.performance.totalHarvested')}</Dt>
             <Dd size='2xl'>
               <SpiceAmount amount={user.leaderboardRank?.total_points || 0} size='inherit' />
             </Dd>
           </Card>
           <Card background='grey-500' flex={1} gap='s' rounded='lg' style={{ opacity: 0.9 }}>
-            <Dt color='grey-50'>Final Leaderboard Rank</Dt>
+            <Dt color='grey-50'>{t('fusion.welcomeBackModal.performance.rank')}</Dt>
             <P size='2xl'>#{user.leaderboardRank?.rank || '-'}</P>
           </Card>
         </Dl>
         <Alert status='info' title='The leaderboard resets for the new season' variant='outlined'>
-          Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest.
+          {t('fusion.welcomeBackModal.disclaimer')}
         </Alert>
         <WithdrawAlert onPressWithdraw={onClose} />
       </ModalBody>
@@ -67,10 +69,10 @@ const WelcomeBackModal = ({ user, onClose, ...props }: WelcomeBackModalProps): J
           variant='outline'
           {...{ href: 'https://blog.gobob.xyz/posts/bob-fusion-the-final-season', external: true }}
         >
-          Learn More
+          {t('fusion.welcomeBackModal.moreCta')}
         </StyledLearnButton>
         <Button fullWidth color='primary' size='xl' onPress={onClose}>
-          Start Harvesting
+          {t('fusion.welcomeBackModal.startCta')}
         </Button>
       </ModalFooter>
     </Modal>

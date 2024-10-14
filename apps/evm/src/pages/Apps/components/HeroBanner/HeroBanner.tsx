@@ -1,5 +1,6 @@
 import { H1 } from '@gobob/ui';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { VotingInfoModal } from './VotingInfoModal';
 import {
@@ -13,6 +14,8 @@ import {
 const HeroBanner = (): JSX.Element => {
   const [isOpen, setOpen] = useState(false);
 
+  const { t } = useTranslation();
+
   return (
     <StyledCard borderColor='grey-300' padding='none'>
       <StyledOpacityOverlay />
@@ -23,12 +26,12 @@ const HeroBanner = (): JSX.Element => {
         padding={{ base: '3xl', s: '5xl', md: '7xl' }}
       >
         <H1 align={{ base: 'center', md: 'start' }} size={{ base: '2xl', md: '4xl' }}>
-          Community Voting {' '}
+          {t('apps.heroBanner.title')}{' '}
         </H1>
         <StyledDescription align={{ base: 'center', md: 'start' }} color='grey-50' size={{ base: 'xs', md: 'md' }}>
-          Use your Spice total to support your favourite BOB builders. Winners will be announced each week.{' '}
+          {t('apps.heroBanner.description')}{' '}
           <StyledButton size='inherit' onPress={() => setOpen(true)}>
-            Read more here
+            {t('apps.heroBanner.cta')}
           </StyledButton>
           <VotingInfoModal isOpen={isOpen} onClose={() => setOpen(false)} />
         </StyledDescription>

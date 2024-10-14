@@ -1,33 +1,259 @@
 {
-  "404": {
-    "title": "404 Error",
-    "content": "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:",
-    "back": "Go Back",
-    "home": "Take 'em home"
-  },
   "fusion": {
-    "title": "WELCOME TO BOB <highlight>FUSION</highlight>",
-    "content": "Your pledged assets will unlock on the day of the BOB mainnet launch, planned around the Bitcoin Halving in April. Should unforeseen storms delay our arrival, you will be able to unlock your assets back to your Ethereum mainnet address on 15 May 2024 latest.",
-    "status": "Current Status:",
-    "season": "Season 2",
-    "seasonDescription": "The floodgates have opened! Explore and experience BOB’s vast ecosystem and earn massive amounts of Spice while doing so.",
-    "spiceWaitTime": "Spice points typically take 10-15 minutes to display in the user interface. Rest assured, your points are being recorded accurately.",
-    "deposit": {
-      "delayInfo": "Your locked amount and Spice totals will be updated every few minutes",
-      "title": "Deposit & Lock",
-      "content": "Assets remain securely time-locked in the smart contract until the unlock date. You can then transfer them to the BOB L2 network to continue your harvest.",
-      "auditedBy": "Audited by",
-      "depositLabel": "Deposit & Lock",
-      "approveLabel": "Approve"
+    "title": "BOB Fusion: The Final Season",
+    "description": "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events",
+    "cta": "Learn More",
+    "popover": {
+      "season3": " Season 3 (Ongoing)",
+      "currentHarvest": "Current Harvest",
+      "currentLeaderboardRank": "Current Leaderboard Rank",
+      "season1and2": "Season 1 & 2 (Completed)",
+      "totalHarvest": " Total Harvest",
+      "season2FinalRank": " Season 2 Final Rank"
     },
-    "earnSpice": "How to Earn Spice",
-    "community": {
-      "title": "Join the Community",
-      "content": "Make sure to <xLink>follow BOB on X</xLink> and <discordLink>join the Discord</discordLink> to participate in BOB Fusion and receive updates, access to quests (coming soon) and other alpha!"
+    "communityVoting": {
+      "title": "Community Voting",
+      "roundEnd": "{{timeRemaining}} until voting round ends",
+      "description": "Use your Spice total to support your favourite BOB builders. Winners will be announced each week.",
+      "cta": "Vote"
     },
-    "multipliers": {
-      "title": "Multiplier list",
-      "content": "Certain liquidity generates more Spice. Pay attention to the multipliers outlined below."
+    "leaderboard": {
+      "title": "Leaderboard",
+      "columns": {
+        "name": "Name",
+        "spice": "Spice",
+        "quests": "Quests"
+      },
+      "tabs": {
+        "seasonThree": "Season Three",
+        "last24Hours": "Last 24 Hours",
+        "last7Days": "Last 7 Days",
+        "questsOnly": "Quests Only"
+      }
+    },
+    "quests": {
+      "title": "Quests",
+      "questEnd": "{{timeRemaining}} until quest ends",
+      "description": "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice.",
+      "cta": "View Quests"
+    },
+    "strategies": {
+      "title": "Hot Strategies",
+      "comingSoon": "Coming Soon",
+      "btcLstLendingStrat": {
+        "title": "BTC LST Lending",
+        "shortDescription": "Use BTC LSTs as collateral to borrow other assets",
+        "longDescription": "Deposit BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets.",
+        "steps": {
+          "one": {
+            "linkText": "Stake your BTC with 1-click",
+            "description": "and receive BTC LSTs on BOB."
+          },
+          "two": {
+            "description": "Deposit any eligible BTC LSTs into a lending market on BOB."
+          },
+          "three": {
+            "description": "Use the deposited BTC LSTs as collateral to borrow wBTC, tBTC or FBTC."
+          },
+          "four": {
+            "description": "Mint more BTC LSTs with these borrowed assets."
+          },
+          "five": {
+            "description": "Optional: It's possible to repeat steps 2-4 multiple times."
+          }
+        },
+        "rewards": {
+          "one": "Spice points (Medium)",
+          "two": "Lending rate of BTC LSTs",
+          "three": "Lending protocol points",
+          "four": "LST provider points",
+          "five": "Babylon points"
+        }
+      },
+      "mintAndLendSatUsd": {
+        "title": "Mint and Lend satUSD",
+        "shortDescription": "Mint satUSD and supply it into a lending market on BOB'",
+        "longDescription": {
+          "prefix": "Deposit your BTC LSTs into",
+          "linkText": "Satoshi Protocol",
+          "suffix": "to mint satUSD and deposit that into a lending market on BOB"
+        },
+        "steps": {
+          "one": {
+            "linkText": "Stake your BTC with 1-click",
+            "description": "and receive BTC LSTs on BOB."
+          },
+          "two": {
+            "prefix": "Deposit your BTC LSTs into",
+            "linkText": "Satoshi Protocol",
+            "suffix": "to mint satUSD."
+          },
+          "three": {
+            "prefix": "Supply the newly minted satUSD into a",
+            "linkText": "lending protocol on BOB",
+            "suffix": "."
+          },
+          "four": {
+            "description": "Use the deposited satUSD as collateral to borrow any BTC LST."
+          },
+          "five": {
+            "description": "Optional: It's possible to repeat steps 2-4 multiple times."
+          }
+        },
+        "rewards": {
+          "one": "Spice rewards (Medium)'",
+          "two": "Lending rate of satUSD",
+          "three": "Lending protocol points",
+          "four": "Satoshi protocol points",
+          "five": "LST provider points",
+          "six": "Babylon points"
+        }
+      },
+      "dexLiquidityPovisioning": {
+        "title": "DEX Liquidity Provisioning",
+        "shortDescription": "Provide liquidity into Oku DEX",
+        "longDescription": {
+          "prefix": "Provide liquidity into any AMM pool on",
+          "linkText": "Oku DEX",
+          "suffix": "to earn trading fees and incentives"
+        },
+        "steps": {
+          "one": {
+            "prefix": "Follow the steps of",
+            "linkText": "this guide",
+            "suffix": "to provide liquity into a DEX pool on Oku."
+          },
+          "two": {
+            "description": "Maximum points will be received by providing BTC LST liquidity."
+          },
+          "three": {
+            "description": "You will need to actively monitor your position, especially if it has a small range."
+          }
+        },
+        "rewards": {
+          "one": "Spice rewards (Higher)",
+          "two": "LST provider points",
+          "three": "Babylon points'"
+        }
+      },
+      "bridgeBtcLstToBob": {
+        "title": "Bridge BTC LSTs to BOB",
+        "shortDescription": "Bridge BTC LSTs to BOB",
+        "longDescription": "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice.",
+        "steps": {
+          "one": {
+            "prefix": "Use any of the",
+            "linkText": "supported bridges",
+            "suffix": "."
+          },
+          "two": {
+            "description": "Select the wrapped Bitcoin asset and the amount that you want to bridge."
+          },
+          "three": {
+            "description": "Choose any of the existing liquid staking provider to mint your BTC LST."
+          }
+        },
+        "rewards": {
+          "one": "Spice points (Lower)",
+          "two": "LST provider points",
+          "three": "Babylon points'"
+        }
+      }
+    },
+    "userInfo": {
+      "harvestedSpice": "Season 3 Harvested Spice",
+      "daySuffix": "/Day",
+      "completedSpice": "Season 1 & 2 Total Spice (Completed):",
+      "viewMultipliersCta": "View Multipliers",
+      "bridgeAssetsCta": "Bridge Assets",
+      "cards": {
+        "apps": {
+          "title": "Apps Used",
+          "tooltip": "The number of BOB ecosystem apps that you have harvested Spice with",
+          "cta": "Use Apps"
+        },
+        "quests": {
+          "title": "Quests Completed",
+          "tooltip": "The number of Intract and Galxe quests that you have completed'",
+          "cta": "View Quests"
+        },
+        "referrals": {
+          "title": "Your Referral Code",
+          "tooltip": "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer'",
+          "cta": "Copy referral URL"
+        }
+      },
+      "tvlFallback": {
+        "title": "BOB TVL Progress",
+        "description": "No new goal at the moment. Stay tuned for updates!"
+      },
+      "login": {
+        "title": "Log in to View Dashboard",
+        "description": "Grab the final opportunity to harvest Spice. Join Season 3.",
+        "cta": "Start Harvesting Spice",
+        "alreadyHarvesting": "Already Harvesting?",
+        "alreadyHarvestingCta": "Login with wallet"
+      },
+      "userReferralModal": {
+        "title": "Your Active Referrals",
+        "description": "Here are your active referrals and the Spice they&apos;re currently earning for you. The more they earn, the more you benefit!",
+        "referralSpice": "Total Referrals Earnings"
+      },
+      "barometer": {
+        "tvlLabel": "TVL"
+      },
+      "multipliersModal": {
+        "title": "Multipliers",
+        "description": "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest.",
+        "columns": {
+          "asset": "Asset",
+          "holding": "Holding",
+          "lending": "Lending, Restaking, CDP *",
+          "dex": "DEX *",
+          "rewards": "Rewards"
+        },
+        "sections": {
+          "featured": "Featured Assets",
+          "yield": "Yield Assets",
+          "base": "Base Assets"
+        },
+        "disclaimer": "* The multipliers displayed are subject to change based on the payout structure of the respective projects."
+      },
+      "usedAppsModal": {
+        "title": "Spice Earned Across Apps",
+        "description": "Below is the Spice you've harvested from apps. Keep participating to increase your future harvest!"
+      }
+    },
+    "welcomeBackModal": {
+      "title": "Welcome to BOB Fusion",
+      "subtitle": "The final season",
+      "description": "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect.",
+      "performance": {
+        "title": "Your performance in seasons 1 & 2",
+        "totalHarvested": "Total Spice Harvested",
+        "rank": "Final Leaderboard Rank"
+      },
+      "disclaimer": "Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest.",
+      "moreCta": "Learn More",
+      "startCta": "Start Harvesting"
+    },
+    "welcomeModal": {
+      "title": "Welcome to BOB Fusion",
+      "subtitle": "The final season",
+      "steps": {
+        "one": {
+          "title": "Step One",
+          "description": "Step One Bridge your assets to BOB to start harvesting Spice.",
+          "tip": "TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers” button."
+        },
+        "two": {
+          "title": "Step Two",
+          "description": "Use your bridged assets in apps to maximise your Spice harvest.",
+          "tip": "TIP: Some types of apps offer greater multipliers than others. Explore the “Hot Strategies” section to learn more."
+        }
+      },
+      "hideCta": "Don't show this message again",
+      "startCta": "Start Harvesting"
     },
     "withdrawModal": {
       "title": "Season 1 has ended - Welcome to Season 2!",
@@ -35,92 +261,78 @@
       "share": "<xLink>Share your success with your friends</xLink> and invite them to join the Fusion campaign, earn 15% for every Spice they harvest!",
       "seasonTwoDescription": "Bridge assets, provide liquidity, transact on-chain, and expand your network through referrals to climb the leaderboard faster than ever.",
       "lockedFunds": "Locked Funds",
+      "lockedAmount": "Locked Amount",
+      "lockedCapitalBreakdown": "Locked Capital Breakdown",
       "currentSpice": "Current Spice",
       "bridgeLabel": "Bridge to BOB",
       "withdrawDescription": "Don't believe in the Bitcoin Renaissance? You can withdraw your funds from the contract to your wallet on Ethereum. You will no longer earn Spice if you withdraw your assets. <strong>You will keep the Spice harvested so far.</strong>",
       "withdrawLabel": "Withdraw Assets",
+      "withdrawLockedAssetsLabel": "Withdraw Locked Assets",
       "smartAccountsWarning": "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
+    }
+  },
+  "apps": {
+    "list": {
+      "discoverAll": "Discover All Apps",
+      "allApps": "All Apps",
+      "myApps": "My apps",
+      "noApps": "There are no apps to be displayed",
+      "card": {
+        "spicePerHour": "Spice Per Hour",
+        "spiceMultiplier": "Spice Multiplier",
+        "harvest": "My Total Harvest"
+      }
     },
-    "logIn": {
-      "title": "Log in to View Dashboard",
-      "content": "Set sail on your Season 2 adventure, charting new territories and harvesting Spice along the way.",
-      "label": "Start Harvesting Spice "
+    "podium": {
+      "winners": "Last Week's Winners"
     },
-    "referrals": {
-      "title": "Referrals",
-      "content": "Refer fellow explorers and increase your harvest output by +15% of their collected Spice. Another +7% for Spice of second-level referrals."
+    "heroBanner": {
+      "title": "Community Voting",
+      "description": "Use your Spice total to support your favourite BOB builders. Winners will be announced each week.",
+      "cta": "Read more here"
     },
-    "partners": {
-      "title": "Ecosystem",
-      "content": "Explore and interact with BOB Fusion allies.",
-      "alert": "Projects harvest Spice points every hour based on TVL and user activity. Projects are responsible for distributing Spice to their users. Distribution method and frequency may differ from project to project. DYOR."
+    "votingInfoModal": {
+      "title": "Community Voting Information",
+      "support": {
+        "title": "Support your favourite BOB apps",
+        "content": {
+          "one": "When you vote for a project, your Spice total is added to their vote total.",
+          "two": "Each week the projects with the most votes will receive a Spice bonus which they can distribute to their users."
+        }
+      },
+      "howToVote": {
+        "title": "How to vote:",
+        "content": {
+          "one": {
+            "prefix": "Click the",
+            "suffix": "icon next to your favourite apps"
+          },
+          "two": "Vote for maximum three projects per week",
+          "three": "You can change your votes at any time before the end of the weekly voting period<"
+        }
+      },
+      "pleaseNote": {
+        "title": "Please note:",
+        "content": "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
+      }
     },
-    "challenges": {
-      "title": "Challenges",
-      "content": "Participate in our educational quests and climb the leaderboard. <challengeLink>View challenges at Intract</challengeLink>."
-    },
-    "ecosystem": {
-      "title": "Ecosystem",
-      "content": "Explore and engage with BOB's vibrant partner protocols directly on your dashboard—earn Spice by holding assets, making deposits, or actively using these platforms."
-    },
-    "userStats": {
-      "lockedAmount": "Locked Amount",
-      "bridgedAmount": "Bridged Amount",
-      "spice": "Spice",
-      "position": "Leaderboard Position",
-      "code": "Your Referral Code",
-      "lockedCapitalBreakdown": "Locked Capital Breakdown",
-      "revealCodeInfo": "Your referral code will be revealed once you have received your first spice point"
+    "votingDashboard": {
+      "explainer": "Vote for maximum three projects per week by clicking on the flame icon",
+      "userVotingInfo": {
+        "votesLeft": "Votes Left:"
+      },
+      "login": {
+        "cta": "Log In",
+        "separator": "or",
+        "createAccount": "Create Account"
+      }
     }
   },
   "home": {
     "title": "THE FIRST HYBRID L2",
     "subtitle": "POWERED BY BTC & ETH",
     "content": "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!",
-    "dashboardLink": "View dashboard",
-    "lockedAmount": "Your locked value",
-    "harvestedSpice": "Your harvested Spice amount",
-    "refCodeLabel": "Enter your code:",
-    "buttonLabel": "Start Harvesting Spice",
-    "loginLabel": "Already harvesting?",
-    "loginButtonText": "Login with wallet",
-    "referralCodePrompt": "Need an access code? <discordLink>Join BOB on Discord</discordLink>",
-    "hero": {
-      "lockedAmount": "Total value locked:",
-      "season_one_tvl": "Season 1 TVL"
-    },
-    "backers": "Some of our backers",
-    "info": {
-      "title": "Ascend the ranks by gathering <highlight>SPICE</highlight>",
-      "content": "Spice (“points”) is needed to kick-start the chain-reaction of BOB Fusion. Spice symbolizes your contributions and achievements in the BOB community.  As you harvest, you shape—and thrive in—the Bitcoin Renaissance.",
-      "exploreLabel": "Explore the Ecosystem",
-      "exploreContent": "Amplify your Spice harvesting by diving into and engaging with our dynamic ecosystem of applications.",
-      "referLabel": "Refer others",
-      "referContent": "Share your invite code with fellow explorers and claim extra Spice harvest.",
-      "questsLabel": "Embark on quests",
-      "questsContent": "Dive deeper into the era of BOB Fusion and climb the ranks by completing quests (Coming soon)."
-    },
-    "partners": {
-      "title": "BOB Fusion Allies",
-      "content": "Explore campaigns of our fellow partners on the path to the Bitcoin Renaissance. Each campaign may have its own rules, benefits but also risks. Do your own research!"
-    }
-  },
-  "leaderboard": {
-    "title": "LEADERBOARD"
-  },
-  "signUp": {
-    "title": "ENTER THE WORLD OF <highlight>BOB Fusion</highlight>",
-    "subtitle": "Your journey starts here!",
-    "content": "Connect your EVM-compatible wallet, Twitter and Discord to participate. Engage with fellow adventurers, dive deep into the lore of BOB, and stay informed on campaign progress.",
-    "connectWallet": "Please connect a wallet",
-    "connect": "Connect",
-    "connected": "Connected",
-    "linkWallet": "Link wallet",
-    "join": "Join",
-    "discord": "Join BOB Discord",
-    "twitterStep": "Connect and follow BOB with your X account.",
-    "discordStep": "Connect and join BOB Discord.",
-    "followBOB": "Follow BOB"
+    "buttonLabel": "Start Harvesting Spice"
   },
   "navigation": {
     "leaderboard": "Leaderboard",

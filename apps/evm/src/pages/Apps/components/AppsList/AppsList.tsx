@@ -1,6 +1,7 @@
 import { Flex, H2, H3, Skeleton, Tabs, TabsItem } from '@gobob/ui';
 import { useEffect, useId, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { AppData, VotingAppData } from '../../hooks';
 
@@ -30,6 +31,8 @@ const AppsList = ({
   onVote
 }: AppsListProps): JSX.Element => {
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const headerId = useId();
 
@@ -85,15 +88,15 @@ const AppsList = ({
   return (
     <Flex direction='column' gap='3xl' marginTop='4xl'>
       <H2 id={headerId} size='3xl'>
-        Discover All Apps
+        {t('apps.list.discoverAll')}
       </H2>
       {!isLoading && categories ? (
         <Tabs selectedKey={tabCategory} variant='light' onSelectionChange={(key) => setTabCategory(key as string)}>
-          <TabsItem key={ALL_APPS} title='All Apps'>
+          <TabsItem key={ALL_APPS} title={t('apps.list.allApps')}>
             <></>
           </TabsItem>
           {isAuthenticated && (
-            <TabsItem key={MY_APPS} title='My Apps'>
+            <TabsItem key={MY_APPS} title={t('apps.list.myApps')}>
               <></>
             </TabsItem>
           )}
@@ -143,7 +146,7 @@ const AppsList = ({
         </StyledGrid>
       ) : (
         <Flex justifyContent='center' paddingY='11xl'>
-          <H3 size='xl'>There are no apps to be displayed</H3>
+          <H3 size='xl'>{t('apps.list.noApps')}</H3>
         </Flex>
       )}
     </Flex>
