@@ -3,6 +3,14 @@
     "title": "BOB Fusion: The Final Season",
     "description": "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events",
     "cta": "Learn More",
+    "popover": {
+      "season3": " Season 3 (Ongoing)",
+      "currentHarvest": "Current Harvest",
+      "currentLeaderboardRank": "Current Leaderboard Rank",
+      "season1and2": "Season 1 & 2 (Completed)",
+      "totalHarvest": " Total Harvest",
+      "season2FinalRank": " Season 2 Final Rank"
+    },
     "communityVoting": {
       "title": "Community Voting",
       "roundEnd": "{{timeRemaining}} until voting round ends",
@@ -253,10 +261,13 @@
       "share": "<xLink>Share your success with your friends</xLink> and invite them to join the Fusion campaign, earn 15% for every Spice they harvest!",
       "seasonTwoDescription": "Bridge assets, provide liquidity, transact on-chain, and expand your network through referrals to climb the leaderboard faster than ever.",
       "lockedFunds": "Locked Funds",
+      "lockedAmount": "Locked Amount",
+      "lockedCapitalBreakdown": "Locked Capital Breakdown",
       "currentSpice": "Current Spice",
       "bridgeLabel": "Bridge to BOB",
       "withdrawDescription": "Don't believe in the Bitcoin Renaissance? You can withdraw your funds from the contract to your wallet on Ethereum. You will no longer earn Spice if you withdraw your assets. <strong>You will keep the Spice harvested so far.</strong>",
       "withdrawLabel": "Withdraw Assets",
+      "withdrawLockedAssetsLabel": "Withdraw Locked Assets",
       "smartAccountsWarning": "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
     }
   },
