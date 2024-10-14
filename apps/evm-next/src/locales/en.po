@@ -80,7 +80,7 @@ msgstr "Amount"
 msgid "An exclusive quest campaign."
 msgstr "An exclusive quest campaign."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:260
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:265
 msgid "and that you have read and understood our"
 msgstr "and that you have read and understood our"
 
@@ -210,7 +210,7 @@ msgstr "BTC bridge is currently unavailable. This may be due to: {0}. Please try
 msgid "BTC LST Lending"
 msgstr "BTC LST Lending"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:252
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:257
 msgid "By clicking ‘Connect’ you acknowledge and agree to the"
 msgstr "By clicking ‘Connect’ you acknowledge and agree to the"
 
@@ -276,27 +276,27 @@ msgid "Complete a variety of on- and off-chain quests using Intract and the BOB 
 msgstr "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 
 #: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:138
-#: src/connect-ui/component/AuthButton/AuthButton.tsx:92
-#: src/connect-ui/component/AuthButton/AuthButton.tsx:104
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:93
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:105
 msgid "Connect BTC Wallet"
 msgstr "Connect BTC Wallet"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:137
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:140
 msgid "Connect request is already pending"
 msgstr "Connect request is already pending"
 
 #: src/app/[lang]/wallet/Wallet.tsx:77
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:63
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:214
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:219
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:35
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:296
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:301
 msgid "Connect your Bitcoin Wallet (Optional)"
 msgstr "Connect your Bitcoin Wallet (Optional)"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:281
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:286
 msgid "Connect your EVM Wallet (Mandatory)"
 msgstr "Connect your EVM Wallet (Mandatory)"
 
@@ -407,8 +407,8 @@ msgstr "Enter your access code (optional):"
 msgid "Estimated Fee"
 msgstr "Estimated Fee"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:140
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:174
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:143
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:179
 msgid "Failed to connect to {0}"
 msgstr "Failed to connect to {0}"
 
@@ -677,7 +677,7 @@ msgstr "No bridging operations found"
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "No new goal at the moment. Stay tuned for updates!"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:246
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:251
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 msgstr "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 
@@ -726,7 +726,7 @@ msgstr "Please note:"
 msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:266
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:271
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
@@ -820,11 +820,11 @@ msgstr "Season 3 Harvested Spice"
 msgid "Season Three"
 msgstr "Season Three"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:211
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:216
 msgid "Select Bitcoin Wallet"
 msgstr "Select Bitcoin Wallet"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:197
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:202
 msgid "Select EVM Wallet"
 msgstr "Select EVM Wallet"
 
@@ -957,7 +957,7 @@ msgstr "Supply the newly minted satUSD into a <0>lending protocol on BOB</0>."
 msgid "Support your favourite BOB apps"
 msgstr "Support your favourite BOB apps"
 
-#: src/connect-ui/component/AuthButton/AuthButton.tsx:82
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:83
 msgid "Switch to {capitalizedName}"
 msgstr "Switch to {capitalizedName}"
 
@@ -970,7 +970,7 @@ msgstr "T&Cs"
 msgid "Take em home"
 msgstr "Take em home"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:258
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:263
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
@@ -1119,7 +1119,7 @@ msgstr "Use your Spice total to support your favourite BOB builders. Winners wil
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:109
 #: src/components/LoginButton/LoginButton.tsx:27
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:133
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:136
 msgid "User rejected the request"
 msgstr "User rejected the request"
 

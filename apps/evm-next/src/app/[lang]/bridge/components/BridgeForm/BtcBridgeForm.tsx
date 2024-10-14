@@ -283,7 +283,7 @@ const BtcBridgeForm = ({
     }
   };
 
-  const { balanceAmount, humanBalanceAmount } = useMemo(() => {
+  const { balanceAmount } = useMemo(() => {
     if (!satsFeeEstimate || !availableLiquidity) {
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
@@ -305,7 +305,6 @@ const BtcBridgeForm = ({
     }
 
     return {
-      humanBalanceAmount: balance,
       balanceAmount: availableBalance
     };
   }, [satsBalance, availableLiquidity, satsFeeEstimate]);
@@ -358,7 +357,6 @@ const BtcBridgeForm = ({
           i18n
         )`Your available balance may differ from your wallet balance due to network fees and available liquidity`}
         currency={BITCOIN}
-        humanBalance={humanBalanceAmount?.toExact()}
         label={t(i18n)`Amount`}
         logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
         valueUSD={valueUSD}
