@@ -3,6 +3,7 @@
 import { Tabs, TabsItem } from '@gobob/ui';
 import { Key, useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import { Trans } from '@lingui/macro';
 
 import { BannerCarousel, StakingForm, StrategyDetails } from './components';
 import { useGetStakingStrategies } from './hooks';
@@ -62,10 +63,10 @@ function Stake({ searchParams }: Props) {
       <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
         <StyledCard>
           <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
-            <TabsItem key={Type.Stake} title='Stake'>
+            <TabsItem key={Type.Stake} title={<Trans>Stake</Trans>}>
               <></>
             </TabsItem>
-            <TabsItem key={Type.Unstake} title='Unstake'>
+            <TabsItem key={Type.Unstake} title={<Trans>Unstake</Trans>}>
               <></>
             </TabsItem>
           </Tabs>

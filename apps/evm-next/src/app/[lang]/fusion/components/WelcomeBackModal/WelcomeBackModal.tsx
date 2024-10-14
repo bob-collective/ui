@@ -62,7 +62,7 @@ const WelcomeBackModal = ({ user, onClose, ...props }: WelcomeBackModalProps): J
             <P size='2xl'>#{user.leaderboardRank?.rank || '-'}</P>
           </Card>
         </Dl>
-        <Alert status='info' title='The leaderboard resets for the new season' variant='outlined'>
+        <Alert status='info' title={<Trans>The leaderboard resets for the new season</Trans>} variant='outlined'>
           <Trans>
             Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest.
           </Trans>

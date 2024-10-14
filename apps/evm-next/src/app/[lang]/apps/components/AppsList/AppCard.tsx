@@ -16,7 +16,8 @@ import {
   Span,
   useLocale
 } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
 import { VotingAppData } from '../../hooks';
 import { SpiceChip } from '../SpiceChip';
@@ -62,13 +63,14 @@ const AppCard = ({
   ...props
 }: AppCardPops): JSX.Element => {
   const { locale } = useLocale();
+  const { i18n } = useLingui();
 
   return (
     <Card
       {...props}
       disableAnimation
       isPressable
-      aria-label={`navigate to ${name} app page`}
+      aria-label={t(i18n)`navigate to ${name} app page`}
       borderColor='grey-300'
       flex={1}
       padding='none'

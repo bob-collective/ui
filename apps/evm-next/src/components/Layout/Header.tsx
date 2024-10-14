@@ -12,9 +12,10 @@ import {
   PopoverTrigger,
   useMediaQuery
 } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
+import { useLingui } from '@lingui/react';
 
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
@@ -37,6 +38,7 @@ type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 type HeaderProps = Props & InheritAttrs;
 
 const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => {
+  const { i18n } = useLingui();
   const { setSidebarOpen } = useLayoutContext();
   const [isOpen, setOpen] = useState(false);
 
@@ -52,7 +54,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
       <StyledLogoWrapper alignItems='center' gap='md'>
         <Button
           isIconOnly
-          aria-label='open drawer'
+          aria-label={t(i18n)`open drawer`}
           hidden={!isMobile}
           variant='ghost'
           onPress={() => setSidebarOpen(true)}
@@ -83,7 +85,13 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         </Nav>
         <Popover crossOffset={-50} isOpen={isOpen} onOpenChange={setOpen}>
           <PopoverTrigger>
-            <Button isIconOnly aria-label='Show secondary navigation' hidden={isMobile} size='s' variant='ghost'>
+            <Button
+              isIconOnly
+              aria-label={t(i18n)`Show secondary navigation`}
+              hidden={isMobile}
+              size='s'
+              variant='ghost'
+            >
               <EllipsisHorizontal color='light' size='s' />
             </Button>
           </PopoverTrigger>

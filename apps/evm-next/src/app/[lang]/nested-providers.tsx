@@ -5,6 +5,7 @@ import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHe
 import { useAccount, useChainId, useConfig, useReconnect, watchAccount } from '@gobob/wagmi';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
+import { Trans } from '@lingui/macro';
 
 import { ConnectProvider } from '@/connect-ui';
 import { Header, Layout, Sidebar } from '@/components';
@@ -71,19 +72,23 @@ const AuthCheck = () => {
 
   return (
     <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
-      <ModalHeader>Disconnected</ModalHeader>
+      <ModalHeader>
+        <Trans>Disconnected</Trans>
+      </ModalHeader>
       <ModalBody gap='2xl'>
         <P align='center' color='primary-500' size='lg' weight='bold'>
-          Your funds are safe!
+          <Trans>Your funds are safe!</Trans>
         </P>
         <P size='s'>
-          You have switched your account mid session. Simply switch back the original account and login to have access
-          to your funds again.
+          <Trans>
+            You have switched your account mid session. Simply switch back the original account and login to have access
+            to your funds again.
+          </Trans>
         </P>
       </ModalBody>
       <ModalFooter>
         <Button color='primary' onPress={() => setOpen(false)}>
-          Got it!
+          <Trans>Got it!</Trans>
         </Button>
       </ModalFooter>
     </Modal>

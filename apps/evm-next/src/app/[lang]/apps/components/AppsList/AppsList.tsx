@@ -90,11 +90,11 @@ const AppsList = ({
             router.replace('?' + urlSearchParams, { scroll: false });
           }}
         >
-          <TabsItem key={ALL_APPS} title='All Apps'>
+          <TabsItem key={ALL_APPS} title={<Trans>All Apps</Trans>}>
             <></>
           </TabsItem>
           {isAuthenticated && (
-            <TabsItem key={MY_APPS} title='My Apps'>
+            <TabsItem key={MY_APPS} title={<Trans>My Apps</Trans>}>
               <></>
             </TabsItem>
           )}

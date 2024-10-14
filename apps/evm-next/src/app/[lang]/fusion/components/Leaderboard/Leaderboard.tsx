@@ -5,7 +5,6 @@ import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { I18n } from '@lingui/core';
 
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 
@@ -76,10 +75,10 @@ type LeaderboardRow = {
   [LeaderboardColumns.QUESTS]: ReactNode;
 };
 
-const getColumns = (i18n: I18n) => [
-  { name: t(i18n)`Name`, id: LeaderboardColumns.NAME },
-  { name: t(i18n)`Spice`, id: LeaderboardColumns.SPICE },
-  { name: t(i18n)`Quests`, id: LeaderboardColumns.QUESTS }
+const columns = [
+  { name: <Trans>Name</Trans>, id: LeaderboardColumns.NAME },
+  { name: <Trans>Spice</Trans>, id: LeaderboardColumns.SPICE },
+  { name: <Trans>Quests</Trans>, id: LeaderboardColumns.QUESTS }
 ];
 
 const userRankKey = 'userRankKey';
@@ -237,7 +236,7 @@ const Leaderboard = (): JSX.Element => {
         <Table
           isStickyHeader
           aria-labelledby={id}
-          columns={getColumns(i18n)}
+          columns={columns}
           rows={data}
           selectedKeys={[userRankKey]}
           selectionMode='single'
@@ -247,7 +246,7 @@ const Leaderboard = (): JSX.Element => {
           <Table
             isStickyHeader
             aria-labelledby={id}
-            columns={getColumns(i18n)}
+            columns={columns}
             rows={skeletonData}
             selectedKeys={[userRankKey]}
             selectionMode='single'
