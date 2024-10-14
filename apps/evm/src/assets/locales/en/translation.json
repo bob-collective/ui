@@ -201,7 +201,8 @@
           "asset": "Asset",
           "holding": "Holding",
           "lending": "Lending, Restaking, CDP *",
-          "dex": "DEX *"
+          "dex": "DEX *",
+          "rewards": "Rewards"
         },
         "sections": {
           "featured": "Featured Assets",

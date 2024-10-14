@@ -129,6 +129,7 @@ const AppsList = ({
                     description={app.description}
                     discord={app.discord_id}
                     imgSrc={app.logoSrc}
+                    incentives={app.incentives}
                     isVotingDisabled={isVotingDisabled}
                     isVotingExceeded={isVotingExceeded}
                     name={app.name}
