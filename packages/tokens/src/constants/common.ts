@@ -28,7 +28,9 @@ function isCommonToken(symbol: string): symbol is CommonToken {
   return commonTokenSet.has(symbol);
 }
 
-const commonTokens = tokenList.tokens.reduce<Partial<Record<CommonToken, Partial<Record<ChainId, ERC20Token>>>>>(
+const commonTokens = (tokenList.tokens as any[]).reduce<
+  Partial<Record<CommonToken, Partial<Record<ChainId, ERC20Token>>>>
+>(
   (acc, { symbol, chainId, address, decimals, name }) => {
     if (isCommonToken(symbol)) {
       if (acc[symbol] === undefined) acc[symbol] = {} as Record<ChainId, ERC20Token>;

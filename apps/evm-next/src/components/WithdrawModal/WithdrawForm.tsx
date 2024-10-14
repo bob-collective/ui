@@ -36,13 +36,13 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
 
   const otherTokens = useMemo(
     () =>
-      lockedTokens?.filter((token) => !isAddressEqual(token.raw.address, USDT[L1_CHAIN as ChainId.ETHEREUM].address)),
+      lockedTokens?.filter((token) => !isAddressEqual(token.raw.address, USDT![L1_CHAIN as ChainId.ETHEREUM]!.address)),
     [lockedTokens]
   );
 
   const isUSDTWithdrawNeeded = useMemo(
     () =>
-      !!lockedTokens?.find((token) => isAddressEqual(token.raw.address, USDT[L1_CHAIN as ChainId.ETHEREUM].address)),
+      !!lockedTokens?.find((token) => isAddressEqual(token.raw.address, USDT![L1_CHAIN as ChainId.ETHEREUM]!.address)),
     [lockedTokens]
   );
 
@@ -55,7 +55,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
   const withdrawToL2Mutation = useMutation({
     mutationKey: ['withdrawToL2', address],
     mutationFn: async () => {
-      if (!otherTokens || !lockedTokens || !address || !publicClient) return;
+      if (!otherTokens || !lockedTokens || !address || !publicClient || !USDT?.[L1_CHAIN as ChainId.ETHEREUM]) return;
 
       if (isUSDTWithdrawNeeded) {
         const otherTokensAddress = otherTokens.map((token) => token.raw.address);
@@ -71,7 +71,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
           abi: lockContract.abi,
           address: lockContract.address,
           functionName: 'withdrawDepositsToL1',
-          args: [[USDT[L1_CHAIN as ChainId.ETHEREUM].address]]
+          args: [[USDT![L1_CHAIN as ChainId.ETHEREUM]!.address]]
         });
 
         const [l2Receipt, l1Receipt] = await Promise.all([
