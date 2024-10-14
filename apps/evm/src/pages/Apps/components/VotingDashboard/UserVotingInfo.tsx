@@ -1,30 +1,17 @@
-import {
-  Button,
-  Card,
-  Dd,
-  Divider,
-  Dl,
-  DlGroup,
-  Dt,
-  Flex,
-  Link,
-  P,
-  Skeleton,
-  SolidClock,
-  Span,
-  Tooltip
-} from '@gobob/ui';
+import { Card, Dd, Divider, Dl, DlGroup, Dt, Flex, P, Skeleton, SolidClock, Span, Tooltip } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
+import { LoginButton, SignUpButton } from '../../../../components';
 import { SpiceChip } from '../SpiceChip';
-import { RoutesPath } from '../../../../constants';
-import { LoginButton } from '../../../../components';
 
 type Props = { isAuthenticated?: boolean; roundEndsAt?: string; votesRemaining?: number };
 
 type UserVotingInfoProps = Props;
 
 const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVotingInfoProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <Card borderColor='grey-300' direction='row' gap='md' padding={isAuthenticated ? 'xl' : 'lg'}>
       <>
@@ -32,7 +19,7 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
           <Dl>
             <DlGroup alignItems='center'>
               <Dt color='light' size='lg'>
-                Votes Left:
+                {t('apps.votingDashboard.userVotingInfo.votesLeft')}
               </Dt>
               <Dd>
                 <SpiceChip hideTooltip isLit amount={votesRemaining || 0} />
@@ -42,14 +29,14 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
         ) : (
           <Flex alignItems='center' gap='md'>
             <LoginButton color='primary' size='s'>
-              Log in
+              {t('apps.votingDashboard.login.cta')}
             </LoginButton>
             <Span color='grey-50' size='s'>
-              or
+              {t('apps.votingDashboard.login.separator')}
             </Span>
-            <Button asChild color='primary' size='s' variant='ghost'>
-              <Link href={RoutesPath.SIGN_UP}>Create Account</Link>
-            </Button>
+            <SignUpButton color='primary' size='s' variant='ghost'>
+              {t('apps.votingDashboard.login.createAccount')}
+            </SignUpButton>
           </Flex>
         )}
         <Divider orientation='vertical' />

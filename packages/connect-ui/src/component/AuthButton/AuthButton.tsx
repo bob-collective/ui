@@ -1,7 +1,10 @@
+'use client';
+
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Button, ButtonProps } from '@gobob/ui';
 import { ChainId, getChainName } from '@gobob/chains';
+import { useIsClient } from 'usehooks-ts';
 
 import { useConnectModal } from '../..';
 
@@ -33,10 +36,21 @@ const AuthButton = ({
   const { address, chain } = useAccount();
   const { address: btcAddress } = useSatsAccount();
   const { switchChainAsync, isPending: isSwitchNetworkLoading } = useSwitchChain();
+  const isClient = useIsClient();
 
   const { open, type: connectType } = useConnectModal();
 
   const inferredProps = { onPress, onClick, disabled, children, type, ...props };
+
+  if (!isClient) {
+    const buttonProps = {
+      onPress: () => open(),
+      children: 'Loading...',
+      ...props
+    };
+
+    return <Button loading {...buttonProps} />;
+  }
 
   // Comes first because if the connection includes evm, the priority is always evm
   if (connectType === 'evm' || connectType === 'both') {

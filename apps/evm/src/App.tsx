@@ -1,22 +1,19 @@
-import { usePrices, useQuery } from '@gobob/react-query';
-import { useAccount, useChainId, useConfig, useReconnect, useSwitchChain, watchAccount } from '@gobob/wagmi';
-import { ModalBody, ModalHeader, Modal, P, ModalFooter, Button, toast, BOBUIProvider } from '@gobob/ui';
+import { ConnectProvider } from '@gobob/connect-ui';
+import { usePrices } from '@gobob/react-query';
+import { BOBUIProvider, Button, Modal, ModalBody, ModalFooter, ModalHeader, P } from '@gobob/ui';
+import { useAccount, useChainId, useConfig, useReconnect, watchAccount } from '@gobob/wagmi';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { Chain } from 'viem';
-import { ConnectProvider } from '@gobob/connect-ui';
 
 import { Header, Layout, Main, Sidebar } from './components';
-import { L1_CHAIN, RoutesPath, isValidChain } from './constants';
-import { FeatureFlags, useFeatureFlag, useGetUser, useLogin, useLogout, useTokens } from './hooks';
+import { RoutesPath } from './constants';
+import { FeatureFlags, useFeatureFlag, useGetUser, useLogout, useTokens } from './hooks';
 import { useBalances } from './hooks/useBalances';
-import { apiClient } from './utils';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
   const location = useLocation();
   const [searchParams] = useSearchParams(new URLSearchParams());
-  const { switchChainAsync } = useSwitchChain();
   const navigate = useNavigate();
 
   const config = useConfig();
@@ -24,29 +21,9 @@ const AuthCheck = () => {
   // We don't want to disconnect users if they switch account on the wallet or the bridge
   const shouldDisconnect = location.pathname === RoutesPath.HOME || location.pathname === RoutesPath.FUSION;
 
-  const { data: user, isLoading: isLoadingUser, refetch: refetchUser } = useGetUser();
-  const { mutate: login, isPending: isLoggingIn } = useLogin({
-    onSuccess: async () => {
-      await refetchUser();
-    },
-    onError: (e: any) => {
-      if (e.code === 4001) {
-        toast.error('User rejected the request');
-      } else {
-        toast.error(e.message || 'Something went wrong. Please try again later.');
-      }
-    }
-  });
+  const { data: user, refetch: refetchUser } = useGetUser();
 
-  const { address, chain } = useAccount();
-
-  const { data: isFusionUser, isLoading: isCheckingFusionUser } = useQuery({
-    enabled: Boolean(address),
-    queryKey: ['check-user', address],
-    queryFn: async () => {
-      return !!(await apiClient.isFusionUser(address!));
-    }
-  });
+  const { address } = useAccount();
 
   const { logout } = useLogout({
     onSuccess: () => {
@@ -83,33 +60,6 @@ const AuthCheck = () => {
     // Cleanup by calling unwatch to unsubscribe from the account change event
     return () => watchAccountRef.current?.();
   }, [user, address, shouldDisconnect, config, logout]);
-
-  useEffect(() => {
-    const checkLogin = async (address: string, chain: Chain | undefined) => {
-      if (!chain || !isValidChain(chain.id)) {
-        const chain = await switchChainAsync({ chainId: L1_CHAIN });
-
-        if (!chain) {
-          return toast.error('Something went wrong. Please try connecting your wallet again.');
-        }
-      }
-
-      return login(address);
-    };
-
-    if (
-      address &&
-      !user &&
-      !isLoadingUser &&
-      !isLoggingIn &&
-      !isCheckingFusionUser &&
-      isFusionUser &&
-      (location.pathname === RoutesPath.FUSION || location.pathname === RoutesPath.APPS)
-    ) {
-      checkLogin(address, chain);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chain, user, isFusionUser]);
 
   useEffect(() => {
     if (!address && user) {

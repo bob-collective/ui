@@ -1,6 +1,7 @@
 import { Button, Chip, Flex, H2, Link, P, Skeleton, SolidClock, useMediaQuery } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import { useGetVotingApps } from '../../../Apps/hooks';
 import { RoutesPath } from '../../../../constants';
@@ -13,6 +14,8 @@ const CommunityVoting = ({}: CommunityVotingProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
   const { data: votingAppsData } = useGetVotingApps();
+
+  const { t } = useTranslation();
 
   return (
     <Flex direction={{ base: 'column-reverse', s: 'row' }} gap='3xl' marginTop='8xl'>
@@ -31,17 +34,15 @@ const CommunityVoting = ({}: CommunityVotingProps) => {
       >
         {votingAppsData?.roundEndsAt ? (
           <Chip startAdornment={<SolidClock size='s' />}>
-            {formatDistanceToNow(votingAppsData.roundEndsAt)} until voting round ends
+            {t('fusion.communityVoting.roundEnd', { timeRemaining: formatDistanceToNow(votingAppsData.roundEndsAt) })}
           </Chip>
         ) : (
           <Skeleton height='3xl' width='9xl' />
         )}
-        <H2 size='3xl'>Community Voting</H2>
-        <P color='grey-50'>
-          Use your Spice total to support your favourite BOB builders. Winners will be announced each week.
-        </P>
+        <H2 size='3xl'>{t('fusion.communityVoting.title')}</H2>
+        <P color='grey-50'>{t('fusion.communityVoting.description')}</P>
         <Button elementType={Link} size='xl' variant='outline' {...{ href: RoutesPath.APPS }}>
-          Vote
+          {t('fusion.communityVoting.cta')}
         </Button>
       </Flex>
     </Flex>

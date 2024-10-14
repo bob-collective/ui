@@ -1,6 +1,7 @@
 import { CSSProperties } from 'styled-components';
 import { BOBLogo } from '@gobob/icons';
 import { Skeleton, Span, useLocale } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
 
 import {
   StyledBarometer,
@@ -21,12 +22,15 @@ const getPercentage = (value: number, minValue: number, maxValue: number) => {
 type BarometerProps = {
   value?: number;
   maxValue?: number;
+  showGoal?: boolean;
 };
 
 const minValue = 0;
 
-const Barometer = ({ value = minValue, maxValue = 100 }: BarometerProps) => {
+const Barometer = ({ value = minValue, maxValue = 100, showGoal }: BarometerProps) => {
   const { locale } = useLocale();
+  const { t } = useTranslation();
+
   const percentage = getPercentage(value, minValue, maxValue);
   const barStyle: CSSProperties = { width: `${Math.round(percentage * 100)}%` };
   const addornmentStyle: CSSProperties = {
@@ -62,21 +66,25 @@ const Barometer = ({ value = minValue, maxValue = 100 }: BarometerProps) => {
             minimumFractionDigits: 2,
             notation: 'compact'
           }).format(value)}{' '}
-          TVL
+          {t('fusion.userInfo.barometer.tvlLabel')}
         </StyledValue>
       </StyledFillAddornment>
       {percentage < 0.98 && <StyledGift color='grey-50' size='xxs' />}
-      <StyledStep alignItems='center' gap='xs'>
-        {maxValue ? (
-          <>
-            <Span size='xs' weight='bold'>
-              {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', notation: 'compact' }).format(maxValue)}
-            </Span>
-          </>
-        ) : (
-          <Skeleton width='6xl' />
-        )}
-      </StyledStep>
+      {showGoal && (
+        <StyledStep alignItems='center' gap='xs'>
+          {maxValue ? (
+            <>
+              <Span size='xs' weight='bold'>
+                {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', notation: 'compact' }).format(
+                  maxValue
+                )}
+              </Span>
+            </>
+          ) : (
+            <Skeleton width='6xl' />
+          )}
+        </StyledStep>
+      )}
     </StyledBarometer>
   );
 };

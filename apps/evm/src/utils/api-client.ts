@@ -6,6 +6,8 @@ export enum QuestRefCodes {
   INTRACT = '6y2pac'
 }
 
+type Logos = { default?: string };
+
 interface DepositStat {
   token_address: string;
   token_name: string;
@@ -183,7 +185,7 @@ export interface Project {
   refCode: string;
   userHasVotedFor: boolean;
   isPreviousRoundWinner: boolean;
-  logos: { default?: string };
+  logos: Logos;
 }
 
 // Define the interface for a category
@@ -206,7 +208,7 @@ export interface ResultProject {
   rank: number;
   refCode: string;
   userHasVotedFor: boolean;
-  logos: { default?: string };
+  logos: Logos;
 }
 
 // Define the interface for a category
@@ -229,25 +231,33 @@ interface PartnersS3Response {
 export interface PartnerS3 {
   name: string;
   ref_code: string;
-  live?: boolean;
+  category: string;
+  incentives: string[];
   project_url: string;
-  logos: { default?: string };
-  description: string;
-  show_on_app_store: boolean;
-  discord_id: any;
-  twitter_id: any;
-  categories: string[];
+  logos: Logos;
   total_distributed_points: string;
-  total_points: number;
+  total_deposit_points: string;
+  total_referral_points: string;
   total_tvl_points: string;
-  total_received_points_through_partner: string;
-  total_quest_points: string;
-  total_referral_points?: number;
+  total_gas_points: string;
+  total_points: string;
+  current_points: string;
+  live: boolean;
   points_distributed_per_hour: string;
-  total_points_distributed_in_time_window: any;
+  total_points_distributed_in_time_window: string;
+  show_on_app_store: boolean;
+  is_quest: boolean;
+  categories: string[];
+  description: string;
+  discord_id: string;
   max_multiplier: string;
   min_multiplier: string;
   points_distributed_per_hour_rank: string;
+  total_quest_points: string;
+  total_received_points: string;
+  total_voting_points: string;
+  current_voting_points: string;
+  twitter_id: string;
 }
 
 interface LeaderboardS3Response {
@@ -352,6 +362,8 @@ export interface TokenInfo {
   l2_address: string;
   multiplier: string;
   latest_price_in_usd: string;
+  logos: string[];
+  incentives: string[];
 }
 
 export interface QuestS3Response {

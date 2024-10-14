@@ -99,7 +99,7 @@ const usePrices = ({ baseUrl, allCurrencies }: UsePricesProps) => {
 
       const cgId = COINGECKO_ID_BY_CURRENCY_TICKER[ticker];
 
-      return query.data?.[cgId]?.[versusCurrency] || 0;
+      return query.data?.[cgId!]?.[versusCurrency] || 0;
     },
     [query.data]
   );

@@ -17,3 +17,4 @@ export * from './useWalletClient';
 export * from './useHaltedLockedTokens';
 export * from './useLockedTokens';
 export * from './useWalletClient';
+export * from './useSignUp';

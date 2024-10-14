@@ -1,6 +1,7 @@
 import { Button, Chip, Flex, H2, Link, Skeleton, SolidClock, useMediaQuery } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import { QuestS3Response } from '../../../../utils';
 
@@ -11,6 +12,8 @@ type QuestProps = { quests: QuestS3Response | undefined; id: string };
 const Quest = ({ id, quests }: QuestProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+
+  const { t } = useTranslation();
 
   const [intractQuest] = quests?.questBreakdown || [];
 
@@ -31,17 +34,14 @@ const Quest = ({ id, quests }: QuestProps) => {
       >
         {intractQuest ? (
           <Chip startAdornment={<SolidClock size='s' />}>
-            {formatDistanceToNow(intractQuest.end_date)} until quest ends
+            {t('fusion.quests.questEnd', { timeRemaining: formatDistanceToNow(intractQuest.end_date) })}
           </Chip>
         ) : (
           <Skeleton height='3xl' width='9xl' />
         )}
-        <H2 size='3xl'>Quests</H2>
+        <H2 size='3xl'>{t('fusion.quests.title')}</H2>
         {intractQuest ? (
-          <StyledDescription>
-            Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an
-            additional 62,500 Spice.
-          </StyledDescription>
+          <StyledDescription>{t('fusion.quests.description')}</StyledDescription>
         ) : (
           <Skeleton count={3} height='xl' />
         )}
@@ -52,7 +52,7 @@ const Quest = ({ id, quests }: QuestProps) => {
           variant='outline'
           {...{ external: true, href: intractQuest?.url, disabled: !intractQuest }}
         >
-          View Quests
+          {t('fusion.quests.cta')}
         </Button>
       </Flex>
     </Flex>

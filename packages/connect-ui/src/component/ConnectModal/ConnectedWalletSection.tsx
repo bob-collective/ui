@@ -1,3 +1,5 @@
+'use client';
+
 import { Avatar, Button, Card, DocumentDuplicate, Flex, P, Power, Span, Strong, UnstyledButton } from '@gobob/ui';
 import { truncateBtcAddress, truncateEthAddress } from '@gobob/utils';
 import { useCopyToClipboard } from 'react-use';

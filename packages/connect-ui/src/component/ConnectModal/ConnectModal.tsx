@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Button,
   Flex,
@@ -42,14 +44,18 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type ConnectModalProps = Props & InheritAttrs;
 
-const hasBitkeep = (window as any).bitkeep && window.ethereum;
-
 const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
   ({ onClose, isOpen, step: stepProp, type = 'both', onConnectEvm, onConnectBtc, ...props }, ref) => {
     const { connector, address } = useAccount();
     const { disconnect } = useDisconnect();
     const { connectors, connectAsync } = useConnect();
     const [step, setStep] = useState<WalletType | undefined>(stepProp);
+
+    let hasBitkeep = undefined;
+
+    if (typeof window !== 'undefined') {
+      hasBitkeep = (window as any).bitkeep && window.ethereum;
+    }
 
     const { address: btcWalletAddress, connector: btcWalletConnector } = useSatsAccount({ onConnect: onConnectBtc });
     const { disconnect: btcWalletDisconnect } = useSatsDisconnect();

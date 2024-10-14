@@ -1,3 +1,5 @@
+'use client';
+
 import { AriaBreadcrumbItemProps, useBreadcrumbItem } from '@react-aria/breadcrumbs';
 import { mergeProps } from '@react-aria/utils';
 import { AnchorHTMLAttributes, Fragment, useRef } from 'react';

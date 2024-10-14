@@ -32,7 +32,7 @@ const escapeRegExp = (string: string): string => {
 const hasCorrectDecimals = (value: string, decimals: number) => {
   const decimalGroups = value.split('.');
 
-  return decimalGroups.length > 1 ? decimalGroups[1].length <= decimals : true;
+  return decimalGroups.length > 1 ? decimalGroups[1]!.length <= decimals : true;
 };
 
 type Props = {

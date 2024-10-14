@@ -15,10 +15,10 @@ const LoginSection = ({ direction = { base: 'column', md: 'row' }, ...props }: L
   return (
     <Flex alignItems='center' direction={direction} gap='xs' justifyContent='center' {...props}>
       <P size='s' weight='bold'>
-        {t('home.loginLabel')}
+        {t('fusion.userInfo.login.alreadyHarvesting')}
       </P>
       <LoginButton color='primary' size='s' variant='ghost'>
-        {t('home.loginButtonText')}
+        {t('fusion.userInfo.login.alreadyHarvestingCta')}
       </LoginButton>
     </Flex>
   );
