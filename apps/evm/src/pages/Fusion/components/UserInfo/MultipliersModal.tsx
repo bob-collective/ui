@@ -14,6 +14,7 @@ import {
 } from '@gobob/ui';
 import { ReactNode, useCallback, useId } from 'react';
 import { Address, isAddressEqual } from 'viem';
+import { useTranslation } from 'react-i18next';
 
 import { useGetTokensInfo } from '../../hooks';
 import { TokenInfo } from '../../../../utils';
@@ -56,36 +57,6 @@ type TableRow = {
   [TableColumns.REWARDS]: ReactNode;
 };
 
-const columns = [
-  { id: TableColumns.ASSET, minWidth: 140, name: 'Asset' },
-  { id: TableColumns.HOLDING, name: 'Holding' },
-  {
-    id: TableColumns.LENDING,
-    name: (
-      <Span noWrap size='inherit' weight='inherit'>
-        Lending, Restaking, CDP *
-      </Span>
-    )
-  },
-  {
-    id: TableColumns.DEX,
-    name: (
-      <Span noWrap size='inherit' weight='inherit'>
-        DEX *
-      </Span>
-    )
-  },
-  {
-    id: TableColumns.REWARDS,
-    minWidth: 250,
-    name: (
-      <Span noWrap size='inherit' weight='inherit'>
-        Rewards
-      </Span>
-    )
-  }
-];
-
 type Props = {};
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
@@ -94,12 +65,43 @@ type MultipliersModalProps = Props & InheritAttrs;
 
 const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
   const { locale } = useLocale();
+  const { t } = useTranslation();
 
   const { data: tokensInfo } = useGetTokensInfo();
 
   const featuredAssetId = useId();
   const yieldAssetId = useId();
   const baseAssetId = useId();
+
+  const columns = [
+    { id: TableColumns.ASSET, width: 160, name: t('fusion.userInfo.multipliersModal.columns.asset') },
+    { id: TableColumns.HOLDING, name: t('fusion.userInfo.multipliersModal.columns.holding') },
+    {
+      id: TableColumns.LENDING,
+      name: (
+        <Span noWrap size='inherit' weight='inherit'>
+          {t('fusion.userInfo.multipliersModal.columns.lending')}
+        </Span>
+      )
+    },
+    {
+      id: TableColumns.DEX,
+      name: (
+        <Span noWrap size='inherit' weight='inherit'>
+          {t('fusion.userInfo.multipliersModal.columns.dex')}
+        </Span>
+      )
+    },
+    {
+      id: TableColumns.REWARDS,
+      minWidth: 250,
+      name: (
+        <Span noWrap size='inherit' weight='inherit'>
+          {t('fusion.userInfo.multipliersModal.columns.rewards')}
+        </Span>
+      )
+    }
+  ];
 
   const getRow = useCallback(
     (item: TokenInfo, idx: number): TableRow => ({
@@ -185,15 +187,13 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
   return (
     <Modal {...props} size='3xl'>
       <ModalHeader showDivider align='start'>
-        Multipliers
+        {t('fusion.userInfo.multipliersModal.title')}
       </ModalHeader>
       <ModalBody gap='2xl' padding='even'>
-        <P color='grey-50'>
-          Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest.
-        </P>
+        <P color='grey-50'>{t('fusion.userInfo.multipliersModal.description')}</P>
         <Flex direction='column' flex={1} gap='md'>
           <H3 id={featuredAssetId} size='md'>
-            Featured Assets
+            {t('fusion.userInfo.multipliersModal.sections.featured')}
           </H3>
           <Table
             aria-labelledby={featuredAssetId}
@@ -204,7 +204,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
         </Flex>
         <Flex direction='column' flex={1} gap='md'>
           <H3 id={yieldAssetId} size='md'>
-            Yield Assets
+            {t('fusion.userInfo.multipliersModal.sections.yield')}
           </H3>
           <Table
             aria-labelledby={yieldAssetId}
@@ -215,7 +215,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
         </Flex>
         <Flex direction='column' flex={1} gap='md'>
           <H3 id={baseAssetId} size='md'>
-            Base Assets
+            {t('fusion.userInfo.multipliersModal.sections.base')}
           </H3>
           <Table
             aria-labelledby={baseAssetId}
@@ -225,7 +225,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
           />
         </Flex>
         <P align='center' color='grey-50' size='xs'>
-          * The multipliers displayed are subject to change based on the payout structure of the respective projects.
+          {t('fusion.userInfo.multipliersModal.disclaimer')}
         </P>
       </ModalBody>
     </Modal>

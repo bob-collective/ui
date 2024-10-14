@@ -74,10 +74,10 @@ const DepositedAssets = () => {
     [user?.depositStats, tokens, format]
   );
 
-  const lockedAmounts = !!depositedAssets?.length && (
+  const lockedAmounts = (
     <Flex direction='column' gap='s'>
       <P size='xs' weight='bold'>
-        {t('fusion.userStats.lockedCapitalBreakdown')}
+        {t('fusion.withdrawModal.lockedCapitalBreakdown')}
       </P>
       {depositedAssets}
     </Flex>
@@ -86,7 +86,7 @@ const DepositedAssets = () => {
   return (
     <DlGroup alignItems='flex-start' direction='column'>
       <StyledDt size='s' weight='semibold'>
-        {t('fusion.userStats.lockedAmount')}
+        {t('fusion.withdrawModal.lockedAmount')}
         {lockedAmounts &&
           (isMobile ? (
             <Popover>

@@ -1,4 +1,5 @@
 import { Avatar, Flex, List, ListItem, Modal, ModalBody, ModalHeader, ModalProps, P, Span } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
 
 import { AppData } from '../../../Apps/hooks';
 import { SpiceAmount } from '../../../../components';
@@ -12,15 +13,15 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type UserAppsModalProps = Props & InheritAttrs;
 
 const UserAppsModal = ({ apps, ...props }: UserAppsModalProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <Modal {...props} size='lg'>
       <ModalHeader showDivider align='start'>
-        Spice Earned Across Apps
+        {t('fusion.userInfo.usedApps.label')}
       </ModalHeader>
       <ModalBody gap='2xl' padding='even'>
-        <P color='grey-50'>
-          Below is the Spice you&apos;ve harvested from apps. Keep participating to increase your future harvest!
-        </P>
+        <P color='grey-50'>{t('fusion.userInfo.usedApps.description')}</P>
         <List direction='column' gap='md'>
           {apps.map((app) => (
             <ListItem key={app.ref_code} alignItems='center' flex={1} justifyContent='space-between'>

@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Card, Flex, H2, Link, P } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 
 import { RoutesPath } from '../../../../constants';
 
@@ -7,46 +9,46 @@ import { StrategyCard, StrategyCardProps } from './StrategyCard';
 import { StyledGrid, StyledOverlay, StyledUnderlay, StyledWrapper } from './Strategies.style';
 
 const btcLstLendingStrat: StrategyCardProps = {
-  title: 'BTC LST Lending',
-  shortDescription: 'Use BTC LSTs as collateral to borrow other assets',
-  longDescription: 'Deposit BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets.',
+  title: i18next.t('fusion.strategies.btcLstLendingStrat.title'),
+  shortDescription: i18next.t('fusion.strategies.btcLstLendingStrat.shortDescription'),
+  longDescription: i18next.t('fusion.strategies.btcLstLendingStrat.longDescription'),
   steps: [
     {
       description: (
         <>
           <Link href={RoutesPath.STAKE} underlined='always'>
-            Stake your BTC with 1-click
+            {i18next.t('fusion.strategies.btcLstLendingStrat.steps.one.linkText')}
           </Link>{' '}
-          and receive BTC LSTs on BOB.
+          {i18next.t('fusion.strategies.btcLstLendingStrat.steps.one.description')}
         </>
       )
     },
-    { description: 'Deposit any eligible BTC LSTs into a lending market on BOB.' },
+    { description: i18next.t('fusion.strategies.btcLstLendingStrat.steps.two.description') },
     {
-      description: 'Use the deposited BTC LSTs as collateral to borrow wBTC, tBTC or FBTC.'
+      description: i18next.t('fusion.strategies.btcLstLendingStrat.steps.three.description')
     },
-    { description: 'Mint more BTC LSTs with these borrowed assets.' },
-    { description: "Optional: It's possible to repeat steps 2-4 multiple times." }
+    { description: i18next.t('fusion.strategies.btcLstLendingStrat.steps.four.description') },
+    { description: i18next.t('fusion.strategies.btcLstLendingStrat.steps.five.description') }
   ],
   rewards: [
-    'Spice points (Medium)',
-    'Lending rate of BTC LSTs',
-    'Lending protocol points',
-    'LST provider points',
-    'Babylon points'
+    i18next.t('fusion.strategies.btcLstLendingStrat.rewards.one'),
+    i18next.t('fusion.strategies.btcLstLendingStrat.rewards.two'),
+    i18next.t('fusion.strategies.btcLstLendingStrat.rewards.three'),
+    i18next.t('fusion.strategies.btcLstLendingStrat.rewards.four'),
+    i18next.t('fusion.strategies.btcLstLendingStrat.rewards.five')
   ]
 };
 
 const mintAndLendSatUsd: StrategyCardProps = {
-  title: 'Mint and Lend satUSD',
-  shortDescription: 'Mint satUSD and supply it into a lending market on BOB',
+  title: i18next.t('fusion.strategies.mintAndLendSatUsd.title'),
+  shortDescription: i18next.t('fusion.strategies.mintAndLendSatUsd.shortDescription'),
   longDescription: (
     <>
-      Deposit your BTC LSTs into{' '}
+      {i18next.t('fusion.strategies.mintAndLendSatUsd.longDescription.prefix')}
       <Link external color='inherit' href='https://app.satoshiprotocol.org/' size='inherit' underlined='always'>
-        Satoshi Protocol
+        {i18next.t('fusion.strategies.mintAndLendSatUsd.longDescription.linkText')}
       </Link>{' '}
-      to mint satUSD and deposit that into a lending market on BOB
+      {i18next.t('fusion.strategies.mintAndLendSatUsd.longDescription.suffix')}
     </>
   ),
   steps: [
@@ -54,62 +56,62 @@ const mintAndLendSatUsd: StrategyCardProps = {
       description: (
         <>
           <Link href={RoutesPath.STAKE} underlined='always'>
-            Stake your BTC with 1-click
+            {i18next.t('fusion.strategies.mintAndLendSatUsd.steps.one.linkText')}
           </Link>{' '}
-          and receive BTC LSTs on BOB.
+          {i18next.t('fusion.strategies.mintAndLendSatUsd.steps.one.description')}
         </>
       )
     },
     {
       description: (
         <>
-          Deposit your BTC LSTs into{' '}
+          {i18next.t('fusion.strategies.mintAndLendSatUsd.steps.two.prefix')}{' '}
           <Link external color='inherit' href='https://app.satoshiprotocol.org/' size='inherit' underlined='always'>
-            Satoshi Protocol
+            {i18next.t('fusion.strategies.mintAndLendSatUsd.steps.two.linkText')}
           </Link>{' '}
-          to mint satUSD.
+          {i18next.t('fusion.strategies.mintAndLendSatUsd.steps.two.suffix')}
         </>
       )
     },
     {
       description: (
         <>
-          Supply the newly minted satUSD into a{' '}
+          {i18next.t('fusion.strategies.mintAndLendSatUsd.steps.three.prefix')}{' '}
           <Link
             color='inherit'
             href={`${RoutesPath.APPS}?category=Lending+%26+Borrowing`}
             size='inherit'
             underlined='always'
           >
-            lending protocol on BOB
+            {i18next.t('fusion.strategies.mintAndLendSatUsd.steps.three.linkText')}
           </Link>
-          .
+          {i18next.t('fusion.strategies.mintAndLendSatUsd.steps.three.suffix')}
         </>
       )
     },
     {
-      description: 'Use the deposited satUSD as collateral to borrow any BTC LST.'
+      description: i18next.t('fusion.strategies.mintAndLendSatUsd.steps.four.description')
     },
     {
-      description: "Optional: It's possible to repeat steps 2-4 multiple times."
+      description: i18next.t('fusion.strategies.mintAndLendSatUsd.steps.five.description')
     }
   ],
   rewards: [
-    'Spice rewards (Medium)',
-    'Lending rate of satUSD',
-    'Lending protocol points',
-    'Satoshi protocol points',
-    'LST provider points',
-    'Babylon points'
+    i18next.t('fusion.strategies.mintAndLendSatUsd.rewards.one'),
+    i18next.t('fusion.strategies.mintAndLendSatUsd.rewards.two'),
+    i18next.t('fusion.strategies.mintAndLendSatUsd.rewards.three'),
+    i18next.t('fusion.strategies.mintAndLendSatUsd.rewards.four'),
+    i18next.t('fusion.strategies.mintAndLendSatUsd.rewards.five'),
+    i18next.t('fusion.strategies.mintAndLendSatUsd.rewards.six')
   ]
 };
 
 const dexLiquidityPovisioning: StrategyCardProps = {
-  title: 'DEX Liquidity Provisioning',
-  shortDescription: 'Provide liquidity into Oku DEX',
+  title: i18next.t('fusion.strategies.dexLiquidityPovisioning.title'),
+  shortDescription: i18next.t('fusion.strategies.dexLiquidityPovisioning.shortDescription'),
   longDescription: (
     <>
-      Provide liquidity into any AMM pool on{' '}
+      {i18next.t('fusion.strategies.dexLiquidityPovisioning.longDescription.prefix')}{' '}
       <Link
         external
         color='inherit'
@@ -117,16 +119,16 @@ const dexLiquidityPovisioning: StrategyCardProps = {
         size='inherit'
         underlined='always'
       >
-        Oku DEX
+        {i18next.t('fusion.strategies.dexLiquidityPovisioning.longDescription.linkText')}
       </Link>{' '}
-      to earn trading fees and incentives
+      {i18next.t('fusion.strategies.dexLiquidityPovisioning.longDescription.suffix')}
     </>
   ),
   steps: [
     {
       description: (
         <>
-          Follow the steps of{' '}
+          {i18next.t('fusion.strategies.dexLiquidityPovisioning.steps.one.prefix')}{' '}
           <Link
             external
             color='inherit'
@@ -134,28 +136,31 @@ const dexLiquidityPovisioning: StrategyCardProps = {
             size='inherit'
             underlined='always'
           >
-            this guide
+            {i18next.t('fusion.strategies.dexLiquidityPovisioning.steps.one.linkText')}
           </Link>{' '}
-          to provide liquity into a DEX pool on Oku.
+          {i18next.t('fusion.strategies.dexLiquidityPovisioning.steps.one.suffix')}
         </>
       )
     },
-    { description: 'Maximum points will be received by providing BTC LST liquidity.' },
-    { description: 'You will need to actively monitor your position, especially if it has a small range.' }
+    { description: i18next.t('fusion.strategies.dexLiquidityPovisioning.steps.two.description') },
+    { description: i18next.t('fusion.strategies.dexLiquidityPovisioning.steps.three.description') }
   ],
-  rewards: ['Spice rewards (Higher)', 'LST provider points', 'Babylon points']
+  rewards: [
+    i18next.t('fusion.strategies.dexLiquidityPovisioning.rewards.one'),
+    i18next.t('fusion.strategies.dexLiquidityPovisioning.rewards.two'),
+    i18next.t('fusion.strategies.dexLiquidityPovisioning.rewards.three')
+  ]
 };
 
 const bridgeBtcLstToBob: StrategyCardProps = {
-  title: 'Bridge BTC LSTs to BOB',
-  shortDescription: 'Bridge BTC LSTs to BOB',
-  longDescription:
-    'If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice.',
+  title: i18next.t('fusion.strategies.bridgeBtcLstToBob.title'),
+  shortDescription: i18next.t('fusion.strategies.bridgeBtcLstToBob.shortDescription'),
+  longDescription: i18next.t('fusion.strategies.bridgeBtcLstToBob.longDescription'),
   steps: [
     {
       description: (
         <>
-          Use any of the{' '}
+          {i18next.t('fusion.strategies.bridgeBtcLstToBob.steps.one.prefix')}{' '}
           <Link
             external
             color='inherit'
@@ -163,16 +168,20 @@ const bridgeBtcLstToBob: StrategyCardProps = {
             size='inherit'
             underlined='always'
           >
-            supported bridges
+            {i18next.t('fusion.strategies.bridgeBtcLstToBob.steps.one.linkText')}
           </Link>
-          .
+          {i18next.t('fusion.strategies.bridgeBtcLstToBob.steps.one.suffix')}
         </>
       )
     },
-    { description: 'Select the wrapped Bitcoin asset and the amount that you want to bridge.' },
-    { description: 'Chose any of the existing liquid staking provider to mint your BTC LST.' }
+    { description: i18next.t('fusion.strategies.bridgeBtcLstToBob.steps.two.description') },
+    { description: i18next.t('fusion.strategies.bridgeBtcLstToBob.steps.three.description') }
   ],
-  rewards: ['Spice points (Lower)', 'LST provider points', 'Babylon points']
+  rewards: [
+    i18next.t('fusion.strategies.bridgeBtcLstToBob.rewards.one'),
+    i18next.t('fusion.strategies.bridgeBtcLstToBob.rewards.two'),
+    i18next.t('fusion.strategies.bridgeBtcLstToBob.rewards.three')
+  ]
 };
 
 const strategies = [btcLstLendingStrat, mintAndLendSatUsd, dexLiquidityPovisioning, bridgeBtcLstToBob].slice(0, 3);
@@ -182,16 +191,18 @@ type StrategiesProps = {};
 const isComingSoon = false;
 
 const Strategies = ({}: StrategiesProps) => {
+  const { t } = useTranslation();
+
   return (
     <Flex direction='column' gap='3xl' style={{ width: '100%' }}>
-      <H2 size='3xl'>Hot Strategies</H2>
+      <H2 size='3xl'>{t('fusion.strategies.title')}</H2>
       <StyledWrapper>
         {isComingSoon && (
           <>
             <StyledUnderlay />
             <StyledOverlay alignItems='center' justifyContent='center'>
               <Card borderColor='grey-300' paddingX='lg' paddingY='md' rounded='md'>
-                <P size='xl'>Coming Soon</P>
+                <P size='xl'>{t('fusion.strategies.comingSoon')}</P>
               </Card>
             </StyledOverlay>
           </>

@@ -3,6 +3,7 @@ import { Chip, Flex, H2, Skeleton, Span, Table, Tabs, TabsItem, useLocale } from
 import { useAccount } from '@gobob/wagmi';
 import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useGetUser } from '../../../../hooks';
 import { QuestRefCodes, apiClient } from '../../../../utils';
@@ -72,17 +73,12 @@ type LeaderboardRow = {
   [LeaderboardColumns.QUESTS]: ReactNode;
 };
 
-const columns = [
-  { name: 'Name', id: LeaderboardColumns.NAME },
-  { name: 'Spice', id: LeaderboardColumns.SPICE },
-  { name: 'Quests', id: LeaderboardColumns.QUESTS }
-];
-
 const userRankKey = 'userRankKey';
 
 const Leaderboard = (): JSX.Element => {
   const id = useId();
   const { locale } = useLocale();
+  const { t } = useTranslation();
 
   const { address } = useAccount();
   const { data: user } = useGetUser();
@@ -90,6 +86,12 @@ const Leaderboard = (): JSX.Element => {
   const [tab, setTab] = useState(LeaderboardTabs.SEASON);
 
   const isAuthenticated = address && user;
+
+  const columns = [
+    { name: t('fusion.leaderboard.columns.name'), id: LeaderboardColumns.NAME },
+    { name: t('fusion.leaderboard.columns.spice'), id: LeaderboardColumns.SPICE },
+    { name: t('fusion.leaderboard.columns.quests'), id: LeaderboardColumns.QUESTS }
+  ];
 
   const getUserData = useCallback(() => {
     if (!isAuthenticated) return;
@@ -211,18 +213,18 @@ const Leaderboard = (): JSX.Element => {
 
   return (
     <Flex direction='column' gap='2xl' marginTop='8xl'>
-      <H2 size='3xl'>Leaderboard</H2>
+      <H2 size='3xl'>{t('fusion.leaderboard.title')}</H2>
       <Tabs selectedKey={tab} onSelectionChange={(key) => setTab(key as LeaderboardTabs)}>
-        <TabsItem key={LeaderboardTabs.SEASON} title='Season Three'>
+        <TabsItem key={LeaderboardTabs.SEASON} title={t('fusion.leaderboard.tabs.seasonThree')}>
           <></>
         </TabsItem>
-        <TabsItem key={LeaderboardTabs.HOURS_24} title='Last 24 Hours'>
+        <TabsItem key={LeaderboardTabs.HOURS_24} title={t('fusion.leaderboard.tabs.last24Hours')}>
           <></>
         </TabsItem>
-        <TabsItem key={LeaderboardTabs.DAYS_7} title='Last 7 Days'>
+        <TabsItem key={LeaderboardTabs.DAYS_7} title={t('fusion.leaderboard.tabs.last7Days')}>
           <></>
         </TabsItem>
-        <TabsItem key={LeaderboardTabs.QUESTS_ONLY} title='Quests Only'>
+        <TabsItem key={LeaderboardTabs.QUESTS_ONLY} title={t('fusion.leaderboard.tabs.questsOnly')}>
           <></>
         </TabsItem>
       </Tabs>

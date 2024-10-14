@@ -16,6 +16,7 @@ import {
   Span,
   useLocale
 } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
 
 import { VotingAppData } from '../../hooks';
 import { SpiceChip } from '../SpiceChip';
@@ -61,6 +62,7 @@ const AppCard = ({
   ...props
 }: AppCardPops): JSX.Element => {
   const { locale } = useLocale();
+  const { t } = useTranslation();
 
   return (
     <Card
@@ -111,11 +113,11 @@ const AppCard = ({
       <Flex direction='column' flex={1} justifyContent='space-between' paddingX='xl' paddingY='lg'>
         <Dl direction='column' gap='xxs'>
           <DlGroup justifyContent='space-between'>
-            <Dd color='grey-50'>Spice Per Hour</Dd>
+            <Dd color='grey-50'>{t('apps.list.card.spicePerHour')}</Dd>
             <Dt color='grey-50'>{Intl.NumberFormat(locale, { notation: 'compact' }).format(spicePerHour)}</Dt>
           </DlGroup>
           <DlGroup justifyContent='space-between'>
-            <Dd color='grey-50'>Spice Multiplier</Dd>
+            <Dd color='grey-50'>{t('apps.list.card.spiceMultiplier')}</Dd>
             <Dt color='grey-50'>{spiceMultiplier}</Dt>
           </DlGroup>
           {!!incentives.length && (
@@ -132,7 +134,7 @@ const AppCard = ({
           )}
           {userHarvest !== undefined && (
             <DlGroup justifyContent='space-between'>
-              <Dd color='grey-50'>My Total Harvest</Dd>
+              <Dd color='grey-50'>{t('apps.list.card.harvest')}</Dd>
               <Flex alignItems='center' gap='xs'>
                 <Spice color='primary-400' size='xs' />
                 <Span color='primary-400'>

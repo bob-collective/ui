@@ -1,6 +1,7 @@
 import { CSSProperties } from 'styled-components';
 import { BOBLogo } from '@gobob/icons';
 import { Skeleton, Span, useLocale } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
 
 import {
   StyledBarometer,
@@ -28,6 +29,8 @@ const minValue = 0;
 
 const Barometer = ({ value = minValue, maxValue = 100, showGoal }: BarometerProps) => {
   const { locale } = useLocale();
+  const { t } = useTranslation();
+
   const percentage = getPercentage(value, minValue, maxValue);
   const barStyle: CSSProperties = { width: `${Math.round(percentage * 100)}%` };
   const addornmentStyle: CSSProperties = {
@@ -63,7 +66,7 @@ const Barometer = ({ value = minValue, maxValue = 100, showGoal }: BarometerProp
             minimumFractionDigits: 2,
             notation: 'compact'
           }).format(value)}{' '}
-          TVL
+          {t('fusion.userInfo.barometer.tvlLabel')}
         </StyledValue>
       </StyledFillAddornment>
       {percentage < 0.98 && <StyledGift color='grey-50' size='xxs' />}

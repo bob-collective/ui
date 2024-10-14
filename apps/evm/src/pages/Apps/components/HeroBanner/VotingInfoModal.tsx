@@ -1,4 +1,5 @@
 import { Modal, ModalBody, ModalHeader, ModalProps, P, Span, Strong } from '@gobob/ui';
+import { useTranslation } from 'react-i18next';
 
 import { Fire } from '../SpiceChip/Fire';
 
@@ -11,34 +12,33 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type VotingInfoModalProps = Props & InheritAttrs;
 
 const VotingInfoModal = (props: VotingInfoModalProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <Modal {...props} size='lg'>
       <ModalHeader showDivider align='start'>
-        Community Voting Information
+        {t('apps.votingInfoModal.title')}
       </ModalHeader>
       <ModalBody gap='xl' padding='even'>
-        <P weight='bold'>Support your favourite BOB apps</P>
+        <P weight='bold'>{t('apps.votingInfoModal.support.title')}</P>
         <P color='grey-50'>
-          When you vote for a project, your Spice total is added to their vote total.
+          {t('apps.votingInfoModal.support.content.one')}
           <br />
           <br />
-          Each week the projects with the most votes will receive a Spice bonus which they can distribute to their
-          users.
+          {t('apps.votingInfoModal.support.content.two')}
         </P>
-        <P weight='bold'>How to vote:</P>
+        <P weight='bold'>{t('apps.votingInfoModal.howToVote.title')}</P>
         <StyledList direction='column' elementType='ul' marginLeft='2xl'>
           <li>
-            Click the <Fire style={{ verticalAlign: 'text-bottom' }} /> icon next to your favourite apps
+            {t('apps.votingInfoModal.howToVote.content.one.prefix')} <Fire style={{ verticalAlign: 'text-bottom' }} />{' '}
+            {t('apps.votingInfoModal.howToVote.content.one.suffix')}
           </li>
-          <li>Vote for maximum three projects per week</li>
-          <li>You can change your votes at any time before the end of the weekly voting period</li>
+          <li>{t('apps.votingInfoModal.howToVote.content.two')}</li>
+          <li>{t('apps.votingInfoModal.howToVote.content.three')}</li>
         </StyledList>
         <P>
-          <Strong>Please note: </Strong>
-          <Span color='grey-50'>
-            When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the
-            weight of your vote.
-          </Span>
+          <Strong>{t('apps.votingInfoModal.pleaseNote.title')}</Strong>
+          <Span color='grey-50'>{t('apps.votingInfoModal.pleaseNote.content')}</Span>
         </P>
       </ModalBody>
     </Modal>
