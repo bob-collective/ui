@@ -19,7 +19,7 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
           <Dl>
             <DlGroup alignItems='center'>
               <Dt color='light' size='lg'>
-                {t('apps.votingDashboard.votesLeft')}
+                {t('apps.votingDashboard.userVotingInfo.votesLeft')}
               </Dt>
               <Dd>
                 <SpiceChip hideTooltip isLit amount={votesRemaining || 0} />
