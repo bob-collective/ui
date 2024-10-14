@@ -74,7 +74,7 @@ const DepositedAssets = () => {
     [user?.depositStats, tokens, format]
   );
 
-  const lockedAmounts = !!depositedAssets?.length && (
+  const lockedAmounts = (
     <Flex direction='column' gap='s'>
       <P size='xs' weight='bold'>
         <Trans>Locked Capital Breakdown</Trans>
