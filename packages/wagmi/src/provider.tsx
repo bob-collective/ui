@@ -1,3 +1,5 @@
+'use client';
+
 import { WagmiProvider as LibWagmiProvider, WagmiProviderProps as LibWagmiProviderProps } from 'wagmi';
 import { ReactNode, useMemo } from 'react';
 

@@ -1,0 +1,36 @@
+{
+  "version": "1",
+  "name": "bridge-withdraws",
+  "abis": {
+    "l2-standard-bridge": {
+      "path": "./L2BridgeABI.json"
+    },
+    "l2-usdc-bridge": {
+      "path": "./L2BridgeABI.json"
+    },
+    "l2-wsteth-bridge": {
+      "path": "./L2BridgeABI.json"
+    }
+  },
+  "chains": ["bob"],
+  "instances": [
+    {
+      "abi": "l2-standard-bridge",
+      "address": "0x4200000000000000000000000000000000000010",
+      "startBlock": 0,
+      "chain": "bob"
+    },
+    {
+      "abi": "l2-usdc-bridge",
+      "address": "0xe497788F8Fcc30B773C9A181a0FFE2e60645cE90",
+      "startBlock": 771335,
+      "chain": "bob"
+    },
+    {
+      "abi": "l2-wsteth-bridge",
+      "address": "0xd1559523374D93972E0F7fE1AA98642754f5c4d1",
+      "startBlock": 462151,
+      "chain": "bob"
+    }
+  ]
+}

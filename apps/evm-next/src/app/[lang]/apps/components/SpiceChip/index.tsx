@@ -1,0 +1,1 @@
+export { SpiceChip } from './SpiceChip';

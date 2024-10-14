@@ -1,0 +1,26 @@
+{
+  "functions": {
+    "api/index.js": {
+      "memory": 128,
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/check_access",
+      "destination": "/api/geoblock.js"
+    },
+    {
+      "source": "/tunnel",
+      "destination": "/api/sentry.js"
+    },
+    {
+      "source": "/marketdata/v1",
+      "destination": "/api/marketdata.js"
+    },
+    {
+      "source": "/(api|gateway-api|btc-api)/(.*)",
+      "destination": "/api"
+    }
+  ]
+}

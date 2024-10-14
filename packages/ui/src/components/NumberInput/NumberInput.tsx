@@ -1,3 +1,5 @@
+'use client';
+
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { mergeProps } from '@react-aria/utils';
 import { ChangeEventHandler, forwardRef, useEffect, useState } from 'react';

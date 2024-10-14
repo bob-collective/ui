@@ -1,3 +1,5 @@
+'use client';
+
 import { useFocusRing } from '@react-aria/focus';
 import { useTabList } from '@react-aria/tabs';
 import { useTabListState } from '@react-stately/tabs';

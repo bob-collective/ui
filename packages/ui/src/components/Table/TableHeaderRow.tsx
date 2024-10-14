@@ -1,3 +1,5 @@
+'use client';
+
 import { useTableHeaderRow } from '@react-aria/table';
 import { mergeProps } from '@react-aria/utils';
 import { TableState } from '@react-stately/table';
@@ -11,7 +13,7 @@ type Props = {
   item: GridNode<Record<string, any>>;
 };
 
-type NativeAttrs = Omit<HTMLAttributes<HTMLTableCellElement>, keyof Props>;
+type NativeAttrs = Omit<HTMLAttributes<HTMLTableRowElement>, keyof Props>;
 
 type TableHeaderRowProps = Props & NativeAttrs;
 

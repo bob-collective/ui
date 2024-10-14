@@ -12,7 +12,7 @@ type StyledButtonProps = {
 };
 
 const StyledButton = styled(UnstyledButton)<StyledButtonProps>`
-  display: inline-flex;
+  display: ${({ hidden }) => (hidden ? 'none' : 'inline-flex')};
   align-items: center;
   justify-content: center;
   width: ${(props) => (props.$fullWidth ? '100%' : 'auto')};

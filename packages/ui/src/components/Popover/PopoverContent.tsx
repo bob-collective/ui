@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef, ReactNode, useRef } from 'react';
 
 import { useDOMRef } from '../../hooks';
@@ -6,7 +8,7 @@ import { Overlay } from '../Overlay';
 import { PopoverContentWrapper } from './PopoverContentWrapper';
 import { usePopoverContext } from './PopoverContext';
 
-type Props = { children?: ReactNode };
+type Props = { children?: ReactNode; hidden?: boolean };
 
 type PopoverContentProps = Props;
 

@@ -48,6 +48,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     return (
       <StyledLink
         ref={linkRef}
+        suppressHydrationWarning
         $isFocusVisible={isFocusVisible}
         $underlined={href ? underlined : 'none'}
         as={elementType}
