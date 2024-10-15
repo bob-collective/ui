@@ -5,7 +5,9 @@ import {
   BtcAddressType,
   useAccount as useSatsAccount,
   useBalance as useSatsBalance,
-  useFeeEstimate as useSatsFeeEstimate
+  useFeeEstimate as useSatsFeeEstimate,
+  useFeeRate as useSatsFeeRate,
+  useUtxos as useSatsUtxos
 } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import {
@@ -93,14 +95,8 @@ const BtcBridgeForm = ({
 
   const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
   const { data: satsBalance } = useSatsBalance();
-  const { data: satsFeeEstimate, isError: isSatsFeeEstimateError } = useSatsFeeEstimate();
 
   const showToast = useRef(true);
-
-  if (isSatsFeeEstimateError && showToast.current) {
-    showToast.current = false;
-    toast.error('Failed to get estimated fee');
-  }
 
   const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
 
@@ -132,6 +128,32 @@ const BtcBridgeForm = ({
     () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
     [amount]
   );
+
+  // TODO: could be a single hook
+  const hasBalance = satsBalance && satsBalance.value > 0n;
+
+  const { data: utxos } = useSatsUtxos({ query: { enabled: hasBalance } });
+
+  const hasUtxos = utxos && utxos?.length > 0;
+
+  const { data: satsFeeRate } = useSatsFeeRate();
+
+  const {
+    data: satsFeeEstimate,
+    isError: isSatsFeeEstimateError,
+    error
+  } = useSatsFeeEstimate({
+    opReturnData: evmAddress,
+    query: {
+      enabled: hasUtxos,
+      amount: currencyAmount && Number(currencyAmount?.numerator)
+    }
+  });
+
+  if (isSatsFeeEstimateError && showToast.current) {
+    showToast.current = false;
+    toast.error('Failed to get estimated fee');
+  }
 
   const btcToken = useMemo(
     () => availableTokens.find((token) => token.currency.symbol === receiveTicker),
@@ -244,7 +266,8 @@ const BtcBridgeForm = ({
         toUserAddress: evmAddress,
         fromUserAddress: connector.paymentAddress!,
         fromUserPublicKey: connector.publicKey,
-        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0
+        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
+        feeRate: satsFeeRate && Number(satsFeeRate)
       });
 
       const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
