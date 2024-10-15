@@ -46,7 +46,7 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
   };
 }
 
-export default withLinguiLayout(function RootLayout({ children, params: { lang } }: PropsWithChildren<PageLangParam>) {
+export default withLinguiLayout(function LangLayout({ children, params: { lang } }: PropsWithChildren<PageLangParam>) {
   const userAgent: ReturnType<typeof userAgentFromString> = userAgentFromString(headers().get('user-agent') ?? '');
 
   return (

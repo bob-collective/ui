@@ -58,7 +58,8 @@ msgstr "2 hours"
 msgid "3rd Party"
 msgstr "3rd Party"
 
-#: src/app/[lang]/not-found.tsx:19
+#: src/app/[lang]/404/NotFound.tsx:20
+#: src/app/[lang]/404/page.tsx:14
 msgid "404 Error"
 msgstr "404 Error"
 
@@ -104,12 +105,12 @@ msgstr "Approve"
 msgid "Apps"
 msgstr "Apps"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:136
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:137
 msgid "Apps Used"
 msgstr "Apps Used"
 
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:62
-#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:110
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:111
 msgid "Asset"
 msgstr "Asset"
 
@@ -128,7 +129,7 @@ msgstr "Authorize Wallet"
 msgid "Babylon points"
 msgstr "Babylon points"
 
-#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:111
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:112
 msgid "Balance"
 msgstr "Balance"
 
@@ -148,7 +149,7 @@ msgstr "Binance campaign banner"
 msgid "Bitcoin Staking with Binance"
 msgstr "Bitcoin Staking with Binance"
 
-#: src/components/Logo/Logo.tsx:35
+#: src/components/Logo/Logo.tsx:37
 msgid "BOB"
 msgstr "BOB"
 
@@ -173,7 +174,7 @@ msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 msgid "BOB Gateway is live!"
 msgstr "BOB Gateway is live!"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:234
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:235
 msgid "BOB TVL Progress"
 msgstr "BOB TVL Progress"
 
@@ -182,7 +183,7 @@ msgid "BOB Wallet"
 msgstr "BOB Wallet"
 
 #: src/app/[lang]/bridge/page.tsx:14
-#: src/app/[lang]/page.tsx:13
+#: src/app/[lang]/page.tsx:15
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:75
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:18
 #: src/components/Layout/Header.tsx:69
@@ -194,7 +195,7 @@ msgstr "Bridge"
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:129
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:130
 msgid "Bridge Assets"
 msgstr "Bridge Assets"
 
@@ -262,7 +263,7 @@ msgstr "Click the <0/> icon next to your favourite apps"
 msgid "Close"
 msgstr "Close"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:105
+#: src/app/[lang]/sign-up/SignUp.tsx:106
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 
@@ -293,7 +294,7 @@ msgstr "Community Voting Information"
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 
-#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:138
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:142
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:93
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:105
 msgid "Connect BTC Wallet"
@@ -326,7 +327,7 @@ msgstr "Connected with <0>{wallet}</0>"
 msgid "Copy Address"
 msgstr "Copy Address"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:201
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:202
 msgid "Copy referral URL"
 msgstr "Copy referral URL"
 
@@ -346,7 +347,7 @@ msgstr "Current Leaderboard Rank"
 msgid "Current Spice"
 msgstr "Current Spice"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:105
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:106
 msgid "Day"
 msgstr "Day"
 
@@ -388,7 +389,7 @@ msgstr "DEX *"
 msgid "DEX Liquidity Provisioning"
 msgstr "DEX Liquidity Provisioning"
 
-#: src/app/[lang]/nested-providers.tsx:76
+#: src/app/[lang]/nested-providers.tsx:67
 msgid "Disconnected"
 msgstr "Disconnected"
 
@@ -500,13 +501,13 @@ msgstr "Follow us on X"
 msgid "Follow us on X for updates"
 msgstr "Follow us on X for updates"
 
-#: src/app/[lang]/fusion/page.tsx:14
+#: src/app/[lang]/fusion/page.tsx:16
 #: src/components/Layout/Header.tsx:83
 #: src/components/Layout/Sidebar.tsx:58
 msgid "Fusion"
 msgstr "Fusion"
 
-#: src/components/Logo/Logo.tsx:39
+#: src/components/Logo/Logo.tsx:41
 msgid "FUSION"
 msgstr "FUSION"
 
@@ -536,15 +537,15 @@ msgstr "Get ETH for transaction fees on BOB"
 msgid "go back"
 msgstr "go back"
 
-#: src/app/[lang]/not-found.tsx:29
+#: src/app/[lang]/404/NotFound.tsx:30
 msgid "Go Back"
 msgstr "Go Back"
 
-#: src/app/[lang]/nested-providers.tsx:91
+#: src/app/[lang]/nested-providers.tsx:82
 msgid "Got it!"
 msgstr "Got it!"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:255
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:256
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 
@@ -576,7 +577,7 @@ msgstr "How to vote:"
 msgid "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
 msgstr "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
 
-#: src/app/[lang]/sign-up/SignUp.tsx:114
+#: src/app/[lang]/sign-up/SignUp.tsx:115
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr "Invalid referral code. You can try again, or proceed without one."
 
@@ -634,7 +635,7 @@ msgstr "Locked Capital Breakdown"
 msgid "Log in"
 msgstr "Log in"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:251
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:252
 msgid "Log in to View Dashboard"
 msgstr "Log in to View Dashboard"
 
@@ -702,11 +703,11 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/components/BannerCarousel/BannerCarousel.tsx:99
+#: src/components/BannerCarousel/BannerCarousel.tsx:100
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
-#: src/components/Logo/Logo.tsx:28
+#: src/components/Logo/Logo.tsx:30
 msgid "navigate to home page"
 msgstr "navigate to home page"
 
@@ -734,9 +735,13 @@ msgstr "No assets shown"
 msgid "No bridging operations found"
 msgstr "No bridging operations found"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:237
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:238
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "No new goal at the moment. Stay tuned for updates!"
+
+#: src/app/[lang]/not-found/page.tsx:14
+#~ msgid "Not found"
+#~ msgstr "Not found"
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:253
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
@@ -787,7 +792,7 @@ msgstr "Please connect a wallet"
 msgid "Please note:"
 msgstr "Please note:"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:101
+#: src/app/[lang]/sign-up/SignUp.tsx:102
 msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
@@ -812,7 +817,7 @@ msgstr "Provide liquidity into Oku DEX"
 msgid "Quests"
 msgstr "Quests"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:167
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:168
 msgid "Quests Completed"
 msgstr "Quests Completed"
 
@@ -875,7 +880,7 @@ msgstr "Satoshi protocol points"
 msgid "Season 1 & 2 (Completed)"
 msgstr "Season 1 & 2 (Completed)"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:111
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:112
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "Season 1 & 2 Total Spice (Completed):"
 
@@ -887,7 +892,7 @@ msgstr "Season 2 Final Rank"
 msgid "Season 3 (Ongoing)"
 msgstr "Season 3 (Ongoing)"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:99
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:100
 msgid "Season 3 Harvested Spice"
 msgstr "Season 3 Harvested Spice"
 
@@ -945,7 +950,7 @@ msgstr "Send {0}"
 msgid "Send {ticker}"
 msgstr "Send {ticker}"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:185
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:186
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 
@@ -962,13 +967,13 @@ msgstr "Sign-Up"
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
-#: src/app/[lang]/sign-up/SignUp.tsx:71
+#: src/app/[lang]/sign-up/SignUp.tsx:72
 #: src/components/LoginButton/LoginButton.tsx:43
 #: src/components/SignUpButton/SignUpButton.tsx:29
 msgid "Something went wrong. Please try connecting your wallet again."
 msgstr "Something went wrong. Please try connecting your wallet again."
 
-#: src/app/[lang]/not-found.tsx:22
+#: src/app/[lang]/404/NotFound.tsx:23
 msgid "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 msgstr "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 
@@ -1021,8 +1026,8 @@ msgstr "Stake with"
 msgid "Start Harvesting"
 msgstr "Start Harvesting"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:258
-#: src/app/[lang]/sign-up/SignUp.tsx:126
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:259
+#: src/app/[lang]/sign-up/SignUp.tsx:127
 msgid "Start Harvesting Spice"
 msgstr "Start Harvesting Spice"
 
@@ -1067,7 +1072,7 @@ msgstr "Switch to {capitalizedName}"
 msgid "T&Cs"
 msgstr "T&Cs"
 
-#: src/app/[lang]/not-found.tsx:34
+#: src/app/[lang]/404/NotFound.tsx:35
 msgid "Take em home"
 msgstr "Take em home"
 
@@ -1075,7 +1080,7 @@ msgstr "Take em home"
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
-#: src/components/Logo/Logo.tsx:45
+#: src/components/Logo/Logo.tsx:47
 msgid "Testnet"
 msgstr "Testnet"
 
@@ -1092,7 +1097,7 @@ msgstr "The fastest and easiest way to bridge BTC to BOB."
 msgid "The final season"
 msgstr "The final season"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:98
+#: src/app/[lang]/sign-up/SignUp.tsx:99
 msgid "THE FIRST HYBRID L2"
 msgstr "THE FIRST HYBRID L2"
 
@@ -1100,11 +1105,11 @@ msgstr "THE FIRST HYBRID L2"
 msgid "The leaderboard resets for the new season"
 msgstr "The leaderboard resets for the new season"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:137
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:138
 msgid "The number of BOB ecosystem apps that you have harvested Spice with"
 msgstr "The number of BOB ecosystem apps that you have harvested Spice with"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:168
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:169
 msgid "The number of Intract and Galxe quests that you have completed"
 msgstr "The number of Intract and Galxe quests that you have completed"
 
@@ -1206,7 +1211,7 @@ msgstr "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will b
 msgid "Use any of the <0>supported bridges</0>."
 msgstr "Use any of the <0>supported bridges</0>."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:153
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:154
 msgid "Use Apps"
 msgstr "Use Apps"
 
@@ -1253,12 +1258,12 @@ msgstr "View a summary of your wallet on the BOB network. DeFi positions may not
 msgid "View All Transactions"
 msgstr "View All Transactions"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:126
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:127
 msgid "View Multipliers"
 msgstr "View Multipliers"
 
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:60
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:179
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:180
 msgid "View Quests"
 msgstr "View Quests"
 
@@ -1347,7 +1352,7 @@ msgstr "You"
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "You can change your votes at any time before the end of the weekly voting period"
 
-#: src/app/[lang]/nested-providers.tsx:83
+#: src/app/[lang]/nested-providers.tsx:74
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 msgstr "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 
@@ -1380,11 +1385,11 @@ msgstr "Your assets will be delivered shortly, with an estimated arrival time of
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 
-#: src/app/[lang]/nested-providers.tsx:80
+#: src/app/[lang]/nested-providers.tsx:71
 msgid "Your funds are safe!"
 msgstr "Your funds are safe!"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:184
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:185
 msgid "Your Referral Code"
 msgstr "Your Referral Code"
 

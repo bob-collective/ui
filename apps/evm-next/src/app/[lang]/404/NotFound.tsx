@@ -9,7 +9,7 @@ import { Trans } from '@lingui/macro';
 import { Main } from '@/components';
 import { RoutesPath } from '@/constants';
 
-export default function NotFound(): JSX.Element {
+export function NotFound(): JSX.Element {
   const router = useRouter();
   const params = useParams();
 

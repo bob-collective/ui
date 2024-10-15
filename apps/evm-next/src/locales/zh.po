@@ -58,7 +58,8 @@ msgstr ""
 msgid "3rd Party"
 msgstr ""
 
-#: src/app/[lang]/not-found.tsx:19
+#: src/app/[lang]/404/NotFound.tsx:20
+#: src/app/[lang]/404/page.tsx:14
 msgid "404 Error"
 msgstr "404 错误"
 
@@ -104,12 +105,12 @@ msgstr "通过"
 msgid "Apps"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:136
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:137
 msgid "Apps Used"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:62
-#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:110
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:111
 msgid "Asset"
 msgstr "资产"
 
@@ -128,7 +129,7 @@ msgstr ""
 msgid "Babylon points"
 msgstr ""
 
-#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:111
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:112
 msgid "Balance"
 msgstr "余额"
 
@@ -148,7 +149,7 @@ msgstr ""
 msgid "Bitcoin Staking with Binance"
 msgstr ""
 
-#: src/components/Logo/Logo.tsx:35
+#: src/components/Logo/Logo.tsx:37
 msgid "BOB"
 msgstr ""
 
@@ -173,7 +174,7 @@ msgstr ""
 msgid "BOB Gateway is live!"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:234
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:235
 msgid "BOB TVL Progress"
 msgstr ""
 
@@ -182,7 +183,7 @@ msgid "BOB Wallet"
 msgstr "BOB 钱包"
 
 #: src/app/[lang]/bridge/page.tsx:14
-#: src/app/[lang]/page.tsx:13
+#: src/app/[lang]/page.tsx:15
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:75
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:18
 #: src/components/Layout/Header.tsx:69
@@ -194,7 +195,7 @@ msgstr "桥"
 msgid "Bridge Asset"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:129
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:130
 msgid "Bridge Assets"
 msgstr ""
 
@@ -262,7 +263,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:105
+#: src/app/[lang]/sign-up/SignUp.tsx:106
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
@@ -293,7 +294,7 @@ msgstr ""
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr ""
 
-#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:138
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:142
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:93
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:105
 msgid "Connect BTC Wallet"
@@ -326,7 +327,7 @@ msgstr ""
 msgid "Copy Address"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:201
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:202
 msgid "Copy referral URL"
 msgstr ""
 
@@ -346,7 +347,7 @@ msgstr ""
 msgid "Current Spice"
 msgstr "当前 Spice"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:105
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:106
 msgid "Day"
 msgstr ""
 
@@ -388,7 +389,7 @@ msgstr ""
 msgid "DEX Liquidity Provisioning"
 msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:76
+#: src/app/[lang]/nested-providers.tsx:67
 msgid "Disconnected"
 msgstr ""
 
@@ -500,13 +501,13 @@ msgstr ""
 msgid "Follow us on X for updates"
 msgstr ""
 
-#: src/app/[lang]/fusion/page.tsx:14
+#: src/app/[lang]/fusion/page.tsx:16
 #: src/components/Layout/Header.tsx:83
 #: src/components/Layout/Sidebar.tsx:58
 msgid "Fusion"
 msgstr "Fusion"
 
-#: src/components/Logo/Logo.tsx:39
+#: src/components/Logo/Logo.tsx:41
 msgid "FUSION"
 msgstr "FUSION"
 
@@ -536,15 +537,15 @@ msgstr ""
 msgid "go back"
 msgstr ""
 
-#: src/app/[lang]/not-found.tsx:29
+#: src/app/[lang]/404/NotFound.tsx:30
 msgid "Go Back"
 msgstr "返回"
 
-#: src/app/[lang]/nested-providers.tsx:91
+#: src/app/[lang]/nested-providers.tsx:82
 msgid "Got it!"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:255
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:256
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr ""
 
@@ -576,7 +577,7 @@ msgstr ""
 msgid "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:114
+#: src/app/[lang]/sign-up/SignUp.tsx:115
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr ""
 
@@ -634,7 +635,7 @@ msgstr "锁定资本明细"
 msgid "Log in"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:251
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:252
 msgid "Log in to View Dashboard"
 msgstr "登录查看仪表板"
 
@@ -702,11 +703,11 @@ msgstr ""
 msgid "navigate to discord"
 msgstr ""
 
-#: src/components/BannerCarousel/BannerCarousel.tsx:99
+#: src/components/BannerCarousel/BannerCarousel.tsx:100
 msgid "navigate to ecosystem section in fusion page"
 msgstr ""
 
-#: src/components/Logo/Logo.tsx:28
+#: src/components/Logo/Logo.tsx:30
 msgid "navigate to home page"
 msgstr ""
 
@@ -734,9 +735,13 @@ msgstr "未显示的资产"
 msgid "No bridging operations found"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:237
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:238
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr ""
+
+#: src/app/[lang]/not-found/page.tsx:14
+#~ msgid "Not found"
+#~ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:253
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
@@ -787,7 +792,7 @@ msgstr "请连接钱包"
 msgid "Please note:"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:101
+#: src/app/[lang]/sign-up/SignUp.tsx:102
 msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
@@ -812,7 +817,7 @@ msgstr ""
 msgid "Quests"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:167
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:168
 msgid "Quests Completed"
 msgstr ""
 
@@ -875,7 +880,7 @@ msgstr ""
 msgid "Season 1 & 2 (Completed)"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:111
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:112
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr ""
 
@@ -887,7 +892,7 @@ msgstr ""
 msgid "Season 3 (Ongoing)"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:99
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:100
 msgid "Season 3 Harvested Spice"
 msgstr ""
 
@@ -945,7 +950,7 @@ msgstr ""
 msgid "Send {ticker}"
 msgstr "发送 {ticker}"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:185
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:186
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr ""
 
@@ -962,13 +967,13 @@ msgstr ""
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:71
+#: src/app/[lang]/sign-up/SignUp.tsx:72
 #: src/components/LoginButton/LoginButton.tsx:43
 #: src/components/SignUpButton/SignUpButton.tsx:29
 msgid "Something went wrong. Please try connecting your wallet again."
 msgstr ""
 
-#: src/app/[lang]/not-found.tsx:22
+#: src/app/[lang]/404/NotFound.tsx:23
 msgid "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 msgstr "抱歉，这个页面有误或已经不存在，也许这些链接可以帮助到您"
 
@@ -1021,8 +1026,8 @@ msgstr ""
 msgid "Start Harvesting"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:258
-#: src/app/[lang]/sign-up/SignUp.tsx:126
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:259
+#: src/app/[lang]/sign-up/SignUp.tsx:127
 msgid "Start Harvesting Spice"
 msgstr "开始收集Spice"
 
@@ -1067,7 +1072,7 @@ msgstr ""
 msgid "T&Cs"
 msgstr "条款与条件"
 
-#: src/app/[lang]/not-found.tsx:34
+#: src/app/[lang]/404/NotFound.tsx:35
 msgid "Take em home"
 msgstr "回到主页"
 
@@ -1075,7 +1080,7 @@ msgstr "回到主页"
 msgid "Terms of Service"
 msgstr ""
 
-#: src/components/Logo/Logo.tsx:45
+#: src/components/Logo/Logo.tsx:47
 msgid "Testnet"
 msgstr ""
 
@@ -1092,7 +1097,7 @@ msgstr ""
 msgid "The final season"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:98
+#: src/app/[lang]/sign-up/SignUp.tsx:99
 msgid "THE FIRST HYBRID L2"
 msgstr "首个混合型二层"
 
@@ -1100,11 +1105,11 @@ msgstr "首个混合型二层"
 msgid "The leaderboard resets for the new season"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:137
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:138
 msgid "The number of BOB ecosystem apps that you have harvested Spice with"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:168
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:169
 msgid "The number of Intract and Galxe quests that you have completed"
 msgstr ""
 
@@ -1206,7 +1211,7 @@ msgstr ""
 msgid "Use any of the <0>supported bridges</0>."
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:153
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:154
 msgid "Use Apps"
 msgstr ""
 
@@ -1253,12 +1258,12 @@ msgstr "查看您在 BOB 网络上的钱包概况。"
 msgid "View All Transactions"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:126
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:127
 msgid "View Multipliers"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:60
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:179
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:180
 msgid "View Quests"
 msgstr ""
 
@@ -1347,7 +1352,7 @@ msgstr ""
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:83
+#: src/app/[lang]/nested-providers.tsx:74
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 msgstr ""
 
@@ -1380,11 +1385,11 @@ msgstr ""
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:80
+#: src/app/[lang]/nested-providers.tsx:71
 msgid "Your funds are safe!"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:184
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:185
 msgid "Your Referral Code"
 msgstr "您的邀请码"
 
