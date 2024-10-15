@@ -6,7 +6,7 @@ import { Settings } from 'react-slick';
 import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
 import { useTheme } from 'styled-components';
 import { HTMLAttributes, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useSessionStorage, useIsClient } from 'usehooks-ts';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -60,6 +60,7 @@ const BannerCarousel = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
   const router = useRouter();
+  const params = useParams();
   const isClient = useIsClient();
 
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
@@ -70,7 +71,7 @@ const BannerCarousel = () => {
   const onPressOnrampBanner = useCallback(
     () => {
       setBridgeToBtc(true);
-      router.push(RoutesPath.BRIDGE);
+      router.push(`/${params.lang}${RoutesPath.BRIDGE}`);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []

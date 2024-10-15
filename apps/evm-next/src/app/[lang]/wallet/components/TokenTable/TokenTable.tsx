@@ -7,7 +7,7 @@ import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gob
 import { BITCOIN } from '@gobob/tokens';
 import { Avatar, Flex, Span, Table, TableProps, useCurrencyFormatter } from '@gobob/ui';
 import Big from 'big.js';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
 import { useLingui } from '@lingui/react';
 import { t, Trans } from '@lingui/macro';
@@ -90,6 +90,7 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   const { i18n } = useLingui();
 
   const router = useRouter();
+  const params = useParams();
   const setTicker = useSessionStorage<string | undefined>(SessionStorageKey.TICKER, undefined, {
     initializeWithValue: isClient
   })[1];
@@ -115,12 +116,15 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   const handlePressBridge = useCallback(
     (ticker: string) => {
       setTicker(ticker);
-      router.push(RoutesPath.HOME);
+      router.push(`/${params.lang}${RoutesPath.HOME}`);
     },
-    [router, setTicker]
+    [params.lang, router, setTicker]
   );
 
-  const handlePressBtcBridge = useCallback(() => router.push(`${RoutesPath.HOME}?network=bitcoin`), [router]);
+  const handlePressBtcBridge = useCallback(
+    () => router.push(`/${params.lang}${RoutesPath.HOME}?network=bitcoin`),
+    [params.lang, router]
+  );
 
   const btcRow: TokenTableRow = useMemo(() => {
     const amountCurrency = satsAmount ? CurrencyAmount.fromRawAmount(BITCOIN, satsAmount.value) : undefined;

@@ -25,7 +25,7 @@ export default function Page(props: Props) {
   const refCode = props.searchParams?.refCode;
 
   if (refCode) {
-    redirect(`${RoutesPath.SIGN_UP}?refCode=${refCode}`);
+    redirect(`/${props.params.lang}${RoutesPath.SIGN_UP}?refCode=${refCode}`);
   }
 
   return <Bridge {...props} />;

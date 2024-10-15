@@ -22,11 +22,11 @@ interface Props {
   params: { lang: string };
 }
 
-export default withLinguiPage(function Page(props: Props) {
-  const refCode = props.searchParams?.refCode;
+export default withLinguiPage(function Page({ searchParams, params }: Props) {
+  const refCode = searchParams?.refCode;
 
   if (refCode) {
-    redirect(`${RoutesPath.SIGN_UP}?refCode=${refCode}`);
+    redirect(`/${params.lang}${RoutesPath.SIGN_UP}?refCode=${refCode}`);
   }
 
   return <Fusion />;

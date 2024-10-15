@@ -4,7 +4,7 @@ import { usePrices } from '@gobob/react-query';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P } from '@gobob/ui';
 import { useAccount, useChainId, useConfig, useReconnect, watchAccount } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 
 import { Header, Layout, Sidebar } from '@/components';
@@ -16,11 +16,13 @@ import { StyledComponentsRegistry } from '@/lib/styled-components';
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
   const pathname = usePathname();
+  const params = useParams();
 
   const config = useConfig();
 
   // We don't want to disconnect users if they switch account on the wallet or the bridge
-  const shouldDisconnect = pathname === RoutesPath.HOME || pathname === RoutesPath.FUSION;
+  const shouldDisconnect =
+    pathname === `/${params.lang}${RoutesPath.HOME}` || pathname === `/${params.lang}${RoutesPath.FUSION}`;
 
   const { data: user, refetch: refetchUser } = useGetUser();
 

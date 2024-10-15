@@ -17,7 +17,7 @@ import {
 } from '@gobob/ui';
 import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 
@@ -54,6 +54,7 @@ type UserInfoProps = {
 
 const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const router = useRouter();
+  const params = useParams();
   const { i18n } = useLingui();
   const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
     initializeWithValue: isClient
@@ -173,7 +174,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             variant='outline'
             onPress={() => {
               setScrollQuests(true);
-              router.push(RoutesPath.FUSION);
+              router.push(`/${params.lang}${RoutesPath.FUSION}`);
             }}
           >
             <Trans>View Quests</Trans>
