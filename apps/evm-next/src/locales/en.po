@@ -67,6 +67,7 @@ msgstr "404 Error"
 msgid "7 days"
 msgstr "7 days"
 
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:24
 #: src/components/Layout/Header.tsx:112
 #: src/components/Layout/Sidebar.tsx:73
 msgid "About"
@@ -241,6 +242,10 @@ msgstr "Cancel"
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:431
 msgid "Cannot stake into {0} due to insufficient liquidity."
 msgstr "Cannot stake into {0} due to insufficient liquidity."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:20
+msgid "Category"
+msgstr "Category"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:512
 msgid "Checking Allowance"
@@ -477,7 +482,7 @@ msgstr "Featured Assets"
 msgid "Fetching bridging operations..."
 msgstr "Fetching bridging operations..."
 
-#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:153
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:163
 msgid "Fetching staking strategies..."
 msgstr "Fetching staking strategies..."
 
@@ -577,6 +582,10 @@ msgstr "How to vote:"
 msgid "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
 msgstr "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
 
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:22
+msgid "Incentives"
+msgstr "Incentives"
+
 #: src/app/[lang]/sign-up/SignUp.tsx:115
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr "Invalid referral code. You can try again, or proceed without one."
@@ -602,6 +611,15 @@ msgstr "Leaderboard"
 msgid "Learn More"
 msgstr "Learn More"
 
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:54
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:60
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:66
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:72
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:78
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:84
+msgid "Lending"
+msgstr "Lending"
+
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:39
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:105
 msgid "Lending protocol points"
@@ -618,6 +636,11 @@ msgstr "Lending rate of satUSD"
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:68
 msgid "Lending, Restaking, CDP *"
 msgstr "Lending, Restaking, CDP *"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:29
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:90
+msgid "Liquid Staking"
+msgstr "Liquid Staking"
 
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:51
 msgid "Loading..."
@@ -684,6 +707,7 @@ msgid "My Total Harvest"
 msgstr "My Total Harvest"
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:79
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:19
 msgid "Name"
 msgstr "Name"
 
@@ -866,6 +890,19 @@ msgstr "Referred by"
 msgid "Remove vote"
 msgstr "Remove vote"
 
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:44
+msgid "Restake SolvBTC.BBN into Pell to secure actively validated services via proof of stake mechanism."
+msgstr "Restake SolvBTC.BBN into Pell to secure actively validated services via proof of stake mechanism."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:51
+msgid "Restake uniBTC into Pell to secure actively validated services via proof of stake mechanism."
+msgstr "Restake uniBTC into Pell to secure actively validated services via proof of stake mechanism."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:40
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:48
+msgid "Restaking"
+msgstr "Restaking"
+
 #: src/app/[lang]/apps/components/AppsList/AppCard.tsx:131
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:92
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:85
@@ -962,6 +999,10 @@ msgstr "Show secondary navigation"
 msgid "Sign-Up"
 msgstr "Sign-Up"
 
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:94
+msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
+msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
+
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:111
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
@@ -980,6 +1021,40 @@ msgstr "Sorry, the page you are looking for doesn't exist or has been moved. Her
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
 msgid "Spice"
 msgstr "Spice"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:31
+msgid "Spice + Bedrock Diamonds + Babylon Points"
+msgstr "Spice + Bedrock Diamonds + Babylon Points"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:50
+msgid "Spice + Pell Points + Bedrock Diamond + Babylon Points"
+msgstr "Spice + Pell Points + Bedrock Diamond + Babylon Points"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:42
+msgid "Spice + Pell Points + Solv XP + Babylon Points"
+msgstr "Spice + Pell Points + Solv XP + Babylon Points"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:56
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:62
+msgid "Spice + Segment Points + Supply APR"
+msgstr "Spice + Segment Points + Supply APR"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:74
+msgid "Spice + Segment Points + Supply APR + Bedrock Diamonds + Babylon Points"
+msgstr "Spice + Segment Points + Supply APR + Bedrock Diamonds + Babylon Points"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:68
+msgid "Spice + Segment Points + Supply APR + Solv XP + Babylon Points"
+msgstr "Spice + Segment Points + Supply APR + Solv XP + Babylon Points"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:80
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:86
+msgid "Spice + Shoebill Points + Supply APR"
+msgstr "Spice + Shoebill Points + Supply APR"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:92
+msgid "Spice + Solv XP + Babylon Points"
+msgstr "Spice + Solv XP + Babylon Points"
 
 #: src/app/[lang]/fusion/components/UserInfo/UsedAppsModal.tsx:19
 msgid "Spice Earned Across Apps"
@@ -1021,6 +1096,10 @@ msgstr "Stake"
 msgid "Stake with"
 msgstr "Stake with"
 
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:23
+msgid "Staking Token"
+msgstr "Staking Token"
+
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:82
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:61
 msgid "Start Harvesting"
@@ -1055,9 +1134,33 @@ msgstr "Successfully sent {amount} {0}"
 msgid "Successfully submitted ${0} proof"
 msgstr "Successfully submitted ${0} proof"
 
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:69
+msgid "Supply seSOLVBTCBBN into Segment to earn interest."
+msgstr "Supply seSOLVBTCBBN into Segment to earn interest."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:75
+msgid "Supply seUNIBTC into Segment to earn interest."
+msgstr "Supply seUNIBTC into Segment to earn interest."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:57
+msgid "Supply tBTC into Segment to earn interest."
+msgstr "Supply tBTC into Segment to earn interest."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:81
+msgid "Supply tBTC into Shoebill to earn interest."
+msgstr "Supply tBTC into Shoebill to earn interest."
+
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:81
 msgid "Supply the newly minted satUSD into a <0>lending protocol on BOB</0>."
 msgstr "Supply the newly minted satUSD into a <0>lending protocol on BOB</0>."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:63
+msgid "Supply wBTC into Segment to earn interest."
+msgstr "Supply wBTC into Segment to earn interest."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:87
+msgid "Supply wBTC into Shoebill to earn interest."
+msgstr "Supply wBTC into Shoebill to earn interest."
 
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:18
 msgid "Support your favourite BOB apps"
@@ -1190,6 +1293,10 @@ msgstr "Unfortunately, is not possible to bridge to BOB using smart accounts. We
 msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 msgstr "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:33
+msgid "uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and Bedrock diamonds."
+msgstr "uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and Bedrock diamonds."
+
 #: src/app/[lang]/bridge/components/BridgeStatus/BridgeStep.tsx:198
 #: src/app/[lang]/bridge/components/TransactionList/TransactionDetails.tsx:72
 msgid "Unknown"
@@ -1311,6 +1418,10 @@ msgstr "We will provide you with updates accordingly. You can monitor the progre
 #: src/app/[lang]/geoblock/Geoblock.tsx:14
 msgid "We're Sorry"
 msgstr "We're Sorry"
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:21
+msgid "Website"
+msgstr "Website"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:36
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:21
