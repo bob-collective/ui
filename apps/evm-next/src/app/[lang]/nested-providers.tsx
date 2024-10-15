@@ -3,12 +3,12 @@
 import { usePrices } from '@gobob/react-query';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P } from '@gobob/ui';
 import { useAccount, useChainId, useConfig, useReconnect, watchAccount } from '@gobob/wagmi';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 import { Trans } from '@lingui/macro';
+import { usePathname, useRouter } from 'next/navigation';
+import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 
-import { ConnectProvider } from '@/connect-ui';
 import { Header, Layout, Sidebar } from '@/components';
+import { ConnectProvider } from '@/connect-ui';
 import { RoutesPath } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
@@ -16,8 +16,6 @@ import { StyledComponentsRegistry } from '@/lib/styled-components';
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
 
   const config = useConfig();
 
@@ -34,15 +32,6 @@ const AuthCheck = () => {
     }
   });
   const watchAccountRef = useRef<() => void>();
-
-  useEffect(() => {
-    const refCode = searchParams?.get('refCode');
-
-    if ((pathname === RoutesPath.HOME || pathname === RoutesPath.FUSION) && refCode) {
-      router.push(`${RoutesPath.SIGN_UP}?refCode=${refCode}`);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     watchAccountRef.current = watchAccount(config, {
