@@ -22,6 +22,7 @@ import {
 } from '@gobob/sats-wagmi';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
 import { ConnectType, WalletType } from '../../types';
 
@@ -29,7 +30,6 @@ import { WalletList } from './WalletList';
 import { ConnectedWalletSection } from './ConnectedWalletSection';
 import { ConnectWalletCard } from './ConnectWalletCard';
 import { BitgetWallet } from './walletLinks/BitgetWallet';
-import { useLingui } from '@lingui/react';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
