@@ -1,5 +1,6 @@
 import { useFilter } from '@react-aria/i18n';
 import { Node } from '@react-types/shared';
+import { ReactNode } from 'react';
 
 import { ListItem, ListProps } from '../List';
 import { P, Span } from '../Text';
@@ -20,7 +21,9 @@ type SearchableFilter<T = SelectObject> = (searchTerm: string, item: T) => boole
 type Props<T = SelectObject> = {
   items: Node<T>[];
   searchable?: boolean | SearchableFilter<T> | SearchableProps<T>;
+  itemSkeleton?: (props: any) => ReactNode;
   searchTerm?: string;
+  debouncedSearchTerm?: string;
 };
 
 type InheritAttrs = Omit<ListProps, keyof Props | 'children' | 'items'>;
@@ -31,6 +34,8 @@ const SelectModalList = <T extends SelectObject = SelectObject>({
   items: itemsProp,
   searchable,
   searchTerm,
+  itemSkeleton: Skeleton,
+  debouncedSearchTerm,
   ...props
 }: SelectModalListProps<T>): JSX.Element => {
   const { contains } = useFilter({
@@ -38,6 +43,8 @@ const SelectModalList = <T extends SelectObject = SelectObject>({
   });
 
   const isSearchResultList = typeof searchable === 'object';
+
+  const isSearching = searchTerm !== debouncedSearchTerm;
 
   const items = isSearchResultList
     ? searchable.items
@@ -48,6 +55,19 @@ const SelectModalList = <T extends SelectObject = SelectObject>({
             : (item) => contains(item.textValue, searchTerm)
         )
       : itemsProp;
+
+  if (searchTerm && isSearching && Skeleton)
+    return (
+      <StyledList gap='s'>
+        {Array(10)
+          .fill(null)
+          .map((_, idx) => (
+            <ListItem key={idx} textValue={idx.toString()}>
+              <Skeleton />
+            </ListItem>
+          ))}
+      </StyledList>
+    );
 
   if (!items.length)
     return (

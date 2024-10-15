@@ -3,6 +3,7 @@ import { SelectState } from '@react-stately/select';
 import { CSSProperties, ForwardedRef, forwardRef, ReactNode, useRef, useState } from 'react';
 import { useButton } from '@react-aria/button';
 import { Node, PressEvent } from '@react-types/shared';
+import { useDebounceValue } from 'usehooks-ts';
 
 import { MagnifyingGlass } from '../../icons';
 import { ChipProps, Flex, Input, ModalHeader, ModalProps, P } from '..';
@@ -28,6 +29,7 @@ type Props<T = SelectObject> = {
   searchable?: SelectModalListProps<T>['searchable'];
   featuredItems?: Array<Pick<ChipProps, 'startAdornment' | 'endAdornment' | 'children'> & { value: string }>;
   height?: CSSProperties['height'] | Spacing;
+  itemSkeleton?: (props: any) => ReactNode;
 };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
@@ -35,12 +37,13 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type SelectModalProps<T = SelectObject> = Props<T> & InheritAttrs;
 
 const SelectModal = <T extends SelectObject = SelectObject>(
-  { state, title, listProps, height, searchable, featuredItems, ...props }: SelectModalProps<T>,
+  { state, title, listProps, height, searchable, featuredItems, itemSkeleton, ...props }: SelectModalProps<T>,
   ref: ForwardedRef<HTMLDivElement>
 ): JSX.Element => {
   const headerId = useId();
 
   const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useDebounceValue('', 500);
 
   const handleSelectionChange: ListProps['onSelectionChange'] = (key) => {
     state.selectionManager.setSelectedKeys(key);
@@ -48,6 +51,7 @@ const SelectModal = <T extends SelectObject = SelectObject>(
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
+    setDebouncedSearch(value);
   };
 
   const handlePressChip = (value: string) => {
@@ -105,6 +109,8 @@ const SelectModal = <T extends SelectObject = SelectObject>(
       <SelectModalList<T>
         {...listProps}
         aria-labelledby={headerId}
+        debouncedSearchTerm={debouncedSearch}
+        itemSkeleton={itemSkeleton}
         items={items}
         searchTerm={search}
         searchable={searchable}

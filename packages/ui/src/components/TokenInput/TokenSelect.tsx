@@ -4,6 +4,8 @@ import { mergeProps } from '@react-aria/utils';
 
 import { Avatar } from '../Avatar';
 import { Item, ModalSelectProps, Select } from '../Select';
+import { Flex } from '../Flex';
+import { Skeleton } from '../Skeleton';
 
 import { Token } from './Token';
 import { StyledTokenSelect } from './TokenInput.style';
@@ -38,6 +40,15 @@ const TokenSelect = ({ modalProps: modalPropsProp, size, featuredItems, ...props
       children: item.currency.symbol,
       value: item.currency.address
     })),
+    itemSkeleton: (props) => (
+      <Flex {...props} alignItems='center' flex={1} gap='md' style={{ minHeight: 48 }}>
+        <Skeleton height='5xl' rounded='full' width='5xl' />
+        <Flex direction='column' flex='1'>
+          <Skeleton width='50%' />
+          <Skeleton />
+        </Flex>
+      </Flex>
+    ),
     searchable: (searchTerm: string, item: TokenSelectItemProps) => {
       return (
         contains(searchTerm, item.currency.symbol) || (!!item.currency.name && contains(searchTerm, item.currency.name))
