@@ -72,7 +72,7 @@ msgid "Already harvesting?"
 msgstr "Already harvesting?"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:529
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:362
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:360
 msgid "Amount"
 msgstr "Amount"
 
@@ -88,6 +88,7 @@ msgstr "and that you have read and understood our"
 msgid "Approve"
 msgstr "Approve"
 
+#: src/app/[lang]/apps/page.tsx:14
 #: src/components/Layout/Header.tsx:70
 #: src/components/Layout/Sidebar.tsx:47
 msgid "Apps"
@@ -149,7 +150,7 @@ msgstr "BOB Bridge"
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion: The Final Season"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:404
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:402
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 
@@ -165,6 +166,8 @@ msgstr "BOB TVL Progress"
 msgid "BOB Wallet"
 msgstr "BOB Wallet"
 
+#: src/app/[lang]/bridge/page.tsx:14
+#: src/app/[lang]/page.tsx:13
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:75
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:18
 #: src/components/Layout/Header.tsx:67
@@ -201,7 +204,7 @@ msgstr "Bridge to BOB"
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:435
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:433
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:410
 msgid "BTC bridge is currently unavailable. This may be due to: {0}. Please try again later."
 msgstr "BTC bridge is currently unavailable. This may be due to: {0}. Please try again later."
@@ -391,7 +394,7 @@ msgid "Ensure that you are transferring from the BOB Network to avoid any loss o
 msgstr "Ensure that you are transferring from the BOB Network to avoid any loss of funds."
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:540
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:418
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:416
 msgid "Enter destination address"
 msgstr "Enter destination address"
 
@@ -403,7 +406,7 @@ msgstr "Enter referral code (optional)"
 msgid "Enter your access code (optional):"
 msgstr "Enter your access code (optional):"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:455
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:453
 msgid "Estimated Fee"
 msgstr "Estimated Fee"
 
@@ -465,6 +468,7 @@ msgstr "Follow us on X"
 msgid "Follow us on X for updates"
 msgstr "Follow us on X for updates"
 
+#: src/app/[lang]/fusion/page.tsx:14
 #: src/components/Layout/Header.tsx:81
 #: src/components/Layout/Sidebar.tsx:58
 msgid "Fusion"
@@ -486,7 +490,11 @@ msgstr "Fusion season three"
 msgid "Gas Token"
 msgstr "Gas Token"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:409
+#: src/app/[lang]/geoblock/page.tsx:14
+msgid "Geoblock"
+msgstr "Geoblock"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:407
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:388
 msgid "Get ETH for transaction fees on BOB"
 msgstr "Get ETH for transaction fees on BOB"
@@ -763,7 +771,7 @@ msgstr "Read more here"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:371
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:369
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:92
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:31
 msgid "Receive"
@@ -778,7 +786,7 @@ msgid "Receive {ticker}"
 msgstr "Receive {ticker}"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:539
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:417
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:415
 msgid "Recipient"
 msgstr "Recipient"
 
@@ -866,6 +874,10 @@ msgstr "Send {ticker}"
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 
+#: src/app/[lang]/sign-up/page.tsx:14
+msgid "Sign-Up"
+msgstr "Sign-Up"
+
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:111
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
@@ -914,6 +926,7 @@ msgid "Spice rewards (Medium)"
 msgstr "Spice rewards (Medium)"
 
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:424
+#: src/app/[lang]/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:78
 #: src/components/Layout/Sidebar.tsx:55
 msgid "Stake"
@@ -1007,7 +1020,7 @@ msgstr "The number of Intract and Galxe quests that you have completed"
 msgid "There are no apps to be displayed"
 msgstr "There are no apps to be displayed"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:444
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:442
 msgid "There is currently no available liquidity to onramp BTC into {0}."
 msgstr "There is currently no available liquidity to onramp BTC into {0}."
 
@@ -1027,7 +1040,7 @@ msgstr "To cast your vote, please log in"
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:402
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:400
 msgid "Top up Gas"
 msgstr "Top up Gas"
 
@@ -1071,7 +1084,7 @@ msgstr "Transfer time"
 msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
 msgstr "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:425
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:423
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:400
 msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 msgstr "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
@@ -1174,6 +1187,7 @@ msgstr "Waiting for approval"
 msgid "Waiting for confirmation"
 msgstr "Waiting for confirmation"
 
+#: src/app/[lang]/wallet/page.tsx:15
 #: src/components/Layout/Header.tsx:74
 #: src/components/Layout/Sidebar.tsx:51
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:60
@@ -1248,7 +1262,7 @@ msgstr "Your assets will be delivered once your BTC transactions receive at leas
 msgid "Your assets will be delivered shortly, with an estimated arrival time of aprox."
 msgstr "Your assets will be delivered shortly, with an estimated arrival time of aprox."
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:357
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:356
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 
