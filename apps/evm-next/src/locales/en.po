@@ -98,6 +98,7 @@ msgstr "and that you have read and understood our"
 msgid "Approve"
 msgstr "Approve"
 
+#: src/app/[lang]/apps/page.tsx:14
 #: src/components/Layout/Header.tsx:72
 #: src/components/Layout/Sidebar.tsx:47
 msgid "Apps"
@@ -180,6 +181,8 @@ msgstr "BOB TVL Progress"
 msgid "BOB Wallet"
 msgstr "BOB Wallet"
 
+#: src/app/[lang]/bridge/page.tsx:14
+#: src/app/[lang]/page.tsx:13
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:75
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:18
 #: src/components/Layout/Header.tsx:69
@@ -497,6 +500,7 @@ msgstr "Follow us on X"
 msgid "Follow us on X for updates"
 msgstr "Follow us on X for updates"
 
+#: src/app/[lang]/fusion/page.tsx:14
 #: src/components/Layout/Header.tsx:83
 #: src/components/Layout/Sidebar.tsx:58
 msgid "Fusion"
@@ -517,6 +521,10 @@ msgstr "Fusion season three"
 #: src/components/TransactionDetails/TransactionDetails.tsx:119
 msgid "Gas Token"
 msgstr "Gas Token"
+
+#: src/app/[lang]/geoblock/page.tsx:14
+msgid "Geoblock"
+msgstr "Geoblock"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:407
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:396
@@ -945,6 +953,10 @@ msgstr "Share this link with a friend and when they sign up, you will receive 15
 msgid "Show secondary navigation"
 msgstr "Show secondary navigation"
 
+#: src/app/[lang]/sign-up/page.tsx:14
+msgid "Sign-Up"
+msgstr "Sign-Up"
+
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:111
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
@@ -993,6 +1005,7 @@ msgid "Spice rewards (Medium)"
 msgstr "Spice rewards (Medium)"
 
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:436
+#: src/app/[lang]/stake/page.tsx:14
 #: src/app/[lang]/stake/Stake.tsx:66
 #: src/components/Layout/Header.tsx:80
 #: src/components/Layout/Sidebar.tsx:55
@@ -1279,6 +1292,7 @@ msgstr "Waiting for approval"
 msgid "Waiting for confirmation"
 msgstr "Waiting for confirmation"
 
+#: src/app/[lang]/wallet/page.tsx:15
 #: src/components/Layout/Header.tsx:76
 #: src/components/Layout/Sidebar.tsx:51
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:60

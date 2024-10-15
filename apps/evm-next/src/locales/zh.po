@@ -98,6 +98,7 @@ msgstr ""
 msgid "Approve"
 msgstr "通过"
 
+#: src/app/[lang]/apps/page.tsx:14
 #: src/components/Layout/Header.tsx:72
 #: src/components/Layout/Sidebar.tsx:47
 msgid "Apps"
@@ -180,6 +181,8 @@ msgstr ""
 msgid "BOB Wallet"
 msgstr "BOB 钱包"
 
+#: src/app/[lang]/bridge/page.tsx:14
+#: src/app/[lang]/page.tsx:13
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:75
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:18
 #: src/components/Layout/Header.tsx:69
@@ -497,6 +500,7 @@ msgstr ""
 msgid "Follow us on X for updates"
 msgstr ""
 
+#: src/app/[lang]/fusion/page.tsx:14
 #: src/components/Layout/Header.tsx:83
 #: src/components/Layout/Sidebar.tsx:58
 msgid "Fusion"
@@ -516,6 +520,10 @@ msgstr ""
 
 #: src/components/TransactionDetails/TransactionDetails.tsx:119
 msgid "Gas Token"
+msgstr ""
+
+#: src/app/[lang]/geoblock/page.tsx:14
+msgid "Geoblock"
 msgstr ""
 
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:407
@@ -945,6 +953,10 @@ msgstr ""
 msgid "Show secondary navigation"
 msgstr ""
 
+#: src/app/[lang]/sign-up/page.tsx:14
+msgid "Sign-Up"
+msgstr ""
+
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:111
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
@@ -993,6 +1005,7 @@ msgid "Spice rewards (Medium)"
 msgstr ""
 
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:436
+#: src/app/[lang]/stake/page.tsx:14
 #: src/app/[lang]/stake/Stake.tsx:66
 #: src/components/Layout/Header.tsx:80
 #: src/components/Layout/Sidebar.tsx:55
@@ -1279,6 +1292,7 @@ msgstr ""
 msgid "Waiting for confirmation"
 msgstr ""
 
+#: src/app/[lang]/wallet/page.tsx:15
 #: src/components/Layout/Header.tsx:76
 #: src/components/Layout/Sidebar.tsx:51
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:60
