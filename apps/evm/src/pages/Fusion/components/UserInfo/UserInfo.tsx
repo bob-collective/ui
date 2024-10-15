@@ -101,7 +101,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </Flex>
             </DlGroup>
             <DlGroup wrap alignItems='center' gap='xs'>
-              <Dt size='s'>{t('fusion.userInfo.barometer.completedSpice')}</Dt>
+              <Dt size='s'>{t('fusion.userInfo.completedSpice')}</Dt>
               <Dd>
                 <SpiceAmount amount={user?.leaderboardRank?.total_points || 0} size='md' />
               </Dd>
