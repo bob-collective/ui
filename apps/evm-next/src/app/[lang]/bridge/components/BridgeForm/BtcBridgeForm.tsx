@@ -1,12 +1,16 @@
 'use client';
 
+import { GatewayQuote } from '@gobob/bob-sdk';
 import { CurrencyAmount } from '@gobob/currency';
+import { FuelStation } from '@gobob/icons';
 import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
 import {
   BtcAddressType,
   useAccount as useSatsAccount,
   useBalance as useSatsBalance,
-  useFeeEstimate as useSatsFeeEstimate
+  useFeeEstimate as useSatsFeeEstimate,
+  useFeeRate as useSatsFeeRate,
+  useUtxos as useSatsUtxos
 } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import {
@@ -20,9 +24,9 @@ import {
   P,
   Select,
   Switch,
+  toast,
   TokenInput,
   Tooltip,
-  toast,
   useForm
 } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
@@ -31,8 +35,6 @@ import { useDebounceValue } from 'usehooks-ts';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Address } from 'viem';
-import { FuelStation } from '@gobob/icons';
-import { GatewayQuote } from '@gobob/bob-sdk';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useLingui } from '@lingui/react';
 import { Trans, t } from '@lingui/macro';
@@ -100,14 +102,8 @@ const BtcBridgeForm = ({
 
   const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
   const { data: satsBalance } = useSatsBalance();
-  const { data: satsFeeEstimate, isError: isSatsFeeEstimateError } = useSatsFeeEstimate();
 
   const showToast = useRef(true);
-
-  if (isSatsFeeEstimateError && showToast.current) {
-    showToast.current = false;
-    toast.error(t(i18n)`Failed to get estimated fee`);
-  }
 
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
 
@@ -136,6 +132,30 @@ const BtcBridgeForm = ({
     () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
     [amount]
   );
+
+  const hasBalance = satsBalance && satsBalance.value > 0n;
+
+  const { data: utxos } = useSatsUtxos({ query: { enabled: hasBalance }, confirmed: true });
+
+  const hasUtxos = utxos && utxos?.length > 0;
+
+  const { data: satsFeeRate, isLoading: isSatsFeeRateLoading } = useSatsFeeRate();
+
+  const {
+    data: satsFeeEstimate,
+    isLoading: isSatsFeeEstimateLoading,
+    isError: isSatsFeeEstimateError
+  } = useSatsFeeEstimate({
+    opReturnData: evmAddress,
+    query: {
+      enabled: hasUtxos && hasBalance
+    }
+  });
+
+  if (isSatsFeeEstimateError && showToast.current) {
+    showToast.current = false;
+    toast.error(t(i18n)`Failed to get estimated fee`);
+  }
 
   const btcToken = useMemo(
     () => availableTokens.find((token) => token.currency.symbol === receiveTicker),
@@ -248,7 +268,8 @@ const BtcBridgeForm = ({
         toUserAddress: evmAddress,
         fromUserAddress: connector.paymentAddress!,
         fromUserPublicKey: connector.publicKey,
-        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0
+        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
+        feeRate: satsFeeRate ? Number(satsFeeRate) : undefined
       });
 
       const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
@@ -269,6 +290,8 @@ const BtcBridgeForm = ({
     onError: (error) => {
       handleError(error);
       onFailGateway();
+
+      throw error;
     }
   });
 
@@ -284,7 +307,7 @@ const BtcBridgeForm = ({
   };
 
   const { balanceAmount } = useMemo(() => {
-    if (!satsFeeEstimate || !availableLiquidity) {
+    if (!satsFeeEstimate || !availableLiquidity || isSatsFeeEstimateError) {
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
 
@@ -307,7 +330,7 @@ const BtcBridgeForm = ({
     return {
       balanceAmount: availableBalance
     };
-  }, [satsBalance, availableLiquidity, satsFeeEstimate]);
+  }, [satsBalance, availableLiquidity, satsFeeEstimate, isSatsFeeEstimateError]);
 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
@@ -337,7 +360,14 @@ const BtcBridgeForm = ({
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
   const isDisabled =
-    isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingMaxQuote || !hasLiquidity;
+    isSubmitDisabled ||
+    !quoteData ||
+    isQuoteError ||
+    isTapRootAddress ||
+    isLoadingMaxQuote ||
+    !hasLiquidity ||
+    isSatsFeeRateLoading ||
+    isSatsFeeEstimateLoading;
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
@@ -453,7 +483,7 @@ const BtcBridgeForm = ({
         gasLabel={t(i18n)`Estimated Fee`}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
-        Bridge Asset
+        <Trans>Bridge Asset</Trans>
       </AuthButton>
     </Flex>
   );
