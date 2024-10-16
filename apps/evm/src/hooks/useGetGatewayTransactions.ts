@@ -29,7 +29,7 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
     await Promise.all(
       orders.map(async (order): Promise<GatewayTransaction | undefined> => {
         const gatewayToken = order.getToken();
-        const gatewayAmount = order.getAmount();
+        const gatewayAmount = order.getTokenAmount();
 
         let amount: CurrencyAmount<ERC20Token> | undefined;
 
