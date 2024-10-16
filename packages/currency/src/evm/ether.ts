@@ -1,3 +1,5 @@
+import { Address } from 'viem';
+
 import { Currency, EvmCurrencies } from '../currency';
 
 import { NativeCurrency } from './native-currency';
@@ -9,8 +11,8 @@ import { Token } from './token';
  * Ether is the main usage of a 'native' currency, i.e. for Ethereum mainnet and all testnets
  */
 export class Ether extends NativeCurrency {
-  protected constructor(chainId: number) {
-    super(chainId, 18, 'ETH', 'Ether');
+  protected constructor(chainId: number, address?: Address) {
+    super(chainId, 18, 'ETH', address, 'Ether');
   }
 
   public get wrapped(): Token {

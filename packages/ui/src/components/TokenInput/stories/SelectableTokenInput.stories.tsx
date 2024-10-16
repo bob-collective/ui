@@ -1,28 +1,80 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { mergeProps } from '@react-aria/utils';
-import { Currency } from '@gobob/currency';
+import { EvmCurrencies } from '@gobob/currency';
 
 import { TokenInput, TokenInputProps } from '..';
 
 const items = [
   {
-    balance: 2,
-    currency: { symbol: 'ETH', decimals: 18 } as Currency,
-    logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
-    balanceUSD: 900
+    balance: { amount: 2, usd: 900 },
+    currency: {
+      symbol: 'ETH',
+      name: 'Ethereum',
+      decimals: 18,
+      address: '0x0',
+      isNative: true
+    } as unknown as EvmCurrencies,
+    logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg'
   },
   {
-    balance: 500,
-    currency: { symbol: 'USDT', decimals: 6 } as Currency,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
-    balanceUSD: 500
+    balance: { amount: 500, usd: 500 },
+    currency: { symbol: 'USDT', name: 'USDT', decimals: 6, address: '0x1', isToken: true } as unknown as EvmCurrencies,
+    logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png'
   },
   {
-    balance: 100,
-    currency: { symbol: 'USDC', decimals: 6 } as Currency,
-    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
-    balanceUSD: 100
+    balance: { amount: 100, usd: 100 },
+    currency: { symbol: 'USDC', name: 'USDC', decimals: 6, address: '0x2', isToken: true } as unknown as EvmCurrencies,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png'
+  },
+  {
+    balance: { amount: 100, usd: 100 },
+    currency: {
+      symbol: 'WBTC',
+      name: 'Wrapped Bitcoin',
+      decimals: 6,
+      address: '0x3',
+      isToken: true
+    } as unknown as EvmCurrencies,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png'
+  },
+  {
+    balance: { amount: 100, usd: 100 },
+    currency: { symbol: 'WETH', name: 'WETH', decimals: 6, address: '0x4', isToken: true } as unknown as EvmCurrencies,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png'
+  },
+  {
+    balance: { amount: 100, usd: 100 },
+    currency: {
+      symbol: 'BTC',
+      name: 'Bitcoin',
+      decimals: 6,
+      address: '0x5',
+      isToken: true
+    } as unknown as EvmCurrencies,
+    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png'
+  },
+  {
+    balance: { amount: 100, usd: 100 },
+    currency: {
+      symbol: 'stETH',
+      name: 'Lido Staked Ether',
+      decimals: 6,
+      address: '0x6',
+      isToken: true
+    } as unknown as EvmCurrencies,
+    logoUrl: 'https://coin-images.coingecko.com/coins/images/13442/large/steth_logo.png?1696513206'
+  },
+  {
+    balance: { amount: 100, usd: 100 },
+    currency: {
+      symbol: 'rETH',
+      name: 'Rocket Pool ETH',
+      decimals: 6,
+      address: '0x7',
+      isToken: true
+    } as unknown as EvmCurrencies,
+    logoUrl: 'https://coin-images.coingecko.com/coins/images/20764/large/reth.png?1696520159'
   }
 ];
 
@@ -91,5 +143,13 @@ export const SelectableErrorMessage: StoryObj<TokenInputProps> = {
     selectProps: {
       errorMessage: 'Token field is required'
     }
+  }
+};
+
+export const AutoComplete: StoryObj<TokenInputProps> = {
+  args: {
+    featuredItems: items.slice(0, 6),
+    selectProps: {},
+    items: items.map((item) => ({ ...item, balance: undefined }))
   }
 };

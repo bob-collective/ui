@@ -2,29 +2,38 @@ import { useCurrencyFormatter } from '../../hooks';
 import { Flex } from '../Flex';
 
 import {
-  StyledListItemLabel,
+  StyledListItemTitle,
+  StyledListItemSubtitle,
   StyledListItemTokenImg,
   StyledListItemUsd,
-  StyledListTokenWrapper
+  StyledListTokenWrapper,
+  StyledListItemAmount
 } from './TokenInput.style';
 import { TokenSelectItemProps } from './TokenSelect';
 
 type TokenListItemProps = TokenSelectItemProps;
 
-const TokenListItem = ({ balance, balanceUSD, currency, logoUrl }: TokenListItemProps): JSX.Element => {
+const TokenListItem = ({ balance, currency, logoUrl }: TokenListItemProps): JSX.Element => {
   const format = useCurrencyFormatter();
 
+  const title = currency.name || currency.symbol;
+
   return (
-    <>
+    <Flex style={{ minHeight: 48 }}>
       <StyledListTokenWrapper alignItems='center' flex='1' gap='md'>
-        <StyledListItemTokenImg alt={currency.symbol} src={logoUrl} />
-        <StyledListItemLabel>{currency.symbol}</StyledListItemLabel>
+        <StyledListItemTokenImg alt={title} src={logoUrl} />
+        <Flex direction='column' flex='1'>
+          <StyledListItemTitle>{title}</StyledListItemTitle>
+          <StyledListItemSubtitle>{currency.symbol}</StyledListItemSubtitle>
+        </Flex>
       </StyledListTokenWrapper>
-      <Flex alignItems='flex-end' direction='column' flex='0' gap='xs'>
-        <StyledListItemLabel>{balance}</StyledListItemLabel>
-        <StyledListItemUsd>{format(balanceUSD)}</StyledListItemUsd>
-      </Flex>
-    </>
+      {balance && (
+        <Flex alignItems='flex-end' direction='column' flex='0' gap='xs'>
+          <StyledListItemAmount>{balance.amount}</StyledListItemAmount>
+          <StyledListItemUsd>{format(balance.usd)}</StyledListItemUsd>
+        </Flex>
+      )}
+    </Flex>
   );
 };
 

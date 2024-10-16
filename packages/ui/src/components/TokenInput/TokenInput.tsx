@@ -2,7 +2,7 @@
 
 import { mergeProps, useId } from '@react-aria/utils';
 import { ChangeEvent, FocusEvent, forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
-import { Currency } from '@gobob/currency';
+import { Currency, EvmCurrencies } from '@gobob/currency';
 
 import { useDOMRef } from '../../hooks';
 import { trimDecimals } from '../utils';
@@ -17,7 +17,9 @@ const getDefaultCurrency = (props: TokenInputProps) => {
       return (props as FixedTokenInputProps).currency;
     case 'selectable':
       return (props.items || []).find(
-        (item) => item.currency.symbol === (props.selectProps?.value || props.selectProps?.defaultValue)
+        (item) =>
+          item.currency.address.toLowerCase() ===
+          (props.selectProps?.value || props.selectProps?.defaultValue)?.toLowerCase()
       )?.currency;
   }
 };
@@ -34,7 +36,6 @@ type InheritAttrs = ({ type?: 'fixed' } & FixedAttrs) | ({ type?: 'selectable' }
 
 type TokenInputProps = Props & InheritAttrs;
 
-// TODO: use address as base value instead of ticker
 const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): JSX.Element => {
   const { defaultValue, value: valueProp, onValueChange, balance, onBlur, ...otherProps } = props;
 
@@ -52,7 +53,9 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
       if (props.type === 'selectable') {
         setCurrency(
           (props.items || []).find(
-            (item) => item.currency.symbol === (props.selectProps?.value || props.selectProps?.defaultValue)
+            (item) =>
+              item.currency.address.toLowerCase() ===
+              (props.selectProps?.value || props.selectProps?.defaultValue)?.toLowerCase()
           )?.currency
         );
       }
@@ -143,7 +146,7 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
     return (
       <SelectableTokenInput
         {...mergeProps(otherProps, commonProps, { onChangeCurrency: handleChangeCurrency })}
-        currency={currency}
+        currency={currency as EvmCurrencies}
       />
     );
   }

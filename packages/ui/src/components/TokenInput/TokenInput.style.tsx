@@ -100,10 +100,22 @@ const StyledTokenSelect = styled(StyledTrigger)`
   `}
 `;
 
-const StyledListItemLabel = styled(Span)`
+const StyledListItemTitle = styled(Span)`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  ${({ theme }) => theme.tokenInput.list.item.name};
+`;
+
+const StyledListItemSubtitle = styled(Span)`
   text-overflow: ellipsis;
   overflow: hidden;
   ${({ theme }) => theme.tokenInput.list.item.ticker};
+`;
+
+const StyledListItemAmount = styled(Span)`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  ${({ theme }) => theme.tokenInput.list.item.amount};
 `;
 
 const StyledListItemUsd = styled(Span)`
@@ -122,7 +134,8 @@ const StyledListTokenWrapper = styled(Flex)`
 `;
 
 export {
-  StyledListItemLabel,
+  StyledListItemTitle,
+  StyledListItemSubtitle,
   StyledListTokenWrapper,
   StyledTokenSelect,
   StyledTokenImg,
@@ -132,6 +145,7 @@ export {
   StyledBalanceButton,
   StyledUSDAdornment,
   StyledInputWrapper,
+  StyledListItemAmount,
   StyledBottomWrapper,
   StyledDivider,
   StyledListItemTokenImg,

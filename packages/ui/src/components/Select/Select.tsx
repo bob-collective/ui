@@ -30,9 +30,12 @@ type Props<T = SelectObject> = {
 
 type ListboxAttrs = { type?: 'listbox' };
 
-type ModalAttrs = {
+type ModalAttrs<T = SelectObject> = {
   type?: 'modal';
-  modalProps?: { ref?: React.Ref<HTMLDivElement> } & Omit<SelectModalProps, 'state' | 'isOpen' | 'onClose' | 'id'>;
+  modalProps?: { ref?: ForwardedRef<HTMLInputElement> } & Omit<
+    SelectModalProps<T>,
+    'state' | 'isOpen' | 'onClose' | 'id'
+  >;
 };
 
 type AriaAttrs<T = SelectObject> = Omit<
@@ -56,7 +59,7 @@ type CommonProps<T = SelectObject> = Props<T> & NativeAttrs<T> & InheritAttrs<T>
 
 type ListboxSelectProps<T = SelectObject> = CommonProps<T> & ListboxAttrs;
 
-type ModalSelectProps<T = SelectObject> = CommonProps<T> & ModalAttrs;
+type ModalSelectProps<T = SelectObject> = CommonProps<T> & ModalAttrs<T>;
 
 type SelectProps<T = SelectObject> = ModalSelectProps<T> | ListboxSelectProps<T>;
 

@@ -1,10 +1,13 @@
 import styled, { css } from 'styled-components';
+import { CSSProperties } from 'react';
 
-import { InputSizes, Spacing } from '../../theme';
+import { hexToRgba, InputSizes, Spacing } from '../../theme';
 import { List } from '../List';
 import { Span } from '../Text';
 import { Flex } from '../Flex';
 import { ChevronDown } from '../../icons';
+import { Modal, ModalBody, ModalDivider } from '../Modal';
+import { Chip } from '../Chip';
 
 type StyledTriggerProps = {
   $isOpen?: boolean;
@@ -25,6 +28,10 @@ type StyledTriggerValueProps = {
 type StyledFieldProps = {
   $disabled?: boolean;
   $maxWidth?: Spacing;
+};
+
+type StyledModalProps = {
+  $height?: Spacing | CSSProperties['height'];
 };
 
 const StyledTrigger = styled.button<StyledTriggerProps>`
@@ -62,7 +69,7 @@ const StyledTriggerValue = styled(Span)<StyledTriggerValueProps>`
   font-weight: inherit;
 `;
 
-const StyledList: any = styled(List)`
+const StyledList = styled(List)`
   ${({ theme }) => theme.tokenInput.list.base};
 `;
 
@@ -75,4 +82,49 @@ const StyledField = styled(Flex)<StyledFieldProps>`
   max-width: ${({ $maxWidth, theme }) => $maxWidth && theme.spacing($maxWidth)};
 `;
 
-export { StyledField, StyledList, StyledTrigger, StyledChevronDown, StyledTriggerInner, StyledTriggerValue };
+const StyledModalBody = styled(ModalBody)`
+  overflow: visible;
+  flex: 0;
+`;
+
+const StyledModal = styled(Modal)<StyledModalProps>`
+  height: ${({ $height, theme }) => theme.spacing($height as Spacing)};
+`;
+
+const StyledSelectableChip = styled(Chip)`
+  padding-top: ${({ theme }) => theme.spacing('s')};
+  padding-bottom: ${({ theme }) => theme.spacing('s')};
+  height: auto;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background-color: ${({ theme }) => hexToRgba(theme.color('grey-300'), 30)};
+  }
+
+  &:active {
+    background-color: ${({ theme }) => hexToRgba(theme.color('grey-300'), 40)};
+  }
+
+  &:focus {
+    border-color: ${({ theme }) => theme.color('light')};
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.color('light')};
+  }
+`;
+
+const StyledModalDivider = styled(ModalDivider)`
+  margin-bottom: 0;
+`;
+
+export {
+  StyledField,
+  StyledModal,
+  StyledList,
+  StyledTrigger,
+  StyledModalDivider,
+  StyledChevronDown,
+  StyledTriggerInner,
+  StyledTriggerValue,
+  StyledModalBody,
+  StyledSelectableChip
+};

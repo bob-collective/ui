@@ -195,3 +195,14 @@ export const Disabled: StoryObj<SelectProps> = {
     disabled: true
   }
 };
+
+export const Searchable: StoryObj<SelectProps> = {
+  args: {
+    type: 'modal',
+    modalProps: {
+      title: 'Select token',
+      searchable: true,
+      placement: 'top'
+    }
+  }
+};

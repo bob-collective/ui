@@ -1,8 +1,10 @@
-export type { DialogProps } from './Dialog';
 export { Dialog } from './Dialog';
-export type { DialogBodyProps } from './DialogBody';
+export type { DialogProps } from './Dialog';
 export { DialogBody } from './DialogBody';
-export type { DialogFooterProps } from './DialogFooter';
+export type { DialogBodyProps } from './DialogBody';
+export { DialogDivider } from './DialogDivider';
+export type { DialogDividerProps } from './DialogDivider';
 export { DialogFooter } from './DialogFooter';
-export type { DialogHeaderProps } from './DialogHeader';
+export type { DialogFooterProps } from './DialogFooter';
 export { DialogHeader } from './DialogHeader';
+export type { DialogHeaderProps } from './DialogHeader';

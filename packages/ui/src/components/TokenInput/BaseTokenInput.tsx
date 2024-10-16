@@ -1,17 +1,17 @@
+import { Currency } from '@gobob/currency';
+import { useFocusRing } from '@react-aria/focus';
+import { useHover } from '@react-aria/interactions';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { mergeProps } from '@react-aria/utils';
 import React, { ChangeEventHandler, FocusEvent, forwardRef, MouseEventHandler, ReactNode, useCallback } from 'react';
-import { useHover } from '@react-aria/interactions';
-import { useFocusRing } from '@react-aria/focus';
-import { Currency } from '@gobob/currency';
 
 import { useCurrencyFormatter, useDOMRef } from '../../hooks';
-import { Spacing } from '../../theme';
-import { Label, LabelProps } from '../Label';
-import { Flex } from '../Flex';
 import { BankNotes } from '../../icons';
-import { Span } from '../Text';
+import { Spacing } from '../../theme';
+import { Flex } from '../Flex';
 import { HelperText, HelperTextProps } from '../HelperText';
+import { Label, LabelProps } from '../Label';
+import { Span } from '../Text';
 import { Tooltip } from '../Tooltip';
 
 import {
