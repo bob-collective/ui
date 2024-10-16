@@ -143,7 +143,6 @@ const BtcBridgeForm = ({
     isError: isSatsFeeEstimateError
   } = useSatsFeeEstimate({
     opReturnData: evmAddress,
-    amount: satsBalance ? Number(satsBalance.value) : undefined,
     query: {
       enabled: hasUtxos && hasBalance
     }
