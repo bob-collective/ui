@@ -22,7 +22,9 @@ const WithdrawModal = () => {
 
   return (
     <Modal isOpen={isWithdrawAssetsOpen} placement='top' onClose={handleClose}>
-      <ModalHeader>Withdraw Locked Assets</ModalHeader>
+      <ModalHeader>
+        <Trans>Withdraw Locked Assets</Trans>
+      </ModalHeader>
       <ModalBody gap='lg'>
         <Dl justifyContent='space-between'>
           <DepositedAssets />

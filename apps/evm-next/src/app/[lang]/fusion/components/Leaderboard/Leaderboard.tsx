@@ -3,8 +3,7 @@ import { Chip, Flex, H2, Skeleton, Span, Table, Tabs, TabsItem, useLocale } from
 import { useAccount } from '@gobob/wagmi';
 import { useCallback, useId, useState } from 'react';
 import { ReactNode } from 'react';
-import { Trans, t } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 
@@ -86,7 +85,6 @@ const userRankKey = 'userRankKey';
 const Leaderboard = (): JSX.Element => {
   const id = useId();
   const { locale } = useLocale();
-  const { i18n } = useLingui();
 
   const { address } = useAccount();
   const { data: user } = useGetUser();
@@ -219,16 +217,16 @@ const Leaderboard = (): JSX.Element => {
         <Trans>Leaderboard</Trans>
       </H2>
       <Tabs selectedKey={tab} onSelectionChange={(key) => setTab(key as LeaderboardTabs)}>
-        <TabsItem key={LeaderboardTabs.SEASON} title={t(i18n)`Season Three`}>
+        <TabsItem key={LeaderboardTabs.SEASON} title={<Trans>Season Three</Trans>}>
           <></>
         </TabsItem>
-        <TabsItem key={LeaderboardTabs.HOURS_24} title={t(i18n)`Last 24 Hours`}>
+        <TabsItem key={LeaderboardTabs.HOURS_24} title={<Trans>Last 24 Hours</Trans>}>
           <></>
         </TabsItem>
-        <TabsItem key={LeaderboardTabs.DAYS_7} title={t(i18n)`Last 7 Days`}>
+        <TabsItem key={LeaderboardTabs.DAYS_7} title={<Trans>Last 7 Days</Trans>}>
           <></>
         </TabsItem>
-        <TabsItem key={LeaderboardTabs.QUESTS_ONLY} title={t(i18n)`Quests Only`}>
+        <TabsItem key={LeaderboardTabs.QUESTS_ONLY} title={<Trans>Quests Only</Trans>}>
           <></>
         </TabsItem>
       </Tabs>

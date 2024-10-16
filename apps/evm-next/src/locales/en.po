@@ -348,7 +348,7 @@ msgstr "Current Harvest"
 msgid "Current Leaderboard Rank"
 msgstr "Current Leaderboard Rank"
 
-#: src/components/WithdrawModal/WithdrawModal.tsx:31
+#: src/components/WithdrawModal/WithdrawModal.tsx:33
 msgid "Current Spice"
 msgstr "Current Spice"
 
@@ -486,7 +486,7 @@ msgstr "Fetching bridging operations..."
 msgid "Fetching staking strategies..."
 msgstr "Fetching staking strategies..."
 
-#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:60
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:62
 msgid "Final Leaderboard Rank"
 msgstr "Final Leaderboard Rank"
 
@@ -590,11 +590,11 @@ msgstr "Incentives"
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr "Invalid referral code. You can try again, or proceed without one."
 
-#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:225
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:223
 msgid "Last 24 Hours"
 msgstr "Last 24 Hours"
 
-#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:228
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:226
 msgid "Last 7 Days"
 msgstr "Last 7 Days"
 
@@ -602,11 +602,11 @@ msgstr "Last 7 Days"
 msgid "Last Week's Winners"
 msgstr "Last Week's Winners"
 
-#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:219
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:217
 msgid "Leaderboard"
 msgstr "Leaderboard"
 
-#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:79
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
 #: src/app/[lang]/fusion/Fusion.tsx:96
 msgid "Learn More"
 msgstr "Learn More"
@@ -706,7 +706,7 @@ msgstr "My Apps"
 msgid "My Total Harvest"
 msgstr "My Total Harvest"
 
-#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:79
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:78
 #: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:19
 msgid "Name"
 msgstr "Name"
@@ -771,7 +771,7 @@ msgstr "No new goal at the moment. Stay tuned for updates!"
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 msgstr "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 
-#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:66
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:68
 msgid "Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest."
 msgstr "Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest."
 
@@ -836,7 +836,7 @@ msgstr "Provide liquidity into any AMM pool on <0>Oku DEX</0> to earn trading fe
 msgid "Provide liquidity into Oku DEX"
 msgstr "Provide liquidity into Oku DEX"
 
-#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:81
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:41
 msgid "Quests"
 msgstr "Quests"
@@ -845,7 +845,7 @@ msgstr "Quests"
 msgid "Quests Completed"
 msgstr "Quests Completed"
 
-#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:231
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:229
 msgid "Quests Only"
 msgstr "Quests Only"
 
@@ -933,7 +933,7 @@ msgstr "Season 3 (Ongoing)"
 msgid "Season 3 Harvested Spice"
 msgstr "Season 3 Harvested Spice"
 
-#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:222
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:220
 msgid "Season Three"
 msgstr "Season Three"
 
@@ -1018,7 +1018,7 @@ msgstr "Something went wrong. Please try connecting your wallet again."
 msgid "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 msgstr "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 
-#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:79
 msgid "Spice"
 msgstr "Spice"
 
@@ -1100,7 +1100,7 @@ msgstr "Stake with"
 msgid "Staking Token"
 msgstr "Staking Token"
 
-#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:82
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:84
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:61
 msgid "Start Harvesting"
 msgstr "Start Harvesting"
@@ -1204,7 +1204,7 @@ msgstr "The final season"
 msgid "THE FIRST HYBRID L2"
 msgstr "THE FIRST HYBRID L2"
 
-#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:65
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:67
 msgid "The leaderboard resets for the new season"
 msgstr "The leaderboard resets for the new season"
 
@@ -1264,7 +1264,7 @@ msgstr "Total Harvest"
 msgid "Total Referrals Earnings:"
 msgstr "Total Referrals Earnings:"
 
-#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:52
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:54
 msgid "Total Spice Harvested"
 msgstr "Total Spice Harvested"
 
@@ -1283,6 +1283,10 @@ msgstr "Transaction Submitted"
 #: src/components/TransactionDetails/TransactionDetails.tsx:111
 msgid "Transfer time"
 msgstr "Transfer time"
+
+#: src/app/[lang]/fusion/components/UserInfo/Barometer.tsx:67
+msgid "TVL"
+msgstr "TVL"
 
 #: src/components/WithdrawModal/WithdrawForm.tsx:146
 msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
@@ -1447,6 +1451,10 @@ msgstr "Withdraw"
 msgid "Withdraw Assets"
 msgstr "Withdraw Assets"
 
+#: src/components/WithdrawModal/WithdrawModal.tsx:26
+msgid "Withdraw Locked Assets"
+msgstr "Withdraw Locked Assets"
+
 #: src/components/WithdrawModal/WithdrawForm.tsx:134
 msgid "Withdraw to L1 failed. Please try again."
 msgstr "Withdraw to L1 failed. Please try again."
@@ -1499,6 +1507,10 @@ msgstr "Your available balance may differ from your wallet balance due to networ
 #: src/app/[lang]/nested-providers.tsx:71
 msgid "Your funds are safe!"
 msgstr "Your funds are safe!"
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:49
+msgid "Your performance in seasons 1 & 2"
+msgstr "Your performance in seasons 1 & 2"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:185
 msgid "Your Referral Code"

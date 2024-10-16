@@ -45,7 +45,9 @@ const WelcomeBackModal = ({ user, onClose, ...props }: WelcomeBackModalProps): J
             and refer a friend to receive a share of all the Spice they collect.
           </Trans>
         </P>
-        <H4 size='2xl'>Your performance in seasons 1 & 2</H4>
+        <H4 size='2xl'>
+          <Trans>Your performance in seasons 1 & 2</Trans>
+        </H4>
         <Dl direction={{ base: 'column', s: 'row' }} gap='lg'>
           <Card background='grey-500' flex={1} gap='s' rounded='lg' style={{ opacity: 0.9 }}>
             <Dt color='grey-50'>
