@@ -136,19 +136,21 @@ const BtcBridgeForm = ({
 
   const hasUtxos = utxos && utxos?.length > 0;
 
-  const { data: satsFeeRate } = useSatsFeeRate();
+  const { data: satsFeeRate, isLoading: isSatsFeeRateLoading } = useSatsFeeRate();
 
   const {
     data: satsFeeEstimate,
-    isError: isSatsFeeEstimateError,
-    error
+    isLoading: isSatsFeeEstimateLoading,
+    isError: isSatsFeeEstimateError
   } = useSatsFeeEstimate({
     opReturnData: evmAddress,
     query: {
-      enabled: hasUtxos,
+      enabled: hasUtxos && hasBalance,
       amount: currencyAmount && Number(currencyAmount?.numerator)
     }
   });
+
+  console.log(satsFeeRate, satsFeeEstimate);
 
   if (isSatsFeeEstimateError && showToast.current) {
     showToast.current = false;
@@ -261,14 +263,19 @@ const BtcBridgeForm = ({
 
       onStartGateway(data);
 
-      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(gatewayQuote, {
-        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toUserAddress: evmAddress,
-        fromUserAddress: connector.paymentAddress!,
-        fromUserPublicKey: connector.publicKey,
-        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        feeRate: satsFeeRate && Number(satsFeeRate)
-      });
+      console.log(satsFeeRate, satsFeeEstimate);
+
+      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(
+        { ...gatewayQuote, txProofDifficultyFactor: 6 },
+        {
+          ...DEFAULT_GATEWAY_QUOTE_PARAMS,
+          toUserAddress: evmAddress,
+          fromUserAddress: connector.paymentAddress!,
+          fromUserPublicKey: connector.publicKey,
+          gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
+          feeRate: satsFeeRate && Number(satsFeeRate)
+        }
+      );
 
       const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
 
@@ -356,7 +363,14 @@ const BtcBridgeForm = ({
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
   const isDisabled =
-    isSubmitDisabled || !quoteData || isQuoteError || isTapRootAddress || isLoadingMaxQuote || !hasLiquidity;
+    isSubmitDisabled ||
+    !quoteData ||
+    isQuoteError ||
+    isTapRootAddress ||
+    isLoadingMaxQuote ||
+    !hasLiquidity ||
+    isSatsFeeRateLoading ||
+    isSatsFeeEstimateLoading;
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
