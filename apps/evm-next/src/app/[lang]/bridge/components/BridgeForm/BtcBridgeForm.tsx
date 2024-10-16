@@ -12,6 +12,7 @@ import {
   useFeeRate as useSatsFeeRate,
   useUtxos as useSatsUtxos
 } from '@gobob/sats-wagmi';
+import * as Sentry from '@sentry/nextjs';
 import { BITCOIN } from '@gobob/tokens';
 import {
   Alert,
@@ -291,7 +292,7 @@ const BtcBridgeForm = ({
       handleError(error);
       onFailGateway();
 
-      throw error;
+      Sentry.captureException(error);
     }
   });
 
