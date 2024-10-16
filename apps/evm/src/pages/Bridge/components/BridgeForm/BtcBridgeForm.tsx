@@ -1,5 +1,7 @@
+import { GatewayQuote } from '@gobob/bob-sdk';
 import { AuthButton } from '@gobob/connect-ui';
 import { CurrencyAmount } from '@gobob/currency';
+import { FuelStation } from '@gobob/icons';
 import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
 import {
   BtcAddressType,
@@ -21,24 +23,24 @@ import {
   P,
   Select,
   Switch,
+  toast,
   TokenInput,
   Tooltip,
-  toast,
   useForm
 } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
+import * as Sentry from '@sentry/react';
 import { useDebounce } from '@uidotdev/usehooks';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Address } from 'viem';
-import { FuelStation } from '@gobob/icons';
-import { GatewayQuote } from '@gobob/bob-sdk';
 import { useSearchParams } from 'react-router-dom';
+import { Address } from 'viem';
 
 import { TransactionDetails } from '../../../../components';
 import { isProd, L2_CHAIN } from '../../../../constants';
-import { TokenData } from '../../../../hooks';
+import { TokenData, useGetTransactions } from '../../../../hooks';
+import { gatewaySDK } from '../../../../lib/bob-sdk';
 import {
   BRIDGE_AMOUNT,
   BRIDGE_BTC_WALLET,
@@ -49,10 +51,8 @@ import {
   bridgeSchema
 } from '../../../../lib/form/bridge';
 import { isFormDisabled } from '../../../../lib/form/utils';
-import { useGetTransactions } from '../../../../hooks';
-import { GatewayData } from '../../../../types';
 import { bridgeKeys } from '../../../../lib/react-query';
-import { gatewaySDK } from '../../../../lib/bob-sdk';
+import { GatewayData } from '../../../../types';
 import { Type } from '../../Bridge';
 
 type BtcBridgeFormProps = {
@@ -286,6 +286,8 @@ const BtcBridgeForm = ({
     onError: (error) => {
       handleError(error);
       onFailGateway();
+
+      Sentry.captureException(error);
     }
   });
 
@@ -301,7 +303,7 @@ const BtcBridgeForm = ({
   };
 
   const { balanceAmount } = useMemo(() => {
-    if (!satsFeeEstimate || !availableLiquidity) {
+    if (!satsFeeEstimate || !availableLiquidity || isSatsFeeEstimateError) {
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
 
@@ -324,7 +326,7 @@ const BtcBridgeForm = ({
     return {
       balanceAmount: availableBalance
     };
-  }, [satsBalance, availableLiquidity, satsFeeEstimate]);
+  }, [satsBalance, availableLiquidity, satsFeeEstimate, isSatsFeeEstimateError]);
 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
