@@ -129,10 +129,9 @@ const BtcBridgeForm = ({
     [amount]
   );
 
-  // TODO: could be a single hook
   const hasBalance = satsBalance && satsBalance.value > 0n;
 
-  const { data: utxos } = useSatsUtxos({ query: { enabled: hasBalance } });
+  const { data: utxos } = useSatsUtxos({ query: { enabled: hasBalance }, confirmed: true });
 
   const hasUtxos = utxos && utxos?.length > 0;
 
@@ -144,13 +143,11 @@ const BtcBridgeForm = ({
     isError: isSatsFeeEstimateError
   } = useSatsFeeEstimate({
     opReturnData: evmAddress,
+    amount: satsBalance ? Number(satsBalance.value) : undefined,
     query: {
-      enabled: hasUtxos && hasBalance,
-      amount: currencyAmount && Number(currencyAmount?.numerator)
+      enabled: hasUtxos && hasBalance
     }
   });
-
-  console.log(satsFeeRate, satsFeeEstimate);
 
   if (isSatsFeeEstimateError && showToast.current) {
     showToast.current = false;
@@ -263,19 +260,14 @@ const BtcBridgeForm = ({
 
       onStartGateway(data);
 
-      console.log(satsFeeRate, satsFeeEstimate);
-
-      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(
-        { ...gatewayQuote, txProofDifficultyFactor: 6 },
-        {
-          ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-          toUserAddress: evmAddress,
-          fromUserAddress: connector.paymentAddress!,
-          fromUserPublicKey: connector.publicKey,
-          gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-          feeRate: satsFeeRate && Number(satsFeeRate)
-        }
-      );
+      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(gatewayQuote, {
+        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
+        toUserAddress: evmAddress,
+        fromUserAddress: connector.paymentAddress!,
+        fromUserPublicKey: connector.publicKey,
+        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
+        feeRate: satsFeeRate ? Number(satsFeeRate) : undefined
+      });
 
       const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
 
