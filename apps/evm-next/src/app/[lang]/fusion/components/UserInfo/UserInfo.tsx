@@ -240,9 +240,6 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </>
             )}
           </Flex>
-          {currentTvl}
-          <br />
-          {currentLevelTvlGoal}
           <Barometer maxValue={currentLevelTvlGoal} showGoal={!!tvlLevel?.tvlGoal} value={currentTvl} />
         </StyledMeterCard>
       </StyledDl>
