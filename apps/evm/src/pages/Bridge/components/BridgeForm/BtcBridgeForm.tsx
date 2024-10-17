@@ -8,8 +8,7 @@ import {
   useAccount as useSatsAccount,
   useBalance as useSatsBalance,
   useFeeEstimate as useSatsFeeEstimate,
-  useFeeRate as useSatsFeeRate,
-  useUtxos as useSatsUtxos
+  useFeeRate as useSatsFeeRate
 } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import {
@@ -94,7 +93,6 @@ const BtcBridgeForm = ({
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
   const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
-  const { data: satsBalance } = useSatsBalance();
 
   const showToast = useRef(true);
 
@@ -129,11 +127,9 @@ const BtcBridgeForm = ({
     [amount]
   );
 
-  const hasBalance = satsBalance && satsBalance.value > 0n;
+  const { data: satsBalance } = useSatsBalance();
 
-  const { data: utxos } = useSatsUtxos({ query: { enabled: hasBalance }, confirmed: true });
-
-  const hasUtxos = utxos && utxos?.length > 0;
+  const hasBalance = satsBalance && satsBalance.confirmed > 0n;
 
   const { data: satsFeeRate, isLoading: isSatsFeeRateLoading } = useSatsFeeRate();
 
@@ -144,7 +140,7 @@ const BtcBridgeForm = ({
   } = useSatsFeeEstimate({
     opReturnData: evmAddress,
     query: {
-      enabled: hasUtxos && hasBalance
+      enabled: hasBalance && !!evmAddress
     }
   });
 
@@ -307,7 +303,7 @@ const BtcBridgeForm = ({
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
 
-    const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.value || 0);
+    const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.confirmed || 0);
 
     const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, satsFeeEstimate);
 
