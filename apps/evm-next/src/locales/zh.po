@@ -82,8 +82,8 @@ msgid "Already harvesting?"
 msgstr "已经在收获？"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:529
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:360
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:342
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:391
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:338
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:234
 msgid "Amount"
 msgstr ""
@@ -163,11 +163,11 @@ msgstr ""
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:402
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:433
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:388
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:376
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 msgstr ""
 
@@ -193,6 +193,7 @@ msgid "Bridge"
 msgstr "桥"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:515
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:487
 msgid "Bridge Asset"
 msgstr ""
 
@@ -217,12 +218,16 @@ msgstr ""
 msgid "Bridge to BOB"
 msgstr "跨链到BOB"
 
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:33
+msgid "Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers” button."
+msgstr ""
+
 #: src/app/[lang]/bridge/components/BridgeForm/BridgeAlert.tsx:15
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <0>公告</0>。"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:433
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:422
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:464
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:410
 msgid "BTC bridge is currently unavailable. This may be due to: {0}. Please try again later."
 msgstr ""
 
@@ -239,7 +244,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:431
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:419
 msgid "Cannot stake into {0} due to insufficient liquidity."
 msgstr ""
 
@@ -427,8 +432,8 @@ msgid "Enter Address"
 msgstr ""
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:540
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:416
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:405
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:447
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:393
 msgid "Enter destination address"
 msgstr ""
 
@@ -440,7 +445,7 @@ msgstr ""
 msgid "Enter your access code (optional):"
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:453
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:484
 msgid "Estimated Fee"
 msgstr ""
 
@@ -453,7 +458,7 @@ msgstr ""
 msgid "Failed to finalize."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:158
 msgid "Failed to get estimated fee"
 msgstr ""
 
@@ -532,8 +537,8 @@ msgstr ""
 msgid "Geoblock"
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:407
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:396
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:438
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:384
 msgid "Get ETH for transaction fees on BOB"
 msgstr ""
 
@@ -857,7 +862,7 @@ msgstr "点此了解更多"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:369
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:400
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:92
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:31
 msgid "Receive"
@@ -872,8 +877,8 @@ msgid "Receive {ticker}"
 msgstr "接收 {ticker}"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:539
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:415
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:404
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:446
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:392
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
 msgid "Recipient"
 msgstr ""
@@ -961,7 +966,7 @@ msgstr ""
 msgid "select network to bridge to"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:352
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:348
 msgid "Select Strategy"
 msgstr ""
 
@@ -1084,7 +1089,7 @@ msgstr "Spice积分（较高）"
 msgid "Spice rewards (Medium)"
 msgstr "Spice积分（中等）"
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:436
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:424
 #: src/app/[lang]/stake/page.tsx:14
 #: src/app/[lang]/stake/Stake.tsx:66
 #: src/components/Layout/Header.tsx:80
@@ -1092,7 +1097,7 @@ msgstr "Spice积分（中等）"
 msgid "Stake"
 msgstr "質押"
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:351
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:347
 msgid "Stake with"
 msgstr ""
 
@@ -1115,8 +1120,8 @@ msgid "Step One"
 msgstr "第一步"
 
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:33
-msgid "Step One Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers” button."
-msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资产比其他资产赚取更多Spice。你可以通过点击\"查看倍数\"按钮来查看。"
+#~ msgid "Step One Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers” button."
+#~ msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资产比其他资产赚取更多Spice。你可以通过点击\"查看倍数\"按钮来查看。"
 
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:43
 msgid "Step Two"
@@ -1220,7 +1225,7 @@ msgstr "在Intract和Galxe上完成的任务"
 msgid "There are no apps to be displayed"
 msgstr "暂无可显示的应用"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:442
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:473
 msgid "There is currently no available liquidity to onramp BTC into {0}."
 msgstr ""
 
@@ -1244,11 +1249,11 @@ msgstr ""
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:400
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:431
 msgid "Top up Gas"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:382
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:370
 msgid "Top-up Gas"
 msgstr ""
 
@@ -1292,8 +1297,8 @@ msgstr "总锁仓价值（TVL）"
 msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
 msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力开发这项功能，请持续关注我们的更新。"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:423
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:412
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:454
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:400
 msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 msgstr ""
 
@@ -1499,8 +1504,8 @@ msgstr ""
 msgid "Your assets will be delivered shortly, with an estimated arrival time of aprox."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:356
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:337
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:387
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:333
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr ""
 
