@@ -21,7 +21,8 @@ import {
   SatsConnector
 } from '@gobob/sats-wagmi';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
 import { ConnectType, WalletType } from '../../types';
 
@@ -47,6 +48,7 @@ type ConnectModalProps = Props & InheritAttrs;
 
 const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
   ({ onClose, isOpen, step: stepProp, type = 'both', onConnectEvm, onConnectBtc, ...props }, ref) => {
+    const { i18n } = useLingui();
     const { connector, address } = useAccount();
     const { disconnect } = useDisconnect();
     const { connectors, connectAsync } = useConnect();
@@ -191,7 +193,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         <Flex alignItems='center' gap='xs'>
           <Button
             isIconOnly
-            aria-label='go back'
+            aria-label={t(i18n)`go back`}
             size='s'
             style={{ height: '1.875rem', width: '1.875rem' }}
             variant='ghost'
@@ -205,7 +207,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         <Flex alignItems='center' gap='xs'>
           <Button
             isIconOnly
-            aria-label='go back'
+            aria-label={t(i18n)`go back`}
             size='s'
             style={{ height: '1.875rem', width: '1.875rem' }}
             variant='ghost'

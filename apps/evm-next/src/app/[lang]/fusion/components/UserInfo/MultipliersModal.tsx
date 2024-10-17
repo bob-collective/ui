@@ -59,8 +59,8 @@ type TableRow = {
 };
 
 const columns = [
-  { id: TableColumns.ASSET, minWidth: 140, name: 'Asset' },
-  { id: TableColumns.HOLDING, name: 'Holding' },
+  { id: TableColumns.ASSET, minWidth: 140, name: <Trans>Asset</Trans> },
+  { id: TableColumns.HOLDING, name: <Trans>Holding</Trans> },
   {
     id: TableColumns.LENDING,
     name: (

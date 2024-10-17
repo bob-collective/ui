@@ -22,7 +22,8 @@ import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address, erc20Abi } from 'viem';
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
 import { AuthButton } from '@/connect-ui';
 import { TransactionDetails } from '@/components';
@@ -61,6 +62,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
 
   const isBtc = token === 'btc';
 
+  const { i18n } = useLingui();
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [gasTicker, setGasTicker] = useState(nativeToken.symbol);
@@ -145,10 +147,18 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
     mutationFn: async () => connector?.sendToAddress(recipient, Number(currencyAmount.numerator)),
     onSuccess: () => {
       handleClose();
-      toast.success(`Successfully sent ${amount} ${currency.symbol}`);
+      toast.success(
+        <Trans>
+          Successfully sent {amount} {currency.symbol}
+        </Trans>
+      );
     },
     onError: () => {
-      toast.error(`Failed to send ${amount} ${currency.symbol}`);
+      toast.error(
+        <Trans>
+          Failed to send {amount} {currency.symbol}
+        </Trans>
+      );
     }
   });
 
@@ -206,12 +216,14 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
 
   return (
     <Modal elementType='form' onClose={handleClose} {...mergeProps(props, { onSubmit: form.handleSubmit })} size='lg'>
-      <ModalHeader align='start'>Send {currency.symbol}</ModalHeader>
+      <ModalHeader align='start'>
+        <Trans>Send {currency.symbol}</Trans>
+      </ModalHeader>
       <ModalBody gap='2xl'>
         <Flex direction='column' gap='md'>
           <Input
-            label='Recipient'
-            placeholder='Enter Address'
+            label={t(i18n)`Recipient`}
+            placeholder={t(i18n)`Enter Address`}
             {...mergeProps(form.getFieldProps(SEND_TOKEN_RECIPIENT), {
               onValueChange: (value: string) => setRecipient(value)
             })}
@@ -219,7 +231,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
           <TokenInput
             balance={balance}
             currency={currency}
-            label='Amount'
+            label={t(i18n)`Amount`}
             logoUrl={tokenData.logoUrl}
             valueUSD={valueUSD}
             {...mergeProps(form.getTokenFieldProps(SEND_TOKEN_AMOUNT), {
@@ -231,7 +243,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
           <TransactionDetails
             amount={currencyAmount}
             chainId={L2_CHAIN}
-            duration='< 1 minute'
+            duration={t(i18n)`< 1 minute`}
             selectProps={form.getSelectFieldProps(SEND_TOKEN_GAS_TOKEN)}
             onChangeGasTicker={(ticker) => setGasTicker(ticker)}
             // gasEstimate={gasEstimateMutation.data}

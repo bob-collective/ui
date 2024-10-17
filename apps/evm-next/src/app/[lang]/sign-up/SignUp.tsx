@@ -5,7 +5,7 @@ import { useMutation } from '@gobob/react-query';
 import { Button, Divider, Flex, P, toast } from '@gobob/ui';
 import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Trans, t } from '@lingui/macro';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { FormEventHandler, Suspense, useEffect, useState } from 'react';
 import { useLingui } from '@lingui/react';
 
@@ -26,6 +26,7 @@ const SignUp = (): JSX.Element | null => {
   const { i18n } = useLingui();
 
   const router = useRouter();
+  const params = useParams();
   const { data: user } = useGetUser({ retry: 5, retryDelay: 1000 });
 
   const [referalCode, setReferalCode] = useState('');
@@ -44,9 +45,9 @@ const SignUp = (): JSX.Element | null => {
 
   useEffect(() => {
     if (user && address) {
-      router.push(RoutesPath.FUSION);
+      router.push(`/${params.lang}${RoutesPath.FUSION}`);
     }
-  }, [user, address, router]);
+  }, [user, address, router, params.lang]);
 
   const handleChange = (code: string) => {
     reset();

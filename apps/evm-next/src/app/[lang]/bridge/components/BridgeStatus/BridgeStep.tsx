@@ -1,4 +1,6 @@
 import { Address } from 'viem';
+import { useLingui } from '@lingui/react';
+import { t } from '@lingui/macro';
 
 import { Pill } from './Pill';
 
@@ -189,10 +191,11 @@ type BridgeStepProps = {
 };
 
 const BridgeStep = ({ data, isActing, isActionSuccessful, step }: BridgeStepProps): JSX.Element => {
+  const { i18n } = useLingui();
   const { status: messageStatus, l1Receipt, l2Receipt, direction } = data;
 
   if (step === undefined) {
-    return <Pill label='Unknown' status='idle' />;
+    return <Pill label={t(i18n)`Unknown`} status='idle' />;
   }
 
   const href = getStepUrl(step, l1Receipt?.transactionHash, l2Receipt?.transactionHash);

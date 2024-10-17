@@ -29,6 +29,7 @@ const StyledLogoWrapper = styled(Flex)`
 
 const StyledDrawer = styled(Drawer)`
   height: 100%;
+  overflow-y: scroll;
 `;
 
 const StyledMain = styled.main<StyledMainProps>`

@@ -16,76 +16,86 @@ type TransactionListProps = CardProps & {
 };
 
 const strategyDetails = [
-  { key: 'name', name: 'Name' },
-  { key: 'category', name: 'Category' },
-  { key: 'website', name: 'Website' },
-  { key: 'incentives', name: 'Incentives' },
-  { key: 'token', name: 'Staking Token' },
-  { key: 'about', name: 'About' }
+  { key: 'name', name: <Trans>Name</Trans> },
+  { key: 'category', name: <Trans>Category</Trans> },
+  { key: 'website', name: <Trans>Website</Trans> },
+  { key: 'incentives', name: <Trans>Incentives</Trans> },
+  { key: 'token', name: <Trans>Staking Token</Trans> },
+  { key: 'about', name: <Trans>About</Trans> }
 ] as const;
 
 const stakingInfo = {
   'bedrock-unibtc': {
-    category: 'Liquid Staking',
+    category: <Trans>Liquid Staking</Trans>,
     website: 'https://app.bedrock.technology/unibtc',
-    incentives: 'Spice + Bedrock Diamonds + Babylon Points',
-    about:
-      'uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and Bedrock diamonds.'
+    incentives: <Trans>Spice + Bedrock Diamonds + Babylon Points</Trans>,
+    about: (
+      <Trans>
+        uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and
+        Bedrock diamonds.
+      </Trans>
+    )
   },
   'pell-solvbtcbbn': {
-    category: 'Restaking',
+    category: <Trans>Restaking</Trans>,
     website: 'https://app.pell.network/restake',
-    incentives: 'Spice + Pell Points + Solv XP + Babylon Points',
-    about: 'Restake SolvBTC.BBN into Pell to secure actively validated services via proof of stake mechanism.'
+    incentives: <Trans>Spice + Pell Points + Solv XP + Babylon Points</Trans>,
+    about: (
+      <Trans>Restake SolvBTC.BBN into Pell to secure actively validated services via proof of stake mechanism.</Trans>
+    )
   },
   'pell-unibtc': {
-    category: 'Restaking',
+    category: <Trans>Restaking</Trans>,
     website: 'https://app.pell.network/restake',
-    incentives: 'Spice + Pell Points + Bedrock Diamond + Babylon Points',
-    about: 'Restake uniBTC into Pell to secure actively validated services via proof of stake mechanism.'
+    incentives: <Trans>Spice + Pell Points + Bedrock Diamond + Babylon Points</Trans>,
+    about: <Trans>Restake uniBTC into Pell to secure actively validated services via proof of stake mechanism.</Trans>
   },
   'segment-tbtc': {
-    category: 'Lending',
+    category: <Trans>Lending</Trans>,
     website: 'https://app.segment.finance/#/',
-    incentives: 'Spice + Segment Points + Supply APR',
-    about: 'Supply tBTC into Segment to earn interest.'
+    incentives: <Trans>Spice + Segment Points + Supply APR</Trans>,
+    about: <Trans>Supply tBTC into Segment to earn interest.</Trans>
   },
   'segment-wbtc': {
-    category: 'Lending',
+    category: <Trans>Lending</Trans>,
     website: 'https://app.segment.finance/#/',
-    incentives: 'Spice + Segment Points + Supply APR',
-    about: 'Supply wBTC into Segment to earn interest.'
+    incentives: <Trans>Spice + Segment Points + Supply APR</Trans>,
+    about: <Trans>Supply wBTC into Segment to earn interest.</Trans>
   },
   'segment-sesolvbtcbbn': {
-    category: 'Lending',
+    category: <Trans>Lending</Trans>,
     website: 'https://app.segment.finance/#/',
-    incentives: 'Spice + Segment Points + Supply APR + Solv XP + Babylon Points',
-    about: 'Supply seSOLVBTCBBN into Segment to earn interest.'
+    incentives: <Trans>Spice + Segment Points + Supply APR + Solv XP + Babylon Points</Trans>,
+    about: <Trans>Supply seSOLVBTCBBN into Segment to earn interest.</Trans>
   },
   'segment-seunibtc': {
-    category: 'Lending',
+    category: <Trans>Lending</Trans>,
     website: 'https://app.segment.finance/#/',
-    incentives: 'Spice + Segment Points + Supply APR + Bedrock Diamonds + Babylon Points',
-    about: 'Supply seUNIBTC into Segment to earn interest.'
+    incentives: <Trans>Spice + Segment Points + Supply APR + Bedrock Diamonds + Babylon Points</Trans>,
+    about: <Trans>Supply seUNIBTC into Segment to earn interest.</Trans>
   },
   'shoebill-tbtc': {
-    category: 'Lending',
+    category: <Trans>Lending</Trans>,
     website: 'https://bob-btc.shoebill.finance/#/',
-    incentives: 'Spice + Shoebill Points + Supply APR',
-    about: 'Supply tBTC into Shoebill to earn interest.'
+    incentives: <Trans>Spice + Shoebill Points + Supply APR</Trans>,
+    about: <Trans>Supply tBTC into Shoebill to earn interest.</Trans>
   },
   'shoebill-wbtc': {
-    category: 'Lending',
+    category: <Trans>Lending</Trans>,
     website: 'https://bob-btc.shoebill.finance/#/',
-    incentives: 'Spice + Shoebill Points + Supply APR',
-    about: 'Supply wBTC into Shoebill to earn interest.'
+    incentives: <Trans>Spice + Shoebill Points + Supply APR</Trans>,
+    about: <Trans>Supply wBTC into Shoebill to earn interest.</Trans>
   },
   'solv-solvbtcbbn': {
-    category: 'Liquid Staking',
+    category: <Trans>Liquid Staking</Trans>,
     website: 'https://app.solv.finance/babylon?network=bob',
-    incentives: 'Spice + Solv XP + Babylon Points',
-    about:
-      'SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points.'
+    incentives: <Trans>Spice + Solv XP + Babylon Points</Trans>,
+    about: (
+      <Trans>
+        SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and
+        Solv Points.
+      </Trans>
+    )
   }
 };
 

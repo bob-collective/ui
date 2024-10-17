@@ -1,6 +1,7 @@
 import { CSSProperties } from 'styled-components';
 import { BOBLogo } from '@gobob/icons';
 import { Skeleton, Span, useLocale } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 
 import {
   StyledBarometer,
@@ -63,7 +64,7 @@ const Barometer = ({ value = minValue, maxValue = 100, showGoal }: BarometerProp
             minimumFractionDigits: 2,
             notation: 'compact'
           }).format(value)}{' '}
-          TVL
+          <Trans>TVL</Trans>
         </StyledValue>
       </StyledFillAddornment>
       {percentage < 0.98 && <StyledGift color='grey-50' size='xxs' />}

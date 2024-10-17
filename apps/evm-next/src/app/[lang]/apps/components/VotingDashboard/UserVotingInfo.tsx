@@ -38,7 +38,7 @@ const UserVotingInfo = ({ isAuthenticated, roundEndsAt, votesRemaining }: UserVo
         </Flex>
       )}
       <Divider orientation='vertical' />
-      <Tooltip label='Time left until voting round ends'>
+      <Tooltip label={<Trans>Time left until voting round ends</Trans>}>
         <Flex alignItems='center' gap='s'>
           <SolidClock color='grey-200' size='s' />
           {roundEndsAt ? <P>{formatDistanceToNow(roundEndsAt)}</P> : <Skeleton width='4xl' />}

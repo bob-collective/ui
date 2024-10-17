@@ -45,7 +45,9 @@ const WelcomeBackModal = ({ user, onClose, ...props }: WelcomeBackModalProps): J
             and refer a friend to receive a share of all the Spice they collect.
           </Trans>
         </P>
-        <H4 size='2xl'>Your performance in seasons 1 & 2</H4>
+        <H4 size='2xl'>
+          <Trans>Your performance in seasons 1 & 2</Trans>
+        </H4>
         <Dl direction={{ base: 'column', s: 'row' }} gap='lg'>
           <Card background='grey-500' flex={1} gap='s' rounded='lg' style={{ opacity: 0.9 }}>
             <Dt color='grey-50'>
@@ -62,7 +64,7 @@ const WelcomeBackModal = ({ user, onClose, ...props }: WelcomeBackModalProps): J
             <P size='2xl'>#{user.leaderboardRank?.rank || '-'}</P>
           </Card>
         </Dl>
-        <Alert status='info' title='The leaderboard resets for the new season' variant='outlined'>
+        <Alert status='info' title={<Trans>The leaderboard resets for the new season</Trans>} variant='outlined'>
           <Trans>
             Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest.
           </Trans>

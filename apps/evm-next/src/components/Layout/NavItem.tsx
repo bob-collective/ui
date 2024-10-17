@@ -4,8 +4,7 @@ import { Flex, Span, TextProps } from '@gobob/ui';
 import { ReactNode, useRef } from 'react';
 import { LinkProps } from 'next/link';
 import { ArrowTopRightOnSquare } from '@gobob/ui';
-import { usePathname } from 'next/navigation';
-import { useLingui } from '@lingui/react';
+import { useParams, usePathname } from 'next/navigation';
 
 import { StyledAnchor, StyledNativeNavLink, StyledNavLink } from './Layout.style';
 
@@ -25,7 +24,7 @@ const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): 
   const ref = useRef(null);
   const { setSidebarOpen } = useLayoutContext();
   const pathname = usePathname();
-  const { i18n } = useLingui();
+  const params = useParams();
 
   const handlePress = () => setSidebarOpen(false);
 
@@ -53,7 +52,7 @@ const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): 
     );
   }
 
-  const localizedHref = `/${i18n.locale}${href}`;
+  const localizedHref = `/${params.lang}${href}`;
 
   return (
     <li>

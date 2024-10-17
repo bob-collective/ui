@@ -3,11 +3,12 @@
 import { usePrices } from '@gobob/react-query';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P } from '@gobob/ui';
 import { useAccount, useChainId, useConfig, useReconnect, watchAccount } from '@gobob/wagmi';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Trans } from '@lingui/macro';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 
-import { ConnectProvider } from '@/connect-ui';
 import { Header, Layout, Sidebar } from '@/components';
+import { ConnectProvider } from '@/connect-ui';
 import { RoutesPath } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
@@ -15,13 +16,13 @@ import { StyledComponentsRegistry } from '@/lib/styled-components';
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  const params = useParams();
 
   const config = useConfig();
 
   // We don't want to disconnect users if they switch account on the wallet or the bridge
-  const shouldDisconnect = pathname === RoutesPath.HOME || pathname === RoutesPath.FUSION;
+  const shouldDisconnect =
+    pathname === `/${params.lang}${RoutesPath.HOME}` || pathname === `/${params.lang}${RoutesPath.FUSION}`;
 
   const { data: user, refetch: refetchUser } = useGetUser();
 
@@ -33,15 +34,6 @@ const AuthCheck = () => {
     }
   });
   const watchAccountRef = useRef<() => void>();
-
-  useEffect(() => {
-    const refCode = searchParams?.get('refCode');
-
-    if ((pathname === RoutesPath.HOME || pathname === RoutesPath.FUSION) && refCode) {
-      router.push(`${RoutesPath.SIGN_UP}?refCode=${refCode}`);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     watchAccountRef.current = watchAccount(config, {
@@ -71,19 +63,23 @@ const AuthCheck = () => {
 
   return (
     <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
-      <ModalHeader>Disconnected</ModalHeader>
+      <ModalHeader>
+        <Trans>Disconnected</Trans>
+      </ModalHeader>
       <ModalBody gap='2xl'>
         <P align='center' color='primary-500' size='lg' weight='bold'>
-          Your funds are safe!
+          <Trans>Your funds are safe!</Trans>
         </P>
         <P size='s'>
-          You have switched your account mid session. Simply switch back the original account and login to have access
-          to your funds again.
+          <Trans>
+            You have switched your account mid session. Simply switch back the original account and login to have access
+            to your funds again.
+          </Trans>
         </P>
       </ModalBody>
       <ModalFooter>
         <Button color='primary' onPress={() => setOpen(false)}>
-          Got it!
+          <Trans>Got it!</Trans>
         </Button>
       </ModalFooter>
     </Modal>

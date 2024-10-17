@@ -36,7 +36,8 @@ import { useSearchParams } from 'next/navigation';
 import { Address } from 'viem';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 import { useRouter } from 'next/navigation';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
 import { Type } from '../../Stake';
 
@@ -93,6 +94,7 @@ const BtcStakeForm = ({
   onFailGateway
 }: BtcBridgeFormProps): JSX.Element => {
   const queryClient = useQueryClient();
+  const { i18n } = useLingui();
 
   const { address: evmAddress } = useAccount();
   const searchParams = useSearchParams();
@@ -332,10 +334,12 @@ const BtcStakeForm = ({
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
         balance={balanceAmount.toExact()}
-        balanceHelper='Your available balance may differ from your wallet balance due to network fees and available liquidity'
+        balanceHelper={t(
+          i18n
+        )`Your available balance may differ from your wallet balance due to network fees and available liquidity`}
         currency={BITCOIN}
         humanBalance={humanBalanceAmount?.toExact()}
-        label='Amount'
+        label={t(i18n)`Amount`}
         logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
         valueUSD={valueUSD}
         {...mergeProps(form.getTokenFieldProps(STAKE_AMOUNT), {
@@ -344,8 +348,8 @@ const BtcStakeForm = ({
       />
       <Select<StrategyData>
         items={strategies}
-        label='Stake with'
-        modalProps={{ title: 'Select Strategy', size: 'xs' }}
+        label={t(i18n)`Stake with`}
+        modalProps={{ title: <Trans>Select Strategy</Trans>, size: 'xs' }}
         size='lg'
         type='modal'
         {...mergeProps(form.getSelectFieldProps(STAKE_STRATEGY), {
@@ -379,7 +383,11 @@ const BtcStakeForm = ({
               </P>
               <Tooltip
                 color='primary'
-                label={<P size='xs'>BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB.</P>}
+                label={
+                  <P size='xs'>
+                    <Trans>BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB.</Trans>
+                  </P>
+                }
               >
                 <InformationCircle color='grey-50' size='xs' />
               </Tooltip>
@@ -392,7 +400,11 @@ const BtcStakeForm = ({
         <Switch isSelected={isGasNeeded} size='lg' onChange={(e) => setGasNeeded(e.target.checked)} />
       </Card>
       {isSmartAccount && (
-        <Input label='Recipient' placeholder='Enter destination address' {...form.getFieldProps(STAKE_RECIPIENT)} />
+        <Input
+          label={<Trans>Recipient</Trans>}
+          placeholder={t(i18n)`Enter destination address`}
+          {...form.getFieldProps(STAKE_RECIPIENT)}
+        />
       )}
       {isTapRootAddress && (
         <Alert status='warning'>

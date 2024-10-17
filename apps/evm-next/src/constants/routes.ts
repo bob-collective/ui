@@ -7,7 +7,8 @@ const RoutesPath = {
   STAKE: '/stake',
   WALLET: '/wallet',
   LEADERBOARD: '/leaderboard',
-  GEOBLOCK: '/geoblock'
+  GEOBLOCK: '/geoblock',
+  NOT_FOUND: '/404'
 };
 
 export { RoutesPath };

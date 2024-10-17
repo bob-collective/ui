@@ -3,14 +3,15 @@
 import React from 'react';
 import { Button, Flex, H1, P } from '@gobob/ui';
 import { Link } from '@gobob/ui';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Trans } from '@lingui/macro';
 
 import { Main } from '@/components';
 import { RoutesPath } from '@/constants';
 
-export default function NotFound(): JSX.Element {
+export function NotFound(): JSX.Element {
   const router = useRouter();
+  const params = useParams();
 
   return (
     <Main>
@@ -30,7 +31,7 @@ export default function NotFound(): JSX.Element {
             </Link>
           </Button>
           <Button asChild color='primary'>
-            <Link href={RoutesPath.HOME}>
+            <Link href={`/${params.lang}${RoutesPath.HOME}`}>
               <Trans>Take em home</Trans>
             </Link>
           </Button>

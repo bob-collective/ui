@@ -3,6 +3,7 @@ import { BOBLogo } from '@gobob/icons';
 import { LinkProps } from 'next/link';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useParams } from 'next/navigation';
 
 import { StyledBadge, StyledLogo } from './Logo.style';
 
@@ -19,6 +20,7 @@ type LogoProps = Props & InheritAttrs;
 
 const Logo = ({ isTestnet, isFusion, href = '/', onPress, hidden, ...props }: LogoProps) => {
   const { i18n } = useLingui();
+  const params = useParams();
 
   return (
     <Flex alignItems='center' gap='s' hidden={hidden}>
@@ -26,7 +28,7 @@ const Logo = ({ isTestnet, isFusion, href = '/', onPress, hidden, ...props }: Lo
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {...(props as any)}
         aria-label={t(i18n)`navigate to home page`}
-        href={href}
+        href={`/${params.lang}${href}`}
         onClick={onPress}
         onKeyDown={onPress}
       >
