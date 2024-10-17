@@ -21,7 +21,7 @@ enum Type {
 const INITIAL_SELECTED_STRATEGY_SLUG = 'solv-solvbtcbbn';
 
 type Props = PageLangParam & {
-  searchParams?: { type: Type; stakeWith: string };
+  searchParams?: { type: Type; 'stake-with': string };
 };
 
 function Stake({ searchParams }: Props) {
@@ -31,13 +31,14 @@ function Stake({ searchParams }: Props) {
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const selectedStrategy =
-    urlSearchParams.get('stakeWith') ?? (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug);
+    urlSearchParams.get('stake-with') ??
+    (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug);
   const type = (urlSearchParams.get('type') as Type) || Type.Stake;
 
   useEffect(() => {
-    if (!urlSearchParams.get('type') || !urlSearchParams.get('stakeWith')) {
+    if (!urlSearchParams.get('type') || !urlSearchParams.get('stake-with')) {
       urlSearchParams.set('type', type);
-      if (selectedStrategy) urlSearchParams.set('stakeWith', selectedStrategy);
+      if (selectedStrategy) urlSearchParams.set('stake-with', selectedStrategy);
 
       router.replace('?' + urlSearchParams);
     }
@@ -76,7 +77,7 @@ function Stake({ searchParams }: Props) {
             strategy={strategy}
             type={type}
             onStrategyChange={(strategySlug) => {
-              urlSearchParams.set('stakeWith', strategySlug);
+              urlSearchParams.set('stake-with', strategySlug);
 
               router.replace('?' + urlSearchParams);
             }}
