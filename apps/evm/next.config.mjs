@@ -37,4 +37,6 @@ const nextConfig = {
   }
 };
 
-export default withSentryConfig(nextConfig);
+export default withSentryConfig(nextConfig, {
+  hideSourceMaps: true
+});
