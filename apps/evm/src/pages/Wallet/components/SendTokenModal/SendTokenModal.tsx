@@ -86,7 +86,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
   );
 
   const tokenBalance = useMemo(
-    () => (isBtc ? CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.value || 0n) : getBalance(currency.symbol)),
+    () => (isBtc ? CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.confirmed || 0n) : getBalance(currency.symbol)),
     [isBtc, satsBalance, getBalance, currency.symbol]
   );
 
