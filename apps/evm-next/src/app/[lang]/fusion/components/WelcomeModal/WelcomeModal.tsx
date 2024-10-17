@@ -31,7 +31,7 @@ const WelcomeModal = ({ onClose, ...props }: WelcomeModalProps): JSX.Element => 
             </Card>
             <Span color='grey-50'>
               <Trans>
-                Step One Bridge your assets to BOB to start harvesting Spice.
+                Bridge your assets to BOB to start harvesting Spice.
                 <br />
                 TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers”
                 button.
