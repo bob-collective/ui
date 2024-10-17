@@ -165,7 +165,7 @@ const getBridgeBtcLstToBob = (i18n: I18n): StrategyCardProps => ({
           <Link
             external
             color='inherit'
-            href={`${RoutesPath.STAKE}?type=stake&stakeWith=solv-solvbtcbbn`}
+            href={`${RoutesPath.STAKE}?type=stake&stake-with=solv-solvbtcbbn`}
             size='inherit'
             underlined='always'
           >

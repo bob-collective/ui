@@ -32,10 +32,8 @@ import { mergeProps } from '@react-aria/utils';
 import { useDebounceValue } from 'usehooks-ts';
 import Big from 'big.js';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { Address } from 'viem';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
-import { useRouter } from 'next/navigation';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 
@@ -97,8 +95,6 @@ const BtcStakeForm = ({
   const { i18n } = useLingui();
 
   const { address: evmAddress } = useAccount();
-  const searchParams = useSearchParams();
-  const router = useRouter();
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
@@ -353,15 +349,7 @@ const BtcStakeForm = ({
         size='lg'
         type='modal'
         {...mergeProps(form.getSelectFieldProps(STAKE_STRATEGY), {
-          onSelectionChange: (value: string) => {
-            onStrategyChange(value);
-            if (searchParams) {
-              const urlSearchParams = new URLSearchParams(searchParams);
-
-              urlSearchParams.set('receive', value);
-              router.replace('?' + urlSearchParams);
-            }
-          }
+          onSelectionChange: (value: string) => onStrategyChange(value)
         })}
       >
         {(data) => (
