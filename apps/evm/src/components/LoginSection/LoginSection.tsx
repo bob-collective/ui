@@ -1,27 +1,19 @@
 import { Flex, FlexProps, P } from '@gobob/ui';
-import { useTranslation } from 'react-i18next';
+import { Trans } from '@lingui/macro';
 
 import { LoginButton } from '../LoginButton';
 
-type Props = {};
+type LoginSectionProps = FlexProps;
 
-type InheritAttrs = Omit<FlexProps, keyof Props>;
-
-type LoginSectionProps = Props & InheritAttrs;
-
-const LoginSection = ({ direction = { base: 'column', md: 'row' }, ...props }: LoginSectionProps): JSX.Element => {
-  const { t } = useTranslation();
-
-  return (
-    <Flex alignItems='center' direction={direction} gap='xs' justifyContent='center' {...props}>
-      <P size='s' weight='bold'>
-        {t('fusion.userInfo.login.alreadyHarvesting')}
-      </P>
-      <LoginButton color='primary' size='s' variant='ghost'>
-        {t('fusion.userInfo.login.alreadyHarvestingCta')}
-      </LoginButton>
-    </Flex>
-  );
-};
+const LoginSection = ({ direction = { base: 'column', md: 'row' }, ...props }: LoginSectionProps): JSX.Element => (
+  <Flex alignItems='center' direction={direction} gap='xs' justifyContent='center' {...props}>
+    <P size='s' weight='bold'>
+      <Trans>Already harvesting?</Trans>
+    </P>
+    <LoginButton color='primary' size='s' variant='ghost'>
+      <Trans>Login with wallet</Trans>
+    </LoginButton>
+  </Flex>
+);
 
 export { LoginSection };

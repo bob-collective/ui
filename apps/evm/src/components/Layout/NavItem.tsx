@@ -1,7 +1,10 @@
+'use client';
+
 import { Flex, Span, TextProps } from '@gobob/ui';
 import { ReactNode, useRef } from 'react';
-import { NavLinkProps } from 'react-router-dom';
+import { LinkProps } from 'next/link';
 import { ArrowTopRightOnSquare } from '@gobob/ui';
+import { useParams, usePathname } from 'next/navigation';
 
 import { StyledAnchor, StyledNativeNavLink, StyledNavLink } from './Layout.style';
 
@@ -13,13 +16,15 @@ type Props = {
   isExternal?: boolean;
 };
 
-type InheritAttrs = Omit<NavLinkProps, keyof Props>;
+type InheritAttrs = Omit<LinkProps, keyof Props>;
 
 type NavItemProps = Props & InheritAttrs;
 
-const NavItem = ({ children, size, isExternal, to, ...props }: NavItemProps): JSX.Element => {
+const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): JSX.Element => {
   const ref = useRef(null);
   const { setSidebarOpen } = useLayoutContext();
+  const pathname = usePathname();
+  const params = useParams();
 
   const handlePress = () => setSidebarOpen(false);
 
@@ -29,9 +34,10 @@ const NavItem = ({ children, size, isExternal, to, ...props }: NavItemProps): JS
         <StyledNavLink color='light' size={size} weight='medium'>
           <Flex alignItems='center' direction='row' elementType='span' gap='s'>
             <StyledAnchor
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               {...(props as any)}
               ref={ref}
-              href={to}
+              href={href}
               rel='noreferrer'
               target='_blank'
               onClick={handlePress}
@@ -46,14 +52,19 @@ const NavItem = ({ children, size, isExternal, to, ...props }: NavItemProps): JS
     );
   }
 
+  const localizedHref = `/${params.lang}${href}`;
+
   return (
     <li>
-      <StyledNativeNavLink {...props} ref={ref} to={to} onClick={handlePress} onKeyDown={handlePress}>
-        {({ isActive }) => (
-          <StyledNavLink as={Span} color={isActive ? 'primary-500' : 'light'} size={size} weight='medium'>
-            {children}
-          </StyledNavLink>
-        )}
+      <StyledNativeNavLink {...props} ref={ref} href={localizedHref} onClick={handlePress} onKeyDown={handlePress}>
+        <StyledNavLink
+          as={Span}
+          color={pathname === localizedHref ? 'primary-500' : 'light'}
+          size={size}
+          weight='medium'
+        >
+          {children}
+        </StyledNavLink>
       </StyledNativeNavLink>
     </li>
   );

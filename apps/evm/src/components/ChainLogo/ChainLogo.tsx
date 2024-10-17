@@ -1,9 +1,13 @@
 import { ChainId } from '@gobob/chains';
 import { ArbitrumOne, BNB, BOBLogo, BTC, Base, Bitlayer, ETH, Merlin, Moonbeam, Optimism, Polygon } from '@gobob/icons';
 import { IconProps } from '@gobob/ui';
+import { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 
 // TODO: temp
-const chainLogo: Record<ChainId, any> = {
+const chainLogo: Record<
+  ChainId,
+  ForwardRefExoticComponent<PropsWithoutRef<IconProps> & RefAttributes<SVGSVGElement>>
+> = {
   [ChainId.BOB]: BOBLogo,
   [ChainId.OLD_BOB_SEPOLIA]: BOBLogo,
   [ChainId.BOB_SEPOLIA]: BOBLogo,

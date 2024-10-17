@@ -1,1 +1,0 @@
-export { Medal } from './Medal';

@@ -79,7 +79,10 @@
     "storybook": "^7.6.19",
     "turbo": "latest",
     "typescript": "5.4.5",
-    "vitest": "^2.1.1"
+    "vitest": "^2.1.1",
+    "vite": "^4.4.5",
+    "vite-plugin-node-polyfills": "^0.15.0",
+    "vite-plugin-wasm": "^3.3.0"
   },
   "pnpm": {
     "overrides": {

@@ -21,10 +21,6 @@
     {
       "source": "/(api|gateway-api|btc-api)/(.*)",
       "destination": "/api"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/"
     }
   ]
 }

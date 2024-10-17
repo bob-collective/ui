@@ -1,4 +1,5 @@
-import { ConnectWallet } from '@gobob/connect-ui';
+'use client';
+
 import {
   Bars3,
   Button,
@@ -11,20 +12,24 @@ import {
   PopoverTrigger,
   useMediaQuery
 } from '@gobob/ui';
+import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useTheme } from 'styled-components';
+import { useLingui } from '@lingui/react';
 
-import { DocsLinks, RoutesPath } from '../../constants';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
-import { useFeatureFlag, FeatureFlags } from '../../hooks';
 
+import { FusionPopover } from './FusionPopover';
 import { StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
-import { FusionPopover } from './FusionPopover';
+
+import { ConnectWallet } from '@/connect-ui';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
+import { DocsLinks, RoutesPath } from '@/constants';
+import { useUserAgent } from '@/user-agent';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 
@@ -33,78 +38,87 @@ type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 type HeaderProps = Props & InheritAttrs;
 
 const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => {
+  const { i18n } = useLingui();
   const { setSidebarOpen } = useLayoutContext();
   const [isOpen, setOpen] = useState(false);
 
-  const { t } = useTranslation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
+  const { isMobile: isMobileUserAgent } = useUserAgent();
   const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
+
+  const isMobile = isMobileViewport || isMobileUserAgent;
 
   return (
     <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>
       <StyledLogoWrapper alignItems='center' gap='md'>
-        {isMobile && (
-          <Button isIconOnly aria-label='open drawer' variant='ghost' onPress={() => setSidebarOpen(true)}>
-            <Bars3 size='lg' />
-          </Button>
-        )}
-        {!isMobile && <Logo isFusion={isFusion} isTestnet={isTestnet} />}
+        <Button
+          isIconOnly
+          aria-label={t(i18n)`open drawer`}
+          hidden={!isMobile}
+          variant='ghost'
+          onPress={() => setSidebarOpen(true)}
+        >
+          <Bars3 size='lg' />
+        </Button>
+        <Logo hidden={isMobile} href={RoutesPath.HOME} isFusion={isFusion} isTestnet={isTestnet} />
       </StyledLogoWrapper>
       <Flex alignItems='center' elementType='header' gap='xl' justifyContent='flex-end'>
-        {!isMobile && (
-          <>
-            <Nav>
-              <NavItem size='s' to={RoutesPath.BRIDGE}>
-                {t('navigation.bridge')}
-              </NavItem>
-              <NavItem size='s' to={RoutesPath.APPS}>
-                Apps
-              </NavItem>
-              {isWalletEnabled && (
-                <NavItem size='s' to={RoutesPath.WALLET}>
-                  {t('navigation.wallet')}
+        <Nav hidden={isMobile}>
+          <NavItem href={RoutesPath.BRIDGE} size='s'>
+            <Trans>Bridge</Trans>
+          </NavItem>
+          <NavItem href={RoutesPath.APPS} size='s'>
+            <Trans>Apps</Trans>
+          </NavItem>
+          {isWalletEnabled && (
+            <NavItem href={RoutesPath.WALLET} size='s'>
+              <Trans>Wallet</Trans>
+            </NavItem>
+          )}
+          <NavItem href={RoutesPath.STAKE} size='s'>
+            <Trans>Stake</Trans>
+          </NavItem>
+          <NavItem href={RoutesPath.FUSION} size='s'>
+            <Trans>Fusion</Trans>
+          </NavItem>
+        </Nav>
+        <Popover crossOffset={-50} isOpen={isOpen} onOpenChange={setOpen}>
+          <PopoverTrigger>
+            <Button
+              isIconOnly
+              aria-label={t(i18n)`Show secondary navigation`}
+              hidden={isMobile}
+              size='s'
+              variant='ghost'
+            >
+              <EllipsisHorizontal color='light' size='s' />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent hidden={isMobile}>
+            <PopoverBody onClick={() => setOpen(false)}>
+              <Nav direction='column'>
+                <NavItem
+                  isExternal
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
+                  size='s'
+                >
+                  <Trans>T&Cs</Trans>
                 </NavItem>
-              )}
-              <NavItem size='s' to={RoutesPath.STAKE}>
-                {t('navigation.stake')}
-              </NavItem>
-              <NavItem size='s' to={RoutesPath.FUSION}>
-                {t('navigation.fusion')}
-              </NavItem>
-            </Nav>
-            <Popover crossOffset={-50} isOpen={isOpen} onOpenChange={setOpen}>
-              <PopoverTrigger>
-                <Button isIconOnly aria-label='Show secondary navigation' size='s' variant='ghost'>
-                  <EllipsisHorizontal color='light' size='s' />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent>
-                <PopoverBody onClick={() => setOpen(false)}>
-                  <Nav direction='column'>
-                    <NavItem
-                      isExternal
-                      size='s'
-                      to='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
-                    >
-                      {t('navigation.t_and_c')}
-                    </NavItem>
-                    <NavItem isExternal size='s' to={DocsLinks.HOME}>
-                      {t('navigation.dev')}
-                    </NavItem>
-                    <NavItem isExternal size='s' to='https://gobob.xyz/'>
-                      {t('navigation.about')}
-                    </NavItem>
-                    <NavItem isExternal size='s' to='https://safe.gobob.xyz/welcome'>
-                      {t('navigation.multisig')}
-                    </NavItem>
-                  </Nav>
-                </PopoverBody>
-              </PopoverContent>
-            </Popover>
-            <SocialsGroup variant='ghost' />
-          </>
-        )}
+                <NavItem isExternal href={DocsLinks.HOME} size='s'>
+                  <Trans>Dev</Trans>
+                </NavItem>
+                <NavItem isExternal href='https://gobob.xyz/' size='s'>
+                  <Trans>About</Trans>
+                </NavItem>
+                <NavItem isExternal href='https://safe.gobob.xyz/welcome' size='s'>
+                  <Trans>Multisig</Trans>
+                </NavItem>
+              </Nav>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+        <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
         <ConnectWallet variant='ghost' />
       </Flex>

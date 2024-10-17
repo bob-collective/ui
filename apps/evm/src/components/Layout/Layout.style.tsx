@@ -1,6 +1,7 @@
 import { MaxWidth, ResponsiveProp, Spacing, Span } from '@gobob/ui';
 import { Drawer, Flex } from '@gobob/ui';
-import { NavLink } from 'react-router-dom';
+import Image from 'next/image';
+import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
 type StyledMainProps = {
@@ -28,6 +29,7 @@ const StyledLogoWrapper = styled(Flex)`
 
 const StyledDrawer = styled(Drawer)`
   height: 100%;
+  overflow-y: scroll;
 `;
 
 const StyledMain = styled.main<StyledMainProps>`
@@ -51,7 +53,7 @@ const StyledMain = styled.main<StyledMainProps>`
 `;
 
 // TODO: to be removed
-const StyledBackground = styled.img`
+const StyledBackground = styled(Image)`
   position: absolute;
   top: 0;
   left: 0;
@@ -68,18 +70,14 @@ const StyledContent = styled.div`
   position: relative;
 `;
 
-type StyledNavLinkProps = {
-  $isActive?: boolean;
-};
-
-const StyledNativeNavLink = styled(NavLink)<StyledNavLinkProps>`
+const StyledNativeNavLink = styled(Link)`
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 `;
 
-const StyledNavLink = styled(Span)<StyledNavLinkProps>`
+const StyledNavLink = styled(Span)`
   ${({ theme }) => theme.transition('common', 'normal')}
 
   &:hover {

@@ -1,3 +1,5 @@
+'use client';
+
 import { ERC20Token } from '@gobob/currency';
 import { NATIVE } from '@gobob/tokens';
 import {
@@ -17,14 +19,14 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 import { Address, isAddressEqual } from 'viem';
 
-import { L1_CHAIN } from '../../constants';
-import { useGetUser, useTokens } from '../../hooks';
-
 import { StyledDt, StyledTooltipWrapper } from './WithdrawModal.style';
+
+import { L1_CHAIN } from '@/constants';
+import { useGetUser, useTokens } from '@/hooks';
 
 const nativeToken = NATIVE[L1_CHAIN];
 
@@ -34,8 +36,6 @@ const DepositedAssets = () => {
   const { data: user } = useGetUser();
   const format = useCurrencyFormatter();
   const { data: tokens } = useTokens(L1_CHAIN);
-
-  const { t } = useTranslation();
 
   const depositedAssets = useMemo(
     () =>
@@ -77,7 +77,7 @@ const DepositedAssets = () => {
   const lockedAmounts = (
     <Flex direction='column' gap='s'>
       <P size='xs' weight='bold'>
-        {t('fusion.withdrawModal.lockedCapitalBreakdown')}
+        <Trans>Locked Capital Breakdown</Trans>
       </P>
       {depositedAssets}
     </Flex>
@@ -86,7 +86,7 @@ const DepositedAssets = () => {
   return (
     <DlGroup alignItems='flex-start' direction='column'>
       <StyledDt size='s' weight='semibold'>
-        {t('fusion.withdrawModal.lockedAmount')}
+        <Trans>Locked Amount</Trans>
         {lockedAmounts &&
           (isMobile ? (
             <Popover>

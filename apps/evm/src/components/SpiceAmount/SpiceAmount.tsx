@@ -1,3 +1,5 @@
+'use client';
+
 import { Flex, FlexProps, Span, SpanProps, useLocale } from '@gobob/ui';
 import { Spice } from '@gobob/icons';
 import { useCountUp } from 'use-count-up';

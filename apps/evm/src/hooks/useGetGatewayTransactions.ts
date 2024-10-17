@@ -4,12 +4,12 @@ import { useAccount } from '@gobob/wagmi';
 import { Address } from 'viem';
 import { ChainId } from '@gobob/chains';
 
-import { gatewaySDK } from '../lib/bob-sdk';
-import { esploraClient } from '../utils';
-import { GatewayDepositSteps } from '../constants';
-import { TransactionType } from '../types';
-
 import { FeatureFlags, useFeatureFlag } from './useFeatureFlag';
+
+import { gatewaySDK } from '@/lib/bob-sdk';
+import { esploraClient } from '@/utils';
+import { GatewayDepositSteps } from '@/constants';
+import { TransactionType } from '@/types';
 
 type GatewayTransaction = {
   status: GatewayDepositSteps;
@@ -29,7 +29,7 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
     await Promise.all(
       orders.map(async (order): Promise<GatewayTransaction | undefined> => {
         const gatewayToken = order.getToken();
-        const gatewayAmount = order.getAmount();
+        const gatewayAmount = order.getTokenAmount();
 
         let amount: CurrencyAmount<ERC20Token> | undefined;
 
@@ -89,7 +89,7 @@ const useGetGatewayTransactions = () => {
 
   return useQuery({
     queryKey: ['gateway-transactions', address],
-    queryFn: async () => getGatewayTransactions(address!),
+    queryFn: () => getGatewayTransactions(address!),
     enabled: Boolean(address && isBtcGatewayEnabled),
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,

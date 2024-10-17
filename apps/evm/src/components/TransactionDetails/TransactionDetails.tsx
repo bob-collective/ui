@@ -15,12 +15,15 @@ import {
 } from '@gobob/ui';
 import { ReactNode, useMemo } from 'react';
 import { ChainId } from '@gobob/chains';
+import { Trans, t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
-import { useBalances, useGasTokens } from '../../hooks';
 import { AmountLabel } from '../AmountLabel';
-import { calculateAmountUSD } from '../../utils';
 
 import { StyledDlGroup, StyledDt, StyledSelect } from './TransactionDetails.style';
+
+import { useBalances, useGasTokens } from '@/hooks';
+import { calculateAmountUSD } from '@/utils';
 
 type Props = {
   chainId: ChainId;
@@ -54,9 +57,10 @@ const TransactionDetails = ({
   currencyOnly = false,
   ...props
 }: TransactionDetailsProps): JSX.Element => {
-  const { getPrice } = usePrices({ baseUrl: import.meta.env.VITE_MARKET_DATA_API });
+  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
   const { getBalance } = useBalances(chainId);
   const { data: gasTokens } = useGasTokens(chainId);
+  const { i18n } = useLingui();
 
   const gasSelectItems: TokenSelectItemProps[] = useMemo(
     () =>
@@ -82,7 +86,7 @@ const TransactionDetails = ({
         {amount && (
           <StyledDlGroup wrap alignItems='flex-start' gap='xs' justifyContent='space-between'>
             <StyledDt $hasExtendedHeight={false} color='grey-50' size='xs'>
-              You will receive
+              <Trans>You will receive</Trans>
             </StyledDt>
             <Dd>
               {Array.isArray(amount) ? (
@@ -104,7 +108,7 @@ const TransactionDetails = ({
         {duration && (
           <StyledDlGroup justifyContent='space-between'>
             <StyledDt color='grey-50' size='xs'>
-              Transfer time
+              <Trans>Transfer time</Trans>
             </StyledDt>
             <Dd size='xs'>{duration}</Dd>
           </StyledDlGroup>
@@ -112,12 +116,12 @@ const TransactionDetails = ({
         {onChangeGasTicker && (
           <Flex alignItems='center' justifyContent='space-between'>
             <Span color='grey-50' size='xs'>
-              Gas Token
+              <Trans>Gas Token</Trans>
             </Span>
             <StyledSelect
-              aria-label='select gas token'
+              aria-label={t(i18n)`select gas token`}
               items={gasSelectItems}
-              modalProps={{ title: 'Select Token' }}
+              modalProps={{ title: <Trans>Select Token</Trans> }}
               renderValue={(item) => <Span size='xs'>{item.value?.currency.symbol}</Span>}
               size='s'
               type='modal'
