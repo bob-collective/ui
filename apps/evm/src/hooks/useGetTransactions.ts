@@ -1,3 +1,5 @@
+'use client';
+
 import { useAccount } from '@gobob/wagmi';
 import { useEffect, useMemo, useState } from 'react';
 

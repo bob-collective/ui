@@ -1,13 +1,14 @@
 import { Dd, Dl, DlGroup, Dt, Modal, ModalBody, ModalHeader } from '@gobob/ui';
 import { useLocale } from '@gobob/ui';
-import { t } from 'i18next';
+import { Trans } from '@lingui/macro';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 
-import { useGetUser } from '../../hooks';
 import { useLayoutContext } from '../Layout';
 
 import { WithdrawForm } from './WithdrawForm';
 import { DepositedAssets } from './DepositedAssets';
+
+import { useGetUser } from '@/hooks';
 
 const WithdrawModal = () => {
   const { data: user } = useGetUser();
@@ -21,13 +22,15 @@ const WithdrawModal = () => {
 
   return (
     <Modal isOpen={isWithdrawAssetsOpen} placement='top' onClose={handleClose}>
-      <ModalHeader>{t('fusion.withdrawModal.withdrawLockedAssetsLabel')}</ModalHeader>
+      <ModalHeader>
+        <Trans>Withdraw Locked Assets</Trans>
+      </ModalHeader>
       <ModalBody gap='lg'>
         <Dl justifyContent='space-between'>
           <DepositedAssets />
           <DlGroup alignItems='flex-start' direction='column' flex={0.5}>
             <Dt size='s' weight='semibold'>
-              {t('fusion.withdrawModal.currentSpice')}
+              <Trans>Current Spice</Trans>
             </Dt>
             <Dd weight='bold'>{Intl.NumberFormat(locale).format(user?.leaderboardRank?.total_reward_points ?? 0)}</Dd>
           </DlGroup>

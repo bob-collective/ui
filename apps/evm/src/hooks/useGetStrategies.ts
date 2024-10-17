@@ -1,8 +1,8 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { INTERVAL, useQuery, UseQueryOptions } from '@gobob/react-query';
 
-import { gatewaySDK } from '../lib/bob-sdk';
-import { bridgeKeys } from '../lib/react-query';
+import { gatewaySDK } from '@/lib/bob-sdk';
+import { bridgeKeys } from '@/lib/react-query';
 
 const useGetStrategies = <T>(
   props: Omit<

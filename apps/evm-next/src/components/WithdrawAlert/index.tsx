@@ -1,1 +1,0 @@
-export { WithdrawAlert } from './WithdrawAlert';

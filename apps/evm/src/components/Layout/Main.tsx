@@ -1,8 +1,6 @@
 import { ReactNode } from 'react';
 import { MaxWidth, ResponsiveProp, Spacing } from '@gobob/ui';
 
-import bgSrc from '../../assets/spice-machine-opacity.jpg';
-
 import { StyledBackground, StyledContent, StyledMain } from './Layout.style';
 
 type Props = {
@@ -16,7 +14,9 @@ type MainProps = Props;
 
 const Main = ({ children, maxWidth, padding = '4xl', hasBackgroundImg, ...props }: MainProps): JSX.Element => (
   <StyledMain $maxWidth={maxWidth} $padding={padding} {...props}>
-    {hasBackgroundImg && <StyledBackground alt='background' src={bgSrc} />}
+    {hasBackgroundImg && (
+      <StyledBackground alt='background' height='876' src='/assets/spice-machine-opacity.jpg' width='1440' />
+    )}
     <StyledContent>{children}</StyledContent>
   </StyledMain>
 );

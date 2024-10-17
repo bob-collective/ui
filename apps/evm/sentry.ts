@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-import * as Sentry from '@sentry/react';
-import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType } from 'react-router-dom';
+import * as Sentry from '@sentry/nextjs';
 
 Sentry.init({
-  dsn: import.meta.env.VITE_SENTRY_URL,
+  dsn: process.env.NEXT_PUBLIC_SENTRY_URL,
   ignoreErrors: [
     'User rejected the request',
     'Talisman extension has not been configured yet',
@@ -17,13 +15,13 @@ Sentry.init({
   integrations: [
     // See docs for support of different versions of variation of react router
     // https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/
-    Sentry.reactRouterV6BrowserTracingIntegration({
-      useEffect,
-      useLocation,
-      useNavigationType,
-      createRoutesFromChildren,
-      matchRoutes
-    }),
+    // Sentry.reactRouterV6BrowserTracingIntegration({
+    //   useEffect,
+    //   useLocation,
+    //   useNavigationType,
+    //   createRoutesFromChildren,
+    //   matchRoutes
+    // }),
     Sentry.replayIntegration(),
     Sentry.thirdPartyErrorFilterIntegration({
       // Specify the application keys that you specified in the Sentry bundler plugin
@@ -41,7 +39,7 @@ Sentry.init({
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
-  tracesSampleRate: import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE || '0.5',
+  tracesSampleRate: Number(process.env.NEXT_PUBLIC_TRACES_SAMPLE_RATE) || 0.5,
 
   // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
   tracePropagationTargets: [/^\//, /^https:\/\/gobob\.xyz/],

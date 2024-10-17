@@ -1,16 +1,18 @@
+'use client';
+
 import { ChainId } from '@gobob/chains';
 import { useMutation } from '@gobob/react-query';
 import { USDT } from '@gobob/tokens';
-import { toast } from '@gobob/ui';
-import { AuthButton } from '@gobob/connect-ui';
+import { P, Span, toast } from '@gobob/ui';
 import { useAccount, usePublicClient, useWriteContract } from '@gobob/wagmi';
-import { P, Span } from '@gobob/ui';
+import { useLingui } from '@lingui/react';
+import { t, Trans } from '@lingui/macro';
 import { useMemo } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
 import { isAddressEqual } from 'viem';
 
-import { ContractType, L1_CHAIN, contracts } from '../../constants';
-import { useLockedTokens } from '../../hooks';
+import { AuthButton } from '@/connect-ui';
+import { ContractType, L1_CHAIN, contracts } from '@/constants';
+import { useLockedTokens } from '@/hooks';
 
 type WithdrawFormProps = {
   isSmartAccount?: boolean;
@@ -24,7 +26,7 @@ const lockContract = contracts[L1_CHAIN as ChainId.ETHEREUM][ContractType.FUSION
 const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
   const { address } = useAccount();
 
-  const { t } = useTranslation();
+  const { i18n } = useLingui();
 
   const { writeContractAsync } = useWriteContract();
 
@@ -78,11 +80,11 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
         ]);
 
         if (l2Receipt.status === 'reverted') {
-          toast.error('Failed to withdraw to L2. Please try again.');
+          toast.error(t(i18n)`Failed to withdraw to L2. Please try again.`);
         }
 
         if (l1Receipt.status === 'reverted') {
-          toast.error('Failed to withdraw USDT to L1. Please try again.');
+          toast.error(t(i18n)`Failed to withdraw USDT to L1. Please try again.`);
         }
 
         if (l2Receipt.status === 'reverted' || l1Receipt.status === 'reverted') {
@@ -104,7 +106,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
       const txReceipt = await publicClient.waitForTransactionReceipt({ hash: tx });
 
       if (txReceipt.status === 'reverted') {
-        toast.error('Failed to withdraw to L2. Please try again.');
+        toast.error(t(i18n)`Failed to withdraw to L2. Please try again.`);
         throw new Error('Failed to withdraw to L2');
       }
     },
@@ -129,7 +131,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
       const txReceipt = await publicClient.waitForTransactionReceipt({ hash: tx });
 
       if (txReceipt.status === 'reverted') {
-        toast.error('Withdraw to L1 failed. Please try again.');
+        toast.error(t(i18n)`Withdraw to L1 failed. Please try again.`);
         throw new Error('Withdraw to L1 failed');
       }
     },
@@ -140,14 +142,19 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
   if (isSmartAccount) {
     return (
       <>
-        <P size='s'>{t('fusion.withdrawModal.smartAccountsWarning')}</P>
+        <P size='s'>
+          <Trans>
+            Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for
+            this in the near future, so follow us for future updates.
+          </Trans>
+        </P>
         <AuthButton
           color='primary'
           loading={withdrawToL1Mutation.isPending}
           size='lg'
           onPress={() => withdrawToL1Mutation.mutate()}
         >
-          {t('fusion.withdrawModal.withdrawLabel')}
+          <Trans>Withdraw Assets</Trans>
         </AuthButton>
       </>
     );
@@ -159,13 +166,15 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
     <>
       {isOthersWithdrawNeeded && isUSDTWithdrawNeeded && (
         <P color='grey-50' size='s' weight='semibold'>
-          USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to
-          bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum
+          <Trans>
+            USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to
+            bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum
+          </Trans>
         </P>
       )}
       {!isOthersWithdrawNeeded && isUSDTWithdrawNeeded && (
         <P color='grey-50' size='s' weight='semibold'>
-          USDT can only be withdrawn to Ethereum.
+          <Trans>USDT can only be withdrawn to Ethereum.</Trans>
         </P>
       )}
       {isOthersWithdrawNeeded && (
@@ -176,14 +185,17 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
           size='lg'
           onPress={() => withdrawToL2Mutation.mutate()}
         >
-          {t('fusion.withdrawModal.bridgeLabel')}
+          <Trans>Bridge to BOB</Trans>
         </AuthButton>
       )}
       <P color='grey-50' size='s'>
-        <Trans
-          components={{ strong: <Span color='grey-50' size='s' weight='semibold' /> }}
-          i18nKey='fusion.withdrawModal.withdrawDescription'
-        />
+        <Trans>
+          Don&apos;t believe in the Bitcoin Renaissance? You can withdraw your funds from the contract to your wallet on
+          Ethereum. You will no longer earn Spice if you withdraw your assets.{' '}
+          <Span color='grey-50' size='s' weight='semibold'>
+            You will keep the Spice harvested so far.
+          </Span>
+        </Trans>
       </P>
       <AuthButton
         chain={L1_CHAIN}
@@ -192,7 +204,7 @@ const WithdrawForm = ({ isSmartAccount, onSuccess }: WithdrawFormProps) => {
         variant='outline'
         onPress={() => withdrawToL1Mutation.mutate()}
       >
-        {t('fusion.withdrawModal.withdrawLabel')}
+        <Trans>Withdraw Assets</Trans>
       </AuthButton>
     </>
   );

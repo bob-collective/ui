@@ -10,11 +10,13 @@ import {
   P,
   Spinner
 } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 
 import { Chain, TransactionDetails } from '..';
-import { L1_CHAIN, L2_CHAIN } from '../../constants';
-import { useGetGatewayTransactions } from '../../hooks';
-import { GatewayData, TransactionType } from '../../types';
+
+import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { GatewayData, TransactionType } from '@/types';
+import { useGetGatewayTransactions } from '@/hooks';
 
 type Props = GatewayData;
 
@@ -35,7 +37,7 @@ const GatewayTransactionModal = ({
 
   const isSubmitted = !!txData;
 
-  const title = isSubmitted ? 'Transaction submitted' : 'Waiting for confirmation';
+  const title = isSubmitted ? <Trans>Transaction submitted</Trans> : <Trans>Waiting for confirmation</Trans>;
 
   return (
     <Modal onClose={onClose} {...props}>
@@ -50,15 +52,17 @@ const GatewayTransactionModal = ({
         {isSubmitted ? (
           <Flex direction='column' gap='md'>
             <P size='xs'>
-              Your assets will be delivered once your BTC transactions receive at least 3 confirmations and the
-              processing finishes on our L2 chain. We will provide you with updates accordingly. You can monitor the
-              progress on your bridge page. It will be marked as complete once the process has concluded.
+              <Trans>
+                Your assets will be delivered once your BTC transactions receive at least 3 confirmations and the
+                processing finishes on our L2 chain. We will provide you with updates accordingly. You can monitor the
+                progress on your bridge page. It will be marked as complete once the process has concluded.
+              </Trans>
             </P>
           </Flex>
         ) : (
           <Flex alignSelf='normal' direction='column' gap='lg'>
             <P align='center' size='xs' weight='medium'>
-              Please confirm the transaction in your wallet
+              <Trans>Please confirm the transaction in your wallet</Trans>
             </P>
             <TransactionDetails amount={amount} chainId={L1_CHAIN} gasEstimate={fee} />
           </Flex>
@@ -67,7 +71,7 @@ const GatewayTransactionModal = ({
       {isSubmitted && (
         <ModalFooter>
           <Button color='primary' onPress={onClose}>
-            Close
+            <Trans>Close</Trans>
           </Button>
         </ModalFooter>
       )}

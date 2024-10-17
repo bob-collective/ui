@@ -1,13 +1,9 @@
 import styled, { css } from 'styled-components';
 import { Card, Chip, Flex } from '@gobob/ui';
 
-function getImageUrl(name: string) {
-  return new URL(`../../assets/${name}`, import.meta.url).href;
-}
-
 const StyledHarvestCard = styled(Card)`
   position: relative;
-  background-image: url(${getImageUrl('harvest_excavation.jpg')});
+  background-image: url(/assets/harvest_excavation.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;

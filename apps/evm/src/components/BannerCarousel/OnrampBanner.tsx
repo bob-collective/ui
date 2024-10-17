@@ -1,4 +1,5 @@
 import { Flex, P } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 
 import { StyledBannerContent, StyledOnrampImg } from './BannerCarousel.style';
 import { Banner } from './Banner';
@@ -13,10 +14,12 @@ const OnrampBanner = ({ onPress }: OnrampBannerProps) => (
     <StyledBannerContent direction='column' justifyContent='center'>
       <Flex alignItems='center'>
         <BannerTitle size='2xl' weight='bold'>
-          BOB Gateway is live!
+          <Trans>BOB Gateway is live!</Trans>
         </BannerTitle>
       </Flex>
-      <P color='grey-50'>The fastest and easiest way to bridge BTC to BOB.</P>
+      <P color='grey-50'>
+        <Trans>The fastest and easiest way to bridge BTC to BOB.</Trans>
+      </P>
     </StyledBannerContent>
     <StyledOnrampImg />
   </Banner>

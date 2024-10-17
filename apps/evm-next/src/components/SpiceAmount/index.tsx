@@ -1,1 +1,0 @@
-export { SpiceAmount } from './SpiceAmount';

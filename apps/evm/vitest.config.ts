@@ -1,6 +1,16 @@
-import { defineConfig } from 'vitest/config';
+import path from 'node:path';
+
+import { defineConfig, UserConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  plugins: [react()] as UserConfig['plugins'],
+  envPrefix: 'NEXT_PUBLIC_',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  },
   test: {
     globals: true,
     environment: 'jsdom',

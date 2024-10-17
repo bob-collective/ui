@@ -12,19 +12,19 @@ import {
 } from '@gobob/ui';
 import { Spice } from '@gobob/icons';
 import { useFocusRing } from '@react-aria/focus';
-import { useTranslation } from 'react-i18next';
+import { Trans } from '@lingui/macro';
 
-import { useGetUser, useHaltedLockedTokens, useLockedTokens } from '../../hooks';
 import { WithdrawAlert } from '../WithdrawAlert';
 import { WithdrawModal } from '../WithdrawModal';
 import { SpiceAmount } from '../SpiceAmount';
 
 import { StyledChip, StyledContentWrapper, StyledHarvestCard, StyledOpacityOverlay } from './FusionPopover.style';
 
+import { useGetUser, useHaltedLockedTokens, useLockedTokens } from '@/hooks';
+
 const FusionPopover = (): JSX.Element | null => {
   const { data: user } = useGetUser();
   const { locale } = useLocale();
-  const { t } = useTranslation();
 
   useLockedTokens();
   useHaltedLockedTokens();
@@ -35,7 +35,7 @@ const FusionPopover = (): JSX.Element | null => {
 
   const season3leaderboardData = user.season3Data.s3LeaderboardData[0];
 
-  const season3TotalPoints = season3leaderboardData.total_points;
+  const season3TotalPoints = season3leaderboardData?.total_points;
 
   return (
     <>
@@ -44,46 +44,48 @@ const FusionPopover = (): JSX.Element | null => {
           <StyledChip {...focusProps} $isFocusVisible={isFocusVisible} borderColor='grey-300' rounded='md'>
             <Flex alignItems='center' gap='xs'>
               <Spice size='xs' />
-              {Intl.NumberFormat(locale, { notation: 'compact' }).format(season3TotalPoints)}
+              {Intl.NumberFormat(locale, { notation: 'compact' }).format(season3TotalPoints!)}
             </Flex>
           </StyledChip>
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverHeader showDivider={false}>Your Spice Harvest Overview</PopoverHeader>
+          <PopoverHeader showDivider={false}>
+            <Trans>Your Spice Harvest Overview</Trans>
+          </PopoverHeader>
           <PopoverBody gap='md' padding='even'>
             <P color='grey-50' size='s'>
-              {t('fusion.popover.season3')}
+              <Trans>Season 3 (Ongoing)</Trans>
             </P>
             <StyledHarvestCard rounded='md'>
               <StyledOpacityOverlay />
               <StyledContentWrapper direction='column'>
                 <P color='grey-50' size='s'>
-                  {t('fusion.popover.currentHarvest')}
+                  <Trans>Current Harvest</Trans>
                 </P>
-                <SpiceAmount amount={season3TotalPoints} />
+                <SpiceAmount amount={season3TotalPoints!} />
               </StyledContentWrapper>
             </StyledHarvestCard>
             <Card background='grey-500' rounded='lg'>
               <P color='grey-50' size='s'>
-                {t('fusion.popover.currentLeaderboardRank')}
+                <Trans>Current Leaderboard Rank</Trans>
               </P>
-              <P>#{season3leaderboardData.group_rank}</P>
+              <P>#{season3leaderboardData?.group_rank}</P>
             </Card>
             <>
               <Divider marginY='xs' />
               <P color='grey-50' size='s'>
-                {t('fusion.popover.season1and2')}
+                <Trans>Season 1 & 2 (Completed)</Trans>
               </P>
               <Card background='grey-500' rounded='lg'>
                 <P color='grey-50' size='s'>
-                  {t('fusion.popover.totalHarvest')}
+                  <Trans>Total Harvest</Trans>
                 </P>
                 <SpiceAmount amount={user.leaderboardRank?.total_points || 0} />
               </Card>
               {user.leaderboardRank?.rank && (
                 <Card background='grey-500' rounded='lg'>
                   <P color='grey-50' size='s'>
-                    {t('fusion.popover.season2FinalRank')}
+                    <Trans>Season 2 Final Rank</Trans>
                   </P>
                   <P>#{user.leaderboardRank?.rank}</P>
                 </Card>

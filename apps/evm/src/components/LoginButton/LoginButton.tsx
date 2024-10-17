@@ -1,18 +1,15 @@
 import { ButtonProps, toast } from '@gobob/ui';
 import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Button } from '@gobob/ui';
-import { useConnectModal } from '@gobob/connect-ui';
 import { mergeProps } from '@react-aria/utils';
 import { ChainId } from '@gobob/chains';
+import { Trans } from '@lingui/macro';
 
-import { L1_CHAIN, L2_CHAIN, isValidChain } from '../../constants';
-import { useGetUser, useLogin } from '../../hooks';
+import { useConnectModal } from '@/connect-ui';
+import { L1_CHAIN, L2_CHAIN, isValidChain } from '@/constants';
+import { useGetUser, useLogin } from '@/hooks';
 
-type Props = {};
-
-type InheritAttrs = Omit<ButtonProps, keyof Props>;
-
-type LoginButtonProps = Props & InheritAttrs;
+type LoginButtonProps = ButtonProps;
 
 const LoginButton = (props: LoginButtonProps): JSX.Element => {
   const { switchChainAsync } = useSwitchChain();
@@ -24,11 +21,12 @@ const LoginButton = (props: LoginButtonProps): JSX.Element => {
     onSuccess: async () => {
       refetchUser();
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (e: any) => {
       if (e.code === 4001) {
-        toast.error('User rejected the request');
+        toast.error(<Trans>User rejected the request</Trans>);
       } else {
-        toast.error(e.message || 'Something went wrong. Please try again later.');
+        toast.error(e.message || <Trans>Something went wrong. Please try again later.</Trans>);
       }
     }
   });
@@ -42,7 +40,7 @@ const LoginButton = (props: LoginButtonProps): JSX.Element => {
             const chain = await connector?.switchChain?.({ chainId: L2_CHAIN });
 
             if (!chain) {
-              return toast.error('Something went wrong. Please try connecting your wallet again.');
+              return toast.error(<Trans>Something went wrong. Please try connecting your wallet again.</Trans>);
             }
           }
 

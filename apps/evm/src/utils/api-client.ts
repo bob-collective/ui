@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
 
