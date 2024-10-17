@@ -1,10 +1,10 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { useAccount } from '@gobob/wagmi';
 
 import { getAppLogo } from '../utils';
 
 import { apiClient, Project, ProjectCategory, ProjectVotingInfo } from '@/utils';
 import { appsKeys } from '@/lib/react-query';
+import { useGetUser } from '@/hooks';
 
 type VotingAppData = Project & {
   logoSrc: string;
@@ -15,10 +15,10 @@ type VotingAppCategoryData = Omit<ProjectCategory, 'projects'> & { apps: VotingA
 type VotingAppsData = Omit<ProjectVotingInfo, 'categories'> & { categories: VotingAppCategoryData[] };
 
 const useGetVotingApps = () => {
-  const { address } = useAccount();
+  const { data } = useGetUser();
 
   return useQuery({
-    queryKey: appsKeys.appsVotes(address),
+    queryKey: appsKeys.appsVotes(data?.username),
     queryFn: () => apiClient.getVotes(),
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,
