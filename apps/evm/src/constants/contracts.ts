@@ -25,6 +25,7 @@ const contracts = {
   [ChainId.ETHEREUM]: ethereumContracts
 } as const;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getContract = (chainId: ChainId, contract: ContractType) => (contracts as any)[chainId][contract];
 
 export { contracts, getContract, ContractType };

@@ -1,6 +1,7 @@
 import { Card, Flex, H1 } from '@gobob/ui';
 import Slider from 'react-slick';
 import styled, { css } from 'styled-components';
+import Image from 'next/image';
 
 import { OnrampImg } from './OnrampImg';
 
@@ -106,7 +107,7 @@ const StyledOnrampImg = styled(OnrampImg)`
   }}
 `;
 
-const StyledFusionImg = styled.img`
+const StyledFusionImg = styled(Image)`
   ${({ theme }) => {
     return css`
       position: absolute;
@@ -121,7 +122,7 @@ const StyledFusionImg = styled.img`
   }}
 `;
 
-const StyledBinanceCampaignImg = styled.img`
+const StyledBinanceCampaignImg = styled(Image)`
   ${({ theme }) => {
     return css`
       position: absolute;
@@ -136,7 +137,7 @@ const StyledBinanceCampaignImg = styled.img`
   }}
 `;
 
-const StyledXImg = styled.img`
+const StyledXImg = styled(Image)`
   ${({ theme }) => {
     return css`
       position: absolute;

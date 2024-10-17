@@ -12,6 +12,7 @@ import { useGetUser } from './useGetUser';
 const useSignUp = ({
   onSuccess,
   onError
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }: Pick<UseMutationOptions<void, any, any, unknown>, 'onSuccess' | 'onError'> = {}) => {
   const { signMessageAsync } = useSignMessage();
   const { address, chain } = useAccount();
@@ -42,6 +43,7 @@ const useSignUp = ({
       if (!res.ok) throw new Error(res?.message || 'Error verifying message');
     },
     onSuccess: chainFn(onSuccess, refetchUser),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: chainFn(onError, (e: any) => {
       if (e.code === 4001) {
         toast.error('User rejected the request');

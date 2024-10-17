@@ -1,5 +1,5 @@
 import { Span } from '@gobob/ui';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const StyledLogo = styled(Link)`

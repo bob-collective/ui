@@ -6,8 +6,8 @@ enum FeatureFlags {
 }
 
 const featureFlags: Record<FeatureFlags, string | undefined> = {
-  [FeatureFlags.BTC_GATEWAY]: import.meta.env.VITE_FEATURE_FLAG_BTC_GATEWAY,
-  [FeatureFlags.WALLET]: import.meta.env.VITE_FEATURE_FLAG_WALLET
+  [FeatureFlags.BTC_GATEWAY]: process.env.NEXT_PUBLIC_FEATURE_FLAG_BTC_GATEWAY,
+  [FeatureFlags.WALLET]: process.env.NEXT_PUBLIC_FEATURE_FLAG_WALLET
 };
 
 const useFeatureFlag = (feature: FeatureFlags): boolean =>

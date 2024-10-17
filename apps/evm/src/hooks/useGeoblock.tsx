@@ -1,8 +1,10 @@
+'use client';
+
 import { useEffect } from 'react';
 
 // TODO: Move this to hooks package
 const useGeoblocking = (): void => {
-  const isGeoblockEnabled = import.meta.env.VITE_GEOBLOCK_ENABLED;
+  const isGeoblockEnabled = process.env.NEXT_PUBLIC_GEOBLOCK_ENABLED === 'true';
 
   useEffect(() => {
     if (!isGeoblockEnabled) return;

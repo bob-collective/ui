@@ -1,4 +1,6 @@
-const OnrampImg = (props: any) => (
+import { HTMLAttributes } from 'react';
+
+const OnrampImg = (props: HTMLAttributes<SVGElement>) => (
   <svg fill='none' viewBox='0 0 216 78' xmlns='http://www.w3.org/2000/svg' {...props}>
     <path
       d='M177.257 76.843C198.2 76.843 215.178 59.865 215.178 38.9216C215.178 17.9781 198.2 1 177.257 1C156.313 1 139.335 17.9781 139.335 38.9216C139.335 59.865 156.313 76.843 177.257 76.843Z'

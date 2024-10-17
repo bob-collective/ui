@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { INTERVAL, useQueries, useQuery } from '@gobob/react-query';
@@ -7,13 +8,12 @@ import { useCallback } from 'react';
 import { TransactionReceipt, isAddressEqual } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
 
-import { L1_CHAIN, L2_CHAIN } from '../constants';
-import { ETH, wstETH } from '../constants/assets';
-import { bridgeKeys, queryClient } from '../lib/react-query';
-import { MessageDirection, MessageStatus, TransactionType } from '../types';
-
 import { useBridgeTokens } from './useBridgeTokens';
 import { usePublicClientL1, usePublicClientL2 } from './usePublicClient';
+
+import { L1_CHAIN, L2_CHAIN, ETH, wstETH } from '@/constants';
+import { bridgeKeys, queryClient } from '@/lib/react-query';
+import { MessageDirection, MessageStatus, TransactionType } from '@/types';
 
 type BridgeTransaction = {
   from: Address;
@@ -130,9 +130,9 @@ const { deposit: depositUrlPath, withdraw: withdrawUrlPath } = {
   }
 }[L2_CHAIN];
 
-const depositsUrl = `${import.meta.env.VITE_INDEXER_URL}/${depositUrlPath}`;
+const depositsUrl = `${process.env.NEXT_PUBLIC_INDEXER_URL}/${depositUrlPath}`;
 
-const withdrawUrl = `${import.meta.env.VITE_INDEXER_URL}/${withdrawUrlPath}`;
+const withdrawUrl = `${process.env.NEXT_PUBLIC_INDEXER_URL}/${withdrawUrlPath}`;
 
 const mapStatus = {
   'waiting-to-prove': MessageStatus.STATE_ROOT_NOT_PUBLISHED,
@@ -225,7 +225,7 @@ const useGetBridgeTransactions = () => {
 
       const [l2Hash] = getL2TransactionHashes(l1Receipt);
 
-      const l2Receipt = await getTxReceipt(address!, l2Hash, 'l2');
+      const l2Receipt = await getTxReceipt(address!, l2Hash!, 'l2');
 
       if (!l2Receipt) {
         return { l1Receipt, status: MessageStatus.UNCONFIRMED_L1_TO_L2_MESSAGE };
@@ -269,7 +269,7 @@ const useGetBridgeTransactions = () => {
 
           const timeToFinalize = await publicClientL1
             .getTimeToFinalize({
-              withdrawalHash: message.withdrawalHash,
+              withdrawalHash: message!.withdrawalHash,
               targetChain: publicClientL1.chain as any
             })
             .catch(() => undefined);
@@ -451,7 +451,7 @@ const useGetBridgeTransactions = () => {
 
   const transactions = useQuery({
     queryKey: bridgeKeys.transactions(address),
-    queryFn: async () => fetchTransactions(address!),
+    queryFn: () => fetchTransactions(address!),
     enabled: Boolean(address && tokens),
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,
