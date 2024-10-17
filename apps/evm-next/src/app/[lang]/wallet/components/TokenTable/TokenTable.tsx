@@ -127,7 +127,7 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   );
 
   const btcRow: TokenTableRow = useMemo(() => {
-    const amountCurrency = satsAmount ? CurrencyAmount.fromRawAmount(BITCOIN, satsAmount.confirmed) : undefined;
+    const amountCurrency = satsAmount ? CurrencyAmount.fromRawAmount(BITCOIN, satsAmount.total) : undefined;
 
     const balance = amountCurrency?.toExact() || 0;
 
