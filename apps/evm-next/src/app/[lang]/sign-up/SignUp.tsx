@@ -47,7 +47,7 @@ const SignUp = (): JSX.Element | null => {
     if (user && address) {
       router.push(`/${params.lang}${RoutesPath.FUSION}`);
     }
-  }, [user, address, router]);
+  }, [user, address, router, params.lang]);
 
   const handleChange = (code: string) => {
     reset();
