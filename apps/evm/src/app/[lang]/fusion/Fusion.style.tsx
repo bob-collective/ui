@@ -1,5 +1,5 @@
 import { Flex } from '@gobob/ui';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Image from 'next/image';
 
 import { Main } from '@/components';
@@ -45,6 +45,21 @@ const StyledContent = styled(Flex)`
   width: 100%;
 `;
 
+const StyledBannerImg = styled(Image)`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 46%;
+      right: 1.5rem;
+      width: 21rem;
+      transform: translateY(-50%);
+      @media ${theme.breakpoints.down('md')} {
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
 const StyledStrategiesWrapper = styled(Flex)`
   border-top: 1px solid ${({ theme }) => theme.color('grey-300')};
   border-bottom: 1px solid ${({ theme }) => theme.color('grey-300')};
@@ -52,6 +67,7 @@ const StyledStrategiesWrapper = styled(Flex)`
 `;
 
 export {
+  StyledBannerImg,
   StyledHeroSectionWrapper,
   StyledStrategiesWrapper,
   StyledContent,
