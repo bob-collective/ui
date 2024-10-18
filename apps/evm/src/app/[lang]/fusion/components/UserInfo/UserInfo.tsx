@@ -4,6 +4,7 @@ import {
   Button,
   Dd,
   Divider,
+  Dl,
   DlGroup,
   Dt,
   Flex,
@@ -13,7 +14,8 @@ import {
   Skeleton,
   SolidInformationCircle,
   Span,
-  Tooltip
+  Tooltip,
+  useLocale
 } from '@gobob/ui';
 import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
 import { useState } from 'react';
@@ -53,6 +55,8 @@ type UserInfoProps = {
 };
 
 const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
+  const { locale } = useLocale();
+
   const router = useRouter();
   const params = useParams();
   const { i18n } = useLingui();
@@ -67,6 +71,14 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
     refetchInterval: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,
     refetchOnMount: false
+  });
+
+  const { data: leaderboard } = useQuery({
+    queryKey: fusionKeys.leaderboard(),
+    queryFn: async () => apiClient.getLeaderboard(0, 0),
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    gcTime: INTERVAL.HOUR
   });
 
   const [isMultipliersModalOpen, setMultipliersModalOpen] = useState(false);
@@ -259,6 +271,33 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 <Trans>Start Harvesting Spice</Trans>
               </SignUpButton>
               <LoginSection direction={{ base: 'column', s: 'row' }} />
+              <Divider />
+              <Dl direction='row' gap='xxs' justifyContent='space-between'>
+                <DlGroup>
+                  <Dd color='grey-50'>
+                    <Trans>Fusion Users:</Trans>
+                  </Dd>
+                  <Dt color='light' weight='semibold'>
+                    {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+                  </Dt>
+                </DlGroup>
+                <DlGroup justifyContent='space-between'>
+                  <Dd color='grey-50'>
+                    <Trans>Current TVL:</Trans>
+                  </Dd>
+                  <Dt color='light' weight='semibold'>
+                    {currentTvl
+                      ? Intl.NumberFormat(locale, {
+                          style: 'currency',
+                          currency: 'USD',
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          notation: 'compact'
+                        }).format(currentTvl)
+                      : '-'}
+                  </Dt>
+                </DlGroup>
+              </Dl>
             </StyledLoginCard>
           </StyledOverlay>
         </>
