@@ -75,7 +75,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   });
 
   const { data: leaderboard } = useQuery({
-    queryKey: fusionKeys.leaderboard(),
+    queryKey: fusionKeys.leaderboardOverview(),
     queryFn: async () => apiClient.getLeaderboard(0, 0),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
