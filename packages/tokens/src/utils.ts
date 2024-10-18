@@ -10,5 +10,5 @@ export function getTokensByChain(chainId?: ChainId): Token[] {
 
   const tokenMap = tokens[chainId];
 
-  return Object.values(tokenMap);
+  return Object.values(tokenMap).filter(Boolean) as Token[];
 }

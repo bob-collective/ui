@@ -112,55 +112,64 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | C
   }
 };
 
-const usdc: Record<
-  ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA | ChainId.OLD_BOB_SEPOLIA,
-  RawToken
+const usdc: Partial<
+  Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA | ChainId.OLD_BOB_SEPOLIA, RawToken>
 > = {
-  [ChainId.ETHEREUM]: {
-    chainId: ChainId.ETHEREUM,
-    address: USDC[ChainId.ETHEREUM].address,
-    name: USDC[ChainId.ETHEREUM].name!,
-    symbol: USDC[ChainId.ETHEREUM].symbol,
-    decimals: USDC[ChainId.ETHEREUM].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
-    apiId: 'usd-coin'
-  },
-  [ChainId.BOB]: {
-    chainId: ChainId.BOB,
-    address: USDC[ChainId.BOB].address,
-    name: USDC[ChainId.BOB].name!,
-    symbol: USDC[ChainId.BOB].symbol!,
-    decimals: USDC[ChainId.BOB].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
-    apiId: 'usd-coin'
-  },
-  [ChainId.SEPOLIA]: {
-    chainId: ChainId.SEPOLIA,
-    address: USDC[ChainId.SEPOLIA].address,
-    name: USDC[ChainId.SEPOLIA].name!,
-    symbol: USDC[ChainId.SEPOLIA].symbol!,
-    decimals: USDC[ChainId.SEPOLIA].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
-    apiId: 'usd-coin'
-  },
-  [ChainId.BOB_SEPOLIA]: {
-    chainId: ChainId.BOB_SEPOLIA,
-    address: USDC[ChainId.BOB_SEPOLIA].address,
-    name: USDC[ChainId.BOB_SEPOLIA].name!,
-    symbol: USDC[ChainId.BOB_SEPOLIA].symbol!,
-    decimals: USDC[ChainId.BOB_SEPOLIA].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
-    apiId: 'usd-coin'
-  },
-  [ChainId.OLD_BOB_SEPOLIA]: {
-    chainId: ChainId.OLD_BOB_SEPOLIA,
-    address: USDC[ChainId.OLD_BOB_SEPOLIA].address,
-    name: USDC[ChainId.OLD_BOB_SEPOLIA].name!,
-    symbol: USDC[ChainId.OLD_BOB_SEPOLIA].symbol!,
-    decimals: USDC[ChainId.OLD_BOB_SEPOLIA].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
-    apiId: 'usd-coin'
-  }
+  ...(USDC?.[ChainId.ETHEREUM] && {
+    [ChainId.ETHEREUM]: {
+      chainId: ChainId.ETHEREUM,
+      address: USDC[ChainId.ETHEREUM].address,
+      name: USDC[ChainId.ETHEREUM].name!,
+      symbol: USDC[ChainId.ETHEREUM].symbol,
+      decimals: USDC[ChainId.ETHEREUM].decimals,
+      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
+      apiId: 'usd-coin'
+    }
+  }),
+  ...(USDC?.[ChainId.BOB] && {
+    [ChainId.BOB]: {
+      chainId: ChainId.BOB,
+      address: USDC[ChainId.BOB].address,
+      name: USDC[ChainId.BOB].name!,
+      symbol: USDC[ChainId.BOB].symbol!,
+      decimals: USDC[ChainId.BOB].decimals,
+      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
+      apiId: 'usd-coin'
+    }
+  }),
+  ...(USDC?.[ChainId.SEPOLIA] && {
+    [ChainId.SEPOLIA]: {
+      chainId: ChainId.SEPOLIA,
+      address: USDC[ChainId.SEPOLIA].address,
+      name: USDC[ChainId.SEPOLIA].name!,
+      symbol: USDC[ChainId.SEPOLIA].symbol!,
+      decimals: USDC[ChainId.SEPOLIA].decimals,
+      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
+      apiId: 'usd-coin'
+    }
+  }),
+  ...(USDC?.[ChainId.BOB_SEPOLIA] && {
+    [ChainId.BOB_SEPOLIA]: {
+      chainId: ChainId.BOB_SEPOLIA,
+      address: USDC[ChainId.BOB_SEPOLIA].address,
+      name: USDC[ChainId.BOB_SEPOLIA].name!,
+      symbol: USDC[ChainId.BOB_SEPOLIA].symbol!,
+      decimals: USDC[ChainId.BOB_SEPOLIA].decimals,
+      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
+      apiId: 'usd-coin'
+    }
+  }),
+  ...(USDC?.[ChainId.OLD_BOB_SEPOLIA] && {
+    [ChainId.OLD_BOB_SEPOLIA]: {
+      chainId: ChainId.OLD_BOB_SEPOLIA,
+      address: USDC[ChainId.OLD_BOB_SEPOLIA].address,
+      name: USDC[ChainId.OLD_BOB_SEPOLIA].name!,
+      symbol: USDC[ChainId.OLD_BOB_SEPOLIA].symbol!,
+      decimals: USDC[ChainId.OLD_BOB_SEPOLIA].decimals,
+      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
+      apiId: 'usd-coin'
+    }
+  })
 };
 
 const ethereumAssets: RawToken[] = [
@@ -185,25 +194,33 @@ const ethereumAssets: RawToken[] = [
     logoUrl: 'https://ethereum-optimism.github.io/data/DAI/logo.svg',
     apiId: 'dai'
   },
-  {
-    chainId: ChainId.ETHEREUM,
-    address: USDT[ChainId.ETHEREUM].address,
-    name: USDT[ChainId.ETHEREUM].name!,
-    symbol: USDT[ChainId.ETHEREUM].symbol,
-    decimals: USDT[ChainId.ETHEREUM].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
-    apiId: 'tether'
-  },
-  {
-    chainId: ChainId.ETHEREUM,
-    address: WBTC[ChainId.ETHEREUM].address,
-    name: WBTC[ChainId.ETHEREUM].name!,
-    symbol: WBTC[ChainId.ETHEREUM].symbol,
-    decimals: WBTC[ChainId.ETHEREUM].decimals,
-    logoUrl:
-      'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png',
-    apiId: 'wrapped-btc'
-  },
+  ...(USDT?.[ChainId.ETHEREUM]
+    ? [
+        {
+          chainId: ChainId.ETHEREUM,
+          address: USDT[ChainId.ETHEREUM].address,
+          name: USDT[ChainId.ETHEREUM].name!,
+          symbol: USDT[ChainId.ETHEREUM].symbol,
+          decimals: USDT[ChainId.ETHEREUM].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
+          apiId: 'tether'
+        }
+      ]
+    : []),
+  ...(WBTC?.[ChainId.ETHEREUM]
+    ? [
+        {
+          chainId: ChainId.ETHEREUM,
+          address: WBTC[ChainId.ETHEREUM].address,
+          name: WBTC[ChainId.ETHEREUM].name!,
+          symbol: WBTC[ChainId.ETHEREUM].symbol,
+          decimals: WBTC[ChainId.ETHEREUM].decimals,
+          logoUrl:
+            'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png',
+          apiId: 'wrapped-btc'
+        }
+      ]
+    : []),
   {
     chainId: ChainId.ETHEREUM,
     address: '0xae78736Cd615f374D3085123A210448E74Fc6393',
@@ -213,15 +230,19 @@ const ethereumAssets: RawToken[] = [
     logoUrl: 'https://ethereum-optimism.github.io/data/rETH/logo.svg',
     apiId: 'rocket-pool-eth'
   },
-  {
-    chainId: ChainId.ETHEREUM,
-    address: TBTC[ChainId.ETHEREUM].address,
-    name: TBTC[ChainId.ETHEREUM].name!,
-    symbol: TBTC[ChainId.ETHEREUM].symbol,
-    decimals: TBTC[ChainId.ETHEREUM].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
-    apiId: 'tbtc'
-  },
+  ...(TBTC?.[ChainId.ETHEREUM]
+    ? [
+        {
+          chainId: ChainId.ETHEREUM,
+          address: TBTC[ChainId.ETHEREUM].address,
+          name: TBTC[ChainId.ETHEREUM].name!,
+          symbol: TBTC[ChainId.ETHEREUM].symbol,
+          decimals: TBTC[ChainId.ETHEREUM].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
+          apiId: 'tbtc'
+        }
+      ]
+    : []),
   {
     chainId: ChainId.ETHEREUM,
     address: '0xbdab72602e9AD40FC6a6852CAf43258113B8F7a5',
@@ -249,7 +270,7 @@ const ethereumAssets: RawToken[] = [
     logoUrl: 'https://assets.coingecko.com/coins/images/30947/standard/sovryn_dllr.jpg',
     apiId: 'sovryn-dollar'
   },
-  usdc[ChainId.ETHEREUM],
+  ...(usdc[ChainId.ETHEREUM] ? [usdc[ChainId.ETHEREUM]] : []),
   wstETH[ChainId.ETHEREUM],
   {
     chainId: ChainId.ETHEREUM,
@@ -309,25 +330,33 @@ const ethereumAssets: RawToken[] = [
 
 const sepoliaAssets: RawToken[] = [
   ETH[ChainId.SEPOLIA],
-  {
-    chainId: ChainId.SEPOLIA,
-    address: USDT[ChainId.SEPOLIA].address,
-    name: USDT[ChainId.SEPOLIA].name!,
-    symbol: USDT[ChainId.SEPOLIA].symbol!,
-    decimals: USDT[ChainId.SEPOLIA].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
-    apiId: 'tether'
-  },
-  {
-    chainId: ChainId.SEPOLIA,
-    address: TBTC[ChainId.SEPOLIA].address,
-    name: TBTC[ChainId.SEPOLIA].name!,
-    symbol: TBTC[ChainId.SEPOLIA].symbol!,
-    decimals: TBTC[ChainId.SEPOLIA].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
-    apiId: 'tbtc'
-  },
-  usdc[ChainId.SEPOLIA],
+  ...(USDT?.[ChainId.SEPOLIA]
+    ? [
+        {
+          chainId: ChainId.SEPOLIA,
+          address: USDT[ChainId.SEPOLIA].address,
+          name: USDT[ChainId.SEPOLIA].name!,
+          symbol: USDT[ChainId.SEPOLIA].symbol!,
+          decimals: USDT[ChainId.SEPOLIA].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
+          apiId: 'tether'
+        }
+      ]
+    : []),
+  ...(TBTC?.[ChainId.SEPOLIA]
+    ? [
+        {
+          chainId: ChainId.SEPOLIA,
+          address: TBTC[ChainId.SEPOLIA].address,
+          name: TBTC[ChainId.SEPOLIA].name!,
+          symbol: TBTC[ChainId.SEPOLIA].symbol!,
+          decimals: TBTC[ChainId.SEPOLIA].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
+          apiId: 'tbtc'
+        }
+      ]
+    : []),
+  ...(usdc[ChainId.SEPOLIA] ? [usdc[ChainId.SEPOLIA]] : []),
   wstETH[ChainId.SEPOLIA]
 ];
 
@@ -353,25 +382,33 @@ const bobAssets: RawToken[] = [
     logoUrl: 'https://ethereum-optimism.github.io/data/DAI/logo.svg',
     apiId: 'dai'
   },
-  {
-    chainId: ChainId.BOB,
-    address: USDT[ChainId.BOB].address,
-    name: USDT[ChainId.BOB].name!,
-    symbol: USDT[ChainId.BOB].symbol,
-    decimals: USDT[ChainId.BOB].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
-    apiId: 'tether'
-  },
-  {
-    chainId: ChainId.BOB,
-    address: WBTC[ChainId.BOB].address,
-    name: WBTC[ChainId.BOB].name!,
-    symbol: WBTC[ChainId.BOB].symbol,
-    decimals: WBTC[ChainId.BOB].decimals,
-    logoUrl:
-      'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png',
-    apiId: 'wrapped-btc'
-  },
+  ...(USDT?.[ChainId.BOB]
+    ? [
+        {
+          chainId: ChainId.BOB,
+          address: USDT[ChainId.BOB].address,
+          name: USDT[ChainId.BOB].name!,
+          symbol: USDT[ChainId.BOB].symbol,
+          decimals: USDT[ChainId.BOB].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
+          apiId: 'tether'
+        }
+      ]
+    : []),
+  ...(WBTC?.[ChainId.BOB]
+    ? [
+        {
+          chainId: ChainId.BOB,
+          address: WBTC[ChainId.BOB].address,
+          name: WBTC[ChainId.BOB].name!,
+          symbol: WBTC[ChainId.BOB].symbol,
+          decimals: WBTC[ChainId.BOB].decimals,
+          logoUrl:
+            'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png',
+          apiId: 'wrapped-btc'
+        }
+      ]
+    : []),
   {
     chainId: ChainId.BOB,
     address: '0xb5686c4f60904ec2bda6277d6fe1f7caa8d1b41a',
@@ -381,15 +418,19 @@ const bobAssets: RawToken[] = [
     logoUrl: 'https://ethereum-optimism.github.io/data/rETH/logo.svg',
     apiId: 'rocket-pool-eth'
   },
-  {
-    chainId: ChainId.BOB,
-    address: TBTC[ChainId.BOB].address,
-    name: TBTC[ChainId.BOB].name!,
-    symbol: TBTC[ChainId.BOB].symbol,
-    decimals: TBTC[ChainId.BOB].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
-    apiId: 'tbtc'
-  },
+  ...(TBTC?.[ChainId.BOB]
+    ? [
+        {
+          chainId: ChainId.BOB,
+          address: TBTC[ChainId.BOB].address,
+          name: TBTC[ChainId.BOB].name!,
+          symbol: TBTC[ChainId.BOB].symbol,
+          decimals: TBTC[ChainId.BOB].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
+          apiId: 'tbtc'
+        }
+      ]
+    : []),
   {
     chainId: ChainId.BOB,
     address: '0xba20a5e63eeEFfFA6fD365E7e540628F8fC61474',
@@ -418,7 +459,7 @@ const bobAssets: RawToken[] = [
     apiId: 'sovryn-dollar'
   },
   wstETH[ChainId.BOB],
-  usdc[ChainId.BOB],
+  ...(usdc?.[ChainId.BOB] ? [usdc?.[ChainId.BOB]] : []),
   {
     chainId: ChainId.BOB,
     address: '0xc4a20a608616f18aa631316eeda9fb62d089361e',
@@ -477,40 +518,52 @@ const bobAssets: RawToken[] = [
 
 const bobSepoliaAssets: RawToken[] = [
   ETH[ChainId.BOB_SEPOLIA],
-  usdc[ChainId.BOB_SEPOLIA],
-  {
-    chainId: ChainId.BOB_SEPOLIA,
-    address: TBTC[ChainId.BOB_SEPOLIA].address,
-    name: TBTC[ChainId.BOB_SEPOLIA].name!,
-    symbol: TBTC[ChainId.BOB_SEPOLIA].symbol!,
-    decimals: TBTC[ChainId.BOB_SEPOLIA].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
-    apiId: 'tbtc'
-  }
+  ...(usdc[ChainId.BOB_SEPOLIA] ? [usdc[ChainId.BOB_SEPOLIA]] : []),
+  ...(TBTC?.[ChainId.BOB_SEPOLIA]
+    ? [
+        {
+          chainId: ChainId.BOB_SEPOLIA,
+          address: TBTC[ChainId.BOB_SEPOLIA].address,
+          name: TBTC[ChainId.BOB_SEPOLIA].name!,
+          symbol: TBTC[ChainId.BOB_SEPOLIA].symbol!,
+          decimals: TBTC[ChainId.BOB_SEPOLIA].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
+          apiId: 'tbtc'
+        }
+      ]
+    : [])
   // wstETH[ChainId.BOB_SEPOLIA]
 ];
 
 const oldBobSepoliaAssets: RawToken[] = [
   ETH[ChainId.OLD_BOB_SEPOLIA],
-  {
-    chainId: ChainId.OLD_BOB_SEPOLIA,
-    address: USDT[ChainId.OLD_BOB_SEPOLIA].address,
-    name: USDT[ChainId.OLD_BOB_SEPOLIA].name!,
-    symbol: USDT[ChainId.OLD_BOB_SEPOLIA].symbol!,
-    decimals: USDT[ChainId.OLD_BOB_SEPOLIA].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
-    apiId: 'tether'
-  },
-  {
-    chainId: ChainId.OLD_BOB_SEPOLIA,
-    address: TBTC[ChainId.OLD_BOB_SEPOLIA].address,
-    name: TBTC[ChainId.OLD_BOB_SEPOLIA].name!,
-    symbol: TBTC[ChainId.OLD_BOB_SEPOLIA].symbol!,
-    decimals: TBTC[ChainId.OLD_BOB_SEPOLIA].decimals,
-    logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
-    apiId: 'tbtc'
-  },
-  usdc[ChainId.OLD_BOB_SEPOLIA],
+  ...(USDT?.[ChainId.OLD_BOB_SEPOLIA]
+    ? [
+        {
+          chainId: ChainId.OLD_BOB_SEPOLIA,
+          address: USDT[ChainId.OLD_BOB_SEPOLIA].address,
+          name: USDT[ChainId.OLD_BOB_SEPOLIA].name!,
+          symbol: USDT[ChainId.OLD_BOB_SEPOLIA].symbol!,
+          decimals: USDT[ChainId.OLD_BOB_SEPOLIA].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
+          apiId: 'tether'
+        }
+      ]
+    : []),
+  ...(TBTC?.[ChainId.OLD_BOB_SEPOLIA]
+    ? [
+        {
+          chainId: ChainId.OLD_BOB_SEPOLIA,
+          address: TBTC[ChainId.OLD_BOB_SEPOLIA].address,
+          name: TBTC[ChainId.OLD_BOB_SEPOLIA].name!,
+          symbol: TBTC[ChainId.OLD_BOB_SEPOLIA].symbol!,
+          decimals: TBTC[ChainId.OLD_BOB_SEPOLIA].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
+          apiId: 'tbtc'
+        }
+      ]
+    : []),
+  ...(usdc[ChainId.OLD_BOB_SEPOLIA] ? [usdc[ChainId.OLD_BOB_SEPOLIA]] : []),
   wstETH[ChainId.OLD_BOB_SEPOLIA]
 ];
 

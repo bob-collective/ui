@@ -19,7 +19,7 @@ const useTokenAllowance = ({ token, owner, spender }: UseTokenAllowanceProps) =>
     query: {
       enabled: Boolean(spender && owner && token)
     },
-    abi: (token?.symbol === USDT_ETH.symbol ? USDTAbi : erc20Abi) as typeof erc20Abi,
+    abi: (token?.symbol === USDT_ETH?.symbol ? USDTAbi : erc20Abi) as typeof erc20Abi,
     address: token?.address,
     functionName: 'allowance',
     args: inputs

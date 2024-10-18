@@ -525,6 +525,9 @@ importers:
       '@gobob/currency':
         specifier: workspace:^
         version: link:../currency
+      tokenlist:
+        specifier: github:bob-collective/ethereum-optimism.github.io#master
+        version: github.com/bob-collective/ethereum-optimism.github.io/b18905286541c610cd70cd219a9a6cddb2c98bbd
 
   packages/ui:
     dependencies:
@@ -24553,4 +24556,11 @@ packages:
       '@types/react': 18.3.3
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
+    dev: false
+
+  github.com/bob-collective/ethereum-optimism.github.io/b18905286541c610cd70cd219a9a6cddb2c98bbd:
+    resolution: {tarball: https://codeload.github.com/bob-collective/ethereum-optimism.github.io/tar.gz/b18905286541c610cd70cd219a9a6cddb2c98bbd}
+    name: '@eth-optimism/tokenlist'
+    version: 10.0.133
+    requiresBuild: true
     dev: false
