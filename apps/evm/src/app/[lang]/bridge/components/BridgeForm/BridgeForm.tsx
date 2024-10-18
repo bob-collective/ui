@@ -94,7 +94,7 @@ const BridgeForm = ({
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR,
     queryFn: async (): Promise<TokenData[]> => {
-      const tokens = await gatewaySDK.getTokens();
+      const tokens = await gatewaySDK.getTokens(false);
 
       return tokens.map((token) => ({
         raw: {
