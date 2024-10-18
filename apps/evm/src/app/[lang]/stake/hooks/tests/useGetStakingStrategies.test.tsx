@@ -47,7 +47,7 @@ const mockStrategy: GatewayStrategyContract = {
   },
   inputToken: {
     symbol: 'tBTC',
-    address: '0x6744babdf02dcf578ea173a9f0637771a9e1c4d0',
+    address: '0x6744bAbDf02DCF578EA173A9F0637771A9e1c4d0',
     logo: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
     decimals: 18,
     chain: 'bob-sepolia'
