@@ -5,6 +5,7 @@ export * from './Geoblock';
 export * from './Layout';
 export * from './LoginSection';
 export * from './TransactionDetails';
+export * from './GatewayTransactionDetails';
 export * from './TransactionModal';
 export * from './Trapezoid';
 export * from './WithdrawAlert';

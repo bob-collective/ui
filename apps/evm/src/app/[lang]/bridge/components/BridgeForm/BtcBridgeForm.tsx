@@ -42,8 +42,8 @@ import { Trans, t } from '@lingui/macro';
 import { Type } from '../../Bridge';
 
 import { AuthButton } from '@/connect-ui';
-import { TransactionDetails } from '@/components';
-import { isProd, L2_CHAIN } from '@/constants';
+import { GatewayTransactionDetails } from '@/components';
+import { isProd } from '@/constants';
 import { TokenData } from '@/hooks';
 import {
   BRIDGE_AMOUNT,
@@ -132,11 +132,17 @@ const BtcBridgeForm = ({
     [amount]
   );
 
+  const [customFeeRate, setCustomeFeeRate] = useState<number>();
+
   const { data: satsBalance } = useSatsBalance();
 
   const hasBalance = satsBalance && satsBalance.confirmed > 0n;
 
   const { data: satsFeeRate, isLoading: isSatsFeeRateLoading } = useSatsFeeRate();
+
+  console.log(satsFeeRate, 'test');
+
+  const feeRate = customFeeRate || satsFeeRate ? Number(satsFeeRate) : undefined;
 
   const {
     data: satsFeeEstimate,
@@ -148,6 +154,11 @@ const BtcBridgeForm = ({
       enabled: hasBalance && !!evmAddress
     }
   });
+
+  const feeAmount = useMemo(
+    () => satsFeeEstimate && CurrencyAmount.fromRawAmount(BITCOIN, satsFeeEstimate.amount),
+    [satsFeeEstimate]
+  );
 
   if (isSatsFeeEstimateError && showToast.current) {
     showToast.current = false;
@@ -266,7 +277,7 @@ const BtcBridgeForm = ({
         fromUserAddress: connector.paymentAddress!,
         fromUserPublicKey: connector.publicKey,
         gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        feeRate: satsFeeRate ? Number(satsFeeRate) : undefined
+        feeRate
       });
 
       const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
@@ -304,13 +315,11 @@ const BtcBridgeForm = ({
   };
 
   const { balanceAmount } = useMemo(() => {
-    if (!satsFeeEstimate || !availableLiquidity || isSatsFeeEstimateError) {
+    if (!feeAmount || !availableLiquidity || isSatsFeeEstimateError) {
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
 
     const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.confirmed || 0);
-
-    const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, satsFeeEstimate);
 
     if (balance.lessThan(feeAmount)) {
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
@@ -327,7 +336,7 @@ const BtcBridgeForm = ({
     return {
       balanceAmount: availableBalance
     };
-  }, [satsBalance, availableLiquidity, satsFeeEstimate, isSatsFeeEstimateError]);
+  }, [feeAmount, availableLiquidity, isSatsFeeEstimateError, satsBalance?.confirmed]);
 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
@@ -474,14 +483,13 @@ const BtcBridgeForm = ({
           </P>
         </Alert>
       )}
-      <TransactionDetails
+      <GatewayTransactionDetails
         amount={receiveAmount}
         amountPlaceholder={placeholderAmount}
-        chainId={L2_CHAIN}
         currencyOnly={quoteData?.isStakingToken}
-        gasEstimate={quoteData?.fee || gasEstimatePlaceholder}
-        gasEstimatePlaceholder={gasEstimatePlaceholder}
-        gasLabel={t(i18n)`Estimated Fee`}
+        feeRate={feeRate}
+        gatewayFee={quoteData?.fee || gasEstimatePlaceholder}
+        networkFee={feeAmount}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
         <Trans>Bridge Asset</Trans>
