@@ -350,7 +350,11 @@ const BtcBridgeForm = ({
 
   const btcPrice = getPrice('BTC');
 
-  const valueUSD = useMemo(() => new Big(amount || 0).mul(btcPrice || 0).toNumber(), [amount, btcPrice]);
+  const valueUSD = useMemo(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    () => (!isNaN(amount as any) ? new Big(amount || 0).mul(btcPrice || 0).toNumber() : 0),
+    [amount, btcPrice]
+  );
 
   const isSubmitDisabled = isFormDisabled(form);
 
