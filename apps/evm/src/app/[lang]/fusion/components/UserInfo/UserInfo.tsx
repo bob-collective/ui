@@ -2,6 +2,7 @@ import { INTERVAL, useQuery } from '@gobob/react-query';
 import {
   Bars3,
   Button,
+  Card,
   Dd,
   Divider,
   Dl,
@@ -103,7 +104,21 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       : currentTvl + currentTvl * 0.2;
 
   return (
-    <StyledUserInfoWrapper direction='column' marginTop='4xl'>
+    <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
+      <Flex direction='row' justifyContent='flex-end'>
+        <Card padding='md'>
+          <Dl direction='row' gap='xxs' justifyContent='space-between'>
+            <DlGroup>
+              <Dd color='grey-50' size='s'>
+                <Trans>Fusion Users:</Trans>
+              </Dd>
+              <Dt color='light' size='s' weight='semibold'>
+                {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+              </Dt>
+            </DlGroup>
+          </Dl>
+        </Card>
+      </Flex>
       <StyledDl aria-hidden={!isAuthenticated && 'true'} gap='lg'>
         <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
           <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
