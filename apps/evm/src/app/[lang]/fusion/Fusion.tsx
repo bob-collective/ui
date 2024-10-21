@@ -1,8 +1,8 @@
 'use client';
 
-import { Flex, H1, Link, P } from '@gobob/ui';
+import { Card, Flex, H1, H2, Link, P } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
-import { useEffect, useId, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -20,6 +20,7 @@ import {
 } from './components';
 import {
   StyledBackground,
+  StyledBannerImg,
   StyledBgDots,
   StyledContent,
   StyledHeroSection,
@@ -61,6 +62,12 @@ const Fusion = () => {
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
+  const onPressBanner = useCallback(
+    () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   useEffect(() => {
     if (scrollQuests) {
       setScrollQuests(false);
@@ -98,6 +105,24 @@ const Fusion = () => {
               </P>
             </Flex>
             <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
+            <Flex direction='column' marginTop='lg'>
+              <Card
+                isPressable
+                justifyContent='center'
+                paddingX='xl'
+                paddingY='6xl'
+                style={{ position: 'relative', maxHeight: '8.5rem' }}
+                onPress={onPressBanner}
+              >
+                <H2 size='2xl' weight='bold'>
+                  <Trans>Follow us on X</Trans>
+                </H2>
+                <P color='grey-50'>
+                  <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
+                </P>
+                <StyledBannerImg alt='x' height='123' src='/assets/x.png' width='336' />
+              </Card>
+            </Flex>
           </StyledHeroSection>
         </StyledHeroSectionWrapper>
         <StyledStrategiesWrapper direction='column' paddingBottom='7xl' paddingTop='6xl' paddingX='lg'>

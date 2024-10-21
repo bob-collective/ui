@@ -73,6 +73,7 @@ export const appsKeys = {
 export const fusionKeys = {
   fusion: () => ['fusion'],
   leaderboard: () => [...fusionKeys.fusion(), 'leaderboard'],
+  leaderboardOverview: () => [...fusionKeys.fusion(), 'leaderboard-overview'],
   tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],
   quests: () => [...fusionKeys.fusion(), 'quests'],
   tvlLevel: () => [...fusionKeys.fusion(), 'tvl-level']

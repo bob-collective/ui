@@ -2,8 +2,10 @@ import { INTERVAL, useQuery } from '@gobob/react-query';
 import {
   Bars3,
   Button,
+  Card,
   Dd,
   Divider,
+  Dl,
   DlGroup,
   Dt,
   Flex,
@@ -13,7 +15,8 @@ import {
   Skeleton,
   SolidInformationCircle,
   Span,
-  Tooltip
+  Tooltip,
+  useLocale
 } from '@gobob/ui';
 import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
 import { useState } from 'react';
@@ -53,6 +56,8 @@ type UserInfoProps = {
 };
 
 const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
+  const { locale } = useLocale();
+
   const router = useRouter();
   const params = useParams();
   const { i18n } = useLingui();
@@ -67,6 +72,14 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
     refetchInterval: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,
     refetchOnMount: false
+  });
+
+  const { data: leaderboard } = useQuery({
+    queryKey: fusionKeys.leaderboardOverview(),
+    queryFn: async () => apiClient.getLeaderboard(0, 0),
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    gcTime: INTERVAL.HOUR
   });
 
   const [isMultipliersModalOpen, setMultipliersModalOpen] = useState(false);
@@ -91,7 +104,21 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       : currentTvl + currentTvl * 0.2;
 
   return (
-    <StyledUserInfoWrapper direction='column' marginTop='4xl'>
+    <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
+      <Flex direction='row' justifyContent='flex-end'>
+        <Card padding='md'>
+          <Dl direction='row' gap='xxs' justifyContent='space-between'>
+            <DlGroup>
+              <Dd color='grey-50' size='s'>
+                <Trans>Fusion Users:</Trans>
+              </Dd>
+              <Dt color='light' size='s' weight='semibold'>
+                {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+              </Dt>
+            </DlGroup>
+          </Dl>
+        </Card>
+      </Flex>
       <StyledDl aria-hidden={!isAuthenticated && 'true'} gap='lg'>
         <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
           <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
@@ -259,6 +286,33 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 <Trans>Start Harvesting Spice</Trans>
               </SignUpButton>
               <LoginSection direction={{ base: 'column', s: 'row' }} />
+              <Divider />
+              <Dl direction='row' gap='xxs' justifyContent='space-between'>
+                <DlGroup>
+                  <Dd color='grey-50'>
+                    <Trans>Fusion Users:</Trans>
+                  </Dd>
+                  <Dt color='light' weight='semibold'>
+                    {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+                  </Dt>
+                </DlGroup>
+                <DlGroup justifyContent='space-between'>
+                  <Dd color='grey-50'>
+                    <Trans>Current TVL:</Trans>
+                  </Dd>
+                  <Dt color='light' weight='semibold'>
+                    {currentTvl
+                      ? Intl.NumberFormat(locale, {
+                          style: 'currency',
+                          currency: 'USD',
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          notation: 'compact'
+                        }).format(currentTvl)
+                      : '-'}
+                  </Dt>
+                </DlGroup>
+              </Dl>
             </StyledLoginCard>
           </StyledOverlay>
         </>
