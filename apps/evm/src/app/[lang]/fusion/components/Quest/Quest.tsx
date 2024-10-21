@@ -43,7 +43,11 @@ const Quest = ({ id, quests }: QuestProps) => {
         ) : (
           <Skeleton height='3xl' width='9xl' />
         )}
-        <H2 size='3xl'>{isActive ? <Trans>Quests</Trans> : <Trans>New Quests Coming Soon</Trans>}</H2>
+        {intractQuest ? (
+          <H2 size='3xl'>{isActive ? <Trans>Quests</Trans> : <Trans>New Quests Coming Soon</Trans>}</H2>
+        ) : (
+          <Skeleton count={1} height='xl' width='50%' />
+        )}
         {intractQuest ? (
           <StyledDescription>
             {isActive ? (
@@ -53,23 +57,27 @@ const Quest = ({ id, quests }: QuestProps) => {
               </Trans>
             ) : (
               <Trans>
-                The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal.
-                More rewards are on the way!
+                The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake. More
+                rewards are on the way!
               </Trans>
             )}
           </StyledDescription>
         ) : (
-          <Skeleton count={3} height='xl' />
+          <Skeleton count={2} height='xl' />
         )}
-        <Button
-          elementType={Link}
-          size='xl'
-          style={{ alignSelf: 'flex-start' }}
-          variant='outline'
-          {...{ external: true, href: intractQuest?.url, disabled: !intractQuest }}
-        >
-          {isActive ? <Trans>View Quests</Trans> : <Trans>View Intract</Trans>}
-        </Button>
+        {intractQuest ? (
+          <Button
+            elementType={Link}
+            size='xl'
+            style={{ alignSelf: 'flex-start' }}
+            variant='outline'
+            {...{ external: true, href: intractQuest?.url, disabled: !intractQuest }}
+          >
+            {isActive ? <Trans>View Quests</Trans> : <Trans>View Intract</Trans>}
+          </Button>
+        ) : (
+          <Skeleton count={1} height='5xl' width='10xl' />
+        )}
       </Flex>
     </Flex>
   );
