@@ -35,5 +35,35 @@ const bridgeSchema = (params: BridgeFormValidationParams) => {
   });
 };
 
-export { BRIDGE_AMOUNT, BRIDGE_GAS_TOKEN, BRIDGE_TICKER, BRIDGE_RECIPIENT, BRIDGE_BTC_WALLET, bridgeSchema };
-export type { BridgeFormValidationParams, BridgeFormValues };
+const BRIDGE_GATEWAY_FEE_RATE_PROVIDER = 'bridge-gateway-fee-rate-provider';
+const BRIDGE_GATEWAY_FEE_RATE_AMOUNT = 'bridge-gateway-fee-rate-amount';
+
+type BridgeGatewayFeeRateFormValues = {
+  [BRIDGE_GATEWAY_FEE_RATE_PROVIDER]?: string;
+  [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]?: string;
+};
+
+const bridgeGatewayFeeRateSchema = () => {
+  return yup.object().shape({
+    [BRIDGE_GATEWAY_FEE_RATE_PROVIDER]: yup.string().required(),
+    [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]: yup.string().when([BRIDGE_GATEWAY_FEE_RATE_PROVIDER], {
+      is: (provider: string) => {
+        return provider === 'custom';
+      },
+      then: (schema) => schema.required().min(0)
+    })
+  });
+};
+
+export {
+  BRIDGE_AMOUNT,
+  BRIDGE_GAS_TOKEN,
+  BRIDGE_TICKER,
+  BRIDGE_RECIPIENT,
+  BRIDGE_BTC_WALLET,
+  BRIDGE_GATEWAY_FEE_RATE_PROVIDER,
+  BRIDGE_GATEWAY_FEE_RATE_AMOUNT,
+  bridgeSchema,
+  bridgeGatewayFeeRateSchema
+};
+export type { BridgeFormValidationParams, BridgeGatewayFeeRateFormValues, BridgeFormValues };

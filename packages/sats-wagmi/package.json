@@ -33,6 +33,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@gobob/sats-wagmi": "^0.3.14"
+    "@gobob/sats-wagmi": "file:.yalc/@gobob/sats-wagmi"
   }
 }

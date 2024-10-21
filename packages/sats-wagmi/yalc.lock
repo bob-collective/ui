@@ -1,0 +1,11 @@
+{
+  "version": "v1",
+  "packages": {
+    "@gobob/sats-wagmi": {
+      "version": "0.3.13",
+      "signature": "33a5dd18fd9f12b4cc4f74d60d9ae318",
+      "file": true,
+      "replaced": "^0.3.14"
+    }
+  }
+}

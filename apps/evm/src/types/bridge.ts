@@ -1,4 +1,5 @@
 import { Bitcoin, Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
+import { FeeRateReturnType } from '@gobob/sats-wagmi';
 import { Address } from 'viem';
 
 type L2BridgeData = {
@@ -34,5 +35,7 @@ enum MessageStatus {
   FAILED_L1_TO_L2_MESSAGE = 'failed-l1-to-l2-message'
 }
 
+type GatewayFeeRate = { provider: keyof FeeRateReturnType } | { provider: 'custom'; amount: number };
+
 export { TransactionType, MessageStatus, MessageDirection };
-export type { L2BridgeData, GatewayData };
+export type { L2BridgeData, GatewayData, GatewayFeeRate };

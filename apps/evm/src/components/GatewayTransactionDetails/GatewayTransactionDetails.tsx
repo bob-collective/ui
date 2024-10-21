@@ -1,24 +1,31 @@
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { Card, Dd, Dl, DlProps, Flex, Span, Spinner } from '@gobob/ui';
+import { Card, Dd, Dl, DlProps, Flex, PencilSquare, Span, Spinner, UnstyledButton } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
+import { FeeRateReturnType } from '@gobob/sats-wagmi';
+import { useState } from 'react';
 
 import { AmountLabel } from '../AmountLabel';
 
 import { StyledDlGroup, StyledDt } from './GatewayTransactionDetails.style';
+import { GatewatFeeRateModal } from './GatewayFeeRateModal';
+
+import { GatewayFeeRate } from '@/types';
 
 type Props = {
   gatewayFee?: CurrencyAmount<Currency>;
-  gatewayFeePlaceholder?: CurrencyAmount<Currency>;
   isLoadingGatewayFee?: boolean;
   networkFee?: CurrencyAmount<Currency>;
-  networkFeePlaceholder?: CurrencyAmount<Currency>;
   isLoadingFeeEstimate?: boolean;
-  feeRate?: number;
-  feeRatePlaceholder?: number;
+
+  feeRateData?: FeeRateReturnType;
+  feeRateValue?: number;
+  selectedFeeRate: GatewayFeeRate;
+
   isLoadingFeeRate?: boolean;
   amount?: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   amountPlaceholder?: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   currencyOnly?: boolean;
+  onChangeFeeRate?: (feeRate: GatewayFeeRate) => void;
 };
 
 type InheritAttrs = Omit<DlProps, keyof Props>;
@@ -28,32 +35,31 @@ type GatewayTransactionDetailsProps = Props & InheritAttrs;
 const GatewayTransactionDetails = ({
   amount: amountProp,
   amountPlaceholder,
-  networkFee: networkFeeProp,
-  networkFeePlaceholder,
-  gatewayFeePlaceholder,
-  gatewayFee: gatewayFeeProp,
+  networkFee,
+  gatewayFee,
   isLoadingGatewayFee,
   isLoadingFeeEstimate,
   isLoadingFeeRate,
-  feeRate: feeRateProp,
-  feeRatePlaceholder,
+  feeRateValue,
+  feeRateData,
   currencyOnly = false,
+  selectedFeeRate,
+  onChangeFeeRate,
   ...props
 }: GatewayTransactionDetailsProps): JSX.Element => {
+  const [isOpen, setOpen] = useState(false);
+
   const amount = amountProp || amountPlaceholder;
-  const gatewayFee = gatewayFeeProp || gatewayFeePlaceholder;
-  const networkFee = networkFeeProp || networkFeePlaceholder;
-  const feeRate = feeRateProp || feeRatePlaceholder;
 
   return (
     <Card background='grey-600' rounded='md'>
       <Dl direction='column' gap='none' {...props}>
         {amount && (
-          <StyledDlGroup wrap alignItems='flex-start' gap='xs' justifyContent='space-between'>
-            <StyledDt $hasExtendedHeight={false} color='grey-50' size='xs'>
+          <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
+            <StyledDt color='grey-50' size='xs'>
               <Trans>You will receive</Trans>
             </StyledDt>
-            <Dd>
+            <Flex alignItems='center' elementType='dd'>
               {Array.isArray(amount) ? (
                 <Flex alignItems='flex-end' direction='column' elementType='span' gap='xxs'>
                   {amount.map((asset) => (
@@ -67,7 +73,7 @@ const GatewayTransactionDetails = ({
                   <AmountLabel amount={amount} currencyOnly={currencyOnly} />
                 </Span>
               )}
-            </Dd>
+            </Flex>
           </StyledDlGroup>
         )}
         {gatewayFee && (
@@ -96,7 +102,7 @@ const GatewayTransactionDetails = ({
             </Dd>
           </StyledDlGroup>
         )}
-        {feeRate && (
+        {feeRateValue && (
           <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
             <StyledDt color='grey-50' size='xs'>
               Network Fee Rate
@@ -104,12 +110,26 @@ const GatewayTransactionDetails = ({
             <Dd size='xs'>
               <Flex alignItems='center' elementType='span' gap='s'>
                 {isLoadingFeeRate && <Spinner size='12' thickness={2} />}
-                {feeRate} sat/vB
+                <UnstyledButton asChild onPress={() => setOpen(true)}>
+                  <Flex alignItems='center'>
+                    <PencilSquare size='xs' />
+                    {feeRateValue} sat/vB
+                  </Flex>
+                </UnstyledButton>
               </Flex>
             </Dd>
           </StyledDlGroup>
         )}
       </Dl>
+      {feeRateData && (
+        <GatewatFeeRateModal
+          feeRateData={feeRateData}
+          isOpen={isOpen}
+          selectedFeeRate={selectedFeeRate}
+          onChangeFeeRate={onChangeFeeRate}
+          onClose={() => setOpen(false)}
+        />
+      )}
     </Card>
   );
 };
