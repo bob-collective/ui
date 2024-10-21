@@ -42,7 +42,27 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
         sizes: '180x180',
         url: '/apple-touch-icon.png'
       }
-    ]
+    ],
+    openGraph: {
+      title: 'BOB | Build on Bitcoin',
+      description: 'BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum',
+      url: 'https://app.gobob.xyz',
+      siteName: 'Next.js',
+      images: [
+        {
+          url: 'https://app.gobob.xyz/_next/image?url=%2Fassets%2Fx.png&w=750&q=75', // Must be an absolute URL
+          width: 750,
+          height: 75
+        },
+        {
+          url: 'https://nextjs.org/og-alt.png', // Must be an absolute URL
+          width: 1800,
+          height: 1600,
+          alt: 'My custom alt'
+        }
+      ],
+      type: 'website'
+    }
   };
 }
 
