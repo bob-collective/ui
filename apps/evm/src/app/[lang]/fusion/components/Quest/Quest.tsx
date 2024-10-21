@@ -53,8 +53,8 @@ const Quest = ({ id, quests }: QuestProps) => {
               </Trans>
             ) : (
               <Trans>
-                The previous quest has ended. Stay tuned for more exciting on- and off- chain quests with Intract and
-                BOB Stake Portal. More rewards are on the way!
+                The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal.
+                More rewards are on the way!
               </Trans>
             )}
           </StyledDescription>

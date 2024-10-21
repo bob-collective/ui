@@ -381,6 +381,7 @@ interface QuestBreakdown {
   quest_completed: boolean;
   url: string;
   description: string;
+  is_active: boolean;
   is_featured: boolean;
   start_date: string;
   end_date: string;

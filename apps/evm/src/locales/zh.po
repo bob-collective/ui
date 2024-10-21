@@ -29,7 +29,7 @@ msgstr ""
 msgid "{0} remaining"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:35
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:38
 msgid "{0} until quest ends"
 msgstr "距离任务结束还有{0}"
 
@@ -82,8 +82,8 @@ msgid "Already harvesting?"
 msgstr "已经在收获？"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:529
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:387
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:338
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:391
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:342
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:234
 msgid "Amount"
 msgstr ""
@@ -163,11 +163,11 @@ msgstr ""
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:429
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:433
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:376
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:380
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 msgstr ""
 
@@ -193,7 +193,7 @@ msgid "Bridge"
 msgstr "桥"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:515
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:483
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:487
 msgid "Bridge Asset"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "bridge network"
 msgstr ""
 
-#: src/components/WithdrawModal/WithdrawForm.tsx:188
+#: src/components/WithdrawModal/WithdrawForm.tsx:192
 msgid "Bridge to BOB"
 msgstr "跨链到BOB"
 
@@ -226,8 +226,8 @@ msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <0>公告</0>。"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:460
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:410
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:464
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:414
 msgid "BTC bridge is currently unavailable. This may be due to: {0}. Please try again later."
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:419
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:423
 msgid "Cannot stake into {0} due to insufficient liquidity."
 msgstr ""
 
@@ -278,6 +278,7 @@ msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!
 msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
 #: src/app/[lang]/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:82
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:40
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:210
 #: src/app/[lang]/stake/components/Unstake/ExternalStakeCard.tsx:86
 msgid "Coming Soon"
@@ -300,7 +301,7 @@ msgstr "社区投票"
 msgid "Community Voting Information"
 msgstr "社区投票信息"
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:45
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:50
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外收获62,500 Spice。"
 
@@ -415,7 +416,7 @@ msgstr "探索全部应用"
 msgid "Docs"
 msgstr ""
 
-#: src/components/WithdrawModal/WithdrawForm.tsx:192
+#: src/components/WithdrawModal/WithdrawForm.tsx:196
 msgid "Don't believe in the Bitcoin Renaissance? You can withdraw your funds from the contract to your wallet on Ethereum. You will no longer earn Spice if you withdraw your assets. <0>You will keep the Spice harvested so far.</0>"
 msgstr "想要退出？你可以将资金从合约中提取到以太坊钱包。请注意，提取资产后你将不再赚取Spice。<0>不过，你已收获的Spice都会保留。</0>"
 
@@ -436,8 +437,8 @@ msgid "Enter Address"
 msgstr ""
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:540
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:443
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:393
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:447
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:397
 msgid "Enter destination address"
 msgstr ""
 
@@ -449,7 +450,7 @@ msgstr ""
 msgid "Enter your access code (optional):"
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:480
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:484
 msgid "Estimated Fee"
 msgstr ""
 
@@ -474,12 +475,12 @@ msgstr ""
 msgid "Failed to submit proof."
 msgstr ""
 
-#: src/components/WithdrawModal/WithdrawForm.tsx:83
-#: src/components/WithdrawModal/WithdrawForm.tsx:109
+#: src/components/WithdrawModal/WithdrawForm.tsx:87
+#: src/components/WithdrawModal/WithdrawForm.tsx:113
 msgid "Failed to withdraw to L2. Please try again."
 msgstr ""
 
-#: src/components/WithdrawModal/WithdrawForm.tsx:87
+#: src/components/WithdrawModal/WithdrawForm.tsx:91
 msgid "Failed to withdraw USDT to L1. Please try again."
 msgstr ""
 
@@ -547,8 +548,8 @@ msgstr ""
 msgid "Geoblock"
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:434
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:384
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:438
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:388
 msgid "Get ETH for transaction fees on BOB"
 msgstr ""
 
@@ -766,6 +767,10 @@ msgstr ""
 msgid "Need support? Enter our Discord."
 msgstr ""
 
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:46
+msgid "New Quests Coming Soon"
+msgstr ""
+
 #: src/app/[lang]/wallet/Wallet.tsx:70
 msgid "No assets shown"
 msgstr "未显示的资产"
@@ -852,7 +857,7 @@ msgid "Provide liquidity into Oku DEX"
 msgstr "为Oku DEX提供流动性"
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:41
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:46
 msgid "Quests"
 msgstr "任务"
 
@@ -872,7 +877,7 @@ msgstr "点此了解更多"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:396
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:400
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:92
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:31
 msgid "Receive"
@@ -887,8 +892,8 @@ msgid "Receive {ticker}"
 msgstr "接收 {ticker}"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:539
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:442
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:392
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:446
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:396
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
 msgid "Recipient"
 msgstr ""
@@ -976,7 +981,7 @@ msgstr ""
 msgid "select network to bridge to"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:348
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:352
 msgid "Select Strategy"
 msgstr ""
 
@@ -1099,7 +1104,7 @@ msgstr "Spice积分（较高）"
 msgid "Spice rewards (Medium)"
 msgstr "Spice积分（中等）"
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:424
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:428
 #: src/app/[lang]/stake/page.tsx:14
 #: src/app/[lang]/stake/Stake.tsx:67
 #: src/components/Layout/Header.tsx:80
@@ -1107,7 +1112,7 @@ msgstr "Spice积分（中等）"
 msgid "Stake"
 msgstr "質押"
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:347
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:351
 msgid "Stake with"
 msgstr ""
 
@@ -1231,11 +1236,15 @@ msgstr "你已经使用过的BOB生态系统应用数量"
 msgid "The number of Intract and Galxe quests that you have completed"
 msgstr "在Intract和Galxe上完成的任务"
 
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:55
+msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal. More rewards are on the way!"
+msgstr ""
+
 #: src/app/[lang]/apps/components/AppsList/AppsList.tsx:148
 msgid "There are no apps to be displayed"
 msgstr "暂无可显示的应用"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:469
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:473
 msgid "There is currently no available liquidity to onramp BTC into {0}."
 msgstr ""
 
@@ -1260,11 +1269,11 @@ msgstr ""
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:427
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:431
 msgid "Top up Gas"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:370
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:374
 msgid "Top-up Gas"
 msgstr ""
 
@@ -1304,12 +1313,12 @@ msgstr ""
 msgid "TVL"
 msgstr "总锁仓价值（TVL）"
 
-#: src/components/WithdrawModal/WithdrawForm.tsx:146
+#: src/components/WithdrawModal/WithdrawForm.tsx:150
 msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
 msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力开发这项功能，请持续关注我们的更新。"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:450
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:400
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:454
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:404
 msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 msgstr ""
 
@@ -1326,11 +1335,11 @@ msgstr ""
 msgid "Unstake"
 msgstr ""
 
-#: src/components/WithdrawModal/WithdrawForm.tsx:177
+#: src/components/WithdrawModal/WithdrawForm.tsx:181
 msgid "USDT can only be withdrawn to Ethereum."
 msgstr ""
 
-#: src/components/WithdrawModal/WithdrawForm.tsx:169
+#: src/components/WithdrawModal/WithdrawForm.tsx:173
 msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 msgstr ""
 
@@ -1385,11 +1394,15 @@ msgstr "查看您在 BOB 网络上的钱包概况。"
 msgid "View All Transactions"
 msgstr ""
 
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:71
+msgid "View Intract"
+msgstr ""
+
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:154
 msgid "View Multipliers"
 msgstr "查看倍数"
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:60
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:71
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:207
 msgid "View Quests"
 msgstr "查看任务"
@@ -1462,8 +1475,8 @@ msgid "Withdraw"
 msgstr ""
 
 #: src/components/WithdrawAlert/WithdrawAlert.tsx:33
-#: src/components/WithdrawModal/WithdrawForm.tsx:157
-#: src/components/WithdrawModal/WithdrawForm.tsx:207
+#: src/components/WithdrawModal/WithdrawForm.tsx:161
+#: src/components/WithdrawModal/WithdrawForm.tsx:211
 msgid "Withdraw Assets"
 msgstr "提取资产"
 
@@ -1471,7 +1484,7 @@ msgstr "提取资产"
 msgid "Withdraw Locked Assets"
 msgstr "提取锁定资产"
 
-#: src/components/WithdrawModal/WithdrawForm.tsx:134
+#: src/components/WithdrawModal/WithdrawForm.tsx:138
 msgid "Withdraw to L1 failed. Please try again."
 msgstr ""
 
@@ -1515,8 +1528,8 @@ msgstr ""
 msgid "Your assets will be delivered shortly, with an estimated arrival time of aprox."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:383
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:333
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:387
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:337
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr ""
 
