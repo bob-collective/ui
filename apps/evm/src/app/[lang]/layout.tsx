@@ -25,8 +25,8 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
   const i18n = getI18nInstance(params.lang);
 
   return {
-    title: 'BOB',
-    description: t(i18n)``,
+    title: 'BOB | Build on Bitcoin',
+    description: t(i18n)`BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum`,
     manifest: '/site.webmanifest',
     icons: [
       {
@@ -42,7 +42,21 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
         sizes: '180x180',
         url: '/apple-touch-icon.png'
       }
-    ]
+    ],
+    openGraph: {
+      title: 'BOB | Build on Bitcoin',
+      description: t(i18n)`BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum`,
+      url: 'https://app.gobob.xyz',
+      siteName: 'BOB',
+      images: [
+        {
+          url: 'https://app.gobob.xyz/assets/app-preview.png', // Must be an absolute URL
+          width: 1200,
+          height: 360
+        }
+      ],
+      type: 'website'
+    }
   };
 }
 
