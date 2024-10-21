@@ -50,7 +50,7 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
       siteName: 'Next.js',
       images: [
         {
-          url: 'https://bob-mainnet-git-tom-fix-metadata-distributed-crafts.vercel.app/assets/app-preview.png', // Must be an absolute URL
+          url: 'https://app.gobob.xyz/assets/app-preview.png', // Must be an absolute URL
           width: 1200,
           height: 360
         }
