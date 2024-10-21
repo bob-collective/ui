@@ -50,15 +50,9 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
       siteName: 'Next.js',
       images: [
         {
-          url: 'https://app.gobob.xyz/_next/image?url=%2Fassets%2Fx.png&w=750&q=75', // Must be an absolute URL
-          width: 750,
-          height: 75
-        },
-        {
-          url: 'https://nextjs.org/og-alt.png', // Must be an absolute URL
-          width: 1800,
-          height: 1600,
-          alt: 'My custom alt'
+          url: 'https://bob-mainnet-git-tom-fix-metadata-distributed-crafts.vercel.app/assets/app-preview.png', // Must be an absolute URL
+          width: 1200,
+          height: 360
         }
       ],
       type: 'website'
