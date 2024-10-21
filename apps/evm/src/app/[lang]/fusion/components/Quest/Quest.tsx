@@ -15,6 +15,8 @@ const Quest = ({ id, quests }: QuestProps) => {
 
   const [intractQuest] = quests?.questBreakdown || [];
 
+  const isActive = intractQuest?.is_active;
+
   return (
     <Flex direction={{ base: 'column-reverse', s: 'row-reverse' }} gap='3xl' id={id} marginTop='8xl'>
       {!isMobile && (
@@ -32,33 +34,50 @@ const Quest = ({ id, quests }: QuestProps) => {
       >
         {intractQuest ? (
           <Chip startAdornment={<SolidClock size='s' />}>
-            <Trans>{formatDistanceToNow(intractQuest.end_date)} until quest ends</Trans>
+            {isActive ? (
+              <Trans>{formatDistanceToNow(intractQuest.end_date)} until quest ends</Trans>
+            ) : (
+              <Trans>Coming Soon</Trans>
+            )}
           </Chip>
         ) : (
           <Skeleton height='3xl' width='9xl' />
         )}
-        <H2 size='3xl'>
-          <Trans>Quests</Trans>
-        </H2>
+        {intractQuest ? (
+          <H2 size='3xl'>{isActive ? <Trans>Quests</Trans> : <Trans>New Quests Coming Soon</Trans>}</H2>
+        ) : (
+          <Skeleton count={1} height='xl' width='50%' />
+        )}
         {intractQuest ? (
           <StyledDescription>
-            <Trans>
-              Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an
-              additional 62,500 Spice.
-            </Trans>
+            {isActive ? (
+              <Trans>
+                Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an
+                additional 62,500 Spice.
+              </Trans>
+            ) : (
+              <Trans>
+                The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake. More
+                rewards are on the way!
+              </Trans>
+            )}
           </StyledDescription>
         ) : (
-          <Skeleton count={3} height='xl' />
+          <Skeleton count={2} height='xl' />
         )}
-        <Button
-          elementType={Link}
-          size='xl'
-          style={{ alignSelf: 'flex-start' }}
-          variant='outline'
-          {...{ external: true, href: intractQuest?.url, disabled: !intractQuest }}
-        >
-          <Trans>View Quests</Trans>
-        </Button>
+        {intractQuest ? (
+          <Button
+            elementType={Link}
+            size='xl'
+            style={{ alignSelf: 'flex-start' }}
+            variant='outline'
+            {...{ external: true, href: intractQuest?.url, disabled: !intractQuest }}
+          >
+            {isActive ? <Trans>View Quests</Trans> : <Trans>View Intract</Trans>}
+          </Button>
+        ) : (
+          <Skeleton count={1} height='5xl' width='10xl' />
+        )}
       </Flex>
     </Flex>
   );
