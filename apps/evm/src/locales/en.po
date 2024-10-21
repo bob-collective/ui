@@ -13,10 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/app/[lang]/layout.tsx:29
-msgid ""
-msgstr "/+Z5u4"
-
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:81
 msgid ", due to the challenge period"
 msgstr ", due to the challenge period"
@@ -174,6 +170,11 @@ msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 #: src/components/BannerCarousel/OnrampBanner.tsx:17
 msgid "BOB Gateway is live!"
 msgstr "BOB Gateway is live!"
+
+#: src/app/[lang]/layout.tsx:29
+#: src/app/[lang]/layout.tsx:48
+msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
+msgstr "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:262
 msgid "BOB TVL Progress"
@@ -743,7 +744,7 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/components/BannerCarousel/BannerCarousel.tsx:100
+#: src/components/BannerCarousel/BannerCarousel.tsx:85
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
