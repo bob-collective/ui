@@ -31,15 +31,27 @@ const StyledCarousel = styled(Carousel)`
       background-color: ${({ theme }) => theme.color('grey-200')};
       border: none;
       opacity: 0.7;
+      width: 10px;
+      height: 10px;
+      padding-top: 1px;
+      padding-bottom: 1px;
     }
   }
 
   .react-multiple-carousel__arrow--left {
     left: calc(2% + 1px);
+    min-width: ${({ theme }) => theme.spacing('4xl')};
+    min-height: ${({ theme }) => theme.spacing('4xl')};
   }
 
   .react-multiple-carousel__arrow--right {
     right: calc(2% + 1px);
+    min-width: ${({ theme }) => theme.spacing('4xl')};
+    min-height: ${({ theme }) => theme.spacing('4xl')};
+  }
+
+  .react-multiple-carousel__arrow:before {
+    font-size: ${({ theme }) => theme.spacing('lg')};
   }
 `;
 
