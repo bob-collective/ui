@@ -6,7 +6,12 @@ const nextConfig = {
     styledComponents: true
   },
   experimental: {
-    swcPlugins: [['@lingui/swc-plugin', {}]]
+    swcPlugins: [['@lingui/swc-plugin', {}]],
+    turbo: {
+      rules: {
+        '*.po': ['@lingui/loader']
+      }
+    }
   },
   rewrites() {
     return [

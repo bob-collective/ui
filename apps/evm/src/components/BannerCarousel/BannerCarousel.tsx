@@ -1,59 +1,23 @@
 'use client';
 
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
-import { Settings } from 'react-slick';
-import { ChevronLeft, ChevronRight, useMediaQuery } from '@gobob/ui';
-import { useTheme } from 'styled-components';
-import { HTMLAttributes, useCallback } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { useSessionStorage, useIsClient } from 'usehooks-ts';
+import { useMediaQuery } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useParams, useRouter } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
+import 'react-multi-carousel/lib/styles.css';
+import { useTheme } from 'styled-components';
+import { useIsClient, useSessionStorage } from 'usehooks-ts';
 
+import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
 import { BinanceCampaignBanner } from './BinanceCampaignBanner';
-import { StyledCarouselWrapper, StyledSlider } from './BannerCarousel.style';
-import { OnrampBanner } from './OnrampBanner';
 import { FusionBanner } from './FusionBanner';
+import { OnrampBanner } from './OnrampBanner';
 import { XBanner } from './XBanner';
 
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { RoutesPath } from '@/constants';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { SessionStorageKey } from '@/types';
-
-function NextArrow(props: Pick<HTMLAttributes<HTMLButtonElement>, 'className' | 'style' | 'onClick'>) {
-  const { className, style, onClick } = props;
-
-  return (
-    <button className={className} style={style} onClick={onClick}>
-      <ChevronRight strokeWidth='3' />
-    </button>
-  );
-}
-
-function PrevArrow(props: Pick<HTMLAttributes<HTMLButtonElement>, 'className' | 'style' | 'onClick'>) {
-  const { className, style, onClick } = props;
-
-  return (
-    <button className={className} style={style} onClick={onClick}>
-      <ChevronLeft strokeWidth='3' />
-    </button>
-  );
-}
-
-const settings: Settings = {
-  dots: true,
-  infinite: true,
-  autoplay: true,
-  speed: 500,
-  autoplaySpeed: 10000,
-  cssEase: 'linear',
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  pauseOnHover: true,
-  nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />
-};
 
 const BannerCarousel = () => {
   const { i18n } = useLingui();
@@ -64,14 +28,35 @@ const BannerCarousel = () => {
   const isClient = useIsClient();
 
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
-  const setBridgeToBtc = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
+  const [, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
     initializeWithValue: isClient
-  })[1];
+  });
+
+  const responsive = useMemo(
+    () => ({
+      desktop: {
+        breakpoint: { max: 3000, min: theme.breakpoints.values.md },
+        items: 1,
+        slidesToSlide: 1
+      },
+      tablet: {
+        breakpoint: { max: theme.breakpoints.values.md, min: theme.breakpoints.values.s },
+        items: 1,
+        slidesToSlide: 1
+      },
+      mobile: {
+        breakpoint: { max: theme.breakpoints.values.s, min: 0 },
+        items: 1,
+        slidesToSlide: 1
+      }
+    }),
+    [theme.breakpoints]
+  );
 
   const onPressOnrampBanner = useCallback(
     () => {
       setBridgeToBtc(true);
-      router.push(`/${params.lang}${RoutesPath.BRIDGE}`);
+      router.push(`/${params?.lang}${RoutesPath.BRIDGE}`);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -101,12 +86,23 @@ const BannerCarousel = () => {
       paddingX='none'
       paddingY='none'
     >
-      <StyledSlider {...settings} arrows={isDesktop && isClient}>
+      <StyledCarousel
+        autoPlay
+        infinite
+        showDots
+        ssr
+        arrows={isDesktop}
+        autoPlaySpeed={10000}
+        draggable={false}
+        responsive={responsive}
+        swipeable={false}
+        transitionDuration={500}
+      >
         <XBanner onPress={onPressXBanner} />
         <BinanceCampaignBanner onPress={onPressBinanceCampaignBanner} />
         <FusionBanner onPress={onPressFusionBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
-      </StyledSlider>
+      </StyledCarousel>
     </StyledCarouselWrapper>
   );
 };
