@@ -33,6 +33,6 @@
   "dependencies": {
     "@gobob/chains": "workspace:^",
     "@gobob/currency": "workspace:^",
-    "tokenlist": "github:bob-collective/ethereum-optimism.github.io#master"
+    "tokenlist": "github:bob-collective/ethereum-optimism.github.io#f1cda28bfd05442182d387d9d1873ce039f2255c"
   }
 }
