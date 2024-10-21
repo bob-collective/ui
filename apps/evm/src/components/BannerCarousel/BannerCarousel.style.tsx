@@ -1,7 +1,7 @@
 import { Card, Flex, H1 } from '@gobob/ui';
-import Slider from 'react-slick';
-import styled, { css } from 'styled-components';
 import Image from 'next/image';
+import Carousel from 'react-multi-carousel';
+import styled, { css } from 'styled-components';
 
 import { OnrampImg } from './OnrampImg';
 
@@ -9,6 +9,7 @@ const StyledCarouselWrapper = styled(Card)`
   position: relative;
   text-decoration: none;
   overflow: hidden;
+  max-height: 8.5rem;
 `;
 
 const StyledBannerContent = styled(Flex)`
@@ -16,64 +17,29 @@ const StyledBannerContent = styled(Flex)`
   z-index: 1;
 `;
 
-const StyledSlider = styled(Slider)`
-  .slick-prev {
-    left: 20px;
-  }
+const StyledCarousel = styled(Carousel)`
+  min-height: 8.5rem;
+  height: 100%;
 
-  .slick-next {
-    right: 20px;
-  }
-
-  .slick-dots {
-    bottom: 10px;
-  }
-
-  .slick-prev,
-  .slick-next {
-    color: ${({ theme }) => theme.color('grey-200')};
-    width: ${({ theme }) => theme.spacing('4xl')};
-    height: ${({ theme }) => theme.spacing('4xl')};
-    z-index: 1;
-    transition: ${({ theme }) => theme.transition('colors', 'fast')};
-    border-radius: ${({ theme }) => theme.rounded('md')};
-
-    &,
-    &:hover,
-    &:focus,
-    &:active {
-      background-color: ${({ theme }) => theme.color('grey-600')};
+  .react-multi-carousel-dot-list {
+    .react-multi-carousel-dot.react-multi-carousel-dot--active button {
+      background-color: ${({ theme }) => theme.color('primary-500')};
+      opacity: 1;
     }
 
-    &:hover {
+    .react-multi-carousel-dot button {
+      background-color: ${({ theme }) => theme.color('grey-200')};
+      border: none;
       opacity: 0.7;
     }
-
-    &::before {
-      content: unset;
-    }
   }
 
-  .slick-dots li.slick-active button:before {
-    color: ${({ theme }) => theme.color('primary-500')};
-    opacity: 1;
+  .react-multiple-carousel__arrow--left {
+    left: calc(2% + 1px);
   }
 
-  .slick-dots li button:before {
-    font-size: 10px;
-    color: ${({ theme }) => theme.color('grey-200')};
-    transition: ${({ theme }) => theme.transition('colors', 'fast')};
-  }
-
-  .slick-dots li {
-    margin: 0 3px;
-  }
-
-  .slick-prev:hover,
-  .slick-prev:focus,
-  .slick-next:hover,
-  .slick-next:focus {
-    color: ${({ theme }) => theme.color('grey-200')};
+  .react-multiple-carousel__arrow--right {
+    right: calc(2% + 1px);
   }
 `;
 
@@ -153,13 +119,13 @@ const StyledXImg = styled(Image)`
 `;
 
 export {
-  StyledCarouselWrapper,
-  StyledSlider,
   StyledBanner,
+  StyledBannerContent,
+  StyledBannerTitle,
   StyledBinanceCampaignImg,
+  StyledCarousel,
+  StyledCarouselWrapper,
   StyledFusionImg,
   StyledOnrampImg,
-  StyledXImg,
-  StyledBannerContent,
-  StyledBannerTitle
+  StyledXImg
 };
