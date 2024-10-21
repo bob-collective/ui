@@ -301,7 +301,7 @@ msgstr "社区投票"
 msgid "Community Voting Information"
 msgstr "社区投票信息"
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:50
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:54
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外收获62,500 Spice。"
 
@@ -767,7 +767,7 @@ msgstr ""
 msgid "Need support? Enter our Discord."
 msgstr ""
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:46
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:47
 msgid "New Quests Coming Soon"
 msgstr ""
 
@@ -857,7 +857,7 @@ msgid "Provide liquidity into Oku DEX"
 msgstr "为Oku DEX提供流动性"
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:46
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:47
 msgid "Quests"
 msgstr "任务"
 
@@ -1237,7 +1237,11 @@ msgid "The number of Intract and Galxe quests that you have completed"
 msgstr "在Intract和Galxe上完成的任务"
 
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:55
-msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal. More rewards are on the way!"
+#~ msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal. More rewards are on the way!"
+#~ msgstr ""
+
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:59
+msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake. More rewards are on the way!"
 msgstr ""
 
 #: src/app/[lang]/apps/components/AppsList/AppsList.tsx:148
@@ -1394,7 +1398,7 @@ msgstr "查看您在 BOB 网络上的钱包概况。"
 msgid "View All Transactions"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:71
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:76
 msgid "View Intract"
 msgstr ""
 
@@ -1402,7 +1406,7 @@ msgstr ""
 msgid "View Multipliers"
 msgstr "查看倍数"
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:71
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:76
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:207
 msgid "View Quests"
 msgstr "查看任务"

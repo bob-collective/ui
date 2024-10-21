@@ -301,7 +301,7 @@ msgstr "Community Voting"
 msgid "Community Voting Information"
 msgstr "Community Voting Information"
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:50
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:54
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 
@@ -767,7 +767,7 @@ msgstr "navigate to X social"
 msgid "Need support? Enter our Discord."
 msgstr "Need support? Enter our Discord."
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:46
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:47
 msgid "New Quests Coming Soon"
 msgstr "New Quests Coming Soon"
 
@@ -857,7 +857,7 @@ msgid "Provide liquidity into Oku DEX"
 msgstr "Provide liquidity into Oku DEX"
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:46
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:47
 msgid "Quests"
 msgstr "Quests"
 
@@ -1237,8 +1237,12 @@ msgid "The number of Intract and Galxe quests that you have completed"
 msgstr "The number of Intract and Galxe quests that you have completed"
 
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:55
-msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal. More rewards are on the way!"
-msgstr "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal. More rewards are on the way!"
+#~ msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal. More rewards are on the way!"
+#~ msgstr "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal. More rewards are on the way!"
+
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:59
+msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake. More rewards are on the way!"
+msgstr "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake. More rewards are on the way!"
 
 #: src/app/[lang]/apps/components/AppsList/AppsList.tsx:148
 msgid "There are no apps to be displayed"
@@ -1394,7 +1398,7 @@ msgstr "View a summary of your wallet on the BOB network. DeFi positions may not
 msgid "View All Transactions"
 msgstr "View All Transactions"
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:71
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:76
 msgid "View Intract"
 msgstr "View Intract"
 
@@ -1402,7 +1406,7 @@ msgstr "View Intract"
 msgid "View Multipliers"
 msgstr "View Multipliers"
 
-#: src/app/[lang]/fusion/components/Quest/Quest.tsx:71
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:76
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:207
 msgid "View Quests"
 msgstr "View Quests"
