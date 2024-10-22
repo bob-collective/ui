@@ -27,6 +27,8 @@ export { Label } from './Label';
 export type { LabelProps } from './Label';
 export { List, ListItem } from './List';
 export type { ListItemProps, ListProps, Selection } from './List';
+export { HelperText } from './HelperText';
+export type { HelperTextProps } from './HelperText';
 export { Modal, ModalBody, ModalFooter, ModalHeader } from './Modal';
 export type { ModalBodyProps, ModalFooterProps, ModalHeaderProps, ModalProps } from './Modal';
 export { NumberInput } from './NumberInput';

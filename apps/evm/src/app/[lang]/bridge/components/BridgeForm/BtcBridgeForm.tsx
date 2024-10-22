@@ -11,7 +11,6 @@ import {
   useFeeEstimate as useSatsFeeEstimate,
   useFeeRate as useSatsFeeRate
 } from '@gobob/sats-wagmi';
-import * as Sentry from '@sentry/nextjs';
 import { BITCOIN } from '@gobob/tokens';
 import {
   Alert,
@@ -30,21 +29,23 @@ import {
   useForm
 } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
-import { mergeProps } from '@react-aria/utils';
-import { useDebounceValue } from 'usehooks-ts';
-import Big from 'big.js';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Address } from 'viem';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { Trans, t } from '@lingui/macro';
+import { mergeProps } from '@react-aria/utils';
+import * as Sentry from '@sentry/nextjs';
+import Big from 'big.js';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useDebounceValue } from 'usehooks-ts';
+import { Address } from 'viem';
 
 import { Type } from '../../Bridge';
 
-import { AuthButton } from '@/connect-ui';
 import { GatewayTransactionDetails } from '@/components';
+import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
-import { TokenData } from '@/hooks';
+import { TokenData, useGetTransactions } from '@/hooks';
+import { gatewaySDK } from '@/lib/bob-sdk';
 import {
   BRIDGE_AMOUNT,
   BRIDGE_BTC_WALLET,
@@ -55,10 +56,8 @@ import {
   bridgeSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
-import { useGetTransactions } from '@/hooks';
-import { GatewayData, GatewayFeeRate } from '@/types';
 import { bridgeKeys } from '@/lib/react-query';
-import { gatewaySDK } from '@/lib/bob-sdk';
+import { GatewayData, GatewayTransactionFee } from '@/types';
 
 type BtcBridgeFormProps = {
   type: Type;
@@ -102,8 +101,6 @@ const BtcBridgeForm = ({
 
   const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
 
-  const showToast = useRef(true);
-
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
 
   const { refetchGatewayTxs } = useGetTransactions();
@@ -138,29 +135,29 @@ const BtcBridgeForm = ({
 
   const { data: satsFeeRate, isLoading: isSatsFeeRateLoading } = useSatsFeeRate();
 
-  const [feeRate, setFeeRate] = useState<GatewayFeeRate>({ provider: 'esplora' });
+  const [transactionFee, setTransactionFee] = useState<GatewayTransactionFee>({ provider: 'esplora' });
 
-  const feeRateValue = useMemo(() => {
+  const feeRate = useMemo(() => {
     if (!satsFeeRate) return;
 
-    switch (feeRate.provider) {
+    switch (transactionFee.provider) {
       default:
       case 'esplora':
         return satsFeeRate.esplora[6];
       case 'memPool':
         return satsFeeRate.memPool.hourFee;
       case 'custom':
-        return feeRate.amount;
+        return transactionFee.networkRate;
     }
-  }, [satsFeeRate, feeRate]);
+  }, [satsFeeRate, transactionFee]);
 
   const {
     data: satsFeeEstimate,
     isLoading: isSatsFeeEstimateLoading,
-    isError: isSatsFeeEstimateError
+    error: satsFeeEstimateError
   } = useSatsFeeEstimate({
     opReturnData: evmAddress,
-    feeRate: feeRateValue,
+    feeRate: feeRate,
     query: {
       enabled: hasBalance && !!evmAddress
     }
@@ -171,10 +168,12 @@ const BtcBridgeForm = ({
     [satsFeeEstimate]
   );
 
-  if (isSatsFeeEstimateError && showToast.current) {
-    showToast.current = false;
-    toast.error(t(i18n)`Failed to get estimated fee`);
-  }
+  useEffect(() => {
+    if (satsFeeEstimateError) {
+      toast.error(t(i18n)`Failed to get estimated fee`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [satsFeeEstimateError]);
 
   const btcToken = useMemo(
     () => availableTokens.find((token) => token.currency.symbol === receiveTicker),
@@ -288,7 +287,7 @@ const BtcBridgeForm = ({
         fromUserAddress: connector.paymentAddress!,
         fromUserPublicKey: connector.publicKey,
         gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        feeRate: feeRateValue
+        feeRate: feeRate
       });
 
       const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
@@ -314,6 +313,10 @@ const BtcBridgeForm = ({
     }
   });
 
+  const handleChangeFee = (fee: GatewayTransactionFee) => {
+    setTransactionFee(fee);
+  };
+
   const handleSubmit = async (data: BridgeFormValues) => {
     if (!quoteData || !evmAddress) return;
 
@@ -326,7 +329,7 @@ const BtcBridgeForm = ({
   };
 
   const { balanceAmount } = useMemo(() => {
-    if (!feeAmount || !availableLiquidity || isSatsFeeEstimateError) {
+    if (!feeAmount || !availableLiquidity || !!satsFeeEstimateError) {
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
 
@@ -347,7 +350,7 @@ const BtcBridgeForm = ({
     return {
       balanceAmount: availableBalance
     };
-  }, [feeAmount, availableLiquidity, isSatsFeeEstimateError, satsBalance?.confirmed]);
+  }, [feeAmount, availableLiquidity, satsFeeEstimateError, satsBalance?.confirmed]);
 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
@@ -459,7 +462,12 @@ const BtcBridgeForm = ({
             </P>
           </Flex>
         </Flex>
-        <Switch isSelected={isGasNeeded} size='lg' onChange={(e) => setGasNeeded(e.target.checked)} />
+        <Switch
+          aria-label='enable ETH top-up for transaction fees on BOB network'
+          isSelected={isGasNeeded}
+          size='lg'
+          onChange={(e) => setGasNeeded(e.target.checked)}
+        />
       </Card>
       {isSmartAccount && (
         <Input
@@ -498,12 +506,12 @@ const BtcBridgeForm = ({
         amount={receiveAmount}
         amountPlaceholder={placeholderAmount}
         currencyOnly={quoteData?.isStakingToken}
+        feeRate={feeRate}
         feeRateData={satsFeeRate}
-        feeRateValue={feeRateValue}
         gatewayFee={quoteData?.fee || gasEstimatePlaceholder}
-        selectedFeeRate={feeRate}
         networkFee={feeAmount || gasEstimatePlaceholder}
-        // onChangeFeeRate={setFeeRateProvider}
+        selectedFee={transactionFee}
+        onChangeFee={handleChangeFee}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
         <Trans>Bridge Asset</Trans>

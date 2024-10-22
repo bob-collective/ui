@@ -64,5 +64,5 @@
     "usehooks-ts": "^3.1.0"
   },
   "clean-package": "../../clean-package.config.json",
-  "yalcSig": "33a5dd18fd9f12b4cc4f74d60d9ae318"
+  "yalcSig": "3611a67d6435194650daab43af141fe6"
 }

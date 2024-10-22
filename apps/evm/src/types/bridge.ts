@@ -35,7 +35,7 @@ enum MessageStatus {
   FAILED_L1_TO_L2_MESSAGE = 'failed-l1-to-l2-message'
 }
 
-type GatewayFeeRate = { provider: keyof FeeRateReturnType } | { provider: 'custom'; amount: number };
+type GatewayTransactionFee = { provider: keyof FeeRateReturnType } | { provider: 'custom'; networkRate: number };
 
 export { TransactionType, MessageStatus, MessageDirection };
-export type { L2BridgeData, GatewayData, GatewayFeeRate };
+export type { L2BridgeData, GatewayData, GatewayTransactionFee };

@@ -1,31 +1,30 @@
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { Card, Dd, Dl, DlProps, Flex, PencilSquare, Span, Spinner, UnstyledButton } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
 import { FeeRateReturnType } from '@gobob/sats-wagmi';
+import { Card, Cog, Dd, Dl, DlProps, Flex, InformationCircle, Span, Spinner, Tooltip, UnstyledButton } from '@gobob/ui';
+import { Trans, t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { useState } from 'react';
 
 import { AmountLabel } from '../AmountLabel';
 
+import { GatewayFeeSettingsModal } from './GatewayFeeSettingsModal';
 import { StyledDlGroup, StyledDt } from './GatewayTransactionDetails.style';
-import { GatewatFeeRateModal } from './GatewayFeeRateModal';
 
-import { GatewayFeeRate } from '@/types';
+import { GatewayTransactionFee } from '@/types';
 
 type Props = {
   gatewayFee?: CurrencyAmount<Currency>;
   isLoadingGatewayFee?: boolean;
   networkFee?: CurrencyAmount<Currency>;
   isLoadingFeeEstimate?: boolean;
-
   feeRateData?: FeeRateReturnType;
-  feeRateValue?: number;
-  selectedFeeRate: GatewayFeeRate;
-
+  feeRate?: number;
+  selectedFee: GatewayTransactionFee;
   isLoadingFeeRate?: boolean;
   amount?: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   amountPlaceholder?: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   currencyOnly?: boolean;
-  onChangeFeeRate?: (feeRate: GatewayFeeRate) => void;
+  onChangeFee?: (feeRate: GatewayTransactionFee) => void;
 };
 
 type InheritAttrs = Omit<DlProps, keyof Props>;
@@ -40,13 +39,15 @@ const GatewayTransactionDetails = ({
   isLoadingGatewayFee,
   isLoadingFeeEstimate,
   isLoadingFeeRate,
-  feeRateValue,
+  feeRate,
   feeRateData,
   currencyOnly = false,
-  selectedFeeRate,
-  onChangeFeeRate,
+  selectedFee,
+  onChangeFee,
   ...props
 }: GatewayTransactionDetailsProps): JSX.Element => {
+  const { i18n } = useLingui();
+
   const [isOpen, setOpen] = useState(false);
 
   const amount = amountProp || amountPlaceholder;
@@ -56,9 +57,19 @@ const GatewayTransactionDetails = ({
       <Dl direction='column' gap='none' {...props}>
         {amount && (
           <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
-            <StyledDt color='grey-50' size='xs'>
-              <Trans>You will receive</Trans>
-            </StyledDt>
+            <Flex alignItems='center' gap='xs'>
+              <StyledDt color='grey-50' size='xs'>
+                <Trans>You will receive</Trans>
+              </StyledDt>
+              <Tooltip
+                color='primary'
+                label={t(
+                  i18n
+                )`This is the final amount you will receive after deducting the Protocol fees from your input amount.`}
+              >
+                <InformationCircle color='grey-50' size='xs' />
+              </Tooltip>
+            </Flex>
             <Flex alignItems='center' elementType='dd'>
               {Array.isArray(amount) ? (
                 <Flex alignItems='flex-end' direction='column' elementType='span' gap='xxs'>
@@ -78,9 +89,19 @@ const GatewayTransactionDetails = ({
         )}
         {gatewayFee && (
           <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
-            <StyledDt color='grey-50' size='xs'>
-              Gateway Fee
-            </StyledDt>
+            <Flex alignItems='center' gap='xs'>
+              <StyledDt color='grey-50' size='xs'>
+                <Trans>Protocol Fee</Trans>
+              </StyledDt>
+              <Tooltip
+                color='primary'
+                label={t(
+                  i18n
+                )`The Protocol Fee is a charge for using Gateway, our product, to facilitate the transaction.`}
+              >
+                <InformationCircle color='grey-50' size='xs' />
+              </Tooltip>
+            </Flex>
             <Dd size='xs'>
               <Flex alignItems='center' elementType='span' gap='s'>
                 {isLoadingGatewayFee && <Spinner size='12' thickness={2} />}
@@ -91,9 +112,19 @@ const GatewayTransactionDetails = ({
         )}
         {networkFee && (
           <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
-            <StyledDt color='grey-50' size='xs'>
-              Network Fee
-            </StyledDt>
+            <Flex alignItems='center' gap='xs'>
+              <StyledDt color='grey-50' size='xs'>
+                <Trans>Network Fee</Trans>
+              </StyledDt>
+              <Tooltip
+                color='primary'
+                label={t(
+                  i18n
+                )`The Network Fee is a fee paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain.`}
+              >
+                <InformationCircle color='grey-50' size='xs' />
+              </Tooltip>
+            </Flex>
             <Dd size='xs'>
               <Flex alignItems='center' elementType='span' gap='s'>
                 {isLoadingFeeEstimate && <Spinner size='12' thickness={2} />}
@@ -102,31 +133,39 @@ const GatewayTransactionDetails = ({
             </Dd>
           </StyledDlGroup>
         )}
-        {feeRateValue && (
+        {feeRate && (
           <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
-            <StyledDt color='grey-50' size='xs'>
-              Network Fee Rate
-            </StyledDt>
-            <Dd size='xs'>
-              <Flex alignItems='center' elementType='span' gap='s'>
-                {isLoadingFeeRate && <Spinner size='12' thickness={2} />}
-                <UnstyledButton asChild onPress={() => setOpen(true)}>
-                  <Flex alignItems='center'>
-                    <PencilSquare size='xs' />
-                    {feeRateValue} sat/vB
-                  </Flex>
-                </UnstyledButton>
-              </Flex>
-            </Dd>
+            <Flex alignItems='center' gap='xs'>
+              <StyledDt color='grey-50' size='xs'>
+                <Trans>Network Fee Rate</Trans>
+              </StyledDt>
+              <Tooltip
+                color='primary'
+                label={t(
+                  i18n
+                )`The Network Fee Rate is the amount you pay per byte of data in your Bitcoin transaction, measured in satoshis per byte (sat/vB). A higher fee rate can speed up transaction confirmation.`}
+              >
+                <InformationCircle color='grey-50' size='xs' />
+              </Tooltip>
+            </Flex>
+            <Flex alignItems='center' elementType='dd' gap='s'>
+              {isLoadingFeeRate && <Spinner size='12' thickness={2} />}
+              <UnstyledButton onPress={() => setOpen(true)}>
+                <Flex alignItems='center' gap='xs'>
+                  <Span size='xs'>{Math.ceil(feeRate)} sat/vB</Span>
+                  <Cog color='grey-50' size='s' />
+                </Flex>
+              </UnstyledButton>
+            </Flex>
           </StyledDlGroup>
         )}
       </Dl>
       {feeRateData && (
-        <GatewatFeeRateModal
+        <GatewayFeeSettingsModal
           feeRateData={feeRateData}
           isOpen={isOpen}
-          selectedFeeRate={selectedFeeRate}
-          onChangeFeeRate={onChangeFeeRate}
+          selectedFee={selectedFee}
+          onChangeFee={onChangeFee}
           onClose={() => setOpen(false)}
         />
       )}

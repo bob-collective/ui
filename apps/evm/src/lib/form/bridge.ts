@@ -45,12 +45,12 @@ type BridgeGatewayFeeRateFormValues = {
 
 const bridgeGatewayFeeRateSchema = () => {
   return yup.object().shape({
-    [BRIDGE_GATEWAY_FEE_RATE_PROVIDER]: yup.string().required(),
-    [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]: yup.string().when([BRIDGE_GATEWAY_FEE_RATE_PROVIDER], {
+    [BRIDGE_GATEWAY_FEE_RATE_PROVIDER]: yup.string().required('Fee rate is a required field'),
+    [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]: yup.number().when([BRIDGE_GATEWAY_FEE_RATE_PROVIDER], {
       is: (provider: string) => {
         return provider === 'custom';
       },
-      then: (schema) => schema.required().min(0)
+      then: (schema) => schema.required('Fee rate is a required field').min(1, 'Fee rate must be greater than 0')
     })
   });
 };
