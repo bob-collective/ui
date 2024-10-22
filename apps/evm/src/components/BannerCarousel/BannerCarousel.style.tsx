@@ -100,21 +100,6 @@ const StyledFusionImg = styled(Image)`
   }}
 `;
 
-const StyledBinanceCampaignImg = styled(Image)`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      top: 50%;
-      right: 0;
-      width: 21rem;
-      transform: translateY(-50%);
-      @media ${theme.breakpoints.down('md')} {
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 const StyledXImg = styled(Image)`
   ${({ theme }) => {
     return css`
@@ -134,7 +119,6 @@ export {
   StyledBanner,
   StyledBannerContent,
   StyledBannerTitle,
-  StyledBinanceCampaignImg,
   StyledCarousel,
   StyledCarouselWrapper,
   StyledFusionImg,

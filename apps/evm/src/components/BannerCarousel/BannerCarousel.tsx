@@ -10,7 +10,6 @@ import { useTheme } from 'styled-components';
 import { useIsClient, useSessionStorage } from 'usehooks-ts';
 
 import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
-import { BinanceCampaignBanner } from './BinanceCampaignBanner';
 import { FusionBanner } from './FusionBanner';
 import { OnrampBanner } from './OnrampBanner';
 import { XBanner } from './XBanner';
@@ -74,12 +73,6 @@ const BannerCarousel = () => {
     []
   );
 
-  const onPressBinanceCampaignBanner = useCallback(
-    () => window.open('https://www.binance.com/en/activity/mission/bob-campaign', '_blank', 'noreferrer'),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
   return (
     <StyledCarouselWrapper
       aria-label={t(i18n)`navigate to ecosystem section in fusion page`}
@@ -99,7 +92,6 @@ const BannerCarousel = () => {
         transitionDuration={500}
       >
         <XBanner onPress={onPressXBanner} />
-        <BinanceCampaignBanner onPress={onPressBinanceCampaignBanner} />
         <FusionBanner onPress={onPressFusionBanner} />
         {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
       </StyledCarousel>
