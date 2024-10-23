@@ -57,7 +57,7 @@ import {
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
 import { bridgeKeys } from '@/lib/react-query';
-import { GatewayData, GatewayTransactionFee } from '@/types';
+import { GatewayTransactionSpeed, GatewayData, GatewayTransactionFee, GatewayTransactionSpeedData } from '@/types';
 
 type BtcBridgeFormProps = {
   type: Type;
@@ -133,23 +133,22 @@ const BtcBridgeForm = ({
 
   const hasBalance = satsBalance && satsBalance.confirmed > 0n;
 
-  const { data: satsFeeRate, isLoading: isSatsFeeRateLoading } = useSatsFeeRate();
-
-  const [transactionFee, setTransactionFee] = useState<GatewayTransactionFee>({ provider: 'esplora' });
-
-  const feeRate = useMemo(() => {
-    if (!satsFeeRate) return;
-
-    switch (transactionFee.provider) {
-      default:
-      case 'esplora':
-        return satsFeeRate.esplora[6];
-      case 'memPool':
-        return satsFeeRate.memPool.hourFee;
-      case 'custom':
-        return transactionFee.networkRate;
+  const { data: satsFeeRate, isLoading: isSatsFeeRateLoading } = useSatsFeeRate({
+    query: {
+      select: ({ esplora, memPool }): GatewayTransactionSpeedData => {
+        return {
+          fastest: Math.ceil(Math.min(esplora[2], memPool.fastestFee)),
+          fast: Math.ceil(Math.min(esplora[4], memPool.halfHourFee)),
+          slow: Math.ceil(Math.min(esplora[4], memPool.hourFee)),
+          minimum: Math.ceil(Math.min(esplora[1008], memPool.minimumFee))
+        };
+      }
     }
-  }, [satsFeeRate, transactionFee]);
+  });
+
+  const [transactionFee, setTransactionFee] = useState<GatewayTransactionFee>({ speed: GatewayTransactionSpeed.SLOW });
+
+  const feeRate = transactionFee.speed === 'custom' ? transactionFee.networkRate : satsFeeRate?.[transactionFee.speed];
 
   const {
     data: satsFeeEstimate,
@@ -174,6 +173,13 @@ const BtcBridgeForm = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [satsFeeEstimateError]);
+
+  useEffect(() => {
+    if (!satsFeeEstimate || !form.values[BRIDGE_AMOUNT]) return;
+
+    form.validateField(BRIDGE_AMOUNT);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [satsFeeEstimate]);
 
   const btcToken = useMemo(
     () => availableTokens.find((token) => token.currency.symbol === receiveTicker),
@@ -251,7 +257,6 @@ const BtcBridgeForm = ({
       return {
         receiveAmount: CurrencyAmount.fromBaseAmount(btcToken.currency, btcReceiveAmount.toExact()),
         fee: feeAmount,
-        isStakingToken: !!gatewayQuote.strategyAddress,
         gatewayQuote
       };
     }
@@ -287,7 +292,7 @@ const BtcBridgeForm = ({
         fromUserAddress: connector.paymentAddress!,
         fromUserPublicKey: connector.publicKey,
         gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        feeRate: feeRate
+        feeRate
       });
 
       const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
@@ -395,8 +400,6 @@ const BtcBridgeForm = ({
 
   const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
 
-  const receiveAmount = quoteData ? quoteData.receiveAmount : undefined;
-
   const placeholderAmount = useMemo(
     () => (btcToken ? CurrencyAmount.fromRawAmount(btcToken.currency, 0n) : undefined),
     [btcToken]
@@ -503,9 +506,12 @@ const BtcBridgeForm = ({
         </Alert>
       )}
       <GatewayTransactionDetails
-        amount={receiveAmount}
+        amount={quoteData?.receiveAmount}
+        amountLabel={<Trans>You will receive</Trans>}
         amountPlaceholder={placeholderAmount}
-        currencyOnly={quoteData?.isStakingToken}
+        amountTooltipLabel={t(
+          i18n
+        )`This is the final amount you will receive after deducting the Protocol fees from your input amount.`}
         feeRate={feeRate}
         feeRateData={satsFeeRate}
         gatewayFee={quoteData?.fee || gasEstimatePlaceholder}

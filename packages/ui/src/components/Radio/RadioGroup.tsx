@@ -2,8 +2,8 @@ import { AriaRadioGroupProps, useRadioGroup } from '@react-aria/radio';
 import { ChangeEvent, forwardRef } from 'react';
 import { useRadioGroupState } from '@react-stately/radio';
 
-import { useDOMRef } from '../../hooks';
-import { Orientation, RadioSize, Spacing } from '../../theme';
+import { useDOMRef, useStyleProps } from '../../hooks';
+import { MarginProps, Orientation, PaddingProps, RadioSize, Spacing } from '../../theme';
 import { Label } from '../Label';
 import { HelperText, HelperTextProps } from '../HelperText';
 
@@ -22,7 +22,7 @@ type AriaAttrs = Omit<AriaRadioGroupProps, keyof Props | 'errorMessage' | 'descr
 
 type InheritAttrs = Omit<HelperTextProps, keyof (Props & AriaAttrs)>;
 
-type RadioGroupProps = Props & InheritAttrs & AriaAttrs;
+type RadioGroupProps = Props & InheritAttrs & AriaAttrs & MarginProps & PaddingProps;
 
 const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
   (
@@ -42,6 +42,8 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
     },
     ref
   ): JSX.Element => {
+    const { styleProps, componentProps } = useStyleProps(props);
+
     let domRef = useDOMRef(ref);
     let state = useRadioGroupState({
       onChange: onValueChange,
@@ -49,15 +51,15 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
       description,
       isInvalid: !!errorMessage || isInvalid,
       isDisabled,
-      ...props
+      ...componentProps
     });
     let { radioGroupProps, labelProps, descriptionProps, errorMessageProps } = useRadioGroup(
-      { label, errorMessage, description, isDisabled, isInvalid, ...props },
+      { label, errorMessage, description, isDisabled, isInvalid, ...componentProps },
       state
     );
 
     return (
-      <StyledField ref={domRef} $isDisabled={isDisabled} direction='column'>
+      <StyledField ref={domRef} $isDisabled={isDisabled} direction='column' styleProps={styleProps}>
         {label && (
           <Label error={!!errorMessage} size={size} {...labelProps}>
             {label}

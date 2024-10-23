@@ -11,15 +11,13 @@ import {
   Span,
   useForm,
   P,
-  Alert,
-  Link
+  Alert
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { FeeRateReturnType } from '@gobob/sats-wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounceValue } from 'usehooks-ts';
 
-import { GatewayTransactionFee } from '@/types';
+import { GatewayTransactionFee, GatewayTransactionSpeed, GatewayTransactionSpeedData } from '@/types';
 import {
   BRIDGE_GATEWAY_FEE_RATE_AMOUNT,
   BRIDGE_GATEWAY_FEE_RATE_PROVIDER,
@@ -27,9 +25,10 @@ import {
   bridgeGatewayFeeRateSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
+import { isHighFeeRate, isLowFeeRate } from '@/utils/gateway';
 
 type Props = {
-  feeRateData: FeeRateReturnType;
+  feeRateData: GatewayTransactionSpeedData;
   selectedFee?: GatewayTransactionFee;
   onChangeFee?: (fee: GatewayTransactionFee) => void;
 };
@@ -38,7 +37,6 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type GatewayFeeSettingsModalProps = Props & InheritAttrs;
 
-// FIX: not able to go back on other fees
 const GatewayFeeSettingsModal = ({
   onClose,
   isOpen,
@@ -48,22 +46,22 @@ const GatewayFeeSettingsModal = ({
   ...props
 }: GatewayFeeSettingsModalProps): JSX.Element => {
   const handleSubmit = (data: BridgeGatewayFeeRateFormValues) => {
-    const { [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]: amount, [BRIDGE_GATEWAY_FEE_RATE_PROVIDER]: provider } = data;
+    const { [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]: amount, [BRIDGE_GATEWAY_FEE_RATE_PROVIDER]: speed } = data;
 
-    if (provider === 'custom') {
+    if (speed === 'custom') {
       if (!amount) return;
 
-      onChangeFee?.({ networkRate: Number(amount), provider: 'custom' });
+      onChangeFee?.({ networkRate: Number(amount), speed: GatewayTransactionSpeed.CUSTOM });
     } else {
-      onChangeFee?.({ provider: provider as Exclude<GatewayTransactionFee['provider'], 'custom'> });
+      onChangeFee?.({ speed: speed as Exclude<GatewayTransactionFee['speed'], 'custom'> });
     }
 
     onClose?.();
   };
 
   const initialValues: BridgeGatewayFeeRateFormValues = {
-    [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]: selectedFee?.provider === 'custom' ? selectedFee.networkRate.toString() : '',
-    [BRIDGE_GATEWAY_FEE_RATE_PROVIDER]: selectedFee?.provider
+    [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]: selectedFee?.speed === 'custom' ? selectedFee.networkRate.toString() : '',
+    [BRIDGE_GATEWAY_FEE_RATE_PROVIDER]: selectedFee?.speed
   };
 
   const [debouncedValue, setDebounceValue] = useDebounceValue<string | number | undefined>(
@@ -73,28 +71,21 @@ const GatewayFeeSettingsModal = ({
 
   const form = useForm<BridgeGatewayFeeRateFormValues>({
     initialValues,
-    validationSchema: bridgeGatewayFeeRateSchema(),
+    validationSchema: bridgeGatewayFeeRateSchema({ [BRIDGE_GATEWAY_FEE_RATE_AMOUNT]: feeRateData.minimum }),
     onSubmit: handleSubmit,
     hideErrors: 'untouched'
   });
 
-  const isSubmitDisabled = isFormDisabled(form);
-
-  const esploraFeeRecommendation = feeRateData.esplora[6];
-  const mempoolFeeRecommendation = feeRateData.memPool.hourFee;
+  const isSubmitDisabled = isFormDisabled(form, false);
 
   const shouldConsiderWarning =
     !!form.values[BRIDGE_GATEWAY_FEE_RATE_AMOUNT] &&
     !!debouncedValue &&
     form.values[BRIDGE_GATEWAY_FEE_RATE_PROVIDER] === 'custom';
 
-  const shouldShowLowFeeRateWarning =
-    shouldConsiderWarning &&
-    Number(debouncedValue) < Math.min(esploraFeeRecommendation, mempoolFeeRecommendation) * 0.8;
+  const shouldShowLowFeeRateWarning = shouldConsiderWarning && isLowFeeRate(Number(debouncedValue), feeRateData);
 
-  const shouldShowHighFeeRateWarning =
-    shouldConsiderWarning &&
-    Number(debouncedValue) > Math.max(esploraFeeRecommendation, mempoolFeeRecommendation) * 1.2;
+  const shouldShowHighFeeRateWarning = shouldConsiderWarning && isHighFeeRate(Number(debouncedValue), feeRateData);
 
   return (
     <Modal isOpen={isOpen} size='md' onClose={onClose} {...props}>
@@ -107,7 +98,7 @@ const GatewayFeeSettingsModal = ({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {...{ onSubmit: form.handleSubmit as any }}
       >
-        <Flex alignItems='center' direction='column' gap='lg'>
+        <Flex direction='column' gap='lg'>
           <P size='s'>
             <Trans>
               Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to
@@ -115,25 +106,39 @@ const GatewayFeeSettingsModal = ({
             </Trans>
           </P>
           <RadioGroup
+            gap='s'
             label='Fee Rate'
+            paddingX='md'
             value={form.values[BRIDGE_GATEWAY_FEE_RATE_PROVIDER]}
             onValueChange={(value) => form.setFieldValue(BRIDGE_GATEWAY_FEE_RATE_PROVIDER, value, true)}
           >
-            <Flex gap='xl'>
-              <Radio value='esplora'>{Math.ceil(esploraFeeRecommendation)} sat/vB</Radio>
-              <Link external icon href='https://blockstream.info/' size='s'>
-                Blockstream
-              </Link>
-            </Flex>
-            <Flex gap='xl'>
-              <Radio value='memPool'>{Math.ceil(mempoolFeeRecommendation)} sat/vB</Radio>
-              <Link external icon href='https://mempool.space/' size='s'>
-                mempool.space
-              </Link>
-            </Flex>
+            <Radio value={GatewayTransactionSpeed.FASTEST}>
+              <Flex direction='column'>
+                <Span size='s'>Fastest ({feeRateData.fastest} sat/vB) </Span>
+                <Span color='grey-50' size='xs'>
+                  <Trans>Estimated within the next block</Trans>
+                </Span>
+              </Flex>
+            </Radio>
+            <Radio value={GatewayTransactionSpeed.FAST}>
+              <Flex direction='column'>
+                <Span size='s'>Fast ({feeRateData.fast} sat/vB) </Span>
+                <Span color='grey-50' size='xs'>
+                  <Trans>Estimated within 30 minutes</Trans>
+                </Span>
+              </Flex>
+            </Radio>
+            <Radio value={GatewayTransactionSpeed.SLOW}>
+              <Flex direction='column'>
+                <Span size='s'>Slow ({feeRateData.slow} sat/vB) </Span>
+                <Span color='grey-50' size='xs'>
+                  <Trans>Estimated within 1 hour</Trans>
+                </Span>
+              </Flex>
+            </Radio>
             <Flex>
-              <Radio value='custom'>
-                <Span hidden>{debouncedValue ? `${debouncedValue} sat/vB` : 'custom fee rate'}</Span>
+              <Radio value={GatewayTransactionSpeed.CUSTOM}>
+                <Span hidden>{debouncedValue ? `${debouncedValue} sat/vB` : 'Custom'}</Span>
               </Radio>
               <NumberInput
                 aria-label='fee rate'
