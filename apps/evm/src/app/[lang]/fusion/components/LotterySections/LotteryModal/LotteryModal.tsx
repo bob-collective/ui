@@ -1,3 +1,5 @@
+'use client';
+
 import { Spice } from '@gobob/icons';
 import { Chip, Flex, H3, Link, Modal, ModalBody, ModalFooter, P, SolidClock, Span, toast, useLocale } from '@gobob/ui';
 import { Plural, Trans } from '@lingui/macro';
@@ -32,57 +34,60 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
     }
   });
 
-  const getHeaderText = () => {
-    if (Boolean(votesRemaining === MAX_TICKETS)) return <Trans>You Have 0 Tickets</Trans>;
+  const rollsNotUsed = (rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS;
+  const votesNotUsed = votesRemaining === MAX_TICKETS;
 
-    if (rollsRemaining !== undefined)
-      return (
-        <>
-          {(rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS && <Trans>You&apos;re Ready to Play!</Trans>}
-          {lotteryRollData?.prize === 0 && <Trans>Not your lucky day... yet!</Trans>}
-          {(lotteryRollData?.prize || 0) > 0 && <Trans>Congratulations you won!</Trans>}
-          <br />
-          <Trans>
-            <Span color='primary-500' size='unset'>
-              {rollsRemaining}/{MAX_TICKETS}
-            </Span>{' '}
-            <Plural one='Ticket' other='Tickets' value={1} /> Remaining
-          </Trans>
-        </>
-      );
+  const getHeaderText = () => {
+    if (votesNotUsed) return <Trans>You Have 0 Tickets</Trans>;
+
+    return (
+      <>
+        {rollsNotUsed && <Trans>You&apos;re Ready to Play!</Trans>}
+        {lotteryRollData?.prize === 0 && <Trans>Not your lucky day... yet!</Trans>}
+        {(lotteryRollData?.prize || 0) > 0 && <Trans>Congratulations you won!</Trans>}
+        <br />
+        <Trans>
+          <Span color='primary-500' size='unset'>
+            {rollsRemaining}/{MAX_TICKETS}
+          </Span>{' '}
+          <Plural one='Ticket' other='Tickets' value={1} /> Remaining
+        </Trans>
+      </>
+    );
   };
 
   const getDescriptionText = () => {
-    if (Boolean(votesRemaining === MAX_TICKETS))
+    if (votesNotUsed)
       return (
         <Trans>
           Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily
           and boost your chances.
         </Trans>
       );
-    if (rollsRemaining === 0)
+
+    if (rollsRemaining === 0 && votesRemaining === 0)
       return (
         <Trans>
           You&apos;ve used all your tickets for today. New tickets will be available once the timer resets. Be sure to
           come back and vote daily to increase your chances of earning more SPICE!
         </Trans>
       );
-    if (Boolean(rollsRemaining))
-      return (
-        <Trans>
-          Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the
-          timer resets. Vote daily to increase your chances of earning more SPICE!
-        </Trans>
-      );
+
+    return (
+      <Trans>
+        Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the
+        timer resets. Vote daily to increase your chances of earning more SPICE!
+      </Trans>
+    );
   };
 
   return (
     <Modal isDismissable isOpen={isOpen} size='s' onClose={onClose}>
       <StyledLottie
         key={lotteryRollData?.rollsRemaining}
+        hidden={!lotteryRollData?.prize}
         autoplay
         animationData={confettiAnimationData}
-        hidden={!lotteryRollData?.prize}
       />
       <ModalBody padding='2xl'>
         <Flex alignItems='center' direction='column' gap='5xl'>
@@ -92,7 +97,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
           <H3 align='center' size='2xl'>
             {getHeaderText()}
           </H3>
-          {(rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS || votesRemaining === MAX_TICKETS ? (
+          {rollsNotUsed || votesNotUsed ? (
             <Ticket size='3xl' />
           ) : (
             <StyledPoints>
@@ -118,11 +123,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
           )}
           {Boolean(rollsRemaining) && (
             <StyledButton color='primary' onClick={() => roll()}>
-              {(rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS ? (
-                <Trans>Play</Trans>
-              ) : (
-                <Trans>Play again</Trans>
-              )}
+              {rollsNotUsed ? <Trans>Play</Trans> : <Trans>Play again</Trans>}
             </StyledButton>
           )}
         </Flex>
