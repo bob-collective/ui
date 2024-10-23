@@ -1,3 +1,5 @@
+'use client';
+
 import { useMutation, UseMutationOptions, useQueryClient } from '@gobob/react-query';
 import { useState } from 'react';
 import { Address } from 'viem';
