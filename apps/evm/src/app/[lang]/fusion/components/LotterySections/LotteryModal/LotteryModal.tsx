@@ -2,9 +2,7 @@ import { Spice } from '@gobob/icons';
 import { Chip, Flex, H3, Link, Modal, ModalBody, ModalFooter, P, SolidClock, Span, toast, useLocale } from '@gobob/ui';
 import { Plural, Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
-import { LottieRefCurrentProps } from 'lottie-react';
 import { useParams } from 'next/navigation';
-import { useRef } from 'react';
 
 import { ROUND_END_TIME } from '../constants';
 import { Ticket } from '../icons';
