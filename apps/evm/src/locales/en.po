@@ -22,8 +22,8 @@ msgstr ", due to the challenge period"
 #~ msgstr "{0, plural, one {Ticket} other {Tickets}}"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:27
-msgid "{0} {1, plural, one {Ticket} other {Tickets}} <0>Remaining</0>"
-msgstr "{0} {1, plural, one {Ticket} other {Tickets}} <0>Remaining</0>"
+#~ msgid "{0} {1, plural, one {Ticket} other {Tickets}} <0>Remaining</0>"
+#~ msgstr "{0} {1, plural, one {Ticket} other {Tickets}} <0>Remaining</0>"
 
 #: src/app/[lang]/bridge/components/TransactionList/TransactionDetails.tsx:50
 msgid "{0} ago"
@@ -33,7 +33,7 @@ msgstr "{0} ago"
 msgid "{0} remaining"
 msgstr "{0} remaining"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:24
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:29
 msgid "{0} until next draw"
 msgstr "{0} until next draw"
 
@@ -52,6 +52,14 @@ msgstr "* The multipliers displayed are subject to change based on the payout st
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:245
 msgid "< 1 minute"
 msgstr "< 1 minute"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:35
+msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
+msgstr "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:45
+msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
+msgstr "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:21
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:60
@@ -89,7 +97,7 @@ msgstr "All Apps"
 msgid "Already harvesting?"
 msgstr "Already harvesting?"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:525
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:524
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:390
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:340
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:233
@@ -97,14 +105,14 @@ msgid "Amount"
 msgstr "Amount"
 
 #: src/components/BannerCarousel/BinanceCampaignBanner.tsx:25
-msgid "An exclusive quest campaign."
-msgstr "An exclusive quest campaign."
+#~ msgid "An exclusive quest campaign."
+#~ msgstr "An exclusive quest campaign."
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:267
 msgid "and that you have read and understood our"
 msgstr "and that you have read and understood our"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:510
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:509
 msgid "Approve"
 msgstr "Approve"
 
@@ -151,12 +159,12 @@ msgid "Below is the Spice you've harvested from apps. Keep participating to incr
 msgstr "Below is the Spice you've harvested from apps. Keep participating to increase your future harvest!"
 
 #: src/components/BannerCarousel/BinanceCampaignBanner.tsx:29
-msgid "Binance campaign banner"
-msgstr "Binance campaign banner"
+#~ msgid "Binance campaign banner"
+#~ msgstr "Binance campaign banner"
 
 #: src/components/BannerCarousel/BinanceCampaignBanner.tsx:21
-msgid "Bitcoin Staking with Binance"
-msgstr "Bitcoin Staking with Binance"
+#~ msgid "Bitcoin Staking with Binance"
+#~ msgstr "Bitcoin Staking with Binance"
 
 #: src/components/Logo/Logo.tsx:37
 msgid "BOB"
@@ -183,8 +191,8 @@ msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 msgid "BOB Gateway is live!"
 msgstr "BOB Gateway is live!"
 
-#: src/app/[lang]/layout.tsx:29
-#: src/app/[lang]/layout.tsx:48
+#: src/app/[lang]/layout.tsx:30
+#: src/app/[lang]/layout.tsx:49
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 
@@ -205,7 +213,7 @@ msgstr "BOB Wallet"
 msgid "Bridge"
 msgstr "Bridge"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:511
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:510
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:486
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
@@ -219,7 +227,7 @@ msgstr "Bridge Assets"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "Bridge BTC LSTs to BOB"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:506
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:505
 msgid "Bridge Disabled"
 msgstr "Bridge Disabled"
 
@@ -265,7 +273,7 @@ msgstr "Cannot stake into {0} due to insufficient liquidity."
 msgid "Category"
 msgstr "Category"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:508
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:507
 msgid "Checking Allowance"
 msgstr "Checking Allowance"
 
@@ -281,6 +289,7 @@ msgstr "Chose any of the existing liquid staking provider to mint your BTC LST."
 msgid "Click the <0/> icon next to your favourite apps"
 msgstr "Click the <0/> icon next to your favourite apps"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:116
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:109
 #: src/components/TransactionModal/GatewayTransactionModal.tsx:74
 msgid "Close"
@@ -317,6 +326,10 @@ msgstr "Community Voting Information"
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:54
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:43
+msgid "Congratulations you won!"
+msgstr "Congratulations you won!"
 
 #: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:141
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:93
@@ -437,9 +450,13 @@ msgstr "Don't believe in the Bitcoin Renaissance? You can withdraw your funds fr
 msgid "Don't show this message again"
 msgstr "Don't show this message again"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:58
+msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
+msgstr "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:36
-msgid "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
-msgstr "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
+#~ msgid "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
+#~ msgstr "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:26
 msgid "Earned Spice"
@@ -453,7 +470,7 @@ msgstr "Ensure that you are transferring from the BOB Network to avoid any loss 
 msgid "Enter Address"
 msgstr "Enter Address"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:536
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:535
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:446
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:395
 msgid "Enter destination address"
@@ -570,7 +587,7 @@ msgstr "Geoblock"
 msgid "Get ETH for transaction fees on BOB"
 msgstr "Get ETH for transaction fees on BOB"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:49
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:111
 msgid "Get tickets"
 msgstr "Get tickets"
 
@@ -627,7 +644,7 @@ msgstr "Incentives"
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr "Invalid referral code. You can try again, or proceed without one."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:38
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:50
 msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 msgstr "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 
@@ -703,17 +720,21 @@ msgstr "Log in"
 msgid "Log in to View Dashboard"
 msgstr "Log in to View Dashboard"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:64
+msgid "Login to play"
+msgstr "Login to play"
+
 #: src/components/LoginSection/LoginSection.tsx:14
 msgid "Login with wallet"
 msgstr "Login with wallet"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:20
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:33
 msgid "Lottery"
 msgstr "Lottery"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:33
-msgid "Lottery ticket"
-msgstr "Lottery ticket"
+#~ msgid "Lottery ticket"
+#~ msgstr "Lottery ticket"
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:40
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:107
@@ -776,7 +797,7 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/components/BannerCarousel/BannerCarousel.tsx:85
+#: src/components/BannerCarousel/BannerCarousel.tsx:78
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
@@ -804,7 +825,7 @@ msgstr "Need support? Enter our Discord."
 msgid "New Quests Coming Soon"
 msgstr "New Quests Coming Soon"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:26
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:90
 msgid "new tickets drop in {0}"
 msgstr "new tickets drop in {0}"
 
@@ -823,6 +844,10 @@ msgstr "No new goal at the moment. Stay tuned for updates!"
 #: src/app/[lang]/not-found/page.tsx:14
 #~ msgid "Not found"
 #~ msgstr "Not found"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:42
+msgid "Not your lucky day... yet!"
+msgstr "Not your lucky day... yet!"
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:253
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
@@ -853,10 +878,14 @@ msgstr "OtterSec auditor"
 msgid "Pending"
 msgstr "Pending"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:52
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:45
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:122
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:64
 msgid "Play"
 msgstr "Play"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:124
+msgid "Play again"
+msgstr "Play again"
 
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:94
 msgid "Please confirm allowance approval for {0} in your wallet"
@@ -933,7 +962,7 @@ msgstr "Receive {0}"
 msgid "Receive {ticker}"
 msgstr "Receive {ticker}"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:535
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:534
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:445
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:394
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:224
@@ -1070,6 +1099,7 @@ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus 
 msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:108
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:31
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
@@ -1393,7 +1423,7 @@ msgstr "USDT can only be withdrawn to Ethereum."
 msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 msgstr "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:41
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:72
 msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
 msgstr "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
 
@@ -1554,7 +1584,7 @@ msgstr "You"
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "You can change your votes at any time before the end of the weekly voting period"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:29
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:36
 msgid "You Have 0 Tickets"
 msgstr "You Have 0 Tickets"
 
@@ -1574,9 +1604,17 @@ msgstr "You will need to actively monitor your position, especially if it has a 
 msgid "You will receive"
 msgstr "You will receive"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:41
+msgid "You're Ready to Play!"
+msgstr "You're Ready to Play!"
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:31
-msgid "You're Ready to Play! 1/3 Ticket Remaining"
-msgstr "You're Ready to Play! 1/3 Ticket Remaining"
+#~ msgid "You're Ready to Play! 1/3 Ticket Remaining"
+#~ msgstr "You're Ready to Play! 1/3 Ticket Remaining"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:65
+msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
+msgstr "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:53
 msgid "Your Active Referrals"
