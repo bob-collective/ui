@@ -67,6 +67,7 @@ const BannerCarousel = () => {
     []
   );
 
+  // Comment
   const onPressXBanner = useCallback(
     () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer'),
     // eslint-disable-next-line react-hooks/exhaustive-deps
