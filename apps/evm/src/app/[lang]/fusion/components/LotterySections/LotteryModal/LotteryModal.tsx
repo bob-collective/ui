@@ -3,6 +3,7 @@ import { Chip, Flex, H3, Link, Modal, ModalBody, ModalFooter, P, SolidClock, Spa
 import { Plural, Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
 import { useParams } from 'next/navigation';
+import { useAccount } from '@gobob/wagmi';
 
 import { ROUND_END_TIME } from '../constants';
 import { Ticket } from '../icons';
@@ -13,7 +14,6 @@ import { StyledButton, StyledLottie, StyledPoints } from './LotteryModal.style';
 import { RoutesPath } from '@/constants';
 import { useLotteryRoll } from '@/hooks';
 import { LotteryStats } from '@/utils';
-import { useAccount } from '@gobob/wagmi';
 
 type LotteryModalProps = Partial<LotteryStats> & {
   isOpen: boolean;
@@ -22,7 +22,7 @@ type LotteryModalProps = Partial<LotteryStats> & {
 
 const MAX_TICKETS = 3;
 
-function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsMissing }: LotteryModalProps) {
+function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: LotteryModalProps) {
   const { lang } = useParams();
   const { locale } = useLocale();
   const { address } = useAccount();
@@ -33,13 +33,13 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
   });
 
   const getHeaderText = () => {
-    if (Boolean(pointsMissing)) return <Trans>You Have 0 Tickets</Trans>;
+    if (Boolean(votesRemaining === MAX_TICKETS)) return <Trans>You Have 0 Tickets</Trans>;
 
     if (rollsRemaining !== undefined)
       return (
         <>
           {(rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS && <Trans>You&apos;re Ready to Play!</Trans>}
-          {lotteryRollData?.prize === 0 && (console.log('exec'), (<Trans>Not your lucky day... yet!</Trans>))}
+          {lotteryRollData?.prize === 0 && <Trans>Not your lucky day... yet!</Trans>}
           {(lotteryRollData?.prize || 0) > 0 && <Trans>Congratulations you won!</Trans>}
           <br />
           <Trans>
@@ -53,7 +53,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
   };
 
   const getDescriptionText = () => {
-    if (Boolean(pointsMissing))
+    if (Boolean(votesRemaining === MAX_TICKETS))
       return (
         <Trans>
           Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily
@@ -80,26 +80,26 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
     <Modal isDismissable isOpen={isOpen} size='s' onClose={onClose}>
       <StyledLottie
         key={lotteryRollData?.rollsRemaining}
-        hidden={!lotteryRollData?.prize}
         autoplay
         animationData={confettiAnimationData}
+        hidden={!lotteryRollData?.prize}
       />
       <ModalBody padding='2xl'>
         <Flex alignItems='center' direction='column' gap='5xl'>
           <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
             <Trans>new tickets drop in {formatDistanceToNow(ROUND_END_TIME)}</Trans>
           </Chip>
-          <H3 size='2xl' align='center'>
+          <H3 align='center' size='2xl'>
             {getHeaderText()}
           </H3>
-          {(rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS || Boolean(pointsMissing) ? (
+          {(rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS || votesRemaining === MAX_TICKETS ? (
             <Ticket size='3xl' />
           ) : (
             <StyledPoints>
               <Spice size='3xl' /> {Intl.NumberFormat(locale).format(lotteryRollData?.prize || 0)}
             </StyledPoints>
           )}
-          <P color='grey-50' size='s' align='center'>
+          <P align='center' color='grey-50' size='s'>
             {getDescriptionText()}
           </P>
         </Flex>
