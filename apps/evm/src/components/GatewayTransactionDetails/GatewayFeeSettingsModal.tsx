@@ -89,7 +89,9 @@ const GatewayFeeSettingsModal = ({
 
   return (
     <Modal isOpen={isOpen} size='md' onClose={onClose} {...props}>
-      <ModalHeader align='start'>Advanced Fee Settings</ModalHeader>
+      <ModalHeader align='start'>
+        <Trans>Advanced Fee Settings</Trans>
+      </ModalHeader>
       <ModalBody
         alignItems='center'
         elementType='form'
@@ -108,7 +110,6 @@ const GatewayFeeSettingsModal = ({
           <RadioGroup
             gap='s'
             label='Fee Rate'
-            paddingX='md'
             value={form.values[BRIDGE_GATEWAY_FEE_RATE_PROVIDER]}
             onValueChange={(value) => form.setFieldValue(BRIDGE_GATEWAY_FEE_RATE_PROVIDER, value, true)}
           >
@@ -147,7 +148,6 @@ const GatewayFeeSettingsModal = ({
                     sat/vB
                   </Span>
                 }
-                maxWidth='11xl'
                 placeholder='Custom'
                 size='s'
                 {...mergeProps(form.getFieldProps(BRIDGE_GATEWAY_FEE_RATE_AMOUNT), {

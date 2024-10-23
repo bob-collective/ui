@@ -169,11 +169,6 @@ const BtcStakeForm = ({
     [amount]
   );
 
-  const placeholderAmount = useMemo(
-    () => (strategy ? CurrencyAmount.fromRawAmount(strategy.currency as Currency, 0n) : undefined),
-    [strategy]
-  );
-
   const handleError = useCallback((e: Error) => {
     toast.error(e.message);
   }, []);
@@ -487,16 +482,10 @@ const BtcStakeForm = ({
         </Alert>
       )}
       <GatewayTransactionDetails
-        hideAmountPrice
-        amount={quoteData?.receiveAmount}
-        amountLabel={<Trans>You will stake</Trans>}
-        amountPlaceholder={placeholderAmount}
-        amountTooltipLabel={t(
-          i18n
-        )`This is the final amount you will stake after deducting the Protocol fees from your input amount.`}
         feeRate={feeRate}
         feeRateData={satsFeeRate}
         gatewayFee={quoteData?.fee || gasEstimatePlaceholder}
+        isLoadingFeeRate={isSatsFeeRateLoading}
         networkFee={feeAmount || gasEstimatePlaceholder}
         selectedFee={transactionFee}
         onChangeFee={handleChangeFee}

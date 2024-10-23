@@ -69,8 +69,12 @@ msgstr ""
 msgid "About"
 msgstr "关于"
 
-#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:103
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:105
 msgid "Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to significant delays in confirmation time."
+msgstr ""
+
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:93
+msgid "Advanced Fee Settings"
 msgstr ""
 
 #: src/app/[lang]/apps/components/AppsList/AppsList.tsx:93
@@ -83,7 +87,7 @@ msgstr "已经在收获？"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:529
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:417
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:404
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:399
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:234
 msgid "Amount"
 msgstr ""
@@ -171,7 +175,7 @@ msgstr "BOB Fusion：最终季"
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:442
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:437
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 msgstr ""
 
@@ -202,7 +206,7 @@ msgid "Bridge"
 msgstr "桥"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:515
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:523
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:524
 msgid "Bridge Asset"
 msgstr ""
 
@@ -236,7 +240,7 @@ msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving 
 msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <0>公告</0>。"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:495
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:476
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:471
 msgid "BTC bridge is currently unavailable. This may be due to: {0}. Please try again later."
 msgstr ""
 
@@ -253,7 +257,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:485
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:480
 msgid "Cannot stake into {0} due to insufficient liquidity."
 msgstr ""
 
@@ -319,6 +323,10 @@ msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外�
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:105
 msgid "Connect BTC Wallet"
 msgstr "连接比特币钱包"
+
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:187
+msgid "Connect BTC wallet to access fee rate settings."
+msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:142
 msgid "Connect request is already pending"
@@ -437,6 +445,10 @@ msgstr "不再显示此消息"
 msgid "Earned Spice"
 msgstr ""
 
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:469
+msgid "enable ETH top-up for transaction fees on BOB network"
+msgstr ""
+
 #: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:59
 msgid "Ensure that you are transferring from the BOB Network to avoid any loss of funds."
 msgstr ""
@@ -447,7 +459,7 @@ msgstr ""
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:540
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:478
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:459
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:454
 msgid "Enter destination address"
 msgstr ""
 
@@ -463,15 +475,15 @@ msgstr ""
 #~ msgid "Estimated Fee"
 #~ msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:135
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:136
 msgid "Estimated within 1 hour"
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:127
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:128
 msgid "Estimated within 30 minutes"
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:119
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:120
 msgid "Estimated within the next block"
 msgstr ""
 
@@ -571,7 +583,7 @@ msgid "Geoblock"
 msgstr ""
 
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:464
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:450
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:445
 msgid "Get ETH for transaction fees on BOB"
 msgstr ""
 
@@ -789,11 +801,11 @@ msgstr ""
 msgid "Need support? Enter our Discord."
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:135
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:139
 msgid "Network Fee"
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:158
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:162
 msgid "Network Fee Rate"
 msgstr ""
 
@@ -874,7 +886,7 @@ msgstr "比特币 + 以太坊共同驱动"
 msgid "Privacy policy"
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:112
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:116
 msgid "Protocol Fee"
 msgstr ""
 
@@ -927,7 +939,7 @@ msgstr "接收 {ticker}"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:539
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:477
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:458
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:453
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
 msgid "Recipient"
 msgstr ""
@@ -1015,7 +1027,7 @@ msgstr ""
 msgid "select network to bridge to"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:414
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:409
 msgid "Select Strategy"
 msgstr ""
 
@@ -1138,7 +1150,7 @@ msgstr "Spice积分（较高）"
 msgid "Spice rewards (Medium)"
 msgstr "Spice积分（中等）"
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:505
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:494
 #: src/app/[lang]/stake/page.tsx:14
 #: src/app/[lang]/stake/Stake.tsx:67
 #: src/components/Layout/Header.tsx:80
@@ -1146,7 +1158,7 @@ msgstr "Spice积分（中等）"
 msgid "Stake"
 msgstr "質押"
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:413
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:408
 msgid "Stake with"
 msgstr ""
 
@@ -1262,7 +1274,7 @@ msgstr "首个混合型二层"
 msgid "The leaderboard resets for the new season"
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:139
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:143
 msgid "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 msgstr ""
 
@@ -1282,11 +1294,11 @@ msgstr "在Intract和Galxe上完成的任务"
 msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake. More rewards are on the way!"
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:116
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:120
 msgid "The Protocol Fee is a charge for using Gateway, our product, to facilitate the transaction."
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:172
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:175
 msgid ""
 "The specified fee rate is higher than necessary and may result in overpaying. A lower fee rate could\n"
 "still confirm your transaction within a reasonable time."
@@ -1296,7 +1308,7 @@ msgstr ""
 msgid "The specified fee rate is higher than necessary and may result in overpaying. A lower fee rate could still confirm your transaction within a reasonable time."
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:168
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:171
 msgid ""
 "The specified fee rate may delay the confirmation of your transaction, possibly taking longer than 1\n"
 "hour to receive your funds. For faster confirmation, consider increasing the fee rate."
@@ -1323,8 +1335,8 @@ msgid "This is the final amount you will receive after deducting the Protocol fe
 msgstr ""
 
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:494
-msgid "This is the final amount you will stake after deducting the Protocol fees from your input amount."
-msgstr ""
+#~ msgid "This is the final amount you will stake after deducting the Protocol fees from your input amount."
+#~ msgstr ""
 
 #: src/app/[lang]/geoblock/Geoblock.tsx:17
 msgid "This website is not available in your location due to geoblocking. Geoblocking is a practice used by content providers to restrict access to their content based on the geographical location of the user."
@@ -1347,7 +1359,7 @@ msgstr ""
 msgid "Top up Gas"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:436
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:431
 msgid "Top-up Gas"
 msgstr ""
 
@@ -1392,7 +1404,7 @@ msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We 
 msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力开发这项功能，请持续关注我们的更新。"
 
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:485
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:466
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:461
 msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 msgstr ""
 
@@ -1592,8 +1604,8 @@ msgid "You will receive"
 msgstr ""
 
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:492
-msgid "You will stake"
-msgstr ""
+#~ msgid "You will stake"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:53
 msgid "Your Active Referrals"
@@ -1608,7 +1620,7 @@ msgid "Your assets will be delivered shortly, with an estimated arrival time of 
 msgstr ""
 
 #: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:413
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:400
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:395
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr ""
 

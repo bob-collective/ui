@@ -7,6 +7,7 @@ import {
   DlProps,
   Flex,
   InformationCircle,
+  Skeleton,
   Span,
   Spinner,
   Tooltip,
@@ -16,6 +17,7 @@ import {
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { ReactNode, useState } from 'react';
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { AmountLabel } from '../AmountLabel';
 
@@ -37,7 +39,7 @@ type Props = {
   amount?: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   amountPlaceholder?: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   onChangeFee?: (feeRate: GatewayTransactionFee) => void;
-  amountLabel: ReactNode;
+  amountLabel?: ReactNode;
   amountTooltipLabel?: ReactNode;
   hideAmountPrice?: boolean;
 };
@@ -63,6 +65,8 @@ const GatewayTransactionDetails = ({
   amountTooltipLabel,
   ...props
 }: GatewayTransactionDetailsProps): JSX.Element => {
+  const { address: btcAddress } = useSatsAccount();
+
   const { i18n } = useLingui();
 
   const [isOpen, setOpen] = useState(false);
@@ -151,7 +155,7 @@ const GatewayTransactionDetails = ({
             </Dd>
           </StyledDlGroup>
         )}
-        {feeRate && (
+        {(feeRate || isLoadingFeeRate) && (
           <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
             <Flex alignItems='center' gap='xs'>
               <StyledDt color='grey-50' size='xs'>
@@ -159,7 +163,6 @@ const GatewayTransactionDetails = ({
               </StyledDt>
             </Flex>
             <Flex alignItems='center' elementType='dd' gap='s'>
-              {isLoadingFeeRate && <Spinner size='12' thickness={2} />}
               {(shouldShowLowFeeRateWarning || shouldShowHighFeeRateWarning) && (
                 <Tooltip
                   color='primary'
@@ -178,12 +181,18 @@ const GatewayTransactionDetails = ({
                   <Warning color='yellow-500' size='s' />
                 </Tooltip>
               )}
-              <UnstyledButton onPress={() => setOpen(true)}>
-                <Flex alignItems='center' gap='xs'>
-                  <Span size='xs'>{Math.ceil(feeRate)} sat/vB</Span>
-                  <Cog color='grey-50' size='s' />
-                </Flex>
-              </UnstyledButton>
+              {isLoadingFeeRate || !feeRate ? (
+                <Skeleton width='6xl' />
+              ) : (
+                <Tooltip isDisabled={!!btcAddress} label={t(i18n)`Connect BTC wallet to access fee rate settings.`}>
+                  <UnstyledButton disabled={!btcAddress} onPress={() => setOpen(true)}>
+                    <Flex alignItems='center' gap='xs'>
+                      <Span size='xs'>{Math.ceil(feeRate)} sat/vB</Span>
+                      <Cog color='grey-50' size='s' />
+                    </Flex>
+                  </UnstyledButton>
+                </Tooltip>
+              )}
             </Flex>
           </StyledDlGroup>
         )}

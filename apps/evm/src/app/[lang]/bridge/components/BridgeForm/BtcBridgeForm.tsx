@@ -466,7 +466,7 @@ const BtcBridgeForm = ({
           </Flex>
         </Flex>
         <Switch
-          aria-label='enable ETH top-up for transaction fees on BOB network'
+          aria-label={t(i18n)`enable ETH top-up for transaction fees on BOB network`}
           isSelected={isGasNeeded}
           size='lg'
           onChange={(e) => setGasNeeded(e.target.checked)}
@@ -515,6 +515,7 @@ const BtcBridgeForm = ({
         feeRate={feeRate}
         feeRateData={satsFeeRate}
         gatewayFee={quoteData?.fee || gasEstimatePlaceholder}
+        isLoadingFeeRate={isSatsFeeRateLoading}
         networkFee={feeAmount || gasEstimatePlaceholder}
         selectedFee={transactionFee}
         onChangeFee={handleChangeFee}
