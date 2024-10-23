@@ -7,6 +7,8 @@ export * from './useGetBridgeTransactions';
 export * from './useGetGatewayTransactions';
 export * from './useGetTransactions';
 export * from './useGetUser';
+export * from './useLotteryRoll';
+export * from './useLotteryStats';
 export * from './useLogin';
 export * from './useLogout';
 export * from './usePublicClient';

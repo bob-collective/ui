@@ -95,10 +95,7 @@ const BobBridgeForm = ({
 
   const currencyAmount = useMemo(
     () =>
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      selectedCurrency && !isNaN(amount as any)
-        ? CurrencyAmount.fromBaseAmount(selectedCurrency, amount || 0)
-        : undefined,
+      selectedCurrency && !isNaN(+amount) ? CurrencyAmount.fromBaseAmount(selectedCurrency, amount || 0) : undefined,
     [selectedCurrency, amount]
   );
 
@@ -114,7 +111,6 @@ const BobBridgeForm = ({
     [i18n]
   );
 
-  // FIXME: not working
   const gasEstimateMutation = useMutation({
     mutationKey: ['gasEstimate', amount, address],
     mutationFn: async ({
@@ -480,8 +476,7 @@ const BobBridgeForm = ({
 
   const getUsdValue = useCallback(
     (ticker: string, amount: string | number) =>
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      !isNaN(amount as any) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
+      !isNaN(+amount) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
     [getPrice]
   );
 

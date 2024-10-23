@@ -16,6 +16,7 @@ declare global {
       NEXT_PUBLIC_SENTRY_AUTH_TOKEN: string;
       NEXT_PUBLIC_SENTRY_URL: string;
       NEXT_PUBLIC_TRACES_SAMPLE_RATE: `${number}`;
+      TURBOPACK: `${boolean}`;
     }
   }
 }

@@ -388,6 +388,22 @@ interface QuestBreakdown {
   questing_platform_referral_code: string;
 }
 
+export interface LotteryStats {
+  rollsRemaining: number;
+  votesRemaining: number;
+  running: boolean;
+  pointsMissing: number;
+}
+
+export interface LotteryRoll {
+  rollsRemaining: number;
+  votesRemaining: number;
+  running: boolean;
+  pointsMissing: number;
+  packageId: number | null;
+  prize: number;
+}
+
 class ApiClient {
   private baseUrl: string;
 
@@ -484,19 +500,19 @@ class ApiClient {
   async getLeaderboard(limit: number, offset: number): Promise<LeaderboardResponse> {
     const response = await fetch(`${this.baseUrl}/leaderboard?limit=${limit}&offset=${offset}`);
 
-    return await response.json();
+    return response.json();
   }
 
   async getQuestLeaderboard(limit: number, offset: number): Promise<LeaderboardResponse> {
     const response = await fetch(`${this.baseUrl}/quest-leaderboard?limit=${limit}&offset=${offset}`);
 
-    return await response.json();
+    return response.json();
   }
 
   async getTvlStats(): Promise<TVLStats> {
     const response = await fetch(`${this.baseUrl}/tvlStats`);
 
-    return await response.json();
+    return response.json();
   }
 
   async isFusionUser(address: string): Promise<boolean> {
@@ -510,13 +526,13 @@ class ApiClient {
   async getVotes(): Promise<ProjectVotingInfo> {
     const response = await fetch(`${this.baseUrl}/votes`);
 
-    return await response.json();
+    return response.json();
   }
 
   async getSeason3Partners(): Promise<PartnersS3Response> {
     const response = await fetch(`${this.baseUrl}/partners-s3`);
 
-    return await response.json();
+    return response.json();
   }
 
   async vote(refCode: string): Promise<ProjectVotingInfo> {
@@ -546,25 +562,25 @@ class ApiClient {
   async getLastVotingResults(): Promise<ResultProjectVotingInfo> {
     const response = await fetch(`${this.baseUrl}/finalized-voting-round/latest/results`);
 
-    return await response.json();
+    return response.json();
   }
 
   async getLeaderboardSeason3(limit: number, offset: number): Promise<LeaderboardS3Response> {
     const response = await fetch(`${this.baseUrl}/leaderboards-s3?limit=${limit}&offset=${offset}`);
 
-    return await response.json();
+    return response.json();
   }
 
   async getQuestsS3(): Promise<QuestS3Response> {
     const response = await fetch(`${this.baseUrl}/get-quests-s3`);
 
-    return await response.json();
+    return response.json();
   }
 
   async getTokenInfo(): Promise<TokenInfo[]> {
     const response = await fetch(`${this.baseUrl}/get-token-info`);
 
-    return await response.json();
+    return response.json();
   }
 
   async getLevelData(): Promise<{
@@ -578,7 +594,21 @@ class ApiClient {
   }> {
     const response = await fetch(`${this.baseUrl}/get-leveldata`);
 
-    return await response.json();
+    return response.json();
+  }
+
+  async getLotteryStats(): Promise<LotteryStats> {
+    const response = await fetch(`${this.baseUrl}/lottery/stats`);
+
+    return response.json();
+  }
+
+  async lotteryRoll(): Promise<LotteryRoll> {
+    const response = await fetch(`${this.baseUrl}/lottery/roll`, {
+      method: 'POST'
+    });
+
+    return response.json();
   }
 }
 

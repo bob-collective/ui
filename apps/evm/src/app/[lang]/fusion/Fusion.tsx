@@ -29,6 +29,7 @@ import {
   StyledStrategiesWrapper
 } from './Fusion.style';
 import { useGetQuests } from './hooks';
+import { LotterySection } from './components/LotterySections';
 
 import { useGetUser } from '@/hooks';
 import { Geoblock } from '@/components';
@@ -123,6 +124,7 @@ const Fusion = () => {
                 <StyledBannerImg alt='x' height='123' src='/assets/x.png' width='336' />
               </Card>
             </Flex>
+            <LotterySection />
           </StyledHeroSection>
         </StyledHeroSectionWrapper>
         <StyledStrategiesWrapper direction='column' paddingBottom='7xl' paddingTop='6xl' paddingX='lg'>

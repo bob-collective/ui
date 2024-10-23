@@ -128,7 +128,7 @@ const BtcBridgeForm = ({
 
   const currencyAmount = useMemo(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
+    () => (!isNaN(+amount) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
     [amount]
   );
 
@@ -351,8 +351,7 @@ const BtcBridgeForm = ({
   const btcPrice = getPrice('BTC');
 
   const valueUSD = useMemo(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    () => (!isNaN(amount as any) ? new Big(amount || 0).mul(btcPrice || 0).toNumber() : 0),
+    () => (!isNaN(+amount) ? new Big(amount || 0).mul(btcPrice || 0).toNumber() : 0),
     [amount, btcPrice]
   );
 
