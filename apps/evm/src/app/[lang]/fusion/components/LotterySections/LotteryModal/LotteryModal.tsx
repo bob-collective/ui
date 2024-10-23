@@ -92,7 +92,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
           <H3 size='2xl' align='center'>
             {getHeaderText()}
           </H3>
-          {rollsRemaining === MAX_TICKETS || !address || Boolean(pointsMissing) ? (
+          {(rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS || Boolean(pointsMissing) ? (
             <Ticket size='3xl' />
           ) : (
             <StyledPoints>
