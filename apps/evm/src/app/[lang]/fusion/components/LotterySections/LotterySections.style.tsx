@@ -1,5 +1,5 @@
 import { Button, Card } from '@gobob/ui';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const StyledButton = styled(Button)`
   padding: 0.625rem 2rem;
