@@ -1,15 +1,18 @@
 import { Chip, Flex, H2, P, SolidClock, SolidInformationCircle, Span, Tooltip } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural, t, Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
 import { useState } from 'react';
+import Image from 'next/image';
+import { useIsClient } from 'usehooks-ts';
+import { useLingui } from '@lingui/react';
 
 import { LotteryModal } from './LotteryModal';
 import { StyledButton, StyledCard } from './LotterySections.style';
 import { ROUND_END_TIME } from './constants';
 
 import { useLotteryStats } from '@/hooks';
-import { useIsClient } from 'usehooks-ts';
+import lottery from '@public/assets/lottery.png';
 
 const tooltipLabel = '';
 
@@ -18,11 +21,29 @@ function LotterySection() {
   const { address } = useAccount();
   const isClient = useIsClient();
   const { data: lotteryStatsData } = useLotteryStats(address);
+  const { i18n } = useLingui();
 
   return (
     <>
       <Flex direction={{ base: 'column', s: 'row' }} gap='4xl' marginTop='7xl'>
-        <StyledCard flex={0.4} />
+        {/* 499px matches figma designs */}
+        <StyledCard
+          padding='none'
+          flex={{ base: '1 0 100%', s: '1 0 355px', lg: '1 0 499px' }}
+          justifyContent='center'
+          background='unset'
+        >
+          <Image
+            alt={t(i18n)`Lottery`}
+            src={lottery}
+            placeholder='blur'
+            sizes='100vw'
+            style={{
+              width: '100%',
+              height: 'auto'
+            }}
+          />
+        </StyledCard>
         <Flex alignItems='flex-start' direction='column' gap='4xl' justifyContent='center'>
           <Flex alignItems='flex-start' direction='column' gap='lg' justifyContent='center'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>

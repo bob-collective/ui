@@ -6,6 +6,8 @@ import { Banner } from './Banner';
 import { StyledBannerContent, StyledFusionImg } from './BannerCarousel.style';
 import { BannerTitle } from './BannerTitle';
 
+import fusionSeasonThree from '@public/assets/fusion-season-three.png';
+
 type FusionBannerProps = {
   onPress?: () => void;
 };
@@ -28,8 +30,9 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => {
       <StyledFusionImg
         alt={t(i18n)`Fusion season three`}
         height='144'
-        src='/assets/fusion-season-three.png'
+        src={fusionSeasonThree}
         width='336'
+        placeholder='blur'
       />
     </Banner>
   );
