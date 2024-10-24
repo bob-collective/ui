@@ -16,34 +16,69 @@ import { RoutesPath } from '@/constants';
 import { useLotteryRoll } from '@/hooks';
 import { LotteryStats } from '@/utils';
 
-type LotteryModalProps = Partial<LotteryStats> & {
+type LotteryModalProps = LotteryStats & {
   isOpen: boolean;
   onClose: () => void;
 };
 
 const MAX_TICKETS = 3;
 
-function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: LotteryModalProps) {
+function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsMissing }: LotteryModalProps) {
   const { lang } = useParams();
   const { locale } = useLocale();
-  const { data: lotteryRollData, mutate: roll } = useLotteryRoll({
+  const {
+    data: lotteryRollData,
+    isIdle,
+    mutate: roll
+  } = useLotteryRoll({
     onError(error) {
       toast.error(error.message || <Trans>Something went wrong. Please try again later.</Trans>);
     }
   });
 
+  if (pointsMissing) {
+    return (
+      <Modal isDismissable isOpen={isOpen} size='s' onClose={onClose}>
+        <ModalBody padding='2xl'>
+          <Flex alignItems='center' direction='column' gap='5xl'>
+            <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
+              <Trans>new tickets drop in {formatDistanceToNow(ROUND_END_TIME)}</Trans>
+            </Chip>
+            <H3 align='center' size='2xl'>
+              <Trans>Not enough spice</Trans>
+            </H3>
+            <StyledPoints>
+              <Spice size='3xl' /> {Intl.NumberFormat(locale).format(pointsMissing)}
+            </StyledPoints>
+            <P align='center' color='grey-50' size='s'>
+              <Trans>Add {pointsMissing} more SPICE to your wallet to participate</Trans>
+            </P>
+          </Flex>
+        </ModalBody>
+        <ModalFooter padding='2xl'>
+          <Flex alignItems='stretch'>
+            <StyledButton variant='outline' onPress={onClose}>
+              <Trans>Close</Trans>
+            </StyledButton>
+          </Flex>
+        </ModalFooter>
+      </Modal>
+    );
+  }
+
   const rollsNotUsed = rollsRemaining === MAX_TICKETS;
   const votesNotUsed = votesRemaining === MAX_TICKETS;
   const notPlayed = lotteryRollData === undefined;
   const isWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId !== null;
+  const isNotWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId === null;
 
   const getHeaderText = () => {
     if (rollsRemaining === 0 && !lotteryRollData) return <Trans>You Have 0 Tickets</Trans>;
 
     return (
       <>
-        {!lotteryRollData && <Trans>You&apos;re Ready to Play!</Trans>}
-        {lotteryRollData?.prize === 0 && <Trans>Not your lucky day... yet!</Trans>}
+        {isIdle && <Trans>You&apos;re Ready to Play!</Trans>}
+        {isNotWinner && <Trans>Not your lucky day... yet!</Trans>}
         {isWinner && <Trans>Congratulations you won!</Trans>}
         <br />
         <Trans>

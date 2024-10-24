@@ -1,4 +1,4 @@
-import { Chip, Flex, H2, P, SolidClock, SolidInformationCircle, Span, Tooltip, Skeleton } from '@gobob/ui';
+import { Chip, Flex, H2, P, SolidClock, Span, Skeleton } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { Plural, t, Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
@@ -12,15 +12,14 @@ import { LotteryModal } from './LotteryModal';
 import { StyledButton, StyledCard } from './LotterySections.style';
 import { ROUND_END_TIME } from './constants';
 
-import { useLotteryStats } from '@/hooks';
-
-const tooltipLabel = '';
+import { useGetUser, useLotteryStats } from '@/hooks';
 
 function LotterySection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { address } = useAccount();
   const isClient = useIsClient();
-  const { data: lotteryStatsData } = useLotteryStats();
+  const { data: user } = useGetUser();
+  const { data: lotteryStatsData, isError, isLoading } = useLotteryStats();
   const { i18n } = useLingui();
 
   return (
@@ -50,11 +49,11 @@ function LotterySection() {
               {isClient ? (
                 <Trans>{formatDistanceToNow(ROUND_END_TIME)} until next draw</Trans>
               ) : (
-                <Skeleton width='10xl' />
+                <Skeleton width='11xl' />
               )}
             </Chip>
             <H2 size='4xl'>
-              {!isClient || (!address && isClient) ? (
+              {!isClient || (!address && isClient) || !user || isError || isLoading ? (
                 <Trans>Lottery</Trans>
               ) : (
                 <Trans>
@@ -65,11 +64,11 @@ function LotterySection() {
                   Remaining
                 </Trans>
               )}{' '}
-              {tooltipLabel && (
+              {/* {tooltipLabel && (
                 <Tooltip label={tooltipLabel}>
                   <SolidInformationCircle color='grey-50' size='s' />
                 </Tooltip>
-              )}
+              )} */}
             </H2>
             <P color='grey-50'>
               <Trans>
@@ -80,22 +79,16 @@ function LotterySection() {
           </Flex>
           <StyledButton
             color='primary'
-            disabled={
-              !isClient || (!address && isClient)
-              // (lotteryStatsData?.rollsRemaining === 0 && lotteryStatsData?.votesRemaining === 0)
-            }
+            disabled={!isClient || (!user && isClient)}
             onPress={() => setIsModalOpen(true)}
           >
-            {isClient && address ? <Trans>Play</Trans> : <Trans>Login to play</Trans>}
+            {isClient && address && user ? <Trans>Play</Trans> : <Trans>Login to play</Trans>}
           </StyledButton>
         </Flex>
       </Flex>
-      <LotteryModal
-        rollsRemaining={lotteryStatsData?.rollsRemaining}
-        votesRemaining={lotteryStatsData?.votesRemaining}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      {lotteryStatsData && (
+        <LotteryModal {...lotteryStatsData} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      )}
     </>
   );
 }
