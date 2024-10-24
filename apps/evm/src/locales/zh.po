@@ -33,7 +33,7 @@ msgstr ""
 msgid "{0} remaining"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:51
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:50
 msgid "{0} until next draw"
 msgstr ""
 
@@ -53,11 +53,11 @@ msgstr "* 显示的倍数可能会根据相应项目的支付结构而变化。"
 msgid "< 1 minute"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:60
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:59
 msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:49
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:85
 msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 msgstr ""
 
@@ -88,6 +88,10 @@ msgstr ""
 #: src/components/Layout/Sidebar.tsx:73
 msgid "About"
 msgstr "关于"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:55
+msgid "Add {pointsMissing} more SPICE to your wallet to participate"
+msgstr ""
 
 #: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:105
 msgid "Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to significant delays in confirmation time."
@@ -301,7 +305,8 @@ msgstr "选择任何现有的流动性质押提供商来铸造你的BTC LST。"
 msgid "Click the <0/> icon next to your favourite apps"
 msgstr "点击 <0/> 你喜爱应用旁边的图标"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:121
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:62
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:157
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:109
 #: src/components/TransactionModal/GatewayTransactionModal.tsx:74
 msgid "Close"
@@ -339,7 +344,7 @@ msgstr "社区投票信息"
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外收获62,500 Spice。"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:47
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:83
 msgid "Congratulations you won!"
 msgstr ""
 
@@ -466,7 +471,7 @@ msgstr "想要退出？你可以将资金从合约中提取到以太坊钱包。
 msgid "Don't show this message again"
 msgstr "不再显示此消息"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:62
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:98
 msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
 msgstr ""
 
@@ -620,7 +625,7 @@ msgstr ""
 msgid "Get ETH for transaction fees on BOB"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:116
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:152
 msgid "Get tickets"
 msgstr ""
 
@@ -681,7 +686,7 @@ msgstr ""
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:75
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:74
 msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 msgstr ""
 
@@ -757,7 +762,7 @@ msgstr "登录"
 msgid "Log in to View Dashboard"
 msgstr "登录查看仪表板"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:89
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:85
 msgid "Login to play"
 msgstr ""
 
@@ -765,8 +770,8 @@ msgstr ""
 msgid "Login with wallet"
 msgstr "使用钱包登录"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:37
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:58
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:36
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:57
 msgid "Lottery"
 msgstr ""
 
@@ -871,7 +876,8 @@ msgstr ""
 msgid "New Quests Coming Soon"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:95
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:46
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:131
 msgid "new tickets drop in {0}"
 msgstr ""
 
@@ -887,11 +893,15 @@ msgstr ""
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "目前暂无新目标。请保持关注更新！"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:49
+msgid "Not enough spice"
+msgstr ""
+
 #: src/app/[lang]/not-found/page.tsx:14
 #~ msgid "Not found"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:46
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:82
 msgid "Not your lucky day... yet!"
 msgstr ""
 
@@ -924,8 +934,8 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:126
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:89
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:162
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:85
 msgid "Play"
 msgstr ""
 
@@ -1153,7 +1163,7 @@ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus 
 msgstr ""
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:108
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:31
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:36
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
 msgstr ""
@@ -1518,7 +1528,7 @@ msgstr ""
 msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:77
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:113
 msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
 msgstr ""
 
@@ -1679,7 +1689,7 @@ msgstr ""
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "你可以在每周投票期结束前随时更改你的投票"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:41
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:77
 msgid "You Have 0 Tickets"
 msgstr ""
 
@@ -1704,11 +1714,11 @@ msgstr ""
 #~ msgid "You will stake"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:45
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:81
 msgid "You're Ready to Play!"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:70
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:106
 msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
 msgstr ""
 
