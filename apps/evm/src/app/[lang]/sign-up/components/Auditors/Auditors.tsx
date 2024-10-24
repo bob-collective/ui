@@ -2,7 +2,6 @@ import { Dl, DlGroup, Dt, Dd, Flex } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import Image from 'next/image';
 import { useLingui } from '@lingui/react';
-
 import trailsOfBits from '@public/assets/trails-of-bits.png';
 import commonPrefix from '@public/assets/common-prefix.png';
 import otterSec from '@public/assets/otter-sec.png';
@@ -27,9 +26,9 @@ const Auditors = () => {
               <Image
                 alt={t(i18n)`Trails of Bits auditor`}
                 height='24'
+                placeholder='blur'
                 src={trailsOfBits}
                 width='40'
-                placeholder='blur'
               />
             </a>
             <a
@@ -41,9 +40,9 @@ const Auditors = () => {
               <Image
                 alt={t(i18n)`Common Prefix auditor`}
                 height='10'
+                placeholder='blur'
                 src={commonPrefix}
                 width='105'
-                placeholder='blur'
               />
             </a>
             <a
@@ -52,7 +51,7 @@ const Auditors = () => {
               rel='noreferrer'
               target='_blank'
             >
-              <Image alt={t(i18n)`OtterSec auditor`} height='16' src={otterSec} width='76' placeholder='blur' />
+              <Image alt={t(i18n)`OtterSec auditor`} height='16' placeholder='blur' src={otterSec} width='76' />
             </a>
           </Flex>
         </Dd>

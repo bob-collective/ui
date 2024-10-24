@@ -6,6 +6,7 @@ import { useCallback, useEffect, useId, useState } from 'react';
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import x from '@public/assets/x.png';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -35,7 +36,6 @@ import { useGetUser } from '@/hooks';
 import { Geoblock } from '@/components';
 import { isClient, LocalStorageKey } from '@/constants';
 import { SessionStorageKey } from '@/types';
-import x from '@public/assets/x.png';
 
 const Fusion = () => {
   const { i18n } = useLingui();
@@ -122,7 +122,7 @@ const Fusion = () => {
                 <P color='grey-50'>
                   <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
                 </P>
-                <StyledBannerImg alt='x' height='123' src={x} width='336' placeholder='blur' />
+                <StyledBannerImg alt='x' height='123' placeholder='blur' src={x} width='336' />
               </Card>
             </Flex>
             <LotterySection />
