@@ -113,7 +113,6 @@ const StyledHybridL2Img = styled(Image)`
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        /* height: 3rem; */
         opacity: 0.2;
       }
     `;
