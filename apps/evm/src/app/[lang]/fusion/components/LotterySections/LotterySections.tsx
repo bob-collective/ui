@@ -1,4 +1,4 @@
-import { Chip, Flex, H2, P, SolidClock, SolidInformationCircle, Span, Tooltip } from '@gobob/ui';
+import { Chip, Flex, H2, P, SolidClock, SolidInformationCircle, Span, Tooltip, Skeleton } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { Plural, t, Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
@@ -47,7 +47,11 @@ function LotterySection() {
         <Flex alignItems='flex-start' direction='column' gap='4xl' justifyContent='center'>
           <Flex alignItems='flex-start' direction='column' gap='lg' justifyContent='center'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-              {isClient && <Trans>{formatDistanceToNow(ROUND_END_TIME)} until next draw</Trans>}
+              {isClient ? (
+                <Trans>{formatDistanceToNow(ROUND_END_TIME)} until next draw</Trans>
+              ) : (
+                <Skeleton width='10xl' />
+              )}
             </Chip>
             <H2 size='4xl'>
               {!isClient || (!address && isClient) ? (
