@@ -84,6 +84,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         elementType={elementType}
         errorMessageProps={errorMessageProps}
         inputProps={mergeProps(inputProps, { onChange: handleChange })}
+        isInvalid={isInvalid}
         labelProps={labelProps}
         spellCheck='false'
         {...props}

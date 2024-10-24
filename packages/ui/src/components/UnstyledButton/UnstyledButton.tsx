@@ -21,10 +21,10 @@ type NativeAttrs = Omit<ButtonHTMLAttributes<unknown>, keyof Props>;
 type UnstyledButtonProps = Props & NativeAttrs;
 
 const UnstyledButton = forwardRef<HTMLButtonElement, UnstyledButtonProps>(
-  ({ onPress, asChild, size, ...props }, ref): JSX.Element => {
+  ({ onPress, asChild, size, disabled, ...props }, ref): JSX.Element => {
     const domRef = useDOMRef(ref);
 
-    const { buttonProps } = useButton({ onPress, ...props }, domRef);
+    const { buttonProps } = useButton({ onPress, isDisabled: disabled, ...props }, domRef);
     const { focusProps, isFocusVisible } = useFocusRing(props);
 
     const Comp = asChild ? Slot : 'button';

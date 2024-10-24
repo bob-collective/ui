@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
-import { ERC20Token, Ether, Token } from '@gobob/currency';
+import { ERC20Token, Token } from '@gobob/currency';
 
 import { FeatureFlags, useFeatureFlag, useGetStrategies } from '@/hooks';
 
 type StrategyData = {
   raw: GatewayStrategyContract;
-  currency?: Ether | ERC20Token;
+  currency?: ERC20Token;
 };
 
 const useGetStakingStrategies = () => {

@@ -3,9 +3,11 @@ import { useAccount } from '@gobob/wagmi';
 
 import { appsKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
+import { useGetUser } from '@/hooks';
 
 const useVote = () => {
   const queryClient = useQueryClient();
+  const { data: user } = useGetUser();
 
   const { address } = useAccount();
 
@@ -19,7 +21,7 @@ const useVote = () => {
       return apiClient.vote(refCode);
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(appsKeys.appsVotes(address), data);
+      queryClient.setQueryData(appsKeys.appsVotes(user?.username), data);
     }
   });
 };

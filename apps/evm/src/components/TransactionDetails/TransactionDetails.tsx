@@ -36,7 +36,6 @@ type Props = {
   selectProps?: Omit<SelectProps<TokenSelectItemProps>, 'children'>;
   duration?: ReactNode;
   gasLabel?: ReactNode;
-  currencyOnly?: boolean;
 };
 
 type InheritAttrs = Omit<DlProps, keyof Props>;
@@ -54,7 +53,6 @@ const TransactionDetails = ({
   duration,
   selectProps,
   gasLabel = 'Estimated Gas',
-  currencyOnly = false,
   ...props
 }: TransactionDetailsProps): JSX.Element => {
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
@@ -93,13 +91,13 @@ const TransactionDetails = ({
                 <Flex alignItems='flex-end' direction='column' elementType='span' gap='xxs'>
                   {amount.map((asset) => (
                     <Span key={asset.currency.symbol} size='xs'>
-                      <AmountLabel amount={asset} currencyOnly={currencyOnly} />
+                      <AmountLabel amount={asset} />
                     </Span>
                   ))}
                 </Flex>
               ) : (
                 <Span size='xs'>
-                  <AmountLabel amount={amount} currencyOnly={currencyOnly} />
+                  <AmountLabel amount={amount} />
                 </Span>
               )}
             </Dd>

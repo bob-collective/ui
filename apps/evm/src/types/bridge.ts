@@ -34,5 +34,19 @@ enum MessageStatus {
   FAILED_L1_TO_L2_MESSAGE = 'failed-l1-to-l2-message'
 }
 
-export { TransactionType, MessageStatus, MessageDirection };
-export type { L2BridgeData, GatewayData };
+enum GatewayTransactionSpeed {
+  FASTEST = 'fastest',
+  FAST = 'fast',
+  SLOW = 'slow',
+  MINIMUM = 'minimum',
+  CUSTOM = 'custom'
+}
+
+type GatewayTransactionSpeedData = Record<Exclude<GatewayTransactionSpeed, GatewayTransactionSpeed.CUSTOM>, number>;
+
+type GatewayTransactionFee =
+  | { speed: Exclude<GatewayTransactionSpeed, GatewayTransactionSpeed.MINIMUM | GatewayTransactionSpeed.CUSTOM> }
+  | { speed: GatewayTransactionSpeed.CUSTOM; networkRate: number };
+
+export { TransactionType, MessageStatus, MessageDirection, GatewayTransactionSpeed };
+export type { L2BridgeData, GatewayData, GatewayTransactionFee, GatewayTransactionSpeedData };
