@@ -75,7 +75,7 @@ const BannerCarousel = () => {
   );
 
   const onPressHybridL2Banner = useCallback(
-    () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer'),
+    () => window.open('https://blog.gobob.xyz/posts/the-hybrid-l2-paper', '_blank', 'noreferrer'),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
