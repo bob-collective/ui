@@ -20,7 +20,7 @@ function LotterySection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { address } = useAccount();
   const isClient = useIsClient();
-  const { data: lotteryStatsData } = useLotteryStats(address);
+  const { data: lotteryStatsData } = useLotteryStats();
   const { i18n } = useLingui();
 
   return (
@@ -84,13 +84,18 @@ function LotterySection() {
               !isClient || (!address && isClient)
               // (lotteryStatsData?.rollsRemaining === 0 && lotteryStatsData?.votesRemaining === 0)
             }
-            onClick={() => setIsModalOpen(true)}
+            onPress={() => setIsModalOpen(true)}
           >
             {isClient && address ? <Trans>Play</Trans> : <Trans>Login to play</Trans>}
           </StyledButton>
         </Flex>
       </Flex>
-      <LotteryModal {...lotteryStatsData} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <LotteryModal
+        rollsRemaining={lotteryStatsData?.rollsRemaining}
+        votesRemaining={lotteryStatsData?.votesRemaining}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 }

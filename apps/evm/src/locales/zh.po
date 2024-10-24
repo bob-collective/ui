@@ -33,7 +33,7 @@ msgstr ""
 msgid "{0} remaining"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:29
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:51
 msgid "{0} until next draw"
 msgstr ""
 
@@ -53,11 +53,11 @@ msgstr "* 显示的倍数可能会根据相应项目的支付结构而变化。"
 msgid "< 1 minute"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:35
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:60
 msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:45
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:49
 msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 msgstr ""
 
@@ -105,10 +105,10 @@ msgstr "所有应用"
 msgid "Already harvesting?"
 msgstr "已经在收获？"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:529
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:417
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:399
-#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:234
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:524
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:416
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:397
+#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:233
 msgid "Amount"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:514
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:509
 msgid "Approve"
 msgstr "通过"
 
@@ -143,7 +143,7 @@ msgstr "已体验的应用"
 msgid "Asset"
 msgstr "资产"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:13
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:17
 msgid "Audited by"
 msgstr "审计"
 
@@ -186,16 +186,16 @@ msgstr ""
 msgid "BOB Bridge"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:91
-#: src/components/BannerCarousel/FusionBanner.tsx:21
+#: src/app/[lang]/fusion/Fusion.tsx:92
+#: src/components/BannerCarousel/FusionBanner.tsx:23
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:459
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:458
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:437
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:435
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 msgstr ""
 
@@ -225,8 +225,8 @@ msgstr "BOB 钱包"
 msgid "Bridge"
 msgstr "桥"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:515
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:524
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:510
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:523
 msgid "Bridge Asset"
 msgstr ""
 
@@ -259,8 +259,8 @@ msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <0>公告</0>。"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:495
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:471
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:494
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:469
 msgid "BTC bridge is currently unavailable. This may be due to: {0}. Please try again later."
 msgstr ""
 
@@ -277,7 +277,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:480
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:478
 msgid "Cannot stake into {0} due to insufficient liquidity."
 msgstr ""
 
@@ -301,7 +301,7 @@ msgstr "选择任何现有的流动性质押提供商来铸造你的BTC LST。"
 msgid "Click the <0/> icon next to your favourite apps"
 msgstr "点击 <0/> 你喜爱应用旁边的图标"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:116
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:121
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:109
 #: src/components/TransactionModal/GatewayTransactionModal.tsx:74
 msgid "Close"
@@ -322,7 +322,7 @@ msgstr "即将推出"
 msgid "Coming SoonSteps"
 msgstr ""
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:31
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:42
 msgid "Common Prefix auditor"
 msgstr ""
 
@@ -339,7 +339,7 @@ msgstr "社区投票信息"
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外收获62,500 Spice。"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:43
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:47
 msgid "Congratulations you won!"
 msgstr ""
 
@@ -466,7 +466,7 @@ msgstr "想要退出？你可以将资金从合约中提取到以太坊钱包。
 msgid "Don't show this message again"
 msgstr "不再显示此消息"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:58
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:62
 msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
 msgstr ""
 
@@ -478,7 +478,7 @@ msgstr ""
 msgid "Earned Spice"
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:469
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:468
 msgid "enable ETH top-up for transaction fees on BOB network"
 msgstr ""
 
@@ -490,9 +490,9 @@ msgstr ""
 msgid "Enter Address"
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:540
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:478
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:454
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:535
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:477
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:452
 msgid "Enter destination address"
 msgstr ""
 
@@ -575,8 +575,8 @@ msgstr ""
 msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
-#: src/app/[lang]/fusion/Fusion.tsx:119
-#: src/components/BannerCarousel/XBanner.tsx:17
+#: src/app/[lang]/fusion/Fusion.tsx:120
+#: src/components/BannerCarousel/XBanner.tsx:19
 msgid "Follow us on X"
 msgstr ""
 
@@ -598,7 +598,7 @@ msgstr "FUSION"
 msgid "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
 msgstr "Fusion第3季是你收获Spice的最后机会。质押比特币获得最高倍数，并通过推荐朋友赚取他们Spice收获的分成。"
 
-#: src/components/BannerCarousel/FusionBanner.tsx:29
+#: src/components/BannerCarousel/FusionBanner.tsx:31
 msgid "Fusion season three"
 msgstr ""
 
@@ -615,12 +615,12 @@ msgstr ""
 msgid "Geoblock"
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:464
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:445
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:463
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:443
 msgid "Get ETH for transaction fees on BOB"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:111
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:116
 msgid "Get tickets"
 msgstr ""
 
@@ -641,7 +641,7 @@ msgstr ""
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "抓住最后收获Spice的机会！加入第3季！"
 
-#: src/app/[lang]/fusion/Fusion.tsx:94
+#: src/app/[lang]/fusion/Fusion.tsx:95
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关注特别活动"
 
@@ -649,7 +649,7 @@ msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关�
 msgid "Here are your active referrals and the Spice they're currently earning for you. The more they earn, the more you benefit!"
 msgstr "这里展示了你推荐的活跃用户及他们为你赚取的Spice。他们赚得越多，你获益越多！"
 
-#: src/app/[lang]/fusion/Fusion.tsx:87
+#: src/app/[lang]/fusion/Fusion.tsx:88
 msgid "Hero dots"
 msgstr ""
 
@@ -677,7 +677,7 @@ msgstr ""
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:50
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:75
 msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 msgstr ""
 
@@ -698,7 +698,7 @@ msgid "Leaderboard"
 msgstr "排行榜"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:104
+#: src/app/[lang]/fusion/Fusion.tsx:105
 msgid "Learn More"
 msgstr "了解更多"
 
@@ -753,7 +753,7 @@ msgstr "登录"
 msgid "Log in to View Dashboard"
 msgstr "登录查看仪表板"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:64
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:89
 msgid "Login to play"
 msgstr ""
 
@@ -761,7 +761,8 @@ msgstr ""
 msgid "Login with wallet"
 msgstr "使用钱包登录"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:33
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:37
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:58
 msgid "Lottery"
 msgstr ""
 
@@ -822,7 +823,7 @@ msgstr ""
 msgid "Navigate to bridge page"
 msgstr "导航至桥接页面"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:26
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:36
 msgid "navigate to Common Prefix audit"
 msgstr ""
 
@@ -838,11 +839,11 @@ msgstr ""
 msgid "navigate to home page"
 msgstr ""
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:34
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:50
 msgid "navigate to OtterSec audit"
 msgstr ""
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:18
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:22
 msgid "navigate to Trails of Bits audit"
 msgstr ""
 
@@ -866,7 +867,7 @@ msgstr ""
 msgid "New Quests Coming Soon"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:90
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:95
 msgid "new tickets drop in {0}"
 msgstr ""
 
@@ -886,7 +887,7 @@ msgstr "目前暂无新目标。请保持关注更新！"
 #~ msgid "Not found"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:42
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:46
 msgid "Not your lucky day... yet!"
 msgstr ""
 
@@ -911,7 +912,7 @@ msgstr "可选：可以多次重复步骤2-4。"
 msgid "or"
 msgstr "或"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:39
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:55
 msgid "OtterSec auditor"
 msgstr ""
 
@@ -919,14 +920,14 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:122
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:64
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:126
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:89
 msgid "Play"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:124
-msgid "Play again"
-msgstr ""
+#~ msgid "Play again"
+#~ msgstr ""
 
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:94
 msgid "Please confirm allowance approval for {0} in your wallet"
@@ -989,11 +990,11 @@ msgstr "仅任务"
 msgid "Read more here"
 msgstr "点此了解更多"
 
-#: src/components/BannerCarousel/FusionBanner.tsx:25
+#: src/components/BannerCarousel/FusionBanner.tsx:27
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:426
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:425
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:92
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:31
 msgid "Receive"
@@ -1007,10 +1008,10 @@ msgstr "接收 {0}"
 msgid "Receive {ticker}"
 msgstr "接收 {ticker}"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:539
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:477
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:453
-#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:534
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:476
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:451
+#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:224
 msgid "Recipient"
 msgstr ""
 
@@ -1101,7 +1102,7 @@ msgstr ""
 msgid "select network to bridge to"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:409
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:407
 msgid "Select Strategy"
 msgstr ""
 
@@ -1225,7 +1226,7 @@ msgstr "Spice积分（较高）"
 msgid "Spice rewards (Medium)"
 msgstr "Spice积分（中等）"
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:494
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:492
 #: src/app/[lang]/stake/page.tsx:14
 #: src/app/[lang]/stake/Stake.tsx:67
 #: src/components/Layout/Header.tsx:80
@@ -1233,7 +1234,7 @@ msgstr "Spice积分（中等）"
 msgid "Stake"
 msgstr "質押"
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:408
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:406
 msgid "Stake with"
 msgstr ""
 
@@ -1402,7 +1403,7 @@ msgstr ""
 msgid "There are no apps to be displayed"
 msgstr "暂无可显示的应用"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:504
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:503
 msgid "There is currently no available liquidity to onramp BTC into {0}."
 msgstr ""
 
@@ -1410,7 +1411,7 @@ msgstr ""
 msgid "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:512
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:511
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 msgstr ""
 
@@ -1430,16 +1431,16 @@ msgstr ""
 msgid "To cast your vote, please log in"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:122
-#: src/components/BannerCarousel/XBanner.tsx:21
+#: src/app/[lang]/fusion/Fusion.tsx:123
+#: src/components/BannerCarousel/XBanner.tsx:23
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:457
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:456
 msgid "Top up Gas"
 msgstr ""
 
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:431
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:429
 msgid "Top-up Gas"
 msgstr ""
 
@@ -1459,7 +1460,7 @@ msgstr "推荐获得的总Spice"
 msgid "Total Spice Harvested"
 msgstr "总收获的Spice"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:23
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:28
 msgid "Trails of Bits auditor"
 msgstr ""
 
@@ -1483,8 +1484,8 @@ msgstr "总锁仓价值（TVL）"
 msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
 msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力开发这项功能，请持续关注我们的更新。"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:485
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:461
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:484
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:459
 msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 msgstr ""
 
@@ -1509,7 +1510,7 @@ msgstr ""
 msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:72
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:77
 msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
 msgstr ""
 
@@ -1670,7 +1671,7 @@ msgstr ""
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "你可以在每周投票期结束前随时更改你的投票"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:36
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:41
 msgid "You Have 0 Tickets"
 msgstr ""
 
@@ -1686,7 +1687,7 @@ msgstr ""
 msgid "You will need to actively monitor your position, especially if it has a small range."
 msgstr "请密切关注你的仓位，尤其是当设定的价格范围较窄时。"
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:510
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:509
 #: src/components/TransactionDetails/TransactionDetails.tsx:87
 msgid "You will receive"
 msgstr ""
@@ -1694,6 +1695,14 @@ msgstr ""
 #: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:492
 #~ msgid "You will stake"
 #~ msgstr ""
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:45
+msgid "You're Ready to Play!"
+msgstr ""
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:70
+msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
+msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:53
 msgid "Your Active Referrals"
@@ -1707,8 +1716,8 @@ msgstr ""
 msgid "Your assets will be delivered shortly, with an estimated arrival time of aprox."
 msgstr ""
 
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:413
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:395
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:412
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:393
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr ""
 

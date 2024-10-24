@@ -5,7 +5,6 @@ import { Chip, Flex, H3, Link, Modal, ModalBody, ModalFooter, P, SolidClock, Spa
 import { Plural, Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
 import { useParams } from 'next/navigation';
-import { useAccount } from '@gobob/wagmi';
 
 import { ROUND_END_TIME } from '../constants';
 import { Ticket } from '../icons';
@@ -27,8 +26,7 @@ const MAX_TICKETS = 3;
 function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: LotteryModalProps) {
   const { lang } = useParams();
   const { locale } = useLocale();
-  const { address } = useAccount();
-  const { data: lotteryRollData, mutate: roll } = useLotteryRoll(address, {
+  const { data: lotteryRollData, mutate: roll } = useLotteryRoll({
     onError(error) {
       toast.error(error.message || <Trans>Something went wrong. Please try again later.</Trans>);
     }
@@ -40,7 +38,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
   const isWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId !== null;
 
   const getHeaderText = () => {
-    if (votesNotUsed) return <Trans>You Have 0 Tickets</Trans>;
+    if (rollsRemaining === 0) return <Trans>You Have 0 Tickets</Trans>;
 
     return (
       <>
@@ -119,12 +117,12 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
             </StyledButton>
           )}
           {rollsRemaining === 0 && (
-            <StyledButton variant='outline' onClick={onClose}>
+            <StyledButton variant='outline' onPress={onClose}>
               <Trans>Close</Trans>
             </StyledButton>
           )}
           {Boolean(rollsRemaining) && (
-            <StyledButton color='primary' onClick={() => roll()}>
+            <StyledButton color='primary' onPress={() => roll()}>
               <Trans>Play</Trans>
             </StyledButton>
           )}

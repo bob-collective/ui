@@ -1,19 +1,19 @@
 import { useMutation, UseMutationOptions, useQueryClient } from '@gobob/react-query';
-import { Address } from 'viem';
 
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient, LotteryRoll } from '@/utils';
+import { useAccount } from '@gobob/wagmi';
 
-const useLotteryRoll = (
-  address: Address | undefined,
-  props: Omit<UseMutationOptions<LotteryRoll, Error, void, string[]>, 'mutationFn'> = {}
-) => {
+const useLotteryRoll = (props: Omit<UseMutationOptions<LotteryRoll, Error, void, string[]>, 'mutationFn'> = {}) => {
+  const { address } = useAccount();
   const queryClient = useQueryClient();
 
   return useMutation({
+    mutationKey: fusionKeys.lotteryRoll(address),
     mutationFn: () => apiClient.lotteryRoll(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: fusionKeys.lotteryStats(address) });
+    onSuccess: (data) => {
+      queryClient.setQueryData(fusionKeys.lotteryStats(address), data);
+      queryClient.refetchQueries({ queryKey: fusionKeys.lotteryStats(address) });
     },
     ...props
   });
