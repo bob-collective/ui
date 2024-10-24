@@ -6,13 +6,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useIsClient } from 'usehooks-ts';
 import { useLingui } from '@lingui/react';
+import lottery from '@public/assets/lottery.png';
 
 import { LotteryModal } from './LotteryModal';
 import { StyledButton, StyledCard } from './LotterySections.style';
 import { ROUND_END_TIME } from './constants';
 
 import { useLotteryStats } from '@/hooks';
-import lottery from '@public/assets/lottery.png';
 
 const tooltipLabel = '';
 
@@ -28,16 +28,16 @@ function LotterySection() {
       <Flex direction={{ base: 'column', s: 'row' }} gap='4xl' marginTop='7xl'>
         {/* 499px matches figma designs */}
         <StyledCard
-          padding='none'
+          background='unset'
           flex={{ base: '1 0 100%', s: '1 0 355px', lg: '1 0 499px' }}
           justifyContent='center'
-          background='unset'
+          padding='none'
         >
           <Image
             alt={t(i18n)`Lottery`}
-            src={lottery}
             placeholder='blur'
             sizes='100vw'
+            src={lottery}
             style={{
               width: '100%',
               height: 'auto'
@@ -47,7 +47,7 @@ function LotterySection() {
         <Flex alignItems='flex-start' direction='column' gap='4xl' justifyContent='center'>
           <Flex alignItems='flex-start' direction='column' gap='lg' justifyContent='center'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-              <Trans>{formatDistanceToNow(ROUND_END_TIME)} until next draw</Trans>
+              {isClient && <Trans>{formatDistanceToNow(ROUND_END_TIME)} until next draw</Trans>}
             </Chip>
             <H2 size='4xl'>
               {!isClient || (!address && isClient) ? (
