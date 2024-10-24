@@ -77,6 +77,6 @@ export const fusionKeys = {
   tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],
   quests: () => [...fusionKeys.fusion(), 'quests'],
   tvlLevel: () => [...fusionKeys.fusion(), 'tvl-level'],
-  lotteryStats: (address: Address | undefined) => [...fusionKeys.fusion(), 'lottery-stats', address] as string[],
-  lotteryRoll: (address: Address | undefined) => [...fusionKeys.fusion(), 'lottery-roll', address] as string[]
+  lotteryStats: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-stats', username] as string[],
+  lotteryRoll: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-roll', username] as string[]
 };

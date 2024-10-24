@@ -22,7 +22,7 @@ const useVote = () => {
     },
     onSuccess: (data) => {
       queryClient.setQueryData(appsKeys.appsVotes(user?.username), data);
-      queryClient.resetQueries({ queryKey: fusionKeys.lotteryStats(address) });
+      queryClient.resetQueries({ queryKey: fusionKeys.lotteryStats(user?.username) });
     }
   });
 };

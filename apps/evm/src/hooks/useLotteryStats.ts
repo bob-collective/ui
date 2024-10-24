@@ -16,7 +16,7 @@ const useLotteryStats = (
   const { data: user } = useGetUser();
 
   return useQuery({
-    queryKey: fusionKeys.lotteryStats(address),
+    queryKey: fusionKeys.lotteryStats(user?.username),
     queryFn: () => apiClient.getLotteryStats(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
