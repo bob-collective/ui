@@ -100,7 +100,7 @@ msgstr ""
 msgid "and that you have read and understood our"
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:178
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:179
 msgid "Apply"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外�
 msgid "Connect BTC Wallet"
 msgstr "连接比特币钱包"
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:187
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:186
 msgid "Connect BTC wallet to access fee rate settings."
 msgstr ""
 
@@ -1298,25 +1298,30 @@ msgstr ""
 msgid "The Protocol Fee is a charge for using Gateway, our product, to facilitate the transaction."
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:175
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:174
 msgid ""
 "The specified fee rate is higher than necessary and may result in overpaying. A lower fee rate could\n"
 "still confirm your transaction within a reasonable time."
 msgstr ""
 
-#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:170
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:171
 msgid "The specified fee rate is higher than necessary and may result in overpaying. A lower fee rate could still confirm your transaction within a reasonable time."
 msgstr ""
 
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:162
 #: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:171
-msgid ""
-"The specified fee rate may delay the confirmation of your transaction, possibly taking longer than 1\n"
-"hour to receive your funds. For faster confirmation, consider increasing the fee rate."
+msgid "The specified fee rate is very low and may significantly delay the confirmation of your transaction. If the fee is too low (e.g., 1 sat/vB), your transaction could get stuck in the mempool for an extended period. For faster confirmation, consider increasing the fee rate."
 msgstr ""
 
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:171
+#~ msgid ""
+#~ "The specified fee rate may delay the confirmation of your transaction, possibly taking longer than 1\n"
+#~ "hour to receive your funds. For faster confirmation, consider increasing the fee rate."
+#~ msgstr ""
+
 #: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:162
-msgid "The specified fee rate may delay the confirmation of your transaction, possibly taking longer than 1 hour to receive your funds. For faster confirmation, consider increasing the fee rate."
-msgstr ""
+#~ msgid "The specified fee rate may delay the confirmation of your transaction, possibly taking longer than 1 hour to receive your funds. For faster confirmation, consider increasing the fee rate."
+#~ msgstr ""
 
 #: src/app/[lang]/apps/components/AppsList/AppsList.tsx:148
 msgid "There are no apps to be displayed"
