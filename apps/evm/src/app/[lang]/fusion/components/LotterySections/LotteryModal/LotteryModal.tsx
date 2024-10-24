@@ -36,6 +36,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
 
   const rollsNotUsed = (rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS;
   const votesNotUsed = votesRemaining === MAX_TICKETS;
+  const isWinner = lotteryRollData !== undefined && lotteryRollData.packageId !== null;
 
   const getHeaderText = () => {
     if (votesNotUsed) return <Trans>You Have 0 Tickets</Trans>;
@@ -44,13 +45,13 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
       <>
         {rollsNotUsed && <Trans>You&apos;re Ready to Play!</Trans>}
         {lotteryRollData?.prize === 0 && <Trans>Not your lucky day... yet!</Trans>}
-        {(lotteryRollData?.prize || 0) > 0 && <Trans>Congratulations you won!</Trans>}
+        {isWinner && <Trans>Congratulations you won!</Trans>}
         <br />
         <Trans>
           <Span color='primary-500' size='unset'>
             {rollsRemaining}/{MAX_TICKETS}
           </Span>{' '}
-          <Plural one='Ticket' other='Tickets' value={1} /> Remaining
+          <Plural one='Ticket' other='Tickets' value={rollsRemaining || 0} /> Remaining
         </Trans>
       </>
     );
@@ -85,9 +86,9 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
     <Modal isDismissable isOpen={isOpen} size='s' onClose={onClose}>
       <StyledLottie
         key={lotteryRollData?.rollsRemaining}
-        hidden={!lotteryRollData?.prize}
         autoplay
         animationData={confettiAnimationData}
+        hidden={!isWinner}
       />
       <ModalBody padding='2xl'>
         <Flex alignItems='center' direction='column' gap='5xl'>
