@@ -170,8 +170,7 @@ const GatewayTransactionDetails = ({
                     shouldShowLowFeeRateWarning
                       ? t(
                           i18n
-                        )`The specified fee rate may delay the confirmation of your transaction, possibly taking longer than 1
-                hour to receive your funds. For faster confirmation, consider increasing the fee rate.`
+                        )`The specified fee rate is very low and may significantly delay the confirmation of your transaction. If the fee is too low (e.g., 1 sat/vB), your transaction could get stuck in the mempool for an extended period. For faster confirmation, consider increasing the fee rate.`
                       : t(
                           i18n
                         )`The specified fee rate is higher than necessary and may result in overpaying. A lower fee rate could
