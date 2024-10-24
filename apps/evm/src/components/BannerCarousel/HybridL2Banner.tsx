@@ -1,6 +1,7 @@
 import { Flex, P } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import hybridL2Banner from '@public/assets/hybrid-l2-banner.png';
 
 import { Banner } from './Banner';
 import { StyledBannerContent, StyledHybridL2Img } from './BannerCarousel.style';
@@ -25,7 +26,7 @@ const HybridL2Banner = ({ onPress }: HybridL2BannerProps) => {
           <Trans>Read it now.</Trans>
         </P>
       </StyledBannerContent>
-      <StyledHybridL2Img alt={t(i18n)`Hybrid L2`} height='144' src='/assets/hybrid-l2-banner.png' width='336' />
+      <StyledHybridL2Img alt={t(i18n)`Hybrid L2`} height='144' placeholder='blur' src={hybridL2Banner} width='336' />
     </Banner>
   );
 };
