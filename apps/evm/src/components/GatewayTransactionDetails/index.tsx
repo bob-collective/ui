@@ -1,0 +1,1 @@
+export { GatewayTransactionDetails } from './GatewayTransactionDetails';

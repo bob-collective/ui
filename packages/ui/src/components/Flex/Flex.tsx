@@ -2,7 +2,7 @@ import type { HTMLAttributes } from 'react';
 
 import { forwardRef } from 'react';
 
-import { useStyleProps } from '../../hooks';
+import { StyleProps, useStyleProps } from '../../hooks';
 import {
   AlignItems,
   AlignSelf,
@@ -26,6 +26,7 @@ type Props = {
   flex?: ResponsiveProp<string | number>;
   wrap?: ResponsiveProp<Wrap | boolean>;
   alignSelf?: ResponsiveProp<AlignSelf>;
+  styleProps?: StyleProps;
 };
 
 type NativeAttrs = Omit<HTMLAttributes<unknown>, keyof Props>;
@@ -34,7 +35,19 @@ type FlexProps = Props & NativeAttrs & ElementTypeProp & MarginProps & PaddingPr
 
 const Flex = forwardRef<HTMLElement, FlexProps>(
   (
-    { children, gap, justifyContent, alignItems, direction, flex, wrap, alignSelf, elementType, ...props },
+    {
+      children,
+      gap,
+      justifyContent,
+      alignItems,
+      direction,
+      flex,
+      wrap,
+      alignSelf,
+      elementType,
+      styleProps: stylePropsProp,
+      ...props
+    },
     ref
   ): JSX.Element => {
     const { styleProps, componentProps } = useStyleProps(props);
@@ -50,7 +63,7 @@ const Flex = forwardRef<HTMLElement, FlexProps>(
         $justifyContent={justifyContent}
         $wrap={wrap}
         as={elementType}
-        {...styleProps}
+        {...(stylePropsProp || styleProps)}
         {...componentProps}
       >
         {children}
