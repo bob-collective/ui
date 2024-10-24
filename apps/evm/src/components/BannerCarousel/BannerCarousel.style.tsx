@@ -100,6 +100,27 @@ const StyledFusionImg = styled(Image)`
   }}
 `;
 
+const StyledHybridL2Img = styled(Image)`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      top: 50%;
+      right: 3rem;
+      width: 21rem;
+      transform: translateY(-50%);
+      right: ${theme.spacing('xl')};
+
+      @media ${theme.breakpoints.down('md')} {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* height: 3rem; */
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
 const StyledXImg = styled(Image)`
   ${({ theme }) => {
     return css`
@@ -123,5 +144,6 @@ export {
   StyledCarouselWrapper,
   StyledFusionImg,
   StyledOnrampImg,
-  StyledXImg
+  StyledXImg,
+  StyledHybridL2Img
 };
