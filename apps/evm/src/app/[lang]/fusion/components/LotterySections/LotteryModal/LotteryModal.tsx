@@ -29,6 +29,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
   const {
     data: lotteryRollData,
     isIdle,
+    isPending,
     mutate: roll
   } = useLotteryRoll({
     onError(error) {
@@ -157,7 +158,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
             </StyledButton>
           )}
           {Boolean(rollsRemaining) && (
-            <StyledButton color='primary' onPress={() => roll()}>
+            <StyledButton color='primary' loading={isPending} onPress={() => roll()}>
               <Trans>Play</Trans>
             </StyledButton>
           )}
