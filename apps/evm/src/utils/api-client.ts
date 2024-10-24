@@ -400,7 +400,7 @@ export interface LotteryRoll {
   votesRemaining: number;
   running: boolean;
   pointsMissing: number;
-  packageId: number | null;
+  winningPackageId: number | null;
   prize: number;
 }
 
