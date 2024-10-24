@@ -1,33 +1,11 @@
 'use client';
 
 import { GatewayQuote } from '@gobob/bob-sdk';
-import { Currency, CurrencyAmount } from '@gobob/currency';
-import { FuelStation } from '@gobob/icons';
+import { CurrencyAmount } from '@gobob/currency';
 import { INTERVAL, Optional, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
-import {
-  BtcAddressType,
-  useAccount as useSatsAccount,
-  useBalance as useSatsBalance,
-  useFeeEstimate as useSatsFeeEstimate,
-  useFeeRate as useSatsFeeRate
-} from '@gobob/sats-wagmi';
+import { BtcAddressType, useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
-import {
-  Alert,
-  Avatar,
-  Card,
-  Flex,
-  InformationCircle,
-  Input,
-  Item,
-  P,
-  Select,
-  Switch,
-  TokenInput,
-  Tooltip,
-  toast,
-  useForm
-} from '@gobob/ui';
+import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, toast, useForm } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounceValue } from 'usehooks-ts';
@@ -39,6 +17,8 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 
 import { Type } from '../../Stake';
+import { GatewayGasSwitch } from '../../../components/GatewayGasSwitch';
+import { useGatewayFeeData } from '../../../hooks';
 
 import { StrategyData } from './StakeForm';
 
@@ -57,7 +37,7 @@ import {
 } from '@/lib/form/stake';
 import { isFormDisabled } from '@/lib/form/utils';
 import { bridgeKeys } from '@/lib/react-query';
-import { GatewayData, GatewayTransactionFee, GatewayTransactionSpeed, GatewayTransactionSpeedData } from '@/types';
+import { GatewayData, GatewayTransactionFee } from '@/types';
 import { GatewayTransactionDetails } from '@/components';
 
 type BtcBridgeFormProps = {
@@ -105,63 +85,30 @@ const BtcStakeForm = ({
   const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
   const { data: satsBalance } = useSatsBalance();
 
-  const hasBalance = satsBalance && satsBalance.confirmed > 0n;
-
-  const { data: satsFeeRate, isLoading: isSatsFeeRateLoading } = useSatsFeeRate({
-    query: {
-      select: ({ esplora, memPool }): GatewayTransactionSpeedData => {
-        return {
-          fastest: Math.ceil(Math.min(esplora[2], memPool.fastestFee)),
-          fast: Math.ceil(Math.min(esplora[4], memPool.halfHourFee)),
-          slow: Math.ceil(Math.min(esplora[4], memPool.hourFee)),
-          minimum: Math.ceil(Math.min(esplora[1008], memPool.minimumFee))
-        };
-      }
-    }
-  });
-
-  const [transactionFee, setTransactionFee] = useState<GatewayTransactionFee>({ speed: GatewayTransactionSpeed.SLOW });
-
-  const feeRate = transactionFee.speed === 'custom' ? transactionFee.networkRate : satsFeeRate?.[transactionFee.speed];
-
-  const {
-    data: satsFeeEstimate,
-    isLoading: isSatsFeeEstimateLoading,
-    error: satsFeeEstimateError
-  } = useSatsFeeEstimate({
-    opReturnData: evmAddress,
-    feeRate: feeRate,
-    query: {
-      enabled: hasBalance && !!evmAddress
-    }
-  });
-
-  const feeAmount = useMemo(
-    () => satsFeeEstimate && CurrencyAmount.fromRawAmount(BITCOIN, satsFeeEstimate.amount),
-    [satsFeeEstimate]
-  );
-
-  useEffect(() => {
-    if (satsFeeEstimateError) {
-      toast.error(t(i18n)`Failed to get estimated fee`);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [satsFeeEstimateError]);
-
-  useEffect(() => {
-    if (!satsFeeEstimate || !form.values[STAKE_AMOUNT]) return;
-
-    form.validateField(STAKE_AMOUNT);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [satsFeeEstimate]);
-
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
 
   const { refetchGatewayTxs } = useGetTransactions();
 
-  const [amount, setAmount] = useDebounceValue('', 300);
+  const {
+    feeAmount,
+    error: feeDataError,
+    feeRate,
+    feeRateData,
+    isLoading: isLoadingFeeData,
+    selectedFee,
+    setSelectedFee
+  } = useGatewayFeeData();
 
   const [isGasNeeded, setGasNeeded] = useState(true);
+
+  const [amount, setAmount] = useDebounceValue('', 300);
+
+  useEffect(() => {
+    if (!feeAmount || !form.values[STAKE_AMOUNT]) return;
+
+    form.validateField(STAKE_AMOUNT);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [feeAmount]);
 
   const currencyAmount = useMemo(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -242,10 +189,7 @@ const BtcStakeForm = ({
 
       const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, gatewayQuote.fee);
 
-      const btcReceiveAmount = currencyAmount.subtract(feeAmount);
-
       return {
-        receiveAmount: CurrencyAmount.fromBaseAmount(strategy.currency as Currency, btcReceiveAmount.toExact()),
         fee: feeAmount,
         gatewayQuote
       };
@@ -306,7 +250,7 @@ const BtcStakeForm = ({
   });
 
   const handleChangeFee = (fee: GatewayTransactionFee) => {
-    setTransactionFee(fee);
+    setSelectedFee(fee);
   };
 
   const handleSubmit = async (data: StakeFormValues) => {
@@ -321,7 +265,7 @@ const BtcStakeForm = ({
   };
 
   const { balanceAmount } = useMemo(() => {
-    if (!feeAmount || !availableLiquidity || !!satsFeeEstimateError) {
+    if (!feeAmount || !availableLiquidity || !!feeDataError) {
       return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
     }
 
@@ -342,7 +286,7 @@ const BtcStakeForm = ({
     return {
       balanceAmount: availableBalance
     };
-  }, [feeAmount, availableLiquidity, satsFeeEstimateError, satsBalance?.confirmed]);
+  }, [feeAmount, availableLiquidity, feeDataError, satsBalance?.confirmed]);
 
   const params: StakeFormValidationParams = {
     [STAKE_AMOUNT]: {
@@ -382,8 +326,7 @@ const BtcStakeForm = ({
     isTapRootAddress ||
     isLoadingMaxQuote ||
     !hasLiquidity ||
-    isSatsFeeRateLoading ||
-    isSatsFeeEstimateLoading;
+    isLoadingFeeData;
 
   const isLoading = !isSubmitDisabled && (stakeMutation.isPending || isFetchingQuote);
 
@@ -422,32 +365,7 @@ const BtcStakeForm = ({
           </Item>
         )}
       </Select>
-      <Card background='grey-600' direction='row' gap='lg' justifyContent='space-between' rounded='md'>
-        <Flex alignItems='center' gap='md'>
-          <FuelStation color='primary-500' />
-          <Flex direction='column'>
-            <Flex alignItems='center' gap='s'>
-              <P>
-                <Trans>Top-up Gas</Trans>
-              </P>
-              <Tooltip
-                color='primary'
-                label={
-                  <P size='xs'>
-                    <Trans>BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB.</Trans>
-                  </P>
-                }
-              >
-                <InformationCircle color='grey-50' size='xs' />
-              </Tooltip>
-            </Flex>
-            <P color='grey-50' size='xs'>
-              <Trans>Get ETH for transaction fees on BOB</Trans>
-            </P>
-          </Flex>
-        </Flex>
-        <Switch isSelected={isGasNeeded} size='lg' onChange={(e) => setGasNeeded(e.target.checked)} />
-      </Card>
+      <GatewayGasSwitch isSelected={isGasNeeded} onChange={(e) => setGasNeeded(e.target.checked)} />
       {isSmartAccount && (
         <Input
           label={<Trans>Recipient</Trans>}
@@ -483,11 +401,11 @@ const BtcStakeForm = ({
       )}
       <GatewayTransactionDetails
         feeRate={feeRate}
-        feeRateData={satsFeeRate}
+        feeRateData={feeRateData}
         gatewayFee={quoteData?.fee || gasEstimatePlaceholder}
-        isLoadingFeeRate={isSatsFeeRateLoading}
+        isLoadingFeeRate={isLoadingFeeData}
         networkFee={feeAmount || gasEstimatePlaceholder}
-        selectedFee={transactionFee}
+        selectedFee={selectedFee}
         onChangeFee={handleChangeFee}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
