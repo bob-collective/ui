@@ -2,7 +2,7 @@ import { ChainId } from '@gobob/chains';
 import { Bitcoin, ERC20Token } from '@gobob/currency';
 import tokenList from 'tokenlist';
 
-enum CommonToken {
+export enum CommonToken {
   DAI = 'DAI',
   DLLR = 'DLLR',
   FBTC = 'FBTC',
@@ -28,7 +28,7 @@ function isCommonToken(symbol: string): symbol is CommonToken {
   return commonTokenSet.has(symbol);
 }
 
-const commonTokens = (tokenList.tokens as any[]).reduce<
+export const commonTokens = (tokenList.tokens as any[]).reduce<
   Partial<Record<CommonToken, Partial<Record<ChainId, ERC20Token>>>>
 >(
   (acc, { symbol, chainId, address, decimals, name }) => {
