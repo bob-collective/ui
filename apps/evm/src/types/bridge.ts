@@ -15,8 +15,13 @@ type GatewayData = {
 };
 
 enum TransactionType {
-  Bridge,
-  Gateway
+  Bridge = 'bridge',
+  Gateway = 'gateway'
+}
+
+enum GatewayTransactionType {
+  BRIDGE = 'bridge',
+  STAKE = 'stake'
 }
 
 enum MessageDirection {
@@ -48,5 +53,5 @@ type GatewayTransactionFee =
   | { speed: Exclude<GatewayTransactionSpeed, GatewayTransactionSpeed.MINIMUM | GatewayTransactionSpeed.CUSTOM> }
   | { speed: GatewayTransactionSpeed.CUSTOM; networkRate: number };
 
-export { TransactionType, MessageStatus, MessageDirection, GatewayTransactionSpeed };
+export { TransactionType, MessageStatus, MessageDirection, GatewayTransactionSpeed, GatewayTransactionType };
 export type { L2BridgeData, GatewayData, GatewayTransactionFee, GatewayTransactionSpeedData };

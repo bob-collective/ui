@@ -2,7 +2,7 @@ import { Flex, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
 import { BridgeStatus } from '../BridgeStatus';
-import { Type } from '../../Bridge';
+import { Type } from '../../bridge/Bridge';
 
 import { TransactionDetails } from './TransactionDetails';
 

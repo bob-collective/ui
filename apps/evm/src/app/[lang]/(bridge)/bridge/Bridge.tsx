@@ -2,16 +2,18 @@
 
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { Tabs, TabsItem } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 import { usePathname, useRouter } from 'next/navigation';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSessionStorage } from 'usehooks-ts';
-import { Trans } from '@lingui/macro';
+
+import { Layout, TransactionList } from '../components';
 
 import { StyledCard, StyledFlex } from './Bridge.style';
-import { BannerCarousel, BridgeForm, TransactionList } from './components';
+import { BridgeForm } from './components';
 
-import { Main } from '@/components';
 import { isClient, L1_CHAIN, L2_CHAIN } from '@/constants';
+import { useGetTransactions } from '@/hooks';
 import { SessionStorageKey } from '@/types/session-storage';
 
 enum BridgeOrigin {
@@ -29,6 +31,8 @@ interface Props {
 }
 
 const Bridge = ({ searchParams }: Props) => {
+  const { data: transactions, isInitialLoading } = useGetTransactions();
+
   const location = usePathname();
   const router = useRouter();
 
@@ -54,10 +58,6 @@ const Bridge = ({ searchParams }: Props) => {
   }, []);
 
   const [chain, setChain] = useState<ChainId | 'BTC'>(initialChain);
-
-  // const [isFaultProofNoticeHidden, setFaultProofNoticeHidden] = useLocalStorage(
-  //   LocalStorageKey.HIDE_FAULT_PROOFS_NOTICE
-  // );
 
   const handleChangeTab = useCallback(
     (key: Key) => {
@@ -117,33 +117,30 @@ const Bridge = ({ searchParams }: Props) => {
   }, [bridgeToBtc, location, setBridgeToBtc]);
 
   return (
-    <>
-      <Main maxWidth='5xl' padding='md'>
-        <BannerCarousel />
-        <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
-          <StyledCard>
-            <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
-              <TabsItem key={Type.Deposit} title={<Trans>Deposit</Trans>}>
-                <></>
-              </TabsItem>
-              <TabsItem key={Type.Withdraw} title={<Trans>Withdraw</Trans>}>
-                <></>
-              </TabsItem>
-            </Tabs>
-            <BridgeForm
-              bridgeOrigin={bridgeOrigin}
-              chain={chain}
-              ticker={ticker}
-              type={type}
-              onChangeChain={handleChangeChain}
-              onChangeNetwork={handleChangeNetwork}
-              onChangeOrigin={handleChangeOrigin}
-            />
-          </StyledCard>
-          <TransactionList />
-        </StyledFlex>
-      </Main>
-    </>
+    <Layout>
+      <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
+        <StyledCard>
+          <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
+            <TabsItem key={Type.Deposit} title={<Trans>Deposit</Trans>}>
+              <></>
+            </TabsItem>
+            <TabsItem key={Type.Withdraw} title={<Trans>Withdraw</Trans>}>
+              <></>
+            </TabsItem>
+          </Tabs>
+          <BridgeForm
+            bridgeOrigin={bridgeOrigin}
+            chain={chain}
+            ticker={ticker}
+            type={type}
+            onChangeChain={handleChangeChain}
+            onChangeNetwork={handleChangeNetwork}
+            onChangeOrigin={handleChangeOrigin}
+          />
+        </StyledCard>
+        <TransactionList data={transactions} isInitialLoading={isInitialLoading} />
+      </StyledFlex>
+    </Layout>
   );
 };
 

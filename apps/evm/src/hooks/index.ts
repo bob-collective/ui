@@ -5,7 +5,7 @@ export * from './useGeoblock';
 export * from './useGasTokens';
 export * from './useGetBridgeTransactions';
 export * from './useGetGatewayTransactions';
-export * from './useGetTransactions';
+export * from '../app/[lang]/(bridge)/bridge/hooks/useGetTransactions';
 export * from './useGetUser';
 export * from './useLogin';
 export * from './useLogout';

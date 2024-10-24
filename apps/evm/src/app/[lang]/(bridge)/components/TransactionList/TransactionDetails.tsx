@@ -4,7 +4,7 @@ import { ArrowLongRight, Flex, FlexProps, P, UnstyledButton } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
 import { Trans } from '@lingui/macro';
 
-import { Type } from '../../Bridge';
+import { Type } from '../../bridge/Bridge';
 
 import { StyledDetailsButton, StyledExpandIcon } from './TransactionList.style';
 

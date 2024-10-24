@@ -3,14 +3,17 @@
 import { useAccount } from '@gobob/wagmi';
 import { useEffect, useMemo, useState } from 'react';
 
-import { BridgeTransaction, useGetBridgeTransactions } from './useGetBridgeTransactions';
+import { BridgeTransaction, useGetBridgeTransactions } from '../../../../../hooks/useGetBridgeTransactions';
+import { FeatureFlags, GatewayTransaction, useFeatureFlag, useGetGatewayTransactions } from '../../../../../hooks';
 
-import { FeatureFlags, GatewayTransaction, useFeatureFlag, useGetGatewayTransactions } from '.';
+import { GatewayTransactionType } from '@/types';
 
 type Transaction = BridgeTransaction | GatewayTransaction;
 
 const useGetTransactions = () => {
-  const gateway = useGetGatewayTransactions();
+  const gateway = useGetGatewayTransactions({
+    query: { select: (data) => data.filter((item) => item.subType === GatewayTransactionType.BRIDGE) }
+  });
   const bridge = useGetBridgeTransactions();
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 

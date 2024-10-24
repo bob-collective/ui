@@ -1,15 +1,16 @@
 import { CurrencyAmount, ERC20Token, Token } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
+import { INTERVAL, UndefinedInitialDataOptions, useQuery } from '@gobob/react-query';
 import { useAccount } from '@gobob/wagmi';
 import { Address } from 'viem';
 import { ChainId } from '@gobob/chains';
+import { GatewayOrder } from '@gobob/bob-sdk';
 
 import { FeatureFlags, useFeatureFlag } from './useFeatureFlag';
 
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { esploraClient } from '@/utils';
 import { GatewayDepositSteps } from '@/constants';
-import { TransactionType } from '@/types';
+import { GatewayTransactionType, TransactionType } from '@/types';
 
 type GatewayTransaction = {
   status: GatewayDepositSteps;
@@ -19,7 +20,9 @@ type GatewayTransaction = {
   btcTxId: string;
   amount?: CurrencyAmount<ERC20Token>;
   type: TransactionType.Gateway;
+  subType: GatewayTransactionType;
   isPending: boolean;
+  order: GatewayOrder;
 };
 
 const getGatewayTransactions = async (address: Address): Promise<GatewayTransaction[]> => {
@@ -76,14 +79,25 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
           totalConfirmations: order.txProofDifficultyFactor,
           status,
           type: TransactionType.Gateway,
-          isPending
+          subType: order.strategyAddress ? GatewayTransactionType.STAKE : GatewayTransactionType.BRIDGE,
+          isPending,
+          order
         };
       })
     )
   ).filter(Boolean) as GatewayTransaction[];
 };
 
-const useGetGatewayTransactions = () => {
+type GetGatewayTransactionsReturnType = GatewayTransaction[];
+
+type UseFeeRateProps<TData = GetGatewayTransactionsReturnType> = {
+  query?: Omit<
+    UndefinedInitialDataOptions<GetGatewayTransactionsReturnType, Error, TData, (string | undefined)[]>,
+    'queryKey' | 'queryFn' | 'enabled'
+  >;
+};
+
+const useGetGatewayTransactions = ({ query }: UseFeeRateProps = {}) => {
   const { address } = useAccount();
   const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
@@ -94,7 +108,8 @@ const useGetGatewayTransactions = () => {
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,
-    refetchOnMount: false
+    refetchOnMount: false,
+    ...query
   });
 };
 

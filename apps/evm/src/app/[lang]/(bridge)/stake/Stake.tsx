@@ -5,13 +5,17 @@ import { Key, useCallback, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Trans } from '@lingui/macro';
 
-import { BannerCarousel, StakingForm, StrategyDetails } from './components';
+import { Layout } from '../components';
+import { TransactionList } from '../components';
+
+import { StakingForm } from './components';
 import { useGetStakingStrategies } from './hooks';
 import { StyledCard, StyledFlex } from './Stake.style';
 
 import { isProd } from '@/constants';
-import { Main } from '@/components';
 import { PageLangParam } from '@/i18n/withLigui';
+import { useGetGatewayTransactions } from '@/hooks';
+import { GatewayTransactionType } from '@/types';
 
 enum Type {
   Stake = 'stake',
@@ -25,6 +29,10 @@ type Props = PageLangParam & {
 };
 
 function Stake({ searchParams }: Props) {
+  const { data: transactions, isPending } = useGetGatewayTransactions({
+    query: { select: (data) => data.filter((item) => item.subType === GatewayTransactionType.STAKE) }
+  });
+
   const { data: strategies = [], isLoading: isStrategiesLoading } = useGetStakingStrategies();
 
   const router = useRouter();
@@ -59,8 +67,7 @@ function Stake({ searchParams }: Props) {
   );
 
   return (
-    <Main maxWidth='5xl' padding='md'>
-      <BannerCarousel />
+    <Layout>
       <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
         <StyledCard>
           <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
@@ -83,9 +90,10 @@ function Stake({ searchParams }: Props) {
             }}
           />
         </StyledCard>
-        <StrategyDetails isLoading={isStrategiesLoading} strategy={strategy} />
+        <TransactionList data={transactions} isInitialLoading={isPending} />
+        {/* <StrategyDetails isLoading={isStrategiesLoading} strategy={strategy} /> */}
       </StyledFlex>
-    </Main>
+    </Layout>
   );
 }
 

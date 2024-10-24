@@ -14,24 +14,30 @@ import {
 } from './TransactionList.style';
 
 import { chainL2 } from '@/constants';
-import { useGetTransactions } from '@/hooks';
+import { BridgeTransaction, GatewayTransaction } from '@/hooks';
 import { MessageStatus } from '@/types';
 
-type TransactionListProps = CardProps;
+type Props = {
+  isInitialLoading?: boolean;
+  data?: (GatewayTransaction | BridgeTransaction)[];
+};
 
-const TransactionList = (props: TransactionListProps): JSX.Element => {
+type InheritAttrs = Omit<CardProps, keyof Props>;
+
+type TransactionListProps = Props & InheritAttrs;
+
+const TransactionList = ({ isInitialLoading, data, ...props }: TransactionListProps): JSX.Element => {
   const { address, chain } = useAccount();
-  const { data: transactions, isInitialLoading } = useGetTransactions();
   const isClient = useIsClient();
 
   const pendingInteractions = useMemo(
     () =>
       !isInitialLoading &&
-      transactions?.filter(
+      data?.filter(
         (transaction) =>
           transaction.status === MessageStatus.READY_TO_PROVE || transaction.status === MessageStatus.READY_FOR_RELAY
       ).length,
-    [transactions, isInitialLoading]
+    [data, isInitialLoading]
   );
 
   const title = (
@@ -61,7 +67,7 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
           direction='column'
           flex={1}
           gap='xl'
-          justifyContent={isInitialLoading || !transactions?.length ? 'center' : undefined}
+          justifyContent={isInitialLoading || !data?.length ? 'center' : undefined}
           paddingY='xl'
         >
           {!isClient || isInitialLoading ? (
@@ -73,11 +79,11 @@ const TransactionList = (props: TransactionListProps): JSX.Element => {
             </Flex>
           ) : (
             <>
-              {transactions?.length ? (
-                transactions.map((transaction, idx) => (
+              {data?.length ? (
+                data.map((transaction, idx) => (
                   <Fragment key={idx}>
                     <TransactionItem data={transaction} />
-                    {idx < transactions.length - 1 && <Divider />}
+                    {idx < data.length - 1 && <Divider />}
                   </Fragment>
                 ))
               ) : (

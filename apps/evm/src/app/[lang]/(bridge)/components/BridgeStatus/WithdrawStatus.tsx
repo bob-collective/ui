@@ -16,7 +16,7 @@ import { BridgeStep } from './BridgeStep';
 
 import { usePublicClientL1, usePublicClientL2, useWalletClientL1, useWalletClientL2 } from '@/hooks';
 import { bridgeKeys } from '@/lib/react-query';
-import { BridgeTransaction, useGetTransactions } from '@/hooks/useGetTransactions';
+import { BridgeTransaction, useGetTransactions } from '@/app/[lang]/(bridge)/bridge/hooks/useGetTransactions';
 import { getOngoingBridgeStep } from '@/utils/status';
 
 type Props = { data: BridgeTransaction; isExpanded: boolean };
