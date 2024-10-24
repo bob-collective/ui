@@ -34,8 +34,9 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
     }
   });
 
-  const rollsNotUsed = (rollsRemaining || 0) + (votesRemaining || 0) === MAX_TICKETS;
+  const rollsNotUsed = rollsRemaining === MAX_TICKETS;
   const votesNotUsed = votesRemaining === MAX_TICKETS;
+  const notPlayed = lotteryRollData === undefined;
   const isWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId !== null;
 
   const getHeaderText = () => {
@@ -43,7 +44,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
 
     return (
       <>
-        {rollsNotUsed && <Trans>You&apos;re Ready to Play!</Trans>}
+        {!lotteryRollData && <Trans>You&apos;re Ready to Play!</Trans>}
         {lotteryRollData?.prize === 0 && <Trans>Not your lucky day... yet!</Trans>}
         {isWinner && <Trans>Congratulations you won!</Trans>}
         <br />
@@ -98,7 +99,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
           <H3 align='center' size='2xl'>
             {getHeaderText()}
           </H3>
-          {rollsNotUsed || votesNotUsed ? (
+          {rollsNotUsed || votesNotUsed || notPlayed ? (
             <Ticket size='3xl' />
           ) : (
             <StyledPoints>
@@ -124,7 +125,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
           )}
           {Boolean(rollsRemaining) && (
             <StyledButton color='primary' onClick={() => roll()}>
-              {rollsNotUsed ? <Trans>Play</Trans> : <Trans>Play again</Trans>}
+              <Trans>Play</Trans>
             </StyledButton>
           )}
         </Flex>
