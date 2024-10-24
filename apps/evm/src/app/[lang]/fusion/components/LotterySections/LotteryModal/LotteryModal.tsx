@@ -38,7 +38,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining }: Lotte
   const isWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId !== null;
 
   const getHeaderText = () => {
-    if (rollsRemaining === 0) return <Trans>You Have 0 Tickets</Trans>;
+    if (rollsRemaining === 0 && !lotteryRollData) return <Trans>You Have 0 Tickets</Trans>;
 
     return (
       <>
