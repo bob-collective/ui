@@ -665,6 +665,10 @@ msgstr "热门策略"
 msgid "How to vote:"
 msgstr "如何投票："
 
+#: src/components/BannerCarousel/HybridL2Banner.tsx:28
+msgid "Hybrid L2"
+msgstr ""
+
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:157
 msgid "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
 msgstr "如果你已经在其他链上拥有BTC LSTs，你可以将它们跨链到BOB并开始收获Spice。"
@@ -831,7 +835,7 @@ msgstr ""
 msgid "navigate to discord"
 msgstr ""
 
-#: src/components/BannerCarousel/BannerCarousel.tsx:78
+#: src/components/BannerCarousel/BannerCarousel.tsx:85
 msgid "navigate to ecosystem section in fusion page"
 msgstr ""
 
@@ -986,6 +990,10 @@ msgstr "完成的任务"
 msgid "Quests Only"
 msgstr "仅任务"
 
+#: src/components/BannerCarousel/HybridL2Banner.tsx:25
+msgid "Read it now."
+msgstr ""
+
 #: src/app/[lang]/apps/components/HeroBanner/HeroBanner.tsx:36
 msgid "Read more here"
 msgstr "点此了解更多"
@@ -1023,9 +1031,9 @@ msgstr ""
 msgid "Referred by"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:29
-#~ msgid "Remaining"
-#~ msgstr ""
+#: src/components/BannerCarousel/HybridL2Banner.tsx:21
+msgid "Released: BOB's Hybrid L2 vision paper"
+msgstr ""
 
 #: src/app/[lang]/apps/components/SpiceChip/SpiceChip.tsx:95
 msgid "Remove vote"

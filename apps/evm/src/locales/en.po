@@ -665,6 +665,10 @@ msgstr "Hot Strategies"
 msgid "How to vote:"
 msgstr "How to vote:"
 
+#: src/components/BannerCarousel/HybridL2Banner.tsx:28
+msgid "Hybrid L2"
+msgstr "Hybrid L2"
+
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:157
 msgid "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
 msgstr "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
@@ -831,7 +835,7 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/components/BannerCarousel/BannerCarousel.tsx:78
+#: src/components/BannerCarousel/BannerCarousel.tsx:85
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
@@ -986,6 +990,10 @@ msgstr "Quests Completed"
 msgid "Quests Only"
 msgstr "Quests Only"
 
+#: src/components/BannerCarousel/HybridL2Banner.tsx:25
+msgid "Read it now."
+msgstr "Read it now."
+
 #: src/app/[lang]/apps/components/HeroBanner/HeroBanner.tsx:36
 msgid "Read more here"
 msgstr "Read more here"
@@ -1023,9 +1031,9 @@ msgstr "referral table"
 msgid "Referred by"
 msgstr "Referred by"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:29
-#~ msgid "Remaining"
-#~ msgstr "Remaining"
+#: src/components/BannerCarousel/HybridL2Banner.tsx:21
+msgid "Released: BOB's Hybrid L2 vision paper"
+msgstr "Released: BOB's Hybrid L2 vision paper"
 
 #: src/app/[lang]/apps/components/SpiceChip/SpiceChip.tsx:95
 msgid "Remove vote"
