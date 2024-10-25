@@ -22,9 +22,15 @@ type LotteryModalProps = LotteryStats & {
 };
 
 const MAX_TICKETS = 3;
-const SPICE_CAP = 10_500;
 
-function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsMissing }: LotteryModalProps) {
+function LotteryModal({
+  isOpen,
+  onClose,
+  rollsRemaining,
+  votesRemaining,
+  pointsMissing,
+  minPointsToRoll
+}: LotteryModalProps) {
   const { lang } = useParams();
   const { locale } = useLocale();
   const {
@@ -50,8 +56,8 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
               <Trans>Not enough Spice</Trans>
             </H3>
             <StyledPoints>
-              <Spice size='3xl' /> {Intl.NumberFormat(locale).format(SPICE_CAP - pointsMissing)}/
-              {Intl.NumberFormat(locale).format(SPICE_CAP)}
+              <Spice size='3xl' /> {Intl.NumberFormat(locale).format(minPointsToRoll - pointsMissing)}/
+              {Intl.NumberFormat(locale).format(minPointsToRoll)}
             </StyledPoints>
             <P align='center' color='grey-50' size='s'>
               <Trans>Harvest {pointsMissing} more Spice to participate</Trans>

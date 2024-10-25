@@ -393,6 +393,7 @@ export interface LotteryStats {
   votesRemaining: number;
   running: boolean;
   pointsMissing: number;
+  minPointsToRoll: number;
 }
 
 export interface LotteryRoll {
