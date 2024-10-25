@@ -1,26 +1,25 @@
 'use client';
 
 import { CurrencyAmount } from '@gobob/currency';
-import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 import { Optional, usePrices } from '@gobob/react-query';
 import { BtcAddressType, useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, useForm } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
-import { t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
+import { useDebounceValue } from 'usehooks-ts';
 import Big from 'big.js';
 import { useEffect, useMemo } from 'react';
-import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
+import { PellNetwork } from '@gobob/icons/src/PellNetwork';
+import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
 import { GatewayGasSwitch } from '../../../components/GatewayGasSwitch';
 import { useGateway } from '../../../hooks';
 
 import { StrategyData } from './StakeForm';
 
-import { GatewayTransactionDetails } from '@/components';
 import { AuthButton } from '@/connect-ui';
 import {
   STAKE_AMOUNT,
@@ -33,6 +32,7 @@ import {
 } from '@/lib/form/stake';
 import { isFormDisabled } from '@/lib/form/utils';
 import { GatewayData } from '@/types';
+import { GatewayTransactionDetails } from '@/components';
 
 type BtcBridgeFormProps = {
   strategy: StrategyData;
@@ -65,14 +65,8 @@ const BtcStakeForm = ({
 
   const [amount, setAmount] = useDebounceValue('', 300);
 
-  const currencyAmount = useMemo(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
-    [amount]
-  );
-
   const { balance, fee, isTopUpEnabled, liquidity, minAmount, mutation, quote, setTopUpEnabled } = useGateway({
-    amount: currencyAmount,
+    amount,
     toChain: strategy.raw.chain.chainId,
     toToken: strategy.raw.inputToken.address,
     strategyAddress: strategy.raw.address,
@@ -86,7 +80,7 @@ const BtcStakeForm = ({
 
     form.validateField(STAKE_AMOUNT);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fee.amount]);
+  }, []);
 
   const params: StakeFormValidationParams = {
     [STAKE_AMOUNT]: {

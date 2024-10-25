@@ -14,7 +14,7 @@ import { toast } from '@gobob/ui';
 import { Address, useAccount } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
 
 import { DUST_THRESHOLD } from '../constants/deposit';
@@ -62,14 +62,14 @@ const getBalanceAmount = (
 };
 
 type UseGatewayLiquidityProps = Partial<Pick<GatewayQuoteParams, 'toChain' | 'toToken' | 'strategyAddress'>> & {
-  amount?: CurrencyAmount<Bitcoin>;
+  amount?: string;
   onMutate?: (data: Optional<GatewayData, 'amount'>) => void;
   onSuccess?: (data: GatewayData) => void;
   onError?: () => void;
 };
 
 const useGateway = ({
-  amount,
+  amount: rawAmount,
   toChain,
   toToken,
   strategyAddress,
@@ -90,13 +90,13 @@ const useGateway = ({
 
   const isStaking = !!strategyAddress;
 
-  const minAmount = getMinAmount(isTopUpEnabled);
+  const minAmount = useMemo(() => getMinAmount(isTopUpEnabled), [isTopUpEnabled]);
 
   const { refetchGatewayTxs } = useGetTransactions();
 
   const liquidity = useQuery({
     enabled: Boolean(toToken || toChain),
-    queryKey: bridgeKeys.btcQuote(toToken, toChain, strategyAddress, 'max'),
+    queryKey: bridgeKeys.btcQuote(toToken, toChain, strategyAddress, 'liquidity-check'),
     refetchInterval: INTERVAL.MINUTE,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -138,9 +138,9 @@ const useGateway = ({
   const feeRate = selectedFee.speed === 'custom' ? selectedFee.networkRate : feeRateData?.[selectedFee.speed];
 
   const {
-    data: satsFeeEstimate,
-    isLoading: isSatsFeeEstimateLoading,
-    error: satsFeeEstimateError
+    data: feeEstimate,
+    isLoading: isFeeEstimateLoading,
+    error: feeEstimateError
   } = useSatsFeeEstimate({
     opReturnData: evmAddress,
     feeRate: feeRate,
@@ -150,27 +150,18 @@ const useGateway = ({
     }
   });
 
-  const error = satsFeeEstimateError || satsFeeRateError;
+  const feeError = feeEstimateError || satsFeeRateError;
 
   useEffect(() => {
-    if (error) {
+    if (feeError) {
       toast.error(t(i18n)`Failed to get estimated fee`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
+  }, [feeError]);
 
-  const balance = getBalanceAmount(satsBalance?.confirmed, satsFeeEstimate, liquidity.data?.liquidityAmount);
+  const quoteEnabled = Boolean(btcAddress && evmAddress && liquidity.data?.hasLiquidity && rawAmount);
 
-  const quoteEnabled = Boolean(
-    btcAddress &&
-      evmAddress &&
-      liquidity.data?.hasLiquidity &&
-      amount &&
-      amount.greaterThan(minAmount) &&
-      amount.lessThan(balance)
-  );
-
-  const queryKey = bridgeKeys.btcQuote(toToken, toChain, strategyAddress, Number(amount?.numerator));
+  const queryKey = bridgeKeys.btcQuote(toToken, toChain, strategyAddress, rawAmount);
 
   const quoteQueryResult = useQuery({
     enabled: quoteEnabled,
@@ -179,25 +170,30 @@ const useGateway = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      if (!amount || !toChain || !toToken) return;
+      if (!rawAmount || !toChain || !toToken) return;
 
-      const atomicAmount = amount.numerator.toString();
+      const amount = CurrencyAmount.fromBaseAmount(BITCOIN, rawAmount);
 
-      return gatewaySDK.getQuote({
+      const quote = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        amount: atomicAmount,
+        amount: amount.numerator.toString(),
         gasRefill: isTopUpEnabled ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
         toChain,
         toToken,
         strategyAddress
       });
+
+      return {
+        amount,
+        quote
+      };
     },
     select: (data) => {
-      if (!data || !amount) return;
+      if (!data) return;
 
-      const protocolFeeAmount = CurrencyAmount.fromRawAmount(BITCOIN, data.fee);
+      const protocolFeeAmount = CurrencyAmount.fromRawAmount(BITCOIN, data.quote.fee);
 
-      const quoteAmount = amount.subtract(protocolFeeAmount);
+      const quoteAmount = data.amount.subtract(protocolFeeAmount);
 
       return {
         amount: quoteAmount,
@@ -218,7 +214,7 @@ const useGateway = ({
         throw new Error('Quote Data missing');
       }
 
-      if (!satsFeeEstimate) {
+      if (!feeEstimate) {
         throw new Error('Fee estimate missing');
       }
 
@@ -226,17 +222,17 @@ const useGateway = ({
         throw new Error('Something went wrong');
       }
 
-      const { data: quoteData, amount, protocolFee } = quoteQueryResult.data;
+      const { data: quoteData, amount: quoteAmount, protocolFee } = quoteQueryResult.data;
 
       const data: GatewayData = {
         type: isStaking ? GatewayTransactionType.STAKE : GatewayTransactionType.BRIDGE,
-        amount: amount,
-        fee: protocolFee.add(satsFeeEstimate)
+        amount: quoteAmount,
+        fee: protocolFee.add(feeEstimate)
       };
 
       onMutate?.(data);
 
-      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(quoteData, {
+      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(quoteData.quote, {
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
         toChain,
         toUserAddress: evmAddress,
@@ -268,18 +264,27 @@ const useGateway = ({
     }
   });
 
+  const fee = useMemo(
+    () => ({
+      rateData: feeRateData,
+      rate: feeRate,
+      amount: feeEstimate,
+      selectedFee,
+      setSelectedFee: setSelectedFee,
+      isLoading: isFeeEstimateLoading || isSatsFeeRateLoading
+    }),
+    [feeRate, feeRateData, isFeeEstimateLoading, isSatsFeeRateLoading, feeEstimate, selectedFee]
+  );
+
+  const balance = useMemo(
+    () => getBalanceAmount(satsBalance?.confirmed, feeEstimate, liquidity.data?.liquidityAmount),
+    [liquidity.data?.liquidityAmount, satsBalance?.confirmed, feeEstimate]
+  );
+
   return {
     balance,
     mutation,
-    fee: {
-      error,
-      rateData: feeRateData,
-      rate: feeRate,
-      amount: satsFeeEstimate,
-      selectedFee,
-      setSelectedFee: setSelectedFee,
-      isLoading: isSatsFeeEstimateLoading || isSatsFeeRateLoading
-    },
+    fee,
     isTopUpEnabled,
     setTopUpEnabled,
     minAmount,

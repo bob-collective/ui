@@ -69,12 +69,6 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
 
   const [amount, setAmount] = useDebounceValue('', 300);
 
-  const currencyAmount = useMemo(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
-    [amount]
-  );
-
   useEffect(() => {
     if (searchParams) {
       const urlSearchParams = new URLSearchParams(searchParams);
@@ -86,7 +80,7 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
   }, [receiveTicker, router, searchParams]);
 
   const { balance, fee, isTopUpEnabled, liquidity, minAmount, mutation, quote, setTopUpEnabled } = useGateway({
-    amount: currencyAmount,
+    amount,
     toChain,
     toToken: btcToken?.currency.symbol,
     onError,
@@ -99,7 +93,7 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
 
     form.validateField(BRIDGE_AMOUNT);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fee.amount]);
+  }, [fee.rateData]);
 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
