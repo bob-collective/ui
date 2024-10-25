@@ -57,7 +57,7 @@ msgstr "< 1 minute"
 msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
 msgstr "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:85
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:87
 msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 msgstr "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 
@@ -89,9 +89,13 @@ msgstr "7 days"
 msgid "About"
 msgstr "About"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Add {pointsMissing} more SPICE to your account to participate"
+#~ msgstr "Add {pointsMissing} more SPICE to your account to participate"
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:55
-msgid "Add {pointsMissing} more SPICE to your wallet to participate"
-msgstr "Add {pointsMissing} more SPICE to your wallet to participate"
+#~ msgid "Add {pointsMissing} more SPICE to your wallet to participate"
+#~ msgstr "Add {pointsMissing} more SPICE to your wallet to participate"
 
 #: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:105
 msgid "Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to significant delays in confirmation time."
@@ -147,7 +151,7 @@ msgstr "Apps Used"
 msgid "Asset"
 msgstr "Asset"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:17
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:16
 msgid "Audited by"
 msgstr "Audited by"
 
@@ -191,7 +195,7 @@ msgid "BOB Bridge"
 msgstr "BOB Bridge"
 
 #: src/app/[lang]/fusion/Fusion.tsx:92
-#: src/components/BannerCarousel/FusionBanner.tsx:23
+#: src/components/BannerCarousel/FusionBanner.tsx:22
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion: The Final Season"
 
@@ -305,8 +309,8 @@ msgstr "Chose any of the existing liquid staking provider to mint your BTC LST."
 msgid "Click the <0/> icon next to your favourite apps"
 msgstr "Click the <0/> icon next to your favourite apps"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:62
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:157
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:64
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:159
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:109
 #: src/components/TransactionModal/GatewayTransactionModal.tsx:74
 msgid "Close"
@@ -327,7 +331,7 @@ msgstr "Coming Soon"
 msgid "Coming SoonSteps"
 msgstr "Coming SoonSteps"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:42
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:41
 msgid "Common Prefix auditor"
 msgstr "Common Prefix auditor"
 
@@ -344,7 +348,7 @@ msgstr "Community Voting Information"
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:83
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:85
 msgid "Congratulations you won!"
 msgstr "Congratulations you won!"
 
@@ -471,7 +475,7 @@ msgstr "Don't believe in the Bitcoin Renaissance? You can withdraw your funds fr
 msgid "Don't show this message again"
 msgstr "Don't show this message again"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:98
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:100
 msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
 msgstr "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
 
@@ -581,7 +585,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
 
 #: src/app/[lang]/fusion/Fusion.tsx:120
-#: src/components/BannerCarousel/XBanner.tsx:19
+#: src/components/BannerCarousel/XBanner.tsx:18
 msgid "Follow us on X"
 msgstr "Follow us on X"
 
@@ -603,7 +607,7 @@ msgstr "FUSION"
 msgid "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
 msgstr "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
 
-#: src/components/BannerCarousel/FusionBanner.tsx:31
+#: src/components/BannerCarousel/FusionBanner.tsx:30
 msgid "Fusion season three"
 msgstr "Fusion season three"
 
@@ -625,7 +629,7 @@ msgstr "Geoblock"
 msgid "Get ETH for transaction fees on BOB"
 msgstr "Get ETH for transaction fees on BOB"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:152
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:154
 msgid "Get tickets"
 msgstr "Get tickets"
 
@@ -645,6 +649,18 @@ msgstr "Got it!"
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:283
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+msgid "Harvest {pointsMissing} more SPICE to participate"
+msgstr "Harvest {pointsMissing} more SPICE to participate"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Harvest {pointsMissing} more SPICE to your account to participate"
+#~ msgstr "Harvest {pointsMissing} more SPICE to your account to participate"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
+#~ msgstr "Harvest {pointsMissing} more SPICE to your account to play"
 
 #: src/app/[lang]/fusion/Fusion.tsx:95
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
@@ -670,7 +686,7 @@ msgstr "Hot Strategies"
 msgid "How to vote:"
 msgstr "How to vote:"
 
-#: src/components/BannerCarousel/HybridL2Banner.tsx:28
+#: src/components/BannerCarousel/HybridL2Banner.tsx:29
 msgid "Hybrid L2"
 msgstr "Hybrid L2"
 
@@ -832,7 +848,7 @@ msgstr "navigate to {name} app page"
 msgid "Navigate to bridge page"
 msgstr "Navigate to bridge page"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:36
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:35
 msgid "navigate to Common Prefix audit"
 msgstr "navigate to Common Prefix audit"
 
@@ -848,11 +864,11 @@ msgstr "navigate to ecosystem section in fusion page"
 msgid "navigate to home page"
 msgstr "navigate to home page"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:50
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:49
 msgid "navigate to OtterSec audit"
 msgstr "navigate to OtterSec audit"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:22
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:21
 msgid "navigate to Trails of Bits audit"
 msgstr "navigate to Trails of Bits audit"
 
@@ -876,8 +892,8 @@ msgstr "Network Fee Rate"
 msgid "New Quests Coming Soon"
 msgstr "New Quests Coming Soon"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:46
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:131
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:47
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:133
 msgid "new tickets drop in {0}"
 msgstr "new tickets drop in {0}"
 
@@ -893,7 +909,7 @@ msgstr "No bridging operations found"
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "No new goal at the moment. Stay tuned for updates!"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:49
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
 msgid "Not enough spice"
 msgstr "Not enough spice"
 
@@ -901,7 +917,7 @@ msgstr "Not enough spice"
 #~ msgid "Not found"
 #~ msgstr "Not found"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:82
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:84
 msgid "Not your lucky day... yet!"
 msgstr "Not your lucky day... yet!"
 
@@ -926,7 +942,7 @@ msgstr "Optional: It's possible to repeat steps 2-4 multiple times."
 msgid "or"
 msgstr "or"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:55
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:54
 msgid "OtterSec auditor"
 msgstr "OtterSec auditor"
 
@@ -934,7 +950,7 @@ msgstr "OtterSec auditor"
 msgid "Pending"
 msgstr "Pending"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:162
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:164
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:85
 msgid "Play"
 msgstr "Play"
@@ -1000,7 +1016,7 @@ msgstr "Quests Completed"
 msgid "Quests Only"
 msgstr "Quests Only"
 
-#: src/components/BannerCarousel/HybridL2Banner.tsx:25
+#: src/components/BannerCarousel/HybridL2Banner.tsx:26
 msgid "Read it now."
 msgstr "Read it now."
 
@@ -1008,7 +1024,7 @@ msgstr "Read it now."
 msgid "Read more here"
 msgstr "Read more here"
 
-#: src/components/BannerCarousel/FusionBanner.tsx:27
+#: src/components/BannerCarousel/FusionBanner.tsx:26
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 
@@ -1041,7 +1057,7 @@ msgstr "referral table"
 msgid "Referred by"
 msgstr "Referred by"
 
-#: src/components/BannerCarousel/HybridL2Banner.tsx:21
+#: src/components/BannerCarousel/HybridL2Banner.tsx:22
 msgid "Released: BOB's Hybrid L2 vision paper"
 msgstr "Released: BOB's Hybrid L2 vision paper"
 
@@ -1163,7 +1179,7 @@ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus 
 msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:108
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:36
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:37
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
@@ -1454,7 +1470,7 @@ msgid "To cast your vote, please log in"
 msgstr "To cast your vote, please log in"
 
 #: src/app/[lang]/fusion/Fusion.tsx:123
-#: src/components/BannerCarousel/XBanner.tsx:23
+#: src/components/BannerCarousel/XBanner.tsx:22
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
@@ -1482,7 +1498,7 @@ msgstr "Total Referrals Earnings:"
 msgid "Total Spice Harvested"
 msgstr "Total Spice Harvested"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:28
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:27
 msgid "Trails of Bits auditor"
 msgstr "Trails of Bits auditor"
 
@@ -1532,7 +1548,7 @@ msgstr "USDT can only be withdrawn to Ethereum."
 msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 msgstr "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:113
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
 msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
 msgstr "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
 
@@ -1693,7 +1709,7 @@ msgstr "You"
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "You can change your votes at any time before the end of the weekly voting period"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:77
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:79
 msgid "You Have 0 Tickets"
 msgstr "You Have 0 Tickets"
 
@@ -1718,11 +1734,11 @@ msgstr "You will receive"
 #~ msgid "You will stake"
 #~ msgstr "You will stake"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:81
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:83
 msgid "You're Ready to Play!"
 msgstr "You're Ready to Play!"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:106
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
 msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
 msgstr "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
 

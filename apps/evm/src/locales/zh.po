@@ -57,7 +57,7 @@ msgstr ""
 msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:85
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:87
 msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 msgstr ""
 
@@ -89,9 +89,13 @@ msgstr ""
 msgid "About"
 msgstr "关于"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Add {pointsMissing} more SPICE to your account to participate"
+#~ msgstr ""
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:55
-msgid "Add {pointsMissing} more SPICE to your wallet to participate"
-msgstr ""
+#~ msgid "Add {pointsMissing} more SPICE to your wallet to participate"
+#~ msgstr ""
 
 #: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:105
 msgid "Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to significant delays in confirmation time."
@@ -147,7 +151,7 @@ msgstr "已体验的应用"
 msgid "Asset"
 msgstr "资产"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:17
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:16
 msgid "Audited by"
 msgstr "审计"
 
@@ -191,7 +195,7 @@ msgid "BOB Bridge"
 msgstr ""
 
 #: src/app/[lang]/fusion/Fusion.tsx:92
-#: src/components/BannerCarousel/FusionBanner.tsx:23
+#: src/components/BannerCarousel/FusionBanner.tsx:22
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
 
@@ -305,8 +309,8 @@ msgstr "选择任何现有的流动性质押提供商来铸造你的BTC LST。"
 msgid "Click the <0/> icon next to your favourite apps"
 msgstr "点击 <0/> 你喜爱应用旁边的图标"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:62
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:157
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:64
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:159
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:109
 #: src/components/TransactionModal/GatewayTransactionModal.tsx:74
 msgid "Close"
@@ -327,7 +331,7 @@ msgstr "即将推出"
 msgid "Coming SoonSteps"
 msgstr ""
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:42
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:41
 msgid "Common Prefix auditor"
 msgstr ""
 
@@ -344,7 +348,7 @@ msgstr "社区投票信息"
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外收获62,500 Spice。"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:83
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:85
 msgid "Congratulations you won!"
 msgstr ""
 
@@ -471,7 +475,7 @@ msgstr "想要退出？你可以将资金从合约中提取到以太坊钱包。
 msgid "Don't show this message again"
 msgstr "不再显示此消息"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:98
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:100
 msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
 msgstr ""
 
@@ -581,7 +585,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
 #: src/app/[lang]/fusion/Fusion.tsx:120
-#: src/components/BannerCarousel/XBanner.tsx:19
+#: src/components/BannerCarousel/XBanner.tsx:18
 msgid "Follow us on X"
 msgstr ""
 
@@ -603,7 +607,7 @@ msgstr "FUSION"
 msgid "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
 msgstr "Fusion第3季是你收获Spice的最后机会。质押比特币获得最高倍数，并通过推荐朋友赚取他们Spice收获的分成。"
 
-#: src/components/BannerCarousel/FusionBanner.tsx:31
+#: src/components/BannerCarousel/FusionBanner.tsx:30
 msgid "Fusion season three"
 msgstr ""
 
@@ -625,7 +629,7 @@ msgstr ""
 msgid "Get ETH for transaction fees on BOB"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:152
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:154
 msgid "Get tickets"
 msgstr ""
 
@@ -645,6 +649,18 @@ msgstr ""
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:283
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "抓住最后收获Spice的机会！加入第3季！"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+msgid "Harvest {pointsMissing} more SPICE to participate"
+msgstr ""
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Harvest {pointsMissing} more SPICE to your account to participate"
+#~ msgstr ""
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/Fusion.tsx:95
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
@@ -670,7 +686,7 @@ msgstr "热门策略"
 msgid "How to vote:"
 msgstr "如何投票："
 
-#: src/components/BannerCarousel/HybridL2Banner.tsx:28
+#: src/components/BannerCarousel/HybridL2Banner.tsx:29
 msgid "Hybrid L2"
 msgstr ""
 
@@ -832,7 +848,7 @@ msgstr ""
 msgid "Navigate to bridge page"
 msgstr "导航至桥接页面"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:36
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:35
 msgid "navigate to Common Prefix audit"
 msgstr ""
 
@@ -848,11 +864,11 @@ msgstr ""
 msgid "navigate to home page"
 msgstr ""
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:50
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:49
 msgid "navigate to OtterSec audit"
 msgstr ""
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:22
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:21
 msgid "navigate to Trails of Bits audit"
 msgstr ""
 
@@ -876,8 +892,8 @@ msgstr ""
 msgid "New Quests Coming Soon"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:46
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:131
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:47
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:133
 msgid "new tickets drop in {0}"
 msgstr ""
 
@@ -893,7 +909,7 @@ msgstr ""
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "目前暂无新目标。请保持关注更新！"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:49
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
 msgid "Not enough spice"
 msgstr ""
 
@@ -901,7 +917,7 @@ msgstr ""
 #~ msgid "Not found"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:82
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:84
 msgid "Not your lucky day... yet!"
 msgstr ""
 
@@ -926,7 +942,7 @@ msgstr "可选：可以多次重复步骤2-4。"
 msgid "or"
 msgstr "或"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:55
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:54
 msgid "OtterSec auditor"
 msgstr ""
 
@@ -934,7 +950,7 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:162
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:164
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:85
 msgid "Play"
 msgstr ""
@@ -1000,7 +1016,7 @@ msgstr "完成的任务"
 msgid "Quests Only"
 msgstr "仅任务"
 
-#: src/components/BannerCarousel/HybridL2Banner.tsx:25
+#: src/components/BannerCarousel/HybridL2Banner.tsx:26
 msgid "Read it now."
 msgstr ""
 
@@ -1008,7 +1024,7 @@ msgstr ""
 msgid "Read more here"
 msgstr "点此了解更多"
 
-#: src/components/BannerCarousel/FusionBanner.tsx:27
+#: src/components/BannerCarousel/FusionBanner.tsx:26
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
@@ -1041,7 +1057,7 @@ msgstr ""
 msgid "Referred by"
 msgstr ""
 
-#: src/components/BannerCarousel/HybridL2Banner.tsx:21
+#: src/components/BannerCarousel/HybridL2Banner.tsx:22
 msgid "Released: BOB's Hybrid L2 vision paper"
 msgstr ""
 
@@ -1163,7 +1179,7 @@ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus 
 msgstr ""
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:108
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:36
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:37
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
 msgstr ""
@@ -1450,7 +1466,7 @@ msgid "To cast your vote, please log in"
 msgstr ""
 
 #: src/app/[lang]/fusion/Fusion.tsx:123
-#: src/components/BannerCarousel/XBanner.tsx:23
+#: src/components/BannerCarousel/XBanner.tsx:22
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
@@ -1478,7 +1494,7 @@ msgstr "推荐获得的总Spice"
 msgid "Total Spice Harvested"
 msgstr "总收获的Spice"
 
-#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:28
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:27
 msgid "Trails of Bits auditor"
 msgstr ""
 
@@ -1528,7 +1544,7 @@ msgstr ""
 msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:113
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
 msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
 msgstr ""
 
@@ -1689,7 +1705,7 @@ msgstr ""
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "你可以在每周投票期结束前随时更改你的投票"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:77
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:79
 msgid "You Have 0 Tickets"
 msgstr ""
 
@@ -1714,11 +1730,11 @@ msgstr ""
 #~ msgid "You will stake"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:81
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:83
 msgid "You're Ready to Play!"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:106
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
 msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
 msgstr ""
 

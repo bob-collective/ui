@@ -54,7 +54,7 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
               {Intl.NumberFormat(locale).format(SPICE_CAP)}
             </StyledPoints>
             <P align='center' color='grey-50' size='s'>
-              <Trans>Add {pointsMissing} more SPICE to your wallet to participate</Trans>
+              <Trans>Harvest {pointsMissing} more SPICE to participate</Trans>
             </P>
           </Flex>
         </ModalBody>
