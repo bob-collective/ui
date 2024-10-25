@@ -3,7 +3,7 @@
   "globalDependencies": ["**/.env.*local"],
   "tasks": {
     "build": {
-      "outputs": ["dist/**", "storybook-static/**"],
+      "outputs": [".next/**", "!.next/cache/**", "storybook-static/**"],
       "dependsOn": ["^build"],
       "cache": true
     },
