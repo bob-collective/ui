@@ -1,4 +1,3 @@
-// wBTC, tBTC, ETH, USDC, USDT, Dai
 import { describe, it, expect } from 'vitest';
 import { ChainId } from '@gobob/chains';
 
