@@ -47,14 +47,14 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
               <Trans>new tickets drop in {formatDistanceToNow(ROUND_END_TIME)}</Trans>
             </Chip>
             <H3 align='center' size='2xl'>
-              <Trans>Not enough spice</Trans>
+              <Trans>Not enough Spice</Trans>
             </H3>
             <StyledPoints>
               <Spice size='3xl' /> {Intl.NumberFormat(locale).format(SPICE_CAP - pointsMissing)}/
               {Intl.NumberFormat(locale).format(SPICE_CAP)}
             </StyledPoints>
             <P align='center' color='grey-50' size='s'>
-              <Trans>Harvest {pointsMissing} more SPICE to participate</Trans>
+              <Trans>Harvest {pointsMissing} more Spice to participate</Trans>
             </P>
           </Flex>
         </ModalBody>
@@ -107,14 +107,14 @@ function LotteryModal({ isOpen, onClose, rollsRemaining, votesRemaining, pointsM
       return (
         <Trans>
           You&apos;ve used all your tickets for today. New tickets will be available once the timer resets. Be sure to
-          come back and vote daily to increase your chances of earning more SPICE!
+          come back and vote daily to increase your chances of earning more Spice!
         </Trans>
       );
 
     return (
       <Trans>
         Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the
-        timer resets. Vote daily to increase your chances of earning more SPICE!
+        timer resets. Vote daily to increase your chances of earning more Spice!
       </Trans>
     );
   };

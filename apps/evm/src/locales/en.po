@@ -651,8 +651,12 @@ msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
-msgid "Harvest {pointsMissing} more SPICE to participate"
-msgstr "Harvest {pointsMissing} more SPICE to participate"
+msgid "Harvest {pointsMissing} more Spice to participate"
+msgstr "Harvest {pointsMissing} more Spice to participate"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Harvest {pointsMissing} more SPICE to participate"
+#~ msgstr "Harvest {pointsMissing} more SPICE to participate"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to participate"
@@ -910,8 +914,16 @@ msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "No new goal at the moment. Stay tuned for updates!"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
-msgid "Not enough spice"
-msgstr "Not enough spice"
+#~ msgid "Not enough spice"
+#~ msgstr "Not enough spice"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
+msgid "Not enough Spice"
+msgstr "Not enough Spice"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
+#~ msgid "Not enough SPICE"
+#~ msgstr "Not enough SPICE"
 
 #: src/app/[lang]/not-found/page.tsx:14
 #~ msgid "Not found"
@@ -1549,8 +1561,12 @@ msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be
 msgstr "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
-msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
-msgstr "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
+msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more Spice!"
+msgstr "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more Spice!"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
+#~ msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
+#~ msgstr "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:163
 msgid "Use any of the <0>supported bridges</0>."
@@ -1739,8 +1755,12 @@ msgid "You're Ready to Play!"
 msgstr "You're Ready to Play!"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
-msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
-msgstr "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
+msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more Spice!"
+msgstr "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more Spice!"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
+#~ msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
+#~ msgstr "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:53
 msgid "Your Active Referrals"
