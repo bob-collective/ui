@@ -1,31 +1,27 @@
 'use client';
 
-import { GatewayQuote } from '@gobob/bob-sdk';
 import { CurrencyAmount } from '@gobob/currency';
-import { INTERVAL, Optional, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
-import { BtcAddressType, useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
-import { BITCOIN } from '@gobob/tokens';
-import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, toast, useForm } from '@gobob/ui';
-import { useAccount, useIsContract } from '@gobob/wagmi';
-import { mergeProps } from '@react-aria/utils';
-import { useDebounceValue } from 'usehooks-ts';
-import Big from 'big.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Address } from 'viem';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
+import { Optional, usePrices } from '@gobob/react-query';
+import { BtcAddressType, useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { BITCOIN } from '@gobob/tokens';
+import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, useForm } from '@gobob/ui';
+import { useAccount, useIsContract } from '@gobob/wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { mergeProps } from '@react-aria/utils';
+import Big from 'big.js';
+import { useEffect, useMemo } from 'react';
+import { useDebounceValue } from 'usehooks-ts';
+import { Address } from 'viem';
 
-import { Type } from '../../Stake';
 import { GatewayGasSwitch } from '../../../components/GatewayGasSwitch';
-import { useGatewayFeeData } from '../../../hooks';
+import { useGateway } from '../../../hooks';
 
 import { StrategyData } from './StakeForm';
 
+import { GatewayTransactionDetails } from '@/components';
 import { AuthButton } from '@/connect-ui';
-import { isProd } from '@/constants';
-import { useGetTransactions } from '@/hooks';
-import { gatewaySDK } from '@/lib/bob-sdk';
 import {
   STAKE_AMOUNT,
   STAKE_BTC_WALLET,
@@ -36,79 +32,38 @@ import {
   stakeSchema
 } from '@/lib/form/stake';
 import { isFormDisabled } from '@/lib/form/utils';
-import { bridgeKeys } from '@/lib/react-query';
-import { GatewayData, GatewayTransactionFee } from '@/types';
-import { GatewayTransactionDetails } from '@/components';
+import { GatewayData } from '@/types';
 
 type BtcBridgeFormProps = {
-  type: Type;
   strategy: StrategyData;
   strategies: StrategyData[];
   onStrategyChange: (strategy: string) => void;
-  onStartGateway: (data: Optional<GatewayData, 'amount'>) => void;
-  onGatewaySuccess: (data: Optional<GatewayData, 'amount'>) => void;
-  onFailGateway: () => void;
+  onStart: (data: Optional<GatewayData, 'amount'>) => void;
+  onSuccess: (data: GatewayData) => void;
+  onError: () => void;
 };
-
-const DEFAULT_GATEWAY_QUOTE_PARAMS = {
-  fromChain: 'bitcoin',
-  toChain: isProd ? 'bob' : 'bob-sepolia',
-  fromToken: 'BTC',
-  // TODO: should be dynamic based on exchange rate
-  gasRefill: 2000
-};
-
-// TODO: get this from the API
-const DUST_THRESHOLD = 1000;
 
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
-const MIN_DEPOSIT_AMOUNT = (gasRefill: boolean) =>
-  gasRefill ? DUST_THRESHOLD + DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : DUST_THRESHOLD;
-
 const BtcStakeForm = ({
-  type = Type.Stake,
   strategy,
   strategies,
   onStrategyChange,
-  onGatewaySuccess,
-  onStartGateway,
-  onFailGateway
+  onStart,
+  onSuccess,
+  onError
 }: BtcBridgeFormProps): JSX.Element => {
-  const queryClient = useQueryClient();
   const { i18n } = useLingui();
 
   const { address: evmAddress } = useAccount();
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
-  const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
-  const { data: satsBalance } = useSatsBalance();
+  const { address: btcAddress, addressType: btcAddressType } = useSatsAccount();
 
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
 
-  const { refetchGatewayTxs } = useGetTransactions();
-
-  const {
-    feeAmount,
-    error: feeDataError,
-    feeRate,
-    feeRateData,
-    isLoading: isLoadingFeeData,
-    selectedFee,
-    setSelectedFee
-  } = useGatewayFeeData();
-
-  const [isGasNeeded, setGasNeeded] = useState(true);
-
   const [amount, setAmount] = useDebounceValue('', 300);
-
-  useEffect(() => {
-    if (!feeAmount || !form.values[STAKE_AMOUNT]) return;
-
-    form.validateField(STAKE_AMOUNT);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feeAmount]);
 
   const currencyAmount = useMemo(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -116,85 +71,31 @@ const BtcStakeForm = ({
     [amount]
   );
 
-  const handleError = useCallback((e: Error) => {
-    toast.error(e.message);
-  }, []);
-
-  const { data: availableLiquidity, isLoading: isLoadingMaxQuote } = useQuery({
-    enabled: Boolean(strategy),
-    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, strategy?.raw.integration.slug, 'max'),
-    refetchInterval: INTERVAL.MINUTE,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    queryFn: async () => {
-      // TODO: error from this isn't propagated
-      const maxQuoteData = await gatewaySDK.getQuote({
-        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toChain: strategy.raw.chain.chainId,
-        toToken: strategy.raw.inputToken.address,
-        strategyAddress: strategy.raw.address
-      });
-
-      return CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis);
-    }
+  const { balance, fee, isTopUpEnabled, liquidity, minAmount, mutation, quote, setTopUpEnabled } = useGateway({
+    amount: currencyAmount,
+    toChain: strategy.raw.chain.chainId,
+    toToken: strategy.raw.inputToken.address,
+    strategyAddress: strategy.raw.address,
+    onError,
+    onMutate: onStart,
+    onSuccess
   });
 
-  const hasLiquidity = useMemo(
-    () => availableLiquidity?.greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)),
-    [availableLiquidity, isGasNeeded]
-  );
+  useEffect(() => {
+    if (!fee.amount || !form.values[STAKE_AMOUNT]) return;
 
-  const quoteDataEnabled = useMemo(() => {
-    return Boolean(
-      currencyAmount &&
-        strategy &&
-        evmAddress &&
-        btcAddress &&
-        CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
-        hasLiquidity
-    );
-  }, [currencyAmount, strategy, evmAddress, btcAddress, amount, hasLiquidity, isGasNeeded]);
+    form.validateField(STAKE_AMOUNT);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fee.amount]);
 
-  const quoteQueryKey = bridgeKeys.btcQuote(
-    evmAddress,
-    btcAddress,
-    isGasNeeded,
-    strategy?.raw.inputToken.symbol,
-    Number(currencyAmount?.numerator)
-  );
-
-  const {
-    data: quoteData,
-    isLoading: isFetchingQuote,
-    isError: isQuoteError,
-    error: quoteError
-  } = useQuery({
-    enabled: quoteDataEnabled,
-    queryKey: quoteQueryKey,
-    refetchInterval: INTERVAL.SECONDS_30,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    queryFn: async () => {
-      if (!currencyAmount) return;
-
-      const atomicAmount = currencyAmount.numerator.toString();
-      const gatewayQuote = await gatewaySDK.getQuote({
-        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        amount: atomicAmount,
-        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        toChain: strategy.raw.chain.chainId,
-        toToken: strategy.raw.inputToken.address,
-        strategyAddress: strategy.raw.address
-      });
-
-      const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, gatewayQuote.fee);
-
-      return {
-        fee: feeAmount,
-        gatewayQuote
-      };
-    }
-  });
+  const params: StakeFormValidationParams = {
+    [STAKE_AMOUNT]: {
+      minAmount: new Big(minAmount.toExact()),
+      maxAmount: new Big(balance.toExact())
+    },
+    [STAKE_RECIPIENT]: !!isSmartAccount,
+    [STAKE_BTC_WALLET]: btcAddress
+  };
 
   const initialValues = {
     [STAKE_AMOUNT]: '',
@@ -202,102 +103,12 @@ const BtcStakeForm = ({
     [STAKE_RECIPIENT]: ''
   };
 
-  const stakeMutation = useMutation({
-    mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
-    mutationFn: async ({ evmAddress, gatewayQuote }: { evmAddress: Address; gatewayQuote: GatewayQuote }) => {
-      if (!connector) {
-        throw new Error('Connector missing');
-      }
-
-      if (!quoteData) {
-        throw new Error('Quote Data missing');
-      }
-
-      const data = {
-        fee: quoteData.fee
-      };
-
-      onStartGateway(data);
-
-      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(gatewayQuote, {
-        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toUserAddress: evmAddress,
-        fromUserAddress: connector.paymentAddress!,
-        fromUserPublicKey: connector.publicKey,
-        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        feeRate
-      });
-
-      const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
-
-      // NOTE: user does not broadcast the tx, that is done by
-      // the relayer after it is validated
-      const txid = await gatewaySDK.finalizeOrder(uuid, bitcoinTxHex);
-
-      return { ...data, txid };
-    },
-    onSuccess: (data) => {
-      setAmount('');
-      form.resetForm({ values: initialValues });
-      onGatewaySuccess?.(data);
-      refetchGatewayTxs();
-      queryClient.removeQueries({ queryKey: quoteQueryKey });
-    },
-    onError: (error) => {
-      handleError(error);
-      onFailGateway();
-    }
-  });
-
-  const handleChangeFee = (fee: GatewayTransactionFee) => {
-    setSelectedFee(fee);
-  };
-
   const handleSubmit = async (data: StakeFormValues) => {
-    if (!quoteData || !evmAddress) return;
+    if (!quote || !evmAddress) return;
 
-    if (type === Type.Stake) {
-      return stakeMutation.mutate({
-        evmAddress: (data[STAKE_RECIPIENT] as Address) || evmAddress,
-        gatewayQuote: quoteData.gatewayQuote
-      });
-    }
-  };
-
-  const { balanceAmount } = useMemo(() => {
-    if (!feeAmount || !availableLiquidity || !!feeDataError) {
-      return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
-    }
-
-    const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.confirmed || 0);
-
-    if (balance.lessThan(feeAmount)) {
-      return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
-    }
-
-    const availableBalance = balance.subtract(feeAmount);
-
-    if (availableBalance.greaterThan(availableLiquidity)) {
-      return {
-        balanceAmount: availableLiquidity
-      };
-    }
-
-    return {
-      balanceAmount: availableBalance
-    };
-  }, [feeAmount, availableLiquidity, feeDataError, satsBalance?.confirmed]);
-
-  const params: StakeFormValidationParams = {
-    [STAKE_AMOUNT]: {
-      minAmount:
-        currencyAmount && MIN_DEPOSIT_AMOUNT(isGasNeeded)
-          ? new Big(MIN_DEPOSIT_AMOUNT(isGasNeeded) / 10 ** currencyAmount?.currency.decimals)
-          : undefined,
-      maxAmount: new Big(balanceAmount.toExact())
-    },
-    [STAKE_RECIPIENT]: !!isSmartAccount,
-    [STAKE_BTC_WALLET]: btcAddress
+    mutation.mutate({
+      evmAddress: (data[STAKE_RECIPIENT] as Address) || evmAddress
+    });
   };
 
   const form = useForm<StakeFormValues>({
@@ -321,20 +132,20 @@ const BtcStakeForm = ({
 
   const isDisabled =
     isSubmitDisabled ||
-    !quoteData ||
-    isQuoteError ||
+    !quote ||
+    !!quote.error ||
     isTapRootAddress ||
-    isLoadingMaxQuote ||
-    !hasLiquidity ||
-    isLoadingFeeData;
+    liquidity.isLoading ||
+    !liquidity.data?.hasLiquidity ||
+    fee.isLoading;
 
-  const isLoading = !isSubmitDisabled && (stakeMutation.isPending || isFetchingQuote);
+  const isLoading = !isSubmitDisabled && (mutation.isPending || quote.isPending);
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
-        balance={balanceAmount.toExact()}
+        balance={balance.toExact()}
         balanceHelper={t(
           i18n
         )`Your available balance may differ from your wallet balance due to network fees and available liquidity`}
@@ -365,7 +176,7 @@ const BtcStakeForm = ({
           </Item>
         )}
       </Select>
-      <GatewayGasSwitch isSelected={isGasNeeded} onChange={(e) => setGasNeeded(e.target.checked)} />
+      <GatewayGasSwitch isSelected={isTopUpEnabled} onChange={(e) => setTopUpEnabled(e.target.checked)} />
       {isSmartAccount && (
         <Input
           label={<Trans>Recipient</Trans>}
@@ -383,16 +194,16 @@ const BtcStakeForm = ({
           </P>
         </Alert>
       )}
-      {!!quoteError && !quoteData && (
+      {!!quote.error && (
         <Alert status='warning'>
           <P size='s'>
             <Trans>
-              BTC bridge is currently unavailable. This may be due to: {quoteError.message}. Please try again later.
+              BTC bridge is currently unavailable. This may be due to: {quote.error.message}. Please try again later.
             </Trans>
           </P>
         </Alert>
       )}
-      {!hasLiquidity && !isLoadingMaxQuote && strategies.length > 0 && (
+      {!liquidity.data?.hasLiquidity && !liquidity.isLoading && strategies.length > 0 && (
         <Alert status='warning'>
           <P size='s'>
             <Trans>Cannot stake into {strategy?.raw.integration.name} due to insufficient liquidity.</Trans>
@@ -400,13 +211,13 @@ const BtcStakeForm = ({
         </Alert>
       )}
       <GatewayTransactionDetails
-        feeRate={feeRate}
-        feeRateData={feeRateData}
-        gatewayFee={quoteData?.fee || gasEstimatePlaceholder}
-        isLoadingFeeRate={isLoadingFeeData}
-        networkFee={feeAmount || gasEstimatePlaceholder}
-        selectedFee={selectedFee}
-        onChangeFee={handleChangeFee}
+        feeRate={fee.rate}
+        feeRateData={fee.rateData}
+        gatewayFee={quote?.data?.protocolFee || gasEstimatePlaceholder}
+        isLoadingFeeRate={fee.isLoading}
+        networkFee={fee.amount || gasEstimatePlaceholder}
+        selectedFee={fee.selectedFee}
+        onChangeFee={fee.setSelectedFee}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
         <Trans>Stake</Trans>

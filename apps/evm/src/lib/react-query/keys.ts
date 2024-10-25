@@ -43,13 +43,14 @@ export const bridgeKeys = {
   proveTransaction: (address: Address | undefined, hash: Address) => [address, hash, 'prove'],
   relayTransaction: (address: Address | undefined, hash: Address) => [address, hash, 'relay'],
   btc: (address: Address | undefined, btcAddress: string | undefined) => ['btc', address, btcAddress],
-  btcQuote: (
-    address: Address | undefined,
-    btcAddress: string | undefined,
-    isGasNeeded: boolean,
-    btcTokenSymbol?: string,
-    atomicAmount?: number | 'max'
-  ) => [...bridgeKeys.btc(address, btcAddress), isGasNeeded, btcTokenSymbol, atomicAmount, 'quote'],
+  btcQuote: (toToken?: string, toChain?: string | number, strategyAddress?: string, atomicAmount?: number | 'max') => [
+    ...bridgeKeys.btc(undefined, undefined),
+    toToken,
+    toChain,
+    strategyAddress,
+    atomicAmount,
+    'quote'
+  ],
   btcDeposit: (address: Address | undefined, btcAddress: string | undefined) => [
     ...bridgeKeys.btc(address, btcAddress),
     'deposit'

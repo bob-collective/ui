@@ -1,31 +1,26 @@
 'use client';
 
-import { GatewayQuote } from '@gobob/bob-sdk';
 import { CurrencyAmount } from '@gobob/currency';
-import { INTERVAL, useMutation, usePrices, useQuery, useQueryClient } from '@gobob/react-query';
-import { BtcAddressType, useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
+import { Optional, usePrices } from '@gobob/react-query';
+import { BtcAddressType, useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
-import { Alert, Avatar, Flex, Input, Item, P, Select, toast, TokenInput, useForm } from '@gobob/ui';
+import { Alert, Avatar, Flex, Input, Item, P, Select, TokenInput, useForm } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
-import * as Sentry from '@sentry/nextjs';
 import Big from 'big.js';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 
-import { Type } from '../../Bridge';
 import { GatewayGasSwitch } from '../../../components/GatewayGasSwitch';
-import { useGatewayFeeData } from '../../../hooks';
+import { useGateway } from '../../../hooks';
 
 import { GatewayTransactionDetails } from '@/components';
 import { AuthButton } from '@/connect-ui';
-import { isProd } from '@/constants';
-import { TokenData, useGetTransactions } from '@/hooks';
-import { gatewaySDK } from '@/lib/bob-sdk';
+import { TokenData } from '@/hooks';
 import {
   BRIDGE_AMOUNT,
   BRIDGE_BTC_WALLET,
@@ -36,41 +31,21 @@ import {
   bridgeSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
-import { bridgeKeys } from '@/lib/react-query';
-import { GatewayData, GatewayTransactionFee } from '@/types';
+import { GatewayData } from '@/types';
+import { isProd } from '@/constants';
 
 type BtcBridgeFormProps = {
-  type: Type;
   availableTokens: TokenData[];
-  onStartGateway: (data: GatewayData) => void;
-  onGatewaySuccess: (data: GatewayData) => void;
-  onFailGateway: () => void;
+  onStart: (data: Optional<GatewayData, 'amount'>) => void;
+  onSuccess: (data: GatewayData) => void;
+  onError: () => void;
 };
-
-const DEFAULT_GATEWAY_QUOTE_PARAMS = {
-  fromChain: 'bitcoin',
-  toChain: isProd ? 'bob' : 'bob-sepolia',
-  fromToken: 'BTC',
-  // TODO: should be dynamic based on exchange rate
-  gasRefill: 2000
-};
-
-// TODO: get this from the API
-const DUST_THRESHOLD = 1000;
-
-const MIN_DEPOSIT_AMOUNT = (gasRefill: boolean) =>
-  gasRefill ? DUST_THRESHOLD + DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : DUST_THRESHOLD;
 
 const gasEstimatePlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
-const BtcBridgeForm = ({
-  type = Type.Deposit,
-  availableTokens,
-  onGatewaySuccess,
-  onStartGateway,
-  onFailGateway
-}: BtcBridgeFormProps): JSX.Element => {
-  const queryClient = useQueryClient();
+const toChain = isProd ? 'bob' : 'bob-sepolia';
+
+const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
 
   const { address: evmAddress } = useAccount();
@@ -79,29 +54,26 @@ const BtcBridgeForm = ({
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
-  const { address: btcAddress, connector, addressType: btcAddressType } = useSatsAccount();
-  const { data: satsBalance } = useSatsBalance();
+  const { address: btcAddress, addressType: btcAddressType } = useSatsAccount();
 
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
 
-  const { refetchGatewayTxs } = useGetTransactions();
-
-  const {
-    feeAmount,
-    error: feeDataError,
-    feeRate,
-    feeRateData,
-    isLoading: isLoadingFeeData,
-    selectedFee,
-    setSelectedFee
-  } = useGatewayFeeData();
-
-  const [isGasNeeded, setGasNeeded] = useState(true);
   const [receiveTicker, setReceiveTicker] = useState(
     searchParams?.get('receive') ?? availableTokens[0]?.currency.symbol
   );
 
+  const btcToken = useMemo(
+    () => availableTokens.find((token) => token.currency.symbol === receiveTicker),
+    [availableTokens, receiveTicker]
+  );
+
   const [amount, setAmount] = useDebounceValue('', 300);
+
+  const currencyAmount = useMemo(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
+    [amount]
+  );
 
   useEffect(() => {
     if (searchParams) {
@@ -113,99 +85,31 @@ const BtcBridgeForm = ({
     }
   }, [receiveTicker, router, searchParams]);
 
+  const { balance, fee, isTopUpEnabled, liquidity, minAmount, mutation, quote, setTopUpEnabled } = useGateway({
+    amount: currencyAmount,
+    toChain,
+    toToken: btcToken?.currency.symbol,
+    onError,
+    onMutate: onStart,
+    onSuccess
+  });
+
   useEffect(() => {
-    if (!feeAmount || !form.values[BRIDGE_AMOUNT]) return;
+    if (!fee.amount || !form.values[BRIDGE_AMOUNT]) return;
 
     form.validateField(BRIDGE_AMOUNT);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feeAmount]);
+  }, [fee.amount]);
 
-  const handleError = useCallback((e: Error) => {
-    toast.error(e.message);
-  }, []);
+  const params: BridgeFormValidationParams = {
+    [BRIDGE_AMOUNT]: {
+      minAmount: new Big(minAmount.toExact()),
 
-  const btcToken = useMemo(
-    () => availableTokens.find((token) => token.currency.symbol === receiveTicker),
-    [availableTokens, receiveTicker]
-  );
-
-  const currencyAmount = useMemo(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    () => (!isNaN(amount as any) ? CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0) : undefined),
-    [amount]
-  );
-
-  const { data: availableLiquidity, isLoading: isLoadingMaxQuote } = useQuery({
-    enabled: Boolean(btcToken),
-    queryKey: bridgeKeys.btcQuote(evmAddress, btcAddress, isGasNeeded, btcToken?.currency.symbol, 'max'),
-    refetchInterval: INTERVAL.MINUTE,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    queryFn: async () => {
-      if (!currencyAmount || !btcToken) return;
-
-      // TODO: error from this isn't propagated
-      const maxQuoteData = await gatewaySDK.getQuote({
-        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toToken: btcToken.currency.symbol
-      });
-
-      return CurrencyAmount.fromRawAmount(BITCOIN, maxQuoteData.satoshis);
-    }
-  });
-
-  const hasLiquidity = availableLiquidity?.greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded));
-
-  const quoteDataEnabled = Boolean(
-    currencyAmount &&
-      btcToken &&
-      evmAddress &&
-      btcAddress &&
-      CurrencyAmount.fromBaseAmount(BITCOIN, amount || 0).greaterThan(MIN_DEPOSIT_AMOUNT(isGasNeeded)) &&
-      hasLiquidity
-  );
-
-  const quoteQueryKey = bridgeKeys.btcQuote(
-    evmAddress,
-    btcAddress,
-    isGasNeeded,
-    btcToken?.currency.symbol,
-    Number(currencyAmount?.numerator)
-  );
-
-  const {
-    data: quoteData,
-    isLoading: isFetchingQuote,
-    isError: isQuoteError,
-    error: quoteError
-  } = useQuery({
-    enabled: quoteDataEnabled,
-    queryKey: quoteQueryKey,
-    refetchInterval: INTERVAL.SECONDS_30,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    queryFn: async () => {
-      if (!currencyAmount || !btcToken) return;
-
-      const atomicAmount = currencyAmount.numerator.toString();
-      const gatewayQuote = await gatewaySDK.getQuote({
-        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toToken: btcToken.currency.symbol,
-        amount: atomicAmount,
-        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0
-      });
-
-      const feeAmount = CurrencyAmount.fromRawAmount(BITCOIN, gatewayQuote.fee);
-
-      const btcReceiveAmount = currencyAmount.subtract(feeAmount);
-
-      return {
-        receiveAmount: CurrencyAmount.fromBaseAmount(btcToken.currency, btcReceiveAmount.toExact()),
-        fee: feeAmount,
-        gatewayQuote
-      };
-    }
-  });
+      maxAmount: new Big(balance.toExact())
+    },
+    [BRIDGE_RECIPIENT]: !!isSmartAccount,
+    [BRIDGE_BTC_WALLET]: btcAddress
+  };
 
   const initialValues = {
     [BRIDGE_AMOUNT]: '',
@@ -213,105 +117,12 @@ const BtcBridgeForm = ({
     [BRIDGE_RECIPIENT]: ''
   };
 
-  const depositMutation = useMutation({
-    mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
-    mutationFn: async ({ evmAddress, gatewayQuote }: { evmAddress: Address; gatewayQuote: GatewayQuote }) => {
-      if (!connector) {
-        throw new Error('Connector missing');
-      }
-
-      if (!quoteData) {
-        throw new Error('Quote Data missing');
-      }
-
-      const data = {
-        amount: quoteData.receiveAmount,
-        fee: quoteData.fee
-      };
-
-      onStartGateway(data);
-
-      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(gatewayQuote, {
-        ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toUserAddress: evmAddress,
-        fromUserAddress: connector.paymentAddress!,
-        fromUserPublicKey: connector.publicKey,
-        gasRefill: isGasNeeded ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
-        feeRate
-      });
-
-      const bitcoinTxHex = await connector.signAllInputs(psbtBase64!);
-
-      // NOTE: user does not broadcast the tx, that is done by
-      // the relayer after it is validated
-      const txid = await gatewaySDK.finalizeOrder(uuid, bitcoinTxHex);
-
-      return { ...data, txid };
-    },
-    onSuccess: (data) => {
-      setAmount('');
-      form.resetForm({ values: initialValues });
-      onGatewaySuccess?.(data);
-      refetchGatewayTxs();
-      queryClient.removeQueries({ queryKey: quoteQueryKey });
-    },
-    onError: (error) => {
-      handleError(error);
-      onFailGateway();
-
-      Sentry.captureException(error);
-    }
-  });
-
-  const handleChangeFee = (fee: GatewayTransactionFee) => {
-    setSelectedFee(fee);
-  };
-
   const handleSubmit = async (data: BridgeFormValues) => {
-    if (!quoteData || !evmAddress) return;
+    if (!quote || !evmAddress) return;
 
-    if (type === Type.Deposit) {
-      return depositMutation.mutate({
-        evmAddress: (data[BRIDGE_RECIPIENT] as Address) || evmAddress,
-        gatewayQuote: quoteData.gatewayQuote
-      });
-    }
-  };
-
-  const { balanceAmount } = useMemo(() => {
-    if (!feeAmount || !availableLiquidity || !!feeDataError) {
-      return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
-    }
-
-    const balance = CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.confirmed || 0);
-
-    if (balance.lessThan(feeAmount)) {
-      return { balanceAmount: CurrencyAmount.fromRawAmount(BITCOIN, 0n) };
-    }
-
-    const availableBalance = balance.subtract(feeAmount);
-
-    if (availableBalance.greaterThan(availableLiquidity)) {
-      return {
-        balanceAmount: availableLiquidity
-      };
-    }
-
-    return {
-      balanceAmount: availableBalance
-    };
-  }, [feeAmount, availableLiquidity, feeDataError, satsBalance?.confirmed]);
-
-  const params: BridgeFormValidationParams = {
-    [BRIDGE_AMOUNT]: {
-      minAmount:
-        currencyAmount && MIN_DEPOSIT_AMOUNT(isGasNeeded)
-          ? new Big(MIN_DEPOSIT_AMOUNT(isGasNeeded) / 10 ** currencyAmount?.currency.decimals)
-          : undefined,
-      maxAmount: new Big(balanceAmount.toExact())
-    },
-    [BRIDGE_RECIPIENT]: !!isSmartAccount,
-    [BRIDGE_BTC_WALLET]: btcAddress
+    mutation.mutate({
+      evmAddress: (data[BRIDGE_RECIPIENT] as Address) || evmAddress
+    });
   };
 
   const form = useForm<BridgeFormValues>({
@@ -335,14 +146,14 @@ const BtcBridgeForm = ({
 
   const isDisabled =
     isSubmitDisabled ||
-    !quoteData ||
-    isQuoteError ||
+    !quote ||
+    !!quote.error ||
     isTapRootAddress ||
-    isLoadingMaxQuote ||
-    !hasLiquidity ||
-    isLoadingFeeData;
+    liquidity.isLoading ||
+    !liquidity.data?.hasLiquidity ||
+    fee.isLoading;
 
-  const isLoading = !isSubmitDisabled && (depositMutation.isPending || isFetchingQuote);
+  const isLoading = !isSubmitDisabled && (mutation.isPending || quote.isPending);
 
   const placeholderAmount = useMemo(
     () => (btcToken ? CurrencyAmount.fromRawAmount(btcToken.currency, 0n) : undefined),
@@ -353,7 +164,7 @@ const BtcBridgeForm = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
-        balance={balanceAmount.toExact()}
+        balance={balance.toExact()}
         balanceHelper={t(
           i18n
         )`Your available balance may differ from your wallet balance due to network fees and available liquidity`}
@@ -392,7 +203,7 @@ const BtcBridgeForm = ({
           </Item>
         )}
       </Select>
-      <GatewayGasSwitch isSelected={isGasNeeded} onChange={(e) => setGasNeeded(e.target.checked)} />
+      <GatewayGasSwitch isSelected={isTopUpEnabled} onChange={(e) => setTopUpEnabled(e.target.checked)} />
       {isSmartAccount && (
         <Input
           label={t(i18n)`Recipient`}
@@ -410,16 +221,16 @@ const BtcBridgeForm = ({
           </P>
         </Alert>
       )}
-      {!!quoteError && !quoteData && (
+      {!!quote.error && (
         <Alert status='warning'>
           <P size='s'>
             <Trans>
-              BTC bridge is currently unavailable. This may be due to: {quoteError.message}. Please try again later.
+              BTC bridge is currently unavailable. This may be due to: {quote.error.message}. Please try again later.
             </Trans>
           </P>
         </Alert>
       )}
-      {!hasLiquidity && !isLoadingMaxQuote && (
+      {!liquidity.data?.hasLiquidity && !liquidity.isLoading && (
         <Alert status='warning'>
           <P size='s'>
             <Trans>There is currently no available liquidity to onramp BTC into {btcToken?.currency.symbol}.</Trans>
@@ -427,19 +238,19 @@ const BtcBridgeForm = ({
         </Alert>
       )}
       <GatewayTransactionDetails
-        amount={quoteData?.receiveAmount}
+        amount={quote?.data?.amount}
         amountLabel={<Trans>You will receive</Trans>}
         amountPlaceholder={placeholderAmount}
         amountTooltipLabel={t(
           i18n
         )`This is the final amount you will receive after deducting the Protocol fees from your input amount.`}
-        feeRate={feeRate}
-        feeRateData={feeRateData}
-        gatewayFee={quoteData?.fee || gasEstimatePlaceholder}
-        isLoadingFeeRate={isLoadingFeeData}
-        networkFee={feeAmount || gasEstimatePlaceholder}
-        selectedFee={selectedFee}
-        onChangeFee={handleChangeFee}
+        feeRate={fee.rate}
+        feeRateData={fee.rateData}
+        gatewayFee={quote?.data?.protocolFee || gasEstimatePlaceholder}
+        isLoadingFeeRate={fee.isLoading}
+        networkFee={fee.amount || gasEstimatePlaceholder}
+        selectedFee={fee.selectedFee}
+        onChangeFee={fee.setSelectedFee}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
         <Trans>Bridge Asset</Trans>

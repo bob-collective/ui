@@ -4,9 +4,9 @@ import { Flex } from '@gobob/ui';
 import { useState } from 'react';
 import { Optional } from '@gobob/react-query';
 
-import { StrategyData } from '../../hooks';
 import { Unstake } from '../Unstake';
 import { Type } from '../../Stake';
+import { StrategyData } from '../../hooks';
 
 import { BtcStakeForm } from './BtcStakeForm';
 
@@ -70,11 +70,10 @@ const StakingForm = ({
           <BtcStakeForm
             strategies={strategies}
             strategy={strategy}
-            type={type}
-            onFailGateway={handleCloseGatewayModal}
-            onGatewaySuccess={handleGatewaySuccess}
-            onStartGateway={handleStartGateway}
+            onError={handleCloseGatewayModal}
+            onStart={handleStartGateway}
             onStrategyChange={onStrategyChange}
+            onSuccess={handleGatewaySuccess}
           />
         ) : (
           <Unstake type={type} />

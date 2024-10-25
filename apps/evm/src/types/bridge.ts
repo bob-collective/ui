@@ -10,6 +10,7 @@ type L2BridgeData = {
 
 type GatewayData = {
   txid?: string;
+  type: GatewayTransactionType;
   amount: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
   fee: CurrencyAmount<Bitcoin>;
 };

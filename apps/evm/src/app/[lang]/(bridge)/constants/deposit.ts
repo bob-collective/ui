@@ -1,0 +1,3 @@
+const DUST_THRESHOLD = 1000;
+
+export { DUST_THRESHOLD };
