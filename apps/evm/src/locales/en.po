@@ -58,8 +58,12 @@ msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
 msgstr "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:87
-msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
-msgstr "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
+#~ msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
+#~ msgstr "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:110
+msgid "<0>{rollsRemaining}/3</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
+msgstr "<0>{rollsRemaining}/3</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:21
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:60
@@ -309,8 +313,8 @@ msgstr "Chose any of the existing liquid staking provider to mint your BTC LST."
 msgid "Click the <0/> icon next to your favourite apps"
 msgstr "Click the <0/> icon next to your favourite apps"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:64
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:159
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:87
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:187
 #: src/components/TransactionModal/BridgeTransactionModal.tsx:109
 #: src/components/TransactionModal/GatewayTransactionModal.tsx:74
 msgid "Close"
@@ -348,7 +352,7 @@ msgstr "Community Voting Information"
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 msgstr "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:85
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
 msgid "Congratulations you won!"
 msgstr "Congratulations you won!"
 
@@ -476,12 +480,12 @@ msgid "Don't show this message again"
 msgstr "Don't show this message again"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:100
-msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
-msgstr "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
+#~ msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
+#~ msgstr "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:36
-#~ msgid "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
-#~ msgstr "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:123
+msgid "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
+msgstr "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:26
 msgid "Earned Spice"
@@ -564,6 +568,10 @@ msgstr "Failed to withdraw USDT to L1. Please try again."
 msgid "Featured Assets"
 msgstr "Featured Assets"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:74
+msgid "Feeling lucky? Try your luck with the daily lottery!<0/>Participate in Fusion voting to receive 3 lottery tickets each day."
+msgstr "Feeling lucky? Try your luck with the daily lottery!<0/>Participate in Fusion voting to receive 3 lottery tickets each day."
+
 #: src/app/[lang]/bridge/components/TransactionList/TransactionList.tsx:71
 msgid "Fetching bridging operations..."
 msgstr "Fetching bridging operations..."
@@ -629,7 +637,7 @@ msgstr "Geoblock"
 msgid "Get ETH for transaction fees on BOB"
 msgstr "Get ETH for transaction fees on BOB"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:154
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:182
 msgid "Get tickets"
 msgstr "Get tickets"
 
@@ -650,7 +658,7 @@ msgstr "Got it!"
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:80
 msgid "Harvest {pointsMissing} more Spice to participate"
 msgstr "Harvest {pointsMissing} more Spice to participate"
 
@@ -707,8 +715,8 @@ msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr "Invalid referral code. You can try again, or proceed without one."
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:74
-msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
-msgstr "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
+#~ msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
+#~ msgstr "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:223
 msgid "Last 24 Hours"
@@ -782,7 +790,7 @@ msgstr "Log in"
 msgid "Log in to View Dashboard"
 msgstr "Log in to View Dashboard"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:85
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:86
 msgid "Login to play"
 msgstr "Login to play"
 
@@ -805,6 +813,10 @@ msgstr "Lottery"
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:181
 msgid "LST provider points"
 msgstr "LST provider points"
+
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:138
+msgid "Maximize your chances by using all your tickets before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery tickets daily."
+msgstr "Maximize your chances by using all your tickets before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery tickets daily."
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:148
 msgid "Maximum points will be received by providing BTC LST liquidity."
@@ -896,8 +908,8 @@ msgstr "Network Fee Rate"
 msgid "New Quests Coming Soon"
 msgstr "New Quests Coming Soon"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:47
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:133
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:70
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:156
 msgid "new tickets drop in {0}"
 msgstr "new tickets drop in {0}"
 
@@ -917,7 +929,7 @@ msgstr "No new goal at the moment. Stay tuned for updates!"
 #~ msgid "Not enough spice"
 #~ msgstr "Not enough spice"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:73
 msgid "Not enough Spice"
 msgstr "Not enough Spice"
 
@@ -929,7 +941,7 @@ msgstr "Not enough Spice"
 #~ msgid "Not found"
 #~ msgstr "Not found"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:84
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:107
 msgid "Not your lucky day... yet!"
 msgstr "Not your lucky day... yet!"
 
@@ -962,8 +974,8 @@ msgstr "OtterSec auditor"
 msgid "Pending"
 msgstr "Pending"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:164
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:85
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:201
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:86
 msgid "Play"
 msgstr "Play"
 
@@ -1174,6 +1186,10 @@ msgstr "Send {0}"
 msgid "Send {ticker}"
 msgstr "Send {ticker}"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:196
+msgid "Share on X"
+msgstr "Share on X"
+
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:213
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
@@ -1191,7 +1207,7 @@ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus 
 msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 
 #: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:108
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:37
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/components/LoginButton/LoginButton.tsx:29
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
@@ -1561,8 +1577,8 @@ msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be
 msgstr "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
-msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more Spice!"
-msgstr "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more Spice!"
+#~ msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more Spice!"
+#~ msgstr "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more Spice!"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
 #~ msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
@@ -1725,7 +1741,7 @@ msgstr "You"
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "You can change your votes at any time before the end of the weekly voting period"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:79
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:102
 msgid "You Have 0 Tickets"
 msgstr "You Have 0 Tickets"
 
@@ -1750,13 +1766,17 @@ msgstr "You will receive"
 #~ msgid "You will stake"
 #~ msgstr "You will stake"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:83
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:106
 msgid "You're Ready to Play!"
 msgstr "You're Ready to Play!"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:131
+msgid "You've used all your tickets for today, new tickets will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily tickets."
+msgstr "You've used all your tickets for today, new tickets will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily tickets."
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
-msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more Spice!"
-msgstr "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more Spice!"
+#~ msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more Spice!"
+#~ msgstr "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more Spice!"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
 #~ msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"

@@ -1,7 +1,21 @@
 'use client';
 
 import { Spice } from '@gobob/icons';
-import { Chip, Flex, H3, Link, Modal, ModalBody, ModalFooter, P, SolidClock, Span, toast, useLocale } from '@gobob/ui';
+import {
+  Chip,
+  Flex,
+  H3,
+  H4,
+  Link,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  P,
+  SolidClock,
+  Span,
+  toast,
+  useLocale
+} from '@gobob/ui';
 import { Plural, Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
 import { useParams } from 'next/navigation';
@@ -13,7 +27,7 @@ import confettiAnimationData from '../lotties/confettie.json';
 import { StyledButton, StyledLottie, StyledPoints } from './LotteryModal.style';
 
 import { RoutesPath } from '@/constants';
-import { useLotteryRoll } from '@/hooks';
+import { useGetUser, useLotteryRoll } from '@/hooks';
 import { LotteryStats } from '@/utils';
 
 type LotteryModalProps = LotteryStats & {
@@ -22,6 +36,8 @@ type LotteryModalProps = LotteryStats & {
 };
 
 const MAX_TICKETS = 3;
+const getPrefilledXText = (refCode: string | undefined) =>
+  `I just won Spice in the @build_on_bob Fusion Lottery! Join me in the Final Season and explore the Hybrid L2 ecosystem. ${window.location.href}?refCode=${refCode || ''}`;
 
 function LotteryModal({
   isOpen,
@@ -33,6 +49,7 @@ function LotteryModal({
 }: LotteryModalProps) {
   const { lang } = useParams();
   const { locale } = useLocale();
+  const { data: user } = useGetUser();
   const {
     data: lotteryRollData,
     isIdle,
@@ -92,7 +109,7 @@ function LotteryModal({
         <br />
         <Trans>
           <Span color='primary-500' size='unset'>
-            {rollsRemaining}/{MAX_TICKETS}
+            {rollsRemaining}/3
           </Span>{' '}
           <Plural one='Ticket' other='Tickets' value={rollsRemaining || 0} /> Remaining
         </Trans>
@@ -104,23 +121,23 @@ function LotteryModal({
     if (votesNotUsed)
       return (
         <Trans>
-          Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily
-          and boost your chances.
+          Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost
+          your chances.
         </Trans>
       );
 
     if (rollsRemaining === 0 && votesRemaining === 0)
       return (
         <Trans>
-          You&apos;ve used all your tickets for today. New tickets will be available once the timer resets. Be sure to
-          come back and vote daily to increase your chances of earning more Spice!
+          You&apos;ve used all your tickets for today, new tickets will be available once the timer resets! Remember to
+          participate in Weekly Fusion Voting to be eligible for daily tickets.
         </Trans>
       );
 
     return (
       <Trans>
-        Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the
-        timer resets. Vote daily to increase your chances of earning more Spice!
+        Maximize your chances by using all your tickets before the countdown resets. Don&apos;t forget to participate in
+        Weekly Fusion Voting to claim your 3 Lottery tickets daily.
       </Trans>
     );
   };
@@ -148,6 +165,11 @@ function LotteryModal({
               <Spice size='3xl' /> {Intl.NumberFormat(locale).format(lotteryRollData?.prize || 0)}
             </StyledPoints>
           )}
+          {isWinner && (
+            <H4 align='center' size='lg'>
+              Share with your friends on X Invite them to BOB Fusion with your referral link!
+            </H4>
+          )}
           <P align='center' color='grey-50' size='s'>
             {getDescriptionText()}
           </P>
@@ -163,6 +185,15 @@ function LotteryModal({
           {rollsRemaining === 0 && (
             <StyledButton variant='outline' onPress={onClose}>
               <Trans>Close</Trans>
+            </StyledButton>
+          )}
+          {isWinner && (
+            <StyledButton
+              elementType={Link}
+              variant='outline'
+              {...{ href: `https://x.com/intent/tweet?text=${getPrefilledXText(user?.referral_code)}` }}
+            >
+              <Trans>Share on X</Trans>
             </StyledButton>
           )}
           {Boolean(rollsRemaining) && (

@@ -28,7 +28,7 @@ function LotterySection() {
         {/* 499px matches figma designs */}
         <StyledCard
           background='unset'
-          flex={{ base: '1 0 100%', s: '1 0 355px', lg: '1 0 499px' }}
+          flex={{ base: '0 0 100%', s: '0 0 355px', lg: '0 0 499px' }}
           justifyContent='center'
           padding='none'
         >
@@ -43,7 +43,7 @@ function LotterySection() {
             }}
           />
         </StyledCard>
-        <Flex alignItems='flex-start' direction='column' gap='4xl' justifyContent='center'>
+        <Flex alignItems='flex-start' direction='column' flex='1 0' gap='4xl' justifyContent='center'>
           <Flex alignItems='flex-start' direction='column' gap='lg' justifyContent='center'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
               {isClient ? (
@@ -72,8 +72,9 @@ function LotterySection() {
             </H2>
             <P color='grey-50'>
               <Trans>
-                Join BOB&apos;s voting campaign, vote on projects, & get tickets for prizes. New users get a spice
-                bonus. Engage, vote, and win!
+                Feeling lucky? Try your luck with the daily lottery!
+                <br />
+                Participate in Fusion voting to receive 3 lottery tickets each day.
               </Trans>
             </P>
           </Flex>
