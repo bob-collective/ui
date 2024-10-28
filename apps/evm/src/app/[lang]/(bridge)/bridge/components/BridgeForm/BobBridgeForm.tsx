@@ -28,7 +28,7 @@ import {
   BRIDGE_BTC_WALLET,
   BRIDGE_GAS_TOKEN,
   BRIDGE_RECIPIENT,
-  BRIDGE_TICKER,
+  BRIDGE_ASSET,
   BridgeFormValidationParams,
   BridgeFormValues,
   bridgeSchema
@@ -435,7 +435,7 @@ const BobBridgeForm = ({
   const initialValues = useMemo(
     () => ({
       [BRIDGE_AMOUNT]: '',
-      [BRIDGE_TICKER]: ticker,
+      [BRIDGE_ASSET]: ticker,
       [BRIDGE_GAS_TOKEN]: gasTicker,
       [BRIDGE_RECIPIENT]: ''
     }),
@@ -459,7 +459,7 @@ const BobBridgeForm = ({
 
   const form = useForm<BridgeFormValues>({
     initialValues,
-    validationSchema: bridgeSchema(params),
+    validationSchema: bridgeSchema('bridge', params),
     onSubmit: handleSubmit,
     hideErrors: 'untouched'
   });
@@ -530,7 +530,7 @@ const BobBridgeForm = ({
         type='selectable'
         valueUSD={valueUSD}
         onChangeCurrency={handleChangeTicker}
-        {...mergeProps(form.getSelectableTokenFieldProps({ amount: BRIDGE_AMOUNT, currency: BRIDGE_TICKER }), {
+        {...mergeProps(form.getSelectableTokenFieldProps({ amount: BRIDGE_AMOUNT, currency: BRIDGE_ASSET }), {
           onValueChange: (value: string) => setAmount(value)
         })}
       />

@@ -1,9 +1,18 @@
 'use client';
 
 import { GatewayQuoteParams } from '@gobob/bob-sdk';
-import { Bitcoin, CurrencyAmount } from '@gobob/currency';
-import { INTERVAL, Optional, useMutation, useQuery, useQueryClient } from '@gobob/react-query';
+import { Bitcoin, CurrencyAmount, ERC20Token } from '@gobob/currency';
 import {
+  INTERVAL,
+  Optional,
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+  UseQueryResult
+} from '@gobob/react-query';
+import {
+  BtcAddressType,
   useAccount as useSatsAccount,
   useBalance as useSatsBalance,
   useFeeEstimate as useSatsFeeEstimate,
@@ -14,8 +23,9 @@ import { toast } from '@gobob/ui';
 import { Address, useAccount } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import { DebouncedState, useDebounceValue } from 'usehooks-ts';
 
 import { DUST_THRESHOLD } from '../constants/deposit';
 import { DEFAULT_GATEWAY_QUOTE_PARAMS } from '../constants/quote';
@@ -31,6 +41,7 @@ import {
   GatewayTransactionType
 } from '@/types';
 
+// TODO: base this on exchange rate
 const getMinAmount = (isTopUpEnabled: boolean) => {
   const atomicAmount = isTopUpEnabled ? DUST_THRESHOLD + DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : DUST_THRESHOLD;
 
@@ -61,54 +72,123 @@ const getBalanceAmount = (
   return availableBalance;
 };
 
-type UseGatewayLiquidityProps = Partial<Pick<GatewayQuoteParams, 'toChain' | 'toToken' | 'strategyAddress'>> & {
-  amount?: string;
+type UseQuoteDataReturnType = {
+  amount: CurrencyAmount<Bitcoin>;
+  protocolFee: CurrencyAmount<Bitcoin>;
+  data: Awaited<ReturnType<typeof gatewaySDK.getQuote>>;
+};
+
+type UseLiquidityDataReturnType = {
+  liquidityAmount: CurrencyAmount<Bitcoin>;
+  hasLiquidity: boolean;
+};
+
+type UseGatewayQueryDataReturnType = {
+  fee: {
+    rates: UseQueryResult<GatewayTransactionSpeedData, Error>;
+    estimate: UseQueryResult<CurrencyAmount<Bitcoin>, Error>;
+  };
+  liquidity: UseQueryResult<UseLiquidityDataReturnType | undefined>;
+  quote: UseQueryResult<UseQuoteDataReturnType | undefined>;
+  minAmount: CurrencyAmount<Bitcoin>;
+  balance: CurrencyAmount<Bitcoin>;
+};
+
+type StakeParams = {
+  type: GatewayTransactionType.STAKE;
+} & Partial<Pick<GatewayQuoteParams, 'toChain' | 'toToken' | 'strategyAddress'>>;
+
+type BridgeParams = {
+  type: GatewayTransactionType.BRIDGE;
+  token?: ERC20Token;
+} & Partial<Pick<GatewayQuoteParams, 'toChain' | 'toToken'>>;
+
+type UseGatewayLiquidityProps = {
+  params: BridgeParams | StakeParams;
   onMutate?: (data: Optional<GatewayData, 'amount'>) => void;
   onSuccess?: (data: GatewayData) => void;
   onError?: () => void;
 };
 
-const useGateway = ({
-  amount: rawAmount,
-  toChain,
-  toToken,
-  strategyAddress,
-  onError,
-  onMutate,
-  onSuccess
-}: UseGatewayLiquidityProps) => {
+type UseGatewayReturnType = {
+  query: UseGatewayQueryDataReturnType;
+  mutation: UseMutationResult<
+    GatewayData,
+    Error,
+    {
+      evmAddress: Address;
+    },
+    unknown
+  >;
+  isReady: boolean;
+  type: GatewayTransactionType;
+  settings: {
+    topUp: {
+      isEnabled: boolean;
+      enable: Dispatch<SetStateAction<boolean>>;
+    };
+    fee: {
+      rate: number | undefined;
+      setFee: Dispatch<SetStateAction<GatewayTransactionFee>>;
+      selected: GatewayTransactionFee;
+    };
+  };
+  amount: string;
+  setAmount: DebouncedState<(value: string) => void>;
+  isTapRootAddress: boolean;
+};
+
+const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidityProps): UseGatewayReturnType => {
   const { i18n } = useLingui();
   const queryClient = useQueryClient();
 
   const { address: evmAddress } = useAccount();
 
-  const { address: btcAddress, connector: satsConnector } = useSatsAccount();
+  const { address: btcAddress, connector: satsConnector, addressType: btcAddressType } = useSatsAccount();
   const { data: satsBalance } = useSatsBalance();
 
   const [isTopUpEnabled, setTopUpEnabled] = useState(true);
   const [selectedFee, setSelectedFee] = useState<GatewayTransactionFee>({ speed: GatewayTransactionSpeed.SLOW });
 
-  const isStaking = !!strategyAddress;
+  const [rawAmount, setAmount] = useDebounceValue('', 300);
 
   const minAmount = useMemo(() => getMinAmount(isTopUpEnabled), [isTopUpEnabled]);
 
   const { refetchGatewayTxs } = useGetTransactions();
 
-  const liquidity = useQuery({
-    enabled: Boolean(toToken || toChain),
-    queryKey: bridgeKeys.btcQuote(toToken, toChain, strategyAddress, 'liquidity-check'),
+  const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
+
+  const liquidityQueryEnabled = Boolean(
+    params.toChain &&
+      params.toToken &&
+      params.type === GatewayTransactionType.STAKE &&
+      params.strategyAddress &&
+      !isTapRootAddress
+  );
+
+  const liquidityQueryKey = bridgeKeys.btcQuote(
+    params.toToken,
+    params.toChain,
+    (params as StakeParams)?.strategyAddress,
+    'liquidity-check'
+  );
+
+  const liquidityQueryResult = useQuery({
+    enabled: liquidityQueryEnabled,
+    queryKey: liquidityQueryKey,
     refetchInterval: INTERVAL.MINUTE,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    queryFn: async (): Promise<UseLiquidityDataReturnType | undefined> => {
+      const { toChain, toToken } = params;
 
-    queryFn: async () => {
       if (!toChain || !toToken) return;
 
       const quote = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
         toChain,
         toToken,
-        strategyAddress,
+        strategyAddress: params.type === GatewayTransactionType.STAKE ? params.strategyAddress : undefined,
         amount: undefined
       });
 
@@ -118,11 +198,7 @@ const useGateway = ({
     }
   });
 
-  const {
-    data: feeRateData,
-    isLoading: isSatsFeeRateLoading,
-    error: satsFeeRateError
-  } = useSatsFeeRate({
+  const feeRatesQueryResult = useSatsFeeRate({
     query: {
       select: ({ esplora, memPool }): GatewayTransactionSpeedData => {
         return {
@@ -135,13 +211,10 @@ const useGateway = ({
     }
   });
 
-  const feeRate = selectedFee.speed === 'custom' ? selectedFee.networkRate : feeRateData?.[selectedFee.speed];
+  const feeRate =
+    selectedFee.speed === 'custom' ? selectedFee.networkRate : feeRatesQueryResult.data?.[selectedFee.speed];
 
-  const {
-    data: feeEstimate,
-    isLoading: isFeeEstimateLoading,
-    error: feeEstimateError
-  } = useSatsFeeEstimate({
+  const feeEstimateQueryResult = useSatsFeeEstimate({
     opReturnData: evmAddress,
     feeRate: feeRate,
     query: {
@@ -150,26 +223,33 @@ const useGateway = ({
     }
   });
 
-  const feeError = feeEstimateError || satsFeeRateError;
-
   useEffect(() => {
-    if (feeError) {
+    if (feeEstimateQueryResult.error || feeRatesQueryResult.error) {
       toast.error(t(i18n)`Failed to get estimated fee`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feeError]);
+  }, [feeRatesQueryResult.error, feeEstimateQueryResult.error]);
 
-  const quoteEnabled = Boolean(btcAddress && evmAddress && liquidity.data?.hasLiquidity && rawAmount);
+  const quoteEnabled = Boolean(
+    !isTapRootAddress && btcAddress && evmAddress && liquidityQueryResult.data?.hasLiquidity && rawAmount
+  );
 
-  const queryKey = bridgeKeys.btcQuote(toToken, toChain, strategyAddress, rawAmount);
+  const quoteQueryKey = bridgeKeys.btcQuote(
+    params.toToken,
+    params.toChain,
+    (params as StakeParams)?.strategyAddress,
+    rawAmount
+  );
 
   const quoteQueryResult = useQuery({
     enabled: quoteEnabled,
-    queryKey,
+    queryKey: quoteQueryKey,
     refetchInterval: INTERVAL.SECONDS_30,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
+      const { toChain, toToken } = params;
+
       if (!rawAmount || !toChain || !toToken) return;
 
       const amount = CurrencyAmount.fromBaseAmount(BITCOIN, rawAmount);
@@ -180,7 +260,7 @@ const useGateway = ({
         gasRefill: isTopUpEnabled ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
         toChain,
         toToken,
-        strategyAddress
+        strategyAddress: params.type === GatewayTransactionType.STAKE ? params.strategyAddress : undefined
       });
 
       return {
@@ -188,7 +268,7 @@ const useGateway = ({
         quote
       };
     },
-    select: (data) => {
+    select: (data): UseQuoteDataReturnType | undefined => {
       if (!data) return;
 
       const protocolFeeAmount = CurrencyAmount.fromRawAmount(BITCOIN, data.quote.fee);
@@ -198,14 +278,14 @@ const useGateway = ({
       return {
         amount: quoteAmount,
         protocolFee: protocolFeeAmount,
-        data: data
+        data: data.quote
       };
     }
   });
 
   const mutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
-    mutationFn: async ({ evmAddress }: { evmAddress: Address }) => {
+    mutationFn: async ({ evmAddress }: { evmAddress: Address }): Promise<GatewayData> => {
       if (!satsConnector) {
         throw new Error('Connector missing');
       }
@@ -214,27 +294,30 @@ const useGateway = ({
         throw new Error('Quote Data missing');
       }
 
-      if (!feeEstimate) {
+      if (!feeEstimateQueryResult.data) {
         throw new Error('Fee estimate missing');
       }
 
-      if (!toChain) {
+      if (!params.toChain) {
         throw new Error('Something went wrong');
       }
 
       const { data: quoteData, amount: quoteAmount, protocolFee } = quoteQueryResult.data;
 
       const data: GatewayData = {
-        type: isStaking ? GatewayTransactionType.STAKE : GatewayTransactionType.BRIDGE,
-        amount: quoteAmount,
-        fee: protocolFee.add(feeEstimate)
+        type: params.type,
+        amount:
+          params.type === GatewayTransactionType.BRIDGE && params.token
+            ? CurrencyAmount.fromBaseAmount(params.token, quoteAmount.toExact())
+            : undefined,
+        fee: protocolFee.add(feeEstimateQueryResult.data)
       };
 
       onMutate?.(data);
 
-      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(quoteData.quote, {
+      const { uuid, psbtBase64 } = await gatewaySDK.startOrder(quoteData, {
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
-        toChain,
+        toChain: params.toChain,
         toUserAddress: evmAddress,
         fromUserAddress: satsConnector.paymentAddress!,
         fromUserPublicKey: satsConnector.publicKey,
@@ -246,15 +329,15 @@ const useGateway = ({
 
       // NOTE: user does not broadcast the tx, that is done by
       // the relayer after it is validated
-      const txid = await gatewaySDK.finalizeOrder(uuid, bitcoinTxHex);
+      const txId = await gatewaySDK.finalizeOrder(uuid, bitcoinTxHex);
 
-      return { ...data, txid };
+      return { ...data, txId };
     },
     onSuccess: (data) => {
       onSuccess?.(data);
       refetchGatewayTxs();
 
-      queryClient.removeQueries({ queryKey });
+      queryClient.removeQueries({ queryKey: quoteQueryKey });
     },
     onError: (error) => {
       toast.error(error.message);
@@ -264,33 +347,50 @@ const useGateway = ({
     }
   });
 
-  const fee = useMemo(
-    () => ({
-      rateData: feeRateData,
-      rate: feeRate,
-      amount: feeEstimate,
-      selectedFee,
-      setSelectedFee: setSelectedFee,
-      isLoading: isFeeEstimateLoading || isSatsFeeRateLoading
-    }),
-    [feeRate, feeRateData, isFeeEstimateLoading, isSatsFeeRateLoading, feeEstimate, selectedFee]
+  const balance = useMemo(
+    () =>
+      getBalanceAmount(satsBalance?.confirmed, feeEstimateQueryResult.data, liquidityQueryResult.data?.liquidityAmount),
+    [liquidityQueryResult.data?.liquidityAmount, satsBalance?.confirmed, feeEstimateQueryResult.data]
   );
 
-  const balance = useMemo(
-    () => getBalanceAmount(satsBalance?.confirmed, feeEstimate, liquidity.data?.liquidityAmount),
-    [liquidity.data?.liquidityAmount, satsBalance?.confirmed, feeEstimate]
-  );
+  const isReady =
+    !(feeEstimateQueryResult.isPending || feeEstimateQueryResult.error) &&
+    !(feeRatesQueryResult.isPending || feeRatesQueryResult.error) &&
+    !(liquidityQueryResult.isPending || liquidityQueryResult.error) &&
+    !!liquidityQueryResult.data?.hasLiquidity &&
+    !(quoteQueryResult.isPending || quoteQueryResult.error) &&
+    !isTapRootAddress;
 
   return {
-    balance,
+    amount: rawAmount,
+    setAmount,
+    isTapRootAddress,
+    isReady,
+    query: {
+      fee: {
+        rates: feeRatesQueryResult,
+        estimate: feeEstimateQueryResult
+      },
+      liquidity: liquidityQueryResult,
+      quote: quoteQueryResult,
+      minAmount,
+      balance
+    },
+    type: params.type,
     mutation,
-    fee,
-    isTopUpEnabled,
-    setTopUpEnabled,
-    minAmount,
-    liquidity,
-    quote: quoteQueryResult
+    settings: {
+      topUp: {
+        isEnabled: isTopUpEnabled,
+        enable: setTopUpEnabled
+      },
+      fee: {
+        rate: feeRate,
+        setFee: setSelectedFee,
+        selected: selectedFee
+      }
+    }
   };
 };
 
 export { useGateway };
+export type { UseLiquidityDataReturnType, UseGatewayReturnType, UseGatewayQueryDataReturnType, UseQuoteDataReturnType };

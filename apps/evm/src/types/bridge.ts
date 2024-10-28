@@ -1,4 +1,4 @@
-import { Bitcoin, Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
+import { Bitcoin, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { Address } from 'viem';
 
 type L2BridgeData = {
@@ -9,9 +9,9 @@ type L2BridgeData = {
 };
 
 type GatewayData = {
-  txid?: string;
+  txId?: string;
   type: GatewayTransactionType;
-  amount: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
+  amount?: CurrencyAmount<ERC20Token>;
   fee: CurrencyAmount<Bitcoin>;
 };
 
