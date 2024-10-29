@@ -39,14 +39,14 @@ const MAX_TICKETS = 3;
 const getPrefilledXText = (refCode: string | undefined) =>
   `I just won Spice in the @build_on_bob Fusion Lottery!%0A%0AJoin me in the Final Season and explore the Hybrid L2 ecosystem.%0A%0AHere's my referral link https://app.gobob.xyz/?refCode=${refCode || ''}`;
 
-function LotteryModal({
+const LotteryModal = ({
   isOpen,
   onClose,
   rollsRemaining,
   votesRemaining,
   pointsMissing,
   minPointsToRoll
-}: LotteryModalProps) {
+}: LotteryModalProps) => {
   const { lang } = useParams();
   const { locale } = useLocale();
   const { data: user } = useGetUser();
@@ -92,12 +92,15 @@ function LotteryModal({
 
   const rollsNotUsed = rollsRemaining === MAX_TICKETS;
   const votesNotUsed = votesRemaining === MAX_TICKETS;
+  const allRollsUsed = rollsRemaining === 0;
+  const allVotesUsed = votesRemaining === 0;
+  const allTicketsUsed = allRollsUsed && allVotesUsed;
   const notPlayed = lotteryRollData === undefined;
   const isWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId !== null;
   const isNotWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId === null;
 
   const getHeaderText = () => {
-    if (rollsRemaining === 0 && !lotteryRollData) return <Trans>You Have 0 Tickets</Trans>;
+    if (allRollsUsed && !lotteryRollData) return <Trans>You Have 0 Tickets</Trans>;
 
     return (
       <>
@@ -130,7 +133,7 @@ function LotteryModal({
         </Trans>
       );
 
-    if (rollsRemaining === 0 && votesRemaining === 0)
+    if (allTicketsUsed)
       return (
         <Trans>
           You&apos;ve used all your tickets for today, new tickets will be available once the timer resets! Remember to
@@ -181,12 +184,12 @@ function LotteryModal({
       </ModalBody>
       <ModalFooter padding='2xl'>
         <Flex alignItems='stretch' gap='xl' justifyContent='space-between'>
-          {votesRemaining !== 0 && (
+          {!allVotesUsed && (
             <StyledButton elementType={Link} variant='outline' {...{ href: `/${lang}${RoutesPath.APPS}` }}>
               <Trans>Get tickets</Trans>
             </StyledButton>
           )}
-          {rollsRemaining === 0 && (
+          {allRollsUsed && (
             <StyledButton variant='outline' onPress={onClose}>
               <Trans>Close</Trans>
             </StyledButton>
@@ -200,7 +203,7 @@ function LotteryModal({
               <Trans>Share on X</Trans>
             </StyledButton>
           )}
-          {Boolean(rollsRemaining) && (
+          {!allRollsUsed && (
             <StyledButton color='primary' loading={isPending} onPress={() => roll()}>
               <Trans>Play</Trans>
             </StyledButton>
@@ -209,5 +212,6 @@ function LotteryModal({
       </ModalFooter>
     </Modal>
   );
-}
+};
+
 export { LotteryModal };
