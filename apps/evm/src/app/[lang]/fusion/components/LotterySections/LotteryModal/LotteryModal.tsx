@@ -37,7 +37,7 @@ type LotteryModalProps = LotteryStats & {
 
 const MAX_TICKETS = 3;
 const getPrefilledXText = (refCode: string | undefined) =>
-  `I just won Spice in the @build_on_bob Fusion Lottery! Join me in the Final Season and explore the Hybrid L2 ecosystem. https://app.gobob.xyz/?refCode=${refCode || ''}`;
+  `I just won Spice in the @build_on_bob Fusion Lottery!%0A%0AJoin me in the Final Season and explore the Hybrid L2 ecosystem.%0A%0AHere's my referral link https://app.gobob.xyz/?refCode=${refCode || ''}`;
 
 function LotteryModal({
   isOpen,
@@ -70,14 +70,12 @@ function LotteryModal({
               <Trans>new tickets drop in {formatDistanceToNow(ROUND_END_TIME)}</Trans>
             </Chip>
             <H3 align='center' size='2xl'>
-              <Trans>Not enough Spice</Trans>
+              <Trans>
+                You need at least {Intl.NumberFormat(locale).format(minPointsToRoll)} Spice to participate in Lottery.
+              </Trans>
             </H3>
-            <StyledPoints>
-              <Spice size='3xl' /> {Intl.NumberFormat(locale).format(minPointsToRoll - pointsMissing)}/
-              {Intl.NumberFormat(locale).format(minPointsToRoll)}
-            </StyledPoints>
             <P align='center' color='grey-50' size='s'>
-              <Trans>Harvest {pointsMissing} more Spice to participate</Trans>
+              <Trans>Harvest {pointsMissing} more Spice to play</Trans>
             </P>
           </Flex>
         </ModalBody>
@@ -105,7 +103,13 @@ function LotteryModal({
       <>
         {isIdle && <Trans>You&apos;re Ready to Play!</Trans>}
         {isNotWinner && <Trans>Not your lucky day... yet!</Trans>}
-        {isWinner && <Trans>Congratulations you won!</Trans>}
+        {isWinner && (
+          <Trans>
+            Congratulations you won!
+            <br />
+            Take a screenshot to share with your friends!
+          </Trans>
+        )}
         <br />
         <Trans>
           <Span color='primary-500' size='unset'>
@@ -167,7 +171,7 @@ function LotteryModal({
           )}
           {isWinner && (
             <H4 align='center' size='lg'>
-              Share with your friends on X Invite them to BOB Fusion with your referral link!
+              Share it on X with your referral link!
             </H4>
           )}
           <P align='center' color='grey-50' size='s'>
