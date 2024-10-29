@@ -14,7 +14,7 @@ import { ROUND_END_TIME } from './constants';
 
 import { useGetUser, useLotteryStats } from '@/hooks';
 
-function LotterySection() {
+const LotterySection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { address } = useAccount();
   const isClient = useIsClient();
@@ -63,12 +63,7 @@ function LotterySection() {
                   </Span>
                   Remaining
                 </Trans>
-              )}{' '}
-              {/* {tooltipLabel && (
-                <Tooltip label={tooltipLabel}>
-                  <SolidInformationCircle color='grey-50' size='s' />
-                </Tooltip>
-              )} */}
+              )}
             </H2>
             <P color='grey-50'>
               <Trans>
@@ -92,6 +87,6 @@ function LotterySection() {
       )}
     </>
   );
-}
+};
 
 export { LotterySection };
