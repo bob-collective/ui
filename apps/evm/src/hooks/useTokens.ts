@@ -3,15 +3,10 @@ import { INTERVAL, useQuery } from '@gobob/react-query';
 import { ERC20Token, Ether } from '@gobob/currency';
 import { NATIVE } from '@gobob/tokens';
 
-import { RawToken, tokens } from '../constants/assets';
-
-type TokenData = {
-  raw: RawToken;
-  currency: Ether | ERC20Token;
-};
+import { tokens } from '../constants/assets';
 
 const useTokens = (chainId: ChainId) => {
-  return useQuery<TokenData[]>({
+  return useQuery({
     queryKey: ['tokens', chainId],
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -30,4 +25,3 @@ const useTokens = (chainId: ChainId) => {
 };
 
 export { useTokens };
-export type { TokenData };

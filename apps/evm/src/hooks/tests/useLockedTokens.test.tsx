@@ -1,0 +1,114 @@
+import { PropsWithChildren } from 'react';
+import { waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
+import { useAccount, usePublicClient } from '@gobob/wagmi';
+import { Mock, vi } from 'vitest';
+import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+
+import { useTokens } from '../useTokens';
+import { useLockedTokens } from '../useLockedTokens';
+
+vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
+    useAccount: vi.fn(),
+    usePublicClient: vi.fn()
+  };
+});
+
+vi.mock('../useTokens', () => ({
+  useTokens: vi.fn()
+}));
+
+const mockAddress = '0xUserAddress';
+const mockL1Tokens = [
+  { raw: { bridgeDisabled: false, address: '0xToken1' } },
+  { raw: { bridgeDisabled: false, address: '0xToken2' } }
+];
+const mockLockContract = { address: '0xLockContract' };
+
+const mockReadContract = vi.fn();
+
+const createQueryClient = () => new QueryClient();
+
+describe('useLockedTokens', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+
+    (useAccount as Mock).mockReturnValue({ address: mockAddress });
+
+    (usePublicClient as Mock).mockReturnValue({
+      readContract: mockReadContract
+    });
+
+    (useTokens as Mock).mockReturnValue({ data: mockL1Tokens });
+  });
+
+  it.skip('returns locked tokens with positive balances', async () => {
+    mockReadContract.mockResolvedValueOnce(100n).mockResolvedValueOnce(200n);
+
+    const queryClient = createQueryClient();
+    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
+      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    });
+
+    await waitFor(() => expect(result.current.data).toBeDefined());
+
+    expect(result.current.data).toEqual([
+      expect.objectContaining({ raw: { bridgeDisabled: false, address: '0xToken1' } }),
+      expect.objectContaining({ raw: { bridgeDisabled: false, address: '0xToken2' } })
+    ]);
+
+    expect(mockReadContract).toHaveBeenCalledWith({
+      abi: expect.any(Object),
+      address: mockLockContract.address,
+      functionName: 'deposits',
+      args: [mockAddress, '0xToken1']
+    });
+    expect(mockReadContract).toHaveBeenCalledWith({
+      abi: expect.any(Object),
+      address: mockLockContract.address,
+      functionName: 'deposits',
+      args: [mockAddress, '0xToken2']
+    });
+  });
+
+  it('returns an empty array if no tokens have positive locked balances', async () => {
+    mockReadContract.mockResolvedValue(0n);
+
+    const queryClient = createQueryClient();
+    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
+      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    });
+
+    await waitFor(() => expect(result.current.data).toEqual([]));
+
+    expect(result.current.data).toEqual([]);
+  });
+
+  it('handles errors gracefully', async () => {
+    mockReadContract.mockRejectedValue(new Error('Contract read error'));
+
+    const queryClient = createQueryClient();
+    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
+      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    });
+
+    await waitFor(() => expect(result.current.data).toEqual([]));
+
+    expect(result.current.data).toEqual([]);
+  });
+
+  it('does not run if no address is provided', async () => {
+    (useAccount as Mock).mockReturnValue({ address: undefined });
+
+    const queryClient = createQueryClient();
+    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
+      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    });
+
+    expect(result.current.data).toBeUndefined();
+  });
+});

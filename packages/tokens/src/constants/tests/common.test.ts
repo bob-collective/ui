@@ -3,41 +3,64 @@ import { ChainId } from '@gobob/chains';
 
 import { commonTokens, CommonToken } from '../common';
 
-describe('Common Tokens for ChainId 60808', () => {
-  const chainId = ChainId.BOB;
+describe("Common Tokens for ChainId's 1 & 60808", () => {
+  it('should have wBTC (WBTC) for chain ids 1 & 60808', () => {
+    const tokenOnEthereum = commonTokens[CommonToken.WBTC]?.[ChainId.ETHEREUM];
 
-  it('should have wBTC (WBTC) for chain 60808', () => {
-    const token = commonTokens[CommonToken.WBTC]?.[chainId];
+    expect(tokenOnEthereum).toBeDefined();
+    expect(tokenOnEthereum?.symbol).toBe(CommonToken.WBTC);
 
-    expect(token).toBeDefined();
-    expect(token?.symbol).toBe(CommonToken.WBTC);
+    const tokenOnBOB = commonTokens[CommonToken.WBTC]?.[ChainId.BOB];
+
+    expect(tokenOnBOB).toBeDefined();
+    expect(tokenOnBOB?.symbol).toBe(CommonToken.WBTC);
   });
 
-  it('should have tBTC for chain 60808', () => {
-    const token = commonTokens[CommonToken.tBTC]?.[chainId];
+  it('should have tBTC for chain ids 1 & 60808', () => {
+    const tokenOnEthereum = commonTokens[CommonToken.tBTC]?.[ChainId.ETHEREUM];
 
-    expect(token).toBeDefined();
-    expect(token?.symbol).toBe(CommonToken.tBTC);
+    expect(tokenOnEthereum).toBeDefined();
+    expect(tokenOnEthereum?.symbol).toBe(CommonToken.tBTC);
+
+    const tokenOnBOB = commonTokens[CommonToken.tBTC]?.[ChainId.BOB];
+
+    expect(tokenOnBOB).toBeDefined();
+    expect(tokenOnBOB?.symbol).toBe(CommonToken.tBTC);
   });
 
-  it('should have USDC for chain 60808', () => {
-    const token = commonTokens[CommonToken.USDC]?.[chainId];
+  it('should have USDC for chain ids 1 & 60808', () => {
+    const tokenOnEthereum = commonTokens[CommonToken.USDC]?.[ChainId.ETHEREUM];
 
-    expect(token).toBeDefined();
-    expect(token?.symbol).toBe(CommonToken.USDC);
+    expect(tokenOnEthereum).toBeDefined();
+    expect(tokenOnEthereum?.symbol).toBe(CommonToken.USDC);
+
+    const tokenOnBOB = commonTokens[CommonToken.USDC]?.[ChainId.BOB];
+
+    expect(tokenOnBOB).toBeDefined();
+    expect(tokenOnBOB?.symbol).toBe(CommonToken.USDC);
   });
 
-  it('should have USDT for chain 60808', () => {
-    const token = commonTokens[CommonToken.USDT]?.[chainId];
+  it('should have USDT for chain ids 1 & 60808', () => {
+    const tokenOnEthereum = commonTokens[CommonToken.USDT]?.[ChainId.ETHEREUM];
 
-    expect(token).toBeDefined();
-    expect(token?.symbol).toBe(CommonToken.USDT);
+    expect(tokenOnEthereum).toBeDefined();
+    expect(tokenOnEthereum?.symbol).toBe(CommonToken.USDT);
+
+    const tokenOnBOB = commonTokens[CommonToken.USDT]?.[ChainId.BOB];
+
+    expect(tokenOnBOB).toBeDefined();
+    expect(tokenOnBOB?.symbol).toBe(CommonToken.USDT);
   });
 
-  it('should have Dai (DAI) for chain 60808', () => {
-    const token = commonTokens[CommonToken.DAI]?.[chainId];
+  it('should have Dai (DAI) for chain ids 1 & 60808', () => {
+    const tokenOnEthereum = commonTokens[CommonToken.DAI]?.[ChainId.ETHEREUM];
 
-    expect(token).toBeDefined();
-    expect(token?.symbol).toBe(CommonToken.DAI);
+    expect(tokenOnEthereum).toBeDefined();
+    expect(tokenOnEthereum?.symbol).toBe(CommonToken.DAI);
+
+    const tokenOnBOB = commonTokens[CommonToken.DAI]?.[ChainId.BOB];
+
+    expect(tokenOnBOB).toBeDefined();
+    expect(tokenOnBOB?.symbol).toBe(CommonToken.DAI);
   });
 });

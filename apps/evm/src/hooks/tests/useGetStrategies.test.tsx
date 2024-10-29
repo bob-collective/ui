@@ -46,16 +46,13 @@ describe('useGetStrategies hook', () => {
     const queryClient = createQueryClient();
 
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
-      () =>
-        useGetStrategies({
-          retry: false
-        }),
+      () => useGetStrategies({ retry: false }),
       {
         wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       }
     );
 
-    await waitFor(() => result.current.isError);
+    await waitFor(() => expect(result.current.isError).toEqual(true));
 
     expect(result.current.error).toEqual(mockError);
     expect(gatewaySDK.getStrategies).toHaveBeenCalledTimes(1);
