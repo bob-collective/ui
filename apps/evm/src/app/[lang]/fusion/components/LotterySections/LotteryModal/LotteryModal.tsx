@@ -37,7 +37,7 @@ type LotteryModalProps = LotteryStats & {
 
 const MAX_TICKETS = 3;
 const getPrefilledXText = (refCode: string | undefined) =>
-  `I just won Spice in the @build_on_bob Fusion Lottery! Join me in the Final Season and explore the Hybrid L2 ecosystem. ${window.location.href}?refCode=${refCode || ''}`;
+  `I just won Spice in the @build_on_bob Fusion Lottery! Join me in the Final Season and explore the Hybrid L2 ecosystem. https://app.gobob.xyz/?refCode=${refCode || ''}`;
 
 function LotteryModal({
   isOpen,
