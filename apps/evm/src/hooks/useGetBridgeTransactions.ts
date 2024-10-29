@@ -82,8 +82,8 @@ const getDepositBridgeTransactions = gql`
   }
 `;
 
-const getWithdrawBridgeTransactions = gql`
-  query getBridgeDeposits($address: String!, $westEthAddress: String!) {
+const getWithdrawBridgeTransactions = (enableWestEth: boolean) => gql`
+  query getBridgeDeposits($address: String!, $westEthAddress: String) {
     eth: ethbridgeInitiateds(where: { from_starts_with_nocase: $address }) {
       from
       to
@@ -104,7 +104,9 @@ const getWithdrawBridgeTransactions = gql`
       amount
       data: extraData
     }
-    westEth: withdrawalInitiateds(where: { from_starts_with_nocase: $address, l2Token: $westEthAddress }) {
+   ${
+     enableWestEth
+       ? `westEth: withdrawalInitiateds(where: { from_starts_with_nocase: $address, l2Token: $westEthAddress }) {
       from
       to
       remoteToken: l1Token
@@ -114,7 +116,9 @@ const getWithdrawBridgeTransactions = gql`
       timestamp: timestamp_
       amount
       data: extraData
-    }
+    }`
+       : ''
+   }
   }
 `;
 
@@ -438,11 +442,13 @@ const useGetBridgeTransactions = () => {
   );
 
   const fetchTransactions = useCallback(async (address: Address) => {
+    const westEthAddress = L2_CHAIN === ChainId.BOB_SEPOLIA ? undefined : wstETH[L2_CHAIN].address.toLowerCase();
+
     const [deposits, withdraws] = await Promise.all([
       request<BridgeTransactionResponse>(depositsUrl, getDepositBridgeTransactions, { address }),
-      request<WithdrawBridgeTransactionResponse>(withdrawUrl, getWithdrawBridgeTransactions, {
+      request<WithdrawBridgeTransactionResponse>(withdrawUrl, getWithdrawBridgeTransactions(!!westEthAddress), {
         address,
-        westEthAddress: L2_CHAIN === ChainId.BOB_SEPOLIA ? undefined : wstETH[L2_CHAIN].address.toLowerCase()
+        westEthAddress
       })
     ]);
 
@@ -491,7 +497,7 @@ const useGetBridgeTransactions = () => {
       enabled
     }));
 
-    const erc20Withdrawals = [...transactions.data.withdraws.erc20, ...transactions.data.withdraws.westEth];
+    const erc20Withdrawals = [...transactions.data.withdraws.erc20, ...(transactions.data.withdraws.westEth || [])];
 
     const withdrawErc20 = erc20Withdrawals.map((tx) => ({
       queryKey: bridgeKeys.withdrawErc20Transaction(address, tx.transactionHash),
