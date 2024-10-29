@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Ethereum Tokens Snapshot > should match snapshot for ethereumTokens 1`] = `
+{
+  "usdc": ERC20Token {
+    "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "chainId": 1,
+    "decimals": 6,
+    "isNative": false,
+    "isToken": true,
+    "name": "USD Coin",
+    "projectLink": undefined,
+    "symbol": "USDC",
+  },
+  "usdt": ERC20Token {
+    "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "chainId": 1,
+    "decimals": 6,
+    "isNative": false,
+    "isToken": true,
+    "name": "Tether USD",
+    "projectLink": undefined,
+    "symbol": "USDT",
+  },
+  "wbtc": ERC20Token {
+    "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+    "chainId": 1,
+    "decimals": 8,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped BTC",
+    "projectLink": undefined,
+    "symbol": "WBTC",
+  },
+  "weth": ERC20Token {
+    "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "chainId": 1,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+}
+`;
