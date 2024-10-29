@@ -3,11 +3,12 @@ import { formatDistanceToNow, isFuture } from 'date-fns';
 import { ReactNode, useMemo } from 'react';
 import { Trans } from '@lingui/macro';
 
+import { BridgeTransaction } from '../../hooks';
+
 import { StyledTimePill } from './BridgeStatus.style';
 import { BridgeStep } from './BridgeStep';
 
 import { BridgeSteps } from '@/constants';
-import { BridgeTransaction } from '@/hooks';
 
 const TimeLabel = ({ label }: { label: ReactNode }) => (
   <StyledTimePill size='xs'>

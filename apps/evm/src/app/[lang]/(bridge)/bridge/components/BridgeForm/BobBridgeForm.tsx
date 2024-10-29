@@ -17,12 +17,13 @@ import { t } from '@lingui/macro';
 
 import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
 import { Type } from '../../Bridge';
+import { useGetTransactions } from '../../../hooks';
 
 import { BridgeAlert } from './BridgeAlert';
 
 import { AuthButton } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
-import { BridgeToken, useBalances, useBridgeTokens, useGetTransactions } from '@/hooks';
+import { BridgeToken, useBalances, useBridgeTokens } from '@/hooks';
 import {
   BRIDGE_AMOUNT,
   BRIDGE_BTC_WALLET,

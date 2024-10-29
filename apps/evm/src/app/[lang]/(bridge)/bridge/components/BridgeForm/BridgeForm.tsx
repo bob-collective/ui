@@ -12,6 +12,8 @@ import { Trans, t } from '@lingui/macro';
 import { BridgeOrigin, Type } from '../../Bridge';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
+import { useGetTransactions } from '../../../hooks';
+import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 
 import { BtcBridgeForm } from './BtcBridgeForm';
 import { BobBridgeForm } from './BobBridgeForm';
@@ -19,9 +21,7 @@ import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { FeatureFlags, TokenData, useFeatureFlag } from '@/hooks';
-import { useGetTransactions } from '@/hooks';
 import { L2BridgeData, GatewayData } from '@/types';
-import { BridgeTransactionModal, GatewayTransactionModal } from '@/components';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 
@@ -222,10 +222,9 @@ const BridgeForm = ({
             <BtcBridgeForm
               key={btcTokens.length}
               availableTokens={btcTokens}
-              type={type}
-              onFailGateway={handleCloseGatewayModal}
-              onGatewaySuccess={handleGatewaySuccess}
-              onStartGateway={handleStartGateway}
+              onError={handleCloseGatewayModal}
+              onStart={handleStartGateway}
+              onSuccess={handleGatewaySuccess}
             />
           ) : (
             <BobBridgeForm
@@ -248,11 +247,13 @@ const BridgeForm = ({
         step={bridgeModalState.step}
         onClose={handleCloseModal}
       />
-      <GatewayTransactionModal
-        {...(gatewayModalState.data as Required<GatewayData>)}
-        isOpen={gatewayModalState.isOpen}
-        onClose={handleCloseGatewayModal}
-      />
+      {gatewayModalState.data && (
+        <GatewayTransactionModal
+          data={gatewayModalState.data}
+          isOpen={gatewayModalState.isOpen}
+          onClose={handleCloseGatewayModal}
+        />
+      )}
     </>
   );
 };

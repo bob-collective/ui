@@ -3,11 +3,11 @@ import { useState } from 'react';
 
 import { BridgeStatus } from '../BridgeStatus';
 import { Type } from '../../bridge/Bridge';
+import { BridgeTransaction } from '../../hooks';
 
 import { TransactionDetails } from './TransactionDetails';
 
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
-import { BridgeTransaction } from '@/hooks';
 import { MessageDirection } from '@/types';
 
 type Props = { data: BridgeTransaction };

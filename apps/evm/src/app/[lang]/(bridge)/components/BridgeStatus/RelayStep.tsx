@@ -2,12 +2,13 @@ import { Flex, FlexProps } from '@gobob/ui';
 import { useMemo } from 'react';
 import { Trans } from '@lingui/macro';
 
+import { BridgeTransaction } from '../../hooks';
+
 import { StyledStatusActionButton } from './BridgeStatus.style';
 import { BridgeStep } from './BridgeStep';
 
 import { L1_CHAIN } from '@/constants';
 import { BridgeSteps } from '@/constants';
-import { BridgeTransaction } from '@/hooks';
 import { MessageStatus } from '@/types';
 
 type Props = {

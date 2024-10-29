@@ -3,11 +3,11 @@ import { useState } from 'react';
 
 import { GatewayStatus } from '../BridgeStatus';
 import { Type } from '../../bridge/Bridge';
+import { GatewayTransaction } from '../../hooks';
 
 import { TransactionDetails } from './TransactionDetails';
 
 import { L2_CHAIN } from '@/constants';
-import { GatewayTransaction } from '@/hooks';
 
 type Props = { data: GatewayTransaction };
 

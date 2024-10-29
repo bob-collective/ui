@@ -8,12 +8,12 @@ import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSessionStorage } from 'usehooks-ts';
 
 import { Layout, TransactionList } from '../components';
+import { useGetTransactions } from '../hooks';
 
 import { StyledCard, StyledFlex } from './Bridge.style';
 import { BridgeForm } from './components';
 
 import { isClient, L1_CHAIN, L2_CHAIN } from '@/constants';
-import { useGetTransactions } from '@/hooks';
 import { SessionStorageKey } from '@/types/session-storage';
 
 enum BridgeOrigin {

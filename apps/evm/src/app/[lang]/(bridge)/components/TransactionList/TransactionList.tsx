@@ -4,6 +4,8 @@ import { Fragment, useMemo } from 'react';
 import { useIsClient } from 'usehooks-ts';
 import { Trans } from '@lingui/macro';
 
+import { Transaction } from '../../hooks';
+
 import { TransactionItem } from './TransactionItem';
 import {
   StyledSection,
@@ -14,12 +16,11 @@ import {
 } from './TransactionList.style';
 
 import { chainL2 } from '@/constants';
-import { BridgeTransaction, GatewayTransaction } from '@/hooks';
 import { MessageStatus } from '@/types';
 
 type Props = {
   isInitialLoading?: boolean;
-  data?: (GatewayTransaction | BridgeTransaction)[];
+  data?: Transaction[];
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;

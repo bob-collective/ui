@@ -1,4 +1,20 @@
-import { Avatar, CardProps, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, P, Spinner } from '@gobob/ui';
+import {
+  Avatar,
+  Button,
+  Dd,
+  Divider,
+  Dl,
+  DlGroup,
+  Dt,
+  Flex,
+  Link,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalProps,
+  P
+} from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
 import { Fragment, useMemo } from 'react';
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
@@ -6,17 +22,17 @@ import { Trans } from '@lingui/macro';
 
 import { StrategyData } from '../StakeForm/StakeForm';
 
-import { StyledSection, StyledStrategyDetails } from './StrategyDetails.style';
-
 import { chainL2 } from '@/constants';
 
-type TransactionListProps = CardProps & {
-  strategy: StrategyData | undefined;
-  isLoading?: boolean;
+type Props = {
+  strategy: StrategyData;
 };
 
+type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
+
+type StrategyDetailsModalProps = Props & InheritAttrs;
+
 const strategyDetails = [
-  { key: 'name', name: <Trans>Name</Trans> },
   { key: 'category', name: <Trans>Category</Trans> },
   { key: 'website', name: <Trans>Website</Trans> },
   { key: 'incentives', name: <Trans>Incentives</Trans> },
@@ -111,21 +127,9 @@ const getWebsiteUrl = (strategy: StrategyData | undefined) => {
   ) : undefined;
 };
 
-const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionListProps): JSX.Element => {
+const StrategyDetailsModal = ({ strategy, onClose, ...props }: StrategyDetailsModalProps): JSX.Element => {
   const strategyData = useMemo(
     () => ({
-      name: (
-        <Flex alignItems='center' gap='s'>
-          {strategy?.raw.integration.logo ? (
-            <Avatar size='2xl' src={strategy?.raw.integration.logo} />
-          ) : (
-            <PellNetwork />
-          )}
-          <P color='grey-50' size='md'>
-            {strategy?.raw.integration.name}
-          </P>
-        </Flex>
-      ),
       category: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.category,
       website: getWebsiteUrl(strategy),
       incentives: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.incentives,
@@ -149,38 +153,40 @@ const StrategyDetails = ({ isLoading = false, strategy, ...props }: TransactionL
   );
 
   return (
-    <StyledSection padding='2xl' {...props}>
-      <StyledStrategyDetails
-        direction='column'
-        flex={1}
-        gap='xl'
-        justifyContent={isLoading || !strategy ? 'center' : undefined}
-      >
-        {isLoading || !strategy ? (
-          <Flex alignItems='center' gap='md' justifyContent='center'>
-            <Spinner size='16' thickness={2} />
-            <P align='center' size='xs'>
-              <Trans>Fetching staking strategies...</Trans>
-            </P>
-          </Flex>
-        ) : (
-          <Dl direction='column' gap='lg'>
-            {strategyDetails.map(({ key, name }, index) => (
-              <Fragment key={key}>
-                {index !== 0 && <Divider />}
-                <DlGroup alignItems='center' justifyContent='space-between'>
-                  <Dd size='md' style={{ minWidth: '15ch' }}>
-                    {name}
-                  </Dd>
-                  <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>{strategyData[key] ?? '~'}</Dt>
-                </DlGroup>
-              </Fragment>
-            ))}
-          </Dl>
-        )}
-      </StyledStrategyDetails>
-    </StyledSection>
+    <Modal onClose={onClose} {...props}>
+      <ModalHeader align='start'>Asset Details</ModalHeader>
+      <ModalBody gap='2xl'>
+        <Flex alignItems='center' direction={'column'} gap='s'>
+          {strategy?.raw.integration.logo ? (
+            <Avatar size='6xl' src={strategy?.raw.integration.logo} />
+          ) : (
+            <PellNetwork style={{ height: '3rem', width: '3rem' }} />
+          )}
+          <P color='grey-50' size='md'>
+            {strategy?.raw.integration.name}
+          </P>
+        </Flex>
+        <Dl direction='column' gap='lg'>
+          {strategyDetails.map(({ key, name }, index) => (
+            <Fragment key={key}>
+              {index !== 0 && <Divider />}
+              <DlGroup alignItems='center' justifyContent='space-between'>
+                <Dd size='md' style={{ minWidth: '15ch' }}>
+                  {name}
+                </Dd>
+                <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>{strategyData[key] ?? '~'}</Dt>
+              </DlGroup>
+            </Fragment>
+          ))}
+        </Dl>
+      </ModalBody>
+      <ModalFooter>
+        <Button color='primary' size='lg' onPress={onClose}>
+          Close
+        </Button>
+      </ModalFooter>
+    </Modal>
   );
 };
 
-export { StrategyDetails };
+export { stakingInfo, StrategyDetailsModal };

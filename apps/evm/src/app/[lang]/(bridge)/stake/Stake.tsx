@@ -7,13 +7,13 @@ import { Trans } from '@lingui/macro';
 
 import { Layout } from '../components';
 import { TransactionList } from '../components';
+import { useGetGatewayTransactions } from '../hooks';
 
 import { StakingForm } from './components';
 import { useGetStakingStrategies } from './hooks';
 import { StyledCard, StyledFlex } from './Stake.style';
 
 import { PageLangParam } from '@/i18n/withLigui';
-import { useGetGatewayTransactions } from '@/hooks';
 import { GatewayTransactionType } from '@/types';
 
 enum Type {

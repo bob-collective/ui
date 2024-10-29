@@ -1,7 +1,8 @@
+import { Transaction } from '../../hooks';
+
 import { BridgeTransactionItem } from './BridgeTransactionItem';
 import { GatewayTransactionItem } from './GatewayTransactionItem';
 
-import { Transaction } from '@/app/[lang]/(bridge)/bridge/hooks/useGetTransactions';
 import { TransactionType } from '@/types';
 
 type TransactionItemProps = { data: Transaction };

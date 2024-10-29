@@ -1,8 +1,9 @@
 import { Flex, FlexProps } from '@gobob/ui';
 
+import { BridgeTransaction } from '../../hooks';
+
 import { BridgeStep } from './BridgeStep';
 
-import { BridgeTransaction } from '@/hooks';
 import { getOngoingBridgeStep } from '@/utils';
 
 type Props = { data: BridgeTransaction; isExpanded: boolean };

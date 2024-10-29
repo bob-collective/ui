@@ -2,12 +2,13 @@ import { Address } from 'viem';
 import { useLingui } from '@lingui/react';
 import { t } from '@lingui/macro';
 
+import { BridgeTransaction } from '../../hooks';
+
 import { Pill } from './Pill';
 
 import { BridgeSteps, BridgeStepStatus } from '@/constants';
 import { MessageDirection, MessageStatus } from '@/types';
 import { chainL1, chainL2 } from '@/constants';
-import { BridgeTransaction } from '@/hooks';
 
 const getLabel = (stage: BridgeSteps, status: BridgeStepStatus, isActing?: boolean, isActionSuccessful?: boolean) => {
   switch (stage) {

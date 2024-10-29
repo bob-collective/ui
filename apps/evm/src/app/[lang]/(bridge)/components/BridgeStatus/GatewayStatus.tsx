@@ -1,8 +1,8 @@
 import { Flex, FlexProps } from '@gobob/ui';
 
-import { GatewayStep } from './GatewayStep';
+import { GatewayTransaction } from '../../hooks';
 
-import { GatewayTransaction } from '@/hooks';
+import { GatewayStep } from './GatewayStep';
 
 type Props = { data: GatewayTransaction; isExpanded: boolean };
 

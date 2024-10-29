@@ -23,14 +23,16 @@ import { toast } from '@gobob/ui';
 import { Address, useAccount } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
+import { isAddress } from 'viem';
 
 import { DUST_THRESHOLD } from '../constants/deposit';
 import { DEFAULT_GATEWAY_QUOTE_PARAMS } from '../constants/quote';
 
-import { useGetTransactions } from '@/hooks';
+import { useGetTransactions } from './useGetTransactions';
+
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import {
@@ -96,6 +98,7 @@ type UseGatewayQueryDataReturnType = {
 
 type StakeParams = {
   type: GatewayTransactionType.STAKE;
+  assetName?: string;
 } & Partial<Pick<GatewayQuoteParams, 'toChain' | 'toToken' | 'strategyAddress'>>;
 
 type BridgeParams = {
@@ -116,11 +119,12 @@ type UseGatewayReturnType = {
     GatewayData,
     Error,
     {
-      evmAddress: Address;
+      evmAddress: Address | string;
     },
     unknown
   >;
   isReady: boolean;
+  isDisabled: boolean;
   type: GatewayTransactionType;
   settings: {
     topUp: {
@@ -159,11 +163,9 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
   const liquidityQueryEnabled = Boolean(
-    params.toChain &&
-      params.toToken &&
-      params.type === GatewayTransactionType.STAKE &&
-      params.strategyAddress &&
-      !isTapRootAddress
+    params.toChain && params.toToken && params.type === GatewayTransactionType.STAKE
+      ? params.strategyAddress
+      : true && !isTapRootAddress
   );
 
   const liquidityQueryKey = bridgeKeys.btcQuote(
@@ -230,8 +232,31 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [feeRatesQueryResult.error, feeEstimateQueryResult.error]);
 
+  const balance = useMemo(
+    () =>
+      getBalanceAmount(satsBalance?.confirmed, feeEstimateQueryResult.data, liquidityQueryResult.data?.liquidityAmount),
+    [liquidityQueryResult.data?.liquidityAmount, satsBalance?.confirmed, feeEstimateQueryResult.data]
+  );
+
+  const isValidAmount = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (isNaN(rawAmount as any)) return false;
+
+    const amount = CurrencyAmount.fromBaseAmount(BITCOIN, rawAmount);
+
+    return (
+      (amount.equalTo(minAmount) || amount.greaterThan(minAmount)) &&
+      (amount.equalTo(balance) || amount.lessThan(balance))
+    );
+  }, [rawAmount, minAmount, balance]);
+
   const quoteEnabled = Boolean(
-    !isTapRootAddress && btcAddress && evmAddress && liquidityQueryResult.data?.hasLiquidity && rawAmount
+    !isTapRootAddress &&
+      btcAddress &&
+      evmAddress &&
+      liquidityQueryResult.data?.hasLiquidity &&
+      rawAmount &&
+      isValidAmount()
   );
 
   const quoteQueryKey = bridgeKeys.btcQuote(
@@ -285,7 +310,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
   const mutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
-    mutationFn: async ({ evmAddress }: { evmAddress: Address }): Promise<GatewayData> => {
+    mutationFn: async ({ evmAddress }: { evmAddress: Address | string }): Promise<GatewayData> => {
       if (!satsConnector) {
         throw new Error('Connector missing');
       }
@@ -302,15 +327,18 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
         throw new Error('Something went wrong');
       }
 
+      if (!isAddress(evmAddress)) {
+        throw new Error('Invalid EVM address');
+      }
+
       const { data: quoteData, amount: quoteAmount, protocolFee } = quoteQueryResult.data;
 
       const data: GatewayData = {
         type: params.type,
-        amount:
-          params.type === GatewayTransactionType.BRIDGE && params.token
-            ? CurrencyAmount.fromBaseAmount(params.token, quoteAmount.toExact())
-            : undefined,
-        fee: protocolFee.add(feeEstimateQueryResult.data)
+        fee: protocolFee.add(feeEstimateQueryResult.data),
+        ...(params.type === GatewayTransactionType.BRIDGE
+          ? { amount: params.token ? CurrencyAmount.fromBaseAmount(params.token, quoteAmount.toExact()) : undefined }
+          : { assetName: params.assetName })
       };
 
       onMutate?.(data);
@@ -335,7 +363,9 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     },
     onSuccess: (data) => {
       onSuccess?.(data);
+
       refetchGatewayTxs();
+      liquidityQueryResult.refetch();
 
       queryClient.removeQueries({ queryKey: quoteQueryKey });
     },
@@ -347,25 +377,26 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     }
   });
 
-  const balance = useMemo(
-    () =>
-      getBalanceAmount(satsBalance?.confirmed, feeEstimateQueryResult.data, liquidityQueryResult.data?.liquidityAmount),
-    [liquidityQueryResult.data?.liquidityAmount, satsBalance?.confirmed, feeEstimateQueryResult.data]
+  const hasError = !!(
+    feeEstimateQueryResult.error ||
+    feeRatesQueryResult.error ||
+    liquidityQueryResult.error ||
+    quoteQueryResult.error
   );
 
-  const isReady =
-    !(feeEstimateQueryResult.isPending || feeEstimateQueryResult.error) &&
-    !(feeRatesQueryResult.isPending || feeRatesQueryResult.error) &&
-    !(liquidityQueryResult.isPending || liquidityQueryResult.error) &&
-    !!liquidityQueryResult.data?.hasLiquidity &&
-    !(quoteQueryResult.isPending || quoteQueryResult.error) &&
-    !isTapRootAddress;
+  const isPreparing =
+    feeEstimateQueryResult.isPending && feeRatesQueryResult.isPending && liquidityQueryResult.isPending;
+
+  const isReady = !hasError && !isPreparing;
+
+  const isDisabled = isTapRootAddress || !liquidityQueryResult.data?.hasLiquidity || hasError;
 
   return {
     amount: rawAmount,
     setAmount,
     isTapRootAddress,
     isReady,
+    isDisabled,
     query: {
       fee: {
         rates: feeRatesQueryResult,

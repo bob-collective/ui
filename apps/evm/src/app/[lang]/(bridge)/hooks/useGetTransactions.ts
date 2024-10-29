@@ -3,8 +3,10 @@
 import { useAccount } from '@gobob/wagmi';
 import { useEffect, useMemo, useState } from 'react';
 
-import { BridgeTransaction, useGetBridgeTransactions } from '../../../../../hooks/useGetBridgeTransactions';
-import { FeatureFlags, GatewayTransaction, useFeatureFlag, useGetGatewayTransactions } from '../../../../../hooks';
+import { FeatureFlags, useFeatureFlag } from '../../../../hooks';
+
+import { BridgeTransaction, useGetBridgeTransactions } from './useGetBridgeTransactions';
+import { GatewayTransaction, useGetGatewayTransactions } from './useGetGatewayTransactions';
 
 import { GatewayTransactionType } from '@/types';
 

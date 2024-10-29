@@ -1,3 +1,4 @@
+import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/react-query';
 import {
@@ -10,15 +11,14 @@ import {
   SelectProps,
   Span,
   Spinner,
-  TokenSelectItemProps,
-  TokenListItem
+  TokenListItem,
+  TokenSelectItemProps
 } from '@gobob/ui';
-import { ReactNode, useMemo } from 'react';
-import { ChainId } from '@gobob/chains';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { ReactNode, useMemo } from 'react';
 
-import { AmountLabel } from '../AmountLabel';
+import { AmountLabel } from '../../../../../components';
 
 import { StyledDlGroup, StyledDt, StyledSelect } from './TransactionDetails.style';
 

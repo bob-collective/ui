@@ -12,6 +12,7 @@ type GatewayData = {
   txId?: string;
   type: GatewayTransactionType;
   amount?: CurrencyAmount<ERC20Token>;
+  assetName?: string;
   fee: CurrencyAmount<Bitcoin>;
 };
 

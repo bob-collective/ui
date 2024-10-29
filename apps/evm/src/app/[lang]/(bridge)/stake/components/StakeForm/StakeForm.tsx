@@ -2,27 +2,18 @@
 
 import { Flex } from '@gobob/ui';
 import { useState } from 'react';
-import { Optional } from '@gobob/react-query';
 
-import { Unstake } from '../Unstake';
+import { GatewayTransactionModal } from '../../../components';
 import { Type } from '../../Stake';
 import { StrategyData } from '../../hooks';
+import { Unstake } from '../Unstake';
 
 import { BtcStakeForm } from './BtcStakeForm';
 
-import { GatewayData, L2BridgeData } from '@/types';
-import { GatewayTransactionModal, BridgeTransactionModal } from '@/components';
-
-type TransactionModalState = {
-  isOpen: boolean;
-  step: 'approval' | 'confirmation' | 'submitted';
-  data?: L2BridgeData;
-};
-
+import { GatewayData } from '@/types';
 type GatewayTransactionModalState = {
   isOpen: boolean;
-  step: 'confirmation' | 'submitted';
-  data?: Optional<GatewayData, 'amount'>;
+  data?: GatewayData;
 };
 
 type BridgeFormProps = {
@@ -31,25 +22,16 @@ type BridgeFormProps = {
 };
 
 const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): JSX.Element => {
-  const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
-    isOpen: false,
-    step: 'confirmation'
-  });
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
-    isOpen: false,
-    step: 'confirmation'
+    isOpen: false
   });
 
-  const handleCloseModal = () => {
-    setBridgeModalState((s) => ({ ...s, isOpen: false }));
+  const handleStartGateway = (data: GatewayData) => {
+    setGatewayModalState({ isOpen: true, data });
   };
 
-  const handleStartGateway = (data: Optional<GatewayData, 'amount'>) => {
-    setGatewayModalState({ isOpen: true, step: 'confirmation', data });
-  };
-
-  const handleGatewaySuccess = (data: Optional<GatewayData, 'amount'>) => {
-    setGatewayModalState({ isOpen: true, step: 'submitted', data });
+  const handleGatewaySuccess = (data: GatewayData) => {
+    setGatewayModalState({ isOpen: true, data });
   };
 
   const handleCloseGatewayModal = () => {
@@ -70,17 +52,13 @@ const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): J
           <Unstake type={type} />
         )}
       </Flex>
-      <BridgeTransactionModal
-        {...(bridgeModalState.data as Required<L2BridgeData>)}
-        isOpen={bridgeModalState.isOpen}
-        step={bridgeModalState.step}
-        onClose={handleCloseModal}
-      />
-      <GatewayTransactionModal
-        {...(gatewayModalState.data as Required<GatewayData>)}
-        isOpen={gatewayModalState.isOpen}
-        onClose={handleCloseGatewayModal}
-      />
+      {gatewayModalState.data && (
+        <GatewayTransactionModal
+          data={gatewayModalState.data}
+          isOpen={gatewayModalState.isOpen}
+          onClose={handleCloseGatewayModal}
+        />
+      )}
     </>
   );
 };

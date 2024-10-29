@@ -6,15 +6,13 @@ import { Avatar, Flex, Input, Item, P, Select } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { mergeProps } from '@react-aria/utils';
+import { chain, mergeProps } from '@react-aria/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { Address } from 'viem';
 
-import { BtcTokenInput, GatewayGasSwitch } from '../../../components';
+import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
 
-import { GatewayTransactionDetails } from '@/components';
 import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
 import { TokenData } from '@/hooks';
@@ -57,6 +55,10 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
     }
   }, [receiveTicker, router, searchParams]);
 
+  const handleSuccess = () => {
+    form.resetForm();
+  };
+
   const gateway = useGateway({
     params: {
       type: GatewayTransactionType.BRIDGE,
@@ -66,14 +68,14 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
     },
     onError,
     onMutate: onStart,
-    onSuccess
+    onSuccess: chain(onSuccess, handleSuccess)
   });
 
   const handleSubmit = async (data: BridgeFormValues) => {
     if (!evmAddress) return;
 
     gateway.mutation.mutate({
-      evmAddress: (data[BRIDGE_RECIPIENT] as Address | '') || evmAddress
+      evmAddress: data[BRIDGE_RECIPIENT] || evmAddress
     });
   };
 
@@ -87,9 +89,9 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
     onSubmit: handleSubmit
   });
 
-  const isDisabled = isSubmitDisabled || !gateway.isReady;
+  const isDisabled = isSubmitDisabled || gateway.isDisabled || !gateway.isReady || gateway.query.quote.isPending;
 
-  const isLoading = !isSubmitDisabled && (gateway.mutation.isPending || gateway.query.quote.isPending);
+  const isLoading = gateway.mutation.isPending || gateway.query.quote.isLoading;
 
   const placeholderAmount = useMemo(
     () => (btcToken ? CurrencyAmount.fromRawAmount(btcToken.currency, 0n) : undefined),
@@ -142,7 +144,7 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
         gateway={gateway}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
-        <Trans>Bridge Asset</Trans>
+        <Trans>{gateway.isReady ? 'Bridge Asset' : 'Preparing...'}</Trans>
       </AuthButton>
     </Flex>
   );

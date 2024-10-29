@@ -1,5 +1,6 @@
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { BITCOIN } from '@gobob/tokens';
 import {
   Alert,
   Card,
@@ -19,12 +20,13 @@ import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { ReactNode, useState } from 'react';
 
-import { AmountLabel } from '../AmountLabel';
+import { AmountLabel } from '../../../../../components';
+import { UseGatewayReturnType } from '../../hooks';
 
 import { GatewayFeeSettingsModal } from './GatewayFeeSettingsModal';
 import { StyledDlGroup, StyledDt } from './GatewayTransactionDetails.style';
 
-import { UseGatewayReturnType } from '@/app/[lang]/(bridge)/hooks';
+import { GatewayTransactionType } from '@/types';
 import { isHighFeeRate, isLowFeeRate } from '@/utils/gateway';
 
 type GatewayTransactionDetailsProps = {
@@ -35,6 +37,8 @@ type GatewayTransactionDetailsProps = {
   amountPlaceholder?: CurrencyAmount<Currency>;
   gateway: UseGatewayReturnType;
 };
+
+const bitcoinPlaceholder = CurrencyAmount.fromRawAmount(BITCOIN, 0n);
 
 const GatewayTransactionDetails = ({
   assetName,
@@ -53,6 +57,10 @@ const GatewayTransactionDetails = ({
   const { query, settings, type, isTapRootAddress } = gateway;
 
   const amount = query.quote.data?.amount || amountPlaceholder;
+
+  const protocolFee = query.quote.data?.protocolFee || bitcoinPlaceholder;
+
+  const estimateFee = query.fee.estimate.data || bitcoinPlaceholder;
 
   const shouldShowLowFeeRateWarning =
     settings.fee.rate && query.fee.rates.data && isLowFeeRate(settings.fee.rate, query.fee.rates.data);
@@ -82,7 +90,7 @@ const GatewayTransactionDetails = ({
           </P>
         </Alert>
       )}
-      {!query.liquidity.isPending && !query.liquidity.data?.hasLiquidity && (
+      {!query.liquidity.isPending && query.liquidity.data && !query.liquidity.data.hasLiquidity && (
         <Alert status='warning'>
           <P size='s'>
             {type === 'stake' ? (
@@ -95,26 +103,28 @@ const GatewayTransactionDetails = ({
       )}
       <Card background='grey-600' rounded='md'>
         <Dl direction='column' gap='none'>
-          {amount && (
-            <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
-              <Flex alignItems='center' gap='xs'>
-                <StyledDt color='grey-50' size='xs'>
-                  {amountLabel}
-                </StyledDt>
-                {amountTooltipLabel && (
-                  <Tooltip color='primary' label={amountTooltipLabel}>
-                    <InformationCircle color='grey-50' size='xs' />
-                  </Tooltip>
+          <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
+            <Flex alignItems='center' gap='xs'>
+              <StyledDt color='grey-50' size='xs'>
+                {amountLabel}
+              </StyledDt>
+              {amountTooltipLabel && (
+                <Tooltip color='primary' label={amountTooltipLabel}>
+                  <InformationCircle color='grey-50' size='xs' />
+                </Tooltip>
+              )}
+            </Flex>
+            <Dd size='xs'>
+              <Flex alignItems='center' elementType='span' gap='s'>
+                {gateway.type === GatewayTransactionType.BRIDGE ? (
+                  <AmountLabel amount={amount} hidePrice={hideAmountPrice} />
+                ) : (
+                  assetName || <Skeleton width='6xl' />
                 )}
               </Flex>
-              <Dd size='xs'>
-                <Flex alignItems='center' elementType='span' gap='s'>
-                  <AmountLabel amount={amount} hidePrice={hideAmountPrice} />
-                </Flex>
-              </Dd>
-            </StyledDlGroup>
-          )}
-          {query.quote.data?.protocolFee && (
+            </Dd>
+          </StyledDlGroup>
+          {protocolFee && (
             <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
               <Flex alignItems='center' gap='xs'>
                 <StyledDt color='grey-50' size='xs'>
@@ -131,12 +141,12 @@ const GatewayTransactionDetails = ({
               </Flex>
               <Dd size='xs'>
                 <Flex alignItems='center' elementType='span' gap='s'>
-                  <AmountLabel amount={query.quote.data.protocolFee} />
+                  <AmountLabel amount={protocolFee} />
                 </Flex>
               </Dd>
             </StyledDlGroup>
           )}
-          {query.fee.estimate.data && (
+          {estimateFee && (
             <StyledDlGroup wrap gap='xs' justifyContent='space-between'>
               <Flex alignItems='center' gap='xs'>
                 <StyledDt color='grey-50' size='xs'>
@@ -153,7 +163,7 @@ const GatewayTransactionDetails = ({
               </Flex>
               <Dd size='xs'>
                 <Flex alignItems='center' elementType='span' gap='s'>
-                  <AmountLabel amount={query.fee.estimate.data} />
+                  <AmountLabel amount={estimateFee} />
                 </Flex>
               </Dd>
             </StyledDlGroup>
@@ -184,7 +194,9 @@ const GatewayTransactionDetails = ({
                   </Tooltip>
                 )}
                 {query.fee.rates.isPending || !settings.fee.rate ? (
-                  <Skeleton width='6xl' />
+                  <Span size='xs'>
+                    <Skeleton width='6xl' />
+                  </Span>
                 ) : (
                   <Tooltip isDisabled={!!btcAddress} label={t(i18n)`Connect BTC wallet to access fee rate settings.`}>
                     <UnstyledButton disabled={!btcAddress} onPress={() => setOpen(true)}>

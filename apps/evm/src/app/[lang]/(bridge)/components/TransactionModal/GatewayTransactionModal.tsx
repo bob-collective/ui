@@ -1,6 +1,11 @@
 import {
   ArrowLongRight,
   Button,
+  Card,
+  Dd,
+  Dl,
+  DlGroup,
+  Dt,
   Flex,
   Modal,
   ModalBody,
@@ -12,28 +17,23 @@ import {
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 
-import { Chain, TransactionDetails } from '..';
+import { AmountLabel, Chain } from '../../../../../components';
+import { useGetGatewayTransactions } from '../../hooks';
 
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { L2_CHAIN } from '@/constants';
 import { GatewayData, TransactionType } from '@/types';
-import { useGetGatewayTransactions } from '@/hooks';
 
-type Props = GatewayData;
+type Props = { data: GatewayData };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type GatewayTransactionModalProps = Props & InheritAttrs;
 
-const GatewayTransactionModal = ({
-  amount,
-  txid,
-  fee,
-  onClose,
-  ...props
-}: GatewayTransactionModalProps): JSX.Element => {
+const GatewayTransactionModal = ({ data, onClose, ...props }: GatewayTransactionModalProps): JSX.Element => {
+  const { assetName, fee, txId } = data;
   const { data: transactions } = useGetGatewayTransactions();
 
-  const txData = transactions?.find((tx) => tx.type === TransactionType.Gateway && tx.btcTxId === txid);
+  const txData = transactions?.find((tx) => tx.type === TransactionType.Gateway && tx.btcTxId === txId);
 
   const isSubmitted = !!txData;
 
@@ -64,7 +64,26 @@ const GatewayTransactionModal = ({
             <P align='center' size='xs' weight='medium'>
               <Trans>Please confirm the transaction in your wallet</Trans>
             </P>
-            <TransactionDetails amount={amount} chainId={L1_CHAIN} gasEstimate={fee} />
+            <Card background='grey-600' rounded='md'>
+              <Dl direction='column' gap='md' {...props}>
+                <DlGroup wrap alignItems='flex-start' gap='xs' justifyContent='space-between'>
+                  <Dt color='grey-50' size='xs'>
+                    <Trans>You will receive</Trans>
+                  </Dt>
+                  <Dd size='xs'>{assetName}</Dd>
+                </DlGroup>
+                <DlGroup wrap gap='xs' justifyContent='space-between'>
+                  <Dt color='grey-50' size='xs'>
+                    Fee
+                  </Dt>
+                  <Dd size='xs'>
+                    <Flex alignItems='center' elementType='span' gap='s'>
+                      <AmountLabel amount={fee} />
+                    </Flex>
+                  </Dd>
+                </DlGroup>
+              </Dl>
+            </Card>
           </Flex>
         )}
       </ModalBody>

@@ -2,21 +2,20 @@
 
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 import { Optional } from '@gobob/react-query';
-import { Avatar, Flex, Input, Item, P, Select } from '@gobob/ui';
+import { Avatar, Flex, Input, Item, P, Select, Skeleton, Span, UnstyledButton } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { mergeProps } from '@react-aria/utils';
+import { chain, mergeProps } from '@react-aria/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { Address } from 'viem';
 
-import { BtcTokenInput, GatewayGasSwitch } from '../../../components';
+import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
+import { StrategyDetailsModal } from '../StrategyDetailsModal';
 
 import { StrategyData } from './StakeForm';
 
-import { GatewayTransactionDetails } from '@/components';
 import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
@@ -39,6 +38,8 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
 
   const { address: evmAddress } = useAccount();
 
+  const [isStrategyModalOpen, setStrategyModalOpen] = useState(false);
+
   const [selectedStrategy, setSelectedStrategy] = useState(
     searchParams?.get('stake-with') ?? (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug)
   );
@@ -58,23 +59,28 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
     }
   }, [selectedStrategy, router, searchParams]);
 
+  const handleSuccess = () => {
+    form.resetForm();
+  };
+
   const gateway = useGateway({
     params: {
       type: GatewayTransactionType.STAKE,
       toChain: strategy?.raw.chain.chainId,
       toToken: strategy?.raw.inputToken.address,
-      strategyAddress: strategy?.raw.address
+      strategyAddress: strategy?.raw.address,
+      assetName: strategy?.raw.integration.name
     },
     onError,
     onMutate: onStart,
-    onSuccess
+    onSuccess: chain(onSuccess, handleSuccess)
   });
 
   const handleSubmit = async (data: BridgeFormValues) => {
     if (!evmAddress) return;
 
     gateway.mutation.mutate({
-      evmAddress: (data[BRIDGE_RECIPIENT] as Address | '') || evmAddress
+      evmAddress: data[BRIDGE_RECIPIENT] || evmAddress
     });
   };
 
@@ -88,9 +94,9 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
     onSubmit: handleSubmit
   });
 
-  const isDisabled = isSubmitDisabled || !gateway.isReady;
+  const isDisabled = isSubmitDisabled || gateway.isDisabled || !gateway.isReady || gateway.query.quote.isPending;
 
-  const isLoading = !isSubmitDisabled && (gateway.mutation.isPending || gateway.query.quote.isPending);
+  const isLoading = gateway.mutation.isPending || gateway.query.quote.isLoading;
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -102,25 +108,49 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
           onValueChange: gateway.setAmount
         })}
       />
-      <Select<StrategyData>
-        items={strategies}
-        label={t(i18n)`Stake with`}
-        modalProps={{ title: <Trans>Select Strategy</Trans>, size: 'xs' }}
-        size='lg'
-        type='modal'
-        {...mergeProps(fields.asset, {
-          onSelectionChange: setSelectedStrategy
-        })}
-      >
-        {(data) => (
-          <Item key={data.raw.integration.slug} textValue={data.raw.integration.name}>
-            <Flex alignItems='center' gap='s'>
-              {data.raw.integration.logo ? <Avatar size='2xl' src={data.raw.integration.logo} /> : <PellNetwork />}
-              <P style={{ color: 'inherit' }}>{data.raw.integration.name}</P>
-            </Flex>
-          </Item>
+      <Flex direction='column' gap='xs'>
+        <Select<StrategyData>
+          items={strategies}
+          label={t(i18n)`Stake with`}
+          modalProps={{ title: <Trans>Select Strategy</Trans>, size: 'xs' }}
+          size='lg'
+          type='modal'
+          {...mergeProps(fields.asset, {
+            onSelectionChange: setSelectedStrategy
+          })}
+        >
+          {(data) => (
+            <Item key={data.raw.integration.slug} textValue={data.raw.integration.name}>
+              <Flex alignItems='center' gap='s'>
+                {data.raw.integration.logo ? <Avatar size='2xl' src={data.raw.integration.logo} /> : <PellNetwork />}
+                <P style={{ color: 'inherit' }}>{data.raw.integration.name}</P>
+              </Flex>
+            </Item>
+          )}
+        </Select>
+        {strategy ? (
+          <>
+            <UnstyledButton
+              color='primary-500'
+              style={{ alignSelf: 'flex-start' }}
+              onPress={() => setStrategyModalOpen(true)}
+            >
+              <Span color='grey-50' size='s' style={{ textDecoration: 'underline' }}>
+                Learn More about {strategy.raw.integration.name}
+              </Span>
+            </UnstyledButton>
+            <StrategyDetailsModal
+              isOpen={isStrategyModalOpen}
+              strategy={strategy}
+              onClose={() => setStrategyModalOpen(false)}
+            />
+          </>
+        ) : (
+          <Span size='s'>
+            <Skeleton width='60%' />
+          </Span>
         )}
-      </Select>
+      </Flex>
       <GatewayGasSwitch
         isSelected={gateway.settings.topUp.isEnabled}
         onChange={(e) => gateway.settings.topUp.enable(e.target.checked)}
@@ -132,9 +162,13 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
           {...fields.recipient}
         />
       )}
-      <GatewayTransactionDetails assetName={strategy?.raw.integration.name} gateway={gateway} />
+      <GatewayTransactionDetails
+        amountLabel={<Trans>You will stake</Trans>}
+        assetName={strategy?.raw.integration.name}
+        gateway={gateway}
+      />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
-        <Trans>Stake</Trans>
+        <Trans>{gateway.isReady ? 'Stake' : 'Preparing...'}</Trans>
       </AuthButton>
     </Flex>
   );
