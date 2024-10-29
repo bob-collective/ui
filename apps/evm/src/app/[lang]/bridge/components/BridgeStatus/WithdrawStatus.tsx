@@ -1,23 +1,20 @@
-'use client';
-
 import { useMutation } from '@gobob/react-query';
 import { toast } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { Flex, FlexProps } from '@gobob/ui';
 import { useMemo } from 'react';
-import { getWithdrawals } from 'viem/op-stack';
 import * as Sentry from '@sentry/nextjs';
-import { Trans } from '@lingui/macro';
+
+import { useCrossChainMessenger } from '../../hooks';
 
 import { TimeStep } from './TimeStep';
 import { ProveStep } from './ProveStep';
 import { RelayStep } from './RelayStep';
 import { BridgeStep } from './BridgeStep';
 
-import { usePublicClientL1, usePublicClientL2, useWalletClientL1, useWalletClientL2 } from '@/hooks';
 import { bridgeKeys } from '@/lib/react-query';
-import { BridgeTransaction, useGetTransactions } from '@/hooks/useGetTransactions';
-import { getOngoingBridgeStep } from '@/utils/status';
+import { BridgeTransaction, useGetTransactions } from '@/hooks';
+import { getOngoingBridgeStep } from '@/utils';
 
 type Props = { data: BridgeTransaction; isExpanded: boolean };
 
@@ -26,11 +23,13 @@ type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 type WithdrawStatusProps = Props & InheritAttrs;
 
 const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element => {
-  const publicClientL1 = usePublicClientL1();
-  const publicClientL2 = usePublicClientL2();
+  // const publicClientL1 = usePublicClientL1();
+  // const publicClientL2 = usePublicClientL2();
 
-  const walletClientL1 = useWalletClientL1();
-  const walletClientL2 = useWalletClientL2();
+  // const walletClientL1 = useWalletClientL1();
+  // const walletClientL2 = useWalletClientL2();
+
+  const optimismMessenger = useCrossChainMessenger();
 
   const { address } = useAccount();
 
@@ -39,37 +38,52 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
   const proveMutation = useMutation({
     mutationKey: bridgeKeys.proveTransaction(address, data.transactionHash),
     mutationFn: async () => {
-      const receipt =
-        data.l2Receipt ||
-        (await publicClientL2.getTransactionReceipt({
-          hash: data.transactionHash
-        }));
+      // if (
+      //   (data.amount.currency.isToken &&
+      //     isAddressEqual(data.amount.currency.address, wstETH[L2_CHAIN as ChainId.BOB].address)) ||
+      //   (data.amount.currency.isToken &&
+      //     isAddressEqual(data.amount.currency.address, USDC?.[L2_CHAIN as ChainId.BOB]?.address || ('' as Address)))
+      // )
+      //    {
+      //     const receipt =
+      //       data.l2Receipt ||
+      //       (await publicClientL2.getTransactionReceipt({
+      //         hash: data.transactionHash
+      //       }));
 
-      const { output, withdrawal } = await publicClientL1.waitToProve({
-        receipt,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        targetChain: walletClientL2.chain as any
-      });
+      //     const { output, withdrawal } = await publicClientL1.waitToProve({
+      //       receipt,
+      //       targetChain: walletClientL2.chain as any
+      //     });
 
-      const args = await publicClientL2.buildProveWithdrawal({
-        output,
-        withdrawal
-      });
+      //     const args = await publicClientL2.buildProveWithdrawal({
+      //       output,
+      //       withdrawal
+      //     });
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const hash = await walletClientL1?.proveWithdrawal(args as any);
+      //     const hash = await walletClientL1?.proveWithdrawal(args as any);
 
-      return { hash };
+      //     return { hash };
+      //   } catch (e) {
+      //     if (e.cause.code === 4001) return;
+
+      // Add fallback to optimism sdk
+      const tx = await optimismMessenger?.proveMessage(data.transactionHash);
+
+      await tx?.wait();
+
+      return tx;
+      // }
     },
     onSuccess: (data) => {
-      toast.success(<Trans>Successfully submitted ${data?.hash} proof</Trans>);
+      toast.success(`Successfully submitted ${data?.hash} proof`);
       refetchBridgeTxs();
     },
     onError: (e) => {
       Sentry.captureException(e);
       // eslint-disable-next-line no-console
       console.log('Prove: ', e);
-      toast.error(<Trans>Failed to submit proof.</Trans>);
+      toast.error('Failed to submit proof.');
     }
   });
 
@@ -77,37 +91,46 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
     mutationKey: bridgeKeys.relayTransaction(address, data.transactionHash),
     mutationFn: async () => {
       if (!address) return;
+      // try {
+      //   const receiptL2 =
+      //     data.l2Receipt ||
+      //     (await publicClientL2.getTransactionReceipt({
+      //       hash: data.transactionHash
+      //     }));
 
-      const receiptL2 =
-        data.l2Receipt ||
-        (await publicClientL2.getTransactionReceipt({
-          hash: data.transactionHash
-        }));
+      //   const [withdrawal] = getWithdrawals(receiptL2);
 
-      const [withdrawal] = getWithdrawals(receiptL2);
+      //   const hash = await walletClientL1.finalizeWithdrawal({
+      //     targetChain: walletClientL2.chain as any,
+      //     withdrawal,
+      //     account: address
+      //   });
 
-      const hash = await walletClientL1.finalizeWithdrawal({
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        targetChain: walletClientL2.chain as any,
-        withdrawal: withdrawal!,
-        account: address
-      });
+      //   await publicClientL1.waitForTransactionReceipt({
+      //     hash
+      //   });
 
-      await publicClientL1.waitForTransactionReceipt({
-        hash
-      });
+      //   return hash;
+      // } catch (e: any) {
+      // if (e.cause.code === 4001) return;
 
-      return hash;
+      // Add fallback to optimism sdk
+      const tx = await optimismMessenger?.finalizeMessage(data.transactionHash);
+
+      await tx?.wait();
+
+      return tx;
+      // }
     },
     onSuccess: () => {
-      toast.success(<Trans>Successfully finalized transaction</Trans>);
+      toast.success(`Successfully finalized transaction`);
       refetchBridgeTxs();
     },
     onError: (e) => {
       Sentry.captureException(e);
       // eslint-disable-next-line no-console
       console.log('Finalize: ', e);
-      toast.error(<Trans>Failed to finalize.</Trans>);
+      toast.error('Failed to finalize.');
     }
   });
 
