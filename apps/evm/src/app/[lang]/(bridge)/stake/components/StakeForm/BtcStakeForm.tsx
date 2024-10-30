@@ -136,7 +136,7 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
         <Select<StrategyData>
           items={sortedStrategies}
           label={t(i18n)`Stake with`}
-          modalProps={{ title: <Trans>Select Strategy</Trans>, size: 's' }}
+          modalProps={{ title: <Trans>Select Strategy</Trans>, size: 'xs' }}
           renderValue={({ value }) => (value ? <SelectStrategy data={value} /> : undefined)}
           size='lg'
           type='modal'
