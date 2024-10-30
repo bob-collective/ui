@@ -34,7 +34,7 @@ const SelectStrategy = ({ children, data }: PropsWithChildren<{ data: StrategyDa
   return (
     <Flex alignItems='center' gap='s'>
       {data.raw.integration.logo ? (
-        <Avatar size={children ? '4xl' : '2xl'} src={data.raw.integration.logo} />
+        <Avatar size={children ? '3xl' : '2xl'} src={data.raw.integration.logo} />
       ) : (
         <PellNetwork />
       )}
