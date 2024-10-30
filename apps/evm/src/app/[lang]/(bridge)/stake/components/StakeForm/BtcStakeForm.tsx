@@ -30,7 +30,7 @@ type BtcBridgeFormProps = {
   onError: () => void;
 };
 
-const SelectStrategy = ({ children, data }: PropsWithChildren<{ data: StrategyData }>) => {
+const StrategyOption = ({ children, data }: PropsWithChildren<{ data: StrategyData }>) => {
   return (
     <Flex alignItems='center' gap='s'>
       {data.raw.integration.logo ? (
@@ -137,7 +137,7 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
           items={sortedStrategies}
           label={t(i18n)`Stake with`}
           modalProps={{ title: <Trans>Select Strategy</Trans>, size: 'xs' }}
-          renderValue={({ value }) => (value ? <SelectStrategy data={value} /> : undefined)}
+          renderValue={({ value }) => (value ? <StrategyOption data={value} /> : undefined)}
           size='lg'
           type='modal'
           {...mergeProps(fields.asset, {
@@ -146,14 +146,14 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
         >
           {(data) => (
             <Item key={data.raw.integration.slug} textValue={data.raw.integration.name}>
-              <SelectStrategy data={data}>
+              <StrategyOption data={data}>
                 <>
                   <br />
                   <Span color='grey-50' size='s' style={{ textTransform: 'capitalize' }}>
                     {data.raw.integration.type}
                   </Span>
                 </>
-              </SelectStrategy>
+              </StrategyOption>
             </Item>
           )}
         </Select>
