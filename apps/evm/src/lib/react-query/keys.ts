@@ -44,12 +44,20 @@ export const bridgeKeys = {
   relayTransaction: (address: Address | undefined, hash: Address) => [address, hash, 'relay'],
   btc: (address: Address | undefined, btcAddress: string | undefined) => ['btc', address, btcAddress],
   btcQuote: (
-    address: Address | undefined,
-    btcAddress: string | undefined,
-    isGasNeeded: boolean,
-    btcTokenSymbol?: string,
-    atomicAmount?: number | 'max'
-  ) => [...bridgeKeys.btc(address, btcAddress), isGasNeeded, btcTokenSymbol, atomicAmount, 'quote'],
+    toToken?: string,
+    toChain?: string | number,
+    strategyAddress?: string,
+    atomicAmount?: number | string | 'liquidity-check',
+    gasRefill?: boolean
+  ) => [
+    ...bridgeKeys.btc(undefined, undefined),
+    toToken,
+    toChain,
+    strategyAddress,
+    atomicAmount,
+    'quote',
+    gasRefill ? 'gas-refill' : 'no-gas-refill'
+  ],
   btcDeposit: (address: Address | undefined, btcAddress: string | undefined) => [
     ...bridgeKeys.btc(address, btcAddress),
     'deposit'

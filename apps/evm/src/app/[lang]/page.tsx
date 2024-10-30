@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import { t } from '@lingui/macro';
 
-import Bridge from './bridge/page';
+import Bridge from './(bridge)/bridge/page';
 
 import { getI18nInstance } from '@/i18n/appRouterI18n';
 import { PageLangParam } from '@/i18n/withLigui';
