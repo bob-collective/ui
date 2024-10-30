@@ -8,7 +8,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
@@ -30,6 +30,22 @@ type BtcBridgeFormProps = {
   onError: () => void;
 };
 
+const StrategyOption = ({ children, data }: PropsWithChildren<{ data: StrategyData }>) => {
+  return (
+    <Flex alignItems='center' gap='s'>
+      {data.raw.integration.logo ? (
+        <Avatar size={children ? '4xl' : '2xl'} src={data.raw.integration.logo} />
+      ) : (
+        <PellNetwork style={children ? { height: '2rem', width: '2rem' } : { height: '1.3rem', width: '1.3rem' }} />
+      )}
+      <P align='start' style={{ color: 'inherit', lineHeight: children ? '1rem' : undefined }}>
+        {data.raw.integration.name}
+        {children}
+      </P>
+    </Flex>
+  );
+};
+
 const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
 
@@ -42,6 +58,14 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
 
   const [selectedStrategy, setSelectedStrategy] = useState(
     searchParams?.get('stake-with') ?? (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug)
+  );
+
+  const sortedStrategies = useMemo(
+    () =>
+      strategies.toSorted((strategyA, strategyB) =>
+        strategyB.raw.integration.type.localeCompare(strategyA.raw.integration.type)
+      ),
+    [strategies]
   );
 
   const strategy = useMemo(
@@ -110,9 +134,10 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
       />
       <Flex direction='column' gap='xs'>
         <Select<StrategyData>
-          items={strategies}
+          items={sortedStrategies}
           label={t(i18n)`Stake with`}
           modalProps={{ title: <Trans>Select Strategy</Trans>, size: 'xs' }}
+          renderValue={({ value }) => (value ? <StrategyOption data={value} /> : undefined)}
           size='lg'
           type='modal'
           {...mergeProps(fields.asset, {
@@ -121,10 +146,14 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
         >
           {(data) => (
             <Item key={data.raw.integration.slug} textValue={data.raw.integration.name}>
-              <Flex alignItems='center' gap='s'>
-                {data.raw.integration.logo ? <Avatar size='2xl' src={data.raw.integration.logo} /> : <PellNetwork />}
-                <P style={{ color: 'inherit' }}>{data.raw.integration.name}</P>
-              </Flex>
+              <StrategyOption data={data}>
+                <>
+                  <br />
+                  <Span color='grey-50' size='s' style={{ textTransform: 'capitalize' }}>
+                    {data.raw.integration.type}
+                  </Span>
+                </>
+              </StrategyOption>
             </Item>
           )}
         </Select>
