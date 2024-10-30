@@ -5,6 +5,8 @@ import { Ether } from '@gobob/currency';
 import { PropsWithChildren } from 'react';
 import { QueryClient, QueryClientProvider } from '@gobob/react-query';
 
+import { useGasTokens } from '../useGasTokens';
+
 vi.mock('../constants/assets', () => ({
   tokens: [
     { chainId: ChainId.ETHEREUM, decimals: 18, symbol: 'ETH' },
@@ -25,8 +27,6 @@ vi.mock(import('@gobob/tokens'), async (importOriginal) => {
     }
   };
 });
-
-import { useGasTokens } from '../useGasTokens';
 
 const createQueryClient = () => new QueryClient();
 

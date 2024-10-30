@@ -3,6 +3,11 @@ import { renderHook } from '@testing-library/react-hooks';
 import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import { useAccount } from '@gobob/wagmi';
 
+import { useFeatureFlag } from '../useFeatureFlag';
+import { useGetBridgeTransactions } from '../useGetBridgeTransactions';
+import { useGetGatewayTransactions } from '../useGetGatewayTransactions';
+import { useGetTransactions } from '../useGetTransactions';
+
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
@@ -28,11 +33,6 @@ vi.mock('../useGetGatewayTransactions', () => ({
 vi.mock('../useGetBridgeTransactions', () => ({
   useGetBridgeTransactions: vi.fn()
 }));
-
-import { useFeatureFlag } from '../useFeatureFlag';
-import { useGetBridgeTransactions } from '../useGetBridgeTransactions';
-import { useGetGatewayTransactions } from '../useGetGatewayTransactions';
-import { useGetTransactions } from '../useGetTransactions';
 
 describe('useGetTransactions', () => {
   beforeEach(() => {

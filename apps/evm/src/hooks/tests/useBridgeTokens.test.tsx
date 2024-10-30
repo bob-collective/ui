@@ -5,12 +5,12 @@ import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { ERC20Token } from '@gobob/currency';
 import { QueryClient, QueryClientProvider } from '@gobob/react-query';
 
+import { BridgeToken, useBridgeTokens } from '../useBridgeTokens';
+import { useTokens } from '../useTokens';
+
 vi.mock('../useTokens', () => ({
   useTokens: vi.fn()
 }));
-
-import { BridgeToken, useBridgeTokens } from '../useBridgeTokens';
-import { useTokens } from '../useTokens';
 
 const createQueryClient = () => new QueryClient();
 

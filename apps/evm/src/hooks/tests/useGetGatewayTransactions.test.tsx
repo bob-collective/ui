@@ -7,6 +7,12 @@ import { PropsWithChildren } from 'react';
 import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import { useAccount } from '@gobob/wagmi';
 
+import { useFeatureFlag } from '../useFeatureFlag';
+import { useGetGatewayTransactions } from '../useGetGatewayTransactions';
+
+import { gatewaySDK } from '@/lib/bob-sdk';
+import { esploraClient } from '@/utils';
+
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
@@ -36,12 +42,6 @@ vi.mock('@/utils', () => ({
     getLatestHeight: vi.fn()
   }
 }));
-
-import { useFeatureFlag } from '../useFeatureFlag';
-import { useGetGatewayTransactions } from '../useGetGatewayTransactions';
-
-import { gatewaySDK } from '@/lib/bob-sdk';
-import { esploraClient } from '@/utils';
 
 const createQueryClient = () => new QueryClient();
 

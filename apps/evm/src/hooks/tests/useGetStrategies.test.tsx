@@ -3,14 +3,14 @@ import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
+import { gatewaySDK } from '../../lib/bob-sdk';
+import { useGetStrategies } from '../useGetStrategies';
+
 vi.mock('../../lib/bob-sdk', () => ({
   gatewaySDK: {
     getStrategies: vi.fn()
   }
 }));
-
-import { gatewaySDK } from '../../lib/bob-sdk';
-import { useGetStrategies } from '../useGetStrategies';
 
 const createQueryClient = () => new QueryClient();
 

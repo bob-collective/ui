@@ -6,6 +6,9 @@ import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { useAccount, useBalance, usePublicClient } from '@gobob/wagmi';
 import { QueryClient, QueryClientProvider } from '@gobob/react-query';
 
+import { useBalances } from '../useBalances';
+import { useTokens } from '../useTokens';
+
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
@@ -20,9 +23,6 @@ vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
 vi.mock('../useTokens', () => ({
   useTokens: vi.fn()
 }));
-
-import { useBalances } from '../useBalances';
-import { useTokens } from '../useTokens';
 
 const createQueryClient = () => new QueryClient();
 
