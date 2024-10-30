@@ -136,7 +136,7 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
               onPress={() => setStrategyModalOpen(true)}
             >
               <Span color='grey-50' size='s' style={{ textDecoration: 'underline' }}>
-                Learn More about {strategy.raw.integration.name}
+                <Trans>Learn more about {strategy.raw.integration.name}</Trans>
               </Span>
             </UnstyledButton>
             <StrategyDetailsModal

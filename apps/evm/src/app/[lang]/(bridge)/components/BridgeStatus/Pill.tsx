@@ -1,8 +1,9 @@
 import { ArrowTopRightOnSquare, Span } from '@gobob/ui';
 
-import { Circle, CircleCheck, CircleX } from '../../bridge/icons';
-
 import { StyledLoadingSpinner, StyledPill } from './BridgeStatus.style';
+import { Circle } from './Circle';
+import { CircleCheck } from './CircleCheck';
+import { CircleX } from './CircleX';
 
 import { BridgeStepStatus } from '@/constants';
 
