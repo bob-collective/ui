@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { tokens } from '../tokens'; // Adjust the path as necessary
+import { tokens } from '../tokens';
 
 describe('Tokens Snapshot', () => {
   it('should match snapshot for tokens', () => {
