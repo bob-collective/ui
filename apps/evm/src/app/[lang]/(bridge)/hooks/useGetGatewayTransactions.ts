@@ -5,8 +5,7 @@ import { Address } from 'viem';
 import { ChainId } from '@gobob/chains';
 import { GatewayOrder } from '@gobob/bob-sdk';
 
-import { FeatureFlags, useFeatureFlag } from '../../../../hooks';
-
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { esploraClient } from '@/utils';
 import { GatewayDepositSteps } from '@/constants';

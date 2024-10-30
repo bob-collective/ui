@@ -13,6 +13,7 @@ import {
 } from '@gobob/react-query';
 import {
   BtcAddressType,
+  FeeRateReturnType,
   useAccount as useSatsAccount,
   useBalance as useSatsBalance,
   useFeeEstimate as useSatsFeeEstimate,
@@ -28,9 +29,6 @@ import * as Sentry from '@sentry/nextjs';
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
 import { isAddress } from 'viem';
 
-import { DUST_THRESHOLD } from '../constants/deposit';
-import { DEFAULT_GATEWAY_QUOTE_PARAMS } from '../constants/quote';
-
 import { useGetTransactions } from './useGetTransactions';
 
 import { gatewaySDK } from '@/lib/bob-sdk';
@@ -43,9 +41,18 @@ import {
   GatewayTransactionType
 } from '@/types';
 
+const DUST_THRESHOLD = 1000;
+
+const GAS_REFILL = 2000;
+
+const DEFAULT_GATEWAY_QUOTE_PARAMS: Required<Pick<GatewayQuoteParams, 'fromChain' | 'fromToken'>> = {
+  fromChain: 'bitcoin',
+  fromToken: 'BTC'
+};
+
 // TODO: base this on exchange rate
 const getMinAmount = (isTopUpEnabled: boolean) => {
-  const atomicAmount = isTopUpEnabled ? DUST_THRESHOLD + DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : DUST_THRESHOLD;
+  const atomicAmount = isTopUpEnabled ? DUST_THRESHOLD + GAS_REFILL : DUST_THRESHOLD;
 
   return CurrencyAmount.fromRawAmount(BITCOIN, atomicAmount);
 };
@@ -72,6 +79,15 @@ const getBalanceAmount = (
   }
 
   return availableBalance;
+};
+
+const feeRatesSelect = ({ esplora, memPool }: FeeRateReturnType): GatewayTransactionSpeedData => {
+  return {
+    fastest: Math.ceil(Math.min(esplora[2], memPool.fastestFee)),
+    fast: Math.ceil(Math.min(esplora[4], memPool.halfHourFee)),
+    slow: Math.ceil(Math.min(esplora[4], memPool.hourFee)),
+    minimum: Math.ceil(Math.min(esplora[1008], memPool.minimumFee))
+  };
 };
 
 type UseQuoteDataReturnType = {
@@ -202,14 +218,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
   const feeRatesQueryResult = useSatsFeeRate({
     query: {
-      select: ({ esplora, memPool }): GatewayTransactionSpeedData => {
-        return {
-          fastest: Math.ceil(Math.min(esplora[2], memPool.fastestFee)),
-          fast: Math.ceil(Math.min(esplora[4], memPool.halfHourFee)),
-          slow: Math.ceil(Math.min(esplora[4], memPool.hourFee)),
-          minimum: Math.ceil(Math.min(esplora[1008], memPool.minimumFee))
-        };
-      }
+      select: feeRatesSelect
     }
   });
 
@@ -263,7 +272,8 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     params.toToken,
     params.toChain,
     (params as StakeParams)?.strategyAddress,
-    rawAmount
+    rawAmount,
+    isTopUpEnabled
   );
 
   const quoteQueryResult = useQuery({
@@ -282,7 +292,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
       const quote = await gatewaySDK.getQuote({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
         amount: amount.numerator.toString(),
-        gasRefill: isTopUpEnabled ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
+        gasRefill: isTopUpEnabled ? GAS_REFILL : 0,
         toChain,
         toToken,
         strategyAddress: params.type === GatewayTransactionType.STAKE ? params.strategyAddress : undefined
@@ -349,7 +359,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
         toUserAddress: evmAddress,
         fromUserAddress: satsConnector.paymentAddress!,
         fromUserPublicKey: satsConnector.publicKey,
-        gasRefill: isTopUpEnabled ? DEFAULT_GATEWAY_QUOTE_PARAMS.gasRefill : 0,
+        gasRefill: isTopUpEnabled ? GAS_REFILL : 0,
         feeRate
       });
 

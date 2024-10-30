@@ -47,8 +47,17 @@ export const bridgeKeys = {
     toToken?: string,
     toChain?: string | number,
     strategyAddress?: string,
-    atomicAmount?: number | string | 'liquidity-check'
-  ) => [...bridgeKeys.btc(undefined, undefined), toToken, toChain, strategyAddress, atomicAmount, 'quote'],
+    atomicAmount?: number | string | 'liquidity-check',
+    gasRefill?: boolean
+  ) => [
+    ...bridgeKeys.btc(undefined, undefined),
+    toToken,
+    toChain,
+    strategyAddress,
+    atomicAmount,
+    'quote',
+    gasRefill ? 'gas-refill' : 'no-gas-refill'
+  ],
   btcDeposit: (address: Address | undefined, btcAddress: string | undefined) => [
     ...bridgeKeys.btc(address, btcAddress),
     'deposit'

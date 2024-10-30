@@ -168,7 +168,7 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
         gateway={gateway}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
-        <Trans>{gateway.isReady ? 'Stake' : 'Preparing...'}</Trans>
+        {gateway.isReady ? <Trans>Stake</Trans> : <Trans>Preparing...</Trans>}
       </AuthButton>
     </Flex>
   );

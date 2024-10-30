@@ -144,7 +144,7 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
         gateway={gateway}
       />
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
-        <Trans>{gateway.isReady ? 'Bridge Asset' : 'Preparing...'}</Trans>
+        {gateway.isReady ? <Trans>Bridge Asset</Trans> : <Trans>Preparing...</Trans>}
       </AuthButton>
     </Flex>
   );

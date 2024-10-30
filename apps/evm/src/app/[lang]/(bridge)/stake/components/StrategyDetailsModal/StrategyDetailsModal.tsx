@@ -154,7 +154,9 @@ const StrategyDetailsModal = ({ strategy, onClose, ...props }: StrategyDetailsMo
 
   return (
     <Modal onClose={onClose} {...props}>
-      <ModalHeader align='start'>Asset Details</ModalHeader>
+      <ModalHeader align='start'>
+        <Trans>Asset Details</Trans>
+      </ModalHeader>
       <ModalBody gap='2xl'>
         <Flex alignItems='center' direction={'column'} gap='s'>
           {strategy?.raw.integration.logo ? (

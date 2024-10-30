@@ -19,8 +19,8 @@ msgstr ", due to the challenge period"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
-msgid "{0}"
-msgstr "{0}"
+#~ msgid "{0}"
+#~ msgstr "{0}"
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:50
 msgid "{0} ago"
@@ -127,6 +127,10 @@ msgstr "Apps Used"
 msgid "Asset"
 msgstr "Asset"
 
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:158
+msgid "Asset Details"
+msgstr "Asset Details"
+
 #: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:13
 msgid "Audited by"
 msgstr "Audited by"
@@ -210,6 +214,7 @@ msgid "Bridge"
 msgstr "Bridge"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:516
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
 
@@ -289,7 +294,7 @@ msgstr "Click the <0/> icon next to your favourite apps"
 
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:109
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:93
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:185
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:187
 msgid "Close"
 msgstr "Close"
 
@@ -503,7 +508,7 @@ msgstr "Failed to connect to {0}"
 msgid "Failed to finalize."
 msgstr "Failed to finalize."
 
-#: src/app/[lang]/(bridge)/hooks/useGateway.ts:230
+#: src/app/[lang]/(bridge)/hooks/useGateway.ts:239
 msgid "Failed to get estimated fee"
 msgstr "Failed to get estimated fee"
 
@@ -527,6 +532,10 @@ msgstr "Failed to withdraw USDT to L1. Please try again."
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:194
 msgid "Featured Assets"
 msgstr "Featured Assets"
+
+#: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:77
+msgid "Fee"
+msgstr "Fee"
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:78
 msgid "Fetching bridging operations..."
@@ -580,7 +589,7 @@ msgstr "Fusion season three"
 msgid "Fusion Users:"
 msgstr "Fusion Users:"
 
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:117
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:116
 msgid "Gas Token"
 msgstr "Gas Token"
 
@@ -894,6 +903,11 @@ msgstr "Please note:"
 msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
+msgid "Preparing..."
+msgstr "Preparing..."
+
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:273
 msgid "Privacy policy"
 msgstr "Privacy policy"
@@ -1031,7 +1045,7 @@ msgstr "Select Bitcoin Wallet"
 msgid "Select EVM Wallet"
 msgstr "Select EVM Wallet"
 
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:120
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:119
 msgid "select gas token"
 msgstr "select gas token"
 
@@ -1055,7 +1069,7 @@ msgstr "Select Strategy"
 msgid "Select the wrapped Bitcoin asset and the amount that you want to bridge."
 msgstr "Select the wrapped Bitcoin asset and the amount that you want to bridge."
 
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:122
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:121
 msgid "Select Token"
 msgstr "Select Token"
 
@@ -1170,6 +1184,7 @@ msgstr "Spice rewards (Higher)"
 msgid "Spice rewards (Medium)"
 msgstr "Spice rewards (Medium)"
 
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/app/[lang]/(bridge)/stake/Stake.tsx:65
 #: src/components/Layout/Header.tsx:80
@@ -1423,7 +1438,7 @@ msgstr "Transaction submitted"
 msgid "Transaction Submitted"
 msgstr "Transaction Submitted"
 
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:109
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:108
 msgid "Transfer time"
 msgstr "Transfer time"
 
@@ -1630,7 +1645,7 @@ msgid "You will need to actively monitor your position, especially if it has a s
 msgstr "You will need to actively monitor your position, especially if it has a small range."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:138
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:87
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:71
 msgid "You will receive"
 msgstr "You will receive"
