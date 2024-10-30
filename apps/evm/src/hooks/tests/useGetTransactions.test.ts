@@ -26,13 +26,23 @@ vi.mock(import('../useFeatureFlag'), async (importOriginal) => {
   };
 });
 
-vi.mock('../useGetGatewayTransactions', () => ({
-  useGetGatewayTransactions: vi.fn()
-}));
+vi.mock(import('../useGetGatewayTransactions'), async (importOriginal) => {
+  const actual = await importOriginal();
 
-vi.mock('../useGetBridgeTransactions', () => ({
-  useGetBridgeTransactions: vi.fn()
-}));
+  return {
+    ...actual,
+    useGetGatewayTransactions: vi.fn()
+  };
+});
+
+vi.mock(import('../useGetBridgeTransactions'), async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
+    useGetBridgeTransactions: vi.fn()
+  };
+});
 
 describe('useGetTransactions', () => {
   beforeEach(() => {

@@ -4,8 +4,8 @@ import { useAccount } from '@gobob/wagmi';
 import { useEffect, useMemo, useState } from 'react';
 
 import { BridgeTransaction, useGetBridgeTransactions } from './useGetBridgeTransactions';
-
-import { FeatureFlags, GatewayTransaction, useFeatureFlag, useGetGatewayTransactions } from '.';
+import { GatewayTransaction, useGetGatewayTransactions } from './useGetGatewayTransactions';
+import { FeatureFlags, useFeatureFlag } from './useFeatureFlag';
 
 type Transaction = BridgeTransaction | GatewayTransaction;
 
