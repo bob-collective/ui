@@ -424,4 +424,4 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 };
 
 export { useGateway };
-export type { UseLiquidityDataReturnType, UseGatewayReturnType, UseGatewayQueryDataReturnType, UseQuoteDataReturnType };
+export type { UseGatewayReturnType, UseGatewayQueryDataReturnType };

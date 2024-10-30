@@ -30,7 +30,7 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type GatewayTransactionModalProps = Props & InheritAttrs;
 
 const GatewayTransactionModal = ({ data, onClose, ...props }: GatewayTransactionModalProps): JSX.Element => {
-  const { assetName, fee, txId } = data;
+  const { assetName, fee, txId, amount } = data;
   const { data: transactions } = useGetGatewayTransactions();
 
   const txData = transactions?.find((tx) => tx.type === TransactionType.Gateway && tx.btcTxId === txId);
@@ -70,7 +70,7 @@ const GatewayTransactionModal = ({ data, onClose, ...props }: GatewayTransaction
                   <Dt color='grey-50' size='xs'>
                     <Trans>You will receive</Trans>
                   </Dt>
-                  <Dd size='xs'>{assetName}</Dd>
+                  <Dd size='xs'>{amount ? <AmountLabel amount={amount} /> : assetName}</Dd>
                 </DlGroup>
                 <DlGroup wrap gap='xs' justifyContent='space-between'>
                   <Dt color='grey-50' size='xs'>

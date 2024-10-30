@@ -9,6 +9,8 @@ import { getWithdrawals } from 'viem/op-stack';
 import * as Sentry from '@sentry/nextjs';
 import { Trans } from '@lingui/macro';
 
+import { BridgeTransaction, useGetTransactions } from '../../hooks';
+
 import { TimeStep } from './TimeStep';
 import { ProveStep } from './ProveStep';
 import { RelayStep } from './RelayStep';
@@ -16,7 +18,6 @@ import { BridgeStep } from './BridgeStep';
 
 import { usePublicClientL1, usePublicClientL2, useWalletClientL1, useWalletClientL2 } from '@/hooks';
 import { bridgeKeys } from '@/lib/react-query';
-import { BridgeTransaction, useGetTransactions } from '@/app/[lang]/(bridge)/hooks/useGetTransactions';
 import { getOngoingBridgeStep } from '@/utils/status';
 
 type Props = { data: BridgeTransaction; isExpanded: boolean };

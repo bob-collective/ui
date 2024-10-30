@@ -8,10 +8,9 @@ import { useCallback } from 'react';
 import { TransactionReceipt, isAddressEqual } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
 
-import { useBridgeTokens } from '../../../../hooks/useBridgeTokens';
-import { usePublicClientL1, usePublicClientL2 } from '../../../../hooks/usePublicClient';
+import { useBridgeTokens, usePublicClientL1, usePublicClientL2 } from '../../../../hooks';
 
-import { L1_CHAIN, L2_CHAIN, ETH, wstETH } from '@/constants';
+import { ETH, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
 import { bridgeKeys, queryClient } from '@/lib/react-query';
 import { MessageDirection, MessageStatus, TransactionType } from '@/types';
 

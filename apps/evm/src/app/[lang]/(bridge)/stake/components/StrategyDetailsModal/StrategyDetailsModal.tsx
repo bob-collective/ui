@@ -189,4 +189,4 @@ const StrategyDetailsModal = ({ strategy, onClose, ...props }: StrategyDetailsMo
   );
 };
 
-export { stakingInfo, StrategyDetailsModal };
+export { StrategyDetailsModal };
