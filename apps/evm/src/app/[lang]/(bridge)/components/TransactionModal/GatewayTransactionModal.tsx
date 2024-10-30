@@ -17,9 +17,9 @@ import {
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 
-import { AmountLabel, Chain } from '../../../../../components';
 import { useGetGatewayTransactions } from '../../hooks';
 
+import { AmountLabel, Chain } from '@/components';
 import { L2_CHAIN } from '@/constants';
 import { GatewayData, TransactionType } from '@/types';
 
@@ -74,7 +74,7 @@ const GatewayTransactionModal = ({ data, onClose, ...props }: GatewayTransaction
                 </DlGroup>
                 <DlGroup wrap gap='xs' justifyContent='space-between'>
                   <Dt color='grey-50' size='xs'>
-                    Fee
+                    <Trans>Fee</Trans>
                   </Dt>
                   <Dd size='xs'>
                     <Flex alignItems='center' elementType='span' gap='s'>

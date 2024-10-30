@@ -16,9 +16,9 @@ import {
 import { Address } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
 
-import { Chain } from '../../../../../components';
 import { TransactionDetails } from '../TransactionDetails';
 
+import { Chain } from '@/components';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { MessageDirection } from '@/types';
 import { getDuration } from '@/utils';

@@ -20,12 +20,12 @@ import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { ReactNode, useState } from 'react';
 
-import { AmountLabel } from '../../../../../components';
 import { UseGatewayReturnType } from '../../hooks';
 
 import { GatewayFeeSettingsModal } from './GatewayFeeSettingsModal';
 import { StyledDlGroup, StyledDt } from './GatewayTransactionDetails.style';
 
+import { AmountLabel } from '@/components';
 import { GatewayTransactionType } from '@/types';
 import { isHighFeeRate, isLowFeeRate } from '@/utils/gateway';
 

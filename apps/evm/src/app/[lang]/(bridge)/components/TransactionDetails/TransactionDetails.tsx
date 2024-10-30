@@ -18,10 +18,9 @@ import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { ReactNode, useMemo } from 'react';
 
-import { AmountLabel } from '../../../../../components';
-
 import { StyledDlGroup, StyledDt, StyledSelect } from './TransactionDetails.style';
 
+import { AmountLabel } from '@/components';
 import { useBalances, useGasTokens } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
 
