@@ -289,6 +289,7 @@ msgstr "Click the <0/> icon next to your favourite apps"
 
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:109
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:93
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:185
 msgid "Close"
 msgstr "Close"
 
@@ -1170,7 +1171,7 @@ msgid "Spice rewards (Medium)"
 msgstr "Spice rewards (Medium)"
 
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
-#: src/app/[lang]/(bridge)/stake/Stake.tsx:62
+#: src/app/[lang]/(bridge)/stake/Stake.tsx:65
 #: src/components/Layout/Header.tsx:80
 #: src/components/Layout/Sidebar.tsx:55
 msgid "Stake"
@@ -1447,7 +1448,7 @@ msgstr "uniBTC represents the staked wBTC plus all future staking rewards and ac
 msgid "Unknown"
 msgstr "Unknown"
 
-#: src/app/[lang]/(bridge)/stake/Stake.tsx:65
+#: src/app/[lang]/(bridge)/stake/Stake.tsx:68
 msgid "Unstake"
 msgstr "Unstake"
 

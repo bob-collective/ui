@@ -182,7 +182,7 @@ const StrategyDetailsModal = ({ strategy, onClose, ...props }: StrategyDetailsMo
       </ModalBody>
       <ModalFooter>
         <Button color='primary' size='lg' onPress={onClose}>
-          Close
+          <Trans>Close</Trans>
         </Button>
       </ModalFooter>
     </Modal>

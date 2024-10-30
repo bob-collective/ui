@@ -114,4 +114,4 @@ const useGetGatewayTransactions = ({ query }: UseFeeRateProps = {}) => {
 };
 
 export { useGetGatewayTransactions };
-export type { GatewayTransaction };
+export type { GatewayTransaction, GetGatewayTransactionsReturnType };

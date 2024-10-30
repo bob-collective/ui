@@ -7,7 +7,7 @@ import { Trans } from '@lingui/macro';
 
 import { Layout } from '../components';
 import { TransactionList } from '../components';
-import { useGetGatewayTransactions } from '../hooks';
+import { GetGatewayTransactionsReturnType, useGetGatewayTransactions } from '../hooks';
 
 import { StakingForm } from './components';
 import { useGetStakingStrategies } from './hooks';
@@ -25,9 +25,12 @@ type Props = PageLangParam & {
   searchParams?: { type: Type; 'stake-with': string };
 };
 
+const select = (data: GetGatewayTransactionsReturnType) =>
+  data.filter((item) => item.subType === GatewayTransactionType.STAKE);
+
 function Stake({ searchParams }: Props) {
   const { data: transactions, isPending } = useGetGatewayTransactions({
-    query: { select: (data) => data.filter((item) => item.subType === GatewayTransactionType.STAKE) }
+    query: { select }
   });
 
   const { data: strategies = [] } = useGetStakingStrategies();
