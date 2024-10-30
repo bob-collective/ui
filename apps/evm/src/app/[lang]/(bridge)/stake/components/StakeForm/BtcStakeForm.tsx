@@ -63,7 +63,7 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
   const sortedStrategies = useMemo(
     () =>
       strategies.toSorted((strategyA, strategyB) =>
-        strategyA.raw.integration.type.localeCompare(strategyB.raw.integration.type)
+        strategyB.raw.integration.type.localeCompare(strategyA.raw.integration.type)
       ),
     [strategies]
   );
