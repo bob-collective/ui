@@ -1,4 +1,4 @@
-import { Bitcoin, Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
+import { Bitcoin, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { Address } from 'viem';
 
 type L2BridgeData = {
@@ -9,14 +9,21 @@ type L2BridgeData = {
 };
 
 type GatewayData = {
-  txid?: string;
-  amount: CurrencyAmount<Currency> | CurrencyAmount<Currency>[];
+  txId?: string;
+  type: GatewayTransactionType;
+  amount?: CurrencyAmount<ERC20Token>;
+  assetName?: string;
   fee: CurrencyAmount<Bitcoin>;
 };
 
 enum TransactionType {
-  Bridge,
-  Gateway
+  Bridge = 'bridge',
+  Gateway = 'gateway'
+}
+
+enum GatewayTransactionType {
+  BRIDGE = 'bridge',
+  STAKE = 'stake'
 }
 
 enum MessageDirection {
@@ -48,5 +55,5 @@ type GatewayTransactionFee =
   | { speed: Exclude<GatewayTransactionSpeed, GatewayTransactionSpeed.MINIMUM | GatewayTransactionSpeed.CUSTOM> }
   | { speed: GatewayTransactionSpeed.CUSTOM; networkRate: number };
 
-export { TransactionType, MessageStatus, MessageDirection, GatewayTransactionSpeed };
+export { TransactionType, MessageStatus, MessageDirection, GatewayTransactionSpeed, GatewayTransactionType };
 export type { L2BridgeData, GatewayData, GatewayTransactionFee, GatewayTransactionSpeedData };

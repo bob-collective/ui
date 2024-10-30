@@ -4,7 +4,6 @@ import { CurrencyAmount, Token } from '@gobob/currency';
 import { useMutation, usePrices } from '@gobob/react-query';
 import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { BITCOIN, NATIVE } from '@gobob/tokens';
-import { toast } from '@gobob/ui';
 import {
   Button,
   Flex,
@@ -15,18 +14,19 @@ import {
   ModalHeader,
   ModalProps,
   TokenInput,
+  toast,
   useForm
 } from '@gobob/ui';
 import { useSendTransaction, useSimulateContract, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
+import { Trans, t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Address, erc20Abi } from 'viem';
-import { Trans, t } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
 
+import { TransactionDetails } from '@/app/[lang]/(bridge)/components/TransactionDetails';
 import { AuthButton } from '@/connect-ui';
-import { TransactionDetails } from '@/components';
 import { L2_CHAIN } from '@/constants';
 import { TokenData, useBalances } from '@/hooks';
 import { isFormDisabled } from '@/lib/form/utils';

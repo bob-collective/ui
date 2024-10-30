@@ -61,7 +61,8 @@ const AuthButton = ({
       const buttonProps = {
         onPress: () => open(),
         children: t(i18n)`Connect Wallet`,
-        ...props
+        ...props,
+        loading: false
       };
 
       return <Button {...buttonProps} />;
@@ -91,7 +92,8 @@ const AuthButton = ({
       const buttonProps = {
         onPress: () => open(),
         children: t(i18n)`Connect BTC Wallet`,
-        ...props
+        ...props,
+        loading: false
       };
 
       return <Button {...buttonProps} />;
@@ -102,7 +104,7 @@ const AuthButton = ({
 
   const buttonProps =
     isBtcAuthRequired && !btcAddress
-      ? { onPress: () => open(), children: t(i18n)`Connect BTC Wallet`, ...props }
+      ? { onPress: () => open(), children: t(i18n)`Connect BTC Wallet`, ...props, loading: false }
       : inferredProps;
 
   return <Button {...buttonProps} />;
