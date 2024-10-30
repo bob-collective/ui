@@ -38,7 +38,7 @@ const SelectStrategy = ({ children, data }: PropsWithChildren<{ data: StrategyDa
       ) : (
         <PellNetwork style={children ? { height: '2rem', width: '2rem' } : { height: '1.3rem', width: '1.3rem' }} />
       )}
-      <P align='start' style={{ color: 'inherit', lineHeight: '1rem' }}>
+      <P align='start' style={{ color: 'inherit', lineHeight: children ? '1rem' : undefined }}>
         {data.raw.integration.name}
         {children}
       </P>
