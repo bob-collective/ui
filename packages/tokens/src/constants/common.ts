@@ -2,34 +2,34 @@ import { ChainId } from '@gobob/chains';
 import { Bitcoin, ERC20Token } from '@gobob/currency';
 import tokenList from 'tokenlist';
 
-enum CommonToken {
-  DAI = 'DAI',
-  DLLR = 'DLLR',
-  FBTC = 'FBTC',
-  FRAX = 'FRAX',
-  FXS = 'FXS',
-  rETH = 'rETH',
-  sFRAX = 'sFRAX',
-  sfrxETH = 'sfrxETH',
-  SOV = 'SOV',
-  STONE = 'STONE',
-  T = 'T',
-  tBTC = 'tBTC',
-  TRB = 'TRB',
-  USDC = 'USDC',
-  USDT = 'USDT',
-  WBTC = 'WBTC',
-  wstETH = 'wstETH'
-}
+export const CommonToken = {
+  DAI: 'DAI',
+  DLLR: 'DLLR',
+  FBTC: 'FBTC',
+  FRAX: 'FRAX',
+  FXS: 'FXS',
+  rETH: 'rETH',
+  sFRAX: 'sFRAX',
+  sfrxETH: 'sfrxETH',
+  SOV: 'SOV',
+  STONE: 'STONE',
+  T: 'T',
+  tBTC: 'tBTC',
+  TRB: 'TRB',
+  USDC: 'USDC',
+  USDT: 'USDT',
+  WBTC: 'WBTC',
+  wstETH: 'wstETH'
+} as const;
 
 const commonTokenSet = new Set(Object.values(CommonToken) as string[]);
 
-function isCommonToken(symbol: string): symbol is CommonToken {
+function isCommonToken(symbol: string): symbol is keyof typeof CommonToken {
   return commonTokenSet.has(symbol);
 }
 
-const commonTokens = (tokenList.tokens as any[]).reduce<
-  Partial<Record<CommonToken, Partial<Record<ChainId, ERC20Token>>>>
+export const commonTokens = (tokenList.tokens as any[]).reduce<
+  Partial<Record<keyof typeof CommonToken, Partial<Record<ChainId, ERC20Token>>>>
 >(
   (acc, { symbol, chainId, address, decimals, name }) => {
     if (isCommonToken(symbol)) {
@@ -40,7 +40,7 @@ const commonTokens = (tokenList.tokens as any[]).reduce<
 
     return acc;
   },
-  {} as Record<CommonToken, Record<ChainId, ERC20Token>>
+  {} as Record<keyof typeof CommonToken, Record<ChainId, ERC20Token>>
 );
 
 export const USDC = commonTokens[CommonToken.USDC];
