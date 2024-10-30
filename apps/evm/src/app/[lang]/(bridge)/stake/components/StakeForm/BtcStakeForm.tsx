@@ -34,9 +34,9 @@ const SelectStrategy = ({ children, data }: PropsWithChildren<{ data: StrategyDa
   return (
     <Flex alignItems='center' gap='s'>
       {data.raw.integration.logo ? (
-        <Avatar size={children ? '3xl' : '2xl'} src={data.raw.integration.logo} />
+        <Avatar size={children ? '4xl' : '2xl'} src={data.raw.integration.logo} />
       ) : (
-        <PellNetwork />
+        <PellNetwork style={children ? { height: '2rem', width: '2rem' } : { height: '1.3rem', width: '1.3rem' }} />
       )}
       <P align='start' style={{ color: 'inherit', lineHeight: '1rem' }}>
         {data.raw.integration.name}
@@ -149,7 +149,7 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
               <SelectStrategy data={data}>
                 <>
                   <br />
-                  <Span color='grey-50' size='s'>
+                  <Span color='grey-50' size='s' style={{ textTransform: 'capitalize' }}>
                     {data.raw.integration.type}
                   </Span>
                 </>
