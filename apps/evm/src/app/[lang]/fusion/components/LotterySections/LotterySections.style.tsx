@@ -7,6 +7,7 @@ const StyledButton = styled(Button)`
 
 const StyledCard = styled(Card)`
   position: relative;
+  border-radius: ${({ theme }) => theme.rounded('3xl')};
 `;
 
 export { StyledButton, StyledCard };
