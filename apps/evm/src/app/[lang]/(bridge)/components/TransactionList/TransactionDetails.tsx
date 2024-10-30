@@ -1,17 +1,16 @@
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { ArrowLongRight, Flex, FlexProps, P, UnstyledButton } from '@gobob/ui';
-import { formatDistanceToNow } from 'date-fns';
 import { Trans } from '@lingui/macro';
-
-import { Type } from '../../bridge/Bridge';
+import { formatDistanceToNow } from 'date-fns';
 
 import { StyledDetailsButton, StyledExpandIcon } from './TransactionList.style';
 
 import { Chain } from '@/components';
+import { TransactionDirection } from '@/types';
 
 type Props = {
-  type: Type;
+  direction: TransactionDirection;
   date: Date;
   fromChainId: ChainId | 'BTC';
   toChainId: ChainId | 'BTC';
@@ -26,7 +25,7 @@ type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 type TransactionDetailsProps = Props & InheritAttrs;
 
 const TransactionDetails = ({
-  type,
+  direction,
   date,
   fromChainId,
   toChainId,
@@ -36,7 +35,7 @@ const TransactionDetails = ({
   onExpand,
   ...props
 }: TransactionDetailsProps): JSX.Element => {
-  const directionLabel = type === Type.Deposit ? <Trans>Deposit</Trans> : <Trans>Withdraw</Trans>;
+  const directionLabel = direction === TransactionDirection.L1_TO_L2 ? <Trans>Deposit</Trans> : <Trans>Withdraw</Trans>;
 
   const isExpandable = !!onExpand;
 

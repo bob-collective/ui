@@ -21,9 +21,9 @@ import { useGetGatewayTransactions } from '../../hooks';
 
 import { AmountLabel, Chain } from '@/components';
 import { L2_CHAIN } from '@/constants';
-import { GatewayData, TransactionType } from '@/types';
+import { InitGatewayTransaction } from '@/types';
 
-type Props = { data: GatewayData };
+type Props = { data: InitGatewayTransaction };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
@@ -33,7 +33,7 @@ const GatewayTransactionModal = ({ data, onClose, ...props }: GatewayTransaction
   const { assetName, fee, txId, amount } = data;
   const { data: transactions } = useGetGatewayTransactions();
 
-  const txData = transactions?.find((tx) => tx.type === TransactionType.Gateway && tx.btcTxId === txId);
+  const txData = transactions?.find((tx) => tx.btcTxId === txId);
 
   const isSubmitted = !!txData;
 

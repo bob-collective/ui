@@ -1,23 +1,21 @@
 'use client';
 
-import { MessageDirection, NumberLike } from '@eth-optimism/sdk';
+import { NumberLike } from '@eth-optimism/sdk';
 import { Currency, CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { UINT_256_MAX, useApproval } from '@gobob/hooks';
 import { INTERVAL, useMutation, usePrices, useQuery } from '@gobob/react-query';
 import { USDC } from '@gobob/tokens';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { useAccount, useChainId, useIsContract, usePublicClient } from '@gobob/wagmi';
+import { t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
-import { useDebounceValue } from 'usehooks-ts';
 import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
-import { useLingui } from '@lingui/react';
-import { t } from '@lingui/macro';
 
-import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
-import { Type } from '../../Bridge';
-import { useGetTransactions } from '../../../hooks';
+import { USDCCrossBridgeConfig, useCrossChainMessenger, useGetTransactions } from '../../hooks';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -26,29 +24,35 @@ import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { BridgeToken, useBalances, useBridgeTokens } from '@/hooks';
 import {
   BRIDGE_AMOUNT,
+  BRIDGE_ASSET,
   BRIDGE_BTC_WALLET,
   BRIDGE_GAS_TOKEN,
   BRIDGE_RECIPIENT,
-  BRIDGE_ASSET,
   BridgeFormValidationParams,
   BridgeFormValues,
   bridgeSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
-import { L2BridgeData } from '@/types';
+import {
+  BridgeTransaction,
+  BridgeTransactionStatus,
+  InitBridgeTransaction,
+  TransactionDirection,
+  TransactionType
+} from '@/types';
 
 type BobBridgeFormProps = {
-  type: Type;
+  direction: TransactionDirection;
   ticker?: string;
-  onStartBridge?: (data: L2BridgeData) => void;
-  onBridgeSuccess?: (data: L2BridgeData) => void;
-  onStartApproval?: (data: L2BridgeData) => void;
+  onStartBridge?: (data: InitBridgeTransaction) => void;
+  onBridgeSuccess?: (data: BridgeTransaction) => void;
+  onStartApproval?: (data: InitBridgeTransaction) => void;
   onFailBridge?: () => void;
 };
 
 // TODO: erc20 gas estimate (currently is failing)
 const BobBridgeForm = ({
-  type = Type.Deposit,
+  direction = TransactionDirection.L1_TO_L2,
   ticker: tickerProp,
   onBridgeSuccess,
   onStartBridge,
@@ -56,7 +60,7 @@ const BobBridgeForm = ({
   onStartApproval
 }: BobBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
-  const bridgeChainId = useMemo(() => (type === Type.Deposit ? L1_CHAIN : L2_CHAIN), [type]);
+  const bridgeChainId = useMemo(() => (direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN), [direction]);
 
   const publicClient = usePublicClient();
   const chainId = useChainId();
@@ -65,7 +69,7 @@ const BobBridgeForm = ({
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
   const { getBalance } = useBalances(bridgeChainId);
 
-  const { refetchBridgeTxs } = useGetTransactions();
+  const { refetch: refetchTransactions } = useGetTransactions();
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
 
@@ -85,9 +89,10 @@ const BobBridgeForm = ({
 
     return {
       selectedToken,
-      selectedCurrency: type === Type.Deposit ? selectedToken?.l1Currency : selectedToken?.l2Currency
+      selectedCurrency:
+        direction === TransactionDirection.L1_TO_L2 ? selectedToken?.l1Currency : selectedToken?.l2Currency
     };
-  }, [ticker, tokens, type]);
+  }, [ticker, tokens, direction]);
 
   const selectedGasToken = useMemo(
     () => tokens?.find((token) => token.l1Currency.symbol === gasTicker),
@@ -132,7 +137,7 @@ const BobBridgeForm = ({
       if (currencyAmount.currency.isNative) {
         const amount = currencyAmount.numerator.toString();
 
-        const gasAmount = await (type === Type.Deposit
+        const gasAmount = await (direction === TransactionDirection.L1_TO_L2
           ? messenger.estimateGas.depositETH(amount)
           : messenger.estimateGas.withdrawETH(amount));
 
@@ -144,7 +149,7 @@ const BobBridgeForm = ({
       const amount = currencyAmount.numerator.toString();
 
       // TODO: USDC requires approval on withdraw
-      if (type === Type.Deposit) {
+      if (direction === TransactionDirection.L1_TO_L2) {
         const approval = await messenger.approval(l1Address, l2Address);
 
         const approvalAmount = CurrencyAmount.fromRawAmount(currencyAmount.currency, approval.toBigInt());
@@ -160,7 +165,7 @@ const BobBridgeForm = ({
         }
       }
 
-      const gasAmount = await (type === Type.Deposit
+      const gasAmount = await (direction === TransactionDirection.L1_TO_L2
         ? messenger.estimateGas.depositERC20(l1Address, l2Address, amount)
         : messenger.estimateGas.withdrawERC20(l1Address, l2Address, amount));
 
@@ -169,8 +174,11 @@ const BobBridgeForm = ({
   });
 
   const isBridgeDisabled = useMemo(
-    () => (type === Type.Deposit ? selectedToken?.l1Token.bridgeDisabled : selectedToken?.l2Token.bridgeDisabled),
-    [type, selectedToken]
+    () =>
+      direction === TransactionDirection.L1_TO_L2
+        ? selectedToken?.l1Token.bridgeDisabled
+        : selectedToken?.l2Token.bridgeDisabled,
+    [direction, selectedToken]
   );
 
   const {
@@ -181,7 +189,11 @@ const BobBridgeForm = ({
   } = useQuery({
     queryKey: ['allowance', ticker, address],
     enabled: Boolean(
-      !isBridgeDisabled && currencyAmount && address && selectedCurrency?.isToken && type === Type.Deposit
+      !isBridgeDisabled &&
+        currencyAmount &&
+        address &&
+        selectedCurrency?.isToken &&
+        direction === TransactionDirection.L1_TO_L2
     ),
     queryFn: async () => {
       if (!messenger) {
@@ -209,15 +221,13 @@ const BobBridgeForm = ({
     mutationKey: ['deposit', address],
     mutationFn: async ({
       currencyAmount,
-      selectedGasToken,
       selectedToken,
       recipient
     }: {
       selectedToken: BridgeToken;
-      selectedGasToken: BridgeToken;
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
       recipient: Address;
-    }) => {
+    }): Promise<BridgeTransaction> => {
       if (!messenger) {
         throw new Error('Missing messenger');
       }
@@ -226,10 +236,14 @@ const BobBridgeForm = ({
         throw new Error('Allowance data missing');
       }
 
-      const data = {
+      const data: InitBridgeTransaction = {
         amount: currencyAmount,
-        gasEstimate: gasEstimateMutation.data || CurrencyAmount.fromRawAmount(selectedGasToken.l1Currency, 0n),
-        direction: MessageDirection.L1_TO_L2
+        direction: TransactionDirection.L1_TO_L2,
+        from: address!,
+        to: recipient,
+        l1Token: selectedToken.l1Token.address,
+        l2Token: selectedToken.l2Token.address,
+        type: TransactionType.Bridge
       };
 
       if (currencyAmount.currency.isNative) {
@@ -239,7 +253,9 @@ const BobBridgeForm = ({
 
         return {
           ...data,
-          transactionHash: tx.hash as Address
+          transactionHash: tx.hash as Address,
+          status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
+          date: new Date()
         };
       }
 
@@ -262,7 +278,9 @@ const BobBridgeForm = ({
 
       return {
         ...data,
-        transactionHash: tx.hash as Address
+        transactionHash: tx.hash as Address,
+        status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
+        date: new Date()
       };
     },
     onSuccess: (data) => {
@@ -270,7 +288,7 @@ const BobBridgeForm = ({
       setAmount('');
       onBridgeSuccess?.(data);
       form.resetForm();
-      refetchBridgeTxs();
+      refetchTransactions.bridge();
     },
     onError: (error) => {
       onFailBridge?.();
@@ -279,8 +297,11 @@ const BobBridgeForm = ({
   });
 
   const isUSDCWithdraw = useMemo(
-    () => currencyAmount && type === Type.Withdraw && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency),
-    [type, currencyAmount]
+    () =>
+      currencyAmount &&
+      direction === TransactionDirection.L2_TO_L1 &&
+      USDC?.[L2_CHAIN]?.equals(currencyAmount.currency),
+    [direction, currencyAmount]
   );
 
   const {
@@ -296,23 +317,25 @@ const BobBridgeForm = ({
     mutationKey: ['withdraw', address],
     mutationFn: async ({
       currencyAmount,
-      selectedGasToken,
       selectedToken,
       recipient
     }: {
       selectedToken: BridgeToken;
-      selectedGasToken: BridgeToken;
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
       recipient: Address;
-    }) => {
+    }): Promise<BridgeTransaction> => {
       if (!messenger) {
         throw new Error('Missing messenger');
       }
 
-      const data = {
+      const data: InitBridgeTransaction = {
         amount: currencyAmount,
-        gasEstimate: gasEstimateMutation.data || CurrencyAmount.fromRawAmount(selectedGasToken.l2Currency, 0n),
-        direction: MessageDirection.L2_TO_L1
+        direction: TransactionDirection.L2_TO_L1,
+        from: address!,
+        to: recipient,
+        l1Token: selectedToken.l1Token.address,
+        l2Token: selectedToken.l2Token.address,
+        type: TransactionType.Bridge
       };
 
       if (currencyAmount.currency.isNative) {
@@ -322,7 +345,9 @@ const BobBridgeForm = ({
 
         return {
           ...data,
-          transactionHash: tx.hash as Address
+          transactionHash: tx.hash as Address,
+          status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
+          date: new Date()
         };
       }
 
@@ -348,7 +373,9 @@ const BobBridgeForm = ({
 
       return {
         ...data,
-        transactionHash: tx.hash as Address
+        transactionHash: tx.hash as Address,
+        status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
+        date: new Date()
       };
     },
     onSuccess: (data) => {
@@ -356,7 +383,7 @@ const BobBridgeForm = ({
       setAmount('');
       onBridgeSuccess?.(data);
       form.resetForm();
-      refetchBridgeTxs();
+      refetchTransactions.bridge();
     },
     onError: (error) => {
       onFailBridge?.();
@@ -366,7 +393,7 @@ const BobBridgeForm = ({
 
   const handleChangeCurrencyAmount = (currencyAmount: CurrencyAmount<ERC20Token | Ether>, token: BridgeToken) => {
     if (
-      type === Type.Deposit &&
+      direction === TransactionDirection.L1_TO_L2 &&
       chainId === L1_CHAIN &&
       currencyAmount.currency.isToken &&
       currencyAmount.greaterThan(0)
@@ -402,7 +429,7 @@ const BobBridgeForm = ({
     setGasTicker(nativeToken.symbol);
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type]);
+  }, [direction]);
 
   useEffect(() => {
     if (currencyAmount && selectedToken) {
@@ -416,10 +443,9 @@ const BobBridgeForm = ({
 
     const recipient = (data[BRIDGE_RECIPIENT] as Address) || undefined;
 
-    if (type === Type.Deposit) {
+    if (direction === TransactionDirection.L1_TO_L2) {
       return depositMutation.mutate({
         currencyAmount,
-        selectedGasToken,
         selectedToken,
         recipient
       });
@@ -427,7 +453,6 @@ const BobBridgeForm = ({
 
     return withdrawMutation.mutate({
       currencyAmount,
-      selectedGasToken,
       selectedToken,
       recipient
     });
@@ -470,7 +495,8 @@ const BobBridgeForm = ({
 
     const selectedToken = tokens?.find((token) => token.l1Currency.symbol === currency.symbol);
 
-    const selectedCurrency = type === Type.Deposit ? selectedToken?.l1Currency : selectedToken?.l2Currency;
+    const selectedCurrency =
+      direction === TransactionDirection.L1_TO_L2 ? selectedToken?.l1Currency : selectedToken?.l2Currency;
 
     if (!selectedCurrency || !selectedToken) return;
 

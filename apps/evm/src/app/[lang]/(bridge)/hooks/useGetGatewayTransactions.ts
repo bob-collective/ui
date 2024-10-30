@@ -1,28 +1,12 @@
+import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Token } from '@gobob/currency';
 import { INTERVAL, UndefinedInitialDataOptions, useQuery } from '@gobob/react-query';
 import { useAccount } from '@gobob/wagmi';
 import { Address } from 'viem';
-import { ChainId } from '@gobob/chains';
-import { GatewayOrder } from '@gobob/bob-sdk';
 
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
+import { GatewaySteps, GatewayTransaction, GatewayTransactionType, TransactionType } from '@/types';
 import { esploraClient } from '@/utils';
-import { GatewayDepositSteps } from '@/constants';
-import { GatewayTransactionType, TransactionType } from '@/types';
-
-type GatewayTransaction = {
-  status: GatewayDepositSteps;
-  date: Date;
-  confirmations: number;
-  totalConfirmations: number;
-  btcTxId: string;
-  amount?: CurrencyAmount<ERC20Token>;
-  type: TransactionType.Gateway;
-  subType: GatewayTransactionType;
-  isPending: boolean;
-  order: GatewayOrder;
-};
 
 const getGatewayTransactions = async (address: Address): Promise<GatewayTransaction[]> => {
   const [orders, latestHeight] = await Promise.all([gatewaySDK.getOrders(address), esploraClient.getLatestHeight()]);
@@ -59,7 +43,7 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
         }
 
         const orderStatus = await order.getStatus(esploraClient, latestHeight);
-        const status: GatewayDepositSteps =
+        const status: GatewaySteps =
           orderStatus.confirmed === false
             ? 'btc-confirmation'
             : !!orderStatus.pending
@@ -98,12 +82,11 @@ type UseFeeRateProps<TData = GetGatewayTransactionsReturnType> = {
 
 const useGetGatewayTransactions = ({ query }: UseFeeRateProps = {}) => {
   const { address } = useAccount();
-  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
 
   return useQuery({
     queryKey: ['gateway-transactions', address],
     queryFn: () => getGatewayTransactions(address!),
-    enabled: Boolean(address && isBtcGatewayEnabled),
+    enabled: Boolean(address),
     refetchInterval: INTERVAL.SECONDS_30,
     gcTime: INTERVAL.MINUTE,
     refetchOnWindowFocus: false,

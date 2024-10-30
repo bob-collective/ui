@@ -1,6 +1,6 @@
 import { Flex, FlexProps } from '@gobob/ui';
-import { useMemo } from 'react';
 import { Trans } from '@lingui/macro';
+import { useMemo } from 'react';
 
 import { BridgeTransaction } from '../../hooks';
 
@@ -8,8 +8,7 @@ import { StyledStatusActionButton } from './BridgeStatus.style';
 import { BridgeStep } from './BridgeStep';
 
 import { L1_CHAIN } from '@/constants';
-import { BridgeSteps } from '@/constants';
-import { MessageStatus } from '@/types';
+import { BridgeSteps, BridgeTransactionStatus } from '@/types';
 
 type Props = {
   data: BridgeTransaction;
@@ -31,7 +30,7 @@ const RelayStep = ({
   onPressFinalize
 }: RelayStepProps): JSX.Element => {
   const isWaitingRelay = useMemo(
-    () => currentStep === 'relay' && data.status === MessageStatus.READY_FOR_RELAY && !isRelaySuccessful,
+    () => currentStep === 'relay' && data.status === BridgeTransactionStatus.READY_FOR_RELAY && !isRelaySuccessful,
     [currentStep, isRelaySuccessful, data]
   );
 

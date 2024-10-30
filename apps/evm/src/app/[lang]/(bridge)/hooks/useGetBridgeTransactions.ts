@@ -1,35 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChainId } from '@gobob/chains';
-import { Currency, CurrencyAmount } from '@gobob/currency';
+import { CurrencyAmount } from '@gobob/currency';
 import { INTERVAL, useQueries, useQuery } from '@gobob/react-query';
 import { Address, useAccount } from '@gobob/wagmi';
 import request, { gql } from 'graphql-request';
 import { useCallback } from 'react';
 import { TransactionReceipt, isAddressEqual } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
+import { useStore } from '@tanstack/react-store';
 
+import { store } from '@/lib/store';
+import { BridgeTransaction, BridgeTransactionStatus, TransactionDirection, TransactionType } from '@/types';
 import { useBridgeTokens, usePublicClientL1, usePublicClientL2 } from '@/hooks';
 import { ETH, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
 import { bridgeKeys, queryClient } from '@/lib/react-query';
-import { MessageDirection, MessageStatus, TransactionType } from '@/types';
-
-type BridgeTransaction = {
-  from: Address;
-  to: Address;
-  l1Token: Address;
-  l2Token: Address;
-  amount: CurrencyAmount<Currency>;
-  data: string;
-  date: Date;
-  blockNumber: number;
-  transactionHash: Address;
-  l1Receipt?: TransactionReceipt;
-  l2Receipt?: TransactionReceipt;
-  statusEndDate?: Date;
-  direction: MessageDirection;
-  status: MessageStatus | null;
-  type: TransactionType.Bridge;
-};
 
 type Erc20TransactionResponse = {
   remoteToken: Address;
@@ -53,6 +37,13 @@ type BridgeTransactionResponse = {
 
 type WithdrawBridgeTransactionResponse = BridgeTransactionResponse & {
   westEth: Erc20TransactionResponse[];
+};
+
+type RawTransactionsData = {
+  deposits: BridgeTransactionResponse;
+  withdraws: BridgeTransactionResponse & {
+    westEth?: Erc20TransactionResponse[];
+  };
 };
 
 const getDepositBridgeTransactions = gql`
@@ -80,8 +71,8 @@ const getDepositBridgeTransactions = gql`
   }
 `;
 
-const getWithdrawBridgeTransactions = gql`
-  query getBridgeDeposits($address: String!, $westEthAddress: String!) {
+const getWithdrawBridgeTransactions = (enableWestEth: boolean) => gql`
+  query getBridgeDeposits($address: String!, $westEthAddress: String) {
     eth: ethbridgeInitiateds(where: { from_starts_with_nocase: $address }) {
       from
       to
@@ -102,7 +93,9 @@ const getWithdrawBridgeTransactions = gql`
       amount
       data: extraData
     }
-    westEth: withdrawalInitiateds(where: { from_starts_with_nocase: $address, l2Token: $westEthAddress }) {
+   ${
+     enableWestEth
+       ? `westEth: withdrawalInitiateds(where: { from_starts_with_nocase: $address, l2Token: $westEthAddress }) {
       from
       to
       remoteToken: l1Token
@@ -112,7 +105,9 @@ const getWithdrawBridgeTransactions = gql`
       timestamp: timestamp_
       amount
       data: extraData
-    }
+    }`
+       : ''
+   }
   }
 `;
 
@@ -133,11 +128,11 @@ const depositsUrl = `${process.env.NEXT_PUBLIC_INDEXER_URL}/${depositUrlPath}`;
 const withdrawUrl = `${process.env.NEXT_PUBLIC_INDEXER_URL}/${withdrawUrlPath}`;
 
 const mapStatus = {
-  'waiting-to-prove': MessageStatus.STATE_ROOT_NOT_PUBLISHED,
-  'ready-to-prove': MessageStatus.READY_TO_PROVE,
-  'waiting-to-finalize': MessageStatus.IN_CHALLENGE_PERIOD,
-  'ready-to-finalize': MessageStatus.READY_FOR_RELAY,
-  finalized: MessageStatus.RELAYED
+  'waiting-to-prove': BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
+  'ready-to-prove': BridgeTransactionStatus.READY_TO_PROVE,
+  'waiting-to-finalize': BridgeTransactionStatus.IN_CHALLENGE_PERIOD,
+  'ready-to-finalize': BridgeTransactionStatus.READY_FOR_RELAY,
+  finalized: BridgeTransactionStatus.RELAYED
 };
 
 const getMessageStatus = (viemStatus: GetWithdrawalStatusReturnType) => {
@@ -147,12 +142,12 @@ const getMessageStatus = (viemStatus: GetWithdrawalStatusReturnType) => {
 const getDepositRefetchInterval = ((query: any) => {
   if (!query.state.data) return undefined;
 
-  switch (query.state.data.status as MessageStatus | null | undefined) {
+  switch (query.state.data.status as BridgeTransactionStatus | null | undefined) {
     default:
-    case MessageStatus.FAILED_L1_TO_L2_MESSAGE:
-    case MessageStatus.RELAYED:
+    case BridgeTransactionStatus.FAILED_L1_TO_L2_MESSAGE:
+    case BridgeTransactionStatus.RELAYED:
       return undefined;
-    case MessageStatus.UNCONFIRMED_L1_TO_L2_MESSAGE:
+    case BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE:
       return INTERVAL.SECONDS_30;
     case null:
     case undefined:
@@ -163,15 +158,15 @@ const getDepositRefetchInterval = ((query: any) => {
 const getWithdrawRefetchInterval = ((query: any) => {
   if (!query.state.data) return undefined;
 
-  switch (query.state.data.status as MessageStatus | null | undefined) {
+  switch (query.state.data.status as BridgeTransactionStatus | null | undefined) {
     default:
-    case MessageStatus.RELAYED:
+    case BridgeTransactionStatus.RELAYED:
       return undefined;
-    case MessageStatus.IN_CHALLENGE_PERIOD:
-    case MessageStatus.STATE_ROOT_NOT_PUBLISHED:
+    case BridgeTransactionStatus.IN_CHALLENGE_PERIOD:
+    case BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED:
       return INTERVAL.MINUTE;
-    case MessageStatus.READY_TO_PROVE:
-    case MessageStatus.READY_FOR_RELAY:
+    case BridgeTransactionStatus.READY_TO_PROVE:
+    case BridgeTransactionStatus.READY_FOR_RELAY:
       return INTERVAL.SECONDS_15;
     case null:
     case undefined:
@@ -184,6 +179,8 @@ const useGetBridgeTransactions = () => {
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
   const publicClientL1 = usePublicClientL1();
   const publicClientL2 = usePublicClientL2();
+
+  const unconfirmedTransactions = useStore(store, (state) => state.bridge.transactions.bridge.unconfirmed);
 
   const getTxReceipt = useCallback(
     async (address: Address, transactionHash: Address, chain: 'l1' | 'l2'): Promise<TransactionReceipt | undefined> => {
@@ -214,11 +211,11 @@ const useGetBridgeTransactions = () => {
       const l1Receipt = await getTxReceipt(address!, transactionHash, 'l1');
 
       if (!l1Receipt) {
-        return { status: MessageStatus.UNCONFIRMED_L1_TO_L2_MESSAGE };
+        return { status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE };
       }
 
       if (l1Receipt.status === 'reverted') {
-        return { status: MessageStatus.FAILED_L1_TO_L2_MESSAGE };
+        return { status: BridgeTransactionStatus.FAILED_L1_TO_L2_MESSAGE };
       }
 
       const [l2Hash] = getL2TransactionHashes(l1Receipt);
@@ -226,17 +223,17 @@ const useGetBridgeTransactions = () => {
       const l2Receipt = await getTxReceipt(address!, l2Hash!, 'l2');
 
       if (!l2Receipt) {
-        return { l1Receipt, status: MessageStatus.UNCONFIRMED_L1_TO_L2_MESSAGE };
+        return { l1Receipt, status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE };
       }
 
       if (l2Receipt.status === 'reverted') {
-        return { status: MessageStatus.FAILED_L1_TO_L2_MESSAGE };
+        return { status: BridgeTransactionStatus.FAILED_L1_TO_L2_MESSAGE };
       }
 
       return {
         l1Receipt,
         l2Receipt,
-        status: MessageStatus.RELAYED
+        status: BridgeTransactionStatus.RELAYED
       };
     },
     [getTxReceipt, address]
@@ -292,7 +289,7 @@ const useGetBridgeTransactions = () => {
       const l2Receipt = await getTxReceipt(address!, transactionHash, 'l2');
 
       if (!l2Receipt) {
-        return { status: MessageStatus.STATE_ROOT_NOT_PUBLISHED };
+        return { status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED };
       }
 
       const status = await publicClientL1
@@ -347,7 +344,7 @@ const useGetBridgeTransactions = () => {
         l2Receipt,
         l1Token: ETH[L1_CHAIN as ChainId.ETHEREUM].address,
         l2Token: ETH[L2_CHAIN as ChainId.BOB].address,
-        direction: MessageDirection.L1_TO_L2,
+        direction: TransactionDirection.L1_TO_L2,
         date: new Date(depositData.timestamp * 1000),
         type: TransactionType.Bridge
       };
@@ -374,7 +371,7 @@ const useGetBridgeTransactions = () => {
         l2Receipt,
         l1Token: ETH[L1_CHAIN as ChainId.ETHEREUM].address,
         l2Token: ETH[L2_CHAIN as ChainId.BOB].address,
-        direction: MessageDirection.L2_TO_L1,
+        direction: TransactionDirection.L2_TO_L1,
         statusEndDate,
         date: new Date(withdrawData.timestamp * 1000),
         type: TransactionType.Bridge
@@ -401,7 +398,7 @@ const useGetBridgeTransactions = () => {
         l2Receipt,
         l1Token: token.l1Token.address,
         l2Token: token.l2Token.address,
-        direction: MessageDirection.L1_TO_L2,
+        direction: TransactionDirection.L1_TO_L2,
         date: new Date(depositData.timestamp * 1000),
         type: TransactionType.Bridge
       };
@@ -426,7 +423,7 @@ const useGetBridgeTransactions = () => {
         l2Receipt,
         l1Token: token.l1Token.address,
         l2Token: token.l2Token.address,
-        direction: MessageDirection.L2_TO_L1,
+        direction: TransactionDirection.L2_TO_L1,
         date: new Date(withdrawData.timestamp * 1000),
         statusEndDate,
         type: TransactionType.Bridge
@@ -435,12 +432,14 @@ const useGetBridgeTransactions = () => {
     [getWithdrawStatus, tokens]
   );
 
-  const fetchTransactions = useCallback(async (address: Address) => {
+  const fetchTransactions = useCallback(async (address: Address): Promise<RawTransactionsData> => {
+    const westEthAddress = L2_CHAIN === ChainId.BOB_SEPOLIA ? undefined : wstETH[L2_CHAIN].address.toLowerCase();
+
     const [deposits, withdraws] = await Promise.all([
       request<BridgeTransactionResponse>(depositsUrl, getDepositBridgeTransactions, { address }),
-      request<WithdrawBridgeTransactionResponse>(withdrawUrl, getWithdrawBridgeTransactions, {
+      request<WithdrawBridgeTransactionResponse>(withdrawUrl, getWithdrawBridgeTransactions(!!westEthAddress), {
         address,
-        westEthAddress: L2_CHAIN === ChainId.BOB_SEPOLIA ? undefined : wstETH[L2_CHAIN].address.toLowerCase()
+        westEthAddress
       })
     ]);
 
@@ -489,7 +488,7 @@ const useGetBridgeTransactions = () => {
       enabled
     }));
 
-    const erc20Withdrawals = [...transactions.data.withdraws.erc20, ...transactions.data.withdraws.westEth];
+    const erc20Withdrawals = [...transactions.data.withdraws.erc20, ...(transactions.data.withdraws.westEth || [])];
 
     const withdrawErc20 = erc20Withdrawals.map((tx) => ({
       queryKey: bridgeKeys.withdrawErc20Transaction(address, tx.transactionHash),
@@ -506,10 +505,19 @@ const useGetBridgeTransactions = () => {
   const queriesResult = useQueries({
     queries: getQueries(),
     combine: (results) => {
+      const confirmedTransactions = results.map((result) => result.data).filter(Boolean) as BridgeTransaction[];
+
+      const unmatchedUnconfirmedTransactions = unconfirmedTransactions.filter(
+        (tx) =>
+          !confirmedTransactions.some(
+            (confirmedTx) => confirmedTx.transactionHash.toLowerCase() === tx.transactionHash.toLowerCase()
+          )
+      );
+
       return {
-        data: results.map((result) => result.data).filter(Boolean) as BridgeTransaction[],
-        isLoading:
-          (!!address && !transactions.data && transactions.isPending) || results.some((result) => result.isPending)
+        data: [...unmatchedUnconfirmedTransactions, ...confirmedTransactions],
+        isLoading: transactions.isLoading || results.some((result) => result.isLoading),
+        isPending: transactions.isPending || results.some((result) => result.isPending)
       };
     }
   });
@@ -520,7 +528,22 @@ const useGetBridgeTransactions = () => {
     [queriesResult.data]
   );
 
-  return { ...queriesResult, refetch: transactions.refetch, getTransaction };
+  const addPlaceholderTransaction = (data: BridgeTransaction) => {
+    store.setState((state) => ({
+      ...state,
+      bridge: {
+        transactions: {
+          ...state.bridge.transactions,
+          bridge: {
+            ...state.bridge.transactions.bridge,
+            unconfirmed: [...state.bridge.transactions.bridge.unconfirmed, data]
+          }
+        }
+      }
+    }));
+  };
+
+  return { ...queriesResult, refetch: transactions.refetch, addPlaceholderTransaction, getTransaction };
 };
 
 export { useGetBridgeTransactions };

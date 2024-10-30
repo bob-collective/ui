@@ -1,1 +1,2 @@
-export { useCrossChainMessenger, USDCCrossBridgeConfig } from './useCrossChainMessenger';
+export { USDCCrossBridgeConfig, useCrossChainMessenger } from './useCrossChainMessenger';
+export * from './useGetTransactions';

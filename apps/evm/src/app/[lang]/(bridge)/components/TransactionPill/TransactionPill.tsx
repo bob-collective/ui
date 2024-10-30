@@ -1,11 +1,11 @@
 import { ArrowTopRightOnSquare, Span } from '@gobob/ui';
 
-import { StyledLoadingSpinner, StyledPill } from './BridgeStatus.style';
+import { StyledLoadingSpinner, StyledPill } from './TransactionPill.style';
 import { Circle } from './Circle';
 import { CircleCheck } from './CircleCheck';
 import { CircleX } from './CircleX';
 
-import { BridgeStepStatus } from '@/constants';
+import { BridgeStepStatus } from '@/types';
 
 const getPillIcon = (status: BridgeStepStatus) => {
   switch (status) {
@@ -21,13 +21,13 @@ const getPillIcon = (status: BridgeStepStatus) => {
   }
 };
 
-type PillProps = {
+type TransactionPillProps = {
   href?: string;
   label: string;
   status: BridgeStepStatus;
 };
 
-const Pill = ({ label, status, href }: PillProps): JSX.Element => {
+const TransactionPill = ({ label, status, href }: TransactionPillProps): JSX.Element => {
   const icon = getPillIcon(status);
 
   return (
@@ -39,4 +39,4 @@ const Pill = ({ label, status, href }: PillProps): JSX.Element => {
   );
 };
 
-export { Pill };
+export { TransactionPill };

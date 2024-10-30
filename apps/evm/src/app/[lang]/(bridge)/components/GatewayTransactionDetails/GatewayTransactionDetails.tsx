@@ -21,13 +21,13 @@ import { useLingui } from '@lingui/react';
 import { ReactNode, useState } from 'react';
 
 import { UseGatewayReturnType } from '../../hooks';
+import { isHighFeeRate, isLowFeeRate } from '../../utils';
 
 import { GatewayFeeSettingsModal } from './GatewayFeeSettingsModal';
 import { StyledDlGroup, StyledDt } from './GatewayTransactionDetails.style';
 
 import { AmountLabel } from '@/components';
 import { GatewayTransactionType } from '@/types';
-import { isHighFeeRate, isLowFeeRate } from '@/utils/gateway';
 
 type GatewayTransactionDetailsProps = {
   assetName?: string;

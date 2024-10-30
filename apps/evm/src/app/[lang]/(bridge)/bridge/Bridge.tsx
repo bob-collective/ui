@@ -8,12 +8,13 @@ import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSessionStorage } from 'usehooks-ts';
 
 import { Layout, TransactionList } from '../components';
-import { useGetTransactions } from '../hooks';
 
 import { StyledCard, StyledFlex } from './Bridge.style';
 import { BridgeForm } from './components';
+import { useGetTransactions } from './hooks';
 
 import { isClient, L1_CHAIN, L2_CHAIN } from '@/constants';
+import { TransactionDirection } from '@/types';
 import { SessionStorageKey } from '@/types/session-storage';
 
 enum BridgeOrigin {
@@ -31,13 +32,20 @@ interface Props {
 }
 
 const Bridge = ({ searchParams }: Props) => {
-  const { data: transactions, isInitialLoading } = useGetTransactions();
+  const {
+    data: transactions,
+    isInitialLoading: isTransactionsInitialLoading,
+    isPending: isTransactionsPending,
+    refetch
+  } = useGetTransactions();
 
   const location = usePathname();
   const router = useRouter();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
+  const direction = type === Type.Deposit ? TransactionDirection.L1_TO_L2 : TransactionDirection.L2_TO_L1;
+
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(
     type === Type.Deposit ? BridgeOrigin.Internal : BridgeOrigin.External
   );
@@ -131,17 +139,23 @@ const Bridge = ({ searchParams }: Props) => {
           <BridgeForm
             bridgeOrigin={bridgeOrigin}
             chain={chain}
+            direction={direction}
             ticker={ticker}
-            type={type}
             onChangeChain={handleChangeChain}
             onChangeNetwork={handleChangeNetwork}
             onChangeOrigin={handleChangeOrigin}
           />
         </StyledCard>
-        <TransactionList data={transactions} isInitialLoading={isInitialLoading} />
+        <TransactionList
+          data={transactions}
+          isInitialLoading={isTransactionsInitialLoading}
+          isPending={isTransactionsPending}
+          onProveSuccess={refetch.bridge}
+          onRelaySuccess={refetch.bridge}
+        />
       </StyledFlex>
     </Layout>
   );
 };
 
-export { Bridge, BridgeOrigin, Type };
+export { Bridge, BridgeOrigin };

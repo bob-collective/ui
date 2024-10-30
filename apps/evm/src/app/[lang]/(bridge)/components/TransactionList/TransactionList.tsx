@@ -1,10 +1,8 @@
 import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
+import { Trans } from '@lingui/macro';
 import { Fragment, useMemo } from 'react';
 import { useIsClient } from 'usehooks-ts';
-import { Trans } from '@lingui/macro';
-
-import { Transaction } from '../../hooks';
 
 import { TransactionItem } from './TransactionItem';
 import {
@@ -16,29 +14,40 @@ import {
 } from './TransactionList.style';
 
 import { chainL2 } from '@/constants';
-import { MessageStatus } from '@/types';
+import { BridgeTransactionStatus, Transaction } from '@/types';
 
 type Props = {
   isInitialLoading?: boolean;
+  isPending?: boolean;
   data?: Transaction[];
+  onProveSuccess?: () => void;
+  onRelaySuccess?: () => void;
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
 
 type TransactionListProps = Props & InheritAttrs;
 
-const TransactionList = ({ isInitialLoading, data, ...props }: TransactionListProps): JSX.Element => {
+const TransactionList = ({
+  isInitialLoading,
+  isPending,
+  data,
+  onProveSuccess,
+  onRelaySuccess,
+  ...props
+}: TransactionListProps): JSX.Element => {
   const { address, chain } = useAccount();
   const isClient = useIsClient();
 
   const pendingInteractions = useMemo(
     () =>
-      !isInitialLoading &&
+      !isPending &&
       data?.filter(
         (transaction) =>
-          transaction.status === MessageStatus.READY_TO_PROVE || transaction.status === MessageStatus.READY_FOR_RELAY
+          transaction.status === BridgeTransactionStatus.READY_TO_PROVE ||
+          transaction.status === BridgeTransactionStatus.READY_FOR_RELAY
       ).length,
-    [data, isInitialLoading]
+    [data, isPending]
   );
 
   const title = (
@@ -58,6 +67,7 @@ const TransactionList = ({ isInitialLoading, data, ...props }: TransactionListPr
   const explorerUrl = useMemo(() => (chain || chainL2).blockExplorers?.default.url, [chain]);
 
   const txsUrl = address ? `${explorerUrl}/address/${address}` : `${explorerUrl}`;
+  const hasData = !!data?.length;
 
   return (
     <StyledSection gap='xl' paddingX='4xl' paddingY='3xl' {...props}>
@@ -68,7 +78,7 @@ const TransactionList = ({ isInitialLoading, data, ...props }: TransactionListPr
           direction='column'
           flex={1}
           gap='xl'
-          justifyContent={isInitialLoading || !data?.length ? 'center' : undefined}
+          justifyContent={isInitialLoading || !hasData ? 'center' : undefined}
           paddingY='xl'
         >
           {!isClient || isInitialLoading ? (
@@ -80,10 +90,14 @@ const TransactionList = ({ isInitialLoading, data, ...props }: TransactionListPr
             </Flex>
           ) : (
             <>
-              {data?.length ? (
+              {hasData ? (
                 data.map((transaction, idx) => (
                   <Fragment key={idx}>
-                    <TransactionItem data={transaction} />
+                    <TransactionItem
+                      data={transaction}
+                      onProveSuccess={onProveSuccess}
+                      onRelaySuccess={onRelaySuccess}
+                    />
                     {idx < data.length - 1 && <Divider />}
                   </Fragment>
                 ))

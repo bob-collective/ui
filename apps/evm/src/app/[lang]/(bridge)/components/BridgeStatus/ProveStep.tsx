@@ -1,15 +1,14 @@
 import { Flex, FlexProps } from '@gobob/ui';
-import { useMemo } from 'react';
 import { Trans } from '@lingui/macro';
+import { useMemo } from 'react';
 
 import { BridgeTransaction } from '../../hooks';
 
 import { StyledStatusActionButton } from './BridgeStatus.style';
 import { BridgeStep } from './BridgeStep';
 
+import { BridgeSteps, BridgeTransactionStatus } from '@/types';
 import { L1_CHAIN } from '@/constants';
-import { BridgeSteps } from '@/constants';
-import { MessageStatus } from '@/types';
 
 type Props = {
   data: BridgeTransaction;
@@ -25,7 +24,7 @@ type ProveStepProps = Props & InheritAttrs;
 
 const ProveStep = ({ data, currentStep, isProving, isProveSuccessful, onPressProve }: ProveStepProps): JSX.Element => {
   const isWaitingProve = useMemo(
-    () => currentStep === 'prove' && data.status === MessageStatus.READY_TO_PROVE && !isProveSuccessful,
+    () => currentStep === 'prove' && data.status === BridgeTransactionStatus.READY_TO_PROVE && !isProveSuccessful,
     [currentStep, isProveSuccessful, data]
   );
 

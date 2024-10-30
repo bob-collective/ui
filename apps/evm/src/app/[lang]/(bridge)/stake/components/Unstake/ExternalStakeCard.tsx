@@ -7,15 +7,13 @@ import { Segment } from '@gobob/icons/src/Segment';
 import { Shoebill } from '@gobob/icons/src/Shoebill';
 import { Trans } from '@lingui/macro';
 
-import { Type } from '../../Stake';
-
 type ExternalBridge = 'solvbtc' | 'solvbtc-bbn' | 'unibtc' | 'pell-network' | 'segment' | 'shoebill';
 
 // TODO: add missing links
 const bridges: Record<
   ExternalBridge,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  { icon: any | string; href: string | { stake: string; unstake: string }; name: string; disabled: boolean }
+  { icon: any | string; href: string; name: string; disabled: boolean }
 > = {
   solvbtc: {
     href: 'https://app.solv.finance/solvbtc?network=bob',
@@ -55,17 +53,16 @@ const bridges: Record<
   }
 };
 
-type Props = { type: Type; bridge: ExternalBridge };
+type Props = { bridge: ExternalBridge };
 
 type ExternalBridgeCardProps = Props;
 
-const ExternalStakeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Element => {
+const ExternalStakeCard = ({ bridge }: ExternalBridgeCardProps): JSX.Element => {
   const { href, name, icon: Icon, disabled } = bridges[bridge];
-  const typeHref = typeof href === 'string' ? href : href[type];
 
   return (
     <Card
-      {...{ external: true, href: typeHref }}
+      {...{ external: true, href }}
       alignItems='center'
       background='grey-600'
       direction='row'

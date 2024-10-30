@@ -17,12 +17,12 @@ import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
 import { TokenData } from '@/hooks';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { GatewayData, GatewayTransactionType } from '@/types';
+import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
 
 type BtcBridgeFormProps = {
   availableTokens: TokenData[];
-  onStart: (data: Optional<GatewayData, 'amount'>) => void;
-  onSuccess: (data: GatewayData) => void;
+  onStart: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
+  onSuccess: (data: InitGatewayTransaction) => void;
   onError: () => void;
 };
 

@@ -11,12 +11,11 @@ import { useIsClient, useSessionStorage } from 'usehooks-ts';
 
 import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
 import { FusionBanner } from './FusionBanner';
+import { HybridL2Banner } from './HybridL2Banner';
 import { OnrampBanner } from './OnrampBanner';
 import { XBanner } from './XBanner';
-import { HybridL2Banner } from './HybridL2Banner';
 
 import { RoutesPath } from '@/constants';
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { SessionStorageKey } from '@/types';
 
 const BannerCarousel = () => {
@@ -27,7 +26,6 @@ const BannerCarousel = () => {
   const params = useParams();
   const isClient = useIsClient();
 
-  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
   const [, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
     initializeWithValue: isClient
   });
@@ -101,7 +99,7 @@ const BannerCarousel = () => {
         <HybridL2Banner onPress={onPressHybridL2Banner} />
         <XBanner onPress={onPressXBanner} />
         <FusionBanner onPress={onPressFusionBanner} />
-        {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
+        <OnrampBanner onPress={onPressOnrampBanner} />
       </StyledCarousel>
     </StyledCarouselWrapper>
   );
