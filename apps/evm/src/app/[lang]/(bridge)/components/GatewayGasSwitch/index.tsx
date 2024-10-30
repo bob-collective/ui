@@ -1,0 +1,1 @@
+export { GatewayGasSwitch } from './GatewayGasSwitch';
