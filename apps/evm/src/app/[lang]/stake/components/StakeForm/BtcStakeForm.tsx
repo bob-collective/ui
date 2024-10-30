@@ -417,7 +417,9 @@ const BtcStakeForm = ({
           <Item key={data.raw.integration.slug} textValue={data.raw.integration.name}>
             <Flex alignItems='center' gap='s'>
               {data.raw.integration.logo ? <Avatar size='2xl' src={data.raw.integration.logo} /> : <PellNetwork />}
-              <P style={{ color: 'inherit' }}>{data.raw.integration.name}</P>
+              <P style={{ color: 'inherit' }}>
+                {data.raw.integration.name} - {data.raw.integration.type}
+              </P>
             </Flex>
           </Item>
         )}
