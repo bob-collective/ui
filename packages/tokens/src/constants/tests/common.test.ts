@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { ChainId } from '@gobob/chains';
 
-import { commonTokens, CommonToken } from '../common';
+import { commonTokens, CommonToken, WBTC, USDC, TBTC, USDT } from '../common';
 
-describe("Common Tokens for ChainId's 1 & 60808", () => {
+describe('Common Tokens', () => {
   it('should have wBTC (WBTC) for chain ids 1 & 60808', () => {
     const tokenOnEthereum = commonTokens[CommonToken.WBTC]?.[ChainId.ETHEREUM];
 
@@ -62,5 +62,21 @@ describe("Common Tokens for ChainId's 1 & 60808", () => {
 
     expect(tokenOnBOB).toBeDefined();
     expect(tokenOnBOB?.symbol).toBe(CommonToken.DAI);
+  });
+
+  it('should match snapshot for WBTC', () => {
+    expect(WBTC).toMatchSnapshot();
+  });
+
+  it('should match snapshot for USDC', () => {
+    expect(USDC).toMatchSnapshot();
+  });
+
+  it('should match snapshot for TBTC', () => {
+    expect(TBTC).toMatchSnapshot();
+  });
+
+  it('should match snapshot for USDT', () => {
+    expect(USDT).toMatchSnapshot();
   });
 });
