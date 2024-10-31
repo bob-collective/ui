@@ -1,6 +1,7 @@
 import { Flex, P } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import fusionSeasonThree from '@public/assets/fusion-season-three.png';
 
 import { Banner } from './Banner';
 import { StyledBannerContent, StyledFusionImg } from './BannerCarousel.style';
@@ -28,7 +29,8 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => {
       <StyledFusionImg
         alt={t(i18n)`Fusion season three`}
         height='144'
-        src='/assets/fusion-season-three.png'
+        placeholder='blur'
+        src={fusionSeasonThree}
         width='336'
       />
     </Banner>

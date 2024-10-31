@@ -6,6 +6,7 @@ import { useCallback, useEffect, useId, useState } from 'react';
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import x from '@public/assets/x.png';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -29,6 +30,7 @@ import {
   StyledStrategiesWrapper
 } from './Fusion.style';
 import { useGetQuests } from './hooks';
+import { LotterySection } from './components/LotterySections';
 
 import { useGetUser } from '@/hooks';
 import { Geoblock } from '@/components';
@@ -120,9 +122,10 @@ const Fusion = () => {
                 <P color='grey-50'>
                   <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
                 </P>
-                <StyledBannerImg alt='x' height='123' src='/assets/x.png' width='336' />
+                <StyledBannerImg alt='x' height='123' placeholder='blur' src={x} width='336' />
               </Card>
             </Flex>
+            <LotterySection />
           </StyledHeroSection>
         </StyledHeroSectionWrapper>
         <StyledStrategiesWrapper direction='column' paddingBottom='7xl' paddingTop='6xl' paddingX='lg'>

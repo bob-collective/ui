@@ -2,6 +2,7 @@ import { Button, Chip, Flex, H2, Link, P, Skeleton, SolidClock, useMediaQuery } 
 import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
 import { Trans } from '@lingui/macro';
+import { useIsClient } from 'usehooks-ts';
 
 import { StyledCard, StyledOpacityOverlay, StyledSpice } from './CommunityVoting.style';
 
@@ -12,12 +13,13 @@ type CommunityVotingProps = object;
 
 const CommunityVoting = ({}: CommunityVotingProps) => {
   const theme = useTheme();
+  const isClient = useIsClient();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
   const { data: votingAppsData } = useGetVotingApps();
 
   return (
     <Flex direction={{ base: 'column-reverse', s: 'row' }} gap='3xl' marginTop='8xl'>
-      {!isMobile && (
+      {isClient && !isMobile && (
         <StyledCard borderColor='grey-300' flex={0.4}>
           <StyledOpacityOverlay />
           <StyledSpice />

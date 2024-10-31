@@ -2,6 +2,7 @@ import { Button, Chip, Flex, H2, Link, Skeleton, SolidClock, useMediaQuery } fro
 import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
 import { Trans } from '@lingui/macro';
+import { useIsClient } from 'usehooks-ts';
 
 import { StyledCard, StyledDescription, StyledIntract, StyledOpacityOverlay } from './Quest.style';
 
@@ -11,6 +12,7 @@ type QuestProps = { quests: QuestS3Response | undefined; id: string };
 
 const Quest = ({ id, quests }: QuestProps) => {
   const theme = useTheme();
+  const isClient = useIsClient();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
   const [intractQuest] = quests?.questBreakdown || [];
@@ -19,7 +21,7 @@ const Quest = ({ id, quests }: QuestProps) => {
 
   return (
     <Flex direction={{ base: 'column-reverse', s: 'row-reverse' }} gap='3xl' id={id} marginTop='8xl'>
-      {!isMobile && (
+      {isClient && !isMobile && (
         <StyledCard borderColor='grey-300' flex={0.4}>
           <StyledOpacityOverlay />
           <StyledIntract />

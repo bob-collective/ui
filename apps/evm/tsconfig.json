@@ -25,7 +25,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@public/*": ["./public/*"]
     },
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true
