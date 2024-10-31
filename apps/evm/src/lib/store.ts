@@ -11,8 +11,15 @@ type BridgeStore = {
   };
 };
 
+type StakeStore = {
+  transactions: {
+    isInitialLoading: boolean;
+  };
+};
+
 type Store = {
   bridge: BridgeStore;
+  stake: StakeStore;
 };
 
 const store = new StoreLib<Store>({
@@ -22,6 +29,11 @@ const store = new StoreLib<Store>({
       bridge: {
         unconfirmed: []
       }
+    }
+  },
+  stake: {
+    transactions: {
+      isInitialLoading: true
     }
   }
 });

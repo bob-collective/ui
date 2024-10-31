@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import { BridgeStepStatus } from '@/types';
 
-type StyledPillProps = {
+type StyledChipProps = {
   $status: BridgeStepStatus;
 };
 
-const StyledPill = styled(Link)<StyledPillProps>`
+const StyledChip = styled(Link)<StyledChipProps>`
   display: inline-flex;
   width: min-content;
   white-space: nowrap;
@@ -39,4 +39,4 @@ const StyledLoadingSpinner = styled(Spinner)`
   border-right-color: ${({ theme }) => theme.color('dark')};
 `;
 
-export { StyledLoadingSpinner, StyledPill };
+export { StyledLoadingSpinner, StyledChip };

@@ -35,8 +35,8 @@ const Bridge = ({ searchParams }: Props) => {
   const {
     data: transactions,
     isInitialLoading: isTransactionsInitialLoading,
-    isPending: isTransactionsPending,
-    refetch
+    refetch,
+    txPendingUserAction
   } = useGetTransactions();
 
   const location = usePathname();
@@ -149,7 +149,7 @@ const Bridge = ({ searchParams }: Props) => {
         <TransactionList
           data={transactions}
           isInitialLoading={isTransactionsInitialLoading}
-          isPending={isTransactionsPending}
+          txPendingUserAction={txPendingUserAction}
           onProveSuccess={refetch.bridge}
           onRelaySuccess={refetch.bridge}
         />

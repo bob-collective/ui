@@ -14,14 +14,14 @@ import {
 } from './TransactionList.style';
 
 import { chainL2 } from '@/constants';
-import { BridgeTransactionStatus, Transaction } from '@/types';
+import { Transaction } from '@/types';
 
 type Props = {
   isInitialLoading?: boolean;
-  isPending?: boolean;
   data?: Transaction[];
   onProveSuccess?: () => void;
   onRelaySuccess?: () => void;
+  txPendingUserAction?: number;
 };
 
 type InheritAttrs = Omit<CardProps, keyof Props>;
@@ -30,32 +30,21 @@ type TransactionListProps = Props & InheritAttrs;
 
 const TransactionList = ({
   isInitialLoading,
-  isPending,
   data,
   onProveSuccess,
   onRelaySuccess,
+  txPendingUserAction,
   ...props
 }: TransactionListProps): JSX.Element => {
   const { address, chain } = useAccount();
   const isClient = useIsClient();
 
-  const pendingInteractions = useMemo(
-    () =>
-      !isPending &&
-      data?.filter(
-        (transaction) =>
-          transaction.status === BridgeTransactionStatus.READY_TO_PROVE ||
-          transaction.status === BridgeTransactionStatus.READY_FOR_RELAY
-      ).length,
-    [data, isPending]
-  );
-
   const title = (
     <Flex alignItems='center' elementType='span' gap='s'>
       Activity
-      {!!pendingInteractions && (
+      {!!txPendingUserAction && (
         <StyledSpan size='xs' weight='medium'>
-          {pendingInteractions}
+          {txPendingUserAction}
           <StyledSpinnerWrapper>
             <Spinner color='primary' size='24' thickness={2} />
           </StyledSpinnerWrapper>

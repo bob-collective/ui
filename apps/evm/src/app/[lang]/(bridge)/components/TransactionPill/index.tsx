@@ -1,1 +1,0 @@
-export { TransactionPill } from './TransactionPill';

@@ -367,49 +367,6 @@ importers:
 
   packages/chains: {}
 
-  packages/connect-ui:
-    dependencies:
-      '@gobob/chains':
-        specifier: workspace:^
-        version: link:../chains
-      '@gobob/icons':
-        specifier: workspace:^
-        version: link:../icons
-      '@gobob/sats-wagmi':
-        specifier: workspace:^
-        version: link:../sats-wagmi
-      '@gobob/ui':
-        specifier: workspace:^
-        version: link:../ui
-      '@gobob/utils':
-        specifier: workspace:^
-        version: link:../utils
-      '@gobob/wagmi':
-        specifier: workspace:^
-        version: link:../wagmi
-      '@react-aria/utils':
-        specifier: ^3.21.0
-        version: 3.24.1(react@18.3.1)
-      react-jazzicon:
-        specifier: ^1.0.4
-        version: 1.0.4(react-dom@18.3.1)(react@18.3.1)
-      react-use:
-        specifier: ^17.4.3
-        version: 17.5.0(react-dom@18.3.1)(react@18.3.1)
-      usehooks-ts:
-        specifier: ^3.1.0
-        version: 3.1.0(react@18.3.1)
-    devDependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-      styled-components:
-        specifier: ^6.0.7
-        version: 6.1.11(react-dom@18.3.1)(react@18.3.1)
-
   packages/currency:
     dependencies:
       big.js:
@@ -9533,7 +9490,7 @@ packages:
   /@types/graceful-fs@4.1.9:
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 20.14.2
 
   /@types/hoist-non-react-statics@3.3.5:
     resolution: {integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==}

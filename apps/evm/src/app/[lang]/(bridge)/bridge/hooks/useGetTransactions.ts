@@ -31,7 +31,7 @@ const useGetTransactions = () => {
         if (account.address) {
           store.setState((state) => ({
             ...state,
-            bridge: { transactions: { ...state.bridge.transactions, isInitialLoading: true } }
+            bridge: { ...state.bridge, transactions: { ...state.bridge.transactions, isInitialLoading: true } }
           }));
         }
       }
@@ -45,7 +45,7 @@ const useGetTransactions = () => {
     if (isInitialLoading && !isLoading) {
       store.setState((state) => ({
         ...state,
-        bridge: { transactions: { ...state.bridge.transactions, isInitialLoading: false } }
+        bridge: { ...state.bridge, transactions: { ...state.bridge.transactions, isInitialLoading: false } }
       }));
     }
   }, [isInitialLoading, isLoading]);
@@ -65,7 +65,7 @@ const useGetTransactions = () => {
     addPlaceholderTransaction: {
       bridge: bridge.addPlaceholderTransaction
     },
-    isPending: gateway.isPending || bridge.isPending,
+    txPendingUserAction: bridge.txPendingUserAction,
     isInitialLoading,
     isLoading
   };

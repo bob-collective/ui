@@ -1,9 +1,11 @@
 'use client';
 
 import { Tabs, TabsItem } from '@gobob/ui';
-import { Key, useCallback, useEffect, useMemo } from 'react';
+import { Key, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Trans } from '@lingui/macro';
+import { useConfig, watchAccount } from '@gobob/wagmi';
+import { useStore } from '@tanstack/react-store';
 
 import { Layout } from '../components';
 import { TransactionList } from '../components';
@@ -13,6 +15,7 @@ import { StakingForm } from './components';
 import { useGetStakingStrategies } from './hooks';
 import { StyledCard, StyledFlex } from './Stake.style';
 
+import { store } from '@/lib/store';
 import { PageLangParam } from '@/i18n/withLigui';
 import { GatewayTransactionType, TransactionDirection } from '@/types';
 
@@ -31,13 +34,18 @@ const select = (data: GetGatewayTransactionsReturnType) =>
 function Stake({ searchParams }: Props) {
   const router = useRouter();
 
+  const config = useConfig();
+
   const {
     data: transactions,
-    isPending,
+    isLoading: isLoadingTransactions,
     refetch: refetchTransactions
   } = useGetGatewayTransactions({
     query: { select }
   });
+  const { data: strategies = [] } = useGetStakingStrategies();
+
+  const isInitialLoading = useStore(store, (state) => state.bridge.transactions.isInitialLoading);
 
   const watchAccountRef = useRef<() => void>();
 
@@ -47,7 +55,7 @@ function Stake({ searchParams }: Props) {
         if (account.address) {
           store.setState((state) => ({
             ...state,
-            bridge: { transactions: { ...state.bridge.transactions, isInitialLoading: true } }
+            stake: { ...state.stake, transactions: { ...state.stake.transactions, isInitialLoading: true } }
           }));
         }
       }
@@ -58,15 +66,13 @@ function Stake({ searchParams }: Props) {
   }, [config]);
 
   useEffect(() => {
-    if (isInitialLoading && !isLoading) {
+    if (isInitialLoading && !isLoadingTransactions) {
       store.setState((state) => ({
         ...state,
         bridge: { transactions: { ...state.bridge.transactions, isInitialLoading: false } }
       }));
     }
-  }, [isInitialLoading, isLoading]);
-
-  const { data: strategies = [] } = useGetStakingStrategies();
+  }, [isInitialLoading, isLoadingTransactions]);
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const type = (urlSearchParams.get('type') as Type) || Type.Stake;
@@ -108,7 +114,7 @@ function Stake({ searchParams }: Props) {
             onStakeSuccess={refetchTransactions}
           />
         </StyledCard>
-        <TransactionList data={transactions} isInitialLoading={isPending} />
+        <TransactionList data={transactions} isInitialLoading={isInitialLoading} />
       </StyledFlex>
     </Layout>
   );

@@ -1,6 +1,6 @@
 import { ArrowTopRightOnSquare, Span } from '@gobob/ui';
 
-import { StyledLoadingSpinner, StyledPill } from './TransactionPill.style';
+import { StyledLoadingSpinner, StyledChip } from './StatusChip.style';
 import { Circle } from './Circle';
 import { CircleCheck } from './CircleCheck';
 import { CircleX } from './CircleX';
@@ -21,22 +21,29 @@ const getPillIcon = (status: BridgeStepStatus) => {
   }
 };
 
-type TransactionPillProps = {
+type StatusChipProps = {
   href?: string;
   label: string;
   status: BridgeStepStatus;
 };
 
-const TransactionPill = ({ label, status, href }: TransactionPillProps): JSX.Element => {
+const StatusChip = ({ label, status, href }: StatusChipProps): JSX.Element => {
   const icon = getPillIcon(status);
 
   return (
-    <StyledPill external $status={status} as={href ? undefined : Span} href={href} size='xs' weight='medium'>
+    <StyledChip
+      $status={status}
+      as={href ? undefined : Span}
+      href={href}
+      size='xs'
+      weight='medium'
+      {...(href ? { external: true } : undefined)}
+    >
       {icon}
       {label}
       {href && <ArrowTopRightOnSquare size='xs' />}
-    </StyledPill>
+    </StyledChip>
   );
 };
 
-export { TransactionPill };
+export { StatusChip };

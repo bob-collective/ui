@@ -514,10 +514,23 @@ const useGetBridgeTransactions = () => {
           )
       );
 
+      const data = [...unmatchedUnconfirmedTransactions, ...confirmedTransactions];
+
+      const isPending = transactions.isPending || results.some((result) => result.isPending);
+
+      const txPendingUserAction = isPending
+        ? undefined
+        : data?.filter(
+            (transaction) =>
+              transaction.status === BridgeTransactionStatus.READY_TO_PROVE ||
+              transaction.status === BridgeTransactionStatus.READY_FOR_RELAY
+          ).length;
+
       return {
-        data: [...unmatchedUnconfirmedTransactions, ...confirmedTransactions],
+        data,
         isLoading: transactions.isLoading || results.some((result) => result.isLoading),
-        isPending: transactions.isPending || results.some((result) => result.isPending)
+        isPending: transactions.isPending || results.some((result) => result.isPending),
+        txPendingUserAction
       };
     }
   });

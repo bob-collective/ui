@@ -15,7 +15,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 
-import { USDCCrossBridgeConfig, useCrossChainMessenger, useGetTransactions } from '../../hooks';
+import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -68,8 +68,6 @@ const BobBridgeForm = ({
 
   const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
   const { getBalance } = useBalances(bridgeChainId);
-
-  const { refetch: refetchTransactions } = useGetTransactions();
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
 
@@ -288,7 +286,6 @@ const BobBridgeForm = ({
       setAmount('');
       onBridgeSuccess?.(data);
       form.resetForm();
-      refetchTransactions.bridge();
     },
     onError: (error) => {
       onFailBridge?.();
@@ -383,7 +380,6 @@ const BobBridgeForm = ({
       setAmount('');
       onBridgeSuccess?.(data);
       form.resetForm();
-      refetchTransactions.bridge();
     },
     onError: (error) => {
       onFailBridge?.();

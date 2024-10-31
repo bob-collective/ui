@@ -116,6 +116,7 @@ const BridgeForm = ({
     addPlaceholderTransaction.bridge(data);
 
     refetchTransactions.bridge();
+
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
   };
 
@@ -132,7 +133,7 @@ const BridgeForm = ({
   };
 
   const handleGatewaySuccess = (data: InitGatewayTransaction) => {
-    refetchTransactions.bridge();
+    refetchTransactions.gateway();
 
     setGatewayModalState({ isOpen: true, data });
   };
@@ -257,7 +258,7 @@ const BridgeForm = ({
           onClose={handleCloseBridgeModal}
         />
       )}
-      {bridgeModalState.data && (
+      {gatewayModalState.data && (
         <GatewayTransactionModal
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           data={gatewayModalState.data as any}

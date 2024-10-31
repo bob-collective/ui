@@ -9,9 +9,8 @@ import { useMemo } from 'react';
 import { getWithdrawals } from 'viem/op-stack';
 
 import { BridgeTransaction } from '../../hooks';
-import { getOngoingBridgeStep } from '../../bridge/utils';
 
-import { BridgeStep } from './BridgeStep';
+import { BridgeStep, getOngoingBridgeStep } from './BridgeStep';
 import { ProveStep } from './ProveStep';
 import { RelayStep } from './RelayStep';
 import { TimeStep } from './TimeStep';

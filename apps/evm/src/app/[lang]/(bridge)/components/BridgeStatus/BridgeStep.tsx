@@ -3,11 +3,28 @@ import { useLingui } from '@lingui/react';
 import { Address } from 'viem';
 
 import { BridgeTransaction } from '../../hooks';
-
-import { Pill } from './Pill';
+import { StatusChip } from '../StatusChip';
 
 import { BridgeSteps, BridgeStepStatus, BridgeTransactionStatus, TransactionDirection } from '@/types';
 import { chainL1, chainL2 } from '@/constants';
+
+const getOngoingBridgeStep = (status: BridgeTransactionStatus, direction: TransactionDirection): BridgeSteps => {
+  switch (status) {
+    case BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE:
+      return 'deposit';
+    default:
+    case BridgeTransactionStatus.READY_FOR_RELAY:
+      return 'relay';
+    case BridgeTransactionStatus.RELAYED:
+      return direction === TransactionDirection.L1_TO_L2 ? 'l2-confirmation' : 'l1-confirmation';
+    case BridgeTransactionStatus.READY_TO_PROVE:
+      return 'prove';
+    case BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED:
+      return 'state-root-published';
+    case BridgeTransactionStatus.IN_CHALLENGE_PERIOD:
+      return 'challenge-period';
+  }
+};
 
 const getLabel = (stage: BridgeSteps, status: BridgeStepStatus, isActing?: boolean, isActionSuccessful?: boolean) => {
   switch (stage) {
@@ -174,14 +191,25 @@ const getStatus = (
   return 'complete';
 };
 
-const getStepUrl = (step: BridgeSteps, l1TransactionHash?: Address, l2TransactionHash?: Address) => {
+const getStepUrl = (
+  step: BridgeSteps,
+  transactionHash: Address,
+  l1TransactionHash?: Address,
+  l2TransactionHash?: Address
+) => {
   switch (step) {
-    case 'deposit':
-    case 'l1-confirmation':
+    case 'deposit': {
+      return `${chainL2.blockExplorers?.default.url}/tx/${transactionHash}`;
+    }
+    case 'l1-confirmation': {
       return l1TransactionHash ? `${chainL1.blockExplorers?.default.url}/tx/${l1TransactionHash}` : undefined;
-    case 'withdraw':
-    case 'l2-confirmation':
+    }
+    case 'withdraw': {
+      return `${chainL2.blockExplorers?.default.url}/tx/${transactionHash}`;
+    }
+    case 'l2-confirmation': {
       return l2TransactionHash ? `${chainL2.blockExplorers?.default.url}/tx/${l2TransactionHash}` : undefined;
+    }
     default:
       return undefined;
   }
@@ -196,19 +224,19 @@ type BridgeStepProps = {
 
 const BridgeStep = ({ data, isActing, isActionSuccessful, step }: BridgeStepProps): JSX.Element => {
   const { i18n } = useLingui();
-  const { status: messageStatus, l1Receipt, l2Receipt, direction } = data;
+  const { status: messageStatus, l1Receipt, l2Receipt, direction, transactionHash } = data;
 
   if (step === undefined) {
-    return <Pill label={t(i18n)`Unknown`} status='idle' />;
+    return <StatusChip label={t(i18n)`Unknown`} status='idle' />;
   }
 
-  const href = getStepUrl(step, l1Receipt?.transactionHash, l2Receipt?.transactionHash);
+  const href = getStepUrl(step, transactionHash, l1Receipt?.transactionHash, l2Receipt?.transactionHash);
 
   const status = getStatus(step, messageStatus, direction);
 
   const label = getLabel(step, status, isActing, isActionSuccessful);
 
-  return <Pill href={href} label={label} status={status} />;
+  return <StatusChip href={href} label={label} status={status} />;
 };
 
-export { BridgeStep };
+export { BridgeStep, getOngoingBridgeStep };
