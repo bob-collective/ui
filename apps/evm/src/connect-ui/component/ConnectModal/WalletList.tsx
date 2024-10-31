@@ -73,6 +73,7 @@ const WalletList = ({
       </ListItem>
     ));
 
+    // If user does not have Bitkeep installed, offer download link
     if (type === 'evm' && !hasBitkeep) {
       listItems.unshift(
         <ListItem
@@ -91,6 +92,7 @@ const WalletList = ({
       );
     }
 
+    // If user does not have OKX installed, offer download link
     if (type === 'evm' && !hasOKXWallet) {
       listItems.unshift(
         <ListItem
