@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Connector } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useIsClient } from 'usehooks-ts';
 
 import { WalletIcon } from '../WalletIcon';
 
@@ -38,16 +39,17 @@ const WalletList = ({
   const [hasBitkeep, setHasBitKeep] = useState(false);
   const [hasOkxWallet, setHasOkxWallet] = useState(false);
   const { i18n } = useLingui();
+  const isClient = useIsClient();
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const okxWalletInstalled = !!window.okxTonWallet && !!window.ethereum;
-      const bitkeepWalletInstalled = !!window.bitkeep && !!window.ethereum;
+    if (!isClient) return;
 
-      setHasBitKeep(bitkeepWalletInstalled);
-      setHasOkxWallet(okxWalletInstalled);
-    }
-  }, []);
+    const okxWalletInstalled = !!window.okxTonWallet && !!window.ethereum;
+    const bitkeepWalletInstalled = !!window.bitkeep && !!window.ethereum;
+
+    setHasBitKeep(bitkeepWalletInstalled);
+    setHasOkxWallet(okxWalletInstalled);
+  }, [isClient]);
 
   const walletListItems = useMemo(() => {
     const listItems = connectors.map((connector) => (
