@@ -2,14 +2,23 @@
 
 import { usePrices } from '@gobob/react-query';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P } from '@gobob/ui';
-import { useAccount, useChainId, useConfig, useReconnect, watchAccount } from '@gobob/wagmi';
+import {
+  useAccount,
+  useAccountEffect,
+  useChainId,
+  useConfig,
+  useReconnect,
+  useSwitchChain,
+  watchAccount
+} from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
+import { useLocalStorage } from 'usehooks-ts';
 
 import { Header, Layout, Sidebar } from '@/components';
 import { ConnectProvider } from '@/connect-ui';
-import { RoutesPath } from '@/constants';
+import { L2_CHAIN, LocalStorageKey, RoutesPath } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
 
@@ -98,6 +107,36 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Allows us to prompt the user to add our chain.
+const usePromptSwitchChain = () => {
+  const { switchChainAsync } = useSwitchChain();
+
+  const [shouldPromptSwitchChain, setShouldPromptSwitchChain] = useLocalStorage<boolean | null>(
+    LocalStorageKey.PROMPT_SWITCH_CHAIN,
+    true
+  );
+
+  useAccountEffect({
+    async onConnect() {
+      if (shouldPromptSwitchChain) {
+        try {
+          await switchChainAsync({ chainId: L2_CHAIN });
+
+          return setShouldPromptSwitchChain(false);
+        } catch (e) {
+          return setShouldPromptSwitchChain(null);
+        }
+      }
+    },
+    onDisconnect() {
+      // try again to add chain after reject
+      if (shouldPromptSwitchChain === null) {
+        setShouldPromptSwitchChain(true);
+      }
+    }
+  });
+};
+
 export function NestedProviders({ children }: PropsWithChildren) {
   const router = useRouter();
   const chainId = useChainId();
@@ -106,6 +145,8 @@ export function NestedProviders({ children }: PropsWithChildren) {
   usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
   useBalances(chainId);
   useTokens(chainId);
+
+  usePromptSwitchChain();
 
   const { reconnect } = useReconnect();
 
