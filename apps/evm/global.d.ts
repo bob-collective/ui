@@ -23,7 +23,7 @@ declare global {
   interface Window {
     bitkeep?: object;
     okxTonWallet?: object;
-    ethereum?: EIP1193Provider;
+    ethereum: EIP1193Provider;
   }
 }
 
