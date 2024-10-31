@@ -14,6 +14,7 @@ import { FusionBanner } from './FusionBanner';
 import { OnrampBanner } from './OnrampBanner';
 import { XBanner } from './XBanner';
 import { HybridL2Banner } from './HybridL2Banner';
+import { OKXCryptopediaBanner } from './OKXCryptopediaBanner';
 
 import { RoutesPath } from '@/constants';
 import { FeatureFlags, useFeatureFlag } from '@/hooks';
@@ -80,6 +81,12 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressOKXCryptopediaBanner = useCallback(
+    () => window.open('https://blog.gobob.xyz/posts/the-hybrid-l2-paper', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper
       aria-label={t(i18n)`navigate to ecosystem section in fusion page`}
@@ -98,6 +105,7 @@ const BannerCarousel = () => {
         swipeable={false}
         transitionDuration={500}
       >
+        <OKXCryptopediaBanner onPress={onPressOKXCryptopediaBanner} />
         <HybridL2Banner onPress={onPressHybridL2Banner} />
         <XBanner onPress={onPressXBanner} />
         <FusionBanner onPress={onPressFusionBanner} />

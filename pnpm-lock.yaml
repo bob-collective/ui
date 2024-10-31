@@ -364,49 +364,6 @@ importers:
 
   packages/chains: {}
 
-  packages/connect-ui:
-    dependencies:
-      '@gobob/chains':
-        specifier: workspace:^
-        version: link:../chains
-      '@gobob/icons':
-        specifier: workspace:^
-        version: link:../icons
-      '@gobob/sats-wagmi':
-        specifier: workspace:^
-        version: link:../sats-wagmi
-      '@gobob/ui':
-        specifier: workspace:^
-        version: link:../ui
-      '@gobob/utils':
-        specifier: workspace:^
-        version: link:../utils
-      '@gobob/wagmi':
-        specifier: workspace:^
-        version: link:../wagmi
-      '@react-aria/utils':
-        specifier: ^3.21.0
-        version: 3.24.1(react@18.3.1)
-      react-jazzicon:
-        specifier: ^1.0.4
-        version: 1.0.4(react-dom@18.3.1)(react@18.3.1)
-      react-use:
-        specifier: ^17.4.3
-        version: 17.5.0(react-dom@18.3.1)(react@18.3.1)
-      usehooks-ts:
-        specifier: ^3.1.0
-        version: 3.1.0(react@18.3.1)
-    devDependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-      styled-components:
-        specifier: ^6.0.7
-        version: 6.1.11(react-dom@18.3.1)(react@18.3.1)
-
   packages/currency:
     dependencies:
       big.js:
