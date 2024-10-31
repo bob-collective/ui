@@ -471,7 +471,7 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:541
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:161
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:190
 msgid "Enter destination address"
 msgstr ""
 
@@ -679,7 +679,7 @@ msgstr "排行榜"
 msgid "Learn More"
 msgstr "了解更多"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:139
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:168
 msgid "Learn more about {0}"
 msgstr ""
 
@@ -904,7 +904,7 @@ msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:200
 msgid "Preparing..."
 msgstr ""
 
@@ -969,7 +969,7 @@ msgstr "接收 {ticker}"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:540
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:160
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:189
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
 msgid "Recipient"
 msgstr ""
@@ -1061,7 +1061,7 @@ msgstr ""
 msgid "select network to bridge to"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:115
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:139
 msgid "Select Strategy"
 msgstr ""
 
@@ -1184,7 +1184,7 @@ msgstr "Spice积分（较高）"
 msgid "Spice rewards (Medium)"
 msgstr "Spice积分（中等）"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:200
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/app/[lang]/(bridge)/stake/Stake.tsx:65
 #: src/components/Layout/Header.tsx:80
@@ -1192,7 +1192,7 @@ msgstr "Spice积分（中等）"
 msgid "Stake"
 msgstr "質押"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:114
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:138
 msgid "Stake with"
 msgstr ""
 
@@ -1447,8 +1447,8 @@ msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We 
 msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力开发这项功能，请持续关注我们的更新。"
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
-msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
-msgstr ""
+#~ msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:49
 msgid "uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and Bedrock diamonds."
@@ -1624,6 +1624,10 @@ msgstr "收益资产"
 msgid "You"
 msgstr ""
 
+#: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
+msgid "You are using a BTC address type (Taproot/P2TR) which we don't support yet. Change the BTC address type to Native SegWit in your wallet to continue."
+msgstr ""
+
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:42
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "你可以在每周投票期结束前随时更改你的投票"
@@ -1646,7 +1650,7 @@ msgstr "请密切关注你的仓位，尤其是当设定的价格范围较窄时
 msgid "You will receive"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:166
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:195
 msgid "You will stake"
 msgstr ""
 

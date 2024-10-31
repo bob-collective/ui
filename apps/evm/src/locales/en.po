@@ -471,7 +471,7 @@ msgstr "Enter Address"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:541
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:161
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:190
 msgid "Enter destination address"
 msgstr "Enter destination address"
 
@@ -679,7 +679,7 @@ msgstr "Leaderboard"
 msgid "Learn More"
 msgstr "Learn More"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:139
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:168
 msgid "Learn more about {0}"
 msgstr "Learn more about {0}"
 
@@ -904,7 +904,7 @@ msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:200
 msgid "Preparing..."
 msgstr "Preparing..."
 
@@ -969,7 +969,7 @@ msgstr "Receive {ticker}"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:540
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:160
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:189
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
 msgid "Recipient"
 msgstr "Recipient"
@@ -1061,7 +1061,7 @@ msgstr "select network to bridge from"
 msgid "select network to bridge to"
 msgstr "select network to bridge to"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:115
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:139
 msgid "Select Strategy"
 msgstr "Select Strategy"
 
@@ -1184,7 +1184,7 @@ msgstr "Spice rewards (Higher)"
 msgid "Spice rewards (Medium)"
 msgstr "Spice rewards (Medium)"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:200
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/app/[lang]/(bridge)/stake/Stake.tsx:65
 #: src/components/Layout/Header.tsx:80
@@ -1192,7 +1192,7 @@ msgstr "Spice rewards (Medium)"
 msgid "Stake"
 msgstr "Stake"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:114
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:138
 msgid "Stake with"
 msgstr "Stake with"
 
@@ -1451,8 +1451,8 @@ msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We 
 msgstr "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
-msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
-msgstr "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
+#~ msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
+#~ msgstr "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:49
 msgid "uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and Bedrock diamonds."
@@ -1628,6 +1628,10 @@ msgstr "Yield Assets"
 msgid "You"
 msgstr "You"
 
+#: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
+msgid "You are using a BTC address type (Taproot/P2TR) which we don't support yet. Change the BTC address type to Native SegWit in your wallet to continue."
+msgstr "You are using a BTC address type (Taproot/P2TR) which we don't support yet. Change the BTC address type to Native SegWit in your wallet to continue."
+
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:42
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "You can change your votes at any time before the end of the weekly voting period"
@@ -1650,7 +1654,7 @@ msgstr "You will need to actively monitor your position, especially if it has a 
 msgid "You will receive"
 msgstr "You will receive"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:166
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:195
 msgid "You will stake"
 msgstr "You will stake"
 
