@@ -1,6 +1,6 @@
 import { SatsConnector } from '@gobob/sats-wagmi';
 import { Avatar, Flex, List, ListItem, ListProps, Spinner } from '@gobob/ui';
-import { useCallback, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Connector } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -35,22 +35,21 @@ const WalletList = ({
         : undefined,
     [pendingConnector, connectors]
   );
+  const [hasBitkeep, setHasBitKeep] = useState(false);
+  const [hasOkxWallet, setHasOkxWallet] = useState(false);
   const { i18n } = useLingui();
 
-  let hasBitkeep = undefined;
-  let hasOKXWallet = undefined;
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const okxWalletInstalled = !!window.okxTonWallet && !!window.ethereum;
+      const bitkeepWalletInstalled = !!window.bitkeep && !!window.ethereum;
 
-  if (typeof window !== 'undefined') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    hasOKXWallet = (window as any).okxTonWallet && window.ethereum;
-  }
+      setHasBitKeep(bitkeepWalletInstalled);
+      setHasOkxWallet(okxWalletInstalled);
+    }
+  }, []);
 
-  if (typeof window !== 'undefined') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    hasBitkeep = (window as any).bitkeep && window.ethereum;
-  }
-
-  const walletListItems = useCallback(() => {
+  const walletListItems = useMemo(() => {
     const listItems = connectors.map((connector) => (
       <ListItem
         key={connector.id}
@@ -73,46 +72,44 @@ const WalletList = ({
       </ListItem>
     ));
 
-    // If user does not have Bitkeep installed, offer download link
-    if (type === 'evm' && !hasBitkeep) {
-      listItems.unshift(
-        <ListItem
-          key={'bitgetWallet'}
-          alignItems='center'
-          gap='lg'
-          justifyContent='space-between'
-          paddingX='s'
-          paddingY='xs'
-          textValue='Bitget Wallet'
-        >
-          <Flex alignItems='center' gap='lg'>
-            <BitgetWalletLink />
-          </Flex>
-        </ListItem>
-      );
-    }
+    const bitkeepItem = (
+      <ListItem
+        key='bitgetWallet'
+        alignItems='center'
+        gap='lg'
+        justifyContent='space-between'
+        paddingX='s'
+        paddingY='xs'
+        textValue='Bitget Wallet'
+      >
+        <Flex alignItems='center' gap='lg'>
+          <BitgetWalletLink />
+        </Flex>
+      </ListItem>
+    );
 
-    // If user does not have OKX installed, offer download link
-    if (type === 'evm' && !hasOKXWallet) {
-      listItems.unshift(
-        <ListItem
-          key={'okxWallet'}
-          alignItems='center'
-          gap='lg'
-          justifyContent='space-between'
-          paddingX='s'
-          paddingY='xs'
-          textValue='OKX Wallet'
-        >
-          <Flex alignItems='center' gap='lg'>
-            <OKXWalletLink />
-          </Flex>
-        </ListItem>
-      );
-    }
+    const okxItem = (
+      <ListItem
+        key='okxWallet'
+        alignItems='center'
+        gap='lg'
+        justifyContent='space-between'
+        paddingX='s'
+        paddingY='xs'
+        textValue='OKX Wallet'
+      >
+        <Flex alignItems='center' gap='lg'>
+          <OKXWalletLink />
+        </Flex>
+      </ListItem>
+    );
 
-    return listItems;
-  }, [connectors, hasBitkeep, hasOKXWallet, pendingConnector, type]);
+    return [
+      ...(type === 'evm' && !hasOkxWallet ? [okxItem] : []),
+      ...(type === 'evm' && !hasBitkeep ? [bitkeepItem] : []),
+      ...listItems
+    ];
+  }, [connectors, hasBitkeep, hasOkxWallet, pendingConnector, type]);
 
   return (
     <List
@@ -124,7 +121,7 @@ const WalletList = ({
       selectionMode='single'
       onSelectionChange={onSelectionChange}
     >
-      {walletListItems()}
+      {walletListItems}
     </List>
   );
 };

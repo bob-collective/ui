@@ -1,3 +1,5 @@
+import { EIP1193Provider } from 'viem';
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -17,6 +19,11 @@ declare global {
       NEXT_PUBLIC_SENTRY_URL: string;
       NEXT_PUBLIC_TRACES_SAMPLE_RATE: `${number}`;
     }
+  }
+  interface Window {
+    bitkeep?: object;
+    okxTonWallet?: object;
+    ethereum?: EIP1193Provider;
   }
 }
 

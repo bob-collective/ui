@@ -109,6 +109,14 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const [selectedKey] = [...(key as any)];
 
+        if (selectedKey === 'okxWallet') {
+          window.open('https://www.okx.com/web3', '_blank', 'noreferrer');
+        }
+
+        if (selectedKey === 'bitgetWallet') {
+          window.open('https://web3.bitget.com/en/wallet-download', '_blank', 'noreferrer');
+        }
+
         const connector = connectors.find((el) => el.id === selectedKey);
 
         if (!connector) {
