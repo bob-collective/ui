@@ -509,8 +509,6 @@ msgstr "Enter Address"
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:536
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:190
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:477
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:452
 msgid "Enter destination address"
 msgstr "Enter destination address"
 
@@ -1089,9 +1087,7 @@ msgstr "Receive {ticker}"
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:535
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:189
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:476
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:451
-#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:224
+#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
 msgid "Recipient"
 msgstr "Recipient"
 
@@ -1183,7 +1179,6 @@ msgid "select network to bridge to"
 msgstr "select network to bridge to"
 
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:139
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:407
 msgid "Select Strategy"
 msgstr "Select Strategy"
 
@@ -1321,7 +1316,6 @@ msgid "Stake"
 msgstr "Stake"
 
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:138
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:406
 msgid "Stake with"
 msgstr "Stake with"
 
@@ -1582,10 +1576,8 @@ msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We 
 msgstr "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
-#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:484
-#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:459
-msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
-msgstr "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
+#~ msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
+#~ msgstr "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:49
 msgid "uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and Bedrock diamonds."
@@ -1768,6 +1760,10 @@ msgstr "Yield Assets"
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:47
 msgid "You"
 msgstr "You"
+
+#: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
+msgid "You are using a BTC address type (Taproot/P2TR) which we don't support yet. Change the BTC address type to Native SegWit in your wallet to continue."
+msgstr "You are using a BTC address type (Taproot/P2TR) which we don't support yet. Change the BTC address type to Native SegWit in your wallet to continue."
 
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:42
 msgid "You can change your votes at any time before the end of the weekly voting period"
