@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { Inter } from 'next/font/google';
+import { Inter, Chakra_Petch } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import { t } from '@lingui/macro';
 import { userAgentFromString } from 'next/server';
@@ -16,6 +16,7 @@ import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
 import { UserAgentProvider } from '@/user-agent/provider';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
 
 export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }));
@@ -64,7 +65,7 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
   const userAgent: ReturnType<typeof userAgentFromString> = userAgentFromString(headers().get('user-agent') ?? '');
 
   return (
-    <html className={inter.className} lang={lang}>
+    <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
       <body>
         <div id='root'>
           <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>

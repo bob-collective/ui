@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@gobob/react-query';
 import { useAccount } from '@gobob/wagmi';
 
-import { appsKeys } from '@/lib/react-query';
+import { appsKeys, fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
 import { useGetUser } from '@/hooks';
 
@@ -22,6 +22,7 @@ const useVote = () => {
     },
     onSuccess: (data) => {
       queryClient.setQueryData(appsKeys.appsVotes(user?.username), data);
+      queryClient.resetQueries({ queryKey: fusionKeys.lotteryStats(user?.username) });
     }
   });
 };

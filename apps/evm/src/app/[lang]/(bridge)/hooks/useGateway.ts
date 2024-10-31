@@ -248,8 +248,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   );
 
   const isValidAmount = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (isNaN(rawAmount as any)) return false;
+    if (isNaN(+rawAmount)) return false;
 
     const amount = CurrencyAmount.fromBaseAmount(BITCOIN, rawAmount);
 

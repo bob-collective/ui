@@ -5,6 +5,8 @@ export * from './useGasTokens';
 export * from './useGeoblock';
 export * from './useGetStrategies';
 export * from './useGetUser';
+export * from './useLotteryRoll';
+export * from './useLotteryStats';
 export * from './useHaltedLockedTokens';
 export * from './useLockedTokens';
 export * from './useLogin';

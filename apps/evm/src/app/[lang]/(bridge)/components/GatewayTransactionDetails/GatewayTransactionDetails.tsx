@@ -74,8 +74,8 @@ const GatewayTransactionDetails = ({
         <Alert status='warning'>
           <P size='s'>
             <Trans>
-              Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address
-              type.
+              You are using a BTC address type (Taproot/P2TR) which we don&apos;t support yet. Change the BTC address
+              type to Native SegWit in your wallet to continue.
             </Trans>
           </P>
         </Alert>

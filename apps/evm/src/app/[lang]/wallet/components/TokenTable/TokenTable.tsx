@@ -102,8 +102,7 @@ const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
 
   const getUsdValue = useCallback(
     (ticker: string, amount: string | number) =>
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      !isNaN(amount as any) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
+      !isNaN(+amount) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
     [getPrice]
   );
 

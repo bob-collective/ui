@@ -2,6 +2,9 @@ import { Dl, DlGroup, Dt, Dd, Flex } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import Image from 'next/image';
 import { useLingui } from '@lingui/react';
+import trailsOfBits from '@public/assets/trails-of-bits.png';
+import commonPrefix from '@public/assets/common-prefix.png';
+import otterSec from '@public/assets/otter-sec.png';
 
 const Auditors = () => {
   const { i18n } = useLingui();
@@ -20,7 +23,13 @@ const Auditors = () => {
               rel='noreferrer'
               target='_blank'
             >
-              <Image alt={t(i18n)`Trails of Bits auditor`} height='24' src='/assets/trails-of-bits.png' width='40' />
+              <Image
+                alt={t(i18n)`Trails of Bits auditor`}
+                height='24'
+                placeholder='blur'
+                src={trailsOfBits}
+                width='40'
+              />
             </a>
             <a
               aria-label={t(i18n)`navigate to Common Prefix audit`}
@@ -28,7 +37,13 @@ const Auditors = () => {
               rel='noreferrer'
               target='_blank'
             >
-              <Image alt={t(i18n)`Common Prefix auditor`} height='10' src='/assets/common-prefix.png' width='105' />
+              <Image
+                alt={t(i18n)`Common Prefix auditor`}
+                height='10'
+                placeholder='blur'
+                src={commonPrefix}
+                width='105'
+              />
             </a>
             <a
               aria-label={t(i18n)`navigate to OtterSec audit`}
@@ -36,7 +51,7 @@ const Auditors = () => {
               rel='noreferrer'
               target='_blank'
             >
-              <Image alt={t(i18n)`OtterSec auditor`} height='16' src='/assets/otter-sec.png' width='76' />
+              <Image alt={t(i18n)`OtterSec auditor`} height='16' placeholder='blur' src={otterSec} width='76' />
             </a>
           </Flex>
         </Dd>
