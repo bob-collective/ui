@@ -2,13 +2,13 @@ import { Link, Flex, Avatar } from '@gobob/ui';
 
 import { bitgetLogo } from './bitget';
 
-const BitgetWallet = () => (
+const BitgetWalletLink = () => (
   <Link external href='https://web3.bitget.com/en/wallet-download'>
-    <Flex alignItems='center' gap='lg' paddingX='xl'>
+    <Flex alignItems='center' gap='lg'>
       <Avatar rounded='none' src={bitgetLogo} />
       BitgetWallet
     </Flex>
   </Link>
 );
 
-export { BitgetWallet };
+export { BitgetWalletLink };
