@@ -9,6 +9,5 @@ build
 !.storybook
 !.commitlintrc.cjs
 !.lintstagedrc
-!jest.config.js
 !knip.config.js
 !tsup.config.ts

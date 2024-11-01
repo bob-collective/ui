@@ -21,8 +21,10 @@ vi.mock('viem/op-stack', () => ({
   publicActionsL2: vi.fn()
 }));
 
+type MockClient = { extend: Mock<() => MockClient> };
+
 describe('usePublicClientL1 and usePublicClientL2 hooks', () => {
-  const mockClient = {
+  const mockClient: MockClient = {
     extend: vi.fn(() => mockClient)
   };
 
