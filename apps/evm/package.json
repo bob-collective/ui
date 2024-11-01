@@ -73,6 +73,7 @@
     "@vitejs/plugin-react": "^4.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
+    "eslint-plugin-lingui": "^0.6.0",
     "jsdom": "^25.0.1",
     "typescript": "^5"
   }
