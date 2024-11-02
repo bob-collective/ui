@@ -3,6 +3,7 @@ import { screen, waitFor, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { Key, createRef, useState } from 'react';
 import { Currency } from '@gobob/currency';
+import { vi } from 'vitest';
 
 import { TokenInput } from '..';
 
@@ -123,8 +124,8 @@ describe('TokenInput', () => {
     });
 
     it('should update input when applying max', async () => {
-      const handleClickBalance = jest.fn();
-      const handleValueChange = jest.fn();
+      const handleClickBalance = vi.fn();
+      const handleValueChange = vi.fn();
 
       render(
         <TokenInput
@@ -151,8 +152,8 @@ describe('TokenInput', () => {
     });
 
     it('should apply max with exact decimals', async () => {
-      const handleClickBalance = jest.fn();
-      const handleValueChange = jest.fn();
+      const handleClickBalance = vi.fn();
+      const handleValueChange = vi.fn();
 
       render(
         <TokenInput
@@ -176,7 +177,7 @@ describe('TokenInput', () => {
     });
 
     it('should apply max with correct amount decimals', async () => {
-      const handleValueChange = jest.fn();
+      const handleValueChange = vi.fn();
 
       render(
         <TokenInput
@@ -198,8 +199,8 @@ describe('TokenInput', () => {
     });
 
     it('should not emit input onBlur when focus is in max btn', async () => {
-      const handleClickBalance = jest.fn();
-      const handleBlur = jest.fn();
+      const handleClickBalance = vi.fn();
+      const handleBlur = vi.fn();
 
       render(
         <TokenInput
@@ -232,7 +233,7 @@ describe('TokenInput', () => {
     });
 
     it('should have max btn disabled when balance is 0', async () => {
-      const handleClickBalance = jest.fn();
+      const handleClickBalance = vi.fn();
 
       render(
         <TokenInput
@@ -249,7 +250,7 @@ describe('TokenInput', () => {
     });
 
     it('should have max btn disabled when input is disabled', async () => {
-      const handleClickBalance = jest.fn();
+      const handleClickBalance = vi.fn();
 
       render(
         <TokenInput
@@ -326,7 +327,7 @@ describe('TokenInput', () => {
     });
 
     it('should control select value and emit onChangeCurrency', async () => {
-      const handleChangeCurrency = jest.fn();
+      const handleChangeCurrency = vi.fn();
 
       const Component = () => {
         const [value, setValue] = useState<any | undefined>(currencies[0]);

@@ -2,6 +2,7 @@
 import { act, renderHook, screen, waitFor, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { render } from '@gobob/test-utils';
+import { vi } from 'vitest';
 
 import { Input, TokenInput, Select, Item } from '../../../components';
 import { useForm } from '../use-form';
@@ -27,7 +28,7 @@ const validate = (values: FormData) => {
 };
 
 describe('useForm', () => {
-  const handleSubmit = jest.fn();
+  const handleSubmit = vi.fn();
 
   beforeEach(() => {
     handleSubmit.mockClear();
@@ -327,7 +328,7 @@ describe('useForm', () => {
   });
 
   describe('onComplete', () => {
-    const handleComplete = jest.fn();
+    const handleComplete = vi.fn();
 
     const validate = (values: FormData) => {
       const errors: any = {};
