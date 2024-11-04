@@ -18,7 +18,7 @@ import { useLocalStorage } from 'usehooks-ts';
 
 import { Header, Layout, Sidebar } from '@/components';
 import { ConnectProvider } from '@/connect-ui';
-import { L2_CHAIN, LocalStorageKey, RoutesPath } from '@/constants';
+import { isClient, L2_CHAIN, LocalStorageKey, RoutesPath } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
 
