@@ -229,7 +229,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     opReturnData: evmAddress,
     feeRate: feeRate,
     query: {
-      enabled: Boolean(satsBalance && satsBalance.confirmed > 0n && evmAddress),
+      enabled: Boolean(satsBalance && satsBalance.total > 0n && evmAddress),
       select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount)
     }
   });
@@ -242,9 +242,8 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   }, [feeRatesQueryResult.error, feeEstimateQueryResult.error]);
 
   const balance = useMemo(
-    () =>
-      getBalanceAmount(satsBalance?.confirmed, feeEstimateQueryResult.data, liquidityQueryResult.data?.liquidityAmount),
-    [liquidityQueryResult.data?.liquidityAmount, satsBalance?.confirmed, feeEstimateQueryResult.data]
+    () => getBalanceAmount(satsBalance?.total, feeEstimateQueryResult.data, liquidityQueryResult.data?.liquidityAmount),
+    [liquidityQueryResult.data?.liquidityAmount, satsBalance?.total, feeEstimateQueryResult.data]
   );
 
   const isValidAmount = useCallback(() => {
