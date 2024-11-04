@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useSignMessage, useChainId } from '@gobob/wagmi';
 import { Mock, vi } from 'vitest';
 import { PropsWithChildren } from 'react';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 import { SiweMessage } from 'siwe';
 
 import { useLogin } from '../useLogin';

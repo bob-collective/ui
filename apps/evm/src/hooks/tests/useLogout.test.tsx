@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 import { useQueryClient } from '@gobob/react-query';
 import { useDisconnect, useAccountEffect } from '@gobob/wagmi';
 import { PropsWithChildren } from 'react';

@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { Mock, vi } from 'vitest';
 import { useAccount } from '@gobob/wagmi';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 
 import { useGetGatewayTransactions } from '../useGetGatewayTransactions';
 

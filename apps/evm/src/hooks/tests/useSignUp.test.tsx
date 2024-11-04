@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useAccount, useSignMessage } from '@gobob/wagmi';
 import { toast } from '@gobob/ui';
 import { Mock, vi } from 'vitest';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 
 import { useSignUp } from '../useSignUp';
 import { useGetUser } from '../useGetUser';
@@ -20,9 +20,14 @@ vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   };
 });
 
-vi.mock('@gobob/ui', () => ({
-  toast: { error: vi.fn(), success: vi.fn() }
-}));
+vi.mock(import('@gobob/ui'), async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
+    toast: { ...actual.toast, error: vi.fn(), success: vi.fn() } as any
+  };
+});
 
 vi.mock('siwe', () => ({
   SiweMessage: vi.fn().mockImplementation((messageData) => ({

@@ -1,4 +1,4 @@
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { describe, expect, it, Mock, vi } from 'vitest';

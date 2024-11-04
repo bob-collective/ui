@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { useAccount, usePublicClient } from '@gobob/wagmi';
 import { Mock, vi } from 'vitest';
 import { PropsWithChildren } from 'react';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 
 import { useTokens } from '../useTokens';
 import { useHaltedLockedTokens } from '../useHaltedLockedTokens';

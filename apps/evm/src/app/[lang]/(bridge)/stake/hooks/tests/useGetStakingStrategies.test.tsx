@@ -1,7 +1,7 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
 import { Token } from '@gobob/currency';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { Address } from 'viem';

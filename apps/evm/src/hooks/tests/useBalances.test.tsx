@@ -4,7 +4,7 @@ import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, Ether } from '@gobob/currency';
 import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { useAccount, useBalance, usePublicClient } from '@gobob/wagmi';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 
 import { useBalances } from '../useBalances';
 import { useTokens } from '../useTokens';

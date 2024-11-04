@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { ChainId } from '@gobob/chains';
 import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { ERC20Token } from '@gobob/currency';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 
 import { BridgeToken, useBridgeTokens } from '../useBridgeTokens';
 import { useTokens } from '../useTokens';

@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ChainId } from '@gobob/chains';
 import { Ether } from '@gobob/currency';
 import { PropsWithChildren } from 'react';
-import { Wrapper } from '@gobob/test-utils';
+import { Wrapper } from '@/test-utils';
 
 import { useGasTokens } from '../useGasTokens';
 
