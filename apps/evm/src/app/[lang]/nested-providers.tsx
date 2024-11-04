@@ -113,7 +113,8 @@ const usePromptSwitchChain = () => {
 
   const [shouldPromptSwitchChain, setShouldPromptSwitchChain] = useLocalStorage<boolean | null>(
     LocalStorageKey.PROMPT_SWITCH_CHAIN,
-    true
+    true,
+    { initializeWithValue: isClient }
   );
 
   useAccountEffect({
