@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useAccount, useSignMessage } from '@gobob/wagmi';
 import { toast } from '@gobob/ui';
 import { Mock, vi } from 'vitest';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 
 import { useSignUp } from '../useSignUp';
 import { useGetUser } from '../useGetUser';
@@ -40,8 +40,6 @@ vi.mock('../useGetUser', () => ({
   useGetUser: vi.fn(() => ({ refetch: vi.fn() }))
 }));
 
-const createQueryClient = () => new QueryClient();
-
 describe('useSignUp', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -62,9 +60,8 @@ describe('useSignUp', () => {
     (useGetUser as Mock).mockReturnValue({ refetch: mockRefetchUser });
 
     const onSuccess = vi.fn();
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onSuccess }), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await act(() => result.current.mutate({}));
@@ -85,9 +82,8 @@ describe('useSignUp', () => {
     (useSignMessage as Mock).mockReturnValue({ signMessageAsync: mockSignMessageAsync });
 
     const onError = vi.fn();
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onError }), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await act(() => result.current.mutate({}));
@@ -105,9 +101,8 @@ describe('useSignUp', () => {
     (useSignMessage as Mock).mockReturnValue({ signMessageAsync: mockSignMessageAsync });
 
     const onError = vi.fn();
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onError }), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await act(() => result.current.mutate({}));

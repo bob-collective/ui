@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ChainId } from '@gobob/chains';
 import { Ether } from '@gobob/currency';
 import { PropsWithChildren } from 'react';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 
 import { useGasTokens } from '../useGasTokens';
 
@@ -28,19 +28,13 @@ vi.mock(import('@gobob/tokens'), async (importOriginal) => {
   };
 });
 
-const createQueryClient = () => new QueryClient();
-
 describe('useGasTokens', () => {
   beforeEach(vi.clearAllMocks);
 
   it('should return gas tokens for the specified chainId', async () => {
-    const queryClient = createQueryClient();
-
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useGasTokens>>(
       () => useGasTokens(ChainId.ETHEREUM),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitForNextUpdate();
@@ -62,13 +56,9 @@ describe('useGasTokens', () => {
   });
 
   it('should return no gas tokens if chainId has no matching native token', async () => {
-    const queryClient = createQueryClient();
-
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useGasTokens>>(
       () => useGasTokens(ChainId.SEPOLIA),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitForNextUpdate();
@@ -90,13 +80,9 @@ describe('useGasTokens', () => {
   });
 
   it('should return an empty array if no tokens match the chainId and symbol', async () => {
-    const queryClient = createQueryClient();
-
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useGasTokens>>(
       () => useGasTokens(ChainId.POLYGON_ZKEVM),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitForNextUpdate();

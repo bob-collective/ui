@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 import { useAccount } from '@gobob/wagmi';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
@@ -54,8 +54,6 @@ vi.mock(import('@/hooks'), async (importOriginal) => {
   };
 });
 
-const createQueryClient = () => new QueryClient();
-
 describe('useGetGatewayTransactions ', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -66,12 +64,9 @@ describe('useGetGatewayTransactions ', () => {
   });
 
   it('fetches and returns the gateway transactions', async () => {
-    const queryClient = createQueryClient();
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useGetGatewayTransactions>>(
       () => useGetGatewayTransactions(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitForNextUpdate();
@@ -98,12 +93,9 @@ describe('useGetGatewayTransactions ', () => {
 
   it('does not fetch transactions if address is not available', async () => {
     (useAccount as Mock).mockReturnValue({ address: undefined });
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetGatewayTransactions>>(
       () => useGetGatewayTransactions(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     expect(result.current.data).toBeUndefined();
@@ -113,12 +105,9 @@ describe('useGetGatewayTransactions ', () => {
 
   it('does not fetch transactions if BTC_GATEWAY feature is disabled', async () => {
     (useFeatureFlag as Mock).mockReturnValue(false);
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetGatewayTransactions>>(
       () => useGetGatewayTransactions(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     expect(result.current.data).toBeUndefined();

@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { useAccount, usePublicClient } from '@gobob/wagmi';
 import { Mock, vi } from 'vitest';
 import { PropsWithChildren } from 'react';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 
 import { useTokens } from '../useTokens';
 import { useHaltedLockedTokens } from '../useHaltedLockedTokens';
@@ -35,8 +35,6 @@ const mockLockContract = { address: '0xLockContract' };
 
 const mockReadContract = vi.fn();
 
-const createQueryClient = () => new QueryClient();
-
 describe('useHaltedLockedTokens', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -53,12 +51,9 @@ describe('useHaltedLockedTokens', () => {
   it.skip('returns halted locked tokens with positive balances', async () => {
     mockReadContract.mockResolvedValueOnce(100n).mockResolvedValueOnce(200n);
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useHaltedLockedTokens>>(
       () => useHaltedLockedTokens(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitFor(() => expect(result.current.data).toBeDefined());
@@ -85,12 +80,9 @@ describe('useHaltedLockedTokens', () => {
   it('returns an empty array if no tokens have positive locked balance', async () => {
     mockReadContract.mockResolvedValue(0n);
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useHaltedLockedTokens>>(
       () => useHaltedLockedTokens(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitFor(() => expect(result.current.data).toEqual([]));
@@ -101,12 +93,9 @@ describe('useHaltedLockedTokens', () => {
   it('handles errors gracefully', async () => {
     mockReadContract.mockRejectedValue(new Error('Contract read error'));
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useHaltedLockedTokens>>(
       () => useHaltedLockedTokens(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitFor(() => expect(result.current.data).toEqual([]));
@@ -117,12 +106,9 @@ describe('useHaltedLockedTokens', () => {
   it('does not run query if address is undefined', async () => {
     (useAccount as Mock).mockReturnValue({ address: undefined });
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useHaltedLockedTokens>>(
       () => useHaltedLockedTokens(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     expect(result.current.data).toBeUndefined();

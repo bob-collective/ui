@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { vi, describe, it, expect, beforeEach, Mock } from 'vitest';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 import { useAccount } from '@gobob/wagmi';
 
 import { useGetUser } from '../useGetUser';
@@ -19,8 +19,6 @@ vi.mock('@/utils', () => ({
   }
 }));
 
-const createQueryClient = () => new QueryClient();
-
 describe('useGetUser', () => {
   const mockAddress = '0x123';
 
@@ -29,9 +27,8 @@ describe('useGetUser', () => {
   it('does not run query if no address is present', async () => {
     (useAccount as Mock).mockReturnValue({ address: null });
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetUser>>(() => useGetUser(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     expect(result.current.isLoading).toBe(false);
@@ -45,9 +42,8 @@ describe('useGetUser', () => {
     (useAccount as Mock).mockReturnValue({ address: mockAddress });
     (apiClient.getMe as Mock).mockResolvedValue(mockUserData);
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetUser>>(() => useGetUser(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
@@ -59,9 +55,8 @@ describe('useGetUser', () => {
     (useAccount as Mock).mockReturnValue({ address: mockAddress });
     (apiClient.getMe as Mock).mockRejectedValue(new Error('Failed to fetch'));
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetUser>>(() => useGetUser(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     expect(result.current.data).toBeUndefined();
@@ -73,9 +68,8 @@ describe('useGetUser', () => {
 
     (apiClient.getMe as Mock).mockResolvedValue(mockUserData);
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetUser>>(() => useGetUser(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));

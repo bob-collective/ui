@@ -3,7 +3,7 @@ import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { useAccount, usePublicClient } from '@gobob/wagmi';
 import { Mock, vi } from 'vitest';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 
 import { useTokens } from '../useTokens';
 import { useLockedTokens } from '../useLockedTokens';
@@ -31,8 +31,6 @@ const mockLockContract = { address: '0xLockContract' };
 
 const mockReadContract = vi.fn();
 
-const createQueryClient = () => new QueryClient();
-
 describe('useLockedTokens', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -49,9 +47,8 @@ describe('useLockedTokens', () => {
   it.skip('returns locked tokens with positive balances', async () => {
     mockReadContract.mockResolvedValueOnce(100n).mockResolvedValueOnce(200n);
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await waitFor(() => expect(result.current.data).toBeDefined());
@@ -78,9 +75,8 @@ describe('useLockedTokens', () => {
   it('returns an empty array if no tokens have positive locked balances', async () => {
     mockReadContract.mockResolvedValue(0n);
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await waitFor(() => expect(result.current.data).toEqual([]));
@@ -91,9 +87,8 @@ describe('useLockedTokens', () => {
   it('handles errors gracefully', async () => {
     mockReadContract.mockRejectedValue(new Error('Contract read error'));
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await waitFor(() => expect(result.current.data).toEqual([]));
@@ -104,9 +99,8 @@ describe('useLockedTokens', () => {
   it('does not run if no address is provided', async () => {
     (useAccount as Mock).mockReturnValue({ address: undefined });
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     expect(result.current.data).toBeUndefined();

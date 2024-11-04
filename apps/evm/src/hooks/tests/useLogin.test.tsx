@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useSignMessage, useChainId } from '@gobob/wagmi';
 import { Mock, vi } from 'vitest';
 import { PropsWithChildren } from 'react';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 import { SiweMessage } from 'siwe';
 
 import { useLogin } from '../useLogin';
@@ -31,8 +31,6 @@ vi.mock('siwe', () => ({
   SiweMessage: vi.fn()
 }));
 
-const createQueryClient = () => new QueryClient();
-
 describe('useLogin', () => {
   const mockAddress = '0xUserAddress';
   const mockNonce = 'test_nonce';
@@ -58,9 +56,8 @@ describe('useLogin', () => {
     });
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await act(() => result.current.mutate(mockAddress));
@@ -74,9 +71,9 @@ describe('useLogin', () => {
 
     (apiClient.getNonce as Mock).mockRejectedValue(new Error(errorMessage));
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
-    const queryClient = createQueryClient();
+
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await waitFor(() => expect(act(() => result.current.mutateAsync(mockAddress))).rejects.toThrow());
@@ -91,9 +88,8 @@ describe('useLogin', () => {
     (apiClient.verify as Mock).mockResolvedValue({ ok: false, message: errorMessage });
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await waitFor(() => expect(act(() => result.current.mutateAsync(mockAddress))).rejects.toThrow(errorMessage));
@@ -110,9 +106,8 @@ describe('useLogin', () => {
     });
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await waitFor(() => expect(act(() => result.current.mutateAsync(mockAddress))).rejects.toThrow(errorMessage));

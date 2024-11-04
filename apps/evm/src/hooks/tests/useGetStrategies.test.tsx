@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { describe, expect, it, Mock, vi } from 'vitest';
@@ -12,8 +12,6 @@ vi.mock('../../lib/bob-sdk', () => ({
   }
 }));
 
-const createQueryClient = () => new QueryClient();
-
 describe('useGetStrategies hook', () => {
   afterEach((gatewaySDK.getStrategies as Mock).mockClear);
 
@@ -22,13 +20,9 @@ describe('useGetStrategies hook', () => {
 
     (gatewaySDK.getStrategies as Mock).mockResolvedValue(mockData);
 
-    const queryClient = createQueryClient();
-
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
       () => useGetStrategies(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);
@@ -43,13 +37,9 @@ describe('useGetStrategies hook', () => {
 
     (gatewaySDK.getStrategies as Mock).mockRejectedValue(mockError);
 
-    const queryClient = createQueryClient();
-
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
       () => useGetStrategies({ retry: false }),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitFor(() => expect(result.current.isError).toEqual(true));
@@ -59,10 +49,8 @@ describe('useGetStrategies hook', () => {
   });
 
   it('should handle loading state correctly', () => {
-    const queryClient = createQueryClient();
-
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(() => useGetStrategies(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     expect(result.current.isLoading).toBeTruthy();

@@ -424,6 +424,9 @@ importers:
 
   packages/test-utils:
     dependencies:
+      '@gobob/react-query':
+        specifier: workspace:^
+        version: link:../react-query
       '@testing-library/jest-dom':
         specifier: ^6.0.1
         version: 6.6.3

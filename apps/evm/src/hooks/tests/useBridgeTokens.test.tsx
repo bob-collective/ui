@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { ChainId } from '@gobob/chains';
 import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { ERC20Token } from '@gobob/currency';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 
 import { BridgeToken, useBridgeTokens } from '../useBridgeTokens';
 import { useTokens } from '../useTokens';
@@ -11,8 +11,6 @@ import { useTokens } from '../useTokens';
 vi.mock('../useTokens', () => ({
   useTokens: vi.fn()
 }));
-
-const createQueryClient = () => new QueryClient();
 
 describe('useBridgeTokens', () => {
   const mockL1Tokens = [
@@ -44,13 +42,9 @@ describe('useBridgeTokens', () => {
       return chainId === ChainId.ETHEREUM ? { data: mockL1Tokens } : { data: mockL2Tokens };
     });
 
-    const queryClient = createQueryClient();
-
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useBridgeTokens>>(
       () => useBridgeTokens(ChainId.ETHEREUM, ChainId.SEPOLIA),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitForNextUpdate();
@@ -81,13 +75,9 @@ describe('useBridgeTokens', () => {
         ]
       }));
 
-    const queryClient = createQueryClient();
-
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useBridgeTokens>>(
       () => useBridgeTokens(ChainId.ETHEREUM, ChainId.SEPOLIA),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitForNextUpdate();
@@ -99,13 +89,10 @@ describe('useBridgeTokens', () => {
     (useTokens as Mock).mockImplementation((chainId) => {
       return chainId === ChainId.ETHEREUM ? { data: mockL1Tokens } : { data: null };
     });
-    const queryClient = createQueryClient();
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useBridgeTokens>>(
       () => useBridgeTokens(ChainId.ETHEREUM, ChainId.SEPOLIA),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     expect(result.current.data).toBeUndefined();

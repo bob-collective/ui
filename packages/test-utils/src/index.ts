@@ -6,3 +6,4 @@ export { blur, focus } from './focus';
 export * from './mocks';
 export { render } from './render';
 export * from './tabbable';
+export * from './wrapper';

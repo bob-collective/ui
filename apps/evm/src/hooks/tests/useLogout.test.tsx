@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { QueryClient, QueryClientProvider, useQueryClient } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
+import { useQueryClient } from '@gobob/react-query';
 import { useDisconnect, useAccountEffect } from '@gobob/wagmi';
 import { PropsWithChildren } from 'react';
 
@@ -38,8 +39,6 @@ vi.mock('../useGetUser', () => ({
   useGetUser: vi.fn()
 }));
 
-const createQueryClient = () => new QueryClient();
-
 describe('useLogout Hook', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let queryClientMock: any;
@@ -55,9 +54,8 @@ describe('useLogout Hook', () => {
   });
 
   it('should call apiClient.logout, clear user query, and disconnect by default', async () => {
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await act(() => result.current.logout({ shouldDisconnect: true }));
@@ -68,9 +66,8 @@ describe('useLogout Hook', () => {
   });
 
   it('should call apiClient.logout and clear user query without disconnecting', async () => {
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper: Wrapper
     });
 
     await act(() => result.current.logout({ shouldDisconnect: false }));
@@ -82,11 +79,7 @@ describe('useLogout Hook', () => {
   it.skip('should call logout with shouldDisconnect: false on account disconnect if user is logged in', async () => {
     (useAccountEffect as Mock).mockImplementation((options) => options.onDisconnect && options.onDisconnect());
 
-    const queryClient = createQueryClient();
-
-    renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    });
+    renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), { wrapper: Wrapper });
 
     expect(apiClient.logout).toHaveBeenCalled();
     expect(queryClientMock.removeQueries).toHaveBeenCalledWith({ queryKey: ['user'] });

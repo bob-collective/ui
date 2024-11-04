@@ -4,7 +4,7 @@ import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, Ether } from '@gobob/currency';
 import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { useAccount, useBalance, usePublicClient } from '@gobob/wagmi';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 
 import { useBalances } from '../useBalances';
 import { useTokens } from '../useTokens';
@@ -23,8 +23,6 @@ vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
 vi.mock('../useTokens', () => ({
   useTokens: vi.fn()
 }));
-
-const createQueryClient = () => new QueryClient();
 
 beforeEach(vi.clearAllMocks);
 beforeEach(() => {
@@ -50,13 +48,10 @@ beforeEach(() => {
 describe('useBalances', () => {
   it('should return correct balances for Ether and ERC20 tokens', async () => {
     const chainId = ChainId.ETHEREUM;
-    const queryClient = createQueryClient();
 
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useBalances>>(
       () => useBalances(chainId),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitForNextUpdate();
@@ -75,13 +70,10 @@ describe('useBalances', () => {
 
   it('should return a getBalance function that retrieves balance by symbol', async () => {
     const chainId = ChainId.ETHEREUM;
-    const queryClient = createQueryClient();
 
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useBalances>>(
       () => useBalances(chainId),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitForNextUpdate();

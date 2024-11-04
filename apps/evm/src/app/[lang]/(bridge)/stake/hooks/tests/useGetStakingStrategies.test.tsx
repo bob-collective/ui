@@ -1,7 +1,7 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
 import { Token } from '@gobob/currency';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { Wrapper } from '@gobob/test-utils';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { Address } from 'viem';
@@ -61,8 +61,6 @@ const mockStrategy: GatewayStrategyContract = {
   }
 };
 
-const createQueryClient = () => new QueryClient();
-
 describe('useGetStakingStrategies', () => {
   beforeEach(vi.clearAllMocks);
 
@@ -70,12 +68,9 @@ describe('useGetStakingStrategies', () => {
     (useFeatureFlag as Mock).mockReturnValue(true);
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockStrategy]);
 
-    const queryClient = createQueryClient();
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
       () => useGetStakingStrategies(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);
@@ -105,12 +100,9 @@ describe('useGetStakingStrategies', () => {
     (useFeatureFlag as Mock).mockReturnValue(true);
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockStrategyWithoutToken]);
 
-    const queryClient = createQueryClient();
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
       () => useGetStakingStrategies(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);
@@ -127,12 +119,9 @@ describe('useGetStakingStrategies', () => {
     (useFeatureFlag as Mock).mockReturnValue(false);
     (gatewaySDK.getStrategies as Mock).mockReturnValue([]);
 
-    const queryClient = createQueryClient();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
       () => useGetStakingStrategies(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper: Wrapper }
     );
 
     expect(result.current.data).toEqual(undefined);
