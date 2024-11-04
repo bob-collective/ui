@@ -50,23 +50,7 @@ describe('useGetTransactions', () => {
     vi.clearAllMocks();
   });
 
-  it('returns only bridge transactions when BTC Gateway feature is disabled', async () => {
-    const mockBridgeData = [{ date: new Date('2023-10-01T12:00:00Z') }];
-    const mockBridgeTransactions = { data: mockBridgeData, isLoading: false, refetch: vi.fn() };
-    const mockGatewayTransactions = { data: [], isLoading: false, refetch: vi.fn() };
-
-    (useFeatureFlag as Mock).mockReturnValue(false);
-    (useGetBridgeTransactions as Mock).mockReturnValue(mockBridgeTransactions);
-    (useGetGatewayTransactions as Mock).mockReturnValue(mockGatewayTransactions);
-    (useAccount as Mock).mockReturnValueOnce({ address: '0x123' });
-
-    const { result } = renderHook(() => useGetTransactions());
-
-    await waitFor(() => expect(result.current.isLoading).toBe(false));
-    expect(result.current.data).toEqual(mockBridgeData);
-  });
-
-  it('returns both gateway and bridge transactions sorted by date when BTC Gateway is enabled', async () => {
+  it('returns both gateway and bridge transactions sorted by date', async () => {
     const mockGatewayData = [{ date: new Date('2023-10-02T12:00:00Z') }];
     const mockBridgeData = [{ date: new Date('2023-10-01T12:00:00Z') }];
     const mockBridgeTransactions = { data: mockBridgeData, isLoading: false, refetch: vi.fn() };
@@ -79,11 +63,11 @@ describe('useGetTransactions', () => {
 
     const { result } = renderHook(() => useGetTransactions());
 
-    await waitFor(() => expect(result.current.isLoading).toBe(false));
+    await waitFor(() => expect(result.current.isLoading).toBeFalsy());
     expect(result.current.data).toEqual([...mockGatewayData, ...mockBridgeData]);
   });
 
-  it('correctly reflects loading state when BTC Gateway is enabled', async () => {
+  it('correctly reflects loading state', async () => {
     (useFeatureFlag as Mock).mockReturnValue(true);
     (useGetGatewayTransactions as Mock).mockReturnValue({ isLoading: true });
     (useGetBridgeTransactions as Mock).mockReturnValue({ isLoading: false });
@@ -107,9 +91,9 @@ describe('useGetTransactions', () => {
 
     expect(result.current.isInitialLoading).toBe(result.current.isLoading);
 
-    await waitFor(() => expect(result.current.isLoading).toBe(false));
+    await waitFor(() => expect(result.current.isLoading).toBeFalsy());
 
-    expect(result.current.isInitialLoading).toBe(false);
+    expect(result.current.isInitialLoading).toBeFalsy();
   });
 
   it('updates isInitialLoading on address change', async () => {

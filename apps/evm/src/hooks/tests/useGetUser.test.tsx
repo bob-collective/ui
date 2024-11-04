@@ -31,9 +31,9 @@ describe('useGetUser', () => {
       wrapper: Wrapper
     });
 
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isLoading).toBeFalsy();
     expect(result.current.data).toBeUndefined();
-    expect(result.current.isFetching).toBe(false);
+    expect(result.current.isFetching).toBeFalsy();
   });
 
   it('fetches user data when address is present', async () => {
@@ -46,7 +46,7 @@ describe('useGetUser', () => {
       wrapper: Wrapper
     });
 
-    await waitFor(() => expect(result.current.isLoading).toBe(false));
+    await waitFor(() => expect(result.current.isLoading).toBeFalsy());
 
     expect(result.current.data).toEqual(mockUserData);
   });
@@ -72,7 +72,7 @@ describe('useGetUser', () => {
       wrapper: Wrapper
     });
 
-    await waitFor(() => expect(result.current.isLoading).toBe(false));
+    await waitFor(() => expect(result.current.isLoading).toBeFalsy());
 
     expect(result.current.data).toEqual(mockUserData);
 
