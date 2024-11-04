@@ -1,4 +1,3 @@
-import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import {
   ArrowLongRight,
   Button,
@@ -13,39 +12,39 @@ import {
   Span,
   Spinner
 } from '@gobob/ui';
-import { Address } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
 
 import { TransactionDetails } from '../TransactionDetails';
 
+import { BridgeTransaction, InitBridgeTransaction, TransactionDirection } from '@/types';
 import { Chain } from '@/components';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
-import { MessageDirection } from '@/types';
-import { getDuration } from '@/utils';
 
-type Props = {
-  amount: CurrencyAmount<ERC20Token | Ether>;
-  gasEstimate: CurrencyAmount<ERC20Token | Ether>;
-  direction: MessageDirection;
-  transactionHash?: Address;
-  step: 'approval' | 'confirmation' | 'submitted';
-};
+type Props =
+  | {
+      data: InitBridgeTransaction;
+      step: 'approval' | 'confirmation';
+    }
+  | {
+      data: BridgeTransaction;
+      step: 'submitted';
+    };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
 type BridgeTransactionModalProps = Props & InheritAttrs;
 
 const BridgeTransactionModal = ({
-  transactionHash,
-  direction,
-  amount,
-  gasEstimate,
+  data,
   onClose,
   isOpen,
   step,
   ...props
 }: BridgeTransactionModalProps): JSX.Element => {
-  const isSubmitted = !!transactionHash && step === 'submitted';
+  const { direction, amount, gasEstimate } = data;
+
+  const isSubmitted = step === 'submitted';
+
   const title =
     step === 'submitted' ? (
       <Trans>Transaction Submitted</Trans>
@@ -54,9 +53,9 @@ const BridgeTransactionModal = ({
     ) : (
       <Trans>Waiting for approval</Trans>
     );
-  const isL1ToL2 = direction === MessageDirection.L1_TO_L2;
+  const isL1ToL2 = direction === TransactionDirection.L1_TO_L2;
 
-  const duration = getDuration(direction);
+  const duration = direction === TransactionDirection.L1_TO_L2 ? '3 minutes' : '7 days';
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>

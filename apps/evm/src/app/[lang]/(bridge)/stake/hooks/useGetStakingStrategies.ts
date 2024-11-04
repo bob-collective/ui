@@ -1,9 +1,9 @@
-import { useCallback } from 'react';
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
 import { ERC20Token, Token } from '@gobob/currency';
+import { useCallback } from 'react';
 
-import { FeatureFlags, useFeatureFlag, useGetStrategies } from '@/hooks';
+import { useGetStrategies } from '@/hooks';
 
 type StrategyData = {
   raw: GatewayStrategyContract;
@@ -11,7 +11,6 @@ type StrategyData = {
 };
 
 const useGetStakingStrategies = () => {
-  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
   const selectStrategyData = useCallback(
     (strategies: GatewayStrategyContract[]) =>
       strategies.map<StrategyData>((strategy) => ({
@@ -30,7 +29,6 @@ const useGetStakingStrategies = () => {
   );
 
   return useGetStrategies({
-    enabled: isBtcGatewayEnabled,
     select: selectStrategyData
   });
 };

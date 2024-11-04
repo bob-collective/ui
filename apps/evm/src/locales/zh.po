@@ -631,6 +631,10 @@ msgstr ""
 msgid "Geoblock"
 msgstr ""
 
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:138
+msgid "Get"
+msgstr ""
+
 #: src/app/[lang]/(bridge)/components/GatewayGasSwitch/GatewayGasSwitch.tsx:30
 msgid "Get ETH for transaction fees on BOB"
 msgstr ""
@@ -1303,8 +1307,8 @@ msgid "Stake"
 msgstr "質押"
 
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:138
-msgid "Stake with"
-msgstr ""
+#~ msgid "Stake with"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:39
 msgid "Staking Token"

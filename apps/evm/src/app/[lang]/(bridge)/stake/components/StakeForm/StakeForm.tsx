@@ -4,33 +4,35 @@ import { Flex } from '@gobob/ui';
 import { useState } from 'react';
 
 import { GatewayTransactionModal } from '../../../components';
-import { Type } from '../../Stake';
 import { StrategyData } from '../../hooks';
 import { Unstake } from '../Unstake';
 
 import { BtcStakeForm } from './BtcStakeForm';
 
-import { GatewayData } from '@/types';
+import { InitGatewayTransaction, TransactionDirection } from '@/types';
+
 type GatewayTransactionModalState = {
   isOpen: boolean;
-  data?: GatewayData;
+  data?: InitGatewayTransaction;
 };
 
 type BridgeFormProps = {
-  type: Type;
+  direction: TransactionDirection;
   strategies: StrategyData[] | undefined;
+  onStakeSuccess?: () => void;
 };
 
-const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): JSX.Element => {
+const StakingForm = ({ direction, strategies = [], onStakeSuccess }: BridgeFormProps): JSX.Element => {
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false
   });
 
-  const handleStartGateway = (data: GatewayData) => {
+  const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
   };
 
-  const handleGatewaySuccess = (data: GatewayData) => {
+  const handleGatewaySuccess = (data: InitGatewayTransaction) => {
+    onStakeSuccess?.();
     setGatewayModalState({ isOpen: true, data });
   };
 
@@ -41,7 +43,7 @@ const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): J
   return (
     <>
       <Flex direction='column' marginTop='2xl'>
-        {type === Type.Stake ? (
+        {direction === TransactionDirection.L1_TO_L2 ? (
           <BtcStakeForm
             strategies={strategies}
             onError={handleCloseGatewayModal}
@@ -49,7 +51,7 @@ const StakingForm = ({ type = Type.Stake, strategies = [] }: BridgeFormProps): J
             onSuccess={handleGatewaySuccess}
           />
         ) : (
-          <Unstake type={type} />
+          <Unstake />
         )}
       </Flex>
       {gatewayModalState.data && (

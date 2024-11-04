@@ -1,11 +1,10 @@
 import { GatewayTransaction } from '../../hooks';
+import { StatusChip } from '../StatusChip';
 
-import { Pill } from './Pill';
-
-import { GatewayDepositSteps, GatewaySteps } from '@/constants';
 import { mempoolUrl } from '@/constants';
+import { GatewaySteps } from '@/types';
 
-const getLabel = (status: GatewayDepositSteps, confirmations: number, totalConfirmations: number) => {
+const getLabel = (status: GatewaySteps, confirmations: number, totalConfirmations: number) => {
   switch (status) {
     case 'btc-confirmation':
       return confirmations <= totalConfirmations
@@ -55,7 +54,7 @@ const GatewayStep = ({ step: stepProp, data }: GatewayStepProps): JSX.Element =>
 
   const status = getStatus(data, step);
 
-  return <Pill href={href} label={label} status={status} />;
+  return <StatusChip href={href} label={label} status={status} />;
 };
 
 export { GatewayStep };

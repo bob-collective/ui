@@ -1,3 +1,4 @@
+import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 import {
   Avatar,
   Button,
@@ -16,9 +17,8 @@ import {
   P
 } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
-import { Fragment, useMemo } from 'react';
-import { PellNetwork } from '@gobob/icons/src/PellNetwork';
 import { Trans } from '@lingui/macro';
+import { Fragment, useMemo } from 'react';
 
 import { StrategyData } from '../StakeForm/StakeForm';
 

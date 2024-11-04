@@ -1,11 +1,11 @@
 import { ArrowTopRightOnSquare, Span } from '@gobob/ui';
 
-import { StyledLoadingSpinner, StyledPill } from './BridgeStatus.style';
+import { StyledLoadingSpinner, StyledChip } from './StatusChip.style';
 import { Circle } from './Circle';
 import { CircleCheck } from './CircleCheck';
 import { CircleX } from './CircleX';
 
-import { BridgeStepStatus } from '@/constants';
+import { BridgeStepStatus } from '@/types';
 
 const getPillIcon = (status: BridgeStepStatus) => {
   switch (status) {
@@ -21,22 +21,29 @@ const getPillIcon = (status: BridgeStepStatus) => {
   }
 };
 
-type PillProps = {
+type StatusChipProps = {
   href?: string;
   label: string;
   status: BridgeStepStatus;
 };
 
-const Pill = ({ label, status, href }: PillProps): JSX.Element => {
+const StatusChip = ({ label, status, href }: StatusChipProps): JSX.Element => {
   const icon = getPillIcon(status);
 
   return (
-    <StyledPill external $status={status} as={href ? undefined : Span} href={href} size='xs' weight='medium'>
+    <StyledChip
+      $status={status}
+      as={href ? undefined : Span}
+      href={href}
+      size='xs'
+      weight='medium'
+      {...(href ? { external: true } : undefined)}
+    >
       {icon}
       {label}
       {href && <ArrowTopRightOnSquare size='xs' />}
-    </StyledPill>
+    </StyledChip>
   );
 };
 
-export { Pill };
+export { StatusChip };
