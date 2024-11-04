@@ -29,7 +29,6 @@ import { ConnectType, WalletType } from '../../types';
 import { WalletList } from './WalletList';
 import { ConnectedWalletSection } from './ConnectedWalletSection';
 import { ConnectWalletCard } from './ConnectWalletCard';
-import { BitgetWallet } from './walletLinks/BitgetWallet';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
@@ -53,14 +52,6 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
     const { disconnect } = useDisconnect();
     const { connectors, connectAsync } = useConnect();
     const [step, setStep] = useState<WalletType | undefined>(stepProp);
-
-    let hasBitkeep = undefined;
-
-    if (typeof window !== 'undefined') {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      hasBitkeep = (window as any).bitkeep && window.ethereum;
-    }
-
     const { address: btcWalletAddress, connector: btcWalletConnector } = useSatsAccount({ onConnect: onConnectBtc });
     const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
     const { connectors: satsConnectors, connectAsync: satsConnectAsync } = useSatsConnect();
@@ -117,6 +108,14 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         // FIXME: simplify this in our UI lib also selectionBehavior throws error
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const [selectedKey] = [...(key as any)];
+
+        if (selectedKey === 'okxWallet') {
+          window.open('https://www.okx.com/web3', '_blank', 'noreferrer');
+        }
+
+        if (selectedKey === 'bitgetWallet') {
+          window.open('https://web3.bitget.com/en/wallet-download', '_blank', 'noreferrer');
+        }
 
         const connector = connectors.find((el) => el.id === selectedKey);
 
@@ -312,16 +311,17 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               connector={connector}
               connectors={connectors}
               pendingConnector={pendingConnector}
+              type='evm'
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onSelectionChange={handleEvmWalletSelect as any}
             />
           )}
-          {(step === 'evm' || type === 'evm') && !hasBitkeep && <BitgetWallet />}
           {(step === 'btc' || type === 'btc') && (
             <WalletList
               connector={btcWalletConnector}
               connectors={satsConnectors}
               pendingConnector={pendingSatsConnector}
+              type='btc'
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onSelectionChange={handleBtcWalletSelect as any}
             />
