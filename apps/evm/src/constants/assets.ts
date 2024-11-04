@@ -263,7 +263,7 @@ const ethereumAssets: RawToken[] = [
   },
   {
     chainId: ChainId.ETHEREUM,
-    address: '0xbdbb63f938c8961af31ead3deba5c96e6a323dd1',
+    address: '0xbdBb63F938c8961AF31eaD3deBa5C96e6A323DD1',
     name: 'Sovryn Dollar',
     symbol: 'DLLR',
     decimals: 18,
@@ -364,7 +364,7 @@ const bobAssets: RawToken[] = [
   ETH[ChainId.BOB],
   {
     chainId: ChainId.BOB,
-    address: '0xa669e059fdcbdfc532a2edd658eb2922799eedb8',
+    address: '0xa669e059fDcbDFC532A2edd658eb2922799EEDb8',
     name: 'ALEX',
     symbol: 'ALEX',
     decimals: 18,
@@ -375,7 +375,7 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0x6c851f501a3f24e29a8e39a29591cddf09369080',
+    address: '0x6c851F501a3F24E29A8E39a29591cddf09369080',
     name: 'Dai Stablecoin',
     symbol: 'DAI',
     decimals: 18,
@@ -411,7 +411,7 @@ const bobAssets: RawToken[] = [
     : []),
   {
     chainId: ChainId.BOB,
-    address: '0xb5686c4f60904ec2bda6277d6fe1f7caa8d1b41a',
+    address: '0xB5686c4f60904Ec2BDA6277d6FE1F7cAa8D1b41a',
     name: 'Rocket Pool ETH',
     symbol: 'rETH',
     decimals: 18,
@@ -442,7 +442,7 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0x96147a9ae9a42d7da551fd2322ca15b71032f342',
+    address: '0x96147A9Ae9a42d7Da551fD2322ca15B71032F342',
     name: 'StakeStone Ether',
     symbol: 'STONE',
     decimals: 18,
@@ -462,7 +462,7 @@ const bobAssets: RawToken[] = [
   ...(usdc?.[ChainId.BOB] ? [usdc?.[ChainId.BOB]] : []),
   {
     chainId: ChainId.BOB,
-    address: '0xc4a20a608616f18aa631316eeda9fb62d089361e',
+    address: '0xc4a20a608616F18aA631316eEDa9Fb62d089361e',
     name: 'Frax',
     symbol: 'FRAX',
     decimals: 18,
@@ -471,7 +471,7 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0xb7eae04b995b3b365040dee99795112add43afa0',
+    address: '0xb7eae04B995B3b365040dEE99795112ADD43afa0',
     name: 'Staked FRAX',
     symbol: 'sFRAX',
     decimals: 18,
@@ -480,7 +480,7 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0x15e35b19ad29c512103eaabb55154ef0ee6ca661',
+    address: '0x15e35B19AD29C512103EaABb55154Ef0Ee6ca661',
     name: 'Frax Share',
     symbol: 'FXS',
     decimals: 18,
@@ -489,7 +489,7 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0x249d2952d1c678843e7cd7bf654efcec52f2f9e8',
+    address: '0x249d2952D1C678843e7cD7bF654EfCeC52f2F9E8',
     name: 'Staked Frax Ether',
     symbol: 'sfrxETH',
     decimals: 18,
@@ -498,7 +498,7 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0x665060707c3ea3c31b3eabad7f409072446e1d50',
+    address: '0x665060707c3Ea3c31b3eaBaD7F409072446E1D50',
     name: 'Tellor Tributes',
     symbol: 'TRB',
     decimals: 18,
