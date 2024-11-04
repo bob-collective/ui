@@ -30,13 +30,13 @@ type SwitchProps = Props & NativeAttrs & InheritAttrs;
 
 const Switch = forwardRef<HTMLLabelElement, SwitchProps>(
   (
-    { children, onChange, className, style, hidden, labelProps, labelPlacement, size = 'md', ...props },
+    { children, onChange, className, style, hidden, labelProps, labelPlacement, size = 'md', isSelected, ...props },
     ref
   ): JSX.Element => {
     const labelRef = useDOMRef(ref);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const ariaProps: AriaSwitchProps = { children, ...props };
+    const ariaProps: AriaSwitchProps = { children, isSelected, ...props };
 
     const state = useToggleState(ariaProps);
     const { inputProps } = useSwitch(ariaProps, state, inputRef);
