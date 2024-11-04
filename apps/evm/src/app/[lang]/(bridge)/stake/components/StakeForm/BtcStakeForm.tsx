@@ -19,14 +19,14 @@ import { StrategyData } from './StakeForm';
 import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { GatewayData, GatewayTransactionType } from '@/types';
+import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
 
 const INITIAL_SELECTED_STRATEGY_SLUG = 'solv-solvbtcbbn';
 
 type BtcBridgeFormProps = {
   strategies: StrategyData[];
-  onStart: (data: Optional<GatewayData, 'amount'>) => void;
-  onSuccess: (data: GatewayData) => void;
+  onStart: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
+  onSuccess: (data: InitGatewayTransaction) => void;
   onError: () => void;
 };
 

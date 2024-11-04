@@ -1,45 +1,45 @@
 'use client';
 
 import { ChainId } from '@gobob/chains';
-import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
-import { Key, useCallback, useMemo, useState } from 'react';
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Token } from '@gobob/currency';
+import { INTERVAL, useQuery } from '@gobob/react-query';
+import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
 import { useChainId } from '@gobob/wagmi';
-import { useLingui } from '@lingui/react';
 import { Trans, t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+import { Key, useCallback, useMemo, useState } from 'react';
 
-import { BridgeOrigin, Type } from '../../Bridge';
+import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
+import { BridgeOrigin } from '../../Bridge';
+import { useGetTransactions } from '../../hooks';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
-import { useGetTransactions } from '../../../hooks';
-import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 
-import { BtcBridgeForm } from './BtcBridgeForm';
 import { BobBridgeForm } from './BobBridgeForm';
 import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
+import { BtcBridgeForm } from './BtcBridgeForm';
 
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
-import { FeatureFlags, TokenData, useFeatureFlag } from '@/hooks';
-import { L2BridgeData, GatewayData } from '@/types';
+import { TokenData } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
+import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
 
 type TransactionModalState = {
   isOpen: boolean;
-  step: 'approval' | 'confirmation' | 'submitted';
-  data?: L2BridgeData;
-};
+} & (
+  | { step: 'approval' | 'confirmation'; data?: InitBridgeTransaction }
+  | { step: 'submitted'; data?: BridgeTransaction }
+);
 
 type GatewayTransactionModalState = {
   isOpen: boolean;
-  step: 'confirmation' | 'submitted';
-  data?: GatewayData;
+  data?: InitGatewayTransaction;
 };
 
 type BridgeFormProps = {
   chain: ChainId | 'BTC';
-  type: Type;
+  direction: TransactionDirection;
   ticker?: string;
   bridgeOrigin?: BridgeOrigin;
   onChangeNetwork?: (network: Key) => void;
@@ -63,7 +63,7 @@ const allNetworks = [
 ] as const;
 
 const BridgeForm = ({
-  type = Type.Deposit,
+  direction = TransactionDirection.L1_TO_L2,
   bridgeOrigin,
   ticker,
   chain,
@@ -71,24 +71,21 @@ const BridgeForm = ({
   onChangeOrigin,
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
-  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
   const { i18n } = useLingui();
 
-  const { refetchBridgeTxs } = useGetTransactions();
+  const { refetch: refetchTransactions, addPlaceholderTransaction } = useGetTransactions();
 
   const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
     isOpen: false,
     step: 'confirmation'
   });
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
-    isOpen: false,
-    step: 'confirmation'
+    isOpen: false
   });
 
   const chainId = useChainId();
 
   const { data: btcTokens } = useQuery({
-    enabled: isBtcGatewayEnabled,
     queryKey: bridgeKeys.btcTokens(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -111,29 +108,34 @@ const BridgeForm = ({
     }
   });
 
-  const handleStartBridge = (data: L2BridgeData) => {
+  const handleStartBridge = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
   };
 
-  const handleBridgeSuccess = (data: L2BridgeData) => {
-    refetchBridgeTxs();
+  const handleBridgeSuccess = (data: BridgeTransaction) => {
+    addPlaceholderTransaction.bridge(data);
+
+    refetchTransactions.bridge();
+
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
   };
 
-  const handleStartApproval = (data: L2BridgeData) => {
+  const handleStartApproval = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'approval' });
   };
 
-  const handleCloseModal = () => {
+  const handleCloseBridgeModal = () => {
     setBridgeModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleStartGateway = (data: GatewayData) => {
-    setGatewayModalState({ isOpen: true, step: 'confirmation', data });
+  const handleStartGateway = (data: InitGatewayTransaction) => {
+    setGatewayModalState({ isOpen: true, data });
   };
 
-  const handleGatewaySuccess = (data: GatewayData) => {
-    setGatewayModalState({ isOpen: false, step: 'submitted', data });
+  const handleGatewaySuccess = (data: InitGatewayTransaction) => {
+    refetchTransactions.gateway();
+
+    setGatewayModalState({ isOpen: true, data });
   };
 
   const handleCloseGatewayModal = () => {
@@ -152,17 +154,17 @@ const BridgeForm = ({
   );
 
   const availableNetworks = useMemo(() => {
-    const isBtcNetworkAvailable = isBtcGatewayEnabled && type === Type.Deposit && !!btcTokens?.length;
+    const isBtcNetworkAvailable = direction === TransactionDirection.L1_TO_L2 && !!btcTokens?.length;
 
     if (!isBtcNetworkAvailable) {
       return allNetworks.filter((network) => network !== 'BTC');
     }
 
     return allNetworks;
-  }, [btcTokens?.length, isBtcGatewayEnabled, type]);
+  }, [btcTokens?.length, direction]);
 
   const fromChainSelectProps =
-    type === Type.Deposit
+    direction === TransactionDirection.L1_TO_L2
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
@@ -172,7 +174,7 @@ const BridgeForm = ({
       : undefined;
 
   const toChainSelectProps =
-    type === Type.Withdraw
+    direction === TransactionDirection.L2_TO_L1
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
@@ -182,7 +184,8 @@ const BridgeForm = ({
       : undefined;
 
   const isBobBridgeDisabled =
-    (type === Type.Deposit && chain !== L1_CHAIN && chain !== 'BTC') || (type === Type.Withdraw && chain !== L1_CHAIN);
+    (direction === TransactionDirection.L1_TO_L2 && chain !== L1_CHAIN && chain !== 'BTC') ||
+    (direction === TransactionDirection.L2_TO_L1 && chain !== L1_CHAIN);
 
   const isExternalBridgeDisabled = chain === 'BTC';
 
@@ -190,9 +193,15 @@ const BridgeForm = ({
     <>
       <Flex direction='column' marginTop='2xl'>
         <StyledChainsGrid alignItems='center' gap={{ base: 'md', md: '2xl' }}>
-          <ChainSelect chainId={type === Type.Deposit ? chain : L2_CHAIN} selectProps={fromChainSelectProps} />
+          <ChainSelect
+            chainId={direction === TransactionDirection.L1_TO_L2 ? chain : L2_CHAIN}
+            selectProps={fromChainSelectProps}
+          />
           <ArrowRight size='xs' />
-          <ChainSelect chainId={type === Type.Withdraw ? chain : L2_CHAIN} selectProps={toChainSelectProps} />
+          <ChainSelect
+            chainId={direction === TransactionDirection.L2_TO_L1 ? chain : L2_CHAIN}
+            selectProps={toChainSelectProps}
+          />
         </StyledChainsGrid>
         <Divider marginY='xl' />
         <RadioGroup
@@ -209,7 +218,7 @@ const BridgeForm = ({
             <Trans>3rd Party</Trans>
           </StyledRadio>
         </RadioGroup>
-        {type === Type.Withdraw && bridgeOrigin === BridgeOrigin.Internal && (
+        {direction === TransactionDirection.L2_TO_L1 && bridgeOrigin === BridgeOrigin.Internal && (
           <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
             <Trans>
               Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
@@ -228,28 +237,31 @@ const BridgeForm = ({
             />
           ) : (
             <BobBridgeForm
+              direction={direction}
               ticker={ticker}
-              type={type}
               onBridgeSuccess={handleBridgeSuccess}
-              // TODO: show error modal
-              onFailBridge={handleCloseModal}
+              onFailBridge={handleCloseBridgeModal}
               onStartApproval={handleStartApproval}
               onStartBridge={handleStartBridge}
             />
           )
         ) : (
-          <ExternalBridgeForm chain={chain} type={type} />
+          <ExternalBridgeForm chain={chain} direction={direction} />
         )}
       </Flex>
-      <BridgeTransactionModal
-        {...(bridgeModalState.data as Required<L2BridgeData>)}
-        isOpen={bridgeModalState.isOpen}
-        step={bridgeModalState.step}
-        onClose={handleCloseModal}
-      />
+      {bridgeModalState.data && (
+        <BridgeTransactionModal
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          data={bridgeModalState.data as any}
+          isOpen={bridgeModalState.isOpen}
+          step={bridgeModalState.step}
+          onClose={handleCloseBridgeModal}
+        />
+      )}
       {gatewayModalState.data && (
         <GatewayTransactionModal
-          data={gatewayModalState.data}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          data={gatewayModalState.data as any}
           isOpen={gatewayModalState.isOpen}
           onClose={handleCloseGatewayModal}
         />

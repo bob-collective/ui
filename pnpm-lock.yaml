@@ -252,6 +252,9 @@ importers:
       '@sentry/nextjs':
         specifier: ^8.30.0
         version: 8.30.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.26.0)(@opentelemetry/instrumentation@0.53.0)(@opentelemetry/sdk-trace-base@1.26.0)(next@14.2.15)(react@18.3.1)(webpack@5.92.0)
+      '@tanstack/react-store':
+        specifier: ^0.5.6
+        version: 0.5.6(react-dom@18.3.1)(react@18.3.1)
       big.js:
         specifier: ^6.2.1
         version: 6.2.1
@@ -9142,6 +9145,22 @@ packages:
     dependencies:
       '@tanstack/query-core': 5.44.0
       react: 18.3.1
+    dev: false
+
+  /@tanstack/react-store@0.5.6(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-SitIpS5jTj28DajjLpWbIX+YetmJL+6PRY0DKKiCGBKfYIqj3ryODQYF3jB3SNoR9ifUA/jFkqbJdBKFtWd+AQ==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      '@tanstack/store': 0.5.5
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      use-sync-external-store: 1.2.2(react@18.3.1)
+    dev: false
+
+  /@tanstack/store@0.5.5:
+    resolution: {integrity: sha512-EOSrgdDAJExbvRZEQ/Xhh9iZchXpMN+ga1Bnk8Nmygzs8TfiE6hbzThF+Pr2G19uHL6+DTDTHhJ8VQiOd7l4tA==}
     dev: false
 
   /@testing-library/cypress@10.0.2(cypress@13.11.0):
@@ -23330,6 +23349,14 @@ packages:
 
   /use-sync-external-store@1.2.0(react@18.3.1):
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      react: 18.3.1
+    dev: false
+
+  /use-sync-external-store@1.2.2(react@18.3.1):
+    resolution: {integrity: sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==}
     peerDependencies:
       react: ^18.2.0
     dependencies:

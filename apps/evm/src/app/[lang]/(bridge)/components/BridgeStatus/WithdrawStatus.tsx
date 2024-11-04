@@ -1,32 +1,30 @@
 'use client';
 
 import { useMutation } from '@gobob/react-query';
-import { toast } from '@gobob/ui';
+import { Flex, FlexProps, toast } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
-import { Flex, FlexProps } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
+import * as Sentry from '@sentry/nextjs';
 import { useMemo } from 'react';
 import { getWithdrawals } from 'viem/op-stack';
-import * as Sentry from '@sentry/nextjs';
-import { Trans } from '@lingui/macro';
 
-import { BridgeTransaction, useGetTransactions } from '../../hooks';
+import { BridgeTransaction } from '../../hooks';
 
-import { TimeStep } from './TimeStep';
+import { BridgeStep, getOngoingBridgeStep } from './BridgeStep';
 import { ProveStep } from './ProveStep';
 import { RelayStep } from './RelayStep';
-import { BridgeStep } from './BridgeStep';
+import { TimeStep } from './TimeStep';
 
 import { usePublicClientL1, usePublicClientL2, useWalletClientL1, useWalletClientL2 } from '@/hooks';
 import { bridgeKeys } from '@/lib/react-query';
-import { getOngoingBridgeStep } from '@/utils/status';
 
-type Props = { data: BridgeTransaction; isExpanded: boolean };
+type Props = { data: BridgeTransaction; isExpanded: boolean; onProveSuccess?: () => void; onRelaySuccess?: () => void };
 
 type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 
 type WithdrawStatusProps = Props & InheritAttrs;
 
-const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element => {
+const WithdrawStatus = ({ data, isExpanded, onProveSuccess, onRelaySuccess }: WithdrawStatusProps): JSX.Element => {
   const publicClientL1 = usePublicClientL1();
   const publicClientL2 = usePublicClientL2();
 
@@ -34,8 +32,6 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
   const walletClientL2 = useWalletClientL2();
 
   const { address } = useAccount();
-
-  const { refetchBridgeTxs } = useGetTransactions();
 
   const proveMutation = useMutation({
     mutationKey: bridgeKeys.proveTransaction(address, data.transactionHash),
@@ -64,7 +60,7 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
     },
     onSuccess: (data) => {
       toast.success(<Trans>Successfully submitted ${data?.hash} proof</Trans>);
-      refetchBridgeTxs();
+      onProveSuccess?.();
     },
     onError: (e) => {
       Sentry.captureException(e);
@@ -102,7 +98,7 @@ const WithdrawStatus = ({ data, isExpanded }: WithdrawStatusProps): JSX.Element 
     },
     onSuccess: () => {
       toast.success(<Trans>Successfully finalized transaction</Trans>);
-      refetchBridgeTxs();
+      onRelaySuccess?.();
     },
     onError: (e) => {
       Sentry.captureException(e);
