@@ -60,7 +60,7 @@ const BobBridgeForm = ({
   onStartApproval
 }: BobBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
-  const bridgeChainId = useMemo(() => (direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN), [direction]);
+  const bridgeChainId = direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN;
 
   const publicClient = usePublicClient();
   const chainId = useChainId();
@@ -171,13 +171,10 @@ const BobBridgeForm = ({
     }
   });
 
-  const isBridgeDisabled = useMemo(
-    () =>
-      direction === TransactionDirection.L1_TO_L2
-        ? selectedToken?.l1Token.bridgeDisabled
-        : selectedToken?.l2Token.bridgeDisabled,
-    [direction, selectedToken]
-  );
+  const isBridgeDisabled =
+    direction === TransactionDirection.L1_TO_L2
+      ? selectedToken?.l1Token.bridgeDisabled
+      : selectedToken?.l2Token.bridgeDisabled;
 
   const {
     data: allowance,
@@ -293,13 +290,8 @@ const BobBridgeForm = ({
     }
   });
 
-  const isUSDCWithdraw = useMemo(
-    () =>
-      currencyAmount &&
-      direction === TransactionDirection.L2_TO_L1 &&
-      USDC?.[L2_CHAIN]?.equals(currencyAmount.currency),
-    [direction, currencyAmount]
-  );
+  const isUSDCWithdraw =
+    currencyAmount && direction === TransactionDirection.L2_TO_L1 && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency);
 
   const {
     isApproveRequired: isUSDCApproveRequired,

@@ -1,6 +1,5 @@
 import { Flex, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { useMemo } from 'react';
 
 import { BridgeTransaction } from '../../hooks';
 
@@ -23,10 +22,8 @@ type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 type ProveStepProps = Props & InheritAttrs;
 
 const ProveStep = ({ data, currentStep, isProving, isProveSuccessful, onPressProve }: ProveStepProps): JSX.Element => {
-  const isWaitingProve = useMemo(
-    () => currentStep === 'prove' && data.status === BridgeTransactionStatus.READY_TO_PROVE && !isProveSuccessful,
-    [currentStep, isProveSuccessful, data]
-  );
+  const isWaitingProve =
+    currentStep === 'prove' && data.status === BridgeTransactionStatus.READY_TO_PROVE && !isProveSuccessful;
 
   return (
     <Flex alignItems='center' flex={1} justifyContent='space-between'>

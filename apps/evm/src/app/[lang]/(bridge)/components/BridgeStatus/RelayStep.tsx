@@ -1,6 +1,5 @@
 import { Flex, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { useMemo } from 'react';
 
 import { BridgeTransaction } from '../../hooks';
 
@@ -29,10 +28,8 @@ const RelayStep = ({
   isRelaying,
   onPressFinalize
 }: RelayStepProps): JSX.Element => {
-  const isWaitingRelay = useMemo(
-    () => currentStep === 'relay' && data.status === BridgeTransactionStatus.READY_FOR_RELAY && !isRelaySuccessful,
-    [currentStep, isRelaySuccessful, data]
-  );
+  const isWaitingRelay =
+    currentStep === 'relay' && data.status === BridgeTransactionStatus.READY_FOR_RELAY && !isRelaySuccessful;
 
   return (
     <Flex alignItems='center' flex={1} justifyContent='space-between'>
