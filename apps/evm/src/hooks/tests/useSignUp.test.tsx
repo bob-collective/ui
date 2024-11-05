@@ -3,11 +3,11 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useAccount, useSignMessage } from '@gobob/wagmi';
 import { toast } from '@gobob/ui';
 import { Mock, vi } from 'vitest';
-import { Wrapper } from '@/test-utils';
 
 import { useSignUp } from '../useSignUp';
 import { useGetUser } from '../useGetUser';
 
+import { Wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
@@ -25,7 +25,7 @@ vi.mock(import('@gobob/ui'), async (importOriginal) => {
 
   return {
     ...actual,
-    toast: { ...actual.toast, error: vi.fn(), success: vi.fn() } as any
+    toast: { ...actual.toast, error: vi.fn(), success: vi.fn() } as unknown as (typeof actual)['toast']
   };
 });
 

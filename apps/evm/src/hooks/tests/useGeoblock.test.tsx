@@ -59,7 +59,7 @@ describe('useGeoblocking', () => {
 
   it('should log a warning if fetch fails', async () => {
     vi.stubEnv('NEXT_PUBLIC_GEOBLOCK_ENABLED', 'true');
-    const consoleWarnMock = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const consoleWarnMock = vi.spyOn(console, 'warn').mockImplementation(() => ({}));
 
     vi.spyOn(global, 'fetch').mockRejectedValueOnce(new Error('Network error'));
 
