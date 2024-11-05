@@ -1,0 +1,20 @@
+import { Metadata } from 'next';
+import { t } from '@lingui/macro';
+
+import { Login } from './Login';
+
+import { withLinguiPage } from '@/i18n/withLigui';
+import { getI18nInstance } from '@/i18n/appRouterI18n';
+import { PageLangParam } from '@/i18n/withLigui';
+
+export function generateMetadata({ params }: PageLangParam): Metadata {
+  const i18n = getI18nInstance(params.lang);
+
+  return {
+    title: `BOB | ${t(i18n)`Login`}`
+  };
+}
+
+export default withLinguiPage(function Page() {
+  return <Login />;
+});

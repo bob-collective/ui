@@ -4,6 +4,7 @@ const config = {
   ignoreBinaries: ['synpress:run'],
   ignore: [
     'lingui.config.js',
+    'apps/bob-pay/api/**',
     'apps/evm/api/**',
     'apps/evm/src/i18n/**',
     'apps/evm/src/connect-ui/**',

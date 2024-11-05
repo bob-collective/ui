@@ -16,7 +16,7 @@ const nextConfig = {
   rewrites() {
     return [
       {
-        source: '/api/:path*',
+        source: '/bob-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`
       },
       {
