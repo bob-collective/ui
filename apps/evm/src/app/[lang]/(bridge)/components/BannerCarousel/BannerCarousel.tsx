@@ -82,7 +82,7 @@ const BannerCarousel = () => {
   );
 
   const onPressOKXCryptopediaBanner = useCallback(
-    () => window.open('https://blog.gobob.xyz/posts/the-hybrid-l2-paper', '_blank', 'noreferrer'),
+    () => window.open('https://www.okx.com/web3/discover/cryptopedia/event/bob', '_blank', 'noreferrer'),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
