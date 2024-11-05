@@ -1,13 +1,13 @@
 import { Flex, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
-import { GatewayStatus } from '../BridgeStatus';
-import { Type } from '../../bridge/Bridge';
 import { GatewayTransaction } from '../../hooks';
+import { GatewayStatus } from '../GatewayStatus';
 
 import { TransactionDetails } from './TransactionDetails';
 
 import { L2_CHAIN } from '@/constants';
+import { TransactionDirection } from '@/types';
 
 type Props = { data: GatewayTransaction };
 
@@ -26,10 +26,10 @@ const GatewayTransactionItem = ({ data, ...props }: GatewayTransactionItemProps)
       <TransactionDetails
         amount={data.amount}
         date={data.date}
+        direction={TransactionDirection.L1_TO_L2}
         fromChainId={fromChaindId}
         isPending={data.isPending}
         toChainId={toChaindId}
-        type={Type.Deposit}
         onExpand={() => setExpanded((isExpanded) => !isExpanded)}
       />
       <GatewayStatus data={data} isExpanded={isExpanded} />

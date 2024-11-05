@@ -1,6 +1,7 @@
 import { ChainId } from '@gobob/chains';
 import { Bitcoin, ERC20Token } from '@gobob/currency';
 import tokenList from 'tokenlist';
+import { getAddress } from 'viem';
 
 export const CommonToken = {
   DAI: 'DAI',
@@ -35,7 +36,7 @@ export const commonTokens = (tokenList.tokens as any[]).reduce<
     if (isCommonToken(symbol)) {
       if (acc[symbol] === undefined) acc[symbol] = {} as Record<ChainId, ERC20Token>;
 
-      acc[symbol]![chainId as ChainId] = new ERC20Token(chainId, address as `0x${string}`, decimals, symbol, name);
+      acc[symbol]![chainId as ChainId] = new ERC20Token(chainId, getAddress(address), decimals, symbol, name);
     }
 
     return acc;

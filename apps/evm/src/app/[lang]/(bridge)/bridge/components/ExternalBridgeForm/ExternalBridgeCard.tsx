@@ -1,20 +1,25 @@
 import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 
-import { Type } from '../../Bridge';
-
 import { Meson } from './Meson';
 import { Owl } from './Owl';
 import { Relay } from './Relay';
 import { Stargate } from './Stargate';
+
+import { TransactionDirection } from '@/types';
 
 type ExternalBridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
 
 // TODO: add missing links
 const bridges: Record<
   ExternalBridges,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  { icon: any | string; href: string | { deposit: string; withdraw: string }; name: string; disabled: boolean }
+  {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    icon: any | string;
+    href: string | { [TransactionDirection.L1_TO_L2]: string; [TransactionDirection.L2_TO_L1]: string };
+    name: string;
+    disabled: boolean;
+  }
 > = {
   stargate: {
     href: 'https://stargate.finance/transfer',
@@ -39,8 +44,8 @@ const bridges: Record<
     name: 'Orbiter Finance',
     disabled: false,
     href: {
-      deposit: 'https://www.orbiter.finance/?dest=BOB',
-      withdraw: 'https://www.orbiter.finance/?source=BOB'
+      [TransactionDirection.L1_TO_L2]: 'https://www.orbiter.finance/?dest=BOB',
+      [TransactionDirection.L2_TO_L1]: 'https://www.orbiter.finance/?source=BOB'
     }
   },
   'owlto-finance': {
@@ -51,13 +56,13 @@ const bridges: Record<
   }
 };
 
-type Props = { type: Type; bridge: ExternalBridges };
+type Props = { direction: TransactionDirection; bridge: ExternalBridges };
 
 type ExternalBridgeCardProps = Props;
 
-const ExternalBridgeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Element => {
+const ExternalBridgeCard = ({ direction, bridge }: ExternalBridgeCardProps): JSX.Element => {
   const { href, name, icon: Icon, disabled } = bridges[bridge];
-  const typeHref = typeof href === 'string' ? href : href[type];
+  const typeHref = typeof href === 'string' ? href : href[direction];
 
   return (
     <Card

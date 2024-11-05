@@ -19,14 +19,14 @@ import { StrategyData } from './StakeForm';
 import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { GatewayData, GatewayTransactionType } from '@/types';
+import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
 
 const INITIAL_SELECTED_STRATEGY_SLUG = 'solv-solvbtcbbn';
 
 type BtcBridgeFormProps = {
   strategies: StrategyData[];
-  onStart: (data: Optional<GatewayData, 'amount'>) => void;
-  onSuccess: (data: GatewayData) => void;
+  onStart: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
+  onSuccess: (data: InitGatewayTransaction) => void;
   onError: () => void;
 };
 
@@ -62,7 +62,7 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
 
   const sortedStrategies = useMemo(
     () =>
-      strategies.toSorted((strategyA, strategyB) =>
+      [...strategies].sort((strategyA, strategyB) =>
         strategyB.raw.integration.type.localeCompare(strategyA.raw.integration.type)
       ),
     [strategies]
@@ -135,7 +135,7 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
       <Flex direction='column' gap='xs'>
         <Select<StrategyData>
           items={sortedStrategies}
-          label={t(i18n)`Stake with`}
+          label={t(i18n)`Get`}
           modalProps={{ title: <Trans>Select Strategy</Trans>, size: 'xs' }}
           renderValue={({ value }) => (value ? <StrategyOption data={value} /> : undefined)}
           size='lg'
