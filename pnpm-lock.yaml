@@ -346,6 +346,9 @@ importers:
       typescript:
         specifier: ^5
         version: 5.4.5
+      vitest:
+        specifier: ^2.1.1
+        version: 2.1.2(@types/node@20.14.2)(jsdom@25.0.1)
 
   packages/chains: {}
 
@@ -9236,6 +9239,7 @@ packages:
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
     dependencies:
       '@types/node': 20.14.2
+    dev: true
 
   /@types/hoist-non-react-statics@3.3.5:
     resolution: {integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==}
