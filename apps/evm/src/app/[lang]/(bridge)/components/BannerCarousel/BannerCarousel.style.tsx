@@ -84,6 +84,22 @@ const StyledOnrampImg = styled(OnrampImg)`
   }}
 `;
 
+const StyledOKXCryptopediaImg = styled(Image)`
+  ${({ theme }) => {
+    return css`
+      position: absolute;
+      right: 0;
+
+      @media ${theme.breakpoints.down('md')} {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.2;
+      }
+    `;
+  }}
+`;
+
 const StyledFusionImg = styled(Image)`
   ${({ theme }) => {
     return css`
@@ -143,5 +159,6 @@ export {
   StyledFusionImg,
   StyledOnrampImg,
   StyledXImg,
-  StyledHybridL2Img
+  StyledHybridL2Img,
+  StyledOKXCryptopediaImg
 };
