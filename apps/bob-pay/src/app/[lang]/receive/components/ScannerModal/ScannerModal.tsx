@@ -1,6 +1,4 @@
 import { Modal, ModalBody, ModalHeader, ModalProps } from '@gobob/ui';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 import { Scanner } from '@yudiel/react-qr-scanner';
 
 type IDetectedBarcode = {

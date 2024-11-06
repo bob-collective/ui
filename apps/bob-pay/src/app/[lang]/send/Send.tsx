@@ -357,6 +357,7 @@ const Send = (): JSX.Element => {
               isIconOnly
               variant='ghost'
               onPress={async () => {
+                console.log('sss');
                 setScanModalOpen(true);
               }}
             >

@@ -4,8 +4,10 @@ import { useRef } from 'react';
 
 import { StyledCard } from './CardButton.style';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Props = { state: ListState<any> };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type InheritAttrs = Omit<AriaTagProps<any>, keyof Props>;
 
 type CardButtonProps = Props & InheritAttrs;
@@ -22,7 +24,6 @@ const CardButton = ({ ...props }: CardButtonProps): JSX.Element => {
       isPressable
       alignItems='center'
       background='grey-500'
-      bordered={'transparent' as any}
       flex={1}
       isDisabled={!!rowProps['aria-disabled']}
       justifyContent='center'

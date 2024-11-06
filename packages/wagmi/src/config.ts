@@ -45,6 +45,7 @@ const getConfig = ({ isProd }: Config) => {
 
   return createConfig({
     chains: (isProd ? prodChains : allChains) as any,
+    multiInjectedProviderDiscovery: false,
     transports: {
       [mainnet.id]: http(),
       [sepolia.id]: http(),

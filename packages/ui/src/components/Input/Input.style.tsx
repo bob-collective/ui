@@ -76,7 +76,6 @@ const StyledAdornment = styled.div<StyledAdornmentProps>`
   align-items: flex-end;
   // to not allow adornment to take more than 50% of the input. We might want to reduce this in the future.
   max-width: 50%;
-  pointer-events: none;
   ${({ theme }) => theme.input.adornment};
 `;
 

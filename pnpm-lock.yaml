@@ -167,7 +167,7 @@ importers:
         version: 3.4.6(@dynamic-labs/rpc-providers@3.4.6)(@zerodev/webauthn-key@5.3.3)(eventemitter3@5.0.1)(react-dom@18.3.1)(react@18.3.1)(viem@2.21.40)
       '@dynamic-labs/sdk-react-core':
         specifier: ^v3.0.0-alpha.29
-        version: 3.4.6(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)
+        version: 3.4.6(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.2)(react@18.3.1)
       '@dynamic-labs/wagmi-connector':
         specifier: ^v3.0.0-alpha.29
         version: 3.4.6(@dynamic-labs/assert-package-version@3.4.6)(@dynamic-labs/ethereum-core@3.4.6)(@dynamic-labs/logger@3.4.6)(@dynamic-labs/rpc-providers@3.4.6)(@dynamic-labs/sdk-react-core@3.4.6)(@dynamic-labs/types@3.4.6)(@dynamic-labs/wallet-connector-core@3.4.6)(@wagmi/core@2.11.0)(eventemitter3@5.0.1)(react@18.3.1)(viem@2.21.40)(wagmi@2.10.0)
@@ -294,6 +294,9 @@ importers:
       viem:
         specifier: ^2.21.35
         version: 2.21.40(typescript@5.4.5)(zod@3.23.8)
+      wagmi:
+        specifier: ^2.8.1
+        version: 2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(@vercel/kv@3.0.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
       yup:
         specifier: ^0.32.11
         version: 0.32.11
@@ -859,7 +862,7 @@ importers:
         version: 2.21.40(typescript@5.4.5)(zod@3.23.8)
       wagmi:
         specifier: ^2.8.1
-        version: 2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
+        version: 2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(@vercel/kv@3.0.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
     devDependencies:
       react:
         specifier: ^18.2.0
@@ -2427,7 +2430,7 @@ packages:
       '@binance/w3w-ethereum-provider': 1.1.8-alpha.0(ts-node@10.9.2)
       '@binance/w3w-utils': 1.1.4
       viem: 2.21.40(typescript@5.4.5)(zod@3.23.8)
-      wagmi: 2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
+      wagmi: 2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(@vercel/kv@3.0.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -3015,7 +3018,7 @@ packages:
     resolution: {integrity: sha512-7vuJbm/6cYk+FE9mUwi4wvwKihm8X/PRavqW4o1tcOVAZPkkcsgEnB0ZeX+jbHgij7gk5Zp3OJFd5Y903VZ0tw==}
     dev: false
 
-  /@dynamic-labs/sdk-react-core@3.4.6(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1):
+  /@dynamic-labs/sdk-react-core@3.4.6(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.2)(react@18.3.1):
     resolution: {integrity: sha512-1cJkfuLjm4NkoSWckK+9c/lYvVuqwarcgX6EN081CJmi93biswOYsxGZypxXahUpaEbplrAv8ZRXKUCi0SFdWQ==}
     peerDependencies:
       react: ^18.2.0
@@ -3041,7 +3044,7 @@ packages:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-focus-lock: 2.9.2(@types/react@18.3.3)(react@18.3.1)
-      react-i18next: 13.5.0(i18next@23.4.6)(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)
+      react-i18next: 13.5.0(i18next@23.4.6)(react-dom@18.3.1)(react-native@0.74.2)(react@18.3.1)
       react-international-phone: 4.2.5(react@18.3.1)
       yup: 0.32.11
     transitivePeerDependencies:
@@ -3099,14 +3102,14 @@ packages:
       '@dynamic-labs/ethereum-core': 3.4.6(@dynamic-labs/assert-package-version@3.4.6)(@dynamic-labs/logger@3.4.6)(@dynamic-labs/rpc-providers@3.4.6)(@dynamic-labs/types@3.4.6)(@dynamic-labs/utils@3.4.6)(@dynamic-labs/wallet-book@3.4.6)(@dynamic-labs/wallet-connector-core@3.4.6)(viem@2.21.40)
       '@dynamic-labs/logger': 3.4.6(eventemitter3@5.0.1)
       '@dynamic-labs/rpc-providers': 3.4.6(eventemitter3@5.0.1)
-      '@dynamic-labs/sdk-react-core': 3.4.6(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)
+      '@dynamic-labs/sdk-react-core': 3.4.6(@types/react@18.3.3)(react-dom@18.3.1)(react-native@0.74.2)(react@18.3.1)
       '@dynamic-labs/types': 3.4.6(eventemitter3@5.0.1)
       '@dynamic-labs/wallet-connector-core': 3.4.6(@dynamic-labs/assert-package-version@3.4.6)(@dynamic-labs/logger@3.4.6)(@dynamic-labs/rpc-providers@3.4.6)(@dynamic-labs/types@3.4.6)(@dynamic-labs/utils@3.4.6)(@dynamic-labs/wallet-book@3.4.6)(eventemitter3@5.0.1)
       '@wagmi/core': 2.11.0(@types/react@18.3.3)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
       eventemitter3: 5.0.1
       react: 18.3.1
       viem: 2.21.40(typescript@5.4.5)(zod@3.23.8)
-      wagmi: 2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(@vercel/kv@3.0.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.0)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
+      wagmi: 2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(@vercel/kv@3.0.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
     dev: false
 
   /@dynamic-labs/wallet-book@3.4.6(eventemitter3@5.0.1)(react-dom@18.3.1)(react@18.3.1):
@@ -5564,30 +5567,6 @@ packages:
       - supports-color
     dev: false
 
-  /@metamask/sdk-install-modal-web@0.20.4(i18next@22.5.1)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.0)(react@18.3.1):
-    resolution: {integrity: sha512-AX3mTr0IDpS0ajV83okTaixG+2wIxTVbgvEuQgAj2Ed7PWAdiZ1aX93AVcaCgkOWhTf267z7mXCSuBDpBCje9g==}
-    peerDependencies:
-      i18next: 22.5.1
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      react-i18next: ^13.2.2
-      react-native: '*'
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      i18next: 22.5.1
-      qr-code-styling: 1.6.0-rc.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-i18next: 13.5.0(i18next@23.4.6)(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1)
-      react-native: 0.74.0(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.3.1)
-    dev: false
-
   /@metamask/sdk-install-modal-web@0.20.4(i18next@22.5.1)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1):
     resolution: {integrity: sha512-AX3mTr0IDpS0ajV83okTaixG+2wIxTVbgvEuQgAj2Ed7PWAdiZ1aX93AVcaCgkOWhTf267z7mXCSuBDpBCje9g==}
     peerDependencies:
@@ -5610,51 +5589,6 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
       react-i18next: 13.5.0(i18next@22.5.1)(react-dom@18.3.1)(react-native@0.74.2)(react@18.3.1)
       react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.3.1)
-    dev: false
-
-  /@metamask/sdk@0.20.5(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.0)(react@18.3.1):
-    resolution: {integrity: sha512-BEL3BKbb0O09QgOzvyPH5xUONl2uicS9WT1AYhZ8yR4ytz5fhyHWJzs8Q/cwgm1qIdn3eumnjXfgA6pKirWa3A==}
-    peerDependencies:
-      react: ^18.2.0
-      react-dom: ^18.2.0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@metamask/onboarding': 1.0.1
-      '@metamask/providers': 15.0.0
-      '@metamask/sdk-communication-layer': 0.20.5(cross-fetch@4.0.0)(eciesjs@0.3.19)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.7.5)
-      '@metamask/sdk-install-modal-web': 0.20.4(i18next@22.5.1)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.0)(react@18.3.1)
-      '@types/dom-screen-wake-lock': 1.0.3
-      bowser: 2.11.0
-      cross-fetch: 4.0.0
-      debug: 4.3.7(supports-color@8.1.1)
-      eciesjs: 0.3.19
-      eth-rpc-errors: 4.0.3
-      eventemitter2: 6.4.9
-      i18next: 22.5.1
-      i18next-browser-languagedetector: 7.1.0
-      obj-multiplex: 1.0.0
-      pump: 3.0.0
-      qrcode-terminal-nooctal: 0.12.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-native-webview: 11.26.1(react-native@0.74.0)(react@18.3.1)
-      readable-stream: 3.6.2
-      rollup-plugin-visualizer: 5.12.0
-      socket.io-client: 4.7.5
-      util: 0.12.5
-      uuid: 8.3.2
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react-i18next
-      - react-native
-      - rollup
-      - supports-color
-      - utf-8-validate
     dev: false
 
   /@metamask/sdk@0.20.5(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1):
@@ -11936,55 +11870,7 @@ packages:
       tinyrainbow: 1.2.0
     dev: true
 
-  /@wagmi/connectors@5.0.12(@types/react@18.3.3)(@vercel/kv@3.0.0)(@wagmi/core@2.11.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.0)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8):
-    resolution: {integrity: sha512-pHXH/+n0wTdPJqfgOrqR1qhIc+AnelX101gJc1RCDDKDzxC6U0CudVX7dias9rlgcqOc9IgKqCH1JfRSu3nDyw==}
-    peerDependencies:
-      '@wagmi/core': 2.11.0
-      typescript: '>=5.0.4'
-      viem: 2.x
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@coinbase/wallet-sdk': 4.0.3
-      '@metamask/sdk': 0.20.5(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.0)(react@18.3.1)
-      '@safe-global/safe-apps-provider': 0.18.1(typescript@5.4.5)(zod@3.23.8)
-      '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.4.5)(zod@3.23.8)
-      '@wagmi/core': 2.11.0(@types/react@18.3.3)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
-      '@walletconnect/ethereum-provider': 2.13.0(@types/react@18.3.3)(@vercel/kv@3.0.0)(react@18.3.1)
-      '@walletconnect/modal': 2.6.2(@types/react@18.3.3)(react@18.3.1)
-      cbw-sdk: /@coinbase/wallet-sdk@3.9.3
-      typescript: 5.4.5
-      viem: 2.21.40(typescript@5.4.5)(zod@3.23.8)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bufferutil
-      - encoding
-      - ioredis
-      - react
-      - react-dom
-      - react-i18next
-      - react-native
-      - rollup
-      - supports-color
-      - uWebSockets.js
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@wagmi/connectors@5.0.12(@types/react@18.3.3)(@wagmi/core@2.11.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8):
+  /@wagmi/connectors@5.0.12(@types/react@18.3.3)(@vercel/kv@3.0.0)(@wagmi/core@2.11.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8):
     resolution: {integrity: sha512-pHXH/+n0wTdPJqfgOrqR1qhIc+AnelX101gJc1RCDDKDzxC6U0CudVX7dias9rlgcqOc9IgKqCH1JfRSu3nDyw==}
     peerDependencies:
       '@wagmi/core': 2.11.0
@@ -15752,6 +15638,7 @@ packages:
 
   /eciesjs@0.3.19:
     resolution: {integrity: sha512-b+PkRDZ3ym7HEcnbxc22CMVCpgsnr8+gGgST3U5PtgeX1luvINgfXW7efOyUtmn/jFtA/lg5ywBi/Uazf4oeaA==}
+    deprecated: Please upgrade to v0.4+
     dependencies:
       '@types/secp256k1': 4.0.6
       futoin-hkdf: 1.5.3
@@ -22413,7 +22300,7 @@ packages:
       react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.3.1)
     dev: false
 
-  /react-i18next@13.5.0(i18next@23.4.6)(react-dom@18.3.1)(react-native@0.74.0)(react@18.3.1):
+  /react-i18next@13.5.0(i18next@23.4.6)(react-dom@18.3.1)(react-native@0.74.2)(react@18.3.1):
     resolution: {integrity: sha512-CFJ5NDGJ2MUyBohEHxljOq/39NQ972rh1ajnadG9BjTk+UXbHLq4z5DKEbEQBDoIhUmmbuS/fIMJKo6VOax1HA==}
     peerDependencies:
       i18next: '>= 23.2.3'
@@ -22431,7 +22318,7 @@ packages:
       i18next: 23.4.6
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-native: 0.74.0(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.3.1)
+      react-native: 0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.3.1)
     dev: false
 
   /react-international-phone@4.2.5(react@18.3.1):
@@ -22495,18 +22382,6 @@ packages:
       react-native: '*'
     dependencies:
       base64-js: 1.5.1
-      react: 18.3.1
-      react-native: 0.74.0(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.3.1)
-    dev: false
-
-  /react-native-webview@11.26.1(react-native@0.74.0)(react@18.3.1):
-    resolution: {integrity: sha512-hC7BkxOpf+z0UKhxFSFTPAM4shQzYmZHoELa6/8a/MspcjEP7ukYKpuSUTLDywQditT8yI9idfcKvfZDKQExGw==}
-    peerDependencies:
-      react: ^18.2.0
-      react-native: '*'
-    dependencies:
-      escape-string-regexp: 2.0.0
-      invariant: 2.2.4
       react: 18.3.1
       react-native: 0.74.0(@babel/core@7.24.7)(@babel/preset-env@7.24.7)(@types/react@18.3.3)(react@18.3.1)
     dev: false
@@ -25861,7 +25736,7 @@ packages:
       xml-name-validator: 5.0.0
     dev: true
 
-  /wagmi@2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(@vercel/kv@3.0.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.0)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8):
+  /wagmi@2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(@vercel/kv@3.0.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8):
     resolution: {integrity: sha512-4XyAIyzSEsDBoAnQjOYD8zgb9A/YXyiCVAWC7jMdtC3La1w/aU/TslEUIYwFsnwCb7yTwsy9z6fXRHKsGp3ScA==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -25873,54 +25748,7 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 5.44.0(react@18.3.1)
-      '@wagmi/connectors': 5.0.12(@types/react@18.3.3)(@vercel/kv@3.0.0)(@wagmi/core@2.11.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.0)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
-      '@wagmi/core': 2.11.0(@types/react@18.3.3)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
-      react: 18.3.1
-      typescript: 5.4.5
-      use-sync-external-store: 1.2.0(react@18.3.1)
-      viem: 2.21.40(typescript@5.4.5)(zod@3.23.8)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@tanstack/query-core'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bufferutil
-      - encoding
-      - immer
-      - ioredis
-      - react-dom
-      - react-i18next
-      - react-native
-      - rollup
-      - supports-color
-      - uWebSockets.js
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /wagmi@2.10.0(@tanstack/react-query@5.44.0)(@types/react@18.3.3)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8):
-    resolution: {integrity: sha512-4XyAIyzSEsDBoAnQjOYD8zgb9A/YXyiCVAWC7jMdtC3La1w/aU/TslEUIYwFsnwCb7yTwsy9z6fXRHKsGp3ScA==}
-    peerDependencies:
-      '@tanstack/react-query': '>=5.0.0'
-      react: ^18.2.0
-      typescript: '>=5.0.4'
-      viem: 2.x
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@tanstack/react-query': 5.44.0(react@18.3.1)
-      '@wagmi/connectors': 5.0.12(@types/react@18.3.3)(@wagmi/core@2.11.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
+      '@wagmi/connectors': 5.0.12(@types/react@18.3.3)(@vercel/kv@3.0.0)(@wagmi/core@2.11.0)(react-dom@18.3.1)(react-i18next@13.5.0)(react-native@0.74.2)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
       '@wagmi/core': 2.11.0(@types/react@18.3.3)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
       react: 18.3.1
       typescript: 5.4.5

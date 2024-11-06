@@ -1,7 +1,5 @@
 import yup, { MaxAmountValidationParams, MinAmountValidationParams } from './yup.custom';
 
-import { bitcoinNetwork } from '@/constants';
-
 const SEND_TOKEN_RECIPIENT = 'send-token-recipient';
 const SEND_TOKEN_AMOUNT = 'send-token-amount';
 const SEND_TOKEN_GAS_TOKEN = 'send-token-gas-token';
@@ -18,18 +16,8 @@ type SendTokenFormValidationParams = {
 };
 
 const sendTokenSchema = (params: SendTokenFormValidationParams) => {
-  let recipient = yup.string().required('Recipient is a required field');
-
-  if (params[SEND_TOKEN_RECIPIENT] === 'btc') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recipient = (recipient as any).btcAddress(bitcoinNetwork);
-  } else {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recipient = (recipient as any).evmAddress();
-  }
-
   return yup.object().shape({
-    [SEND_TOKEN_RECIPIENT]: recipient,
+    [SEND_TOKEN_RECIPIENT]: yup.string().required('Recipient is a required field').evmAddress(),
     [SEND_TOKEN_AMOUNT]: yup
       .string()
       .requiredAmount('send')
