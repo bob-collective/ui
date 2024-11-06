@@ -1,6 +1,5 @@
 'use client';
 
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { usePrices } from '@gobob/react-query';
 import { BOBUIProvider, CSSReset } from '@gobob/ui';
 import { useAccount, useChainId, useReconnect } from '@gobob/wagmi';
@@ -8,7 +7,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, useEffect } from 'react';
 
 import { Header, Layout } from '@/components';
-import { CHAIN } from '@/constants';
 import { useBalances, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
 
@@ -27,7 +25,7 @@ const ScrollToTop = () => {
 export function NestedProviders({ children }: PropsWithChildren) {
   const router = useRouter();
   const chainId = useChainId();
-  const { walletConnector } = useDynamicContext();
+  // const { walletConnector } = useDynamicContext();
   const { chain } = useAccount();
 
   // Called here to make sure data exists
@@ -41,17 +39,17 @@ export function NestedProviders({ children }: PropsWithChildren) {
     reconnect();
   }, [reconnect]);
 
-  console.log(walletConnector);
+  // console.log(walletConnector);
 
-  useEffect(() => {
-    const switchChain = () => {
-      walletConnector!.switchNetwork({ networkChainId: CHAIN });
-    };
+  // useEffect(() => {
+  //   const switchChain = () => {
+  //     walletConnector!.switchNetwork({ networkChainId: CHAIN });
+  //   };
 
-    if (walletConnector && chain && CHAIN !== chain.id) {
-      switchChain();
-    }
-  }, [chain, walletConnector]);
+  //   if (walletConnector && chain && CHAIN !== chain.id) {
+  //     switchChain();
+  //   }
+  // }, [chain, walletConnector]);
 
   return (
     <StyledComponentsRegistry>

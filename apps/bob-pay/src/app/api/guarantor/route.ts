@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       preVerificationGas: BigInt(userOperationRaw.preVerificationGas)
     };
 
-    const guarantorPrivateKey = process.env.NEXT_GUARANTOR_PVT_KEY;
+    const guarantorPrivateKey = process.env.NEXT_GUARANTOR_PRIVATE_KEY;
 
     if (!guarantorPrivateKey || !isAddress(guarantorPrivateKey)) {
       throw new Error('Invalid guarantor private key');

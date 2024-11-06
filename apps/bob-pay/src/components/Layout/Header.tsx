@@ -1,4 +1,4 @@
-import { DynamicWidget, useDynamicEvents, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
+import { DynamicWidget, useDynamicContext, useDynamicEvents, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 import { ArrowLeft, Flex, FlexProps, Span } from '@gobob/ui';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -16,6 +16,7 @@ type HeaderProps = Props & InheritAttrs;
 
 const Header = ({ ...props }: HeaderProps): JSX.Element => {
   const isLoggedIn = useIsLoggedIn();
+  const { sdkHasLoaded } = useDynamicContext();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -28,7 +29,7 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
   return (
     <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>
       <StyledLogoWrapper alignItems='center' gap='md'>
-        {isHomePage || !isLoggedIn ? (
+        {isHomePage || (sdkHasLoaded && !isLoggedIn) ? (
           <Link href={RoutesPath.HOME}>
             <Logo />
           </Link>

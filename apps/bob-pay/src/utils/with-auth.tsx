@@ -3,19 +3,20 @@
 
 import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
-import { useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
+import { useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 
 export const withAuth = (WrappedComponent: any) => {
   return function WithAuth(props: any) {
     const isLoggedIn = useIsLoggedIn();
+    const { sdkHasLoaded } = useDynamicContext();
 
     useEffect(() => {
-      if (!isLoggedIn) {
+      if (sdkHasLoaded && !isLoggedIn) {
         redirect('/login');
       }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, sdkHasLoaded]);
 
-    if (!isLoggedIn) {
+    if (sdkHasLoaded && !isLoggedIn) {
       return null;
     }
 

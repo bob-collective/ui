@@ -1,13 +1,14 @@
+/* eslint-disable no-console */
+
 const SENTRY_HOST = 'o4504853415329792.ingest.us.sentry.io';
 const SENTRY_PROJECT_IDS = ['4507407322316800'];
 
-export const config = {
-  runtime: 'edge'
-};
-
-async function extractBody(request) {
+async function extractBody(request: Request) {
   const dec = new TextDecoder();
-  const reader = request.body.getReader();
+  const reader = request.body?.getReader();
+
+  if (!reader) return '';
+
   let body = '';
 
   while (true) {
@@ -19,11 +20,11 @@ async function extractBody(request) {
   }
 }
 
-export default async (request) => {
+export async function POST(request: Request) {
   try {
     const envelope = await extractBody(request);
     const piece = envelope.split('\n')[0];
-    const header = JSON.parse(piece);
+    const header = JSON.parse(piece || '');
     const dsn = new URL(header['dsn']);
     const project_id = dsn.pathname?.replace('/', '');
 
@@ -45,4 +46,4 @@ export default async (request) => {
 
     return new Response('error tunneling to sentry', { status: 500 });
   }
-};
+}

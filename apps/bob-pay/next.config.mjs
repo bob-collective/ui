@@ -1,4 +1,5 @@
 import { withSentryConfig } from '@sentry/nextjs';
+// import withBundleAnalyzer from '@next/bundle-analyzer';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -6,6 +7,7 @@ const nextConfig = {
     styledComponents: true
   },
   experimental: {
+    // optimizePackageImports: ['@dynamic-labs/sdk-react-core'],
     swcPlugins: [['@lingui/swc-plugin', {}]],
     turbo: {
       rules: {
@@ -18,6 +20,10 @@ const nextConfig = {
       {
         source: '/bob-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`
+      },
+      {
+        source: '/dynamic-api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_DYNAMIC_API_URL}/:path*`
       }
     ];
   },
@@ -33,6 +39,10 @@ const nextConfig = {
     return config;
   }
 };
+
+// const analizer = withBundleAnalyzer({
+//   enabled: true
+// });
 
 export default withSentryConfig(nextConfig, {
   hideSourceMaps: true
