@@ -25,8 +25,6 @@ const ScrollToTop = () => {
 export function NestedProviders({ children }: PropsWithChildren) {
   const router = useRouter();
   const chainId = useChainId();
-  // const { walletConnector } = useDynamicContext();
-  // const { chain } = useAccount();
 
   // Called here to make sure data exists
   usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
@@ -38,19 +36,6 @@ export function NestedProviders({ children }: PropsWithChildren) {
   useEffect(() => {
     reconnect();
   }, [reconnect]);
-
-  // console.log(walletConnector);
-
-  // TODO: add back
-  // useEffect(() => {
-  //   const switchChain = () => {
-  //     walletConnector!.switchNetwork({ networkChainId: CHAIN });
-  //   };
-
-  //   if (walletConnector && chain && CHAIN !== chain.id) {
-  //     switchChain();
-  //   }
-  // }, [chain, walletConnector]);
 
   return (
     <StyledComponentsRegistry>

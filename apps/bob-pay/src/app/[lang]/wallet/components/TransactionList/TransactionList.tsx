@@ -1,6 +1,7 @@
 'use client';
 
 import { Card, Flex, P, Spinner } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 
 import { TransactionItem } from './TransactionItem';
 
@@ -15,7 +16,7 @@ const TransactionList = (): JSX.Element => {
         <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
           <Spinner size='16' thickness={2} />
           <P align='center' size='xs'>
-            Loading transactions...
+            <Trans>Loading transactions...</Trans>
           </P>
         </Flex>
       ) : (
@@ -25,7 +26,7 @@ const TransactionList = (): JSX.Element => {
           ) : (
             <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
               <P align='center' size='xs'>
-                No transactions found
+                <Trans>No transactions found</Trans>
               </P>
             </Flex>
           )}

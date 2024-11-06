@@ -2,6 +2,7 @@
 
 import { Button, Flex, H1, useLocale } from '@gobob/ui';
 import { useRouter } from 'next/navigation';
+import { Trans } from '@lingui/macro';
 
 import { CHAIN, RoutesPath } from '@/constants';
 import { useTotalBalance } from '@/hooks';
@@ -31,10 +32,10 @@ const Hero = (): JSX.Element => {
       </Flex>
       <Flex flex={1} gap='xl' justifyContent='center'>
         <Button fullWidth aria-label='navigate to send page' size='xl' onPress={handleSend}>
-          Send
+          <Trans>Send</Trans>
         </Button>
         <Button fullWidth aria-label='navigate to receive page' size='xl' onPress={handleReceive}>
-          Receive
+          <Trans> Receive</Trans>
         </Button>
       </Flex>
     </Flex>

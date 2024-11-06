@@ -13,6 +13,7 @@ import Big from 'big.js';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
+import { Trans } from '@lingui/macro';
 
 import { ScannerModal, TokenButtonGroup } from './components';
 
@@ -353,18 +354,11 @@ const Send = (): JSX.Element => {
       <Flex direction='column' elementType='form' gap='md' marginX='md' onSubmit={form.handleSubmit as any}>
         <Input
           endAdornment={
-            <Button
-              isIconOnly
-              variant='ghost'
-              onPress={async () => {
-                console.log('sss');
-                setScanModalOpen(true);
-              }}
-            >
+            <Button isIconOnly variant='ghost' onPress={() => setScanModalOpen(true)}>
               <QrCode />
             </Button>
           }
-          label='Recipient'
+          label={<Trans>Recipient</Trans>}
           placeholder='pay@gobob.xyz'
           size='lg'
           {...form.getFieldProps(TRANSFER_TOKEN_RECIPIENT)}
@@ -373,7 +367,7 @@ const Send = (): JSX.Element => {
           balance={balance}
           humanBalance={humanBalance}
           items={tokenInputItems}
-          label='Amount'
+          label={<Trans>Amount</Trans>}
           type='selectable'
           valueUSD={calculateAmountUSD(currencyAmount, getPrice(token.currency.symbol))}
           onChangeCurrency={(currency) => {
@@ -412,7 +406,7 @@ const Send = (): JSX.Element => {
           style={{ marginTop: '.5rem' }}
           type='submit'
         >
-          Send
+          <Trans>Send</Trans>
         </Button>
       </Flex>
       <ScannerModal

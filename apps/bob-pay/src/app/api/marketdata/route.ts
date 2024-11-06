@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { kv } from '@/lib/vercel/kv';
+import { kv } from '@/lib/vercel';
 
 const headers = {
   'content-type': 'application/json',

@@ -1,9 +1,7 @@
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
 import { Inter, Chakra_Petch } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import { t } from '@lingui/macro';
-import { userAgentFromString } from 'next/server';
 
 import linguiConfig from '../../../lingui.config';
 
@@ -13,7 +11,6 @@ import { Providers } from './providers';
 import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
 import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
-import { UserAgentProvider } from '@/user-agent/provider';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
@@ -62,16 +59,12 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
 }
 
 export default withLinguiLayout(function LangLayout({ children, params: { lang } }: PropsWithChildren<PageLangParam>) {
-  const userAgent: ReturnType<typeof userAgentFromString> = userAgentFromString(headers().get('user-agent') ?? '');
-
   return (
     <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
       <body>
         <div id='root'>
           <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
-            <UserAgentProvider userAgent={userAgent}>
-              <Providers>{children}</Providers>
-            </UserAgentProvider>
+            <Providers>{children}</Providers>
           </LinguiClientProvider>
         </div>
         {/* <!-- Fathom - beautiful, simple website analytics --> */}

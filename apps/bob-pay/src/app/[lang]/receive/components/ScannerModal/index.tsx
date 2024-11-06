@@ -1,1 +1,0 @@
-export { ScannerModal } from './ScannerModal';

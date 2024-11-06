@@ -5,13 +5,12 @@ import { mergeProps } from '@react-aria/utils';
 
 import { CardButton } from './CardButton';
 
-type Props = {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AriaAttrs = AriaTagGroupProps<any>;
 
-type AriaAttrs = Omit<AriaTagGroupProps<any>, keyof Props>;
+type InheritAttrs = Omit<FlexProps, keyof AriaAttrs | 'children'>;
 
-type InheritAttrs = Omit<FlexProps, (keyof Props & AriaAttrs) | 'children'>;
-
-type HeaderProps = Props & AriaAttrs & InheritAttrs;
+type HeaderProps = AriaAttrs & InheritAttrs;
 
 const ButtonGroup = ({
   onSelectionChange,

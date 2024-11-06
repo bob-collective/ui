@@ -5,6 +5,7 @@ const config = {
   ignore: [
     'lingui.config.js',
     'apps/bob-pay/api/**',
+    'apps/bob-pay/src/i18n/**',
     'apps/evm/api/**',
     'apps/evm/src/i18n/**',
     'apps/evm/src/connect-ui/**',
