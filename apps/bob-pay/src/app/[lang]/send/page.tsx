@@ -15,6 +15,6 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
   };
 }
 
-export default withLinguiPage(function Page() {
-  return <Send />;
+export default withLinguiPage(function Page({ searchParams }) {
+  return <Send recipient={searchParams.to} ticker={searchParams.token} />;
 });

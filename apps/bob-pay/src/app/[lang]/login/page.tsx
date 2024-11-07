@@ -15,6 +15,6 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
   };
 }
 
-export default withLinguiPage(function Page() {
-  return <Login />;
+export default withLinguiPage(function Page({ searchParams }) {
+  return <Login shouldRedirect={searchParams.redirect} />;
 });

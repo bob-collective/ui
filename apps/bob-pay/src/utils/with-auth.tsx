@@ -2,17 +2,18 @@
 'use client';
 
 import { useEffect } from 'react';
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
 import { useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 
-export const withAuth = (WrappedComponent: any) => {
-  return function WithAuth(props: any) {
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+export const withAuth = <T extends any>(WrappedComponent: React.FC<T>) => {
+  return function WithAuth(props: T) {
     const isLoggedIn = useIsLoggedIn();
     const { sdkHasLoaded } = useDynamicContext();
 
     useEffect(() => {
       if (sdkHasLoaded && !isLoggedIn) {
-        redirect('/login');
+        redirect('/login?redirect=true', RedirectType.push);
       }
     }, [isLoggedIn, sdkHasLoaded]);
 
@@ -20,6 +21,6 @@ export const withAuth = (WrappedComponent: any) => {
       return null;
     }
 
-    return <WrappedComponent {...props} />;
+    return <WrappedComponent {...(props as any)} />;
   };
 };

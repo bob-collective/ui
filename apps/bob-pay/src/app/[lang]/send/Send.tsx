@@ -10,7 +10,6 @@ import { Button, Flex, QrCode, toast, TokenInput, Input, useForm } from '@gobob/
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
-import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
 import { Trans } from '@lingui/macro';
@@ -51,14 +50,15 @@ const getAddressData = async (recipient: string) => {
   return { isAddress: false, recipientAddress: smartAccount?.address };
 };
 
-const Send = (): JSX.Element => {
-  const searchParams = useSearchParams();
+type SendProps = {
+  ticker: string;
+  recipient: string;
+};
 
-  const defaultTicker = searchParams.get('token') || 'WBTC';
-
+const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Element => {
   const [isScanModalOpen, setScanModalOpen] = useState(false);
 
-  const [ticker, setTicker] = useState(defaultTicker);
+  const [ticker, setTicker] = useState(tickerProp);
   const [amount, setAmount] = useState('');
   const [isGroupAmount, setGroupAmount] = useState(false);
 
@@ -84,7 +84,7 @@ const Send = (): JSX.Element => {
   const initialValues = useMemo(
     () => ({
       [TRANSFER_TOKEN_AMOUNT]: '',
-      [TRANSFER_TOKEN_RECIPIENT]: searchParams.get('to') || '',
+      [TRANSFER_TOKEN_RECIPIENT]: recipient || '',
       [TRANSFER_TOKEN_TICKER]: ticker
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -196,7 +196,7 @@ const Send = (): JSX.Element => {
       form.resetForm();
       setAmount('');
       setGroupAmount(false);
-      setTicker(defaultTicker);
+      setTicker(tickerProp);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eoaTransferTransactionReceipt]);
@@ -227,7 +227,7 @@ const Send = (): JSX.Element => {
       form.resetForm();
       setAmount('');
       setGroupAmount(false);
-      setTicker(defaultTicker);
+      setTicker(tickerProp);
     },
     mutationFn: async ({
       recipient,

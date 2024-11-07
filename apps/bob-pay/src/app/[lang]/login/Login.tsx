@@ -3,18 +3,27 @@
 import { Alert, Card, Flex, Link, P } from '@gobob/ui';
 import { DynamicEmbeddedWidget, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 import { useEffect } from 'react';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 import { Main } from '@/components';
 
-const Login = () => {
+type LoginProps = {
+  shouldRedirect: boolean;
+};
+
+const Login = ({ shouldRedirect }: LoginProps) => {
+  const router = useRouter();
   const isLoggedIn = useIsLoggedIn();
 
   useEffect(() => {
     if (isLoggedIn) {
-      redirect('/');
+      if (shouldRedirect) {
+        router.back();
+      } else {
+        redirect('/');
+      }
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, router, shouldRedirect]);
 
   if (isLoggedIn) {
     return null;
