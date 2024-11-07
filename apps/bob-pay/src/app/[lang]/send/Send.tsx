@@ -6,13 +6,14 @@ import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { MaxUint256 } from '@gobob/currency/src/constants';
 import { useGetApprovalData } from '@gobob/hooks';
 import { useMutation, usePrices } from '@gobob/react-query';
-import { Button, Flex, QrCode, toast, TokenInput, Input, useForm } from '@gobob/ui';
+import { Button, Flex, Input, QrCode, toast, TokenInput, useForm } from '@gobob/ui';
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
+import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
 import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
-import { Trans } from '@lingui/macro';
 
 import { ScannerModal, TokenButtonGroup } from './components';
 
@@ -56,6 +57,8 @@ type SendProps = {
 };
 
 const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Element => {
+  const { i18n } = useLingui();
+
   const [isScanModalOpen, setScanModalOpen] = useState(false);
 
   const [ticker, setTicker] = useState(tickerProp);
@@ -191,7 +194,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
 
   useEffect(() => {
     if (eoaTransferTransactionReceipt?.status === 'success') {
-      toast.success(`Successfully sent ${amount} ${token?.currency.symbol}`);
+      toast.success(t(i18n)`Successfully sent ${amount} ${token?.currency.symbol}`);
 
       form.resetForm();
       setAmount('');
@@ -221,7 +224,9 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
       }
 
       toast.success(
-        `Successfully transfered ${variables.currencyAmount.toExact()} ${variables.currencyAmount.currency.symbol}`
+        t(
+          i18n
+        )`Successfully transfered ${variables.currencyAmount.toExact()} ${variables.currencyAmount.currency.symbol}`
       );
 
       form.resetForm();
@@ -314,10 +319,11 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
 
   useEffect(() => {
     if (smartAccountTransferError) {
-      toast.error('Failed to submit transaction');
+      toast.error(t(i18n)`Failed to submit transaction`);
       // eslint-disable-next-line no-console
       console.log(smartAccountTransferError);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [smartAccountTransferError]);
 
   useEffect(() => {

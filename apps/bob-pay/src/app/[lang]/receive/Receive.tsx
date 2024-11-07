@@ -5,6 +5,7 @@ import { Button, Flex, H1, H2 } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
 import QRCode from 'react-qr-code';
 import { useCopyToClipboard } from 'usehooks-ts';
+import { Trans } from '@lingui/macro';
 
 import { Main } from '@/components';
 import { RoutesPath } from '@/constants';
@@ -66,7 +67,7 @@ const Receive = () => {
           viewBox={`0 0 256 256`}
         />
         <Button color='primary' size='lg' onPress={() => copy(address)}>
-          Copy Address
+          <Trans>Copy Address</Trans>
         </Button>
       </Flex>
     </Main>

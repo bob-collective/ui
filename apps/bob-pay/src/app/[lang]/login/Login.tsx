@@ -4,6 +4,7 @@ import { Alert, Card, Flex, Link, P } from '@gobob/ui';
 import { DynamicEmbeddedWidget, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 import { useEffect } from 'react';
 import { redirect, useRouter } from 'next/navigation';
+import { Trans } from '@lingui/macro';
 
 import { Main } from '@/components';
 
@@ -32,7 +33,7 @@ const Login = ({ shouldRedirect }: LoginProps) => {
   return (
     <Main maxWidth='md' padding='md'>
       <Alert status='info' variant='outlined'>
-        BOB Pay is currently in testing. Please try it at your own risk.
+        <Trans>BOB Pay is currently in testing. Please try it at your own risk.</Trans>
       </Alert>
       <Flex alignItems='center' direction='column' gap='2xl' marginTop='xl' style={{ width: '100%' }}>
         <Card padding='none' style={{ width: '100%' }}>
@@ -47,7 +48,7 @@ const Login = ({ shouldRedirect }: LoginProps) => {
                 marginTop: '-0.5rem'
               }}
             >
-              By logging in, you agree to our{' '}
+              <Trans>By logging in, you agree to our</Trans>{' '}
               <Link
                 external
                 color='inherit'
@@ -57,7 +58,7 @@ const Login = ({ shouldRedirect }: LoginProps) => {
                   fontFamily: 'inherit'
                 }}
               >
-                Terms and Conditions.
+                <Trans>Terms and Conditions</Trans>.
               </Link>
             </P>
           </Flex>

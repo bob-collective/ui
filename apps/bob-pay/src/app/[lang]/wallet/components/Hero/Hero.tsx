@@ -1,8 +1,8 @@
 'use client';
 
 import { Button, Flex, H1, useLocale } from '@gobob/ui';
-import { useRouter } from 'next/navigation';
 import { Trans } from '@lingui/macro';
+import { useRouter } from 'next/navigation';
 
 import { CHAIN, RoutesPath } from '@/constants';
 import { useTotalBalance } from '@/hooks';
