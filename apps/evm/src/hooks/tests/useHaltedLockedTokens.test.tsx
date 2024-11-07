@@ -3,10 +3,11 @@ import { renderHook } from '@testing-library/react-hooks';
 import { useAccount, usePublicClient } from '@gobob/wagmi';
 import { Mock, vi } from 'vitest';
 import { PropsWithChildren } from 'react';
-import { Wrapper } from '@/test-utils';
 
 import { useTokens } from '../useTokens';
 import { useHaltedLockedTokens } from '../useHaltedLockedTokens';
+
+import { wrapper } from '@/test-utils';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -53,7 +54,7 @@ describe('useHaltedLockedTokens', () => {
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useHaltedLockedTokens>>(
       () => useHaltedLockedTokens(),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitFor(() => expect(result.current.data).toBeDefined());
@@ -82,7 +83,7 @@ describe('useHaltedLockedTokens', () => {
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useHaltedLockedTokens>>(
       () => useHaltedLockedTokens(),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitFor(() => expect(result.current.data).toEqual([]));
@@ -95,7 +96,7 @@ describe('useHaltedLockedTokens', () => {
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useHaltedLockedTokens>>(
       () => useHaltedLockedTokens(),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitFor(() => expect(result.current.data).toEqual([]));
@@ -108,7 +109,7 @@ describe('useHaltedLockedTokens', () => {
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useHaltedLockedTokens>>(
       () => useHaltedLockedTokens(),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     expect(result.current.data).toBeUndefined();

@@ -1,10 +1,10 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { Mock, vi } from 'vitest';
 import { useAccount } from '@gobob/wagmi';
-import { Wrapper } from '@/test-utils';
 
 import { useGetGatewayTransactions } from '../useGetGatewayTransactions';
 
+import { wrapper } from '@/test-utils';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { esploraClient } from '@/utils';
 
@@ -65,7 +65,7 @@ describe('useGetGatewayTransactions', () => {
     (gatewaySDK.getOrders as Mock).mockResolvedValue(mockOrders);
     (esploraClient.getLatestHeight as Mock).mockResolvedValue(mockLatestHeight);
 
-    const { result } = renderHook(() => useGetGatewayTransactions(), { wrapper: Wrapper });
+    const { result } = renderHook(() => useGetGatewayTransactions(), { wrapper });
 
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true);

@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { Wrapper } from '@/test-utils';
 import { useQueryClient } from '@gobob/react-query';
 import { useDisconnect, useAccountEffect } from '@gobob/wagmi';
 import { PropsWithChildren } from 'react';
@@ -8,6 +7,7 @@ import { PropsWithChildren } from 'react';
 import { useLogout } from '../useLogout';
 import { useGetUser } from '../useGetUser';
 
+import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
 
 vi.mock('@/utils', () => ({
@@ -55,7 +55,7 @@ describe('useLogout Hook', () => {
 
   it('should call apiClient.logout, clear user query, and disconnect by default', async () => {
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await act(() => result.current.logout({ shouldDisconnect: true }));
@@ -67,7 +67,7 @@ describe('useLogout Hook', () => {
 
   it('should call apiClient.logout and clear user query without disconnecting', async () => {
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await act(() => result.current.logout({ shouldDisconnect: false }));
@@ -79,7 +79,7 @@ describe('useLogout Hook', () => {
   it.skip('should call logout with shouldDisconnect: false on account disconnect if user is logged in', async () => {
     (useAccountEffect as Mock).mockImplementation((options) => options.onDisconnect && options.onDisconnect());
 
-    renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), { wrapper: Wrapper });
+    renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), { wrapper });
 
     expect(apiClient.logout).toHaveBeenCalled();
     expect(queryClientMock.removeQueries).toHaveBeenCalledWith({ queryKey: ['user'] });

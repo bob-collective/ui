@@ -2,15 +2,16 @@ import { PropsWithChildren } from 'react';
 import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { vi, describe, it, expect, beforeEach, Mock } from 'vitest';
-import { Wrapper } from '@/test-utils';
 import { useAccount } from '@gobob/wagmi';
 
 import { useGetUser } from '../useGetUser';
 
 import { apiClient } from '@/utils';
+import { wrapper } from '@/test-utils';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
+
   return {
     ...actual,
     useAccount: vi.fn()
@@ -32,7 +33,7 @@ describe('useGetUser', () => {
     (useAccount as Mock).mockReturnValue({ address: null });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetUser>>(() => useGetUser(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     expect(result.current.isLoading).toBeFalsy();
@@ -47,7 +48,7 @@ describe('useGetUser', () => {
     (apiClient.getMe as Mock).mockResolvedValue(mockUserData);
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetUser>>(() => useGetUser(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await waitFor(() => expect(result.current.isLoading).toBeFalsy());
@@ -60,7 +61,7 @@ describe('useGetUser', () => {
     (apiClient.getMe as Mock).mockRejectedValue(new Error('Failed to fetch'));
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetUser>>(() => useGetUser(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     expect(result.current.data).toBeUndefined();
@@ -73,7 +74,7 @@ describe('useGetUser', () => {
     (apiClient.getMe as Mock).mockResolvedValue(mockUserData);
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetUser>>(() => useGetUser(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await waitFor(() => expect(result.current.isLoading).toBeFalsy());

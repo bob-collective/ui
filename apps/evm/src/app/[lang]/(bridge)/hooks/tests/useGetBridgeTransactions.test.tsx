@@ -7,7 +7,7 @@ import { ChainId } from '@gobob/chains';
 
 import { BridgeTransaction, useGetBridgeTransactions } from '../useGetBridgeTransactions';
 
-import { Wrapper } from '@/test-utils';
+import { wrapper } from '@/test-utils';
 import { BridgeTransactionStatus, TransactionDirection, TransactionType } from '@/types';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
@@ -46,7 +46,7 @@ describe('useGetBridgeTransactions', () => {
       }
     });
 
-    const { result, waitFor } = renderHook(() => useGetBridgeTransactions(), { wrapper: Wrapper });
+    const { result, waitFor } = renderHook(() => useGetBridgeTransactions(), { wrapper });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
@@ -74,7 +74,7 @@ describe('useGetBridgeTransactions', () => {
       direction: TransactionDirection.L1_TO_L2
     };
 
-    const { result } = renderHook(() => useGetBridgeTransactions(), { wrapper: Wrapper });
+    const { result } = renderHook(() => useGetBridgeTransactions(), { wrapper });
 
     act(() => {
       result.current.addPlaceholderTransaction(mockTransaction);

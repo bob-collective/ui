@@ -4,10 +4,11 @@ import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, Ether } from '@gobob/currency';
 import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { useAccount, useBalance, usePublicClient } from '@gobob/wagmi';
-import { Wrapper } from '@/test-utils';
 
 import { useBalances } from '../useBalances';
 import { useTokens } from '../useTokens';
+
+import { wrapper } from '@/test-utils';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -51,7 +52,7 @@ describe('useBalances', () => {
 
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useBalances>>(
       () => useBalances(chainId),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitForNextUpdate();
@@ -73,7 +74,7 @@ describe('useBalances', () => {
 
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useBalances>>(
       () => useBalances(chainId),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitForNextUpdate();

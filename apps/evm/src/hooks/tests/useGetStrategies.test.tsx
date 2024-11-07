@@ -1,10 +1,11 @@
-import { Wrapper } from '@/test-utils';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
 import { gatewaySDK } from '../../lib/bob-sdk';
 import { useGetStrategies } from '../useGetStrategies';
+
+import { wrapper } from '@/test-utils';
 
 vi.mock('../../lib/bob-sdk', () => ({
   gatewaySDK: {
@@ -22,7 +23,7 @@ describe('useGetStrategies hook', () => {
 
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
       () => useGetStrategies(),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);
@@ -39,7 +40,7 @@ describe('useGetStrategies hook', () => {
 
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
       () => useGetStrategies({ retry: false }),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitFor(() => expect(result.current.isError).toEqual(true));
@@ -50,7 +51,7 @@ describe('useGetStrategies hook', () => {
 
   it('should handle loading state correctly', () => {
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(() => useGetStrategies(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     expect(result.current.isLoading).toBeTruthy();

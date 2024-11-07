@@ -3,10 +3,11 @@ import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { useAccount, usePublicClient } from '@gobob/wagmi';
 import { Mock, vi } from 'vitest';
-import { Wrapper } from '@/test-utils';
 
 import { useTokens } from '../useTokens';
 import { useLockedTokens } from '../useLockedTokens';
+
+import { wrapper } from '@/test-utils';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -48,7 +49,7 @@ describe('useLockedTokens', () => {
     mockReadContract.mockResolvedValueOnce(100n).mockResolvedValueOnce(200n);
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await waitFor(() => expect(result.current.data).toBeDefined());
@@ -76,7 +77,7 @@ describe('useLockedTokens', () => {
     mockReadContract.mockResolvedValue(0n);
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await waitFor(() => expect(result.current.data).toEqual([]));
@@ -88,7 +89,7 @@ describe('useLockedTokens', () => {
     mockReadContract.mockRejectedValue(new Error('Contract read error'));
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await waitFor(() => expect(result.current.data).toEqual([]));
@@ -100,7 +101,7 @@ describe('useLockedTokens', () => {
     (useAccount as Mock).mockReturnValue({ address: undefined });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLockedTokens>>(() => useLockedTokens(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     expect(result.current.data).toBeUndefined();

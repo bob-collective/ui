@@ -3,11 +3,11 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useSignMessage, useChainId } from '@gobob/wagmi';
 import { Mock, vi } from 'vitest';
 import { PropsWithChildren } from 'react';
-import { Wrapper } from '@/test-utils';
 import { SiweMessage } from 'siwe';
 
 import { useLogin } from '../useLogin';
 
+import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
@@ -57,7 +57,7 @@ describe('useLogin', () => {
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await act(() => result.current.mutate(mockAddress));
@@ -73,7 +73,7 @@ describe('useLogin', () => {
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await waitFor(() => expect(act(() => result.current.mutateAsync(mockAddress))).rejects.toThrow());
@@ -89,7 +89,7 @@ describe('useLogin', () => {
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await waitFor(() => expect(act(() => result.current.mutateAsync(mockAddress))).rejects.toThrow(errorMessage));
@@ -107,7 +107,7 @@ describe('useLogin', () => {
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await waitFor(() => expect(act(() => result.current.mutateAsync(mockAddress))).rejects.toThrow(errorMessage));

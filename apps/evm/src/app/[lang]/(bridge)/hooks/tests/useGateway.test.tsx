@@ -1,4 +1,3 @@
-import { Wrapper } from '@/test-utils';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { describe, expect, it, Mock, vi } from 'vitest';
 import { useAccount } from '@gobob/wagmi';
@@ -6,6 +5,7 @@ import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { useGateway } from '../useGateway';
 
+import { wrapper } from '@/test-utils';
 import { GatewayTransactionType } from '@/types';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
@@ -41,7 +41,7 @@ describe('useGateway', () => {
           params: { type: GatewayTransactionType.STAKE, assetName: 'BTC' }
         }),
       {
-        wrapper: Wrapper
+        wrapper
       }
     );
 
@@ -57,7 +57,7 @@ describe('useGateway', () => {
           params: { type: GatewayTransactionType.STAKE, assetName: 'BTC' }
         }),
       {
-        wrapper: Wrapper
+        wrapper
       }
     );
 
@@ -75,11 +75,12 @@ describe('useGateway', () => {
           params: { type: GatewayTransactionType.STAKE, assetName: 'BTC' }
         }),
       {
-        wrapper: Wrapper
+        wrapper
       }
     );
 
     const initialMinAmount = result.current.query.minAmount;
+
     act(() => {
       result.current.settings.topUp.enable(false);
     });
@@ -97,7 +98,7 @@ describe('useGateway', () => {
           onError: mockFeeEstimateQueryResult
         }),
       {
-        wrapper: Wrapper
+        wrapper
       }
     );
 

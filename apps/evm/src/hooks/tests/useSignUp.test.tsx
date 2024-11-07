@@ -7,7 +7,7 @@ import { Mock, vi } from 'vitest';
 import { useSignUp } from '../useSignUp';
 import { useGetUser } from '../useGetUser';
 
-import { Wrapper } from '@/test-utils';
+import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
@@ -66,7 +66,7 @@ describe('useSignUp', () => {
 
     const onSuccess = vi.fn();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onSuccess }), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await act(() => result.current.mutate({}));
@@ -88,7 +88,7 @@ describe('useSignUp', () => {
 
     const onError = vi.fn();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onError }), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await act(() => result.current.mutate({}));
@@ -107,7 +107,7 @@ describe('useSignUp', () => {
 
     const onError = vi.fn();
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onError }), {
-      wrapper: Wrapper
+      wrapper
     });
 
     await act(() => result.current.mutate({}));

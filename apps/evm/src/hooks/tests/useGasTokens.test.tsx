@@ -3,9 +3,10 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ChainId } from '@gobob/chains';
 import { Ether } from '@gobob/currency';
 import { PropsWithChildren } from 'react';
-import { Wrapper } from '@/test-utils';
 
 import { useGasTokens } from '../useGasTokens';
+
+import { wrapper } from '@/test-utils';
 
 vi.mock('../constants/assets', () => ({
   tokens: [
@@ -34,7 +35,7 @@ describe('useGasTokens', () => {
   it('should return gas tokens for the specified chainId', async () => {
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useGasTokens>>(
       () => useGasTokens(ChainId.ETHEREUM),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitForNextUpdate();
@@ -58,7 +59,7 @@ describe('useGasTokens', () => {
   it('should return no gas tokens if chainId has no matching native token', async () => {
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useGasTokens>>(
       () => useGasTokens(ChainId.SEPOLIA),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitForNextUpdate();
@@ -82,7 +83,7 @@ describe('useGasTokens', () => {
   it('should return an empty array if no tokens match the chainId and symbol', async () => {
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useGasTokens>>(
       () => useGasTokens(ChainId.POLYGON_ZKEVM),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitForNextUpdate();

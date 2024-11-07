@@ -1,7 +1,6 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
 import { Token } from '@gobob/currency';
-import { Wrapper } from '@/test-utils';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { Address } from 'viem';
@@ -20,6 +19,7 @@ vi.mock('@/hooks/useFeatureFlag', () => ({
 
 import { useGetStakingStrategies } from '../useGetStakingStrategies';
 
+import { wrapper } from '@/test-utils';
 import { useFeatureFlag } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 
@@ -70,7 +70,7 @@ describe('useGetStakingStrategies', () => {
 
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
       () => useGetStakingStrategies(),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);
@@ -102,7 +102,7 @@ describe('useGetStakingStrategies', () => {
 
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
       () => useGetStakingStrategies(),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);

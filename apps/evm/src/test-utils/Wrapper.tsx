@@ -5,7 +5,7 @@ import { PropsWithChildren } from 'react';
 
 import { LinguiClientProvider } from '@/i18n/provider';
 
-export const Wrapper = ({ children }: PropsWithChildren) => {
+export const wrapper = ({ children }: PropsWithChildren) => {
   const queryClient = new QueryClient();
 
   return (

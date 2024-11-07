@@ -3,10 +3,11 @@ import { renderHook } from '@testing-library/react-hooks';
 import { ChainId } from '@gobob/chains';
 import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
 import { ERC20Token } from '@gobob/currency';
-import { Wrapper } from '@/test-utils';
 
 import { BridgeToken, useBridgeTokens } from '../useBridgeTokens';
 import { useTokens } from '../useTokens';
+
+import { wrapper } from '@/test-utils';
 
 vi.mock('../useTokens', () => ({
   useTokens: vi.fn()
@@ -44,7 +45,7 @@ describe('useBridgeTokens', () => {
 
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useBridgeTokens>>(
       () => useBridgeTokens(ChainId.ETHEREUM, ChainId.SEPOLIA),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitForNextUpdate();
@@ -77,7 +78,7 @@ describe('useBridgeTokens', () => {
 
     const { result, waitForNextUpdate } = renderHook<PropsWithChildren, ReturnType<typeof useBridgeTokens>>(
       () => useBridgeTokens(ChainId.ETHEREUM, ChainId.SEPOLIA),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     await waitForNextUpdate();
@@ -92,7 +93,7 @@ describe('useBridgeTokens', () => {
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useBridgeTokens>>(
       () => useBridgeTokens(ChainId.ETHEREUM, ChainId.SEPOLIA),
-      { wrapper: Wrapper }
+      { wrapper }
     );
 
     expect(result.current.data).toBeUndefined();
