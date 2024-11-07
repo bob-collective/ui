@@ -1,6 +1,3 @@
-import { withSentryConfig } from '@sentry/nextjs';
-// import withBundleAnalyzer from '@next/bundle-analyzer';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: {
@@ -40,10 +37,4 @@ const nextConfig = {
   }
 };
 
-// const analizer = withBundleAnalyzer({
-//   enabled: true
-// });
-
-export default withSentryConfig(nextConfig, {
-  hideSourceMaps: true
-});
+export default nextConfig;

@@ -3,7 +3,6 @@
 import { getContract, createPublicClient, toHex, http, encodePacked, isAddress, Address } from 'viem';
 import { sign, privateKeyToAddress } from 'viem/accounts';
 import { toPackedUserOperation } from 'viem/account-abstraction';
-// import * as Sentry from '@sentry/nextjs';
 import { bob, bobSepolia } from '@gobob/wagmi';
 
 import { CHAIN } from '@/constants';
