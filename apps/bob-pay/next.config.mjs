@@ -4,7 +4,6 @@ const nextConfig = {
     styledComponents: true
   },
   experimental: {
-    // optimizePackageImports: ['@dynamic-labs/sdk-react-core'],
     swcPlugins: [['@lingui/swc-plugin', {}]],
     turbo: {
       rules: {
