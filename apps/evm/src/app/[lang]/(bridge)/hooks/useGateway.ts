@@ -176,9 +176,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
   const liquidityQueryEnabled = Boolean(
-    params.toChain && params.toToken && params.type === GatewayTransactionType.STAKE
-      ? params.strategyAddress
-      : true && !isTapRootAddress
+    params.toChain && params.toToken && params.type === GatewayTransactionType.STAKE ? params.strategyAddress : true
   );
 
   const liquidityQueryKey = bridgeKeys.btcQuote(
@@ -255,12 +253,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   }, [rawAmount, minAmount, balance]);
 
   const quoteEnabled = Boolean(
-    !isTapRootAddress &&
-      btcAddress &&
-      evmAddress &&
-      liquidityQueryResult.data?.hasLiquidity &&
-      rawAmount &&
-      isValidAmount()
+    btcAddress && evmAddress && liquidityQueryResult.data?.hasLiquidity && rawAmount && isValidAmount()
   );
 
   const quoteQueryKey = bridgeKeys.btcQuote(
@@ -393,7 +386,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
   const isReady = !hasError && !isPreparing;
 
-  const isDisabled = isTapRootAddress || !liquidityQueryResult.data?.hasLiquidity || hasError;
+  const isDisabled = !liquidityQueryResult.data?.hasLiquidity || hasError;
 
   return {
     amount: rawAmount,
