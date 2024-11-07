@@ -1,0 +1,119 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WNATIVE and NATIVE Token Snapshots > should match snapshot for NATIVE 1`] = `
+{
+  "1": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "10": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "1101": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "111": {
+    "decimals": 18,
+    "name": "BOB Ether",
+    "symbol": "ETH",
+  },
+  "11155111": {
+    "decimals": 18,
+    "name": "Sepolia Ether",
+    "symbol": "ETH",
+  },
+  "1284": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "137": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "200901": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "204": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "4200": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "42161": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "56": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+  "60808": {
+    "decimals": 18,
+    "name": "BOB Ether",
+    "symbol": "ETH",
+  },
+  "808813": {
+    "decimals": 18,
+    "name": "BOB Ether",
+    "symbol": "ETH",
+  },
+  "8453": {
+    "decimals": 18,
+    "name": "Ether",
+    "symbol": "ETH",
+  },
+}
+`;
+
+exports[`WNATIVE and NATIVE Token Snapshots > should match snapshot for WNATIVE 1`] = `
+{
+  "1": ERC20Token {
+    "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "chainId": 1,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+  "10": "",
+  "1101": "",
+  "111": "",
+  "11155111": ERC20Token {
+    "address": "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
+    "chainId": 11155111,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+  "1284": "",
+  "137": "",
+  "200901": "",
+  "204": "",
+  "4200": "",
+  "42161": "",
+  "56": "",
+  "60808": "",
+  "808813": "",
+  "8453": "",
+}
+`;

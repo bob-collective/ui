@@ -1,3 +1,3 @@
 import { defineWorkspace } from 'vitest/config';
 
-export default defineWorkspace(['apps/evm', 'packages/tokens']);
+export default defineWorkspace(['apps/evm', 'packages/tokens', 'packages/ui']);

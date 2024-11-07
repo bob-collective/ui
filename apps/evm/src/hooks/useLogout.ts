@@ -26,14 +26,6 @@ const useLogout = (
 
   const queryClient = useQueryClient();
 
-  useAccountEffect({
-    onDisconnect() {
-      if (user) {
-        mutate({ shouldDisconnect: false });
-      }
-    }
-  });
-
   const { mutate, mutateAsync, ...mutation } = useMutation({
     mutationKey: ['logout'],
     mutationFn: async ({ shouldDisconnect = true }: { shouldDisconnect?: boolean } = {}) => {
@@ -44,6 +36,14 @@ const useLogout = (
       }
     },
     ...props
+  });
+
+  useAccountEffect({
+    onDisconnect() {
+      if (user) {
+        mutate({ shouldDisconnect: false });
+      }
+    }
   });
 
   return {

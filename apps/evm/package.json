@@ -65,17 +65,16 @@
     "@lingui/loader": "^4.11.0",
     "@lingui/macro": "^4.11.0",
     "@lingui/swc-plugin": "4.0.8",
-    "@testing-library/react-hooks": "^8.0.1",
     "@types/big.js": "^6.2.0",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@vitejs/plugin-react": "^4.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "eslint-plugin-lingui": "^0.6.0",
     "jsdom": "^25.0.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^2.1.1"
   }
 }

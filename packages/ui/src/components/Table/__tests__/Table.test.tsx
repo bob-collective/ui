@@ -2,6 +2,7 @@ import { testA11y, render } from '@gobob/test-utils';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { createRef } from 'react';
+import { vi } from 'vitest';
 
 import { Table } from '..';
 
@@ -86,7 +87,7 @@ describe('Table', () => {
   });
 
   it('should emit event when row is clicked', async () => {
-    const handleRowAction = jest.fn();
+    const handleRowAction = vi.fn();
 
     render(<Table aria-label='table' columns={columns} rows={rows} onRowAction={handleRowAction} />);
 
@@ -106,7 +107,7 @@ describe('Table', () => {
   });
 
   it('should not emit event when row input is pressed ', async () => {
-    const handleRowAction = jest.fn();
+    const handleRowAction = vi.fn();
 
     render(<Table aria-label='table' columns={columns} rows={rows} onRowAction={handleRowAction} />);
 

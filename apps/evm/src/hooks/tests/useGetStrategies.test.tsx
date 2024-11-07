@@ -1,18 +1,17 @@
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { describe, expect, it, Mock, vi } from 'vitest';
+
+import { gatewaySDK } from '../../lib/bob-sdk';
+import { useGetStrategies } from '../useGetStrategies';
+
+import { wrapper } from '@/test-utils';
 
 vi.mock('../../lib/bob-sdk', () => ({
   gatewaySDK: {
     getStrategies: vi.fn()
   }
 }));
-
-import { gatewaySDK } from '../../lib/bob-sdk';
-import { useGetStrategies } from '../useGetStrategies';
-
-const createQueryClient = () => new QueryClient();
 
 describe('useGetStrategies hook', () => {
   afterEach((gatewaySDK.getStrategies as Mock).mockClear);
@@ -22,13 +21,9 @@ describe('useGetStrategies hook', () => {
 
     (gatewaySDK.getStrategies as Mock).mockResolvedValue(mockData);
 
-    const queryClient = createQueryClient();
-
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
       () => useGetStrategies(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);
@@ -43,29 +38,20 @@ describe('useGetStrategies hook', () => {
 
     (gatewaySDK.getStrategies as Mock).mockRejectedValue(mockError);
 
-    const queryClient = createQueryClient();
-
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
-      () =>
-        useGetStrategies({
-          retry: false
-        }),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      () => useGetStrategies({ retry: false }),
+      { wrapper }
     );
 
-    await waitFor(() => result.current.isError);
+    await waitFor(() => expect(result.current.isError).toEqual(true));
 
     expect(result.current.error).toEqual(mockError);
     expect(gatewaySDK.getStrategies).toHaveBeenCalledTimes(1);
   });
 
   it('should handle loading state correctly', () => {
-    const queryClient = createQueryClient();
-
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(() => useGetStrategies(), {
-      wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      wrapper
     });
 
     expect(result.current.isLoading).toBeTruthy();

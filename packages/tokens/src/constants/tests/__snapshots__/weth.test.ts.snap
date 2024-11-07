@@ -1,0 +1,56 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WETH9 Snapshot > should match snapshot for WETH9 1`] = `
+{
+  "1": ERC20Token {
+    "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "chainId": 1,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+  "111": ERC20Token {
+    "address": "0x4200000000000000000000000000000000000006",
+    "chainId": 111,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+  "11155111": ERC20Token {
+    "address": "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
+    "chainId": 11155111,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+  "60808": ERC20Token {
+    "address": "0x0000000000000000000000000000000000000000",
+    "chainId": 60808,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+  "808813": ERC20Token {
+    "address": "0x4200000000000000000000000000000000000006",
+    "chainId": 808813,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+}
+`;

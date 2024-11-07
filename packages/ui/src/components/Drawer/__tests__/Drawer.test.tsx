@@ -1,12 +1,13 @@
 import { render, testA11y } from '@gobob/test-utils';
 import { createRef } from 'react';
+import { vi } from 'vitest';
 
 import { Drawer } from '..';
 
 describe('Drawer', () => {
   it('should render correctly', () => {
     const { unmount } = render(
-      <Drawer isOpen onClose={jest.fn}>
+      <Drawer isOpen onClose={vi.fn as any}>
         content
       </Drawer>
     );
@@ -18,7 +19,7 @@ describe('Drawer', () => {
     const ref = createRef<HTMLDivElement>();
 
     render(
-      <Drawer ref={ref} isOpen onClose={jest.fn}>
+      <Drawer ref={ref} isOpen onClose={vi.fn as any}>
         content
       </Drawer>
     );
@@ -28,7 +29,7 @@ describe('Drawer', () => {
 
   it('should pass a11y', async () => {
     await testA11y(
-      <Drawer isOpen onClose={jest.fn}>
+      <Drawer isOpen onClose={vi.fn as any}>
         content
       </Drawer>
     );
