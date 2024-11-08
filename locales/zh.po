@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2024-11-08 20:04+0300\n"
+"POT-Creation-Date: 2024-10-14 13:15+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,6 +17,11 @@ msgstr ""
 msgid ", due to the challenge period"
 msgstr ""
 
+#: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
+#: apps/evm/src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
+#~ msgid "{0}"
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:49
 msgid "{0} ago"
 msgstr ""
@@ -31,15 +36,15 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Quest/Quest.tsx:40
 msgid "{0} until quest ends"
-msgstr ""
+msgstr "距离任务结束还有{0}"
 
 #: apps/evm/src/app/[lang]/fusion/components/CommunityVoting/CommunityVoting.tsx:37
 msgid "{0} until voting round ends"
-msgstr ""
+msgstr "距离投票轮结束还有{0}"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:226
 msgid "* The multipliers displayed are subject to change based on the payout structure of the respective projects."
-msgstr ""
+msgstr "* 显示的倍数可能会根据相应项目的支付结构而变化。"
 
 #: apps/evm/src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:245
 msgid "< 1 minute"
@@ -49,6 +54,10 @@ msgstr ""
 msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
 msgstr ""
 
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:87
+#~ msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:117
 msgid "<0>{rollsRemaining}/3</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 msgstr ""
@@ -56,7 +65,7 @@ msgstr ""
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:21
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:60
 msgid "<0>Stake your BTC with 1-click</0> and receive BTC LSTs on BOB."
-msgstr ""
+msgstr "<0>一键质押你的BTC</0> 并在BOB上接收BTC LSTs。"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BridgeStatus/TimeStep.tsx:44
 msgid "2 hours"
@@ -71,7 +80,7 @@ msgstr ""
 #: apps/evm/src/app/[lang]/404/NotFound.tsx:20
 #: apps/evm/src/app/[lang]/404/page.tsx:14
 msgid "404 Error"
-msgstr ""
+msgstr "404 错误"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BridgeStatus/TimeStep.tsx:44
 msgid "7 days"
@@ -81,7 +90,7 @@ msgstr ""
 #: apps/evm/src/components/Layout/Header.tsx:112
 #: apps/evm/src/components/Layout/Sidebar.tsx:73
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:106
 msgid "Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to significant delays in confirmation time."
@@ -93,11 +102,11 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/apps/components/AppsList/AppsList.tsx:93
 msgid "All Apps"
-msgstr ""
+msgstr "所有应用"
 
 #: apps/evm/src/components/LoginSection/LoginSection.tsx:11
 msgid "Already harvesting?"
-msgstr ""
+msgstr "已经在收获？"
 
 #: apps/bob-pay/src/app/[lang]/send/Send.tsx:376
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:538
@@ -110,6 +119,10 @@ msgstr ""
 msgid "An Exclusive Bitcoin Staking and DeFi Campaign"
 msgstr ""
 
+#: src/components/BannerCarousel/BinanceCampaignBanner.tsx:25
+#~ msgid "An exclusive quest campaign."
+#~ msgstr ""
+
 #: apps/evm/src/connect-ui/component/ConnectModal/ConnectModal.tsx:266
 msgid "and that you have read and understood our"
 msgstr ""
@@ -120,7 +133,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:523
 msgid "Approve"
-msgstr ""
+msgstr "通过"
 
 #: apps/evm/src/app/[lang]/apps/page.tsx:14
 #: apps/evm/src/components/Layout/Header.tsx:72
@@ -130,12 +143,12 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:164
 msgid "Apps Used"
-msgstr ""
+msgstr "已体验的应用"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:62
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:110
 msgid "Asset"
-msgstr ""
+msgstr "资产"
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:158
 msgid "Asset Details"
@@ -143,7 +156,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:16
 msgid "Audited by"
-msgstr ""
+msgstr "审计"
 
 #: apps/evm/src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:37
 msgid "Authorize Wallet"
@@ -154,19 +167,27 @@ msgstr ""
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:151
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:181
 msgid "Babylon points"
-msgstr ""
+msgstr "Babylon积分"
 
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:111
 msgid "Balance"
-msgstr ""
+msgstr "余额"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:216
 msgid "Base Assets"
-msgstr ""
+msgstr "基础资产"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UsedAppsModal.tsx:23
 msgid "Below is the Spice you've harvested from apps. Keep participating to increase your future harvest!"
-msgstr ""
+msgstr "以下是你从各个应用中收获的Spice。继续参与以增加你未来的收获！"
+
+#: src/components/BannerCarousel/BinanceCampaignBanner.tsx:29
+#~ msgid "Binance campaign banner"
+#~ msgstr ""
+
+#: src/components/BannerCarousel/BinanceCampaignBanner.tsx:21
+#~ msgid "Bitcoin Staking with Binance"
+#~ msgstr ""
 
 #: apps/evm/src/components/Logo/Logo.tsx:37
 msgid "BOB"
@@ -183,11 +204,15 @@ msgstr ""
 #: apps/evm/src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
 #: apps/evm/src/app/[lang]/fusion/Fusion.tsx:92
 msgid "BOB Fusion: The Final Season"
-msgstr ""
+msgstr "BOB Fusion：最终季"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/GatewayGasSwitch/GatewayGasSwitch.tsx:25
 msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 msgstr ""
+
+#: apps/evm/src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:435
+#~ msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BannerCarousel/OnrampBanner.tsx:17
 msgid "BOB Gateway is live!"
@@ -206,11 +231,11 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:262
 msgid "BOB TVL Progress"
-msgstr ""
+msgstr "BOB TVL进度"
 
 #: apps/evm/src/app/[lang]/wallet/Wallet.tsx:25
 msgid "BOB Wallet"
-msgstr ""
+msgstr "BOB 钱包"
 
 #: apps/bob-pay/src/app/[lang]/page.tsx:13
 #: apps/evm/src/app/[lang]/(bridge)/bridge/page.tsx:14
@@ -220,7 +245,7 @@ msgstr ""
 #: apps/evm/src/components/Layout/Header.tsx:69
 #: apps/evm/src/components/Layout/Sidebar.tsx:44
 msgid "Bridge"
-msgstr ""
+msgstr "桥"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:524
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
@@ -229,12 +254,12 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:157
 msgid "Bridge Assets"
-msgstr ""
+msgstr "跨链资产"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:155
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:156
 msgid "Bridge BTC LSTs to BOB"
-msgstr ""
+msgstr "将BTC LSTs跨链到BOB"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:519
 msgid "Bridge Disabled"
@@ -246,15 +271,15 @@ msgstr ""
 
 #: apps/evm/src/components/WithdrawModal/WithdrawForm.tsx:192
 msgid "Bridge to BOB"
-msgstr ""
+msgstr "跨链到BOB"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:33
 msgid "Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers” button."
-msgstr ""
+msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资产比其他资产赚取更多Spice。你可以通过点击\"查看倍数\"按钮来查看。"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeAlert.tsx:15
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
-msgstr ""
+msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <0>公告</0>。"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:86
 msgid "BTC bridge is currently unavailable. This may be due to: {0}. Please try again later."
@@ -262,7 +287,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:13
 msgid "BTC LST Lending"
-msgstr ""
+msgstr "BTC LST借贷"
 
 #: apps/evm/src/connect-ui/component/ConnectModal/ConnectModal.tsx:258
 msgid "By clicking ‘Connect’ you acknowledge and agree to the"
@@ -276,6 +301,10 @@ msgstr ""
 #: apps/evm/src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:255
 msgid "Cancel"
 msgstr ""
+
+#: apps/evm/src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:478
+#~ msgid "Cannot stake into {0} due to insufficient liquidity."
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:97
 msgid "Cannot stake into {assetName} due to insufficient liquidity."
@@ -295,11 +324,11 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:179
 msgid "Chose any of the existing liquid staking provider to mint your BTC LST."
-msgstr ""
+msgstr "选择任何现有的流动性质押提供商来铸造你的BTC LST。"
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:34
 msgid "Click the <0/> icon next to your favourite apps"
-msgstr ""
+msgstr "点击 <0/> 你喜爱应用旁边的图标"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:108
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:93
@@ -311,14 +340,14 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/sign-up/SignUp.tsx:106
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
-msgstr ""
+msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:87
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/Unstake/ExternalStakeCard.tsx:83
 #: apps/evm/src/app/[lang]/fusion/components/Quest/Quest.tsx:42
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:210
 msgid "Coming Soon"
-msgstr ""
+msgstr "即将推出"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:59
 msgid "Coming SoonSteps"
@@ -331,15 +360,15 @@ msgstr ""
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/HeroBanner.tsx:29
 #: apps/evm/src/app/[lang]/fusion/components/CommunityVoting/CommunityVoting.tsx:43
 msgid "Community Voting"
-msgstr ""
+msgstr "社区投票"
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:14
 msgid "Community Voting Information"
-msgstr ""
+msgstr "社区投票信息"
 
 #: apps/evm/src/app/[lang]/fusion/components/Quest/Quest.tsx:56
 msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
-msgstr ""
+msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外收获62,500 Spice。"
 
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:110
 msgid "Congratulations you won!<0/>Take a screenshot to share with your friends!"
@@ -349,7 +378,7 @@ msgstr ""
 #: apps/evm/src/connect-ui/component/AuthButton/AuthButton.tsx:94
 #: apps/evm/src/connect-ui/component/AuthButton/AuthButton.tsx:107
 msgid "Connect BTC Wallet"
-msgstr ""
+msgstr "连接比特币钱包"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:201
 msgid "Connect BTC wallet to access fee rate settings."
@@ -364,7 +393,7 @@ msgstr ""
 #: apps/evm/src/connect-ui/component/ConnectModal/ConnectModal.tsx:220
 #: apps/evm/src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:35
 msgid "Connect Wallet"
-msgstr ""
+msgstr "连接钱包"
 
 #: apps/evm/src/connect-ui/component/ConnectModal/ConnectModal.tsx:302
 msgid "Connect your Bitcoin Wallet (Optional)"
@@ -385,23 +414,23 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:229
 msgid "Copy referral URL"
-msgstr ""
+msgstr "复制推荐URL"
 
 #: apps/evm/src/app/[lang]/apps/components/VotingDashboard/UserVotingInfo.tsx:36
 msgid "Create Account"
-msgstr ""
+msgstr "创建账户"
 
 #: apps/evm/src/components/Layout/FusionPopover.tsx:63
 msgid "Current Harvest"
-msgstr ""
+msgstr "当前收获"
 
 #: apps/evm/src/components/Layout/FusionPopover.tsx:70
 msgid "Current Leaderboard Rank"
-msgstr ""
+msgstr "当前排行榜排名"
 
 #: apps/evm/src/components/WithdrawModal/WithdrawModal.tsx:33
 msgid "Current Spice"
-msgstr ""
+msgstr "当前Spice"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:301
 msgid "Current TVL:"
@@ -409,11 +438,11 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:133
 msgid "Day"
-msgstr ""
+msgstr "/天"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:190
 msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
-msgstr ""
+msgstr "将高优先级资产部署到高优先级DeFi协议中，以最大化你的Spice收获。"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/Bridge.tsx:132
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:38
@@ -422,32 +451,32 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:29
 msgid "Deposit any eligible BTC LSTs into a lending market on BOB."
-msgstr ""
+msgstr "将任何符合条件的BTC LSTs存入BOB上的借贷市场。"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:15
 msgid "Deposit BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets."
-msgstr ""
+msgstr "将BTC LSTs存入BOB上的借贷市场，并使用它们作为抵押品借其他资产。"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:49
 msgid "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD and deposit that into a lending market on BOB"
-msgstr ""
+msgstr "将你的BTC LSTs存入 <0>将你的BTC LSTs存入</0> 以铸造satUSD，并将其存入BOB上的借贷市场"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:70
 msgid "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD."
-msgstr ""
+msgstr "将你的BTC LSTs存入 <0>Satoshi协议</0> 以铸造satUSD。"
 
 #: apps/evm/src/components/Layout/Header.tsx:109
 #: apps/evm/src/components/Layout/Sidebar.tsx:70
 msgid "Dev"
-msgstr ""
+msgstr "开发者"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:76
 msgid "DEX *"
-msgstr ""
+msgstr "去中心化交易所（DEX） *"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:113
 msgid "DEX Liquidity Provisioning"
-msgstr ""
+msgstr "为DEX提供流动性"
 
 #: apps/evm/src/app/[lang]/nested-providers.tsx:76
 msgid "Disconnected"
@@ -455,7 +484,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/apps/components/AppsList/AppsList.tsx:82
 msgid "Discover All Apps"
-msgstr ""
+msgstr "探索全部应用"
 
 #: apps/evm/src/components/SocialsGroup/SocialsGroup.tsx:31
 msgid "Docs"
@@ -463,11 +492,15 @@ msgstr ""
 
 #: apps/evm/src/components/WithdrawModal/WithdrawForm.tsx:196
 msgid "Don't believe in the Bitcoin Renaissance? You can withdraw your funds from the contract to your wallet on Ethereum. You will no longer earn Spice if you withdraw your assets. <0>You will keep the Spice harvested so far.</0>"
-msgstr ""
+msgstr "想要退出？你可以将资金从合约中提取到以太坊钱包。请注意，提取资产后你将不再赚取Spice。<0>不过，你已收获的Spice都会保留。</0>"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:58
 msgid "Don't show this message again"
-msgstr ""
+msgstr "不再显示此消息"
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:100
+#~ msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:130
 msgid "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
@@ -502,6 +535,10 @@ msgstr ""
 #: apps/evm/src/app/[lang]/sign-up/components/ReferralInput/ReferralInput.tsx:28
 msgid "Enter your access code (optional):"
 msgstr ""
+
+#: apps/evm/src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:484
+#~ msgid "Estimated Fee"
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:137
 msgid "Estimated within 1 hour"
@@ -551,7 +588,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:194
 msgid "Featured Assets"
-msgstr ""
+msgstr "特色资产"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:77
 msgid "Fee"
@@ -565,9 +602,13 @@ msgstr ""
 msgid "Fetching bridging operations..."
 msgstr ""
 
+#: apps/evm/src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:163
+#~ msgid "Fetching staking strategies..."
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:62
 msgid "Final Leaderboard Rank"
-msgstr ""
+msgstr "最终排行榜排名"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BridgeStatus/RelayStep.tsx:47
 msgid "Finalize"
@@ -575,7 +616,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:133
 msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
-msgstr ""
+msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
 #: apps/evm/src/app/[lang]/fusion/Fusion.tsx:120
@@ -590,15 +631,15 @@ msgstr ""
 #: apps/evm/src/components/Layout/Header.tsx:83
 #: apps/evm/src/components/Layout/Sidebar.tsx:58
 msgid "Fusion"
-msgstr ""
+msgstr "Fusion"
 
 #: apps/evm/src/components/Logo/Logo.tsx:41
 msgid "FUSION"
-msgstr ""
+msgstr "FUSION"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:43
 msgid "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
-msgstr ""
+msgstr "Fusion第3季是你收获Spice的最后机会。质押比特币获得最高倍数，并通过推荐朋友赚取他们Spice收获的分成。"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:30
 msgid "Fusion season three"
@@ -637,7 +678,7 @@ msgstr ""
 #: apps/bob-pay/src/app/[lang]/404/NotFound.tsx:30
 #: apps/evm/src/app/[lang]/404/NotFound.tsx:30
 msgid "Go Back"
-msgstr ""
+msgstr "返回"
 
 #: apps/evm/src/app/[lang]/nested-providers.tsx:91
 msgid "Got it!"
@@ -645,19 +686,35 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:283
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
-msgstr ""
+msgstr "抓住最后收获Spice的机会！加入第3季！"
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:80
+#~ msgid "Harvest {pointsMissing} more Spice to participate"
+#~ msgstr ""
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Harvest {pointsMissing} more SPICE to participate"
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:78
 msgid "Harvest {pointsMissing} more Spice to play"
 msgstr ""
 
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Harvest {pointsMissing} more SPICE to your account to participate"
+#~ msgstr ""
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
+#~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/fusion/Fusion.tsx:95
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
-msgstr ""
+msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关注特别活动"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:57
 msgid "Here are your active referrals and the Spice they're currently earning for you. The more they earn, the more you benefit!"
-msgstr ""
+msgstr "这里展示了你推荐的活跃用户及他们为你赚取的Spice。他们赚得越多，你获益越多！"
 
 #: apps/evm/src/app/[lang]/fusion/Fusion.tsx:88
 msgid "Hero dots"
@@ -665,15 +722,15 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:63
 msgid "Holding"
-msgstr ""
+msgstr "持有"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:201
 msgid "Hot Strategies"
-msgstr ""
+msgstr "热门策略"
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:30
 msgid "How to vote:"
-msgstr ""
+msgstr "如何投票："
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:29
 msgid "Hybrid L2"
@@ -681,7 +738,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:157
 msgid "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
-msgstr ""
+msgstr "如果你已经在其他链上拥有BTC LSTs，你可以将它们跨链到BOB并开始收获Spice。"
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:38
 msgid "Incentives"
@@ -691,26 +748,30 @@ msgstr ""
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr ""
 
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:74
+#~ msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:223
 msgid "Last 24 Hours"
-msgstr ""
+msgstr "过去24小时"
 
 #: apps/evm/src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:226
 msgid "Last 7 Days"
-msgstr ""
+msgstr "过去7天"
 
 #: apps/evm/src/app/[lang]/apps/components/AppsPodium/AppsPodium.tsx:22
 msgid "Last Week's Winners"
-msgstr ""
+msgstr "上周获胜者"
 
 #: apps/evm/src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:217
 msgid "Leaderboard"
-msgstr ""
+msgstr "排行榜"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
 #: apps/evm/src/app/[lang]/fusion/Fusion.tsx:105
 msgid "Learn More"
-msgstr ""
+msgstr "了解更多"
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:168
 msgid "Learn more about {0}"
@@ -728,19 +789,19 @@ msgstr ""
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:39
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:105
 msgid "Lending protocol points"
-msgstr ""
+msgstr "借贷协议积分"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:38
 msgid "Lending rate of BTC LSTs"
-msgstr ""
+msgstr "BTC LSTs的借贷利率"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:104
 msgid "Lending rate of satUSD"
-msgstr ""
+msgstr "satUSD的借贷利率"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:68
 msgid "Lending, Restaking, CDP *"
-msgstr ""
+msgstr "借贷、再质押、抵押债仓（CDP） *"
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:45
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:106
@@ -757,19 +818,19 @@ msgstr ""
 
 #: apps/evm/src/components/WithdrawModal/DepositedAssets.tsx:89
 msgid "Locked Amount"
-msgstr ""
+msgstr "锁定金额"
 
 #: apps/evm/src/components/WithdrawModal/DepositedAssets.tsx:80
 msgid "Locked Capital Breakdown"
-msgstr ""
+msgstr "锁定资本明细"
 
 #: apps/evm/src/app/[lang]/apps/components/VotingDashboard/UserVotingInfo.tsx:30
 msgid "Log in"
-msgstr ""
+msgstr "登录"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:279
 msgid "Log in to View Dashboard"
-msgstr ""
+msgstr "登录查看仪表板"
 
 #: apps/bob-pay/src/app/[lang]/login/page.tsx:14
 msgid "Login"
@@ -781,19 +842,23 @@ msgstr ""
 
 #: apps/evm/src/components/LoginSection/LoginSection.tsx:14
 msgid "Login with wallet"
-msgstr ""
+msgstr "使用钱包登录"
 
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:36
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:57
 msgid "Lottery"
 msgstr ""
 
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:33
+#~ msgid "Lottery ticket"
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:40
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:107
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:151
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:181
 msgid "LST provider points"
-msgstr ""
+msgstr "LST 项目方积分"
 
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:145
 msgid "Maximize your chances by using all your tickets before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery tickets daily."
@@ -801,32 +866,32 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:148
 msgid "Maximum points will be received by providing BTC LST liquidity."
-msgstr ""
+msgstr "提供BTC LST流动性将获得最高积分。"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:46
 msgid "Mint and Lend satUSD"
-msgstr ""
+msgstr "铸造并借出satUSD"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:33
 msgid "Mint more BTC LSTs with these borrowed assets."
-msgstr ""
+msgstr "用这些借到的资产铸造更多BTC LSTs。"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:47
 msgid "Mint satUSD and supply it into a lending market on BOB"
-msgstr ""
+msgstr "铸造satUSD并将其供应到BOB上的借贷市场"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:186
 msgid "Multipliers"
-msgstr ""
+msgstr "收益倍数"
 
 #: apps/evm/src/components/Layout/Header.tsx:115
 #: apps/evm/src/components/Layout/Sidebar.tsx:61
 msgid "Multisig"
-msgstr ""
+msgstr "多签"
 
 #: apps/evm/src/app/[lang]/apps/components/AppsList/AppsList.tsx:97
 msgid "My Apps"
-msgstr ""
+msgstr "我的应用"
 
 #: apps/evm/src/app/[lang]/apps/components/AppsList/AppCard.tsx:145
 msgid "My Total Harvest"
@@ -834,7 +899,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:78
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: apps/evm/src/app/[lang]/apps/components/AppsList/AppCard.tsx:73
 msgid "navigate to {name} app page"
@@ -842,7 +907,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:78
 msgid "Navigate to bridge page"
-msgstr ""
+msgstr "导航至桥接页面"
 
 #: apps/evm/src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:35
 msgid "navigate to Common Prefix audit"
@@ -895,7 +960,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/wallet/Wallet.tsx:70
 msgid "No assets shown"
-msgstr ""
+msgstr "未显示的资产"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:96
 msgid "No bridging operations found"
@@ -903,11 +968,27 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:265
 msgid "No new goal at the moment. Stay tuned for updates!"
-msgstr ""
+msgstr "目前暂无新目标。请保持关注更新！"
 
 #: apps/bob-pay/src/app/[lang]/wallet/components/TransactionList/TransactionList.tsx:29
 msgid "No transactions found"
 msgstr ""
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
+#~ msgid "Not enough spice"
+#~ msgstr ""
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:73
+#~ msgid "Not enough Spice"
+#~ msgstr ""
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
+#~ msgid "Not enough SPICE"
+#~ msgstr ""
+
+#: apps/evm/src/app/[lang]/not-found/page.tsx:14
+#~ msgid "Not found"
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
 msgid "Not your lucky day... yet!"
@@ -923,7 +1004,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:68
 msgid "Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest."
-msgstr ""
+msgstr "第3季结束后，你的得分将与第1季和第2季的得分合并，用于计算你的最终Spice收获。"
 
 #: apps/evm/src/components/Layout/Header.tsx:57
 msgid "open drawer"
@@ -932,11 +1013,11 @@ msgstr ""
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:34
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:99
 msgid "Optional: It's possible to repeat steps 2-4 multiple times."
-msgstr ""
+msgstr "可选：可以多次重复步骤2-4。"
 
 #: apps/evm/src/app/[lang]/apps/components/VotingDashboard/UserVotingInfo.tsx:33
 msgid "or"
-msgstr ""
+msgstr "或"
 
 #: apps/evm/src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:54
 msgid "OtterSec auditor"
@@ -965,15 +1046,15 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/wallet/Wallet.tsx:73
 msgid "Please connect a wallet"
-msgstr ""
+msgstr "请连接钱包"
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:47
 msgid "Please note:"
-msgstr ""
+msgstr "请注意："
 
 #: apps/evm/src/app/[lang]/sign-up/SignUp.tsx:102
 msgid "POWERED BY BTC & ETH"
-msgstr ""
+msgstr "比特币 + 以太坊共同驱动"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:200
@@ -994,24 +1075,24 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:116
 msgid "Provide liquidity into any AMM pool on <0>Oku DEX</0> to earn trading fees and incentives"
-msgstr ""
+msgstr "为 <0>Oku DEX</0> 上的任何AMM池提供流动性，以赚取交易费用和激励"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:114
 msgid "Provide liquidity into Oku DEX"
-msgstr ""
+msgstr "为Oku DEX提供流动性"
 
 #: apps/evm/src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
 #: apps/evm/src/app/[lang]/fusion/components/Quest/Quest.tsx:49
 msgid "Quests"
-msgstr ""
+msgstr "任务"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:195
 msgid "Quests Completed"
-msgstr ""
+msgstr "完成的任务"
 
 #: apps/evm/src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:229
 msgid "Quests Only"
-msgstr ""
+msgstr "仅任务"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:26
 msgid "Read it now."
@@ -1019,7 +1100,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/HeroBanner.tsx:36
 msgid "Read more here"
-msgstr ""
+msgstr "点此了解更多"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:26
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
@@ -1032,15 +1113,15 @@ msgstr ""
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:92
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:31
 msgid "Receive"
-msgstr ""
+msgstr "接收"
 
 #: apps/evm/src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:44
 msgid "Receive {0}"
-msgstr ""
+msgstr "接收 {0}"
 
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:93
 msgid "Receive {ticker}"
-msgstr ""
+msgstr "接收 {ticker}"
 
 #: apps/bob-pay/src/app/[lang]/send/Send.tsx:367
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:548
@@ -1083,11 +1164,11 @@ msgstr ""
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:92
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:85
 msgid "Rewards"
-msgstr ""
+msgstr "奖励"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:106
 msgid "Satoshi protocol points"
-msgstr ""
+msgstr "Satoshi协议积分"
 
 #: apps/bob-pay/src/app/[lang]/send/components/ScannerModal/ScannerModal.tsx:19
 msgid "Scan QR Code"
@@ -1095,27 +1176,27 @@ msgstr ""
 
 #: apps/evm/src/components/Layout/FusionPopover.tsx:77
 msgid "Season 1 & 2 (Completed)"
-msgstr ""
+msgstr "第1季和第2季（已完成）"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:139
 msgid "Season 1 & 2 Total Spice (Completed):"
-msgstr ""
+msgstr "第1季和第2季总Spice（已完成）："
 
 #: apps/evm/src/components/Layout/FusionPopover.tsx:88
 msgid "Season 2 Final Rank"
-msgstr ""
+msgstr "第2季最终排名"
 
 #: apps/evm/src/components/Layout/FusionPopover.tsx:57
 msgid "Season 3 (Ongoing)"
-msgstr ""
+msgstr "第3季（进行中）"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:127
 msgid "Season 3 Harvested Spice"
-msgstr ""
+msgstr "第3季收获的Spice"
 
 #: apps/evm/src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:220
 msgid "Season Three"
-msgstr ""
+msgstr "第三季"
 
 #: apps/evm/src/connect-ui/component/ConnectModal/ConnectModal.tsx:217
 msgid "Select Bitcoin Wallet"
@@ -1147,7 +1228,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:178
 msgid "Select the wrapped Bitcoin asset and the amount that you want to bridge."
-msgstr ""
+msgstr "选择你想跨链的BTC包装资产和数量。"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:121
 msgid "Select Token"
@@ -1161,7 +1242,7 @@ msgstr ""
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:87
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:25
 msgid "Send"
-msgstr ""
+msgstr "发送"
 
 #: apps/evm/src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:219
 msgid "Send {0}"
@@ -1169,7 +1250,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:88
 msgid "Send {ticker}"
-msgstr ""
+msgstr "发送 {ticker}"
 
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:203
 msgid "Share on X"
@@ -1177,7 +1258,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:213
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
-msgstr ""
+msgstr "与朋友分享此链接，当他们注册时，你将获得他们Spice收获的15%作为奖励，以及他们推荐的任何人的Spice收获的7%"
 
 #: apps/evm/src/components/Layout/Header.tsx:90
 msgid "Show secondary navigation"
@@ -1206,11 +1287,11 @@ msgstr ""
 #: apps/bob-pay/src/app/[lang]/404/NotFound.tsx:23
 #: apps/evm/src/app/[lang]/404/NotFound.tsx:23
 msgid "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
-msgstr ""
+msgstr "抱歉，这个页面有误或已经不存在，也许这些链接可以帮助到您"
 
 #: apps/evm/src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:79
 msgid "Spice"
-msgstr ""
+msgstr "Spice"
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:47
 msgid "Spice + Bedrock Diamonds + Babylon Points"
@@ -1248,31 +1329,31 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UsedAppsModal.tsx:19
 msgid "Spice Earned Across Apps"
-msgstr ""
+msgstr "已体验应用的Spice收益"
 
 #: apps/evm/src/app/[lang]/apps/components/AppsList/AppCard.tsx:124
 msgid "Spice Multiplier"
-msgstr ""
+msgstr "Spice"
 
 #: apps/evm/src/app/[lang]/apps/components/AppsList/AppCard.tsx:118
 msgid "Spice Per Hour"
-msgstr ""
+msgstr "每小时Spice"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:181
 msgid "Spice points (Lower)"
-msgstr ""
+msgstr "Spice积分（较低）"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:37
 msgid "Spice points (Medium)"
-msgstr ""
+msgstr "Spice积分（中等）"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:151
 msgid "Spice rewards (Higher)"
-msgstr ""
+msgstr "Spice积分（较高）"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:103
 msgid "Spice rewards (Medium)"
-msgstr ""
+msgstr "Spice积分（中等）"
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:200
 #: apps/evm/src/app/[lang]/(bridge)/stake/page.tsx:14
@@ -1280,7 +1361,11 @@ msgstr ""
 #: apps/evm/src/components/Layout/Header.tsx:80
 #: apps/evm/src/components/Layout/Sidebar.tsx:55
 msgid "Stake"
-msgstr ""
+msgstr "質押"
+
+#: apps/evm/src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:138
+#~ msgid "Stake with"
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:39
 msgid "Staking Token"
@@ -1289,20 +1374,24 @@ msgstr ""
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:84
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:61
 msgid "Start Harvesting"
-msgstr ""
+msgstr "开始收获"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:286
 #: apps/evm/src/app/[lang]/sign-up/SignUp.tsx:127
 msgid "Start Harvesting Spice"
-msgstr ""
+msgstr "开始收获Spice"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:30
 msgid "Step One"
-msgstr ""
+msgstr "第一步"
+
+#: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:33
+#~ msgid "Step One Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers” button."
+#~ msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资产比其他资产赚取更多Spice。你可以通过点击\"查看倍数\"按钮来查看。"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:43
 msgid "Step Two"
-msgstr ""
+msgstr "第二步"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:100
 msgid "Successfully finalized transaction"
@@ -1339,7 +1428,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:81
 msgid "Supply the newly minted satUSD into a <0>lending protocol on BOB</0>."
-msgstr ""
+msgstr "将新铸造的satUSD供应到 <0>BOB上的借贷协议</0> 。"
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:79
 msgid "Supply wBTC into Segment to earn interest."
@@ -1351,7 +1440,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:18
 msgid "Support your favourite BOB apps"
-msgstr ""
+msgstr "支持你喜爱的BOB应用"
 
 #: apps/evm/src/connect-ui/component/AuthButton/AuthButton.tsx:84
 msgid "Switch to {capitalizedName}"
@@ -1360,12 +1449,12 @@ msgstr ""
 #: apps/evm/src/components/Layout/Header.tsx:106
 #: apps/evm/src/components/Layout/Sidebar.tsx:67
 msgid "T&Cs"
-msgstr ""
+msgstr "条款与条件"
 
 #: apps/bob-pay/src/app/[lang]/404/NotFound.tsx:35
 #: apps/evm/src/app/[lang]/404/NotFound.tsx:35
 msgid "Take em home"
-msgstr ""
+msgstr "回到主页"
 
 #: apps/bob-pay/src/app/[lang]/login/Login.tsx:61
 msgid "Terms and Conditions"
@@ -1390,11 +1479,11 @@ msgstr ""
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:39
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:24
 msgid "The final season"
-msgstr ""
+msgstr "最终季 - 不容错过！"
 
 #: apps/evm/src/app/[lang]/sign-up/SignUp.tsx:99
 msgid "THE FIRST HYBRID L2"
-msgstr ""
+msgstr "首个混合型二层"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:67
 msgid "The leaderboard resets for the new season"
@@ -1406,11 +1495,15 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:165
 msgid "The number of BOB ecosystem apps that you have harvested Spice with"
-msgstr ""
+msgstr "你已经使用过的BOB生态系统应用数量"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:196
 msgid "The number of Intract and Galxe quests that you have completed"
-msgstr ""
+msgstr "在Intract和Galxe上完成的任务"
+
+#: apps/evm/src/app/[lang]/fusion/components/Quest/Quest.tsx:55
+#~ msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake Portal. More rewards are on the way!"
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Quest/Quest.tsx:61
 msgid "The previous quest has ended. Stay tuned for more exciting quests with Intract and BOB Stake. More rewards are on the way!"
@@ -1435,9 +1528,23 @@ msgstr ""
 msgid "The specified fee rate is very low and may significantly delay the confirmation of your transaction. If the fee is too low (e.g., 1 sat/vB), your transaction could get stuck in the mempool for an extended period. For faster confirmation, consider increasing the fee rate."
 msgstr ""
 
+#: src/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:171
+#~ msgid ""
+#~ "The specified fee rate may delay the confirmation of your transaction, possibly taking longer than 1\n"
+#~ "hour to receive your funds. For faster confirmation, consider increasing the fee rate."
+#~ msgstr ""
+
+#: src/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:162
+#~ msgid "The specified fee rate may delay the confirmation of your transaction, possibly taking longer than 1 hour to receive your funds. For faster confirmation, consider increasing the fee rate."
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/apps/components/AppsList/AppsList.tsx:148
 msgid "There are no apps to be displayed"
-msgstr ""
+msgstr "暂无可显示的应用"
+
+#: apps/evm/src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:503
+#~ msgid "There is currently no available liquidity to onramp BTC into {0}."
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:99
 msgid "There is currently no available liquidity to onramp BTC into {assetName}."
@@ -1450,6 +1557,10 @@ msgstr ""
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:140
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 msgstr ""
+
+#: apps/evm/src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:494
+#~ msgid "This is the final amount you will stake after deducting the Protocol fees from your input amount."
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/geoblock/Geoblock.tsx:17
 msgid "This website is not available in your location due to geoblocking. Geoblocking is a practice used by content providers to restrict access to their content based on the geographical location of the user."
@@ -1472,21 +1583,25 @@ msgstr ""
 msgid "Top up Gas"
 msgstr ""
 
+#: apps/evm/src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:429
+#~ msgid "Top-up Gas"
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/wallet/Wallet.tsx:39
 msgid "Total Assets"
-msgstr ""
+msgstr "总资产"
 
 #: apps/evm/src/components/Layout/FusionPopover.tsx:81
 msgid "Total Harvest"
-msgstr ""
+msgstr "总收获"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:65
 msgid "Total Referrals Earnings:"
-msgstr ""
+msgstr "推荐获得的总Spice"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:54
 msgid "Total Spice Harvested"
-msgstr ""
+msgstr "总收获的Spice"
 
 #: apps/evm/src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:27
 msgid "Trails of Bits auditor"
@@ -1506,11 +1621,15 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/Barometer.tsx:67
 msgid "TVL"
-msgstr ""
+msgstr "总锁仓价值（TVL）"
 
 #: apps/evm/src/components/WithdrawModal/WithdrawForm.tsx:150
 msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
-msgstr ""
+msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力开发这项功能，请持续关注我们的更新。"
+
+#: apps/evm/src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
+#~ msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
+#~ msgstr ""
 
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:49
 msgid "uniBTC represents the staked wBTC plus all future staking rewards and accrual of Babylon staking rewards and Bedrock diamonds."
@@ -1533,34 +1652,42 @@ msgstr ""
 msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
 msgstr ""
 
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
+#~ msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more Spice!"
+#~ msgstr ""
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
+#~ msgid "Use all your tickets before the countdown ends to boost your chances! New tickets will be available once the timer resets. Vote daily to increase your chances of earning more SPICE!"
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:163
 msgid "Use any of the <0>supported bridges</0>."
-msgstr ""
+msgstr "使用任何 <0>支持的跨链桥</0>。"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:181
 msgid "Use Apps"
-msgstr ""
+msgstr "体验应用"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:14
 msgid "Use BTC LSTs as collateral to borrow other assets"
-msgstr ""
+msgstr "使用BTC LSTs作为抵押品借其他资产"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:31
 msgid "Use the deposited BTC LSTs as collateral to borrow wBTC, tBTC or FBTC."
-msgstr ""
+msgstr "使用存入的BTC LSTs作为抵押品借wBTC、tBTC或FBTC。"
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:96
 msgid "Use the deposited satUSD as collateral to borrow any BTC LST."
-msgstr ""
+msgstr "使用存入的satUSD作为抵押品借任何BTC LST。"
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:46
 msgid "Use your bridged assets in apps to maximise your Spice harvest.<0/>TIP: Some types of apps offer greater multipliers than others. Explore the “Hot Strategies” section to learn more."
-msgstr ""
+msgstr "在应用中使用你跨链的资产以最大化你的Spice收获。<0/>提示：某些类型的应用提供更高的倍数。浏览\"热门策略\"部分以了解更多。"
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/HeroBanner.tsx:32
 #: apps/evm/src/app/[lang]/fusion/components/CommunityVoting/CommunityVoting.tsx:46
 msgid "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
-msgstr ""
+msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将每周公布。"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:110
 #: apps/evm/src/components/LoginButton/LoginButton.tsx:27
@@ -1578,7 +1705,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/wallet/Wallet.tsx:29
 msgid "View a summary of your wallet on the BOB network. DeFi positions may not be tracked."
-msgstr ""
+msgstr "查看您在 BOB 网络上的钱包概况。"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:106
 msgid "View All Transactions"
@@ -1590,29 +1717,29 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:154
 msgid "View Multipliers"
-msgstr ""
+msgstr "查看倍数"
 
 #: apps/evm/src/app/[lang]/fusion/components/Quest/Quest.tsx:78
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:207
 msgid "View Quests"
-msgstr ""
+msgstr "查看任务"
 
 #: apps/evm/src/app/[lang]/apps/components/SpiceChip/SpiceChip.tsx:99
 #: apps/evm/src/app/[lang]/fusion/components/CommunityVoting/CommunityVoting.tsx:51
 msgid "Vote"
-msgstr ""
+msgstr "投票"
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:39
 msgid "Vote for maximum three projects per week"
-msgstr ""
+msgstr "每周最多可以为三个项目投票"
 
 #: apps/evm/src/app/[lang]/apps/components/VotingDashboard/VotingDashboard.tsx:39
 msgid "Vote for maximum three projects per week by clicking on the flame icon."
-msgstr ""
+msgstr "通过点击火焰图标，每周最多可为三个项目投票"
 
 #: apps/evm/src/app/[lang]/apps/components/VotingDashboard/UserVotingInfo.tsx:20
 msgid "Votes Left:"
-msgstr ""
+msgstr "剩余投票次数："
 
 #: apps/evm/src/app/[lang]/apps/components/SpiceChip/SpiceChip.tsx:97
 msgid "Voting limit exceeded"
@@ -1633,7 +1760,7 @@ msgstr ""
 #: apps/evm/src/components/Layout/Sidebar.tsx:51
 #: apps/evm/src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:60
 msgid "Wallet"
-msgstr ""
+msgstr "钱包"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:81
 msgid "We will provide you with updates accordingly. You can monitor the progress on your bridge page; it will be marked as complete once the process has concluded."
@@ -1650,15 +1777,15 @@ msgstr ""
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:36
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:21
 msgid "Welcome to BOB Fusion"
-msgstr ""
+msgstr "欢迎回到BOB Fusion"
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:21
 msgid "When you vote for a project, your Spice total is added to their vote total.<0/><1/>Each week the projects with the most votes will receive a Spice bonus which they can distribute to their users."
-msgstr ""
+msgstr "当你为一个项目投票时，你的Spice总数将被计入他们的得票总数。<0/><1/>每周得票最多的项目将获得Spice奖励，他们可以将这些奖励分配给用户。"
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:50
 msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
-msgstr ""
+msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计算你的投票权重。"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/Bridge.tsx:135
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:38
@@ -1669,11 +1796,11 @@ msgstr ""
 #: apps/evm/src/components/WithdrawModal/WithdrawForm.tsx:161
 #: apps/evm/src/components/WithdrawModal/WithdrawForm.tsx:211
 msgid "Withdraw Assets"
-msgstr ""
+msgstr "提取资产"
 
 #: apps/evm/src/components/WithdrawModal/WithdrawModal.tsx:26
 msgid "Withdraw Locked Assets"
-msgstr ""
+msgstr "提取锁定资产"
 
 #: apps/evm/src/components/WithdrawModal/WithdrawForm.tsx:138
 msgid "Withdraw to L1 failed. Please try again."
@@ -1681,7 +1808,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:205
 msgid "Yield Assets"
-msgstr ""
+msgstr "收益资产"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:47
 msgid "You"
@@ -1693,7 +1820,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:42
 msgid "You can change your votes at any time before the end of the weekly voting period"
-msgstr ""
+msgstr "你可以在每周投票期结束前随时更改你的投票"
 
 #: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:103
 msgid "You Have 0 Tickets"
@@ -1713,7 +1840,7 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/Strategies/Strategies.tsx:149
 msgid "You will need to actively monitor your position, especially if it has a small range."
-msgstr ""
+msgstr "请密切关注你的仓位，尤其是当设定的价格范围较窄时。"
 
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:138
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
@@ -1733,9 +1860,17 @@ msgstr ""
 msgid "You've used all your tickets for today, new tickets will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily tickets."
 msgstr ""
 
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
+#~ msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more Spice!"
+#~ msgstr ""
+
+#: apps/evm/src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
+#~ msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
+#~ msgstr ""
+
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:53
 msgid "Your Active Referrals"
-msgstr ""
+msgstr "已推荐的活跃用户"
 
 #: apps/evm/src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:55
 msgid "Your assets will be delivered once your BTC transactions receive at least 3 confirmations and the processing finishes on our L2 chain. We will provide you with updates accordingly. You can monitor the progress on your bridge page. It will be marked as complete once the process has concluded."
@@ -1755,11 +1890,11 @@ msgstr ""
 
 #: apps/evm/src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:49
 msgid "Your performance in seasons 1 & 2"
-msgstr ""
+msgstr "你在第1季和第2季的表现"
 
 #: apps/evm/src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:212
 msgid "Your Referral Code"
-msgstr ""
+msgstr "你的推荐码"
 
 #: apps/evm/src/components/Layout/FusionPopover.tsx:53
 msgid "Your Spice Harvest Overview"
