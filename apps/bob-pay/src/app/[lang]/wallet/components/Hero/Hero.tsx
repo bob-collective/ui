@@ -20,10 +20,10 @@ const Hero = (): JSX.Element => {
         </H1>
       </Flex>
       <Flex flex={1} gap='xl' justifyContent='center'>
-        <Button color='primary' elementType={Link} {...{ href: RoutesPath.SEND }}>
+        <Button fullWidth elementType={Link} size='xl' {...{ href: RoutesPath.SEND }}>
           <Trans>Send</Trans>
         </Button>
-        <Button color='primary' elementType={Link} {...{ href: RoutesPath.RECEIVE }}>
+        <Button fullWidth elementType={Link} size='xl' {...{ href: RoutesPath.RECEIVE }}>
           <Trans>Receive</Trans>
         </Button>
       </Flex>

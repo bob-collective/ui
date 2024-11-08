@@ -2,6 +2,7 @@ import { DynamicWidget, useDynamicContext, useIsLoggedIn } from '@dynamic-labs/s
 import { ArrowLeft, Flex, FlexProps, Span } from '@gobob/ui';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Trans } from '@lingui/macro';
 
 import { StyledBackButton, StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { Logo } from './Logo';
@@ -34,7 +35,7 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
             <StyledBackButton onPress={() => router.push(RoutesPath.HOME)}>
               <ArrowLeft color='light' size='s' strokeWidth={2} />
               <Span size='lg' weight='bold'>
-                {pathname.endsWith(RoutesPath.SEND) ? 'Send' : 'Receive'}
+                {pathname.endsWith(RoutesPath.SEND) ? <Trans>Send</Trans> : <Trans>Receive</Trans>}
               </Span>
             </StyledBackButton>
           </Flex>
