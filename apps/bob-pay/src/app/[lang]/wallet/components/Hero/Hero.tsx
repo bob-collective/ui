@@ -1,8 +1,7 @@
 'use client';
 
-import { Button, Flex, H1, useLocale } from '@gobob/ui';
+import { Button, Flex, H1, Link, useLocale } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { useRouter } from 'next/navigation';
 
 import { CHAIN, RoutesPath } from '@/constants';
 import { useTotalBalance } from '@/hooks';
@@ -10,16 +9,6 @@ import { useTotalBalance } from '@/hooks';
 const Hero = (): JSX.Element => {
   const { locale } = useLocale();
   const totalBalance = useTotalBalance(CHAIN);
-
-  const router = useRouter();
-
-  const handleSend = () => {
-    router.push(RoutesPath.SEND);
-  };
-
-  const handleReceive = () => {
-    router.push(RoutesPath.RECEIVE);
-  };
 
   return (
     <Flex direction='column' flex={1} gap='6xl' justifyContent='center' marginY='xl' paddingX='xl'>
@@ -31,11 +20,11 @@ const Hero = (): JSX.Element => {
         </H1>
       </Flex>
       <Flex flex={1} gap='xl' justifyContent='center'>
-        <Button fullWidth aria-label='navigate to send page' size='xl' onPress={handleSend}>
+        <Button color='primary' elementType={Link} {...{ href: RoutesPath.SEND }}>
           <Trans>Send</Trans>
         </Button>
-        <Button fullWidth aria-label='navigate to receive page' size='xl' onPress={handleReceive}>
-          <Trans> Receive</Trans>
+        <Button color='primary' elementType={Link} {...{ href: RoutesPath.RECEIVE }}>
+          <Trans>Receive</Trans>
         </Button>
       </Flex>
     </Flex>
