@@ -39,7 +39,7 @@
     "@gobob/wagmi": "workspace:^",
     "@gobob/currency": "workspace:^",
     "@gobob/tokens": "workspace:^",
-    "viem": "^2.10.2"
+    "viem": "^2.21.35"
   },
   "devDependencies": {
     "react": "^18.2.0"

@@ -1,0 +1,1261 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2024-10-12 00:19+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: zh\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/app/[lang]/layout.tsx:29
+msgid ""
+msgstr ""
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:81
+msgid ", due to the challenge period"
+msgstr "，由于挑战期"
+
+#: src/app/[lang]/bridge/components/TransactionList/TransactionDetails.tsx:50
+msgid "{0} ago"
+msgstr "{0} 前"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/TimeStep.tsx:46
+msgid "{0} remaining"
+msgstr "剩余 {0}"
+
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:35
+msgid "{0} until quest ends"
+msgstr "任务结束还有 {0}"
+
+#: src/app/[lang]/fusion/components/CommunityVoting/CommunityVoting.tsx:35
+msgid "{0} until voting round ends"
+msgstr "投票轮结束还有 {0}"
+
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:226
+msgid "* The multipliers displayed are subject to change based on the payout structure of the respective projects."
+msgstr "* 显示的倍数可能会根据各项目的支付结构而改变。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:21
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:60
+msgid "<0>Stake your BTC with 1-click</0> and receive BTC LSTs on BOB."
+msgstr "<0>一键质押您的BTC</0>，在BOB上接收BTC LSTs。"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/TimeStep.tsx:43
+msgid "2 hours"
+msgstr "2小时"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BridgeForm.tsx:209
+msgid "3rd Party"
+msgstr "第三方"
+
+#: src/app/[lang]/not-found.tsx:19
+msgid "404 Error"
+msgstr "404 错误"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/TimeStep.tsx:43
+msgid "7 days"
+msgstr "7天"
+
+#: src/components/Layout/Header.tsx:104
+#: src/components/Layout/Sidebar.tsx:73
+msgid "About"
+msgstr "关于"
+
+#: src/components/LoginSection/LoginSection.tsx:11
+msgid "Already harvesting?"
+msgstr "已经在收获了吗？"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:529
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:362
+msgid "Amount"
+msgstr "数量"
+
+#: src/components/BannerCarousel/BinanceCampaignBanner.tsx:25
+msgid "An exclusive quest campaign."
+msgstr "独家任务活动。"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:260
+msgid "and that you have read and understood our"
+msgstr "并且您已阅读并理解我们的"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:514
+msgid "Approve"
+msgstr "批准"
+
+#: src/components/Layout/Header.tsx:70
+#: src/components/Layout/Sidebar.tsx:47
+msgid "Apps"
+msgstr "应用程序"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:136
+msgid "Apps Used"
+msgstr "使用的应用程序"
+
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:110
+msgid "Asset"
+msgstr "资产"
+
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:13
+msgid "Audited by"
+msgstr "审计者"
+
+#: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:37
+msgid "Authorize Wallet"
+msgstr "授权钱包"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:41
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:108
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:151
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:181
+msgid "Babylon points"
+msgstr "巴比伦积分"
+
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:111
+msgid "Balance"
+msgstr "余额"
+
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:216
+msgid "Base Assets"
+msgstr "基础资产"
+
+#: src/app/[lang]/fusion/components/UserInfo/UsedAppsModal.tsx:23
+msgid "Below is the Spice you've harvested from apps. Keep participating to increase your future harvest!"
+msgstr "以下是您从应用中收获的Spice。继续参与以增加您未来的收获！"
+
+#: src/components/BannerCarousel/BinanceCampaignBanner.tsx:29
+msgid "Binance campaign banner"
+msgstr "币安活动横幅"
+
+#: src/components/BannerCarousel/BinanceCampaignBanner.tsx:21
+msgid "Bitcoin Staking with Binance"
+msgstr "使用币安进行比特币质押"
+
+#: src/components/Logo/Logo.tsx:35
+msgid "BOB"
+msgstr "BOB"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BridgeForm.tsx:206
+msgid "BOB Bridge"
+msgstr "BOB桥"
+
+#: src/app/[lang]/fusion/Fusion.tsx:83
+#: src/components/BannerCarousel/FusionBanner.tsx:21
+msgid "BOB Fusion: The Final Season"
+msgstr "BOB融合：最后一季"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:404
+msgid "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
+msgstr "BOB网关允许您将比特币上的BTC兑换为BOB上的ETH"
+
+#: src/components/BannerCarousel/OnrampBanner.tsx:17
+msgid "BOB Gateway is live!"
+msgstr "BOB网关现已上线！"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:234
+msgid "BOB TVL Progress"
+msgstr "BOB TVL进度"
+
+#: src/app/[lang]/wallet/Wallet.tsx:25
+msgid "BOB Wallet"
+msgstr "BOB钱包"
+
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:75
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:18
+#: src/components/Layout/Header.tsx:67
+#: src/components/Layout/Sidebar.tsx:44
+msgid "Bridge"
+msgstr "桥接"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:515
+msgid "Bridge Asset"
+msgstr "桥接资产"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:129
+msgid "Bridge Assets"
+msgstr "桥接资产"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:155
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:156
+msgid "Bridge BTC LSTs to BOB"
+msgstr "将BTC LST桥接到BOB"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:510
+msgid "Bridge Disabled"
+msgstr "桥接已禁用"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BridgeForm.tsx:199
+msgid "bridge network"
+msgstr "桥接网络"
+
+#: src/components/WithdrawModal/WithdrawForm.tsx:188
+msgid "Bridge to BOB"
+msgstr "桥接到BOB"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BridgeAlert.tsx:15
+msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
+msgstr "ALEX桥接已被禁用，因为Alex Lab遭遇了涉及XLink桥的攻击。更多信息请参见此<0>公告</0>。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:435
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:410
+msgid "BTC bridge is currently unavailable. This may be due to: {0}. Please try again later."
+msgstr "BTC桥接当前不可用。原因可能是：{0}。请稍后再试。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:13
+msgid "BTC LST Lending"
+msgstr "BTC LST借贷"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:252
+msgid "By clicking ‘Connect’ you acknowledge and agree to the"
+msgstr "点击‘连接’，即表示您确认并同意"
+
+#: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:79
+#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:244
+msgid "Cancel"
+msgstr "取消"
+
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:419
+msgid "Cannot stake into {0} due to insufficient liquidity."
+msgstr "由于流动性不足，无法质押到{0}。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:512
+msgid "Checking Allowance"
+msgstr "检查额度"
+
+#: src/connect-ui/component/ConnectModal/WalletList.tsx:33
+msgid "choose available wallets"
+msgstr "选择可用的钱包"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:179
+msgid "Chose any of the existing liquid staking provider to mint your BTC LST."
+msgstr "选择任意现有的流动质押提供商来铸造您的BTC LST。"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:34
+msgid "Click the <0/> icon next to your favourite apps"
+msgstr "点击您喜欢的应用旁边的<0/>图标"
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:109
+#: src/components/TransactionModal/GatewayTransactionModal.tsx:74
+msgid "Close"
+msgstr "关闭"
+
+#: src/app/[lang]/sign-up/SignUp.tsx:105
+msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
+msgstr "结合比特币和以太坊的流动性和安全性。主网已上线！"
+
+#: src/app/[lang]/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:82
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:210
+#: src/app/[lang]/stake/components/Unstake/ExternalStakeCard.tsx:86
+msgid "Coming Soon"
+msgstr "即将推出"
+
+#: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:59
+msgid "Coming SoonSteps"
+msgstr "即将推出步骤"
+
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:31
+msgid "Common Prefix auditor"
+msgstr "通用前缀审计员"
+
+#: src/app/[lang]/apps/components/HeroBanner/HeroBanner.tsx:29
+#: src/app/[lang]/fusion/components/CommunityVoting/CommunityVoting.tsx:41
+msgid "Community Voting"
+msgstr "社区投票"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:14
+msgid "Community Voting Information"
+msgstr "社区投票信息"
+
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:45
+msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
+msgstr "通过Intract和BOB质押门户完成各种链上和链下任务，收获额外的62,500 Spice。"
+
+#: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:138
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:92
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:104
+msgid "Connect BTC Wallet"
+msgstr "连接BTC钱包"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:137
+msgid "Connect request is already pending"
+msgstr ""
+
+#: src/app/[lang]/wallet/Wallet.tsx:77
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:63
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:214
+#: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:35
+msgid "Connect Wallet"
+msgstr "连接钱包"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:296
+msgid "Connect your Bitcoin Wallet (Optional)"
+msgstr "连接请求已在等待中"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:281
+msgid "Connect your EVM Wallet (Mandatory)"
+msgstr "连接您的 EVM 钱包（必填）"
+
+#: src/connect-ui/component/ConnectModal/ConnectedWalletSection.tsx:37
+msgid "Connected with <0>{wallet}</0>"
+msgstr "已连接到 <0>{wallet}</0>"
+
+#: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:89
+msgid "Copy Address"
+msgstr "复制地址"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:201
+msgid "Copy referral URL"
+msgstr "复制推荐链接"
+
+#: src/app/[lang]/apps/components/VotingDashboard/UserVotingInfo.tsx:36
+msgid "Create Account"
+msgstr "创建账户"
+
+#: src/components/Layout/FusionPopover.tsx:63
+msgid "Current Harvest"
+msgstr "当前收获"
+
+#: src/components/Layout/FusionPopover.tsx:70
+msgid "Current Leaderboard Rank"
+msgstr "当前排行榜排名"
+
+#: src/components/WithdrawModal/WithdrawModal.tsx:31
+msgid "Current Spice"
+msgstr "当前Spice"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:105
+msgid "Day"
+msgstr "天"
+
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:190
+msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
+msgstr "将高优先级资产部署到高优先级的DeFi协议中，以最大化你的Spice收获。"
+
+#: src/app/[lang]/bridge/Bridge.tsx:126
+#: src/app/[lang]/bridge/components/TransactionList/TransactionDetails.tsx:39
+msgid "Deposit"
+msgstr "存款"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:29
+msgid "Deposit any eligible BTC LSTs into a lending market on BOB."
+msgstr "将任何符合条件的BTC LST存入BOB的借贷市场。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:15
+msgid "Deposit BTC LSTs into a lending market on BOB and use them as collateral to borrow other assets."
+msgstr "将BTC LST存入BOB的借贷市场，并将其作为抵押品借入其他资产。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:49
+msgid "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD and deposit that into a lending market on BOB"
+msgstr "将你的BTC LST存入<0>Satoshi Protocol</0>铸造satUSD，并将其存入BOB的借贷市场。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:70
+msgid "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD."
+msgstr "将你的BTC LST存入<0>Satoshi Protocol</0>铸造satUSD。"
+
+#: src/components/Layout/Header.tsx:101
+#: src/components/Layout/Sidebar.tsx:70
+msgid "Dev"
+msgstr "开发"
+
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:76
+msgid "DEX *"
+msgstr "去中心化交易所 *"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:113
+msgid "DEX Liquidity Provisioning"
+msgstr "去中心化交易所流动性提供"
+
+#: src/app/[lang]/apps/components/AppsList/AppsList.tsx:82
+msgid "Discover All Apps"
+msgstr "发现所有应用"
+
+#: src/components/SocialsGroup/SocialsGroup.tsx:31
+msgid "Docs"
+msgstr "文档"
+
+#: src/components/WithdrawModal/WithdrawForm.tsx:192
+msgid "Don't believe in the Bitcoin Renaissance? You can withdraw your funds from the contract to your wallet on Ethereum. You will no longer earn Spice if you withdraw your assets. <0>You will keep the Spice harvested so far.</0>"
+msgstr "不相信比特币复兴？你可以将资金从合约中提取到以太坊钱包。如果你提取资产，将不再赚取Spice。<0>你将保留目前已收获的Spice。</0>"
+
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:58
+msgid "Don't show this message again"
+msgstr "不再显示此消息"
+
+#: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:59
+msgid "Ensure that you are transferring from the BOB Network to avoid any loss of funds."
+msgstr "确保你是从BOB网络进行转账，以避免资金损失。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:540
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:418
+msgid "Enter destination address"
+msgstr "输入目的地址"
+
+#: src/app/[lang]/sign-up/components/ReferralInput/ReferralInput.tsx:72
+msgid "Enter referral code (optional)"
+msgstr "输入推荐码（可选）"
+
+#: src/app/[lang]/sign-up/components/ReferralInput/ReferralInput.tsx:28
+msgid "Enter your access code (optional):"
+msgstr "输入您的访问码（可选）："
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:455
+msgid "Estimated Fee"
+msgstr "预计费用"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:140
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:174
+msgid "Failed to connect to {0}"
+msgstr "连接到 {0} 失败"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/WithdrawStatus.tsx:110
+msgid "Failed to finalize."
+msgstr "完成失败。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
+msgid "Failed to get estimated fee"
+msgstr "未能获取预计费用"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/WithdrawStatus.tsx:72
+msgid "Failed to submit proof."
+msgstr "提交证明失败。"
+
+#: src/components/WithdrawModal/WithdrawForm.tsx:83
+#: src/components/WithdrawModal/WithdrawForm.tsx:109
+msgid "Failed to withdraw to L2. Please try again."
+msgstr "提款至L2失败。请再试一次。"
+
+#: src/components/WithdrawModal/WithdrawForm.tsx:87
+msgid "Failed to withdraw USDT to L1. Please try again."
+msgstr "USDT提至L1失败。请再试一次。"
+
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:194
+msgid "Featured Assets"
+msgstr "精选资产"
+
+#: src/app/[lang]/bridge/components/TransactionList/TransactionList.tsx:71
+msgid "Fetching bridging operations..."
+msgstr "正在获取桥接操作..."
+
+#: src/app/[lang]/stake/components/StrategyDetails/StrategyDetails.tsx:153
+msgid "Fetching staking strategies..."
+msgstr "正在获取质押策略..."
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:60
+msgid "Final Leaderboard Rank"
+msgstr "最终排行榜排名"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/RelayStep.tsx:50
+msgid "Finalize"
+msgstr "完成"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:133
+msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
+msgstr "按照<0>本指南</0>的步骤，为Oku上的DEX池提供流动性。"
+
+#: src/components/BannerCarousel/XBanner.tsx:17
+msgid "Follow us on X"
+msgstr "在X上关注我们"
+
+#: src/app/[lang]/geoblock/Geoblock.tsx:40
+msgid "Follow us on X for updates"
+msgstr "在X上关注我们以获取更新"
+
+#: src/components/Layout/Header.tsx:81
+#: src/components/Layout/Sidebar.tsx:58
+msgid "Fusion"
+msgstr "Fusion"
+
+#: src/components/Logo/Logo.tsx:39
+msgid "FUSION"
+msgstr "FUSION"
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:43
+msgid "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
+msgstr "Fusion第3季是你最后一次收获Spice的机会。抵押你的比特币以获得最高的倍增，并推荐朋友以获得他们收集的Spice份额。"
+
+#: src/components/BannerCarousel/FusionBanner.tsx:29
+msgid "Fusion season three"
+msgstr "Fusion第三季"
+
+#: src/components/TransactionDetails/TransactionDetails.tsx:119
+msgid "Gas Token"
+msgstr "Gas代币"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:409
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:388
+msgid "Get ETH for transaction fees on BOB"
+msgstr "获取ETH支付BOB上的交易费用"
+
+#: src/app/[lang]/not-found.tsx:29
+msgid "Go Back"
+msgstr "返回"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:255
+msgid "Grab the final opportunity to harvest Spice. Join Season 3."
+msgstr "抓住最后的机会收获Spice。加入第3季吧。"
+
+#: src/app/[lang]/fusion/Fusion.tsx:86
+msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
+msgstr "通过存入BOB应用程序、投票和完成任务来收获Spice。请留意特别活动。"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:55
+msgid "Here are your active referrals and the Spice they're currently earning for you. The more they earn, the more you benefit!"
+msgstr "这是你的活跃推荐人及他们当前为你赚取的Spice。他们赚得越多，你受益越多！"
+
+#: src/app/[lang]/fusion/Fusion.tsx:79
+msgid "Hero dots"
+msgstr "英雄点"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:201
+msgid "Hot Strategies"
+msgstr "热门策略"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:30
+msgid "How to vote:"
+msgstr "如何投票："
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:157
+msgid "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
+msgstr "如果你已经在其他链上持有BTC LST，你可以将它们桥接到BOB并开始收获Spice。"
+
+#: src/app/[lang]/sign-up/SignUp.tsx:114
+msgid "Invalid referral code. You can try again, or proceed without one."
+msgstr "无效的推荐码。你可以再试一次，或者不使用推荐码继续。"
+
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:226
+msgid "Last 24 Hours"
+msgstr "过去24小时"
+
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:229
+msgid "Last 7 Days"
+msgstr "过去7天"
+
+#: src/app/[lang]/apps/components/AppsPodium/AppsPodium.tsx:22
+msgid "Last Week's Winners"
+msgstr "上周的获胜者"
+
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:220
+msgid "Leaderboard"
+msgstr "排行榜"
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:79
+#: src/app/[lang]/fusion/Fusion.tsx:96
+msgid "Learn More"
+msgstr "了解更多"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:39
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:105
+msgid "Lending protocol points"
+msgstr "借贷协议点数"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:38
+msgid "Lending rate of BTC LSTs"
+msgstr "BTC LST的借贷利率"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:104
+msgid "Lending rate of satUSD"
+msgstr "satUSD的借贷利率"
+
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:68
+msgid "Lending, Restaking, CDP *"
+msgstr "借贷，重新质押，CDP *"
+
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:51
+msgid "Loading..."
+msgstr "加载中..."
+
+#: src/components/WithdrawModal/DepositedAssets.tsx:89
+msgid "Locked Amount"
+msgstr "锁定金额"
+
+#: src/components/WithdrawModal/DepositedAssets.tsx:80
+msgid "Locked Capital Breakdown"
+msgstr "锁定资本明细"
+
+#: src/app/[lang]/apps/components/VotingDashboard/UserVotingInfo.tsx:30
+msgid "Log in"
+msgstr "登录"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:251
+msgid "Log in to View Dashboard"
+msgstr "登录以查看仪表板"
+
+#: src/components/LoginSection/LoginSection.tsx:14
+msgid "Login with wallet"
+msgstr "使用钱包登录"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:40
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:107
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:151
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:181
+msgid "LST provider points"
+msgstr "LST提供者点数"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:148
+msgid "Maximum points will be received by providing BTC LST liquidity."
+msgstr "提供BTC LST流动性将获得最大点数。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:46
+msgid "Mint and Lend satUSD"
+msgstr "铸造并借出satUSD"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:33
+msgid "Mint more BTC LSTs with these borrowed assets."
+msgstr "用这些借来的资产铸造更多的BTC LST。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:47
+msgid "Mint satUSD and supply it into a lending market on BOB"
+msgstr "铸造satUSD并将其提供给BOB的借贷市场"
+
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:186
+msgid "Multipliers"
+msgstr "倍增器"
+
+#: src/components/Layout/Header.tsx:107
+#: src/components/Layout/Sidebar.tsx:61
+msgid "Multisig"
+msgstr "多签"
+
+#: src/app/[lang]/apps/components/AppsList/AppCard.tsx:143
+msgid "My Total Harvest"
+msgstr "我的总收获"
+
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
+msgid "Name"
+msgstr "名称"
+
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:78
+msgid "Navigate to bridge page"
+msgstr "导航至桥接页面"
+
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:26
+msgid "navigate to Common Prefix audit"
+msgstr "导航至Common Prefix审计"
+
+#: src/components/SocialsGroup/SocialsGroup.tsx:46
+msgid "navigate to discord"
+msgstr "导航至Discord"
+
+#: src/components/BannerCarousel/BannerCarousel.tsx:99
+msgid "navigate to ecosystem section in fusion page"
+msgstr "导航至Fusion页面中的生态系统部分"
+
+#: src/components/Logo/Logo.tsx:28
+msgid "navigate to home page"
+msgstr "导航至主页"
+
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:34
+msgid "navigate to OtterSec audit"
+msgstr "导航至OtterSec审计"
+
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:18
+msgid "navigate to Trails of Bits audit"
+msgstr "导航至Trails of Bits审计"
+
+#: src/components/SocialsGroup/SocialsGroup.tsx:37
+msgid "navigate to X social"
+msgstr "导航至X社交"
+
+#: src/app/[lang]/geoblock/Geoblock.tsx:47
+msgid "Need support? Enter our Discord."
+msgstr "需要支持？进入我们的Discord。"
+
+#: src/app/[lang]/wallet/Wallet.tsx:70
+msgid "No assets shown"
+msgstr "没有显示资产"
+
+#: src/app/[lang]/bridge/components/TransactionList/TransactionList.tsx:86
+msgid "No bridging operations found"
+msgstr "未找到桥接操作"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:237
+msgid "No new goal at the moment. Stay tuned for updates!"
+msgstr "目前没有新的目标。敬请关注更新！"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:246
+msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
+msgstr "在BOB上，您可以链接您的EVM和BTC钱包。为了获得最佳功能，建议同时连接两个网络的钱包。"
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:66
+msgid "Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest."
+msgstr "完成后，你的第3季得分将与第1和第2季的得分一起计算，得出你最终的Spice收成。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:34
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:99
+msgid "Optional: It's possible to repeat steps 2-4 multiple times."
+msgstr "可选：步骤2-4可以多次重复。"
+
+#: src/app/[lang]/apps/components/VotingDashboard/UserVotingInfo.tsx:33
+msgid "or"
+msgstr "或"
+
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:39
+msgid "OtterSec auditor"
+msgstr "OtterSec审计员"
+
+#: src/app/[lang]/bridge/components/TransactionList/TransactionDetails.tsx:63
+msgid "Pending"
+msgstr "待处理"
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:94
+msgid "Please confirm allowance approval for {0} in your wallet"
+msgstr "请确认钱包中{0}的额度批准"
+
+#: src/components/TransactionModal/GatewayTransactionModal.tsx:65
+msgid "Please confirm the transaction in your wallet"
+msgstr "请在你的钱包中确认交易"
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:92
+msgid "Please confirm transaction in your wallet"
+msgstr "请在你的钱包中确认交易"
+
+#: src/app/[lang]/wallet/Wallet.tsx:73
+msgid "Please connect a wallet"
+msgstr "请连接钱包"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:47
+msgid "Please note:"
+msgstr "请注意："
+
+#: src/app/[lang]/sign-up/SignUp.tsx:101
+msgid "POWERED BY BTC & ETH"
+msgstr "由BTC和ETH驱动"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:266
+msgid "Privacy policy"
+msgstr "隐私政策"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/ProveStep.tsx:44
+msgid "Prove"
+msgstr "证明"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:116
+msgid "Provide liquidity into any AMM pool on <0>Oku DEX</0> to earn trading fees and incentives"
+msgstr "在<0>Oku DEX</0>上向任意AMM池提供流动性，赚取交易费用和奖励"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:114
+msgid "Provide liquidity into Oku DEX"
+msgstr "向Oku DEX提供流动性"
+
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:82
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:41
+msgid "Quests"
+msgstr "任务"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:167
+msgid "Quests Completed"
+msgstr "已完成的任务"
+
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:232
+msgid "Quests Only"
+msgstr "仅任务"
+
+#: src/app/[lang]/apps/components/HeroBanner/HeroBanner.tsx:36
+msgid "Read more here"
+msgstr "在这里阅读更多"
+
+#: src/components/BannerCarousel/FusionBanner.tsx:25
+msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
+msgstr "阅读BOB博客上的官方Fusion指南，立即开始收获Spice。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:371
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:92
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:31
+msgid "Receive"
+msgstr "接收"
+
+#: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:44
+msgid "Receive {0}"
+msgstr "接收{0}"
+
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:93
+msgid "Receive {ticker}"
+msgstr "接收{ticker}"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:539
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:417
+msgid "Recipient"
+msgstr "接收人"
+
+#: src/app/[lang]/apps/components/SpiceChip/SpiceChip.tsx:95
+msgid "Remove vote"
+msgstr "移除投票"
+
+#: src/app/[lang]/apps/components/AppsList/AppCard.tsx:129
+#: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:92
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:85
+msgid "Rewards"
+msgstr "奖励"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:106
+msgid "Satoshi protocol points"
+msgstr "Satoshi协议点数"
+
+#: src/components/Layout/FusionPopover.tsx:77
+msgid "Season 1 & 2 (Completed)"
+msgstr "第1季和第2季（已完成）"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:111
+msgid "Season 1 & 2 Total Spice (Completed):"
+msgstr "第1季和第2季的Spice总数（已完成）："
+
+#: src/components/Layout/FusionPopover.tsx:88
+msgid "Season 2 Final Rank"
+msgstr "第2季最终排名"
+
+#: src/components/Layout/FusionPopover.tsx:57
+msgid "Season 3 (Ongoing)"
+msgstr "第3季（进行中）"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:99
+msgid "Season 3 Harvested Spice"
+msgstr "第3季收获的Spice"
+
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:223
+msgid "Season Three"
+msgstr "第3季"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:211
+msgid "Select Bitcoin Wallet"
+msgstr "选择比特币钱包"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:197
+msgid "Select EVM Wallet"
+msgstr "选择EVM钱包"
+
+#: src/components/TransactionDetails/TransactionDetails.tsx:122
+msgid "select gas token"
+msgstr "选择Gas代币"
+
+#: src/app/[lang]/bridge/components/ChainSelect/ChainSelect.tsx:20
+msgid "Select Network"
+msgstr "选择网络"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BridgeForm.tsx:170
+msgid "select network to bridge from"
+msgstr "选择桥接源网络"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BridgeForm.tsx:180
+msgid "select network to bridge to"
+msgstr "选择桥接目标网络"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:178
+msgid "Select the wrapped Bitcoin asset and the amount that you want to bridge."
+msgstr "选择包装的比特币资产和你想桥接的数量。"
+
+#: src/components/TransactionDetails/TransactionDetails.tsx:124
+msgid "Select Token"
+msgstr "选择代币"
+
+#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:257
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:87
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroupMobile.tsx:25
+msgid "Send"
+msgstr "发送"
+
+#: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:88
+msgid "Send {ticker}"
+msgstr "发送{ticker}"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:185
+msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
+msgstr "将此链接分享给朋友，当他们注册时，你将获得他们Spice收成的15%作为奖励，以及他们推荐的任何人Spice收成的7%。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:111
+#: src/components/LoginButton/LoginButton.tsx:29
+msgid "Something went wrong. Please try again later."
+msgstr "出了些问题。请稍后再试。"
+
+#: src/app/[lang]/sign-up/SignUp.tsx:71
+#: src/components/LoginButton/LoginButton.tsx:43
+#: src/components/SignUpButton/SignUpButton.tsx:29
+msgid "Something went wrong. Please try connecting your wallet again."
+msgstr "出了些问题。请尝试重新连接你的钱包。"
+
+#: src/app/[lang]/not-found.tsx:22
+msgid "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
+msgstr "抱歉，您正在查找的页面不存在或已被移动。以下是一些有用的链接："
+
+#: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:81
+msgid "Spice"
+msgstr "Spice"
+
+#: src/app/[lang]/fusion/components/UserInfo/UsedAppsModal.tsx:19
+msgid "Spice Earned Across Apps"
+msgstr "在应用中获得的Spice"
+
+#: src/app/[lang]/apps/components/AppsList/AppCard.tsx:122
+msgid "Spice Multiplier"
+msgstr "Spice倍增器"
+
+#: src/app/[lang]/apps/components/AppsList/AppCard.tsx:116
+msgid "Spice Per Hour"
+msgstr "每小时Spice"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:181
+msgid "Spice points (Lower)"
+msgstr "Spice点数（较低）"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:37
+msgid "Spice points (Medium)"
+msgstr "Spice点数（中等）"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:151
+msgid "Spice rewards (Higher)"
+msgstr "Spice奖励（较高）"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:103
+msgid "Spice rewards (Medium)"
+msgstr "Spice奖励（中等）"
+
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:424
+#: src/components/Layout/Header.tsx:78
+#: src/components/Layout/Sidebar.tsx:55
+msgid "Stake"
+msgstr "质押"
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:82
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:61
+msgid "Start Harvesting"
+msgstr "开始收获"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:258
+#: src/app/[lang]/sign-up/SignUp.tsx:126
+msgid "Start Harvesting Spice"
+msgstr "开始收获Spice"
+
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:30
+msgid "Step One"
+msgstr "第一步"
+
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:33
+msgid "Step One Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets earn more Spice than others. You can see which by clicking the “View Multipliers” button."
+msgstr "第一步 将你的资产桥接到BOB以开始收获Spice。<0/>提示：某些资产比其他资产获得更多的Spice。你可以通过点击“查看倍增器”按钮查看。"
+
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:43
+msgid "Step Two"
+msgstr "第二步"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/WithdrawStatus.tsx:103
+msgid "Successfully finalized transaction"
+msgstr "交易成功完成"
+
+#: src/app/[lang]/bridge/components/BridgeStatus/WithdrawStatus.tsx:65
+msgid "Successfully submitted ${0} proof"
+msgstr "成功提交了${0}的证明"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:81
+msgid "Supply the newly minted satUSD into a <0>lending protocol on BOB</0>."
+msgstr "将新铸造的satUSD提供给<0>BOB上的借贷协议</0>。"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:18
+msgid "Support your favourite BOB apps"
+msgstr "支持你最喜欢的BOB应用"
+
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:82
+msgid "Switch to {capitalizedName}"
+msgstr "切换到 {capitalizedName}"
+
+#: src/components/Layout/Header.tsx:98
+#: src/components/Layout/Sidebar.tsx:67
+msgid "T&Cs"
+msgstr "条款和条件"
+
+#: src/app/[lang]/not-found.tsx:34
+msgid "Take em home"
+msgstr "带他们回家"
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:258
+msgid "Terms of Service"
+msgstr "服务条款"
+
+#: src/components/Logo/Logo.tsx:45
+msgid "Testnet"
+msgstr "测试网"
+
+#: src/app/[lang]/geoblock/Geoblock.tsx:31
+msgid "Thank you for your understanding and we hope to be able to serve you in a more decentralized future. The BOB L2 network itself is fully decentralized, cannot be censored and all code is open source."
+msgstr "感谢您的理解，我们希望在更去中心化的未来能为您服务。BOB L2网络本身是完全去中心化的，无法被审查，所有代码都是开源的。"
+
+#: src/components/BannerCarousel/OnrampBanner.tsx:21
+msgid "The fastest and easiest way to bridge BTC to BOB."
+msgstr "将BTC桥接到BOB的最快和最简单的方法。"
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:39
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:24
+msgid "The final season"
+msgstr "最后一季"
+
+#: src/app/[lang]/sign-up/SignUp.tsx:98
+msgid "THE FIRST HYBRID L2"
+msgstr "第一个混合L2"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:137
+msgid "The number of BOB ecosystem apps that you have harvested Spice with"
+msgstr "您使用的BOB生态系统应用收获Spice的数量"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:168
+msgid "The number of Intract and Galxe quests that you have completed"
+msgstr "您完成的Intract和Galxe任务的数量"
+
+#: src/app/[lang]/apps/components/AppsList/AppsList.tsx:148
+msgid "There are no apps to be displayed"
+msgstr "没有可显示的应用"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:444
+msgid "There is currently no available liquidity to onramp BTC into {0}."
+msgstr "目前没有可用的流动性将BTC注入{0}。"
+
+#: src/app/[lang]/geoblock/Geoblock.tsx:23
+msgid "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
+msgstr "这通常是为了遵守当地法律法规。网站托管者必须遵守规定，可能会被迫阻止某些国家。很遗憾，您的国家在该网站托管者的条款和条件下被列为限制国家。我们正在不断努力扩大我们的服务范围，向更多地区提供服务。"
+
+#: src/app/[lang]/geoblock/Geoblock.tsx:17
+msgid "This website is not available in your location due to geoblocking. Geoblocking is a practice used by content providers to restrict access to their content based on the geographical location of the user."
+msgstr "由于地理封锁，该网站在您的位置不可用。地理封锁是内容提供商根据用户的地理位置限制其内容访问的做法。"
+
+#: src/app/[lang]/apps/components/SpiceChip/SpiceChip.tsx:102
+msgid "To cast your vote, please log in"
+msgstr "要投票，请登录"
+
+#: src/components/BannerCarousel/XBanner.tsx:21
+msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
+msgstr "要跟上BOB生态系统的最新动态，请关注@build_on_bob。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:402
+msgid "Top up Gas"
+msgstr "充值Gas"
+
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:378
+msgid "Top-up Gas"
+msgstr "充值Gas"
+
+#: src/app/[lang]/wallet/Wallet.tsx:39
+msgid "Total Assets"
+msgstr "总资产"
+
+#: src/components/Layout/FusionPopover.tsx:81
+msgid "Total Harvest"
+msgstr "总收获"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:63
+msgid "Total Referrals Earnings:"
+msgstr "总推荐收入："
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:52
+msgid "Total Spice Harvested"
+msgstr "总Spice收获"
+
+#: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:23
+msgid "Trails of Bits auditor"
+msgstr "Bits小径审计员"
+
+#: src/components/TransactionModal/GatewayTransactionModal.tsx:40
+msgid "Transaction submitted"
+msgstr "交易已提交"
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:51
+msgid "Transaction Submitted"
+msgstr "交易已提交"
+
+#: src/components/TransactionDetails/TransactionDetails.tsx:111
+msgid "Transfer time"
+msgstr "转账时间"
+
+#: src/components/WithdrawModal/WithdrawForm.tsx:146
+msgid "Unfortunately, is not possible to bridge to BOB using smart accounts. We are working on adding support for this in the near future, so follow us for future updates."
+msgstr "不幸的是，无法使用智能账户桥接到BOB。我们正在努力在不久的将来添加对此的支持，请关注我们的未来更新。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:425
+#: src/app/[lang]/stake/components/StakeForm/BtcStakeForm.tsx:400
+msgid "Unfortunately, Taproot (P2TR) addresses are not supported at this time. Please use a different address type."
+msgstr "不幸的是，目前不支持Taproot (P2TR)地址。请使用其他地址类型。"
+
+#: src/app/[lang]/bridge/components/TransactionList/TransactionDetails.tsx:72
+msgid "Unknown"
+msgstr "未知"
+
+#: src/components/WithdrawModal/WithdrawForm.tsx:177
+msgid "USDT can only be withdrawn to Ethereum."
+msgstr "USDT只能提取到以太坊。"
+
+#: src/components/WithdrawModal/WithdrawForm.tsx:169
+msgid "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will be prompted to sign twice: Once to bridge your assets (without USDT) to BOB and once to withdraw USDT to Ethereum"
+msgstr "USDT只能提取到以太坊。当桥接到BOB时，系统会提示您签名两次：一次是将您的资产（不含USDT）桥接到BOB，一次是将USDT提取到以太坊。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:163
+msgid "Use any of the <0>supported bridges</0>."
+msgstr "使用任何<0>支持的桥接</0>。"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:153
+msgid "Use Apps"
+msgstr "使用应用"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:14
+msgid "Use BTC LSTs as collateral to borrow other assets"
+msgstr "将BTC LSTs作为抵押借入其他资产"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:31
+msgid "Use the deposited BTC LSTs as collateral to borrow wBTC, tBTC or FBTC."
+msgstr "将存入的BTC LSTs作为抵押借入wBTC、tBTC或FBTC。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:96
+msgid "Use the deposited satUSD as collateral to borrow any BTC LST."
+msgstr "将存入的satUSD作为抵押借入任何BTC LST。"
+
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:46
+msgid "Use your bridged assets in apps to maximise your Spice harvest.<0/>TIP: Some types of apps offer greater multipliers than others. Explore the “Hot Strategies” section to learn more."
+msgstr "在应用中使用您的桥接资产以最大化您的Spice收获。<0/>提示：某些类型的应用提供更大的倍增器。探索“热门策略”部分以了解更多。"
+
+#: src/app/[lang]/apps/components/HeroBanner/HeroBanner.tsx:32
+#: src/app/[lang]/fusion/components/CommunityVoting/CommunityVoting.tsx:44
+msgid "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
+msgstr "利用您的Spice总量支持您最喜欢的BOB建设者。每周将公布获胜者。"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BobBridgeForm.tsx:109
+#: src/components/LoginButton/LoginButton.tsx:27
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:133
+msgid "User rejected the request"
+msgstr "用户拒绝了请求"
+
+#: src/app/[lang]/bridge/components/BridgeForm/BridgeForm.tsx:214
+msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge."
+msgstr "使用官方桥接通常需要7天。为了更快的提现，我们建议使用第三方桥接。"
+
+#: src/app/[lang]/wallet/Wallet.tsx:29
+msgid "View a summary of your wallet on the BOB network. DeFi positions may not be tracked."
+msgstr "查看您在BOB网络上的钱包摘要。DeFi头寸可能无法被追踪。"
+
+#: src/app/[lang]/bridge/components/TransactionList/TransactionList.tsx:96
+msgid "View All Transactions"
+msgstr "查看所有交易"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:126
+msgid "View Multipliers"
+msgstr "查看倍增器"
+
+#: src/app/[lang]/fusion/components/Quest/Quest.tsx:60
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:179
+msgid "View Quests"
+msgstr "查看任务"
+
+#: src/app/[lang]/apps/components/SpiceChip/SpiceChip.tsx:99
+#: src/app/[lang]/fusion/components/CommunityVoting/CommunityVoting.tsx:49
+msgid "Vote"
+msgstr "投票"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:39
+msgid "Vote for maximum three projects per week"
+msgstr "每周最多投票给三个项目"
+
+#: src/app/[lang]/apps/components/VotingDashboard/VotingDashboard.tsx:39
+msgid "Vote for maximum three projects per week by clicking on the flame icon."
+msgstr "通过点击火焰图标，每周最多为三个项目投票。"
+
+#: src/app/[lang]/apps/components/VotingDashboard/UserVotingInfo.tsx:20
+msgid "Votes Left:"
+msgstr "剩余投票："
+
+#: src/app/[lang]/apps/components/SpiceChip/SpiceChip.tsx:97
+msgid "Voting limit exceeded"
+msgstr "超出投票限制"
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:55
+msgid "Waiting for approval"
+msgstr "等待批准"
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:53
+#: src/components/TransactionModal/GatewayTransactionModal.tsx:40
+msgid "Waiting for confirmation"
+msgstr "等待确认"
+
+#: src/components/Layout/Header.tsx:74
+#: src/components/Layout/Sidebar.tsx:51
+#: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:60
+msgid "Wallet"
+msgstr "钱包"
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:82
+msgid "We will provide you with updates accordingly. You can monitor the progress on your bridge page; it will be marked as complete once the process has concluded."
+msgstr "我们会相应地为您提供更新。您可以在桥接页面上监控进度；一旦过程完成，它将被标记为已完成。"
+
+#: src/app/[lang]/geoblock/Geoblock.tsx:14
+msgid "We're Sorry"
+msgstr "我们很抱歉"
+
+#: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:36
+#: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:21
+msgid "Welcome to BOB Fusion"
+msgstr "欢迎来到BOB Fusion"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:21
+msgid "When you vote for a project, your Spice total is added to their vote total.<0/><1/>Each week the projects with the most votes will receive a Spice bonus which they can distribute to their users."
+msgstr "当您为一个项目投票时，您的Spice总量将被添加到他们的投票总数中。<0/><1/>每周获得最多投票的项目将获得Spice奖励，他们可以将其分配给用户。"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:50
+msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
+msgstr "当您投票时，您不会放弃任何收获。您的Spice总量仅用于计算您的投票权重。"
+
+#: src/app/[lang]/bridge/Bridge.tsx:129
+#: src/app/[lang]/bridge/components/TransactionList/TransactionDetails.tsx:39
+msgid "Withdraw"
+msgstr "提现"
+
+#: src/components/WithdrawAlert/WithdrawAlert.tsx:33
+#: src/components/WithdrawModal/WithdrawForm.tsx:157
+#: src/components/WithdrawModal/WithdrawForm.tsx:207
+msgid "Withdraw Assets"
+msgstr "提现资产"
+
+#: src/components/WithdrawModal/WithdrawForm.tsx:134
+msgid "Withdraw to L1 failed. Please try again."
+msgstr "提现到L1失败。请再试一次。"
+
+#: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:205
+msgid "Yield Assets"
+msgstr "收益资产"
+
+#: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:42
+msgid "You can change your votes at any time before the end of the weekly voting period"
+msgstr "在每周投票期结束之前，您可以随时更改您的投票。"
+
+#: src/components/WithdrawAlert/WithdrawAlert.tsx:30
+msgid "You still have assets locked in Season One. Please redeem your funds"
+msgstr "您仍然有资产锁定在第一季。请赎回您的资金。"
+
+#: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:149
+msgid "You will need to actively monitor your position, especially if it has a small range."
+msgstr "您需要积极监控您的头寸，特别是如果它的范围很小。"
+
+#: src/components/TransactionDetails/TransactionDetails.tsx:89
+msgid "You will receive"
+msgstr "您将收到"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:51
+msgid "Your Active Referrals"
+msgstr "您当前的推荐"
+
+#: src/components/TransactionModal/GatewayTransactionModal.tsx:55
+msgid "Your assets will be delivered once your BTC transactions receive at least 3 confirmations and the processing finishes on our L2 chain. We will provide you with updates accordingly. You can monitor the progress on your bridge page. It will be marked as complete once the process has concluded."
+msgstr "一旦您的BTC交易获得至少3个确认并且处理在我们的L2链上完成，您的资产将被交付。我们会相应地为您提供更新。您可以在桥接页面上监控进度。完成后将标记为已完成。"
+
+#: src/components/TransactionModal/BridgeTransactionModal.tsx:79
+msgid "Your assets will be delivered shortly, with an estimated arrival time of aprox."
+msgstr "您的资产将很快送达，预计到达时间为："
+
+#: src/app/[lang]/bridge/components/BridgeForm/BtcBridgeForm.tsx:357
+msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
+msgstr "由于网络费用和可用流动性，您的可用余额可能与您的钱包余额不同。"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:184
+msgid "Your Referral Code"
+msgstr "您的推荐代码"
+
+#: src/components/Layout/FusionPopover.tsx:53
+msgid "Your Spice Harvest Overview"
+msgstr "您的Spice收获概览"
