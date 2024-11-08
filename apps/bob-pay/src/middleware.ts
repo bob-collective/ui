@@ -47,6 +47,6 @@ export const config: MiddlewareConfig = {
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|assets|api|dynamic-api|bob-api|gateway-api|btc-api|check_access|tunnel|marketdata/v1|site.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'
+    '/((?!_next/static|_next/image|favicon.ico|assets|api|dynamic-api|fusion-api|tunnel|site.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'
   ]
 };

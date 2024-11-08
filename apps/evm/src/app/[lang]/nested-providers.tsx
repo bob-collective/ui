@@ -143,7 +143,7 @@ export function NestedProviders({ children }: PropsWithChildren) {
   const chainId = useChainId();
 
   // Called here to make sure data exists
-  usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  usePrices();
   useBalances(chainId);
   useTokens(chainId);
 

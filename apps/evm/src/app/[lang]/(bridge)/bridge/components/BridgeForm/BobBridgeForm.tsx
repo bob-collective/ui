@@ -66,7 +66,7 @@ const BobBridgeForm = ({
   const chainId = useChainId();
   const { address, chain } = useAccount();
 
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { getBalance } = useBalances(bridgeChainId);
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);

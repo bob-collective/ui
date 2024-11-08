@@ -1,7 +1,3 @@
-export const config = {
-  runtime: 'edge'
-};
-
 const blockedCountries = [
   'AL',
   'BS',
@@ -39,13 +35,15 @@ const blockedCountries = [
   'VE'
 ];
 
-function isGeoblocked(req) {
+export async function GET(request: Request) {
   // https://vercel.com/docs/concepts/edge-network/headers#x-vercel-ip-country
-  const countryCode = req.headers.get('x-vercel-ip-country');
+  const countryCode = request.headers.get('x-vercel-ip-country');
 
-  return blockedCountries.includes(countryCode);
+  if (!countryCode) {
+    return new Response(null, { status: 403 });
+  }
+
+  const isGeoblocked = blockedCountries.includes(countryCode);
+
+  return new Response(null, { status: isGeoblocked ? 403 : 200 });
 }
-
-export default (req) => {
-  return new Response(null, { status: isGeoblocked(req) ? 403 : 200 });
-};

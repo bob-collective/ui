@@ -67,7 +67,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
   const [recipient, setRecipient] = useState('');
   const [gasTicker, setGasTicker] = useState(nativeToken.symbol);
 
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { getBalance } = useBalances(L2_CHAIN);
   const { data: satsBalance } = useSatsBalance();
   const { connector, address: btcAddress } = useSatsAccount();

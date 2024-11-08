@@ -7,7 +7,7 @@ import Big from 'big.js';
 import { useBalances } from './useBalances';
 
 const useTotalBalance = (chainId: ChainId) => {
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { balances } = useBalances(chainId);
   const format = useCurrencyFormatter();
   const { locale } = useLocale();
