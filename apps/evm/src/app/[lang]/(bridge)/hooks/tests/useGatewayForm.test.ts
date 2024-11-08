@@ -4,6 +4,7 @@ import { useAccount, useIsContract } from '@gobob/wagmi';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { useGatewayForm } from '../useGatewayForm';
+
 import { BRIDGE_AMOUNT, BRIDGE_ASSET, BRIDGE_RECIPIENT } from '@/lib/form/bridge';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
