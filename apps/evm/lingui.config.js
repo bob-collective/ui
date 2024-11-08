@@ -1,3 +1,3 @@
-const linguiConfig = require('../../lingui.config');
+import linguiConfig from '../../lingui.config';
 
-module.exports = linguiConfig;
+export default linguiConfig;
