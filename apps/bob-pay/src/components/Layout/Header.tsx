@@ -1,4 +1,4 @@
-import { DynamicWidget, useDynamicContext, useDynamicEvents, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
+import { DynamicWidget, useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 import { ArrowLeft, Flex, FlexProps, Span } from '@gobob/ui';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -19,10 +19,6 @@ const Header = ({ ...props }: HeaderProps): JSX.Element => {
   const { sdkHasLoaded } = useDynamicContext();
   const router = useRouter();
   const pathname = usePathname();
-
-  useDynamicEvents('logout', async () => {
-    router.push(RoutesPath.HOME);
-  });
 
   const isHomePage = !(pathname.endsWith(RoutesPath.SEND) || pathname.endsWith(RoutesPath.RECEIVE));
 

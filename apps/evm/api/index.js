@@ -20,12 +20,12 @@ const BTC_API_URL = {
 const proxyMiddleware = createProxyMiddleware({
   target: API_URL[CHAIN],
   router: {
-    '/bob-api': API_URL[CHAIN],
+    '/api': API_URL[CHAIN],
     '/gateway-api': GATEWAY_API_URL[CHAIN],
     '/btc-api': BTC_API_URL[CHAIN]
   },
   changeOrigin: true,
-  pathRewrite: { '^/bob-api': '', '^/gateway-api': '', '^/btc-api': '' },
+  pathRewrite: { '^/api': '', '^/gateway-api': '', '^/btc-api': '' },
   on: {
     proxyReq: (proxyReq) => {
       proxyReq.setHeader('x-sec-token', 'foobar');

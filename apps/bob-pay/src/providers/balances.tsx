@@ -14,7 +14,6 @@ const BalanceProvider: FC<BalanceWalletContextProps> = ({ children }) => {
   const chainId = useChainId();
   const { data: tokens } = useTokens(chainId);
   const { refetch: refetchBalances } = useBalances(chainId);
-  // TODO: remove it
   const { refetch: refetchTransactions } = useGetTransactions();
   const config = useConfig();
   const { address } = useAccount();

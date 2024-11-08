@@ -19,7 +19,7 @@
       "destination": "/api/marketdata.js"
     },
     {
-      "source": "/(bob-api|gateway-api|btc-api)/(.*)",
+      "source": "/(api|gateway-api|btc-api)/(.*)",
       "destination": "/api/index.js"
     }
   ]
