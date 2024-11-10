@@ -1,6 +1,6 @@
 import { SatsConnector } from '@gobob/sats-wagmi';
 import { Avatar, Flex, List, ListItem, ListProps, Spinner } from '@gobob/ui';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Connector } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -35,18 +35,14 @@ const WalletList = ({
         : undefined,
     [pendingConnector, connectors]
   );
-  const [hasBitkeep, setHasBitKeep] = useState(false);
-  const [hasOkxWallet, setHasOkxWallet] = useState(false);
 
   const { i18n } = useLingui();
 
-  useEffect(() => {
-    const okxWalletInstalled = !!connectors.find((connector) => connector.id === 'com.okex.wallet');
-    const bitkeepWalletInstalled = !!connectors.find((connector) => connector.id === 'com.bitget.web3');
-
-    setHasBitKeep(bitkeepWalletInstalled);
-    setHasOkxWallet(okxWalletInstalled);
-  }, [connectors]);
+  const hasBitkeep = useMemo(() => !!connectors.find((connector) => connector.id === 'com.okex.wallet'), [connectors]);
+  const hasOkxWallet = useMemo(
+    () => !!connectors.find((connector) => connector.id === 'com.bitget.web3'),
+    [connectors]
+  );
 
   const walletListItems = useMemo(() => {
     const listItems = connectors.map((connector) => (
