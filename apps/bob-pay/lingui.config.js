@@ -1,3 +1,11 @@
 import linguiConfig from '../../lingui.config';
 
-export default linguiConfig;
+export default config = {
+  ...linguiConfig,
+  catalogs: [
+    {
+      path: '../../locales/{locale}',
+      include: ['src/', '../evm/src/']
+    }
+  ]
+};
