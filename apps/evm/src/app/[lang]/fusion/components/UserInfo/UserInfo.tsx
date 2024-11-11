@@ -10,6 +10,7 @@ import {
   Dt,
   Flex,
   H3,
+  InformationCircle,
   Link,
   P,
   Skeleton,
@@ -128,9 +129,19 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </Dt>
               <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
-                <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
-                  (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/
-                  <Trans>Day</Trans>)
+                <Flex alignItems='center' gap='xs'>
+                  <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
+                    (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/
+                    <Trans>Last 24 hours</Trans>)
+                  </Flex>
+                  <Tooltip
+                    color='primary'
+                    label={t(
+                      i18n
+                    )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes.`}
+                  >
+                    <InformationCircle color='grey-50' size='xs' />
+                  </Tooltip>
                 </Flex>
               </Flex>
             </DlGroup>

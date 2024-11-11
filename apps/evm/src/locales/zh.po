@@ -138,7 +138,7 @@ msgstr "通过"
 msgid "Apps"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:164
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:175
 msgid "Apps Used"
 msgstr "已体验的应用"
 
@@ -220,7 +220,7 @@ msgstr ""
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:262
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:273
 msgid "BOB TVL Progress"
 msgstr "BOB TVL进度"
 
@@ -242,7 +242,7 @@ msgstr "桥"
 msgid "Bridge Asset"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:157
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:168
 msgid "Bridge Assets"
 msgstr "跨链资产"
 
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Copy Address"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:229
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:240
 msgid "Copy referral URL"
 msgstr "复制推荐URL"
 
@@ -417,13 +417,13 @@ msgstr "当前排行榜排名"
 msgid "Current Spice"
 msgstr "当前Spice"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:301
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:312
 msgid "Current TVL:"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:133
-msgid "Day"
-msgstr "/天"
+#~ msgid "Day"
+#~ msgstr "/天"
 
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:190
 msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
@@ -626,8 +626,8 @@ msgstr "Fusion第3季是你收获Spice的最后机会。质押比特币获得最
 msgid "Fusion season three"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:113
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:293
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:114
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:304
 msgid "Fusion Users:"
 msgstr ""
 
@@ -664,7 +664,7 @@ msgstr "返回"
 msgid "Got it!"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:283
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:294
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "抓住最后收获Spice的机会！加入第3季！"
 
@@ -731,6 +731,10 @@ msgstr ""
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:74
 #~ msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 #~ msgstr ""
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:135
+msgid "Last 24 hours"
+msgstr ""
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:223
 msgid "Last 24 Hours"
@@ -804,7 +808,7 @@ msgstr "锁定资本明细"
 msgid "Log in"
 msgstr "登录"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:279
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:290
 msgid "Log in to View Dashboard"
 msgstr "登录查看仪表板"
 
@@ -938,7 +942,7 @@ msgstr "未显示的资产"
 msgid "No bridging operations found"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:265
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:276
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "目前暂无新目标。请保持关注更新！"
 
@@ -1054,7 +1058,7 @@ msgstr "为Oku DEX提供流动性"
 msgid "Quests"
 msgstr "任务"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:195
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:206
 msgid "Quests Completed"
 msgstr "完成的任务"
 
@@ -1138,7 +1142,7 @@ msgstr "Satoshi协议积分"
 msgid "Season 1 & 2 (Completed)"
 msgstr "第1季和第2季（已完成）"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:139
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:150
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "第1季和第2季总Spice（已完成）："
 
@@ -1150,7 +1154,7 @@ msgstr "第2季最终排名"
 msgid "Season 3 (Ongoing)"
 msgstr "第3季（进行中）"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:127
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:128
 msgid "Season 3 Harvested Spice"
 msgstr "第3季收获的Spice"
 
@@ -1212,7 +1216,7 @@ msgstr "发送 {ticker}"
 msgid "Share on X"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:213
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:224
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "与朋友分享此链接，当他们注册时，你将获得他们Spice收获的15%作为奖励，以及他们推荐的任何人的Spice收获的7%"
 
@@ -1331,7 +1335,7 @@ msgstr ""
 msgid "Start Harvesting"
 msgstr "开始收获"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:286
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:297
 #: src/app/[lang]/sign-up/SignUp.tsx:127
 msgid "Start Harvesting Spice"
 msgstr "开始收获Spice"
@@ -1438,11 +1442,11 @@ msgstr ""
 msgid "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:165
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:176
 msgid "The number of BOB ecosystem apps that you have harvested Spice with"
 msgstr "你已经使用过的BOB生态系统应用数量"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:196
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:207
 msgid "The number of Intract and Galxe quests that you have completed"
 msgstr "在Intract和Galxe上完成的任务"
 
@@ -1497,6 +1501,10 @@ msgstr ""
 
 #: src/app/[lang]/geoblock/Geoblock.tsx:23
 msgid "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
+msgstr ""
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:139
+msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:140
@@ -1609,7 +1617,7 @@ msgstr ""
 msgid "Use any of the <0>supported bridges</0>."
 msgstr "使用任何 <0>支持的跨链桥</0>。"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:181
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:192
 msgid "Use Apps"
 msgstr "体验应用"
 
@@ -1660,12 +1668,12 @@ msgstr ""
 msgid "View Intract"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:154
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:165
 msgid "View Multipliers"
 msgstr "查看倍数"
 
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:78
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:207
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:218
 msgid "View Quests"
 msgstr "查看任务"
 
@@ -1836,7 +1844,7 @@ msgstr ""
 msgid "Your performance in seasons 1 & 2"
 msgstr "你在第1季和第2季的表现"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:212
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:223
 msgid "Your Referral Code"
 msgstr "你的推荐码"
 
