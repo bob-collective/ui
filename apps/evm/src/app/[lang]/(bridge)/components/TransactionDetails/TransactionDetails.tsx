@@ -54,7 +54,7 @@ const TransactionDetails = ({
   gasLabel = 'Estimated Gas',
   ...props
 }: TransactionDetailsProps): JSX.Element => {
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { getBalance } = useBalances(chainId);
   const { data: gasTokens } = useGasTokens(chainId);
   const { i18n } = useLingui();

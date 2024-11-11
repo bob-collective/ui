@@ -15,7 +15,7 @@ type AmountLabelProps = Props;
 const AmountLabel = ({ amount, hidePrice }: AmountLabelProps): JSX.Element => {
   const format = useCurrencyFormatter();
 
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
 
   const amountUSD = useMemo(
     () => (amount && !hidePrice ? calculateAmountUSD(amount, getPrice(amount.currency.symbol)) : undefined),

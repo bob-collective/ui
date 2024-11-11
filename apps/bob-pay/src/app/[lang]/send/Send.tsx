@@ -65,7 +65,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
   const [amount, setAmount] = useState('');
   const [isGroupAmount, setGroupAmount] = useState(false);
 
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { getBalance, isPending } = useBalances(CHAIN);
 
   const { data: tokens } = useTokens(CHAIN);
@@ -169,7 +169,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
       // Record the tx in the db so that we can check for intract whether someone has sent to an email.
       // The same data could be used to provide a better tx history to the user, where we can show the
       // destination email address rather than the evm address.
-      fetch('/bob-api/bob-pay-insert-transaction', {
+      fetch('/fusion-api/bob-pay-insert-transaction', {
         method: 'POST',
         headers: {
           Accept: 'application/json, text/plain, */*',
@@ -299,7 +299,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
       // Record the tx in the db so that we can check for intract whether someone has sent to an email.
       // The same data could be used to provide a better tx history to the user, where we can show the
       // destination email address rather than the evm address.
-      fetch('/bob-api/bob-pay-insert-transaction', {
+      fetch('/fusion-api/bob-pay-insert-transaction', {
         method: 'POST',
         headers: {
           Accept: 'application/json, text/plain, */*',

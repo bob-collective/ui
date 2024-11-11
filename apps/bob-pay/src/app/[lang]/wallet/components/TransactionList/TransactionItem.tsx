@@ -15,7 +15,7 @@ type InheritAttrs = Omit<FlexProps, keyof Props>;
 type TransactionItemProps = Props & InheritAttrs;
 
 const TransactionItem = ({ transaction, ...props }: TransactionItemProps): JSX.Element => {
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { locale } = useLocale();
 
   const price = getPrice(transaction.amount.currency.symbol);
