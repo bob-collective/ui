@@ -16,7 +16,7 @@ const prodChains = [mainnet, bob];
 
 const allChains = [...testnetChains, ...prodChains];
 
-const getConfig = ({ isProd }: Config) => {
+const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
   const connectors = [
     ...(typeof window !== 'undefined' && window.ethereum !== undefined
       ? [
@@ -53,7 +53,7 @@ const getConfig = ({ isProd }: Config) => {
 
   return createConfig({
     chains: (isProd ? prodChains : allChains) as any,
-    multiInjectedProviderDiscovery: false,
+    multiInjectedProviderDiscovery,
     transports: {
       [mainnet.id]: http(),
       [sepolia.id]: http(),

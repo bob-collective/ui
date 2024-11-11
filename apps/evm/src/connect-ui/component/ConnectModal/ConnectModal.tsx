@@ -133,6 +133,9 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         } catch (e: any) {
           setPendingConnector(undefined);
 
+          // eslint-disable-next-line no-console
+          console.log(e);
+
           if (e?.code === 4001) {
             return toast.error(<Trans>User rejected the request</Trans>);
           }

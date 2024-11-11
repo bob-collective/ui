@@ -458,7 +458,7 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(react@18.3.1)
       viem:
-        specifier: ^2.21.35
+        specifier: ^2.10.2
         version: 2.21.40(typescript@5.4.5)(zod@3.23.8)
       yup:
         specifier: ^0.32.11
@@ -536,7 +536,7 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       viem:
-        specifier: ^2.21.35
+        specifier: ^2.10.2
         version: 2.21.40(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@types/big.js':
@@ -558,7 +558,7 @@ importers:
         specifier: workspace:^
         version: link:../wagmi
       viem:
-        specifier: ^2.21.35
+        specifier: ^2.10.2
         version: 2.21.40(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       react:
@@ -634,7 +634,7 @@ importers:
         specifier: github:bob-collective/ethereum-optimism.github.io#f1cda28bfd05442182d387d9d1873ce039f2255c
         version: github.com/bob-collective/ethereum-optimism.github.io/f1cda28bfd05442182d387d9d1873ce039f2255c
       viem:
-        specifier: ^2.21.35
+        specifier: ^2.10.2
         version: 2.21.40(typescript@5.4.5)(zod@3.23.8)
 
   packages/ui:
@@ -819,7 +819,7 @@ importers:
         specifier: ^2.9.1
         version: 2.11.0(@types/react@18.3.3)(react@18.3.1)(typescript@5.4.5)(viem@2.21.40)(zod@3.23.8)
       viem:
-        specifier: ^2.21.35
+        specifier: ^2.10.2
         version: 2.21.40(typescript@5.4.5)(zod@3.23.8)
       wagmi:
         specifier: ^2.8.1

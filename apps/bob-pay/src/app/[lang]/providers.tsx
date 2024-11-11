@@ -22,7 +22,7 @@ export function Providers({ children }: PropsWithChildren) {
         walletConnectors: [EthereumWalletConnectors, ZeroDevSmartWalletConnectors]
       }}
     >
-      <WagmiProvider config={getConfig({ isProd: false })}>
+      <WagmiProvider config={getConfig({ isProd: false, multiInjectedProviderDiscovery: false })}>
         <QueryClientProvider client={queryClient}>
           <DynamicWagmiConnector>
             <BalanceProvider>
