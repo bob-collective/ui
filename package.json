@@ -26,9 +26,13 @@
     "clean:node-modules": "rimraf ./packages/**/**/node_modules && rimraf ./apps/**/node_modules && rm -rf ./node_modules",
     "clean:lock": "rm ./pnpm-lock.yaml",
     "turbo:clean": "turbo clean && rimraf ./node_modules/.cache/turbo",
-    "turbo:graph": "pnpm build --graph=dependency-graph.png"
+    "turbo:graph": "pnpm build --graph=dependency-graph.png",
+    "lingui:extract": "lingui extract"
   },
   "devDependencies": {
+    "@lingui/cli": "^4.11.0",
+    "@lingui/conf": "^4.11.0",
+    "@lingui/swc-plugin": "4.0.8",
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-conventional": "^17.8.1",
     "@storybook/addon-essentials": "^7.6.19",

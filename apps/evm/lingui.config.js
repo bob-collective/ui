@@ -1,14 +1,13 @@
-/** @type {import('@lingui/conf').LinguiConfig} */
-module.exports = {
-  locales: ['en', 'zh'],
-  sourceLocale: 'en',
-  fallbackLocales: {
-    default: 'en'
-  },
+import linguiConfig from '../../lingui.config';
+
+const config = {
+  ...linguiConfig,
   catalogs: [
     {
-      path: 'src/locales/{locale}',
-      include: ['src/']
+      path: '../../locales/{locale}',
+      include: ['src/', '../bob-pay/src/']
     }
   ]
 };
+
+export default config;

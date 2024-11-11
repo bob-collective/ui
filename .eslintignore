@@ -11,3 +11,4 @@ build
 !.lintstagedrc
 !knip.config.js
 !tsup.config.ts
+!lingui.config.js
