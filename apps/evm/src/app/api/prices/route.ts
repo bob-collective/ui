@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import * as Sentry from '@sentry/nextjs';
+
 import { kv } from '@/lib/vercel';
 
 const headers = {
@@ -33,6 +35,8 @@ export async function GET(request: Request) {
 
   if (!cgResp.ok) {
     const errMsg = await cgResp.text();
+
+    Sentry.captureException(new Error(errMsg));
 
     throw new Error(errMsg);
   }

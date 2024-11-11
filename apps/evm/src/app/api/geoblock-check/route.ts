@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/nextjs';
+
 const blockedCountries = [
   'AL',
   'BS',
@@ -40,6 +42,8 @@ export async function GET(request: Request) {
   const countryCode = request.headers.get('x-vercel-ip-country');
 
   if (!countryCode) {
+    Sentry.captureException(new Error('Header x-vercel-ip-country is missing'));
+
     return new Response(null, { status: 403 });
   }
 
