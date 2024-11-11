@@ -6,4 +6,4 @@ if [ -t 2 ]; then
   exec >/dev/tty 2>&1
 fi
 
-pnpm lingui:extract && git add locales/en.po locales/zh.po && pnpm lint-staged -c .lintstagedrc && pnpm files:check
+pnpm lingui:extract && git add locales/* && pnpm lint-staged -c .lintstagedrc && pnpm files:check
