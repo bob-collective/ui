@@ -5,8 +5,7 @@ declare global {
     interface ProcessEnv {
       // client
       NEXT_PUBLIC_CHAIN_ID: string;
-      NEXT_PUBLIC_MARKET_DATA_API: string;
-      NEXT_PUBLIC_API_URL: string;
+      NEXT_PUBLIC_FUSION_API_URL: string;
 
       NEXT_PUBLIC_DYNAMIC_API_URL: string;
       NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID: string;

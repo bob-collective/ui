@@ -22,7 +22,7 @@ type HeaderProps = Props;
 const TokenButtonGroup = ({ isSelected, currency, balance, onSelectionChange }: HeaderProps): JSX.Element => {
   const { locale } = useLocale();
   const format = useCurrencyFormatter();
-  const { getPrice, data: pricesData } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice, data: pricesData } = usePrices();
 
   const [key, setKey] = useState<string>();
 

@@ -11,7 +11,7 @@ const useGeoblocking = (): void => {
 
     const checkCountry = async () => {
       try {
-        const response = await fetch('/check_access');
+        const response = await fetch('/api/geoblock-check');
 
         if (response.status === 403) {
           // TODO: Make sure this page has been added to Webflow

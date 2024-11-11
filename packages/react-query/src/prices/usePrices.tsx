@@ -78,9 +78,9 @@ const getPrices = async (baseUrl: string, allCurrencies?: boolean) => {
   return json;
 };
 
-type UsePricesProps = { allCurrencies?: boolean; baseUrl: string };
+type UsePricesProps = { allCurrencies?: boolean; baseUrl?: string };
 
-const usePrices = ({ baseUrl, allCurrencies }: UsePricesProps) => {
+const usePrices = ({ baseUrl = '/api/prices', allCurrencies }: UsePricesProps = {}) => {
   const query = useQuery<PricesData>({
     queryFn: () => getPrices(baseUrl, allCurrencies),
     queryKey: ['prices'],
