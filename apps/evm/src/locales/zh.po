@@ -734,7 +734,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:135
 msgid "Last 24 hours"
-msgstr ""
+msgstr "过去24小时"
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:223
 msgid "Last 24 Hours"
