@@ -318,7 +318,7 @@ msgstr ""
 msgid "Checking Allowance"
 msgstr ""
 
-#: apps/evm/src/connect-ui/component/ConnectModal/WalletList.tsx:112
+#: apps/evm/src/connect-ui/component/ConnectModal/WalletList.tsx:116
 msgid "choose available wallets"
 msgstr ""
 
