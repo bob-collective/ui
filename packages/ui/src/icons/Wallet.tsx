@@ -3,19 +3,11 @@ import { forwardRef } from 'react';
 import { Icon, IconProps } from '../components';
 
 const Wallet = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
-  <Icon
-    ref={ref}
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='1.5'
-    viewBox='0 0 24 24'
-    xmlns='http://www.w3.org/2000/svg'
-    {...props}
-  >
+  <Icon ref={ref} fill='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
     <path
-      d='M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3'
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      clipRule='evenodd'
+      d='M17 4C18.5 4 19 4.5 19 6L19 8C20.1046 8 21 8.89543 21 10L21 17C21 19 20 20 17.999 20H6C4 20 3 19 3 17L3 7C3 5.5 4.5 4 6 4L17 4ZM5 7C5 6.44772 5.44772 6 6 6L19 6L19 8L6 8C5.44772 8 5 7.55229 5 7ZM17 16C18 16 19.001 15 19 14C18.999 13 18 12 17 12C16 12 15 13 15 14C15 15 16 16 17 16Z'
+      fillRule='evenodd'
     />
   </Icon>
 ));

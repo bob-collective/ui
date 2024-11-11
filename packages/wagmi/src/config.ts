@@ -25,6 +25,14 @@ const getConfig = ({ isProd }: Config) => {
           })
         ]
       : []),
+    injected({
+      target: 'metaMask',
+      shimDisconnect: true
+    }),
+    injected({
+      target: 'rabby',
+      shimDisconnect: true
+    }),
     walletConnect({
       showQrModal: true,
       projectId: 'd9a2f927549acc3da9e4893729772641',
