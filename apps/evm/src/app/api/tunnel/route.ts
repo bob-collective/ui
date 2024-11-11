@@ -24,7 +24,12 @@ export async function POST(request: Request) {
   try {
     const envelope = await extractBody(request);
     const piece = envelope.split('\n')[0];
-    const header = JSON.parse(piece || '');
+
+    if (!piece) {
+      throw new Error('Empty envelope or invalid format');
+    }
+
+    const header = JSON.parse(piece);
     const dsn = new URL(header['dsn']);
     const project_id = dsn.pathname?.replace('/', '');
 
