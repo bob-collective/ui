@@ -1,6 +1,6 @@
 import linguiConfig from '../../lingui.config';
 
-export default config = {
+const config = {
   ...linguiConfig,
   catalogs: [
     {
@@ -9,3 +9,5 @@ export default config = {
     }
   ]
 };
+
+export default config;

@@ -99,7 +99,7 @@ msgstr "All Apps"
 msgid "Already harvesting?"
 msgstr "Already harvesting?"
 
-#: apps/bob-pay/src/app/[lang]/send/Send.tsx:401
+#: apps/bob-pay/src/app/[lang]/send/Send.tsx:376
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:538
 #: apps/evm/src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 #: apps/evm/src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:233
@@ -524,7 +524,7 @@ msgstr "Failed to connect to {0}"
 msgid "Failed to finalize."
 msgstr "Failed to finalize."
 
-#: apps/evm/src/app/[lang]/(bridge)/hooks/useGateway.ts:216
+#: apps/evm/src/app/[lang]/(bridge)/hooks/useGateway.ts:236
 msgid "Failed to get estimated fee"
 msgstr "Failed to get estimated fee"
 
@@ -536,7 +536,7 @@ msgstr "Failed to send {amount} {0}"
 msgid "Failed to submit proof."
 msgstr "Failed to submit proof."
 
-#: apps/bob-pay/src/app/[lang]/send/Send.tsx:258
+#: apps/bob-pay/src/app/[lang]/send/Send.tsx:322
 msgid "Failed to submit transaction"
 msgstr "Failed to submit transaction"
 
@@ -1042,7 +1042,7 @@ msgstr "Receive {0}"
 msgid "Receive {ticker}"
 msgstr "Receive {ticker}"
 
-#: apps/bob-pay/src/app/[lang]/send/Send.tsx:392
+#: apps/bob-pay/src/app/[lang]/send/Send.tsx:367
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:548
 #: apps/evm/src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
 #: apps/evm/src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:189
@@ -1154,7 +1154,7 @@ msgid "Select Token"
 msgstr "Select Token"
 
 #: apps/bob-pay/src/app/[lang]/send/page.tsx:14
-#: apps/bob-pay/src/app/[lang]/send/Send.tsx:440
+#: apps/bob-pay/src/app/[lang]/send/Send.tsx:415
 #: apps/bob-pay/src/app/[lang]/wallet/components/Hero/Hero.tsx:24
 #: apps/bob-pay/src/components/Layout/Header.tsx:38
 #: apps/evm/src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:268
@@ -1308,7 +1308,7 @@ msgstr "Step Two"
 msgid "Successfully finalized transaction"
 msgstr "Successfully finalized transaction"
 
-#: apps/bob-pay/src/app/[lang]/send/Send.tsx:206
+#: apps/bob-pay/src/app/[lang]/send/Send.tsx:197
 #: apps/evm/src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:150
 msgid "Successfully sent {amount} {0}"
 msgstr "Successfully sent {amount} {0}"
@@ -1317,7 +1317,7 @@ msgstr "Successfully sent {amount} {0}"
 msgid "Successfully submitted ${0} proof"
 msgstr "Successfully submitted ${0} proof"
 
-#: apps/bob-pay/src/app/[lang]/send/Send.tsx:247
+#: apps/bob-pay/src/app/[lang]/send/Send.tsx:227
 msgid "Successfully transfered {0} {1}"
 msgstr "Successfully transfered {0} {1}"
 
