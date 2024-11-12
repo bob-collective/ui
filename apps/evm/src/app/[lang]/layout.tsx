@@ -4,7 +4,7 @@ import { Inter, Chakra_Petch } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import { t } from '@lingui/macro';
 import { userAgentFromString } from 'next/server';
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
 
 import linguiConfig from '../../../lingui.config';
@@ -69,6 +69,7 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
   return (
     <html className={`${chakraPetch.className} ${inter.className}`} lang={lang}>
       <GoogleTagManager gtmId='GTM-NSJLJ9D5' />
+      <GoogleAnalytics gaId='G-VX9XQWCCC5' />
       <body>
         <div id='root'>
           <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
