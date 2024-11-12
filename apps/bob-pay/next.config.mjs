@@ -16,7 +16,7 @@ const nextConfig = {
   rewrites() {
     return [
       {
-        source: '/fusion-api/:path*',
+        source: '/api/:path*',
         destination: `${process.env.NEXT_PUBLIC_FUSION_API_URL}/:path*`
       },
       {
