@@ -20,6 +20,10 @@ const nextConfig = {
         destination: `${process.env.NEXT_PUBLIC_FUSION_API_URL}/:path*`
       },
       {
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_FUSION_API_URL}/:path*`
+      },
+      {
         source: '/gateway-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_GATEWAY_API_URL}/:path*`
       },
