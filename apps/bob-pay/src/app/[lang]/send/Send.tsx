@@ -7,7 +7,7 @@ import { MaxUint256 } from '@gobob/currency/src/constants';
 import { useGetApprovalData } from '@gobob/hooks';
 import { useMutation, usePrices } from '@gobob/react-query';
 import { Button, Flex, Input, QrCode, toast, TokenInput, useForm } from '@gobob/ui';
-import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
+import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';

@@ -1,7 +1,6 @@
 import { createConfig, http } from 'wagmi';
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
 import { getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
-import { ChainId } from '@gobob/chains';
 
 import { Config } from './types';
 import { bob, bobSepolia } from './bob';
@@ -16,7 +15,7 @@ const prodChains = [mainnet, bob];
 
 const allChains = [...testnetChains, ...prodChains];
 
-const getConfig = ({ isProd }: Config) => {
+const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
   const connectors = [
     ...(typeof window !== 'undefined' && window.ethereum !== undefined
       ? [
@@ -25,14 +24,6 @@ const getConfig = ({ isProd }: Config) => {
           })
         ]
       : []),
-    injected({
-      target: 'metaMask',
-      shimDisconnect: true
-    }),
-    injected({
-      target: 'rabby',
-      shimDisconnect: true
-    }),
     walletConnect({
       showQrModal: true,
       projectId: 'd9a2f927549acc3da9e4893729772641',
@@ -45,7 +36,6 @@ const getConfig = ({ isProd }: Config) => {
     }),
     coinbaseWallet({
       appName: 'BOB',
-      chainId: ChainId.BOB,
       appLogoUrl: 'https://uploads-ssl.webflow.com/64e85c2f3609488b3ed725f4/64ecae53ef4b561482f1c49f_bob1.jpg'
     }),
     binanceConnector()
@@ -53,7 +43,7 @@ const getConfig = ({ isProd }: Config) => {
 
   return createConfig({
     chains: (isProd ? prodChains : allChains) as any,
-    multiInjectedProviderDiscovery: false,
+    multiInjectedProviderDiscovery,
     transports: {
       [mainnet.id]: http(),
       [sepolia.id]: http(),

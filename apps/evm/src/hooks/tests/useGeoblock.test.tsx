@@ -27,7 +27,7 @@ describe('useGeoblocking', () => {
     renderHook(() => useGeoblocking());
 
     await waitFor(() => {
-      expect(fetch).toHaveBeenCalledWith('/check_access');
+      expect(fetch).toHaveBeenCalledWith('/api/geoblock-check');
     });
     await waitFor(() => {
       expect(window.location.replace).toHaveBeenCalledWith('/geoblock');
@@ -41,7 +41,7 @@ describe('useGeoblocking', () => {
     renderHook(() => useGeoblocking());
 
     await waitFor(() => {
-      expect(fetch).toHaveBeenCalledWith('/check_access');
+      expect(fetch).toHaveBeenCalledWith('/api/geoblock-check');
     });
     await waitFor(() => {
       expect(window.location.replace).not.toHaveBeenCalled();

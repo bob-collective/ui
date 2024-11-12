@@ -1,15 +1,14 @@
+import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
 import { INTERVAL, useQuery } from '@gobob/react-query';
-import { Address } from '@gobob/wagmi';
 import request, { gql } from 'graphql-request';
-import { isAddressEqual } from 'viem';
-import { ChainId } from '@gobob/chains';
+import { Address, isAddressEqual } from 'viem';
 
 import { CHAIN } from '../constants';
 
-import { TokenData, useTokens } from './useTokens';
-import { paymasters } from './useKernelClient';
 import { useDynamicAddress } from './useDynamicAddress';
+import { paymasters } from './useKernelClient';
+import { TokenData, useTokens } from './useTokens';
 
 type TransactionItemResponse = {
   from: Address;
