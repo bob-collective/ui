@@ -16,8 +16,8 @@ import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
 import { UserAgentProvider } from '@/user-agent/provider';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
 const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }));
@@ -66,7 +66,7 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
   const userAgent: ReturnType<typeof userAgentFromString> = userAgentFromString(headers().get('user-agent') ?? '');
 
   return (
-    <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
+    <html className={`${chakraPetch.className} ${inter.className}`} lang={lang}>
       <GoogleTagManager gtmId='GTM-NSJLJ9D5' />
       <body>
         <div id='root'>
