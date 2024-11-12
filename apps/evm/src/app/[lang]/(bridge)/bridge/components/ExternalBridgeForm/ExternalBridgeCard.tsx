@@ -4,11 +4,11 @@ import { Trans } from '@lingui/macro';
 import { Meson } from './Meson';
 import { Owl } from './Owl';
 import { Relay } from './Relay';
-import { Stargate } from './Stargate';
+import { Superbridge } from './Superbridge';
 
 import { TransactionDirection } from '@/types';
 
-type ExternalBridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
+type ExternalBridges = 'superbridge' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
 
 // TODO: add missing links
 const bridges: Record<
@@ -21,11 +21,16 @@ const bridges: Record<
     disabled: boolean;
   }
 > = {
-  stargate: {
-    href: 'https://stargate.finance/transfer',
-    icon: Stargate,
-    name: 'Stargate',
-    disabled: true
+  superbridge: {
+    href: 'https://superbridge.app/',
+    name: 'Superbridge',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    icon: (props: any) => (
+      <Card background='light' padding='none' rounded='full'>
+        <Superbridge {...props} />
+      </Card>
+    ),
+    disabled: false
   },
   relay: {
     href: 'https://relay.link/bridge/bob/',

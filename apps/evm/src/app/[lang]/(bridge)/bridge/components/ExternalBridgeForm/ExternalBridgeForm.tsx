@@ -1,5 +1,5 @@
-import { Flex } from '@gobob/ui';
 import { ChainId } from '@gobob/chains';
+import { Flex } from '@gobob/ui';
 
 import { ExternalBridgeCard, ExternalBridges } from './ExternalBridgeCard';
 
@@ -10,7 +10,7 @@ type ExternalBridgeFormProps = {
   chain: ChainId | 'BTC';
 };
 
-const defaultBridges: ExternalBridges[] = ['meson', 'orbiter-finance', 'owlto-finance', 'relay', 'stargate'];
+const defaultBridges: ExternalBridges[] = ['meson', 'orbiter-finance', 'owlto-finance', 'relay', 'superbridge'];
 
 const availableBridges: Partial<Record<ChainId | 'BTC', ExternalBridges[]>> = {
   [ChainId.MERLIN]: ['owlto-finance'],
