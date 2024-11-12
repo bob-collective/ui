@@ -47,12 +47,10 @@ const EvmWalletList = ({
 
   const okxConnector = connectorsProp.find((c) => c.id === WalletId.OkexWallet) || okxPlaceholder;
 
+  const hasCoinbaseConnector = connectorsProp.some((el) => el.id === WalletId.CoinbaseWallet);
+
   const wagmiConnectors = connectorsProp.filter(
-    (c) =>
-      !(
-        (c.id === WalletId.CoinbaseWalletSDK && connectorsProp.some((el) => el.id === WalletId.CoinbaseWallet)) ||
-        c.id === okxConnector.id
-      )
+    (c) => !((c.id === WalletId.CoinbaseWalletSDK && hasCoinbaseConnector) || c.id === okxConnector.id)
   );
 
   const connectors = [okxConnector, ...wagmiConnectors];
