@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/nextjs';
 import { getContract, createPublicClient, toHex, http, encodePacked, isAddress, Address } from 'viem';
 import { sign, privateKeyToAddress } from 'viem/accounts';
 import { toPackedUserOperation } from 'viem/account-abstraction';
-import { bob, bobSepolia } from '@gobob/wagmi';
+import { bob, bobSepolia } from 'viem/chains';
 
 import { CHAIN } from '@/constants';
 import { paymasterAbi } from '@/abis/paymaster.abi';

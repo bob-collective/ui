@@ -2,7 +2,7 @@
 
 import { usePrices } from '@gobob/react-query';
 import { BOBUIProvider, CSSReset } from '@gobob/ui';
-import { useChainId, useReconnect } from '@gobob/wagmi';
+import { useChainId, useReconnect } from 'wagmi';
 import { usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, useEffect } from 'react';
 
