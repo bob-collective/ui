@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react';
 import { t } from '@lingui/macro';
 import { userAgentFromString } from 'next/server';
 import { GoogleTagManager } from '@next/third-parties/google';
+import Script from 'next/script';
 
 import linguiConfig from '../../../lingui.config';
 
@@ -77,7 +78,7 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
           </LinguiClientProvider>
         </div>
         {/* <!-- Fathom - beautiful, simple website analytics --> */}
-        <script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />
+        <Script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />
         {/* <!-- / Fathom --> */}
       </body>
     </html>
