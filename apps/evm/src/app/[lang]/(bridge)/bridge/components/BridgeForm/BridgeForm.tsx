@@ -48,8 +48,8 @@ type BridgeFormProps = {
 };
 
 const allNetworks = [
-  L1_CHAIN,
   'BTC',
+  L1_CHAIN,
   ChainId.ARBITRUM_ONE,
   ChainId.BASE,
   ChainId.OP,

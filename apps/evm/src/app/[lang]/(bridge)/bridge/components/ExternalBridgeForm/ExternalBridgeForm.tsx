@@ -10,7 +10,16 @@ type ExternalBridgeFormProps = {
   chain: ChainId | 'BTC';
 };
 
-const defaultBridges: ExternalBridges[] = ['meson', 'orbiter-finance', 'owlto-finance', 'relay', 'superbridge'];
+const defaultBridges: ExternalBridges[] = [
+  'meson',
+  'orbiter-finance',
+  'owlto-finance',
+  'gas',
+  'free',
+  'fbtc',
+  'relay',
+  'superbridge'
+];
 
 const availableBridges: Partial<Record<ChainId | 'BTC', ExternalBridges[]>> = {
   [ChainId.MERLIN]: ['owlto-finance'],
