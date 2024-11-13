@@ -30,6 +30,7 @@
     "@gobob/wagmi": "workspace:^",
     "@lingui/core": "^4.11.0",
     "@lingui/react": "^4.11.0",
+    "@next/third-parties": "^15.0.3",
     "@react-aria/tag": "^3.4.7",
     "@react-aria/utils": "^3.23.2",
     "@react-stately/collections": "^3.10.0",

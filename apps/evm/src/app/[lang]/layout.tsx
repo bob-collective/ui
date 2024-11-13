@@ -68,8 +68,8 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
 
   return (
     <html className={`${chakraPetch.className} ${inter.className}`} lang={lang}>
-      <GoogleTagManager gtmId='GTM-NSJLJ9D5' />
-      <GoogleAnalytics gaId='G-VX9XQWCCC5' />
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       <body>
         <div id='root'>
           <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
