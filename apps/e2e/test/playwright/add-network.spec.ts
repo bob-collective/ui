@@ -7,7 +7,7 @@ const test = testWithSynpress(metaMaskFixtures(basicSetup));
 
 const { expect } = test;
 
-test.skip('should add a custom network to MetaMask', async ({ metamask, page }) => {
+test('should add a custom network to MetaMask', async ({ metamask, page }) => {
   // Define the custom network parameters
   const customNetwork = {
     name: 'Optimism',

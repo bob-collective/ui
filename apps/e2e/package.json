@@ -42,15 +42,15 @@
     "lint:fix": "eslint . --ext ts,tsx --fix"
   },
   "dependencies": {
-    "@playwright/test": "1.44.0",
-    "@synthetixio/synpress": "4.0.0-alpha.9",
-    "@synthetixio/synpress-cache": "0.0.1-alpha.9",
-    "dotenv": "16.4.2"
+    "@playwright/test": "^1.44.0",
+    "@synthetixio/synpress": "^4.0.0",
+    "@synthetixio/synpress-cache": "^0.0.4",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
-    "@metamask/test-dapp": "8.1.0",
-    "@synthetixio/synpress-tsconfig": "0.0.1-alpha.9",
-    "@types/node": "20.11.17",
-    "serve": "14.2.1"
+    "@metamask/test-dapp": "^8.13.0",
+    "@synthetixio/synpress-tsconfig": "^0.0.4",
+    "@types/node": "^22.9.0",
+    "serve": "^14.2.4"
   }
 }
