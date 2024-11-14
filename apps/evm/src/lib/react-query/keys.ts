@@ -75,7 +75,7 @@ export const appsKeys = {
   apps: () => ['apps'],
   appsVotes: (username: string | undefined) => [...appsKeys.apps(), 'votes', username],
   appsResultVotes: () => [...appsKeys.apps(), 'result-votes'],
-  vote: (address: Address | undefined) => [appsKeys.apps(), 'vote', address]
+  vote: (username: string | undefined) => [appsKeys.apps(), 'vote', username]
 };
 
 export const fusionKeys = {
@@ -85,6 +85,7 @@ export const fusionKeys = {
   tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],
   quests: () => [...fusionKeys.fusion(), 'quests'],
   tvlLevel: () => [...fusionKeys.fusion(), 'tvl-level'],
-  lotteryStats: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-stats', username] as string[],
-  lotteryRoll: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-roll', username] as string[]
+  lotteryStats: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-stats', username],
+  lotteryRoll: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-roll', username],
+  topUserModal: (username: string | undefined) => [...fusionKeys.fusion(), 'top-user-modal', username]
 };

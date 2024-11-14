@@ -427,6 +427,9 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.3.1
+      react-calendly:
+        specifier: ^4.3.1
+        version: 4.3.1(react-dom@18.3.1)(react@18.3.1)
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
@@ -22110,6 +22113,17 @@ packages:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
     dev: true
+
+  /react-calendly@4.3.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-poyUH3NOUOlsotr8ho5WzbsbPuRAppaY+Jvu+C/PkwTP6WT807pNFI8+HrbbuRknXZbd75zpzysOJQvcu3P8Pg==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
 
   /react-clientside-effect@1.2.6(react@18.3.1):
     resolution: {integrity: sha512-XGGGRQAKY+q25Lz9a/4EPqom7WRjz3z9R2k4jhVKA/puQFH/5Nt27vFZYql4m4NVNdUvX8PS3O7r/Zzm7cjUlg==}

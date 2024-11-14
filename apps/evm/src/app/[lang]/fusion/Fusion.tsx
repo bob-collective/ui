@@ -3,7 +3,7 @@
 import { Card, Flex, H1, H2, Link, P } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { useCallback, useEffect, useId, useState } from 'react';
-import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import x from '@public/assets/x.png';
@@ -29,12 +29,13 @@ import {
   StyledMain,
   StyledStrategiesWrapper
 } from './Fusion.style';
-import { useGetQuests } from './hooks';
+import { useDismissTopUserModal, useGetQuests } from './hooks';
 import { LotterySection } from './components/LotterySections';
+import { TopUserModal } from './components/TopUserModal';
 
 import { useGetUser } from '@/hooks';
 import { Geoblock } from '@/components';
-import { isClient, LocalStorageKey } from '@/constants';
+import { LocalStorageKey } from '@/constants';
 import { SessionStorageKey } from '@/types';
 
 const Fusion = () => {
@@ -43,6 +44,8 @@ const Fusion = () => {
   const { data: user } = useGetUser();
   const { data: apps } = useGetApps();
   const { data: quests } = useGetQuests();
+  const { mutate: dismissTopUserModal } = useDismissTopUserModal();
+  const isClient = useIsClient();
 
   const questsSectionId = useId();
 
@@ -79,6 +82,7 @@ const Fusion = () => {
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
+  const isFusionTopUser = user?.notices.showIsFusionTopUser;
 
   return (
     <Geoblock>
@@ -138,7 +142,9 @@ const Fusion = () => {
           <CommunityVoting />
           <Leaderboard />
           {user ? (
-            hasPastHarvest ? (
+            isFusionTopUser ? (
+              <TopUserModal isOpen={isFusionTopUser} onClose={dismissTopUserModal} />
+            ) : hasPastHarvest ? (
               <WelcomeBackModal
                 isOpen={!isHideFusionWelcomeBackModal && isAuthenticated}
                 user={user}

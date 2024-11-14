@@ -120,7 +120,7 @@ msgstr ""
 #~ msgid "An exclusive quest campaign."
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:266
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:259
 msgid "and that you have read and understood our"
 msgstr ""
 
@@ -141,6 +141,10 @@ msgstr ""
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:175
 msgid "Apps Used"
 msgstr "已体验的应用"
+
+#: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:29
+msgid "As one of our most important community members, we would love the opportunity to gain your input on the BOB ecosystem and our future plans."
+msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:62
 #: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:110
@@ -194,12 +198,16 @@ msgstr ""
 msgid "BOB Bridge"
 msgstr ""
 
+#: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:35
+msgid "BOB co-founder, <0>Alexei Zamyatin</0>, would like to invite you to a private 1-to-1 call to hear your thoughts on BOB and Bitcoin DeFi. If you are interested, please click the button below to book a call at a time that suits you."
+msgstr ""
+
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OKXCryptopediaBanner.tsx:22
 msgid "BOB Ecosystem on OKX Cryptopedia"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:92
+#: src/app/[lang]/fusion/Fusion.tsx:96
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
 
@@ -227,6 +235,10 @@ msgstr "BOB TVL进度"
 #: src/app/[lang]/wallet/Wallet.tsx:25
 msgid "BOB Wallet"
 msgstr "BOB 钱包"
+
+#: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:44
+msgid "Book Meeting"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/page.tsx:14
 #: src/app/[lang]/page.tsx:15
@@ -279,7 +291,7 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:258
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:251
 msgid "By clicking ‘Connect’ you acknowledge and agree to the"
 msgstr ""
 
@@ -304,7 +316,8 @@ msgstr ""
 msgid "Checking Allowance"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/WalletList.tsx:116
+#: src/connect-ui/component/ConnectModal/BtcWalletList.tsx:39
+#: src/connect-ui/component/ConnectModal/EvmWalletList.tsx:76
 msgid "choose available wallets"
 msgstr ""
 
@@ -370,22 +383,22 @@ msgstr "连接比特币钱包"
 msgid "Connect BTC wallet to access fee rate settings."
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:141
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:134
 msgid "Connect request is already pending"
 msgstr ""
 
 #: src/app/[lang]/wallet/Wallet.tsx:77
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:63
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:220
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:213
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:35
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:302
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:295
 msgid "Connect your Bitcoin Wallet (Optional)"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:287
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:280
 msgid "Connect your EVM Wallet (Mandatory)"
 msgstr ""
 
@@ -537,8 +550,8 @@ msgstr ""
 msgid "Estimated within the next block"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:144
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:180
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:137
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:173
 msgid "Failed to connect to {0}"
 msgstr ""
 
@@ -600,7 +613,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
-#: src/app/[lang]/fusion/Fusion.tsx:120
+#: src/app/[lang]/fusion/Fusion.tsx:124
 msgid "Follow us on X"
 msgstr ""
 
@@ -651,8 +664,8 @@ msgstr ""
 msgid "Get tickets"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:195
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:209
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:188
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:202
 msgid "go back"
 msgstr ""
 
@@ -688,7 +701,7 @@ msgstr ""
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:95
+#: src/app/[lang]/fusion/Fusion.tsx:99
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关注特别活动"
 
@@ -696,7 +709,7 @@ msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关�
 msgid "Here are your active referrals and the Spice they're currently earning for you. The more they earn, the more you benefit!"
 msgstr "这里展示了你推荐的活跃用户及他们为你赚取的Spice。他们赚得越多，你获益越多！"
 
-#: src/app/[lang]/fusion/Fusion.tsx:88
+#: src/app/[lang]/fusion/Fusion.tsx:92
 msgid "Hero dots"
 msgstr ""
 
@@ -753,7 +766,7 @@ msgid "Leaderboard"
 msgstr "排行榜"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:105
+#: src/app/[lang]/fusion/Fusion.tsx:109
 msgid "Learn More"
 msgstr "了解更多"
 
@@ -946,6 +959,10 @@ msgstr ""
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "目前暂无新目标。请保持关注更新！"
 
+#: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:47
+msgid "No Thanks"
+msgstr ""
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
 #~ msgid "Not enough spice"
 #~ msgstr ""
@@ -970,7 +987,7 @@ msgstr ""
 msgid "OKX Cryptopedia"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:252
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:245
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 msgstr ""
 
@@ -1033,7 +1050,7 @@ msgstr "比特币 + 以太坊共同驱动"
 msgid "Preparing..."
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:272
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:265
 msgid "Privacy policy"
 msgstr ""
 
@@ -1162,11 +1179,11 @@ msgstr "第3季收获的Spice"
 msgid "Season Three"
 msgstr "第三季"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:217
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:210
 msgid "Select Bitcoin Wallet"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:203
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:196
 msgid "Select EVM Wallet"
 msgstr ""
 
@@ -1409,7 +1426,7 @@ msgstr "条款与条件"
 msgid "Take em home"
 msgstr "回到主页"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:264
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:257
 msgid "Terms of Service"
 msgstr ""
 
@@ -1528,7 +1545,7 @@ msgid "To cast your vote, please log in"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:123
+#: src/app/[lang]/fusion/Fusion.tsx:127
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
@@ -1644,7 +1661,7 @@ msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将�
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:110
 #: src/components/LoginButton/LoginButton.tsx:27
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:137
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:130
 msgid "User rejected the request"
 msgstr ""
 
@@ -1764,6 +1781,10 @@ msgstr "收益资产"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:47
 msgid "You"
+msgstr ""
+
+#: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:26
+msgid "You are one of the top 100 Spice holders in BOB Fusion"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
