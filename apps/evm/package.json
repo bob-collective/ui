@@ -16,6 +16,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@dynamic-labs/bitcoin": "^3.6.2",
+    "@dynamic-labs/ethereum": "^v3.0.0-alpha.29",
+    "@dynamic-labs/iconic": "^3.6.2",
+    "@dynamic-labs/sdk-react-core": "^v3.0.0-alpha.29",
+    "@dynamic-labs/wagmi-connector": "^v3.0.0-alpha.29",
     "@eth-optimism/sdk": "^3.1.6",
     "@ethersproject/providers": "^5.7.2",
     "@gobob/bob-sdk": "^3.0.0",
@@ -36,9 +41,9 @@
     "@react-aria/interactions": "^3.21.3",
     "@react-aria/label": "^3.7.6",
     "@react-aria/utils": "^3.23.2",
-    "@vercel/kv": "^3.0.0",
     "@sentry/nextjs": "^8.30.0",
     "@tanstack/react-store": "^0.5.6",
+    "@vercel/kv": "^3.0.0",
     "big.js": "^6.2.1",
     "date-fns": "^3.2.0",
     "graphql-request": "^6.1.0",
@@ -57,6 +62,7 @@
     "use-count-up": "^3.0.1",
     "usehooks-ts": "^3.1.0",
     "viem": "^2.10.2",
+    "wagmi": "^2.12.30",
     "yup": "^0.32.11"
   },
   "devDependencies": {

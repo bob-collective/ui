@@ -10,5 +10,5 @@ export * from './mainnet';
 
 export type { Address } from 'viem';
 
-export { WagmiProvider } from './provider';
-export type { WagmiProviderProps } from './provider';
+// export { WagmiProvider } from './provider';
+// export type { WagmiProviderProps } from './provider';

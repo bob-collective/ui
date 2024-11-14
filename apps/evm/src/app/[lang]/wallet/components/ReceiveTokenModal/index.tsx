@@ -1,1 +1,0 @@
-export { ReceiveTokenModal } from './ReceiveTokenModal';

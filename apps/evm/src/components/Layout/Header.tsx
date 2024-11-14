@@ -16,6 +16,7 @@ import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
 import { useLingui } from '@lingui/react';
+import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
@@ -26,8 +27,6 @@ import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 
-import { ConnectWallet } from '@/connect-ui';
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { DocsLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
 
@@ -45,7 +44,6 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
   const theme = useTheme();
   const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
   const { isMobile: isMobileUserAgent } = useUserAgent();
-  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
 
   const isMobile = isMobileViewport || isMobileUserAgent;
 
@@ -71,11 +69,6 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
           <NavItem href={RoutesPath.APPS} size='s'>
             <Trans>Apps</Trans>
           </NavItem>
-          {isWalletEnabled && (
-            <NavItem href={RoutesPath.WALLET} size='s'>
-              <Trans>Wallet</Trans>
-            </NavItem>
-          )}
           <NavItem href={RoutesPath.STAKE} size='s'>
             <Trans>Stake</Trans>
           </NavItem>
@@ -120,7 +113,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         </Popover>
         <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
-        <ConnectWallet variant='ghost' />
+        <DynamicWidget variant='modal' />
       </Flex>
     </StyledHeader>
   );

@@ -13,11 +13,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
 
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
 import { isProd } from '@/constants';
 import { TokenData } from '@/hooks';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
+import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
 type BtcBridgeFormProps = {
   availableTokens: TokenData[];
