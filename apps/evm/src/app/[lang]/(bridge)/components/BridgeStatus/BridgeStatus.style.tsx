@@ -1,7 +1,7 @@
 import { P } from '@gobob/ui';
 import styled from 'styled-components';
 
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
 
 const StyledTimePill = styled(P)`
   padding: ${({ theme }) => `${theme.spacing('xs')} ${theme.spacing('lg')}`};

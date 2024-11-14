@@ -1,5 +1,6 @@
 'use client';
 
+import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 import {
   Bars3,
   Button,
@@ -13,9 +14,9 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
-import { useLingui } from '@lingui/react';
 
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
@@ -26,7 +27,6 @@ import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 
-import { ConnectWallet } from '@/connect-ui';
 import { DocsLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
 
@@ -113,7 +113,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         </Popover>
         <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
-        <ConnectWallet variant='ghost' />
+        <DynamicWidget variant='modal' />
       </Flex>
     </StyledHeader>
   );

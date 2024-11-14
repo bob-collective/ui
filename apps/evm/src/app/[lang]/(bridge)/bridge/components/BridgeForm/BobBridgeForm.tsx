@@ -19,7 +19,7 @@ import { BridgeAlert } from './BridgeAlert';
 
 import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
 import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { bridgeContracts } from '@/constants/bridge';
 import {

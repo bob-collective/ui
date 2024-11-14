@@ -1,42 +1,40 @@
-import { ChainId } from '@gobob/chains';
-import { Button, ButtonProps, toast } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { Button, ButtonProps } from '@gobob/ui';
 import { mergeProps } from '@react-aria/utils';
-import { useAccount, useSwitchChain } from 'wagmi';
+import { useState } from 'react';
+import { useAccount, useAccountEffect } from 'wagmi';
 
-import { useConnectModal } from '@/connect-ui';
-import { L1_CHAIN, L2_CHAIN, isValidChain } from '@/constants';
-import { useLogin } from '@/hooks';
+import { useGetUser, useLogin } from '@/hooks';
 
 type LoginButtonProps = ButtonProps;
 
 const LoginButton = (props: LoginButtonProps): JSX.Element => {
-  const { switchChainAsync } = useSwitchChain();
-  const { open } = useConnectModal();
-  const { address, chain } = useAccount();
+  const { address } = useAccount();
+
+  const { setShowAuthFlow, setSelectedTabIndex } = useDynamicContext();
+
+  const [isConnecting, setConnecting] = useState(false);
+
+  useAccountEffect({
+    onConnect: (data) => {
+      if (isConnecting) {
+        login(data.address);
+
+        setConnecting(false);
+      }
+    }
+  });
 
   const { mutate: login, isPending: isLoadingLogin } = useLogin();
 
   const handlePress = async () => {
     if (!address) {
-      return open({
-        onConnectEvm: async ({ address, connector }) => {
-          if (!address) return;
-          if (!isValidChain((await connector?.getChainId()) as ChainId)) {
-            const chain = await connector?.switchChain?.({ chainId: L2_CHAIN });
+      setSelectedTabIndex(1);
+      setShowAuthFlow(true);
 
-            if (!chain) {
-              return toast.error(<Trans>Something went wrong. Please try connecting your wallet again.</Trans>);
-            }
-          }
+      setConnecting(true);
 
-          return login(address);
-        }
-      });
-    }
-
-    if (!chain || (chain && !isValidChain(chain?.id))) {
-      await switchChainAsync?.({ chainId: L1_CHAIN });
+      return;
     }
 
     return login(address);
