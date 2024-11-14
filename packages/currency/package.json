@@ -40,6 +40,6 @@
     "tiny-invariant": "^1.3.1",
     "tiny-warning": "^1.0.3",
     "toformat": "^2.0.0",
-    "viem": "^2.21.35"
+    "viem": "^2.10.2"
   }
 }

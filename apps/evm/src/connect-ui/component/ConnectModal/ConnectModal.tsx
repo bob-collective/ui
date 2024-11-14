@@ -26,9 +26,10 @@ import { useLingui } from '@lingui/react';
 
 import { ConnectType, WalletType } from '../../types';
 
-import { WalletList } from './WalletList';
+import { BtcWalletList } from './BtcWalletList';
 import { ConnectedWalletSection } from './ConnectedWalletSection';
 import { ConnectWalletCard } from './ConnectWalletCard';
+import { EvmWalletList } from './EvmWalletList';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
@@ -108,14 +109,6 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         // FIXME: simplify this in our UI lib also selectionBehavior throws error
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const [selectedKey] = [...(key as any)];
-
-        if (selectedKey === 'okxWallet') {
-          window.open('https://www.okx.com/web3', '_blank', 'noreferrer');
-        }
-
-        if (selectedKey === 'bitgetWallet') {
-          window.open('https://web3.bitget.com/en/wallet-download', '_blank', 'noreferrer');
-        }
 
         const connector = connectors.find((el) => el.id === selectedKey);
 
@@ -307,21 +300,19 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             </>
           )}
           {(step === 'evm' || type === 'evm') && (
-            <WalletList
+            <EvmWalletList
               connector={connector}
               connectors={connectors}
               pendingConnector={pendingConnector}
-              type='evm'
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onSelectionChange={handleEvmWalletSelect as any}
             />
           )}
           {(step === 'btc' || type === 'btc') && (
-            <WalletList
+            <BtcWalletList
               connector={btcWalletConnector}
               connectors={satsConnectors}
               pendingConnector={pendingSatsConnector}
-              type='btc'
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onSelectionChange={handleBtcWalletSelect as any}
             />
