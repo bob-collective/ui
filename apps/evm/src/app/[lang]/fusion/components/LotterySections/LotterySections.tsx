@@ -1,7 +1,6 @@
 import { Chip, Flex, H2, P, SolidClock, Span, Skeleton } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { Plural, t, Trans } from '@lingui/macro';
-import { formatDistanceToNow } from 'date-fns';
 import { useState } from 'react';
 import Image from 'next/image';
 import { useIsClient } from 'usehooks-ts';
@@ -10,7 +9,7 @@ import lottery from '@public/assets/lottery.png';
 
 import { LotteryModal } from './LotteryModal';
 import { StyledButton, StyledCard } from './LotterySections.style';
-import { ROUND_END_TIME } from './constants';
+import { useTimeToNextDraw } from './hooks';
 
 import { useGetUser, useLotteryStats } from '@/hooks';
 
@@ -21,6 +20,7 @@ const LotterySection = () => {
   const { data: user } = useGetUser();
   const { data: lotteryStatsData, isError, isLoading } = useLotteryStats();
   const { i18n } = useLingui();
+  const { data: timeToNextDraw } = useTimeToNextDraw();
 
   return (
     <>
@@ -46,11 +46,7 @@ const LotterySection = () => {
         <Flex alignItems='flex-start' direction='column' flex='1 0' gap='4xl' justifyContent='center'>
           <Flex alignItems='flex-start' direction='column' gap='lg' justifyContent='center'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-              {isClient ? (
-                <Trans>{formatDistanceToNow(ROUND_END_TIME)} until next draw</Trans>
-              ) : (
-                <Skeleton width='11xl' />
-              )}
+              {isClient ? <Trans>{timeToNextDraw} until next draw</Trans> : <Skeleton width='11xl' />}
             </Chip>
             <H2 size='4xl'>
               {!isClient || (!address && isClient) || !user || isError || isLoading ? (
