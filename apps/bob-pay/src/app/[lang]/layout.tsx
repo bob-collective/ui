@@ -13,8 +13,8 @@ import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
 import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
 const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }));
@@ -61,7 +61,7 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
 
 export default withLinguiLayout(function LangLayout({ children, params: { lang } }: PropsWithChildren<PageLangParam>) {
   return (
-    <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
+    <html className={`${chakraPetch.className} ${inter.className}`} lang={lang}>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       <body>
