@@ -128,7 +128,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 <Trans>Season 3 Harvested Spice</Trans>
               </Dt>
               <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
-                <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
+                <SpiceAmount key={totalPoints} showAnimation amount={totalPoints} gap='md' size='4xl' />
                 <Flex alignItems='center' gap='xs'>
                   <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
                     (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/
