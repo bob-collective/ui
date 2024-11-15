@@ -1,12 +1,14 @@
 'use client';
 
-import { useDynamicContext, useUserWallets } from '@dynamic-labs/sdk-react-core';
+import { useDynamicContext, useDynamicModals } from '@dynamic-labs/sdk-react-core';
 import { ChainId, getChainName } from '@gobob/chains';
 import { Button, ButtonProps } from '@gobob/ui';
 import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
 import { PressEvent } from '@react-aria/interactions';
 import { useIsClient } from 'usehooks-ts';
+
+import { useBtcAccount } from '@/hooks';
 
 type Props = {
   chain?: ChainId;
@@ -35,11 +37,13 @@ const AuthButton = ({
 }: AuthButtonProps) => {
   const isClient = useIsClient();
 
-  const { chain } = useAccount();
+  const { chain, address: evmAddress } = useAccount();
   const { switchChainAsync, isPending: isSwitchNetworkLoading } = useSwitchChain();
 
   const { setShowAuthFlow, setSelectedTabIndex } = useDynamicContext();
-  const userWallets = useUserWallets();
+  const { setShowLinkNewWalletModal } = useDynamicModals();
+
+  const { address: btcAddress } = useBtcAccount();
 
   if (!isClient) {
     return (
@@ -49,10 +53,8 @@ const AuthButton = ({
     );
   }
 
-  const evmWallet = userWallets.find((wallet) => wallet.chain === 'EVM');
-
   // Comes first because if the connection includes evm, the priority is always evm
-  if (isEvmAuthRequired && !evmWallet) {
+  if (isEvmAuthRequired && !evmAddress) {
     const handlePress = (): void => {
       setSelectedTabIndex(1);
       setShowAuthFlow(true);
@@ -84,13 +86,10 @@ const AuthButton = ({
     );
   }
 
-  const btcWallet = userWallets.find((wallet) => wallet.chain === 'BTC');
-
-  if (isBtcAuthRequired && !btcWallet) {
+  if (isBtcAuthRequired && !btcAddress) {
     const handlePress = (): void => {
-      console.log('here');
       setSelectedTabIndex(2);
-      setShowAuthFlow(true);
+      setShowLinkNewWalletModal(true);
     };
 
     return (
@@ -108,4 +107,3 @@ const AuthButton = ({
 };
 
 export { AuthButton };
-export type { AuthButtonProps };

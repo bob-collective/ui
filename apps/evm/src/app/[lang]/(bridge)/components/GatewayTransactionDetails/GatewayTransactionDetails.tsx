@@ -1,5 +1,4 @@
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import {
   Alert,
@@ -27,6 +26,7 @@ import { GatewayFeeSettingsModal } from './GatewayFeeSettingsModal';
 import { StyledDlGroup, StyledDt } from './GatewayTransactionDetails.style';
 
 import { AmountLabel } from '@/components';
+import { useBtcAccount } from '@/hooks';
 import { GatewayTransactionType } from '@/types';
 
 type GatewayTransactionDetailsProps = {
@@ -50,7 +50,7 @@ const GatewayTransactionDetails = ({
 }: GatewayTransactionDetailsProps): JSX.Element => {
   const { i18n } = useLingui();
 
-  const { address: btcAddress } = useSatsAccount();
+  const { address: btcAddress } = useBtcAccount();
 
   const [isOpen, setOpen] = useState(false);
 

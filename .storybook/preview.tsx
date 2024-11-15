@@ -3,8 +3,6 @@ import type { Preview } from '@storybook/react';
 import React from 'react';
 
 import { CSSReset, BOBUIProvider, bobTheme } from '../packages/ui/src';
-import { WagmiProvider } from '../packages/wagmi/src';
-import { SatsWagmiConfig } from '../packages/sats-wagmi/src';
 import './style.css';
 import { QueryClient, QueryClientProvider } from '../packages/react-query/src';
 
@@ -41,16 +39,12 @@ const preview: Preview = {
 
       return (
         <QueryClientProvider client={queryClient}>
-          <WagmiProvider>
-            <SatsWagmiConfig queryClient={queryClient}>
-              <BOBUIProvider locale={locale}>
-                <CSSReset />
-                <div dir={direction} lang={locale}>
-                  <Story />
-                </div>
-              </BOBUIProvider>
-            </SatsWagmiConfig>
-          </WagmiProvider>
+          <BOBUIProvider locale={locale}>
+            <CSSReset />
+            <div dir={direction} lang={locale}>
+              <Story />
+            </div>
+          </BOBUIProvider>
         </QueryClientProvider>
       );
     }
