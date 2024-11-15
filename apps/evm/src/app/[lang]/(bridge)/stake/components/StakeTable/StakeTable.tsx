@@ -231,9 +231,10 @@ const stakingInfoAny = stakingInfo as Record<string, (typeof stakingInfo)[keyof 
 
 interface Props {
   searchParams?: { receive: string };
+  onStakeSuccess: () => void;
 }
 
-const StakeTable = ({ searchParams }: Props) => {
+const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   const [strategy, setStrategy] = useState<StrategyData>();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
@@ -301,12 +302,7 @@ const StakeTable = ({ searchParams }: Props) => {
             <ModalBody>
               <StyledFlex direction='row' gap='xl'>
                 <StyledFlex>
-                  <StakingForm
-                    strategy={strategy}
-                    onStakeSuccess={() => {
-                      return null;
-                    }}
-                  />
+                  <StakingForm strategy={strategy} onStakeSuccess={onStakeSuccess} />
                 </StyledFlex>
                 <StyledFlex direction='column' gap='xl'>
                   <Dl direction='column' gap='lg'>

@@ -28,8 +28,8 @@ function Stake({ searchParams }: Props) {
 
   const {
     data: transactions,
-    isLoading: isLoadingTransactions
-    // refetch: refetchTransactions
+    isLoading: isLoadingTransactions,
+    refetch: refetchTransactions
   } = useGetGatewayTransactions({
     query: { select }
   });
@@ -66,7 +66,7 @@ function Stake({ searchParams }: Props) {
   return (
     <Layout>
       <Flex direction='column' gap='xl' marginTop='xl'>
-        <StakeTable searchParams={searchParams} />
+        <StakeTable searchParams={searchParams} onStakeSuccess={refetchTransactions} />
         <TransactionList data={transactions} isInitialLoading={isInitialLoading} />
       </Flex>
     </Layout>
