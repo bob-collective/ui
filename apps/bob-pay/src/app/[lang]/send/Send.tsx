@@ -12,7 +12,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
 
 import { ScannerModal, TokenButtonGroup } from './components';
@@ -66,7 +66,15 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
   const [isGroupAmount, setGroupAmount] = useState(false);
 
   const { getPrice } = usePrices();
-  const { getBalance, isPending } = useBalances(CHAIN);
+  const { getBalance } = useBalances(CHAIN, {
+    meta: {
+      onSettled: () => {
+        if (form.values[TRANSFER_TOKEN_AMOUNT]) {
+          form.validateField(TRANSFER_TOKEN_AMOUNT);
+        }
+      }
+    }
+  });
 
   const { data: tokens } = useTokens(CHAIN);
 
@@ -137,8 +145,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
   const {
     data: eoaTransferTx,
     mutate: eoaTransfer,
-    isPending: isEOATransferPending,
-    error: eoaTransferError
+    isPending: isEOATransferPending
   } = useMutation({
     mutationKey: ['eoa-transfer', amount, form.values[TRANSFER_TOKEN_RECIPIENT]],
     mutationFn: async ({
@@ -184,39 +191,33 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
       });
 
       return txid;
+    },
+    onError(error) {
+      toast.error(error.message);
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   });
 
-  const { isLoading: isWaitingEoaTransferTxConfirmation, data: eoaTransferTransactionReceipt } =
-    useWaitForTransactionReceipt({
-      hash: eoaTransferTx
-    });
+  const { isLoading: isWaitingEoaTransferTxConfirmation } = useWaitForTransactionReceipt({
+    hash: eoaTransferTx,
+    query: {
+      meta: {
+        onSuccess: (data: { status: 'success' }) => {
+          if (data?.status === 'success') {
+            toast.success(t(i18n)`Successfully sent ${amount} ${token?.currency.symbol}`);
 
-  useEffect(() => {
-    if (eoaTransferTransactionReceipt?.status === 'success') {
-      toast.success(t(i18n)`Successfully sent ${amount} ${token?.currency.symbol}`);
-
-      form.resetForm();
-      setAmount('');
-      setGroupAmount(false);
-      setTicker(tickerProp);
+            form.resetForm();
+            setAmount('');
+            setGroupAmount(false);
+            setTicker(tickerProp);
+          }
+        }
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [eoaTransferTransactionReceipt]);
+  });
 
-  useEffect(() => {
-    if (eoaTransferError) {
-      toast.error(eoaTransferError.message);
-      // eslint-disable-next-line no-console
-      console.log(eoaTransferError);
-    }
-  }, [eoaTransferError]);
-
-  const {
-    mutate: smartAccountTransfer,
-    isPending: isSmartAccountTransferPending,
-    error: smartAccountTransferError
-  } = useMutation({
+  const { mutate: smartAccountTransfer, isPending: isSmartAccountTransferPending } = useMutation({
     mutationKey: ['smart-account-transfer', amount, form.values[TRANSFER_TOKEN_RECIPIENT]],
     onSuccess: (tx, variables) => {
       if (!tx) {
@@ -233,6 +234,11 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
       setAmount('');
       setGroupAmount(false);
       setTicker(tickerProp);
+    },
+    onError(error) {
+      toast.error(t(i18n)`Failed to submit transaction`);
+      // eslint-disable-next-line no-console
+      console.log(error);
     },
     mutationFn: async ({
       recipient,
@@ -316,22 +322,6 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
       return userOpHash;
     }
   });
-
-  useEffect(() => {
-    if (smartAccountTransferError) {
-      toast.error(t(i18n)`Failed to submit transaction`);
-      // eslint-disable-next-line no-console
-      console.log(smartAccountTransferError);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [smartAccountTransferError]);
-
-  useEffect(() => {
-    if (!isPending && form.values[TRANSFER_TOKEN_AMOUNT]) {
-      form.validateField(TRANSFER_TOKEN_AMOUNT);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPending]);
 
   const tokenInputItems = useMemo(
     () =>

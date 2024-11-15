@@ -6,9 +6,21 @@ import { CSSReset, BOBUIProvider, bobTheme } from '../packages/ui/src';
 import { WagmiProvider } from '../packages/wagmi/src';
 import { SatsWagmiConfig } from '../packages/sats-wagmi/src';
 import './style.css';
-import { QueryClient, QueryClientProvider } from '../packages/react-query/src';
+import { QueryCache, QueryClient, QueryClientProvider } from '../packages/react-query/src';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error, query) => {
+      if (typeof query.meta?.onError === 'function') query.meta.onError(error, query);
+    },
+    onSuccess(data, query) {
+      if (typeof query.meta?.onSuccess === 'function') query.meta.onSuccess(data, query);
+    },
+    onSettled(data, error, query) {
+      if (typeof query.meta?.onSettled === 'function') query.meta.onSettled(data, error, query);
+    }
+  })
+});
 
 const preview: Preview = {
   parameters: {
