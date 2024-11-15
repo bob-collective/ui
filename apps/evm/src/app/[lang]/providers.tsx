@@ -61,7 +61,12 @@ export function Providers({ initialState, children }: PropsWithChildren<{ initia
                   },
                   {
                     label: { icon: <EthereumIcon /> },
-                    walletsFilter: FilterChain('EVM')
+                    walletsFilter: FilterChain('EVM'),
+                    recommendedWallets: [
+                      {
+                        walletKey: 'okxwallet'
+                      }
+                    ]
                   },
                   {
                     label: { icon: <BitcoinIcon /> },
