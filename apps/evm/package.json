@@ -31,6 +31,7 @@
     "@gobob/wagmi": "workspace:^",
     "@lingui/core": "^4.11.0",
     "@lingui/react": "^4.11.0",
+    "@next/third-parties": "^15.0.3",
     "@react-aria/button": "^3.8.1",
     "@react-aria/focus": "^3.14.0",
     "@react-aria/interactions": "^3.21.3",
