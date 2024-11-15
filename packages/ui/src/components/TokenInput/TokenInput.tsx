@@ -41,6 +41,7 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
   const inputRef = useDOMRef<HTMLInputElement>(ref);
 
   const [value, setValue] = useState(defaultValue);
+  const [prevValueProp, setPrevValueProp] = useState(valueProp);
 
   const defaultCurrency = useMemo(() => getDefaultCurrency(props), [props]);
   const [currency, setCurrency] = useState<Currency | undefined>(defaultCurrency);
@@ -61,11 +62,13 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
     props.type === 'selectable' ? [props.items, props.selectProps?.value, props.selectProps?.defaultValue] : []
   );
 
-  useEffect(() => {
-    if (valueProp === undefined) return;
+  if (valueProp !== prevValueProp) {
+    setPrevValueProp(valueProp);
 
-    setValue(valueProp);
-  }, [valueProp]);
+    if (valueProp !== undefined) {
+      setValue(valueProp);
+    }
+  }
 
   useEffect(() => {
     if (value && currency) {
