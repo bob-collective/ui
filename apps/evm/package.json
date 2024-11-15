@@ -40,6 +40,8 @@
     "@react-aria/interactions": "catalog:",
     "@react-aria/label": "^3.7.6",
     "@react-aria/utils": "catalog:",
+    "@scure/base": "^1.1.9",
+    "@scure/btc-signer": "^1.4.0",
     "@sentry/nextjs": "catalog:",
     "@tanstack/react-store": "catalog:",
     "@tanstack/react-query": "catalog:",
