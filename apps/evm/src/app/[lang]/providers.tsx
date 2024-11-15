@@ -33,7 +33,12 @@ export function Providers({ children }: PropsWithChildren) {
                   },
                   {
                     label: { icon: <EthereumIcon /> },
-                    walletsFilter: FilterChain('EVM')
+                    walletsFilter: FilterChain('EVM'),
+                    recommendedWallets: [
+                      {
+                        walletKey: 'okxwallet'
+                      }
+                    ]
                   },
                   {
                     label: { icon: <BitcoinIcon /> },

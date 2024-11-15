@@ -22,7 +22,7 @@ vi.mock(import('@/hooks'), async (importOriginal) => {
 
   return {
     ...actual,
-    useAccount: vi.fn()
+    useBtcAccount: vi.fn()
   };
 });
 

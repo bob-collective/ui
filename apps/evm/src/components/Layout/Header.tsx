@@ -16,7 +16,7 @@ import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
 import { useLingui } from '@lingui/react';
-import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
@@ -38,8 +38,11 @@ type HeaderProps = Props & InheritAttrs;
 
 const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => {
   const { i18n } = useLingui();
+
   const { setSidebarOpen } = useLayoutContext();
   const [isOpen, setOpen] = useState(false);
+
+  const { setShowAuthFlow } = useDynamicContext();
 
   const theme = useTheme();
   const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
@@ -113,7 +116,9 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         </Popover>
         <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
-        <DynamicWidget variant='modal' />
+        <Button variant='ghost' onPress={() => setShowAuthFlow(true)}>
+          Connect Modal
+        </Button>
       </Flex>
     </StyledHeader>
   );

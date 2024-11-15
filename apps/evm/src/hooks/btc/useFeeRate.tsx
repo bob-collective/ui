@@ -43,3 +43,4 @@ function useBtcFeeRate<TData = BtcFeeRateReturnType>({ query }: UseBtcFeeRatePro
 }
 
 export { useBtcFeeRate };
+export type { BtcFeeRateReturnType };
