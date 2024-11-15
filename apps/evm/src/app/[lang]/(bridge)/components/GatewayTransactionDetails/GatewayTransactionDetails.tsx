@@ -54,7 +54,7 @@ const GatewayTransactionDetails = ({
 
   const [isOpen, setOpen] = useState(false);
 
-  const { query, settings, type, isTapRootAddress } = gateway;
+  const { query, settings, type } = gateway;
 
   const amount = query.quote.data?.amount || amountPlaceholder;
 
@@ -70,16 +70,6 @@ const GatewayTransactionDetails = ({
 
   return (
     <Flex direction='column' gap='xl'>
-      {isTapRootAddress && (
-        <Alert status='warning'>
-          <P size='s'>
-            <Trans>
-              You are using a BTC address type (Taproot/P2TR) which we don&apos;t support yet. Change the BTC address
-              type to Native SegWit in your wallet to continue.
-            </Trans>
-          </P>
-        </Alert>
-      )}
       {!!query.quote.error && (
         <Alert status='warning'>
           <P size='s'>
