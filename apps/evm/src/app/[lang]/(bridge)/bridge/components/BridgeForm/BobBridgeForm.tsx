@@ -19,7 +19,7 @@ import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
 
 import { BridgeAlert } from './BridgeAlert';
 
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { BridgeToken, useBalances, useBridgeTokens } from '@/hooks';
 import {

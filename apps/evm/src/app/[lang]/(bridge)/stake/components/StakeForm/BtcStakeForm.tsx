@@ -16,10 +16,10 @@ import { StrategyDetailsModal } from '../StrategyDetailsModal';
 
 import { StrategyData } from './StakeForm';
 
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
 import { isProd } from '@/constants';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
+import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
 const INITIAL_SELECTED_STRATEGY_SLUG = 'solv-solvbtcbbn';
 

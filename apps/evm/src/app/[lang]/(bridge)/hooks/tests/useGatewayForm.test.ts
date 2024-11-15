@@ -1,4 +1,3 @@
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { Mock, vi } from 'vitest';
@@ -6,6 +5,7 @@ import { Mock, vi } from 'vitest';
 import { useGatewayForm } from '../useGatewayForm';
 
 import { BRIDGE_AMOUNT, BRIDGE_ASSET, BRIDGE_RECIPIENT } from '@/lib/form/bridge';
+import { useBtcAccount } from '@/hooks';
 
 vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -17,12 +17,12 @@ vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
   };
 });
 
-vi.mock(import('@gobob/sats-wagmi'), async (importOriginal) => {
+vi.mock(import('@/hooks'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {
     ...actual,
-    useAccount: vi.fn()
+    useBtcAccount: vi.fn()
   };
 });
 
@@ -39,7 +39,7 @@ describe('useGatewayForm', () => {
   beforeEach(() => {
     (useAccount as Mock).mockReturnValue({ address: '0x123' });
     (useIsContract as Mock).mockReturnValue({ isContract: false });
-    (useSatsAccount as Mock).mockReturnValue({ address: 'bc1qaddress' });
+    (useBtcAccount as Mock).mockReturnValue({ address: 'bc1qaddress' });
   });
 
   it('should initialize with correct default values', () => {

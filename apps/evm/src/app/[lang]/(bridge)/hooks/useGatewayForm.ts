@@ -4,20 +4,20 @@ import { useForm } from '@gobob/ui';
 import { useAccount, useIsContract } from '@gobob/wagmi';
 import Big from 'big.js';
 import { useEffect } from 'react';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { UseGatewayQueryDataReturnType } from './useGateway';
 
 import {
   BRIDGE_AMOUNT,
+  BRIDGE_ASSET,
   BRIDGE_BTC_WALLET,
   BRIDGE_RECIPIENT,
-  BRIDGE_ASSET,
   BridgeFormValidationParams,
   BridgeFormValues,
   bridgeSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
+import { useBtcAccount } from '@/hooks';
 
 type UseGatewayFormProps = {
   query: UseGatewayQueryDataReturnType;
@@ -30,7 +30,7 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
-  const { address: btcAddress } = useSatsAccount();
+  const { address: btcAddress } = useBtcAccount();
 
   useEffect(() => {
     if (!query.fee.estimate.data || !form.values[BRIDGE_AMOUNT]) return;

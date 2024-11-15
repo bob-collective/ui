@@ -11,14 +11,6 @@ import {
   useQueryClient,
   UseQueryResult
 } from '@gobob/react-query';
-import {
-  BtcAddressType,
-  FeeRateReturnType,
-  useAccount as useSatsAccount,
-  useBalance as useSatsBalance,
-  useFeeEstimate as useSatsFeeEstimate,
-  useFeeRate as useSatsFeeRate
-} from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { toast } from '@gobob/ui';
 import { Address, useAccount } from '@gobob/wagmi';
@@ -28,7 +20,16 @@ import * as Sentry from '@sentry/nextjs';
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
 import { isAddress } from 'viem';
+import { AddressType } from 'bitcoin-address-validation';
 
+import {
+  BtcFeeRateReturnType,
+  useBtcAccount,
+  useBtcBalance,
+  useBtcFeeEstimate,
+  useBtcFeeRate,
+  useBtcSignAllInputs
+} from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import {
@@ -80,7 +81,7 @@ const getBalanceAmount = (
   return availableBalance;
 };
 
-const feeRatesSelect = ({ esplora, memPool }: FeeRateReturnType): GatewayTransactionSpeedData => {
+const feeRatesSelect = ({ esplora, memPool }: BtcFeeRateReturnType): GatewayTransactionSpeedData => {
   return {
     fastest: Math.ceil(Math.min(esplora[2], memPool.fastestFee)),
     fast: Math.ceil(Math.min(esplora[4], memPool.halfHourFee)),
@@ -163,8 +164,8 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
   const { address: evmAddress } = useAccount();
 
-  const { address: btcAddress, connector: satsConnector, addressType: btcAddressType } = useSatsAccount();
-  const { data: satsBalance } = useSatsBalance();
+  const { address: btcAddress, publicKey: btcPublicKey, addressType: btcAddressType } = useBtcAccount();
+  const { data: satsBalance } = useBtcBalance();
 
   const [isTopUpEnabled, setTopUpEnabled] = useState(true);
   const [selectedFee, setSelectedFee] = useState<GatewayTransactionFee>({ speed: GatewayTransactionSpeed.SLOW });
@@ -173,7 +174,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
   const minAmount = useMemo(() => getMinAmount(isTopUpEnabled), [isTopUpEnabled]);
 
-  const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
+  const isTapRootAddress = btcAddressType === AddressType.p2tr;
 
   const liquidityQueryEnabled = Boolean(
     params.toChain && params.toToken && params.type === GatewayTransactionType.STAKE
@@ -213,7 +214,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     }
   });
 
-  const feeRatesQueryResult = useSatsFeeRate({
+  const feeRatesQueryResult = useBtcFeeRate({
     query: {
       select: feeRatesSelect
     }
@@ -222,7 +223,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const feeRate =
     selectedFee.speed === 'custom' ? selectedFee.networkRate : feeRatesQueryResult.data?.[selectedFee.speed];
 
-  const feeEstimateQueryResult = useSatsFeeEstimate({
+  const feeEstimateQueryResult = useBtcFeeEstimate({
     opReturnData: evmAddress,
     feeRate: feeRate,
     query: {
@@ -313,10 +314,12 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     }
   });
 
+  const { mutateAsync: signAllInputsAsync } = useBtcSignAllInputs();
+
   const mutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
     mutationFn: async ({ evmAddress }: { evmAddress: Address | string }): Promise<InitGatewayTransaction> => {
-      if (!satsConnector) {
+      if (!btcAddress || !btcPublicKey) {
         throw new Error('Connector missing');
       }
 
@@ -329,7 +332,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
       }
 
       if (!params.toChain) {
-        throw new Error('Something went wrong');
+        throw new Error('Missing toChain');
       }
 
       if (!isAddress(evmAddress)) {
@@ -352,13 +355,17 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
         toChain: params.toChain,
         toUserAddress: evmAddress,
-        fromUserAddress: satsConnector.paymentAddress!,
-        fromUserPublicKey: satsConnector.publicKey,
+        fromUserAddress: btcAddress,
+        fromUserPublicKey: btcPublicKey,
         gasRefill: isTopUpEnabled ? GAS_REFILL : 0,
         feeRate
       });
 
-      const bitcoinTxHex = await satsConnector.signAllInputs(psbtBase64!);
+      if (!psbtBase64) {
+        throw new Error('Failed to start order');
+      }
+
+      const bitcoinTxHex = await signAllInputsAsync(psbtBase64);
 
       // NOTE: user does not broadcast the tx, that is done by
       // the relayer after it is validated

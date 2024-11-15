@@ -17,7 +17,6 @@ import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts';
 
 import { Header, Layout, Sidebar } from '@/components';
-import { ConnectProvider } from '@/connect-ui';
 import { isClient, L2_CHAIN, LocalStorageKey, RoutesPath } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
@@ -158,18 +157,16 @@ export function NestedProviders({ children }: PropsWithChildren) {
   return (
     <StyledComponentsRegistry>
       <BOBUIProvider navigate={router.push}>
-        <ConnectProvider type='both'>
-          <CSSReset />
-          <ScrollToTop />
-          <Suspense>
-            <AuthCheck />
-          </Suspense>
-          <Layout>
-            <Sidebar />
-            <Header />
-            {children}
-          </Layout>
-        </ConnectProvider>
+        <CSSReset />
+        <ScrollToTop />
+        <Suspense>
+          <AuthCheck />
+        </Suspense>
+        <Layout>
+          <Sidebar />
+          <Header />
+          {children}
+        </Layout>
       </BOBUIProvider>
     </StyledComponentsRegistry>
   );

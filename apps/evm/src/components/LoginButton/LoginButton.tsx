@@ -1,21 +1,31 @@
-import { ButtonProps, toast } from '@gobob/ui';
-import { useAccount, useSwitchChain } from '@gobob/wagmi';
-import { Button } from '@gobob/ui';
-import { mergeProps } from '@react-aria/utils';
-import { ChainId } from '@gobob/chains';
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { Button, ButtonProps, toast } from '@gobob/ui';
+import { useAccount, useAccountEffect } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
+import { mergeProps } from '@react-aria/utils';
+import { useState } from 'react';
 
-import { useConnectModal } from '@/connect-ui';
-import { L1_CHAIN, L2_CHAIN, isValidChain } from '@/constants';
 import { useGetUser, useLogin } from '@/hooks';
 
 type LoginButtonProps = ButtonProps;
 
 const LoginButton = (props: LoginButtonProps): JSX.Element => {
-  const { switchChainAsync } = useSwitchChain();
-  const { open } = useConnectModal();
   const { refetch: refetchUser } = useGetUser({ retry: 5, retryDelay: 1000 });
-  const { address, chain } = useAccount();
+  const { address } = useAccount();
+
+  const { setShowAuthFlow, setSelectedTabIndex } = useDynamicContext();
+
+  const [isConnecting, setConnecting] = useState(false);
+
+  useAccountEffect({
+    onConnect: (data) => {
+      if (isConnecting) {
+        login(data.address);
+
+        setConnecting(false);
+      }
+    }
+  });
 
   const { mutate: login, isPending: isLoadingLogin } = useLogin({
     onSuccess: async () => {
@@ -33,24 +43,12 @@ const LoginButton = (props: LoginButtonProps): JSX.Element => {
 
   const handlePress = async () => {
     if (!address) {
-      return open({
-        onConnectEvm: async ({ address, connector }) => {
-          if (!address) return;
-          if (!isValidChain((await connector?.getChainId()) as ChainId)) {
-            const chain = await connector?.switchChain?.({ chainId: L2_CHAIN });
+      setSelectedTabIndex(1);
+      setShowAuthFlow(true);
 
-            if (!chain) {
-              return toast.error(<Trans>Something went wrong. Please try connecting your wallet again.</Trans>);
-            }
-          }
+      setConnecting(true);
 
-          return login(address);
-        }
-      });
-    }
-
-    if (!chain || (chain && !isValidChain(chain?.id))) {
-      await switchChainAsync?.({ chainId: L1_CHAIN });
+      return;
     }
 
     return login(address);
