@@ -22,7 +22,7 @@ import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Address, erc20Abi } from 'viem';
 
 import { TransactionDetails } from '@/app/[lang]/(bridge)/components/TransactionDetails';
@@ -192,13 +192,16 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
     hash: currency.isToken ? transferErc20Result : sendTransactionResult
   });
 
-  useEffect(() => {
+  const [prevStatus, setPrevStatus] = useState(transactionReceipt?.status);
+
+  if (transactionReceipt?.status !== prevStatus) {
+    setPrevStatus(transactionReceipt?.status);
+
     if (transactionReceipt?.status === 'success') {
       handleClose();
       toast.success(`Successfully sent ${amount} ${currency.symbol}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transactionReceipt]);
+  }
 
   const balance = tokenBalance?.toExact() || '0';
 

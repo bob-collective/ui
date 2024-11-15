@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import OtpInput, { OTPInputProps } from 'react-otp-input';
 import { useLabel } from '@react-aria/label';
 import { Flex, Label, P } from '@gobob/ui';
@@ -25,6 +25,7 @@ const ReferralInput = ({ onChange, errorMessage, ...props }: ReferralInputProps)
   const { i18n } = useLingui();
 
   const [otp, setOtp] = useState(refCode || '');
+  const [prevOtp, setPrevOtp] = useState(otp);
   const labelText = t(i18n)`Enter your access code (optional):`;
 
   const { fieldProps, labelProps } = useLabel({ label: labelText });
@@ -37,12 +38,11 @@ const ReferralInput = ({ onChange, errorMessage, ...props }: ReferralInputProps)
     [onChange]
   );
 
-  useEffect(() => {
-    if (!otp) return;
+  if (otp !== prevOtp) {
+    setPrevOtp(otp);
 
-    handleChange(otp);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [otp]);
+    if (otp) handleChange(otp);
+  }
 
   const hasError = !!errorMessage;
 

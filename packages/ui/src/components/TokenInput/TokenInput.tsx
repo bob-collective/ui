@@ -45,6 +45,7 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
 
   const defaultCurrency = useMemo(() => getDefaultCurrency(props), [props]);
   const [currency, setCurrency] = useState<Currency | undefined>(defaultCurrency);
+  const [prevCurrency, setPrevCurrency] = useState<Currency>();
 
   const inputId = useId();
 
@@ -70,7 +71,9 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
     }
   }
 
-  useEffect(() => {
+  if (prevCurrency !== currency) {
+    setPrevCurrency(currency);
+
     if (value && currency) {
       const trimmedValue = trimDecimals(value, currency.decimals);
 
@@ -79,8 +82,7 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
         onValueChange?.(trimmedValue);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currency]);
+  }
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

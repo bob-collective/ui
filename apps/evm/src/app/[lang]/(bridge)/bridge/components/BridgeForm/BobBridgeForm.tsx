@@ -11,7 +11,7 @@ import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 
@@ -390,36 +390,15 @@ const BobBridgeForm = ({
     }
   };
 
-  useEffect(() => {
-    if (!amount) return;
+  const [prevChain, setPrevChain] = useState(chain);
 
-    const formAmount = form.values[BRIDGE_AMOUNT];
+  if (chain !== prevChain) {
+    setPrevChain(chain);
 
-    if (!formAmount || isNaN(+formAmount) || !selectedCurrency || !selectedToken) return;
-
-    // TODO: change currency
-    const currencyAmount = CurrencyAmount.fromBaseAmount(selectedCurrency, formAmount);
-
-    handleChangeCurrencyAmount(currencyAmount, selectedToken);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount]);
-
-  useEffect(() => {
-    form.resetForm();
-    gasEstimateMutation.reset();
-
-    setTicker(nativeToken.symbol);
-    setGasTicker(nativeToken.symbol);
-    setAmount('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [direction]);
-
-  useEffect(() => {
     if (currencyAmount && selectedToken) {
       handleChangeCurrencyAmount(currencyAmount, selectedToken);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chain]);
+  }
 
   const handleSubmit = async (data: BridgeFormValues) => {
     if (!currencyAmount || !selectedToken || !selectedGasToken || isBridgeDisabled) return;
@@ -472,6 +451,36 @@ const BobBridgeForm = ({
     onSubmit: handleSubmit,
     hideErrors: 'untouched'
   });
+
+  const [prevAmount, setPrevAmount] = useState(amount);
+
+  if (amount !== prevAmount) {
+    setPrevAmount(amount);
+
+    if (amount) {
+      const formAmount = form.values[BRIDGE_AMOUNT];
+
+      if (formAmount && !isNaN(+formAmount) && selectedCurrency && selectedToken) {
+        // TODO: change currency
+        const currencyAmount = CurrencyAmount.fromBaseAmount(selectedCurrency, formAmount);
+
+        handleChangeCurrencyAmount(currencyAmount, selectedToken);
+      }
+    }
+  }
+
+  const [prevDirection, setPrevDirection] = useState<TransactionDirection>();
+
+  if (direction !== prevDirection) {
+    setPrevDirection(direction);
+
+    form.resetForm();
+    gasEstimateMutation.reset();
+
+    setTicker(nativeToken.symbol);
+    setGasTicker(nativeToken.symbol);
+    setAmount('');
+  }
 
   const handleChangeTicker = (currency: Currency) => {
     setTicker(currency.symbol as string);
