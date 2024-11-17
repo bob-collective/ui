@@ -27,11 +27,12 @@ const TokenButtonGroup = ({ isSelected, currency, balance, onSelectionChange }: 
   const [key, setKey] = useState<string>();
   const [prevIsSelected, setPrevIsSelected] = useState(false);
 
-  if (!prevIsSelected && isSelected) setPrevIsSelected(true);
+  if (isSelected !== prevIsSelected) {
+    setPrevIsSelected(isSelected);
 
-  if (prevIsSelected && !isSelected) {
-    setKey(undefined);
-    setPrevIsSelected(false);
+    if (!isSelected) {
+      setKey(undefined);
+    }
   }
 
   const amounts = useMemo(() => {
