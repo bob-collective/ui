@@ -4,10 +4,6 @@ import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
   position: relative;
-  background-image: url(/assets/apps-leaderboard-hero.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 50%;
   min-height: 260px;
 `;
 
