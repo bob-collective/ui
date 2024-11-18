@@ -1,4 +1,5 @@
 import { Button, H3, Link, Modal, ModalBody, ModalFooter, ModalProps, P } from '@gobob/ui';
+import { colors } from '@gobob/ui/src/theme/themes/bob/colors';
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { PopupModal, useCalendlyEventListener } from 'react-calendly';
@@ -50,6 +51,11 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
       </Modal>
       <PopupModal
         open={isCalendlyOpen}
+        pageSettings={{
+          backgroundColor: colors['grey-400'],
+          textColor: colors['light'],
+          primaryColor: colors['primary-500']
+        }}
         rootElement={document.getElementById('root')!}
         url='https://calendly.com/alexei-zamyatin/30-min-call'
         onModalClose={() => setIsCalendlyOpen(false)}
