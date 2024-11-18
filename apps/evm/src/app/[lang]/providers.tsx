@@ -78,6 +78,7 @@ export function Providers({ initialState, children }: PropsWithChildren<{ initia
           ]
         }
       }}
+      theme='dark'
     >
       <WagmiProvider config={config} initialState={initialState}>
         <QueryClientProvider client={queryClient}>

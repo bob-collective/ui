@@ -1,6 +1,6 @@
 'use client';
 
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 import {
   Bars3,
   Button,
@@ -41,8 +41,6 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
 
   const { setSidebarOpen } = useLayoutContext();
   const [isOpen, setOpen] = useState(false);
-
-  const { setShowAuthFlow } = useDynamicContext();
 
   const theme = useTheme();
   const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
@@ -116,9 +114,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         </Popover>
         <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
-        <Button variant='ghost' onPress={() => setShowAuthFlow(true)}>
-          Connect Modal
-        </Button>
+        <DynamicWidget />
       </Flex>
     </StyledHeader>
   );
