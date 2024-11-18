@@ -2,7 +2,10 @@
 
 import { H1 } from '@gobob/ui';
 import { useState } from 'react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import Image from 'next/image';
+import { useLingui } from '@lingui/react';
+import heroBanner from '@public/assets/apps-leaderboard-hero.png';
 
 import { VotingInfoModal } from './VotingInfoModal';
 import {
@@ -15,9 +18,22 @@ import {
 
 const HeroBanner = (): JSX.Element => {
   const [isOpen, setOpen] = useState(false);
+  const { i18n } = useLingui();
 
   return (
     <StyledCard borderColor='grey-300' padding='none'>
+      <Image
+        fill
+        alt={t(i18n)`Hero banner`}
+        placeholder='blur'
+        quality={100}
+        sizes='100vw'
+        src={heroBanner}
+        style={{
+          objectFit: 'cover',
+          objectPosition: '50% 70%'
+        }}
+      />
       <StyledOpacityOverlay />
       <StyledContentWrapper
         alignItems={{ base: 'center', md: 'flex-start' }}
