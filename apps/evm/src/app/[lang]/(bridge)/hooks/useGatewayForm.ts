@@ -56,7 +56,7 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
 
   const [prevData, setPrevData] = useState(query.fee.rates.data);
 
-  if (query.fee.rates.data !== prevData) {
+  if (prevData !== query.fee.rates.data) {
     setPrevData(query.fee.rates.data);
 
     if (query.fee.estimate.data && form.values[BRIDGE_AMOUNT]) {

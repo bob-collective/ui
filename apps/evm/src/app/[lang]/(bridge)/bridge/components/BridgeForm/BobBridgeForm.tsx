@@ -392,7 +392,7 @@ const BobBridgeForm = ({
 
   const [prevChain, setPrevChain] = useState(chain);
 
-  if (chain !== prevChain) {
+  if (prevChain !== chain) {
     setPrevChain(chain);
 
     if (currencyAmount && selectedToken) {
@@ -454,7 +454,7 @@ const BobBridgeForm = ({
 
   const [prevAmount, setPrevAmount] = useState(amount);
 
-  if (amount !== prevAmount) {
+  if (prevAmount !== amount) {
     setPrevAmount(amount);
 
     if (amount) {
@@ -471,7 +471,7 @@ const BobBridgeForm = ({
 
   const [prevDirection, setPrevDirection] = useState<TransactionDirection>();
 
-  if (direction !== prevDirection) {
+  if (prevDirection !== direction) {
     setPrevDirection(direction);
 
     form.resetForm();

@@ -27,7 +27,7 @@ const TokenButtonGroup = ({ isSelected, currency, balance, onSelectionChange }: 
   const [key, setKey] = useState<string>();
   const [prevIsSelected, setPrevIsSelected] = useState(false);
 
-  if (isSelected !== prevIsSelected) {
+  if (prevIsSelected !== isSelected) {
     setPrevIsSelected(isSelected);
 
     if (!isSelected) {

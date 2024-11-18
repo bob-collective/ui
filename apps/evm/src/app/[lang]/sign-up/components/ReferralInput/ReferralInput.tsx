@@ -38,7 +38,7 @@ const ReferralInput = ({ onChange, errorMessage, ...props }: ReferralInputProps)
     [onChange]
   );
 
-  if (otp !== prevOtp) {
+  if (prevOtp !== otp) {
     setPrevOtp(otp);
 
     if (otp) handleChange(otp);

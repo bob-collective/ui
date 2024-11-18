@@ -194,7 +194,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
 
   const [prevStatus, setPrevStatus] = useState(transactionReceipt?.status);
 
-  if (transactionReceipt?.status !== prevStatus) {
+  if (prevStatus !== transactionReceipt?.status) {
     setPrevStatus(transactionReceipt?.status);
 
     if (transactionReceipt?.status === 'success') {

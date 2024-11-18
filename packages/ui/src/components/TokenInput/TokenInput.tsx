@@ -63,7 +63,7 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
     props.type === 'selectable' ? [props.items, props.selectProps?.value, props.selectProps?.defaultValue] : []
   );
 
-  if (valueProp !== prevValueProp) {
+  if (prevValueProp !== valueProp) {
     setPrevValueProp(valueProp);
 
     if (valueProp !== undefined) {
