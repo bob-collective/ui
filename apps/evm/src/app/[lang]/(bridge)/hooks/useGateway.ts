@@ -24,19 +24,19 @@ import { toast } from '@gobob/ui';
 import { Address, useAccount } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
 import { isAddress } from 'viem';
 
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import {
-  InitGatewayTransaction,
   GatewayTransactionFee,
   GatewayTransactionSpeed,
   GatewayTransactionSpeedData,
   GatewayTransactionType,
+  InitGatewayTransaction,
   TransactionType
 } from '@/types';
 
@@ -421,4 +421,4 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 };
 
 export { useGateway };
-export type { UseGatewayReturnType, UseGatewayQueryDataReturnType };
+export type { UseGatewayQueryDataReturnType, UseGatewayReturnType };

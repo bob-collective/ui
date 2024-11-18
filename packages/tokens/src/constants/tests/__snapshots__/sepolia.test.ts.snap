@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Sepolia Tokens Snapshot > should match snapshot for sepoliaTokens 1`] = `
+{
+  "usdc": ERC20Token {
+    "address": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+    "chainId": 11155111,
+    "decimals": 6,
+    "isNative": false,
+    "isToken": true,
+    "name": "USDC",
+    "projectLink": undefined,
+    "symbol": "USDC",
+  },
+  "usdt": undefined,
+  "wbtc": undefined,
+  "weth": ERC20Token {
+    "address": "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
+    "chainId": 11155111,
+    "decimals": 18,
+    "isNative": false,
+    "isToken": true,
+    "name": "Wrapped Ether",
+    "projectLink": "https://weth.io",
+    "symbol": "WETH",
+  },
+}
+`;

@@ -11,9 +11,10 @@ import { useIsClient, useSessionStorage } from 'usehooks-ts';
 
 import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
 import { FusionBanner } from './FusionBanner';
-import { HybridL2Banner } from './HybridL2Banner';
 import { OnrampBanner } from './OnrampBanner';
 import { XBanner } from './XBanner';
+import { HybridL2Banner } from './HybridL2Banner';
+import { OKXCryptopediaBanner } from './OKXCryptopediaBanner';
 
 import { RoutesPath } from '@/constants';
 import { SessionStorageKey } from '@/types';
@@ -78,6 +79,12 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressOKXCryptopediaBanner = useCallback(
+    () => window.open('https://www.okx.com/web3/discover/cryptopedia/event/bob', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper
       aria-label={t(i18n)`navigate to ecosystem section in fusion page`}
@@ -96,6 +103,7 @@ const BannerCarousel = () => {
         swipeable={false}
         transitionDuration={500}
       >
+        <OKXCryptopediaBanner onPress={onPressOKXCryptopediaBanner} />
         <HybridL2Banner onPress={onPressHybridL2Banner} />
         <XBanner onPress={onPressXBanner} />
         <FusionBanner onPress={onPressFusionBanner} />

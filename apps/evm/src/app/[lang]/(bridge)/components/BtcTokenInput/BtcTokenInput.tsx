@@ -18,7 +18,7 @@ type BtcTokenInputProps = Props & InheritAttrs;
 
 const BtcTokenInput = ({ amount, balance, ...props }: BtcTokenInputProps): JSX.Element => {
   const { i18n } = useLingui();
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
 
   const btcPrice = getPrice('BTC');
 

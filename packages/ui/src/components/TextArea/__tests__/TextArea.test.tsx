@@ -2,6 +2,7 @@ import { render, blur, focus, testA11y } from '@gobob/test-utils';
 import { screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { createRef, useState } from 'react';
+import { vi } from 'vitest';
 
 import { TextArea } from '..';
 
@@ -84,7 +85,7 @@ describe('TextArea', () => {
   });
 
   it('should emit onChange', async () => {
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
 
     render(<TextArea label='Name' onChange={handleChange} />);
 
@@ -96,7 +97,7 @@ describe('TextArea', () => {
   });
 
   it('should emit onValueChange', async () => {
-    const handleValueChange = jest.fn();
+    const handleValueChange = vi.fn();
 
     render(<TextArea label='Name' onValueChange={handleValueChange} />);
 
@@ -110,7 +111,7 @@ describe('TextArea', () => {
   });
 
   it('should emit onBlur', async () => {
-    const handleBlur = jest.fn();
+    const handleBlur = vi.fn();
 
     render(<TextArea label='Name' onBlur={handleBlur} />);
 

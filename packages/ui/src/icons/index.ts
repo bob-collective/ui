@@ -34,6 +34,7 @@ export { PlusCircle } from './PlusCircle';
 export { Power } from './Power';
 export { PresentationChartBar } from './PresentationChartBar';
 export { PuzzlePiece } from './PuzzlePiece';
+export { QrCode } from './QrCode';
 export { QuestionMarkCircle } from './QuestionMarkCircle';
 export { SolidClock } from './SolidClock';
 export { SolidDocumentDuplicate } from './SolidDocumentDuplicate';

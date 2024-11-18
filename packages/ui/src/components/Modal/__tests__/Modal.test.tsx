@@ -1,12 +1,13 @@
 import { createRef } from 'react';
 import { testA11y, render } from '@gobob/test-utils';
+import { vi } from 'vitest';
 
 import { Modal, ModalBody, ModalFooter, ModalHeader } from '..';
 
 describe('Modal', () => {
   it('should render correctly', () => {
     const { unmount } = render(
-      <Modal isOpen onClose={jest.fn}>
+      <Modal isOpen onClose={vi.fn as any}>
         <ModalHeader>title</ModalHeader>
         <ModalBody>body</ModalBody>
         <ModalFooter>footer</ModalFooter>
@@ -20,7 +21,7 @@ describe('Modal', () => {
     const ref = createRef<HTMLDivElement>();
 
     render(
-      <Modal ref={ref} isOpen onClose={jest.fn}>
+      <Modal ref={ref} isOpen onClose={vi.fn as any}>
         <ModalHeader>title</ModalHeader>
         <ModalBody>body</ModalBody>
         <ModalFooter>footer</ModalFooter>
@@ -32,7 +33,7 @@ describe('Modal', () => {
 
   it('should pass a11y', async () => {
     await testA11y(
-      <Modal isOpen onClose={jest.fn}>
+      <Modal isOpen onClose={vi.fn as any}>
         <ModalHeader>title</ModalHeader>
         <ModalBody>body</ModalBody>
         <ModalFooter>footer</ModalFooter>
