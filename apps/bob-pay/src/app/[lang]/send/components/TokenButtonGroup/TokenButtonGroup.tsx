@@ -25,13 +25,14 @@ const TokenButtonGroup = ({ isSelected, currency, balance, onSelectionChange }: 
   const { getPrice, data: pricesData } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
 
   const [key, setKey] = useState<string>();
-  const [prevIsSelected, setPrevIsSelected] = useState(false);
+  const [prevIsSelected, setPrevIsSelected] = useState<boolean>(isSelected);
 
-  if (!prevIsSelected && isSelected) setPrevIsSelected(true);
+  if (isSelected !== prevIsSelected) {
+    setPrevIsSelected(isSelected);
 
-  if (prevIsSelected && !isSelected) {
-    setKey(undefined);
-    setPrevIsSelected(false);
+    if (!isSelected) {
+      setKey(undefined);
+    }
   }
 
   const amounts = useMemo(() => {
