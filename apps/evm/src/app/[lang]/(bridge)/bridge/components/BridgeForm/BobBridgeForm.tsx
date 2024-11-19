@@ -1,10 +1,9 @@
 'use client';
 
 import { NumberLike } from '@eth-optimism/sdk';
-import { Currency, CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
+import { Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { UINT_256_MAX, useApproval } from '@gobob/hooks';
-import { INTERVAL, useMutation, usePrices, useQuery } from '@gobob/react-query';
-import { USDC } from '@gobob/tokens';
+import { useMutation, usePrices } from '@gobob/react-query';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { useAccount, useChainId, useIsContract, usePublicClient } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
@@ -14,8 +13,10 @@ import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
+import { useOPWagmiConfig } from '@eth-optimism/op-app';
+import { useWriteDepositERC20, useWriteDepositETH } from 'op-wagmi';
 
-import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
+import { useCrossChainMessenger } from '../../hooks';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -40,6 +41,10 @@ import {
   TransactionDirection,
   TransactionType
 } from '@/types';
+import { bridgeContracts } from '@/constants/bridge';
+
+const getBridgeContract = (currency: Ether | ERC20Token) =>
+  currency.isToken ? bridgeContracts[currency.symbol] || bridgeContracts.Standard : bridgeContracts.ETH;
 
 type BobBridgeFormProps = {
   direction: TransactionDirection;
@@ -76,6 +81,20 @@ const BobBridgeForm = ({
   const [amount, setAmount] = useDebounceValue('', 300);
 
   const { isContract: isSmartAccount } = useIsContract({ address, chainId: bridgeChainId });
+
+  const { opConfig } = useOPWagmiConfig({
+    type: 'op',
+    chainId: chain?.id
+  });
+
+  const l1PublicClient = usePublicClient({ chainId });
+
+  const { data: l1TxHash, writeDepositETHAsync } = useWriteDepositETH({
+    config: opConfig
+  });
+  const { data: l1ERC20TxHash, writeDepositERC20Async } = useWriteDepositERC20({
+    config: opConfig
+  });
 
   const nativeToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
 
@@ -172,41 +191,56 @@ const BobBridgeForm = ({
       ? selectedToken?.l1Token.bridgeDisabled
       : selectedToken?.l2Token.bridgeDisabled;
 
+  // const {
+  //   data: allowance,
+  //   refetch: refetchL1Allowance,
+  //   isLoading: isLoadingAllowance,
+  //   isFetching: isFetchingAllowance
+  // } = useQuery({
+  //   queryKey: ['allowance', ticker, address],
+  //   enabled: Boolean(
+  //     !isBridgeDisabled &&
+  //       currencyAmount &&
+  //       address &&
+  //       selectedCurrency?.isToken &&
+  //       direction === TransactionDirection.L1_TO_L2
+  //   ),
+  //   queryFn: async () => {
+  //     if (!messenger) {
+  //       throw new Error('Missing messenger');
+  //     }
+
+  //     if (!selectedToken || !selectedCurrency) return;
+
+  //     const l1Address = selectedToken.l1Token.address;
+  //     const l2Address = selectedToken.l2Token.address;
+
+  //     const approval = await messenger.approval(l1Address, l2Address);
+
+  //     return CurrencyAmount.fromRawAmount(selectedCurrency, approval.toBigInt());
+  //   },
+  //   staleTime: INTERVAL.HOUR
+  // });
+
+  // const isApproveRequired = useMemo(
+  //   () => !!currencyAmount && !!allowance && allowance.lessThan(currencyAmount),
+  //   [allowance, currencyAmount]
+  // );
+
   const {
-    data: allowance,
-    refetch: refetchL1Allowance,
-    isLoading: isLoadingAllowance,
-    isFetching: isFetchingAllowance
-  } = useQuery({
-    queryKey: ['allowance', ticker, address],
-    enabled: Boolean(
-      !isBridgeDisabled &&
-        currencyAmount &&
-        address &&
-        selectedCurrency?.isToken &&
-        direction === TransactionDirection.L1_TO_L2
-    ),
-    queryFn: async () => {
-      if (!messenger) {
-        throw new Error('Missing messenger');
-      }
-
-      if (!selectedToken || !selectedCurrency) return;
-
-      const l1Address = selectedToken.l1Token.address;
-      const l2Address = selectedToken.l2Token.address;
-
-      const approval = await messenger.approval(l1Address, l2Address);
-
-      return CurrencyAmount.fromRawAmount(selectedCurrency, approval.toBigInt());
-    },
-    staleTime: INTERVAL.HOUR
+    isApproveRequired,
+    approveAsync,
+    isApproving,
+    allowance,
+    refetch: refetchAllowance
+  } = useApproval({
+    amount: currencyAmount,
+    spender: currencyAmount?.currency
+      ? direction === TransactionDirection.L1_TO_L2
+        ? getBridgeContract(currencyAmount.currency).l1Bridge
+        : getBridgeContract(currencyAmount.currency).l2Bridge
+      : undefined
   });
-
-  const isApproveRequired = useMemo(
-    () => !!currencyAmount && !!allowance && allowance.lessThan(currencyAmount),
-    [allowance, currencyAmount]
-  );
 
   const depositMutation = useMutation({
     mutationKey: ['deposit', address],
@@ -260,7 +294,7 @@ const BobBridgeForm = ({
 
         await tx.wait();
 
-        await refetchL1Allowance();
+        await refetchAllowance();
       }
 
       onStartBridge?.(data);
@@ -286,17 +320,13 @@ const BobBridgeForm = ({
     }
   });
 
-  const isUSDCWithdraw =
-    currencyAmount && direction === TransactionDirection.L2_TO_L1 && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency);
+  // const isUSDCWithdraw =
+  //   currencyAmount && direction === TransactionDirection.L2_TO_L1 && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency);
 
-  const {
-    isApproveRequired: isUSDCApproveRequired,
-    approveAsync: approveUSDCAsync,
-    isApproving: isApprovingUSDC
-  } = useApproval({
-    amount: isUSDCWithdraw ? (currencyAmount as CurrencyAmount<Token>) : undefined,
-    spender: USDCCrossBridgeConfig[L2_CHAIN].l2Bridge as Address
-  });
+  // const { isApproveRequired, approveAsync, isApproving } = useApproval({
+  //   amount: currencyAmount,
+  //   spender: USDCCrossBridgeConfig[L2_CHAIN].l2Bridge as Address
+  // });
 
   const withdrawMutation = useMutation({
     mutationKey: ['withdraw', address],
@@ -339,10 +369,10 @@ const BobBridgeForm = ({
       const l1Address = selectedToken.l1Token.address;
       const l2Address = selectedToken.l2Token.address;
 
-      if (isUSDCApproveRequired) {
+      if (isApproveRequired) {
         onStartApproval?.(data);
 
-        const approveResult = await approveUSDCAsync?.();
+        const approveResult = await approveAsync?.();
 
         if (!approveResult) {
           throw new Error('Approve failed');
@@ -376,18 +406,17 @@ const BobBridgeForm = ({
   });
 
   const handleChangeCurrencyAmount = (currencyAmount: CurrencyAmount<ERC20Token | Ether>, token: BridgeToken) => {
-    if (
-      direction === TransactionDirection.L1_TO_L2 &&
-      chainId === L1_CHAIN &&
-      currencyAmount.currency.isToken &&
-      currencyAmount.greaterThan(0)
-    ) {
-      refetchL1Allowance();
-    }
-
-    if (currencyAmount.greaterThan(0)) {
-      gasEstimateMutation.mutate({ currencyAmount, selectedToken: token });
-    }
+    // if (
+    //   direction === TransactionDirection.L1_TO_L2 &&
+    //   chainId === L1_CHAIN &&
+    //   currencyAmount.currency.isToken &&
+    //   currencyAmount.greaterThan(0)
+    // ) {
+    //   refetchL1Allowance();
+    // }
+    // if (currencyAmount.greaterThan(0)) {
+    //   gasEstimateMutation.mutate({ currencyAmount, selectedToken: token });
+    // }
   };
 
   useEffect(() => {
@@ -513,17 +542,17 @@ const BobBridgeForm = ({
 
   const isBridgingLoading = depositMutation.isPending || withdrawMutation.isPending;
 
-  const isSubmitDisabled = isFormDisabled(form) || !messenger || isFetchingAllowance || isBridgeDisabled;
+  const isSubmitDisabled = isFormDisabled(form) || !messenger || !allowance || isBridgeDisabled;
 
   const btnLabel = isBridgeDisabled
     ? t(i18n)`Bridge Disabled`
-    : isFetchingAllowance
+    : !allowance
       ? t(i18n)`Checking Allowance`
-      : (!isLoadingAllowance && isApproveRequired) || isUSDCApproveRequired
+      : isApproveRequired
         ? t(i18n)`Approve`
         : t(i18n)`Bridge Asset`;
 
-  const isLoading = isFetchingAllowance || isApprovingUSDC || isBridgingLoading;
+  const isLoading = isApproving || isBridgingLoading;
 
   const balance = tokenBalance?.toExact() || '0';
   const humanBalance = tokenBalance?.toSignificant();
