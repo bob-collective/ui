@@ -44,7 +44,6 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
     ref
   ): JSX.Element => {
     const [value, setValue] = useState<string | undefined>(defaultValue?.toString());
-    const [prevValue, setPrevValue] = useState(value);
     const inputRef = useDOMRef(ref);
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -71,8 +70,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       inputRef
     );
 
-    if (prevValue !== valueProp) {
-      setPrevValue(value);
+    if (value !== valueProp?.toString()) {
       if (valueProp !== undefined) setValue(valueProp.toString());
     }
 
