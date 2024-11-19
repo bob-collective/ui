@@ -203,8 +203,8 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
     hash: eoaTransferTx,
     query: {
       meta: {
-        onSuccess: (data: { status: 'success' }) => {
-          if (data?.status === 'success') {
+        onSuccess: (data) => {
+          if ((data as { status: 'success' } | undefined)?.status === 'success') {
             toast.success(t(i18n)`Successfully sent ${amount} ${token?.currency.symbol}`);
 
             form.resetForm();
