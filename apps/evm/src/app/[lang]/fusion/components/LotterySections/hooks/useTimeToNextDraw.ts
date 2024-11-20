@@ -1,7 +1,9 @@
 import { INTERVAL, useQuery } from '@gobob/react-query';
 import { formatDistanceToNow } from 'date-fns';
 
-const useTimeToNextDraw = () => {
+import { getLocale } from '@/utils';
+
+const useTimeToNextDraw = (lang: 'en' | 'zh' = 'en') => {
   return useQuery({
     queryKey: ['lottery-time-to-next-draw'],
     queryFn: () => {
@@ -9,7 +11,7 @@ const useTimeToNextDraw = () => {
 
       date.setUTCHours(24, 0, 0, 0);
 
-      return formatDistanceToNow(date);
+      return formatDistanceToNow(date, { locale: getLocale(lang as Parameters<typeof getLocale>[0]) });
     },
     refetchInterval: INTERVAL.MINUTE
   });

@@ -49,7 +49,7 @@ const LotteryModal = ({
   const { lang } = useParams();
   const { locale } = useLocale();
   const { data: user } = useGetUser();
-  const { data: timeToNextDraw } = useTimeToNextDraw();
+  const { data: timeToNextDraw } = useTimeToNextDraw(lang as Parameters<typeof useTimeToNextDraw>[0]);
   const {
     data: lotteryRollData,
     isIdle,

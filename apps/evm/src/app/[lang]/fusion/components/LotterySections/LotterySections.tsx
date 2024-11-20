@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useIsClient } from 'usehooks-ts';
 import { useLingui } from '@lingui/react';
+import { useParams } from 'next/navigation';
 import lottery from '@public/assets/lottery.png';
 
 import { LotteryModal } from './LotteryModal';
@@ -20,7 +21,8 @@ const LotterySection = () => {
   const { data: user } = useGetUser();
   const { data: lotteryStatsData, isError, isLoading } = useLotteryStats();
   const { i18n } = useLingui();
-  const { data: timeToNextDraw } = useTimeToNextDraw();
+  const { lang } = useParams();
+  const { data: timeToNextDraw } = useTimeToNextDraw(lang as Parameters<typeof useTimeToNextDraw>[0]);
 
   return (
     <>

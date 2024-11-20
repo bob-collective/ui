@@ -44,7 +44,7 @@ const TimeStep = ({ step, data, currentStep }: TimeStepProps): JSX.Element => {
       return step === 'challenge-period' ? <Trans>7 days</Trans> : <Trans>2 hours</Trans>;
     }
 
-    return <Trans>{formatDistanceToNow(data.statusEndDate)} remaining</Trans>;
+    return <Trans>{formatDistanceToNow(data.statusEndDate, {})} remaining</Trans>;
   }, [step, currentStep, data.statusEndDate]);
 
   return (
