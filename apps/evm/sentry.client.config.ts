@@ -17,7 +17,7 @@ Sentry.init({
     // https://blog.sentry.io/making-your-javascript-projects-less-noisy/
     "Failed to execute 'removeChild' on 'Node'"
   ],
-  tunnel: '/tunnel',
+  tunnel: '/api/tunnel',
   integrations: [
     // nextjs integration is deprecated in favour of browser integration
     Sentry.browserTracingIntegration(),
