@@ -20,8 +20,6 @@ if (!L2_CHAIN || !validL2Chains.includes(L2_CHAIN) || (isL1Testnet && !isTestnet
   throw new Error('Missing or invalid L2 chain');
 }
 
-const isL1Chain = (chain: Chain) => chain?.id === L1_CHAIN;
-
 const isL2Chain = (chain: Chain) => chain?.id === L2_CHAIN;
 
 const isValidChain = (chainId: ChainId) => chainId === L1_CHAIN || chainId === L2_CHAIN;
@@ -31,4 +29,4 @@ const isProd = !isL1Testnet;
 const chainL1: Chain = isProd ? mainnet : sepolia;
 const chainL2: Chain = isProd ? bob : bobSepolia;
 
-export { L1_CHAIN, L2_CHAIN, chainL1, chainL2, isL1Chain, isL2Chain, isProd, isValidChain };
+export { L1_CHAIN, L2_CHAIN, chainL1, chainL2, isL2Chain, isProd, isValidChain };
