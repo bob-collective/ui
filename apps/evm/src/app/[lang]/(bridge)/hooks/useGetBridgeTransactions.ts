@@ -113,10 +113,6 @@ const getWithdrawBridgeTransactions = (enableWestEth: boolean) => gql`
 
 const { deposit: depositUrlPath, withdraw: withdrawUrlPath } = {
   [ChainId.BOB]: { deposit: 'bridge-deposits-mainnet/1.0/gn', withdraw: 'bridge-withdraws-bob/1.0/gn' },
-  [ChainId.OLD_BOB_SEPOLIA]: {
-    deposit: 'bridge-deposits-sepolia/1.0',
-    withdraw: 'bridge-withdraws-bob-testnet/1.0/gn'
-  },
   [ChainId.BOB_SEPOLIA]: {
     deposit: 'testnet-bridge-deposits-sepolia/test/gn',
     withdraw: 'testnet-bridge-withdraws-bob-sepolia/test/gn'
