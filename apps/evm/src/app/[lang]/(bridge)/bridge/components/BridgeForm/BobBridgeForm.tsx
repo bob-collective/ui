@@ -1,8 +1,7 @@
 'use client';
 
-import { NumberLike } from '@eth-optimism/sdk';
 import { Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
-import { UINT_256_MAX, useApproval } from '@gobob/hooks';
+import { useApproval } from '@gobob/hooks';
 import { useMutation, usePrices } from '@gobob/react-query';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { useAccount, useChainId, useIsContract, usePublicClient } from '@gobob/wagmi';
@@ -13,16 +12,22 @@ import Big from 'big.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
-import { useOPWagmiConfig } from '@eth-optimism/op-app';
-import { useWriteDepositERC20, useWriteDepositETH } from 'op-wagmi';
+import { USDC } from '@gobob/tokens';
 
-import { useCrossChainMessenger } from '../../hooks';
+import { useWriteDepositERC20 } from '../../hooks/erc20';
 
 import { BridgeAlert } from './BridgeAlert';
 
 import { AuthButton } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
-import { BridgeToken, useBalances, useBridgeTokens } from '@/hooks';
+import {
+  BridgeToken,
+  useBalances,
+  useBridgeTokens,
+  usePublicClientL1,
+  usePublicClientL2,
+  useWalletClientL1
+} from '@/hooks';
 import {
   BRIDGE_AMOUNT,
   BRIDGE_ASSET,
@@ -76,25 +81,16 @@ const BobBridgeForm = ({
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
 
-  const messenger = useCrossChainMessenger();
-
   const [amount, setAmount] = useDebounceValue('', 300);
 
   const { isContract: isSmartAccount } = useIsContract({ address, chainId: bridgeChainId });
 
-  const { opConfig } = useOPWagmiConfig({
-    type: 'op',
-    chainId: chain?.id
-  });
+  const publicClientL1 = usePublicClientL1();
+  const publicClientL2 = usePublicClientL2();
 
-  const l1PublicClient = usePublicClient({ chainId });
+  const { data: l1ERC20TxHash, writeDepositERC20Async } = useWriteDepositERC20();
 
-  const { data: l1TxHash, writeDepositETHAsync } = useWriteDepositETH({
-    config: opConfig
-  });
-  const { data: l1ERC20TxHash, writeDepositERC20Async } = useWriteDepositERC20({
-    config: opConfig
-  });
+  const walletClientL1 = useWalletClientL1();
 
   const nativeToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
 
@@ -134,112 +130,34 @@ const BobBridgeForm = ({
     [i18n]
   );
 
-  const gasEstimateMutation = useMutation({
-    mutationKey: ['gasEstimate', amount, address],
-    mutationFn: async ({
-      currencyAmount,
-      selectedToken
-    }: {
-      selectedToken: BridgeToken;
-      currencyAmount: CurrencyAmount<ERC20Token | Ether>;
-    }) => {
-      if (!messenger) {
-        throw new Error('Missing messenger');
-      }
-
-      if (currencyAmount.currency.isNative) {
-        const amount = currencyAmount.numerator.toString();
-
-        const gasAmount = await (direction === TransactionDirection.L1_TO_L2
-          ? messenger.estimateGas.depositETH(amount)
-          : messenger.estimateGas.withdrawETH(amount));
-
-        return CurrencyAmount.fromRawAmount(nativeToken, gasAmount.toBigInt());
-      }
-
-      const l1Address = selectedToken.l1Token.address;
-      const l2Address = selectedToken.l2Token.address;
-      const amount = currencyAmount.numerator.toString();
-
-      // TODO: USDC requires approval on withdraw
-      if (direction === TransactionDirection.L1_TO_L2) {
-        const approval = await messenger.approval(l1Address, l2Address);
-
-        const approvalAmount = CurrencyAmount.fromRawAmount(currencyAmount.currency, approval.toBigInt());
-
-        if (approvalAmount.lessThan(currencyAmount)) {
-          const gasAmount = await messenger.estimateGas.approveERC20(
-            l1Address,
-            l2Address,
-            UINT_256_MAX as unknown as NumberLike
-          );
-
-          return CurrencyAmount.fromRawAmount(nativeToken, gasAmount.toBigInt());
-        }
-      }
-
-      const gasAmount = await (direction === TransactionDirection.L1_TO_L2
-        ? messenger.estimateGas.depositERC20(l1Address, l2Address, amount)
-        : messenger.estimateGas.withdrawERC20(l1Address, l2Address, amount));
-
-      return CurrencyAmount.fromRawAmount(nativeToken, gasAmount.toBigInt());
-    }
-  });
-
   const isBridgeDisabled =
     direction === TransactionDirection.L1_TO_L2
       ? selectedToken?.l1Token.bridgeDisabled
       : selectedToken?.l2Token.bridgeDisabled;
 
-  // const {
-  //   data: allowance,
-  //   refetch: refetchL1Allowance,
-  //   isLoading: isLoadingAllowance,
-  //   isFetching: isFetchingAllowance
-  // } = useQuery({
-  //   queryKey: ['allowance', ticker, address],
-  //   enabled: Boolean(
-  //     !isBridgeDisabled &&
-  //       currencyAmount &&
-  //       address &&
-  //       selectedCurrency?.isToken &&
-  //       direction === TransactionDirection.L1_TO_L2
-  //   ),
-  //   queryFn: async () => {
-  //     if (!messenger) {
-  //       throw new Error('Missing messenger');
-  //     }
+  const shouldCheckAllowance =
+    currencyAmount &&
+    currencyAmount.currency.isToken &&
+    (direction === TransactionDirection.L1_TO_L2 ||
+      (direction === TransactionDirection.L2_TO_L1 && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency)));
 
-  //     if (!selectedToken || !selectedCurrency) return;
-
-  //     const l1Address = selectedToken.l1Token.address;
-  //     const l2Address = selectedToken.l2Token.address;
-
-  //     const approval = await messenger.approval(l1Address, l2Address);
-
-  //     return CurrencyAmount.fromRawAmount(selectedCurrency, approval.toBigInt());
-  //   },
-  //   staleTime: INTERVAL.HOUR
-  // });
-
-  // const isApproveRequired = useMemo(
-  //   () => !!currencyAmount && !!allowance && allowance.lessThan(currencyAmount),
-  //   [allowance, currencyAmount]
-  // );
+  const contract = selectedCurrency && getBridgeContract(selectedCurrency);
 
   const {
     isApproveRequired,
     approveAsync,
     isApproving,
     allowance,
+    isAllowancePending,
     refetch: refetchAllowance
   } = useApproval({
     amount: currencyAmount,
-    spender: currencyAmount?.currency
-      ? direction === TransactionDirection.L1_TO_L2
-        ? getBridgeContract(currencyAmount.currency).l1Bridge
-        : getBridgeContract(currencyAmount.currency).l2Bridge
-      : undefined
+    spender:
+      shouldCheckAllowance && contract
+        ? direction === TransactionDirection.L1_TO_L2
+          ? contract.l1Bridge
+          : contract.l2Bridge
+        : undefined
   });
 
   const depositMutation = useMutation({
@@ -253,12 +171,12 @@ const BobBridgeForm = ({
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
       recipient: Address;
     }): Promise<BridgeTransaction> => {
-      if (!messenger) {
-        throw new Error('Missing messenger');
-      }
-
       if (!allowance && currencyAmount.currency.isToken) {
         throw new Error('Allowance data missing');
+      }
+
+      if (!(contract && contract.l1Bridge)) {
+        throw new Error('Contract missing');
       }
 
       const data: InitBridgeTransaction = {
@@ -274,94 +192,18 @@ const BobBridgeForm = ({
       if (currencyAmount.currency.isNative) {
         onStartBridge?.(data);
 
-        const tx = await messenger.depositETH(currencyAmount.numerator.toString(), { recipient });
+        const args = await publicClientL2.buildDepositTransaction({
+          account: address!,
+          mint: BigInt(currencyAmount.numerator),
+          to: recipient || address!
+        });
+
+        const transactionHash = await walletClientL1.depositTransaction(args);
 
         return {
           ...data,
-          transactionHash: tx.hash as Address,
+          transactionHash,
           status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
-          date: new Date()
-        };
-      }
-
-      const l1Address = selectedToken.l1Token.address;
-      const l2Address = selectedToken.l2Token.address;
-
-      if (isApproveRequired) {
-        onStartApproval?.(data);
-
-        const tx = await messenger.approveERC20(l1Address, l2Address, UINT_256_MAX.toString());
-
-        await tx.wait();
-
-        await refetchAllowance();
-      }
-
-      onStartBridge?.(data);
-
-      const tx = await messenger.depositERC20(l1Address, l2Address, currencyAmount.numerator.toString(), { recipient });
-
-      return {
-        ...data,
-        transactionHash: tx.hash as Address,
-        status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
-        date: new Date()
-      };
-    },
-    onSuccess: (data) => {
-      gasEstimateMutation.reset();
-      setAmount('');
-      onBridgeSuccess?.(data);
-      form.resetForm();
-    },
-    onError: (error) => {
-      onFailBridge?.();
-      handleError(error);
-    }
-  });
-
-  // const isUSDCWithdraw =
-  //   currencyAmount && direction === TransactionDirection.L2_TO_L1 && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency);
-
-  // const { isApproveRequired, approveAsync, isApproving } = useApproval({
-  //   amount: currencyAmount,
-  //   spender: USDCCrossBridgeConfig[L2_CHAIN].l2Bridge as Address
-  // });
-
-  const withdrawMutation = useMutation({
-    mutationKey: ['withdraw', address],
-    mutationFn: async ({
-      currencyAmount,
-      selectedToken,
-      recipient
-    }: {
-      selectedToken: BridgeToken;
-      currencyAmount: CurrencyAmount<ERC20Token | Ether>;
-      recipient: Address;
-    }): Promise<BridgeTransaction> => {
-      if (!messenger) {
-        throw new Error('Missing messenger');
-      }
-
-      const data: InitBridgeTransaction = {
-        amount: currencyAmount,
-        direction: TransactionDirection.L2_TO_L1,
-        from: address!,
-        to: recipient,
-        l1Token: selectedToken.l1Token.address,
-        l2Token: selectedToken.l2Token.address,
-        type: TransactionType.Bridge
-      };
-
-      if (currencyAmount.currency.isNative) {
-        onStartBridge?.(data);
-
-        const tx = await messenger.withdrawETH(currencyAmount.numerator.toString(), { recipient });
-
-        return {
-          ...data,
-          transactionHash: tx.hash as Address,
-          status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
           date: new Date()
         };
       }
@@ -379,31 +221,116 @@ const BobBridgeForm = ({
         }
 
         await publicClient?.waitForTransactionReceipt({ hash: approveResult });
+
+        refetchAllowance();
       }
+
       onStartBridge?.(data);
 
-      const tx = await messenger.withdrawERC20(l1Address, l2Address, currencyAmount.numerator.toString(), {
-        recipient
+      const transactionHash = await writeDepositERC20Async({
+        args: {
+          l1Token: l1Address,
+          l2Token: l2Address,
+          to: address as Address,
+          amount: BigInt(currencyAmount.numerator)
+        },
+        l1StandardBridge: contract.l1Bridge
       });
 
       return {
         ...data,
-        transactionHash: tx.hash as Address,
-        status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
+        transactionHash,
+        status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
         date: new Date()
       };
     },
     onSuccess: (data) => {
-      gasEstimateMutation.reset();
+      // gasEstimateMutation.reset();
       setAmount('');
       onBridgeSuccess?.(data);
       form.resetForm();
     },
     onError: (error) => {
+      console.log(error);
       onFailBridge?.();
       handleError(error);
     }
   });
+
+  // const withdrawMutation = useMutation({
+  //   mutationKey: ['withdraw', address],
+  //   mutationFn: async ({
+  //     currencyAmount,
+  //     selectedToken,
+  //     recipient
+  //   }: {
+  //     selectedToken: BridgeToken;
+  //     currencyAmount: CurrencyAmount<ERC20Token | Ether>;
+  //     recipient: Address;
+  //   }): Promise<BridgeTransaction> => {
+  //     const data: InitBridgeTransaction = {
+  //       amount: currencyAmount,
+  //       direction: TransactionDirection.L2_TO_L1,
+  //       from: address!,
+  //       to: recipient,
+  //       l1Token: selectedToken.l1Token.address,
+  //       l2Token: selectedToken.l2Token.address,
+  //       type: TransactionType.Bridge
+  //     };
+
+  //     if (currencyAmount.currency.isNative) {
+  //       onStartBridge?.(data);
+
+  //       const tx = await messenger.withdrawETH(currencyAmount.numerator.toString(), { recipient });
+
+  //       return {
+  //         ...data,
+  //         transactionHash: tx.hash as Address,
+  //         status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
+  //         date: new Date()
+  //       };
+  //     }
+
+  //     const l1Address = selectedToken.l1Token.address;
+  //     const l2Address = selectedToken.l2Token.address;
+
+  //     // Only required for USDC
+  //     if (isApproveRequired) {
+  //       onStartApproval?.(data);
+
+  //       const approveResult = await approveAsync?.();
+
+  //       if (!approveResult) {
+  //         throw new Error('Approve failed');
+  //       }
+
+  //       await publicClient?.waitForTransactionReceipt({ hash: approveResult });
+  //     }
+
+  //     onStartBridge?.(data);
+
+  //     const tx = await messenger.withdrawERC20(l1Address, l2Address, currencyAmount.numerator.toString(), {
+  //       recipient
+  //     });
+
+  //     return {
+  //       ...data,
+  //       transactionHash: tx.hash as Address,
+  //       status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
+  //       date: new Date()
+  //     };
+  //   },
+  //   onSuccess: (data) => {
+  //     // gasEstimateMutation.reset();
+  //     setAmount('');
+  //     onBridgeSuccess?.(data);
+  //     form.resetForm();
+  //   },
+  //   onError: (error) => {
+  //     onFailBridge?.();
+  //     handleError(error);
+  //   }
+  // });
 
   const handleChangeCurrencyAmount = (currencyAmount: CurrencyAmount<ERC20Token | Ether>, token: BridgeToken) => {
     // if (
@@ -435,7 +362,7 @@ const BobBridgeForm = ({
 
   useEffect(() => {
     form.resetForm();
-    gasEstimateMutation.reset();
+    // gasEstimateMutation.reset();
 
     setTicker(nativeToken.symbol);
     setGasTicker(nativeToken.symbol);
@@ -463,11 +390,11 @@ const BobBridgeForm = ({
       });
     }
 
-    return withdrawMutation.mutate({
-      currencyAmount,
-      selectedToken,
-      recipient
-    });
+    // return withdrawMutation.mutate({
+    //   currencyAmount,
+    //   selectedToken,
+    //   recipient
+    // });
   };
 
   const initialValues = useMemo(
@@ -540,13 +467,14 @@ const BobBridgeForm = ({
     [tokens, getBalance, getUsdValue]
   );
 
-  const isBridgingLoading = depositMutation.isPending || withdrawMutation.isPending;
+  const isBridgingLoading = depositMutation.isPending;
+  // || withdrawMutation.isPending;
 
-  const isSubmitDisabled = isFormDisabled(form) || !messenger || !allowance || isBridgeDisabled;
+  const isSubmitDisabled = isFormDisabled(form) || (shouldCheckAllowance && isAllowancePending) || isBridgeDisabled;
 
   const btnLabel = isBridgeDisabled
     ? t(i18n)`Bridge Disabled`
-    : !allowance
+    : shouldCheckAllowance && isAllowancePending
       ? t(i18n)`Checking Allowance`
       : isApproveRequired
         ? t(i18n)`Approve`
