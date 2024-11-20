@@ -8,6 +8,7 @@ import { userAgentFromString } from 'next/server';
 import linguiConfig from '../../../lingui.config';
 
 import './index.css';
+import { CSPostHogProvider } from './posthog-provider';
 import { Providers } from './providers';
 
 import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
@@ -66,18 +67,20 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
 
   return (
     <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
-      <body>
-        <div id='root'>
-          <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
-            <UserAgentProvider userAgent={userAgent}>
-              <Providers>{children}</Providers>
-            </UserAgentProvider>
-          </LinguiClientProvider>
-        </div>
-        {/* <!-- Fathom - beautiful, simple website analytics --> */}
-        <script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />
-        {/* <!-- / Fathom --> */}
-      </body>
+      <CSPostHogProvider>
+        <body>
+          <div id='root'>
+            <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
+              <UserAgentProvider userAgent={userAgent}>
+                <Providers>{children}</Providers>
+              </UserAgentProvider>
+            </LinguiClientProvider>
+          </div>
+          {/* <!-- Fathom - beautiful, simple website analytics --> */}
+          <script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />
+          {/* <!-- / Fathom --> */}
+        </body>
+      </CSPostHogProvider>
     </html>
   );
 });
