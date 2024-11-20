@@ -46,22 +46,6 @@ exports[`Tokens Snapshot > should match snapshot for tokens 1`] = `
   },
   "10": [],
   "1101": [],
-  "111": {
-    "tbtc": undefined,
-    "usdc": undefined,
-    "usdt": undefined,
-    "wbtc": undefined,
-    "weth": ERC20Token {
-      "address": "0x4200000000000000000000000000000000000006",
-      "chainId": 111,
-      "decimals": 18,
-      "isNative": false,
-      "isToken": true,
-      "name": "Wrapped Ether",
-      "projectLink": "https://weth.io",
-      "symbol": "WETH",
-    },
-  },
   "11155111": {
     "usdc": ERC20Token {
       "address": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",

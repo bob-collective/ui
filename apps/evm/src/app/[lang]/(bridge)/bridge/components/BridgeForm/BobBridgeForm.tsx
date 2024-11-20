@@ -15,10 +15,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 
-import { useWriteWithdrawERC20 } from '../../hooks';
-
 import { BridgeAlert } from './BridgeAlert';
 
+import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
+import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
 import { AuthButton } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { bridgeContracts } from '@/constants/bridge';
@@ -42,6 +42,7 @@ import {
   bridgeSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
+import { bridgeKeys } from '@/lib/react-query';
 import {
   BridgeTransaction,
   BridgeTransactionStatus,
@@ -49,9 +50,6 @@ import {
   TransactionDirection,
   TransactionType
 } from '@/types';
-import { bridgeKeys } from '@/lib/react-query';
-import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
-import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
@@ -91,9 +89,6 @@ const BobBridgeForm = ({
   const walletClientL1 = useWalletClientL1();
   const walletClientL2 = useWalletClientL2();
 
-  // const { writeDepositERC20Async } = useWriteDepositERC20();
-  const { writeWithdrawERC20Async } = useWriteWithdrawERC20();
-
   const { isContract: isSmartAccount } = useIsContract({ address, chainId: bridgeChainId });
 
   const nativeToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
@@ -113,11 +108,6 @@ const BobBridgeForm = ({
     };
   }, [ticker, tokens, direction]);
 
-  const selectedGasToken = useMemo(
-    () => tokens?.find((token) => token.l1Currency.symbol === gasTicker),
-    [gasTicker, tokens]
-  );
-
   const currencyAmount = useMemo(
     () =>
       selectedCurrency && !isNaN(+amount) ? CurrencyAmount.fromBaseAmount(selectedCurrency, amount || 0) : undefined,
@@ -126,14 +116,28 @@ const BobBridgeForm = ({
 
   const handleError = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (e: any) => {
-      if (e.code === 4001) {
+    (error: any) => {
+      console.error(error);
+
+      onFailBridge?.();
+
+      if (error.code === 4001) {
         toast.error(t(i18n)`User rejected the request`);
       } else {
         toast.error(t(i18n)`Something went wrong. Please try again later.`);
       }
     },
-    [i18n]
+    [i18n, onFailBridge]
+  );
+
+  const handleSuccess = useCallback(
+    (data: BridgeTransaction) => {
+      setAmount('');
+      onBridgeSuccess?.(data);
+      form.resetForm();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [onBridgeSuccess]
   );
 
   const isBridgeDisabled =
@@ -204,6 +208,7 @@ const BobBridgeForm = ({
       if (currencyAmount.currency.isNative) {
         onStartBridge?.(data);
 
+        // simulate deposit
         const args = await publicClientL2.buildDepositTransaction({
           account: address!,
           mint: amount,
@@ -253,16 +258,8 @@ const BobBridgeForm = ({
         date: new Date()
       };
     },
-    onSuccess: (data) => {
-      setAmount('');
-      onBridgeSuccess?.(data);
-      form.resetForm();
-    },
-    onError: (error) => {
-      console.error(error);
-      onFailBridge?.();
-      handleError(error);
-    }
+    onSuccess: handleSuccess,
+    onError: handleError
   });
 
   const withdrawMutation = useMutation({
@@ -303,6 +300,7 @@ const BobBridgeForm = ({
       if (currencyAmount.currency.isNative) {
         onStartBridge?.(data);
 
+        // simulate withdrawal
         const args = await publicClientL1.buildInitiateWithdrawal({
           account: address!,
           value: amount,
@@ -353,16 +351,8 @@ const BobBridgeForm = ({
         date: new Date()
       };
     },
-    onSuccess: (data) => {
-      setAmount('');
-      onBridgeSuccess?.(data);
-      form.resetForm();
-    },
-    onError: (error) => {
-      console.error(error);
-      onFailBridge?.();
-      handleError(error);
-    }
+    onSuccess: handleSuccess,
+    onError: handleError
   });
 
   useEffect(() => {
@@ -375,7 +365,7 @@ const BobBridgeForm = ({
   }, [direction]);
 
   const handleSubmit = async (data: BridgeFormValues) => {
-    if (!currencyAmount || !selectedToken || !selectedGasToken || isBridgeDisabled) return;
+    if (!currencyAmount || !selectedToken || isBridgeDisabled) return;
 
     const recipient = (data[BRIDGE_RECIPIENT] as Address) || undefined;
 
@@ -453,19 +443,21 @@ const BobBridgeForm = ({
     [tokens, getBalance, getUsdValue]
   );
 
+  const isCheckingAllowance = shouldCheckAllowance && isAllowancePending;
+
   const isBridgingLoading = depositMutation.isPending || withdrawMutation.isPending;
 
-  const isSubmitDisabled = isFormDisabled(form) || (shouldCheckAllowance && isAllowancePending) || isBridgeDisabled;
+  const isSubmitDisabled = isFormDisabled(form) || isBridgeDisabled;
 
   const btnLabel = isBridgeDisabled
     ? t(i18n)`Bridge Disabled`
-    : shouldCheckAllowance && isAllowancePending
+    : isCheckingAllowance
       ? t(i18n)`Checking Allowance`
       : isApproveRequired
         ? t(i18n)`Approve`
         : t(i18n)`Bridge Asset`;
 
-  const isLoading = isApproving || isBridgingLoading;
+  const isLoading = isCheckingAllowance || isApproving || isBridgingLoading;
 
   const balance = tokenBalance?.toExact() || '0';
   const humanBalance = tokenBalance?.toSignificant();

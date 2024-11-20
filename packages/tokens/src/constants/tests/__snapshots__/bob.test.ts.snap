@@ -79,22 +79,3 @@ exports[`Token Export Snapshots > should match snapshot for bobTokens 1`] = `
   },
 }
 `;
-
-exports[`Token Export Snapshots > should match snapshot for oldBobSepoliaTokens 1`] = `
-{
-  "tbtc": undefined,
-  "usdc": undefined,
-  "usdt": undefined,
-  "wbtc": undefined,
-  "weth": ERC20Token {
-    "address": "0x4200000000000000000000000000000000000006",
-    "chainId": 111,
-    "decimals": 18,
-    "isNative": false,
-    "isToken": true,
-    "name": "Wrapped Ether",
-    "projectLink": "https://weth.io",
-    "symbol": "WETH",
-  },
-}
-`;
