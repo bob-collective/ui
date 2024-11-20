@@ -11,7 +11,7 @@ const useTimeToNextDraw = () => {
 
       return formatDistanceToNow(date);
     },
-    refetchInterval: INTERVAL.HOUR
+    refetchInterval: INTERVAL.MINUTE
   });
 };
 
