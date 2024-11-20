@@ -63,7 +63,9 @@ export const bridgeKeys = {
     'deposit'
   ],
   btcTokens: () => ['btc-tokens'],
-  strategies: () => ['strategies']
+  strategies: () => ['strategies'],
+  deposit: (address: Address | undefined) => ['bridge-deposit', address],
+  withdraw: (address: Address | undefined) => ['bridge-withdraw', address]
 };
 
 export const appsKeys = {

@@ -1,3 +1,5 @@
+'use client';
+
 import type { Address, ContractFunctionArgs } from 'viem';
 
 import { Config, useAccount, useWriteContract, WriteContractVariables } from '@gobob/wagmi';
@@ -7,7 +9,7 @@ import {
   UseWriteOPActionBaseReturnType,
   WriteDepositERC20ActionParameters,
   WriteOPContractBaseParameters
-} from './types.js';
+} from './types';
 
 import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
 import { L1_CHAIN } from '@/constants';

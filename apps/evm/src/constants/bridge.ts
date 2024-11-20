@@ -3,6 +3,7 @@ import { USDC } from '@gobob/tokens';
 import { Address } from 'viem';
 
 import { wstETH } from './assets';
+import { L2_CHAIN } from './chain';
 
 const configConduit = {
   [ChainId.BOB]: {
@@ -45,11 +46,11 @@ const bridgeContracts = {
     }
   },
   Standard: {
-    l1Bridge: configConduit[ChainId.BOB_SEPOLIA].L1StandardBridge,
+    l1Bridge: configConduit[L2_CHAIN].L1StandardBridge,
     l2Bridge: '0x4200000000000000000000000000000000000010' as Address
   },
   ETH: {
-    l1Bridge: configConduit[ChainId.BOB_SEPOLIA].L1StandardBridge,
+    l1Bridge: configConduit[L2_CHAIN].L1StandardBridge,
     l2Bridge: '0x4200000000000000000000000000000000000010' as Address
   }
 } as const;

@@ -1,7 +1,50 @@
 import { Abi } from 'viem';
 
-export const l1StandardBridgeAbi: Abi = [
-  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+export const l2StandardBridgeAbi: Abi = [
+  {
+    stateMutability: 'nonpayable',
+    type: 'constructor',
+    inputs: [
+      {
+        name: '_otherBridge',
+        internalType: 'address payable',
+        type: 'address'
+      }
+    ]
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'l1Token',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      {
+        name: 'l2Token',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: false },
+      {
+        name: 'amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false
+      },
+      {
+        name: 'extraData',
+        internalType: 'bytes',
+        type: 'bytes',
+        indexed: false
+      }
+    ],
+    name: 'DepositFinalized'
+  },
   {
     type: 'event',
     anonymous: false,
@@ -72,72 +115,6 @@ export const l1StandardBridgeAbi: Abi = [
     type: 'event',
     anonymous: false,
     inputs: [
-      {
-        name: 'l1Token',
-        internalType: 'address',
-        type: 'address',
-        indexed: true
-      },
-      {
-        name: 'l2Token',
-        internalType: 'address',
-        type: 'address',
-        indexed: true
-      },
-      { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      { name: 'to', internalType: 'address', type: 'address', indexed: false },
-      {
-        name: 'amount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false
-      },
-      {
-        name: 'extraData',
-        internalType: 'bytes',
-        type: 'bytes',
-        indexed: false
-      }
-    ],
-    name: 'ERC20DepositInitiated'
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'l1Token',
-        internalType: 'address',
-        type: 'address',
-        indexed: true
-      },
-      {
-        name: 'l2Token',
-        internalType: 'address',
-        type: 'address',
-        indexed: true
-      },
-      { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      { name: 'to', internalType: 'address', type: 'address', indexed: false },
-      {
-        name: 'amount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false
-      },
-      {
-        name: 'extraData',
-        internalType: 'bytes',
-        type: 'bytes',
-        indexed: false
-      }
-    ],
-    name: 'ERC20WithdrawalFinalized'
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
       { name: 'from', internalType: 'address', type: 'address', indexed: true },
       { name: 'to', internalType: 'address', type: 'address', indexed: true },
       {
@@ -180,8 +157,20 @@ export const l1StandardBridgeAbi: Abi = [
     type: 'event',
     anonymous: false,
     inputs: [
+      {
+        name: 'l1Token',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
+      {
+        name: 'l2Token',
+        internalType: 'address',
+        type: 'address',
+        indexed: true
+      },
       { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: false },
       {
         name: 'amount',
         internalType: 'uint256',
@@ -195,34 +184,7 @@ export const l1StandardBridgeAbi: Abi = [
         indexed: false
       }
     ],
-    name: 'ETHDepositInitiated'
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      { name: 'to', internalType: 'address', type: 'address', indexed: true },
-      {
-        name: 'amount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false
-      },
-      {
-        name: 'extraData',
-        internalType: 'bytes',
-        type: 'bytes',
-        indexed: false
-      }
-    ],
-    name: 'ETHWithdrawalFinalized'
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [{ name: 'version', internalType: 'uint8', type: 'uint8', indexed: false }],
-    name: 'Initialized'
+    name: 'WithdrawalInitiated'
   },
   {
     stateMutability: 'view',
@@ -293,54 +255,6 @@ export const l1StandardBridgeAbi: Abi = [
     outputs: []
   },
   {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
-      { name: '_l1Token', internalType: 'address', type: 'address' },
-      { name: '_l2Token', internalType: 'address', type: 'address' },
-      { name: '_amount', internalType: 'uint256', type: 'uint256' },
-      { name: '_minGasLimit', internalType: 'uint32', type: 'uint32' },
-      { name: '_extraData', internalType: 'bytes', type: 'bytes' }
-    ],
-    name: 'depositERC20',
-    outputs: []
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
-      { name: '_l1Token', internalType: 'address', type: 'address' },
-      { name: '_l2Token', internalType: 'address', type: 'address' },
-      { name: '_to', internalType: 'address', type: 'address' },
-      { name: '_amount', internalType: 'uint256', type: 'uint256' },
-      { name: '_minGasLimit', internalType: 'uint32', type: 'uint32' },
-      { name: '_extraData', internalType: 'bytes', type: 'bytes' }
-    ],
-    name: 'depositERC20To',
-    outputs: []
-  },
-  {
-    stateMutability: 'payable',
-    type: 'function',
-    inputs: [
-      { name: '_minGasLimit', internalType: 'uint32', type: 'uint32' },
-      { name: '_extraData', internalType: 'bytes', type: 'bytes' }
-    ],
-    name: 'depositETH',
-    outputs: []
-  },
-  {
-    stateMutability: 'payable',
-    type: 'function',
-    inputs: [
-      { name: '_to', internalType: 'address', type: 'address' },
-      { name: '_minGasLimit', internalType: 'uint32', type: 'uint32' },
-      { name: '_extraData', internalType: 'bytes', type: 'bytes' }
-    ],
-    name: 'depositETHTo',
-    outputs: []
-  },
-  {
     stateMutability: 'view',
     type: 'function',
     inputs: [
@@ -377,7 +291,7 @@ export const l1StandardBridgeAbi: Abi = [
     outputs: []
   },
   {
-    stateMutability: 'nonpayable',
+    stateMutability: 'payable',
     type: 'function',
     inputs: [
       { name: '_l1Token', internalType: 'address', type: 'address' },
@@ -387,39 +301,14 @@ export const l1StandardBridgeAbi: Abi = [
       { name: '_amount', internalType: 'uint256', type: 'uint256' },
       { name: '_extraData', internalType: 'bytes', type: 'bytes' }
     ],
-    name: 'finalizeERC20Withdrawal',
-    outputs: []
-  },
-  {
-    stateMutability: 'payable',
-    type: 'function',
-    inputs: [
-      { name: '_from', internalType: 'address', type: 'address' },
-      { name: '_to', internalType: 'address', type: 'address' },
-      { name: '_amount', internalType: 'uint256', type: 'uint256' },
-      { name: '_extraData', internalType: 'bytes', type: 'bytes' }
-    ],
-    name: 'finalizeETHWithdrawal',
-    outputs: []
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
-      {
-        name: '_messenger',
-        internalType: 'contract CrossDomainMessenger',
-        type: 'address'
-      }
-    ],
-    name: 'initialize',
+    name: 'finalizeDeposit',
     outputs: []
   },
   {
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: 'l2TokenBridge',
+    name: 'l1TokenBridge',
     outputs: [{ name: '', internalType: 'address', type: 'address' }]
   },
   {
@@ -439,15 +328,33 @@ export const l1StandardBridgeAbi: Abi = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: 'otherBridge',
-    outputs: [{ name: '', internalType: 'contract StandardBridge', type: 'address' }]
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
     name: 'version',
     outputs: [{ name: '', internalType: 'string', type: 'string' }]
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: '_l2Token', internalType: 'address', type: 'address' },
+      { name: '_amount', internalType: 'uint256', type: 'uint256' },
+      { name: '_minGasLimit', internalType: 'uint32', type: 'uint32' },
+      { name: '_extraData', internalType: 'bytes', type: 'bytes' }
+    ],
+    name: 'withdraw',
+    outputs: []
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: '_l2Token', internalType: 'address', type: 'address' },
+      { name: '_to', internalType: 'address', type: 'address' },
+      { name: '_amount', internalType: 'uint256', type: 'uint256' },
+      { name: '_minGasLimit', internalType: 'uint32', type: 'uint32' },
+      { name: '_extraData', internalType: 'bytes', type: 'bytes' }
+    ],
+    name: 'withdrawTo',
+    outputs: []
   },
   { stateMutability: 'payable', type: 'receive' }
 ] as const;
