@@ -16,6 +16,8 @@ declare global {
       NEXT_PUBLIC_GTM_ID: string;
       NEXT_PUBLIC_GA_ID: string;
       NEXT_PUBLIC_TRACES_SAMPLE_RATE: `${number}`;
+
+      SENTRY_AUTH_TOKEN: string;
     }
   }
 }

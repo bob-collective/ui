@@ -47,5 +47,10 @@ const nextConfig = {
 };
 
 export default withSentryConfig(nextConfig, {
-  hideSourceMaps: true
+  // An auth token is required for uploading source maps.
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  hideSourceMaps: true,
+  release: {
+    create: false
+  }
 });

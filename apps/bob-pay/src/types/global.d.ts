@@ -24,6 +24,8 @@ declare global {
 
       KV_REST_API_URL: string;
       KV_REST_API_TOKEN: string;
+
+      SENTRY_AUTH_TOKEN: string;
     }
   }
 }
