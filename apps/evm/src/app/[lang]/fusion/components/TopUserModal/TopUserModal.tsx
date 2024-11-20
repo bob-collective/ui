@@ -3,6 +3,7 @@ import { colors } from '@gobob/ui/src/theme/themes/bob/colors';
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { PopupModal, useCalendlyEventListener } from 'react-calendly';
+// import { sendGTMEvent } from '@next/third-parties/google';
 
 type Props = {
   onClose: () => void;
@@ -16,7 +17,10 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   useCalendlyEventListener({
-    onEventScheduled: onClose
+    onEventScheduled: () => {
+      // sendGTMEvent(e.data); // send `.event` and `.payload`
+      onClose();
+    }
   });
 
   return (
