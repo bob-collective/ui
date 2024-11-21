@@ -19,11 +19,8 @@ jobs:
         uses: ./.github/common-actions/install
 
       - name: Install Playwright Browsers
+        working-directory: ./apps/e2e
         run: pnpm exec playwright install
-
-      - name: Run Playwright tests
-        run: pnpm exec playwright test
-        if: false
 
       - name: Run Playwright tests
         run: pnpm test:e2e:ci
