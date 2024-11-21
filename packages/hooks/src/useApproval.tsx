@@ -10,7 +10,11 @@ import { USDTAbi } from './abis/USDT.abi';
 const UINT_256_MAX = BigInt(2 ** 256) - BigInt(1);
 
 export const useGetApprovalData = (amount: CurrencyAmount<Token> | undefined, address?: Address, spender?: Address) => {
-  const { allowance, isPending, refetch } = useTokenAllowance({ token: amount?.currency, owner: address, spender });
+  const { allowance, isPending, refetch, isLoading } = useTokenAllowance({
+    token: amount?.currency,
+    owner: address,
+    spender
+  });
 
   const isRevokeRequired = useMemo((): boolean => {
     if (!amount) return false;
@@ -36,6 +40,7 @@ export const useGetApprovalData = (amount: CurrencyAmount<Token> | undefined, ad
     isApproveRequired,
     isRevokeRequired,
     allowance,
+    isLoading,
     isPending,
     refetch
   };
@@ -57,7 +62,8 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
     isApproveRequired,
     allowance,
     refetch,
-    isPending: isAllowancePending
+    isPending: isAllowancePending,
+    isLoading: isAllowanceLoading
   } = useGetApprovalData(tokenAmount, address, spender);
 
   const abi = useMemo(
@@ -162,6 +168,7 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
     isApproving: isApproving || isSigningApprove,
     isRevoking: isRevoking || isSigningRevoke,
     isAllowancePending,
+    isAllowanceLoading,
     allowance,
     approveAsync,
     approve,

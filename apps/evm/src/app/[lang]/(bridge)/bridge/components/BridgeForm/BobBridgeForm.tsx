@@ -35,7 +35,6 @@ import {
   BRIDGE_AMOUNT,
   BRIDGE_ASSET,
   BRIDGE_BTC_WALLET,
-  BRIDGE_GAS_TOKEN,
   BRIDGE_RECIPIENT,
   BridgeFormValidationParams,
   BridgeFormValues,
@@ -79,7 +78,7 @@ const BobBridgeForm = ({
   const { address } = useAccount();
 
   const { getPrice } = usePrices();
-  const { getBalance } = useBalances(bridgeChainId);
+  const { getBalance, refetch: refetchBalances } = useBalances(bridgeChainId);
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
 
@@ -93,8 +92,9 @@ const BobBridgeForm = ({
 
   const nativeToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
 
-  const [ticker, setTicker] = useState(tickerProp || nativeToken.symbol);
-  const [gasTicker, setGasTicker] = useState(nativeToken.symbol);
+  const defaultTicker = tickerProp || nativeToken.symbol;
+
+  const [ticker, setTicker] = useState(defaultTicker);
 
   const [prevDirection, setPrevDirection] = useState<TransactionDirection>();
 
@@ -129,9 +129,11 @@ const BobBridgeForm = ({
     }
   };
   const handleSuccess = (data: BridgeTransaction) => {
-    setAmount('');
     onBridgeSuccess?.(data);
-    form.resetForm();
+
+    handleReset();
+
+    refetchBalances();
   };
 
   const isBridgeDisabled =
@@ -152,7 +154,7 @@ const BobBridgeForm = ({
     approveAsync,
     isApproving,
     allowance,
-    isAllowancePending,
+    isAllowanceLoading,
     refetch: refetchAllowance
   } = useApproval({
     amount: currencyAmount,
@@ -372,8 +374,7 @@ const BobBridgeForm = ({
   const initialValues = useMemo(
     () => ({
       [BRIDGE_AMOUNT]: '',
-      [BRIDGE_ASSET]: ticker,
-      [BRIDGE_GAS_TOKEN]: gasTicker,
+      [BRIDGE_ASSET]: defaultTicker,
       [BRIDGE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -401,14 +402,17 @@ const BobBridgeForm = ({
     hideErrors: 'untouched'
   });
 
-  if (prevDirection !== direction) {
+  const handleReset = () => {
     setPrevDirection(direction);
 
     form.resetForm();
 
-    setTicker(nativeToken.symbol);
-    setGasTicker(nativeToken.symbol);
+    setTicker(defaultTicker);
     setAmount('');
+  };
+
+  if (prevDirection !== direction) {
+    handleReset();
   }
 
   const handleChangeTicker = (currency: Currency) => {
@@ -438,7 +442,7 @@ const BobBridgeForm = ({
     [tokens, getBalance, getUsdValue]
   );
 
-  const isCheckingAllowance = shouldCheckAllowance && isAllowancePending;
+  const isCheckingAllowance = shouldCheckAllowance && (isAllowanceLoading || !allowance);
 
   const isBridgingLoading = depositMutation.isPending || withdrawMutation.isPending;
 
@@ -455,6 +459,7 @@ const BobBridgeForm = ({
   const isLoading = isCheckingAllowance || isApproving || isBridgingLoading;
 
   const balance = tokenBalance?.toExact() || '0';
+
   const humanBalance = tokenBalance?.toSignificant();
 
   return (
