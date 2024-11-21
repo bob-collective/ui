@@ -6,7 +6,7 @@ import { Address, useAccount } from '@gobob/wagmi';
 import { useStore } from '@tanstack/react-store';
 import request, { gql } from 'graphql-request';
 import { useCallback } from 'react';
-import { TransactionReceipt, isAddressEqual } from 'viem';
+import { TransactionReceipt, decodeAbiParameters, isAddressEqual, parseAbiParameters } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
 
 import { ETH, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
@@ -15,47 +15,62 @@ import { bridgeKeys } from '@/lib/react-query';
 import { store } from '@/lib/store';
 import { BridgeTransaction, BridgeTransactionStatus, TransactionDirection, TransactionType } from '@/types';
 
-type Erc20TransactionResponse = {
-  remoteToken: Address;
-  localToken: Address;
-} & EthTransactionResponse;
-
-type EthTransactionResponse = {
+type BaseTransactionResponse = {
   from: Address;
   to: Address;
   blockNumber: number;
   transactionHash: Address;
   timestamp: number;
-  amount: bigint;
-  data: string;
 };
 
-type BridgeTransactionResponse = {
-  eth: EthTransactionResponse[];
+type Erc20TransactionResponse = BaseTransactionResponse & {
+  remoteToken: Address;
+  localToken: Address;
+  amount: bigint;
+};
+
+type EthTransactionResponse = BaseTransactionResponse & {
+  amount: bigint;
+};
+
+type EthRawTransactionResponse = BaseTransactionResponse & {
+  opaqueData: Address;
+};
+
+type BridgeDepositTransactionResponse = {
+  l1StandardBridgeEth: EthTransactionResponse[];
+  optimismPortalEth: EthRawTransactionResponse[];
   erc20: Erc20TransactionResponse[];
 };
 
-type WithdrawBridgeTransactionResponse = BridgeTransactionResponse & {
-  westEth: Erc20TransactionResponse[];
+type BridgeWithdrawTransactionResponse = {
+  l1StandardBridgeEth: EthTransactionResponse[];
+  l2MessagePasserEth: EthTransactionResponse[];
+  erc20: Erc20TransactionResponse[];
+  westEth?: Erc20TransactionResponse[];
 };
 
 type RawTransactionsData = {
-  deposits: BridgeTransactionResponse;
-  withdraws: BridgeTransactionResponse & {
-    westEth?: Erc20TransactionResponse[];
-  };
+  deposits: BridgeDepositTransactionResponse;
+  withdraws: BridgeWithdrawTransactionResponse;
 };
-
 const getDepositBridgeTransactions = gql`
   query getBridgeDeposits($address: String!) {
-    eth: ethbridgeInitiateds(where: { from_starts_with_nocase: $address }) {
+    l1StandardBridgeEth: ethbridgeInitiateds(where: { from_starts_with_nocase: $address }) {
       from
       to
       blockNumber: block_number
       transactionHash: transactionHash_
       timestamp: timestamp_
       amount
-      data: extraData
+    }
+    optimismPortalEth: transactionDepositeds(where: { from_starts_with_nocase: $address }) {
+      from
+      to
+      blockNumber: block_number
+      transactionHash: transactionHash_
+      timestamp: timestamp_
+      opaqueData
     }
     erc20: erc20BridgeInitiateds(where: { from_starts_with_nocase: $address }) {
       from
@@ -66,21 +81,27 @@ const getDepositBridgeTransactions = gql`
       transactionHash: transactionHash_
       timestamp: timestamp_
       amount
-      data: extraData
     }
   }
 `;
 
 const getWithdrawBridgeTransactions = (enableWestEth: boolean) => gql`
   query getBridgeDeposits($address: String!, $westEthAddress: String) {
-    eth: ethbridgeInitiateds(where: { from_starts_with_nocase: $address }) {
+    l1StandardBridgeEth: ethbridgeInitiateds(where: { from_starts_with_nocase: $address }) {
       from
       to
       blockNumber: block_number
       transactionHash: transactionHash_
       timestamp: timestamp_
       amount
-      data: extraData
+    }
+    l2MessagePasserEth: messagePasseds(where: { sender_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }) {
+      from: sender
+      to: target
+      blockNumber: block_number
+      transactionHash: transactionHash_
+      timestamp: timestamp_
+      amount: value
     }
     erc20: erc20BridgeInitiateds(where: { from_starts_with_nocase: $address }) {
       from
@@ -91,7 +112,6 @@ const getWithdrawBridgeTransactions = (enableWestEth: boolean) => gql`
       transactionHash: transactionHash_
       timestamp: timestamp_
       amount
-      data: extraData
     }
    ${
      enableWestEth
@@ -104,7 +124,6 @@ const getWithdrawBridgeTransactions = (enableWestEth: boolean) => gql`
       transactionHash: transactionHash_
       timestamp: timestamp_
       amount
-      data: extraData
     }`
        : ''
    }
@@ -112,7 +131,7 @@ const getWithdrawBridgeTransactions = (enableWestEth: boolean) => gql`
 `;
 
 const { deposit: depositUrlPath, withdraw: withdrawUrlPath } = {
-  [ChainId.BOB]: { deposit: 'bridge-deposits-mainnet/1.0/gn', withdraw: 'bridge-withdraws-bob/1.0/gn' },
+  [ChainId.BOB]: { deposit: 'bridge-deposits-mainnet/prod/gn', withdraw: 'bridge-withdraws-bob/prod/gn' },
   [ChainId.BOB_SEPOLIA]: {
     deposit: 'testnet-bridge-deposits-sepolia/test/gn',
     withdraw: 'testnet-bridge-withdraws-bob-sepolia/test/gn'
@@ -434,8 +453,8 @@ const useGetBridgeTransactions = () => {
     const westEthAddress = L2_CHAIN === ChainId.BOB_SEPOLIA ? undefined : wstETH[L2_CHAIN].address.toLowerCase();
 
     const [deposits, withdraws] = await Promise.all([
-      request<BridgeTransactionResponse>(depositsUrl, getDepositBridgeTransactions, { address }),
-      request<WithdrawBridgeTransactionResponse>(withdrawUrl, getWithdrawBridgeTransactions(!!westEthAddress), {
+      request<BridgeDepositTransactionResponse>(depositsUrl, getDepositBridgeTransactions, { address }),
+      request<BridgeWithdrawTransactionResponse>(withdrawUrl, getWithdrawBridgeTransactions(!!westEthAddress), {
         address,
         westEthAddress
       })
@@ -459,7 +478,19 @@ const useGetBridgeTransactions = () => {
 
     const enabled = !!transactions.data;
 
-    const depositsEth = transactions.data.deposits.eth.map((tx) => ({
+    const transformedDepositData = transactions.data.deposits.optimismPortalEth.map(
+      ({ opaqueData, ...tx }): EthTransactionResponse => ({
+        ...tx,
+        amount: decodeAbiParameters(parseAbiParameters('uint256 mint, uint256 value'), opaqueData)[1]
+      })
+    );
+
+    const ethDeposits: EthTransactionResponse[] = [
+      ...transactions.data.deposits.l1StandardBridgeEth,
+      ...transformedDepositData
+    ];
+
+    const depositsEth = ethDeposits.map((tx) => ({
       queryKey: bridgeKeys.depositEthTransaction(address, tx.transactionHash),
       queryFn: () => getEthDeposit(tx),
       refetchInterval: getDepositRefetchInterval,
@@ -468,7 +499,12 @@ const useGetBridgeTransactions = () => {
       enabled
     }));
 
-    const withdrawsEth = transactions.data.withdraws.eth.map((tx) => ({
+    const ethWithdraw = [
+      ...transactions.data.withdraws.l1StandardBridgeEth,
+      ...transactions.data.withdraws.l2MessagePasserEth
+    ];
+
+    const withdrawsEth = ethWithdraw.map((tx) => ({
       queryKey: bridgeKeys.withdrawEthTransaction(address, tx.transactionHash),
       queryFn: () => getEthWithdraw(tx),
       refetchInterval: getWithdrawRefetchInterval,
