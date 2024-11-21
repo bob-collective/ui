@@ -32,7 +32,7 @@ vi.mock(import('usehooks-ts'), async (importOriginal) => {
 
   return {
     ...actual,
-    useQueryClient: vi.fn()
+    useIsClient: vi.fn()
   };
 });
 
