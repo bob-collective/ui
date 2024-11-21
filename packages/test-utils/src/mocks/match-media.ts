@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 export function mockMatchMedia(media: string, matches: boolean) {
   const desc: PropertyDescriptor = {
     writable: true,
@@ -7,11 +9,11 @@ export function mockMatchMedia(media: string, matches: boolean) {
       return {
         matches,
         media,
-        addEventListener: jest.fn(),
-        addListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        removeListener: jest.fn(),
-        dispatchEvent: jest.fn()
+        addEventListener: vi.fn(),
+        addListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        removeListener: vi.fn(),
+        dispatchEvent: vi.fn()
       };
     }
   };

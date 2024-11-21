@@ -1,7 +1,6 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
 import { Token } from '@gobob/currency';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { Address } from 'viem';
@@ -20,6 +19,7 @@ vi.mock('@/hooks/useFeatureFlag', () => ({
 
 import { useGetStakingStrategies } from '../useGetStakingStrategies';
 
+import { wrapper } from '@/test-utils';
 import { useFeatureFlag } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 
@@ -61,21 +61,16 @@ const mockStrategy: GatewayStrategyContract = {
   }
 };
 
-const createQueryClient = () => new QueryClient();
-
 describe('useGetStakingStrategies', () => {
   beforeEach(vi.clearAllMocks);
 
-  it('should return strategies with Token when BTC_GATEWAY is enabled', async () => {
+  it('should return strategies with Token', async () => {
     (useFeatureFlag as Mock).mockReturnValue(true);
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockStrategy]);
 
-    const queryClient = createQueryClient();
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
       () => useGetStakingStrategies(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);
@@ -105,12 +100,9 @@ describe('useGetStakingStrategies', () => {
     (useFeatureFlag as Mock).mockReturnValue(true);
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockStrategyWithoutToken]);
 
-    const queryClient = createQueryClient();
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
       () => useGetStakingStrategies(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
+      { wrapper }
     );
 
     await waitFor(() => result.current.isSuccess);
@@ -121,21 +113,5 @@ describe('useGetStakingStrategies', () => {
     };
 
     expect(result.current.data).toEqual([expectedData]);
-  });
-
-  it('should not call useGetStrategies when BTC_GATEWAY is disabled', async () => {
-    (useFeatureFlag as Mock).mockReturnValue(false);
-    (gatewaySDK.getStrategies as Mock).mockReturnValue([]);
-
-    const queryClient = createQueryClient();
-    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
-      () => useGetStakingStrategies(),
-      {
-        wrapper: ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      }
-    );
-
-    expect(result.current.data).toEqual(undefined);
-    expect(gatewaySDK.getStrategies).not.toHaveBeenCalled();
   });
 });

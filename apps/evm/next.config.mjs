@@ -16,8 +16,12 @@ const nextConfig = {
   rewrites() {
     return [
       {
+        source: '/fusion-api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_FUSION_API_URL}/:path*`
+      },
+      {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`
+        destination: `${process.env.NEXT_PUBLIC_FUSION_API_URL}/:path*`
       },
       {
         source: '/gateway-api/:path*',
@@ -43,5 +47,10 @@ const nextConfig = {
 };
 
 export default withSentryConfig(nextConfig, {
-  hideSourceMaps: true
+  // An auth token is required for uploading source maps.
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  hideSourceMaps: true,
+  release: {
+    create: false
+  }
 });

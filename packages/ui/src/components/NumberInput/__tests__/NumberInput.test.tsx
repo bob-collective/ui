@@ -2,6 +2,7 @@ import { blur, focus, testA11y, render } from '@gobob/test-utils';
 import { screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { createRef, useState } from 'react';
+import { vi } from 'vitest';
 
 import { NumberInput } from '..';
 
@@ -90,7 +91,7 @@ describe('NumberInput', () => {
   });
 
   it('should emit onValueChange', async () => {
-    const handleValueChange = jest.fn();
+    const handleValueChange = vi.fn();
 
     render(<NumberInput label='Amount' onValueChange={handleValueChange} />);
 
@@ -103,7 +104,7 @@ describe('NumberInput', () => {
   });
 
   it('should emit onBlur', async () => {
-    const handleBlur = jest.fn();
+    const handleBlur = vi.fn();
 
     render(<NumberInput label='Amount' onBlur={handleBlur} />);
 
@@ -117,7 +118,7 @@ describe('NumberInput', () => {
 
   describe('inputMode decimal', () => {
     it('should emit onChange', async () => {
-      const handleChange = jest.fn();
+      const handleChange = vi.fn();
 
       render(<NumberInput defaultValue='10' inputMode='decimal' label='Amount' onChange={handleChange} />);
 
@@ -131,7 +132,7 @@ describe('NumberInput', () => {
     });
 
     it('should not emit onChange', async () => {
-      const handleChange = jest.fn();
+      const handleChange = vi.fn();
 
       render(<NumberInput defaultValue='10.2' inputMode='decimal' label='Amount' onChange={handleChange} />);
 
@@ -147,7 +148,7 @@ describe('NumberInput', () => {
 
   describe('inputMode numeric', () => {
     it('should emit onChange', async () => {
-      const handleChange = jest.fn();
+      const handleChange = vi.fn();
 
       render(<NumberInput label='Amount' onChange={handleChange} />);
 
@@ -159,7 +160,7 @@ describe('NumberInput', () => {
     });
 
     it('should not emit onChange', async () => {
-      const handleChange = jest.fn();
+      const handleChange = vi.fn();
 
       render(<NumberInput defaultValue='10' inputMode='numeric' label='Amount' onChange={handleChange} />);
 

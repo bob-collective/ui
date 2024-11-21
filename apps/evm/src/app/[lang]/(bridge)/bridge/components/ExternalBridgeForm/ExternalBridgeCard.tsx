@@ -1,26 +1,45 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ArrowTopRightOnSquare, Avatar, Card, Flex, Link, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-
-import { Type } from '../../Bridge';
 
 import { Meson } from './Meson';
 import { Owl } from './Owl';
 import { Relay } from './Relay';
-import { Stargate } from './Stargate';
+import { Superbridge } from './Superbridge';
+import { Gas } from './Gas';
+import { FBTC } from './FBTC';
 
-type ExternalBridges = 'stargate' | 'relay' | 'meson' | 'orbiter-finance' | 'owlto-finance';
+import { TransactionDirection } from '@/types';
+
+type ExternalBridges =
+  | 'superbridge'
+  | 'relay'
+  | 'meson'
+  | 'orbiter-finance'
+  | 'owlto-finance'
+  | 'gas'
+  | 'free'
+  | 'fbtc';
 
 // TODO: add missing links
 const bridges: Record<
   ExternalBridges,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  { icon: any | string; href: string | { deposit: string; withdraw: string }; name: string; disabled: boolean }
+  {
+    icon: any | string;
+    href: string | { [TransactionDirection.L1_TO_L2]: string; [TransactionDirection.L2_TO_L1]: string };
+    name: string;
+    disabled: boolean;
+  }
 > = {
-  stargate: {
-    href: 'https://stargate.finance/transfer',
-    icon: Stargate,
-    name: 'Stargate',
-    disabled: true
+  superbridge: {
+    href: 'https://superbridge.app/',
+    name: 'Superbridge',
+    icon: (props: any) => (
+      <Card background='light' padding='none' rounded='full'>
+        <Superbridge {...props} />
+      </Card>
+    ),
+    disabled: false
   },
   relay: {
     href: 'https://relay.link/bridge/bob/',
@@ -39,8 +58,8 @@ const bridges: Record<
     name: 'Orbiter Finance',
     disabled: false,
     href: {
-      deposit: 'https://www.orbiter.finance/?dest=BOB',
-      withdraw: 'https://www.orbiter.finance/?source=BOB'
+      [TransactionDirection.L1_TO_L2]: 'https://www.orbiter.finance/?dest=BOB',
+      [TransactionDirection.L2_TO_L1]: 'https://www.orbiter.finance/?source=BOB'
     }
   },
   'owlto-finance': {
@@ -48,16 +67,38 @@ const bridges: Record<
     icon: Owl,
     name: 'Owlto Finance',
     disabled: false
+  },
+  fbtc: {
+    icon: (props: any) => (
+      <Card background='light' padding='none' rounded='full'>
+        <FBTC {...props} />
+      </Card>
+    ),
+    href: 'https://fbtc.com/bridge',
+    name: 'FBTC',
+    disabled: false
+  },
+  free: {
+    icon: 'https://raw.githubusercontent.com/CodeToFree/free-tunnel/refs/heads/main/public/free.png',
+    name: 'Free Tech',
+    disabled: false,
+    href: 'https://app.free.tech/?token=SolvBTC'
+  },
+  gas: {
+    icon: Gas,
+    name: 'Gas.zip',
+    disabled: false,
+    href: 'https://www.gas.zip/?chainIds=60808'
   }
 };
 
-type Props = { type: Type; bridge: ExternalBridges };
+type Props = { direction: TransactionDirection; bridge: ExternalBridges };
 
 type ExternalBridgeCardProps = Props;
 
-const ExternalBridgeCard = ({ type, bridge }: ExternalBridgeCardProps): JSX.Element => {
+const ExternalBridgeCard = ({ direction, bridge }: ExternalBridgeCardProps): JSX.Element => {
   const { href, name, icon: Icon, disabled } = bridges[bridge];
-  const typeHref = typeof href === 'string' ? href : href[type];
+  const typeHref = typeof href === 'string' ? href : href[direction];
 
   return (
     <Card

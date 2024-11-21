@@ -1,4 +1,4 @@
-import { ChevronDown, IconProps } from '@gobob/ui';
+import { IconProps, Wallet } from '@gobob/ui';
 import {
   BinanceWeb3Wallet,
   CoinbaseWallet,
@@ -15,7 +15,7 @@ import {
 } from '@gobob/icons';
 
 const Icons: Record<string, typeof Metamask> = {
-  Injected: ChevronDown,
+  Injected: Wallet,
   'Binance Web3 Wallet': BinanceWeb3Wallet,
   MetaMask: Metamask,
   'Trust Wallet': TrustWallet,
@@ -28,7 +28,7 @@ const Icons: Record<string, typeof Metamask> = {
   UniSat: UnisatWallet,
   Talisman: TalismanWallet,
   'OKX Wallet': OKXWallet,
-  'Rabby Wallet': RabbyWallet
+  Rabby: RabbyWallet
 };
 
 type WalletIconProps = Omit<IconProps, 'children'> & { name: string };

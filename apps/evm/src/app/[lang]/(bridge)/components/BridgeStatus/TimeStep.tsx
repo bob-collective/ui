@@ -1,14 +1,14 @@
 import { Clock, Flex, FlexProps } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 import { formatDistanceToNow, isFuture } from 'date-fns';
 import { ReactNode, useMemo } from 'react';
-import { Trans } from '@lingui/macro';
 
 import { BridgeTransaction } from '../../hooks';
 
 import { StyledTimePill } from './BridgeStatus.style';
 import { BridgeStep } from './BridgeStep';
 
-import { BridgeSteps } from '@/constants';
+import { BridgeSteps } from '@/types';
 
 const TimeLabel = ({ label }: { label: ReactNode }) => (
   <StyledTimePill size='xs'>

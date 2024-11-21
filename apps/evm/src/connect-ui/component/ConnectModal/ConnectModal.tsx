@@ -26,10 +26,10 @@ import { useLingui } from '@lingui/react';
 
 import { ConnectType, WalletType } from '../../types';
 
-import { WalletList } from './WalletList';
+import { BtcWalletList } from './BtcWalletList';
 import { ConnectedWalletSection } from './ConnectedWalletSection';
 import { ConnectWalletCard } from './ConnectWalletCard';
-import { BitgetWallet } from './walletLinks/BitgetWallet';
+import { EvmWalletList } from './EvmWalletList';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
@@ -53,14 +53,6 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
     const { disconnect } = useDisconnect();
     const { connectors, connectAsync } = useConnect();
     const [step, setStep] = useState<WalletType | undefined>(stepProp);
-
-    let hasBitkeep = undefined;
-
-    if (typeof window !== 'undefined') {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      hasBitkeep = (window as any).bitkeep && window.ethereum;
-    }
-
     const { address: btcWalletAddress, connector: btcWalletConnector } = useSatsAccount({ onConnect: onConnectBtc });
     const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
     const { connectors: satsConnectors, connectAsync: satsConnectAsync } = useSatsConnect();
@@ -308,7 +300,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             </>
           )}
           {(step === 'evm' || type === 'evm') && (
-            <WalletList
+            <EvmWalletList
               connector={connector}
               connectors={connectors}
               pendingConnector={pendingConnector}
@@ -316,9 +308,8 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               onSelectionChange={handleEvmWalletSelect as any}
             />
           )}
-          {(step === 'evm' || type === 'evm') && !hasBitkeep && <BitgetWallet />}
           {(step === 'btc' || type === 'btc') && (
-            <WalletList
+            <BtcWalletList
               connector={btcWalletConnector}
               connectors={satsConnectors}
               pendingConnector={pendingSatsConnector}

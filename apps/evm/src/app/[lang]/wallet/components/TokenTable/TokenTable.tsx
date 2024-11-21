@@ -77,7 +77,7 @@ type TokenTableProps = Omit<TableProps, 'columns' | 'rows'>;
 const TokenTable = ({ ...props }: TokenTableProps): JSX.Element => {
   const { data: tokens } = useTokens(L2_CHAIN);
 
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { getBalance } = useBalances(L2_CHAIN);
 
   const { open } = useConnectModal();

@@ -49,8 +49,6 @@ pnpm-error.log*
 next-env.d.ts
 
 .env
-# Sentry Config File
-.env.sentry-build-plugin
 
 # lingui
 src/locales/*.js

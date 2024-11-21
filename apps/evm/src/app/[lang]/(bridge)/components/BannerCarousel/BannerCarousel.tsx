@@ -14,9 +14,9 @@ import { FusionBanner } from './FusionBanner';
 import { OnrampBanner } from './OnrampBanner';
 import { XBanner } from './XBanner';
 import { HybridL2Banner } from './HybridL2Banner';
+import { OKXCryptopediaBanner } from './OKXCryptopediaBanner';
 
 import { RoutesPath } from '@/constants';
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { SessionStorageKey } from '@/types';
 
 const BannerCarousel = () => {
@@ -27,7 +27,6 @@ const BannerCarousel = () => {
   const params = useParams();
   const isClient = useIsClient();
 
-  const isBtcGatewayEnabled = useFeatureFlag(FeatureFlags.BTC_GATEWAY);
   const [, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
     initializeWithValue: isClient
   });
@@ -80,6 +79,12 @@ const BannerCarousel = () => {
     []
   );
 
+  const onPressOKXCryptopediaBanner = useCallback(
+    () => window.open('https://www.okx.com/web3/discover/cryptopedia/event/bob', '_blank', 'noreferrer'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   return (
     <StyledCarouselWrapper
       aria-label={t(i18n)`navigate to ecosystem section in fusion page`}
@@ -98,10 +103,11 @@ const BannerCarousel = () => {
         swipeable={false}
         transitionDuration={500}
       >
+        <OKXCryptopediaBanner onPress={onPressOKXCryptopediaBanner} />
         <HybridL2Banner onPress={onPressHybridL2Banner} />
         <XBanner onPress={onPressXBanner} />
         <FusionBanner onPress={onPressFusionBanner} />
-        {isBtcGatewayEnabled && <OnrampBanner onPress={onPressOnrampBanner} />}
+        <OnrampBanner onPress={onPressOnrampBanner} />
       </StyledCarousel>
     </StyledCarouselWrapper>
   );

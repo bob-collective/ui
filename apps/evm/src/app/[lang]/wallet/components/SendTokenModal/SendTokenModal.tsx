@@ -67,7 +67,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
   const [recipient, setRecipient] = useState('');
   const [gasTicker, setGasTicker] = useState(nativeToken.symbol);
 
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { getBalance } = useBalances(L2_CHAIN);
   const { data: satsBalance } = useSatsBalance();
   const { connector, address: btcAddress } = useSatsAccount();
@@ -91,7 +91,7 @@ const SendTokenModal = ({ token, onClose, ...props }: SendTokenModalProps): JSX.
   );
 
   const tokenBalance = useMemo(
-    () => (isBtc ? CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.confirmed || 0n) : getBalance(currency.symbol)),
+    () => (isBtc ? CurrencyAmount.fromRawAmount(BITCOIN, satsBalance?.total || 0n) : getBalance(currency.symbol)),
     [isBtc, satsBalance, getBalance, currency.symbol]
   );
 

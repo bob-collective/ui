@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Flex,
   Modal,
@@ -6,18 +7,18 @@ import {
   ModalHeader,
   ModalProps,
   NumberInput,
+  P,
   Radio,
   RadioGroup,
   Span,
-  useForm,
-  P,
-  Alert
+  useForm
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { mergeProps } from '@react-aria/utils';
 import { useDebounceValue } from 'usehooks-ts';
 
-import { GatewayTransactionFee, GatewayTransactionSpeed, GatewayTransactionSpeedData } from '@/types';
+import { isHighFeeRate, isLowFeeRate } from '../../utils';
+
 import {
   BRIDGE_GATEWAY_FEE_RATE_AMOUNT,
   BRIDGE_GATEWAY_FEE_RATE_PROVIDER,
@@ -25,7 +26,7 @@ import {
   bridgeGatewayFeeRateSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
-import { isHighFeeRate, isLowFeeRate } from '@/utils/gateway';
+import { GatewayTransactionFee, GatewayTransactionSpeed, GatewayTransactionSpeedData } from '@/types';
 
 type Props = {
   feeRateData: GatewayTransactionSpeedData;

@@ -24,21 +24,20 @@ import { toast } from '@gobob/ui';
 import { Address, useAccount } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
 import { isAddress } from 'viem';
-
-import { useGetTransactions } from './useGetTransactions';
 
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import {
-  GatewayData,
   GatewayTransactionFee,
   GatewayTransactionSpeed,
   GatewayTransactionSpeedData,
-  GatewayTransactionType
+  GatewayTransactionType,
+  InitGatewayTransaction,
+  TransactionType
 } from '@/types';
 
 const DUST_THRESHOLD = 1000;
@@ -124,15 +123,15 @@ type BridgeParams = {
 
 type UseGatewayLiquidityProps = {
   params: BridgeParams | StakeParams;
-  onMutate?: (data: Optional<GatewayData, 'amount'>) => void;
-  onSuccess?: (data: GatewayData) => void;
+  onMutate?: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
+  onSuccess?: (data: InitGatewayTransaction) => void;
   onError?: () => void;
 };
 
 type UseGatewayReturnType = {
   query: UseGatewayQueryDataReturnType;
   mutation: UseMutationResult<
-    GatewayData,
+    InitGatewayTransaction,
     Error,
     {
       evmAddress: Address | string;
@@ -173,8 +172,6 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const [rawAmount, setAmount] = useDebounceValue('', 300);
 
   const minAmount = useMemo(() => getMinAmount(isTopUpEnabled), [isTopUpEnabled]);
-
-  const { refetchGatewayTxs } = useGetTransactions();
 
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
@@ -229,7 +226,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     opReturnData: evmAddress,
     feeRate: feeRate,
     query: {
-      enabled: Boolean(satsBalance && satsBalance.confirmed > 0n && evmAddress),
+      enabled: Boolean(satsBalance && satsBalance.total > 0n && evmAddress),
       select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount)
     }
   });
@@ -242,9 +239,8 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   }, [feeRatesQueryResult.error, feeEstimateQueryResult.error]);
 
   const balance = useMemo(
-    () =>
-      getBalanceAmount(satsBalance?.confirmed, feeEstimateQueryResult.data, liquidityQueryResult.data?.liquidityAmount),
-    [liquidityQueryResult.data?.liquidityAmount, satsBalance?.confirmed, feeEstimateQueryResult.data]
+    () => getBalanceAmount(satsBalance?.total, feeEstimateQueryResult.data, liquidityQueryResult.data?.liquidityAmount),
+    [liquidityQueryResult.data?.liquidityAmount, satsBalance?.total, feeEstimateQueryResult.data]
   );
 
   const isValidAmount = useCallback(() => {
@@ -319,7 +315,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
   const mutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
-    mutationFn: async ({ evmAddress }: { evmAddress: Address | string }): Promise<GatewayData> => {
+    mutationFn: async ({ evmAddress }: { evmAddress: Address | string }): Promise<InitGatewayTransaction> => {
       if (!satsConnector) {
         throw new Error('Connector missing');
       }
@@ -342,8 +338,8 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
       const { data: quoteData, amount: quoteAmount, protocolFee } = quoteQueryResult.data;
 
-      const data: GatewayData = {
-        type: params.type,
+      const data: InitGatewayTransaction = {
+        type: TransactionType.Gateway,
         fee: protocolFee.add(feeEstimateQueryResult.data),
         ...(params.type === GatewayTransactionType.BRIDGE
           ? { amount: params.token ? CurrencyAmount.fromBaseAmount(params.token, quoteAmount.toExact()) : undefined }
@@ -373,7 +369,6 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     onSuccess: (data) => {
       onSuccess?.(data);
 
-      refetchGatewayTxs();
       liquidityQueryResult.refetch();
 
       queryClient.removeQueries({ queryKey: quoteQueryKey });
@@ -433,4 +428,4 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 };
 
 export { useGateway };
-export type { UseGatewayReturnType, UseGatewayQueryDataReturnType };
+export type { UseGatewayQueryDataReturnType, UseGatewayReturnType };

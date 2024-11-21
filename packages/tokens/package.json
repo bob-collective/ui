@@ -28,11 +28,13 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "clean": "rimraf dist .turbo",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest"
   },
   "dependencies": {
     "@gobob/chains": "workspace:^",
     "@gobob/currency": "workspace:^",
-    "tokenlist": "github:bob-collective/ethereum-optimism.github.io#f1cda28bfd05442182d387d9d1873ce039f2255c"
+    "tokenlist": "github:bob-collective/ethereum-optimism.github.io#f1cda28bfd05442182d387d9d1873ce039f2255c",
+    "viem": "^2.10.2"
   }
 }

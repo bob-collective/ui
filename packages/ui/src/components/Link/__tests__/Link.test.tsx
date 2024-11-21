@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { testA11y, render } from '@gobob/test-utils';
+import { vi } from 'vitest';
 
 import { Link } from '..';
 
@@ -24,7 +25,7 @@ describe('Link', () => {
   });
 
   it('should render pressable link as a span', async () => {
-    const handlePress = jest.fn();
+    const handlePress = vi.fn();
 
     render(<Link onPress={handlePress}>link</Link>);
 
