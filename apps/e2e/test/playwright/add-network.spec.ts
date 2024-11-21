@@ -7,11 +7,11 @@ const test = testWithSynpress(metaMaskFixtures(basicSetup));
 
 const { expect } = test;
 
-test('should add a custom network to MetaMask', async ({ metamask, page }) => {
+test('should add BOB network to MetaMask', async ({ metamask, page }) => {
   // Define the custom network parameters
   const customNetwork = {
-    name: 'Optimism',
-    rpcUrl: 'https://mainnet.optimism.io',
+    name: 'BOB Mainnet',
+    rpcUrl: 'https://rpc.gobob.xyz/',
     chainId: 10,
     symbol: 'ETH'
   };
@@ -20,6 +20,6 @@ test('should add a custom network to MetaMask', async ({ metamask, page }) => {
   await metamask.addNetwork(customNetwork);
 
   // Verify that the chain ID has been updated correctly
-  // Note: '0xa' is the hexadecimal representation of 10
-  await expect(page.locator('#chainId')).toHaveText('0xa');
+  // Note: '0xed88' is the hexadecimal representation of 60808
+  await expect(page.locator('#chainId')).toHaveText('0xed88');
 });

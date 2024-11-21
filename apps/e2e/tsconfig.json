@@ -7,6 +7,6 @@
     "types": ["cypress"],
     "sourceMap": false
   },
-  "include": ["test", "src"],
+  "include": ["playwright.config.ts", "test", "src"],
   "files": ["environment.d.ts"]
 }
