@@ -8,7 +8,7 @@ To access user deposit transactions from Layer 1 (L1) to Layer 2 (L2), utilize t
 
 - **Old Testnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/bridge-deposits-sepolia/1.0/gn`
 - **New Testnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/testnet-bridge-deposits-sepolia/test/gn`
-- **Mainnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/bridge-deposits-mainnet/1.0/gn`
+- **Mainnet:** `https://api.goldsky.com/api/public/project_clto8zgmd1jbw01xig1ge1u0h/subgraphs/bridge-deposits-mainnet/prod/gn`
 
 ### Get All ERC20 Deposits by Address
 
@@ -34,12 +34,12 @@ Replace `0x74f65E8feaCC744e0A6Bf654aB75F0A2aee434e2` with the user address:
 
 ```json
 {
-  ethbridgeInitiateds(where:{from_starts_with_nocase:"0x854AD5bFCF0617D77Ef519c628C4037e8F88c2F6"}) {
+  transactionDepositeds(where:{from_starts_with_nocase:"0x854AD5bFCF0617D77Ef519c628C4037e8F88c2F6"}) {
       from
       to
       block_number
       transactionHash_
-      amount
+      opaqueData
   }
 }
 ```
