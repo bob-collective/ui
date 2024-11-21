@@ -20,7 +20,11 @@ jobs:
 
       - name: Install Playwright Browsers
         working-directory: ./apps/e2e
-        run: pnpm exec playwright install
+        run: pnpm exec playwright install --with-deps
+
+      - name: Build Playwright Cache
+        working-directory: ./apps/e2e
+        run: pnpm build:cache:headless
 
       - name: Run Playwright tests
         run: pnpm test:e2e:ci
