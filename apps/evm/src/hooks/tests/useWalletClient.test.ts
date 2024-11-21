@@ -36,10 +36,6 @@ vi.mock(import('usehooks-ts'), async (importOriginal) => {
   };
 });
 
-vi.mock('usehooks-ts', () => ({
-  useIsClient: vi.fn()
-}));
-
 describe('useWalletClientL1 and useWalletClientL2 hooks', () => {
   const mockUseIsClient = useIsClient as Mock;
   const mockUseAccount = useAccount as Mock;
