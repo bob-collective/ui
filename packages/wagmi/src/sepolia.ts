@@ -3,6 +3,11 @@ import { sepolia as wagmiSepolia } from 'viem/chains';
 
 export const sepolia = defineChain({
   ...wagmiSepolia,
+  rpcUrls: {
+    default: {
+      http: ['https://ethereum-sepolia-rpc.publicnode.com/']
+    }
+  },
   contracts: {
     ...wagmiSepolia.contracts,
     l2OutputOracle: {
