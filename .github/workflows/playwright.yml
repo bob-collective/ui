@@ -19,10 +19,10 @@ jobs:
         uses: ./.github/common-actions/install
 
       - name: Install Playwright Browsers
-        run: pnpm dlx playwright install --with-deps
+        run: pnpm exec playwright install
 
       - name: Run Playwright tests
-        run: pnpm dlx playwright test
+        run: pnpm exec playwright test
         if: false
 
       - name: Run Playwright tests
