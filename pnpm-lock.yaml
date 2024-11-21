@@ -220,8 +220,8 @@ importers:
         specifier: ^2.0.4
         version: 2.0.8(react-dom@18.3.1)(react@18.3.1)
       '@zerodev/sdk':
-        specifier: ^5.3.4
-        version: 5.4.0(viem@2.21.48)
+        specifier: 5.3.4
+        version: 5.3.4(permissionless@0.1.49)(viem@2.21.48)
       big.js:
         specifier: ^6.2.1
         version: 6.2.1
@@ -12816,15 +12816,6 @@ packages:
       viem: ^2.16.3
     dependencies:
       permissionless: 0.1.49(viem@2.21.48)
-      semver: 7.6.3
-      viem: 2.21.48(typescript@5.4.5)(zod@3.23.8)
-    dev: false
-
-  /@zerodev/sdk@5.4.0(viem@2.21.48):
-    resolution: {integrity: sha512-EPASdcmocCvkpYY1KeDTsa1BnQFpX1dBWAuQXMioWMB5YLVRtcMxI6G6JBPCB4SySRw8cM8224L4CUEu91MQNw==}
-    peerDependencies:
-      viem: ^2.21.40
-    dependencies:
       semver: 7.6.3
       viem: 2.21.48(typescript@5.4.5)(zod@3.23.8)
     dev: false
