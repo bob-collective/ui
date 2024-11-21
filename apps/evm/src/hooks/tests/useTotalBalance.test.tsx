@@ -60,7 +60,7 @@ describe('useTotalBalance', () => {
   });
 
   it('returns zero if balances are empty', () => {
-    const chainId = ChainId.OLD_BOB_SEPOLIA;
+    const chainId = ChainId.BOB_SEPOLIA;
 
     mockUsePrices.mockReturnValue({
       getPrice: () => 0
