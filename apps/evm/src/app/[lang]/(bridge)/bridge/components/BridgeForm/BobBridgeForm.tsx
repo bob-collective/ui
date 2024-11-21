@@ -11,7 +11,7 @@ import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 
@@ -96,6 +96,8 @@ const BobBridgeForm = ({
   const [ticker, setTicker] = useState(tickerProp || nativeToken.symbol);
   const [gasTicker, setGasTicker] = useState(nativeToken.symbol);
 
+  const [prevDirection, setPrevDirection] = useState<TransactionDirection>();
+
   const [amount, setAmount] = useDebounceValue('', 300);
 
   const { selectedCurrency, selectedToken } = useMemo(() => {
@@ -114,31 +116,23 @@ const BobBridgeForm = ({
     [selectedCurrency, amount]
   );
 
-  const handleError = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (error: any) => {
-      console.error(error);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleError = (error: any) => {
+    console.error(error);
 
-      onFailBridge?.();
+    onFailBridge?.();
 
-      if (error.code === 4001) {
-        toast.error(t(i18n)`User rejected the request`);
-      } else {
-        toast.error(t(i18n)`Something went wrong. Please try again later.`);
-      }
-    },
-    [i18n, onFailBridge]
-  );
-
-  const handleSuccess = useCallback(
-    (data: BridgeTransaction) => {
-      setAmount('');
-      onBridgeSuccess?.(data);
-      form.resetForm();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onBridgeSuccess]
-  );
+    if (error.code === 4001) {
+      toast.error(t(i18n)`User rejected the request`);
+    } else {
+      toast.error(t(i18n)`Something went wrong. Please try again later.`);
+    }
+  };
+  const handleSuccess = (data: BridgeTransaction) => {
+    setAmount('');
+    onBridgeSuccess?.(data);
+    form.resetForm();
+  };
 
   const isBridgeDisabled =
     direction === TransactionDirection.L1_TO_L2
@@ -355,15 +349,6 @@ const BobBridgeForm = ({
     onError: handleError
   });
 
-  useEffect(() => {
-    form.resetForm();
-
-    setTicker(nativeToken.symbol);
-    setGasTicker(nativeToken.symbol);
-    setAmount('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [direction]);
-
   const handleSubmit = async (data: BridgeFormValues) => {
     if (!currencyAmount || !selectedToken || isBridgeDisabled) return;
 
@@ -415,6 +400,16 @@ const BobBridgeForm = ({
     onSubmit: handleSubmit,
     hideErrors: 'untouched'
   });
+
+  if (prevDirection !== direction) {
+    setPrevDirection(direction);
+
+    form.resetForm();
+
+    setTicker(nativeToken.symbol);
+    setGasTicker(nativeToken.symbol);
+    setAmount('');
+  }
 
   const handleChangeTicker = (currency: Currency) => {
     setTicker(currency.symbol as string);
