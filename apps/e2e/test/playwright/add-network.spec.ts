@@ -12,7 +12,7 @@ test('should add BOB network to MetaMask', async ({ metamask, page }) => {
   const customNetwork = {
     name: 'BOB Mainnet',
     rpcUrl: 'https://rpc.gobob.xyz/',
-    chainId: 10,
+    chainId: 60808,
     symbol: 'ETH'
   };
 
