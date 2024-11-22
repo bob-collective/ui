@@ -18,22 +18,44 @@ jobs:
       - name: Install dependencies
         uses: ./.github/common-actions/install
 
-      - name: Install Playwright Browsers
-        working-directory: ./apps/e2e
-        run: pnpm exec playwright install --with-deps
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@8f1998e9878d786675189ef566a2e4bf24869773 # pin@v1.2.0
 
-      - name: Build Playwright Cache
-        working-directory: ./apps/e2e
-        run: pnpm build:cache:headless
+      - name: Install Playwright dependencies
+        run: pnpm dlx playwright@1.48.2 install-deps
 
-      - name: Run Playwright tests
-        run: pnpm test:e2e:ci
+      # For now, we only need Chromium.
+      - name: Install browsers for Playwright
+        run: pnpm dlx playwright@1.48.2 install chromium
+
+      - name: Install linux dependencies
+        run: |
+          sudo apt-get install --no-install-recommends -y \
+          xvfb
+
+      - name: Serve MetaMask Test Dapp
+        run: |
+          pnpm run serve:test-dapp &
+
+      - name: Build cache
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
-          # SECRET_WORDS: ${{ secrets.SECRET_WORDS }}
+          # SEED_PHRASE: ${{ secrets.SEED_PHRASE }}
           # WALLET_PASSWORD: ${{ secrets.WALLET_PASSWORD }}
-          SECRET_WORDS: 'test test test test test test test test test test test junk'
+          SEED_PHRASE: 'test test test test test test test test test test test junk'
           WALLET_PASSWORD: 'SynpressIsAwesomeNow!!!'
+        run: |
+          xvfb-run pnpm build:e2e:cache
+
+      - name: Run E2E tests (headful)
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          # SEED_PHRASE: ${{ secrets.SEED_PHRASE }}
+          # WALLET_PASSWORD: ${{ secrets.WALLET_PASSWORD }}
+          SEED_PHRASE: 'test test test test test test test test test test test junk'
+          WALLET_PASSWORD: 'SynpressIsAwesomeNow!!!'
+        run: |
+          xvfb-run pnpm test:e2e:ci
 
       - name: Archive e2e artifacts
         uses: actions/upload-artifact@v4
