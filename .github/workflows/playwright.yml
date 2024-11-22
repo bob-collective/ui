@@ -1,0 +1,66 @@
+name: Playwright Tests
+on:
+  deployment_status:
+jobs:
+  e2e:
+    name: Synpress e2e
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status.state == 'success'
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        uses: ./.github/common-actions/install
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@8f1998e9878d786675189ef566a2e4bf24869773 # pin@v1.2.0
+
+      - name: Install Playwright dependencies
+        run: pnpm dlx playwright@1.48.2 install-deps
+
+      # For now, we only need Chromium.
+      - name: Install browsers for Playwright
+        run: pnpm dlx playwright@1.48.2 install chromium
+
+      - name: Install linux dependencies
+        run: |
+          sudo apt-get install --no-install-recommends -y \
+          xvfb
+
+      - name: Serve MetaMask Test Dapp
+        run: |
+          pnpm run serve:test-dapp &
+
+      - name: Build cache
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          # SEED_PHRASE: ${{ secrets.SEED_PHRASE }}
+          # WALLET_PASSWORD: ${{ secrets.WALLET_PASSWORD }}
+          SEED_PHRASE: 'test test test test test test test test test test test junk'
+          WALLET_PASSWORD: 'SynpressIsAwesomeNow!!!'
+        run: |
+          xvfb-run pnpm build:e2e:cache
+
+      - name: Run E2E tests (headful)
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          # SEED_PHRASE: ${{ secrets.SEED_PHRASE }}
+          # WALLET_PASSWORD: ${{ secrets.WALLET_PASSWORD }}
+          SEED_PHRASE: 'test test test test test test test test test test test junk'
+          WALLET_PASSWORD: 'SynpressIsAwesomeNow!!!'
+        run: |
+          xvfb-run pnpm test:e2e:ci
+
+      - name: Archive e2e artifacts
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
