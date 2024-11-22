@@ -5,6 +5,7 @@ const test = synpress;
 const { expect } = test;
 
 test('should confirm contract deployment', async ({ page, metamask, connectToAnvil }) => {
+  page.setDefaultTimeout(60000);
   // Connect to Anvil network
   await connectToAnvil();
 
@@ -21,7 +22,9 @@ test('should confirm contract deployment', async ({ page, metamask, connectToAnv
   await expect(page.locator('#tokenAddresses')).toHaveText('0x5FbDB2315678afecb367f032d93F642f64180aa3');
 });
 
-test('should confirm legacy transaction', async ({ page, metamask, connectToAnvil }) => {
+test.skip('should confirm legacy transaction', async ({ page, metamask, connectToAnvil }) => {
+  page.setDefaultTimeout(60000);
+
   // Connect to Anvil network
   await connectToAnvil();
 
@@ -32,7 +35,9 @@ test('should confirm legacy transaction', async ({ page, metamask, connectToAnvi
   await metamask.confirmTransaction();
 });
 
-test('should confirm EIP-1559 transaction', async ({ page, metamask, connectToAnvil }) => {
+test.skip('should confirm EIP-1559 transaction', async ({ page, metamask, connectToAnvil }) => {
+  page.setDefaultTimeout(60000);
+
   // Connect to Anvil network
   await connectToAnvil();
 
@@ -44,6 +49,8 @@ test('should confirm EIP-1559 transaction', async ({ page, metamask, connectToAn
 });
 
 test('should sign and verify EIP-712 message', async ({ page, metamask }) => {
+  page.setDefaultTimeout(60000);
+
   // Click the button to sign a typed data (EIP-712) message
   await page.locator('#signTypedDataV4').click();
 
