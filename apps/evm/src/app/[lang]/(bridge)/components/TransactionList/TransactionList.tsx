@@ -1,8 +1,8 @@
 import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
 import { Fragment, useMemo } from 'react';
 import { useIsClient } from 'usehooks-ts';
+import { useAccount } from 'wagmi';
 
 import { TransactionItem } from './TransactionItem';
 import {

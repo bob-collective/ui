@@ -1,9 +1,9 @@
-import { useQuery } from '@gobob/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { getAppLogo } from '../utils';
 
-import { apiClient, ResultProject, ResultProjectCategory, ResultProjectVotingInfo } from '@/utils';
 import { appsKeys } from '@/lib/react-query';
+import { apiClient, ResultProject, ResultProjectCategory, ResultProjectVotingInfo } from '@/utils';
 
 type ResultVotingAppData = ResultProject & {
   logoSrc: string;
@@ -38,4 +38,4 @@ const useGetPodiumData = () => {
 };
 
 export { useGetPodiumData };
-export type { ResultVotingAppData, ResultVotingAppCategory, ResultVotingAppInfo };
+export type { ResultVotingAppCategory, ResultVotingAppData, ResultVotingAppInfo };

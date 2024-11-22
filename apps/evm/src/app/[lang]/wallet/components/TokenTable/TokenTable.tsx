@@ -1,16 +1,16 @@
 'use client';
 
 import { CurrencyAmount } from '@gobob/currency';
+import { usePrices } from '@gobob/hooks';
 import { BTC } from '@gobob/icons';
-import { usePrices } from '@gobob/react-query';
 import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { Avatar, Flex, Span, Table, TableProps, useCurrencyFormatter } from '@gobob/ui';
+import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import Big from 'big.js';
 import { useParams, useRouter } from 'next/navigation';
 import { ReactNode, useCallback, useMemo, useState } from 'react';
-import { useLingui } from '@lingui/react';
-import { t, Trans } from '@lingui/macro';
 import { useSessionStorage } from 'usehooks-ts';
 
 import { ReceiveTokenModal } from '../ReceiveTokenModal';
@@ -18,8 +18,8 @@ import { SendTokenModal } from '../SendTokenModal';
 
 import { ButtonGroup } from './ButtonGroup';
 
-import { useConnectModal } from '@/connect-ui';
 import { ChainLogo, ChainLogoProps } from '@/components';
+import { useConnectModal } from '@/connect-ui';
 import { isClient, L2_CHAIN, RoutesPath } from '@/constants';
 import { TokenData, useBalances, useTokens } from '@/hooks';
 import { SessionStorageKey } from '@/types/session-storage';

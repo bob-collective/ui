@@ -1,6 +1,6 @@
-import { UseMutationOptions, useMutation } from '@gobob/react-query';
-import { useChainId, useSignMessage } from '@gobob/wagmi';
+import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
+import { useChainId, useSignMessage } from 'wagmi';
 
 import { apiClient } from '../utils';
 

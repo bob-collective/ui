@@ -1,10 +1,10 @@
 'use client';
 
-import { useAccount } from '@gobob/wagmi';
 import { useMemo } from 'react';
+import { useIsClient } from 'usehooks-ts';
 import { createWalletClient, custom, http } from 'viem';
 import { walletActionsL1, walletActionsL2 } from 'viem/op-stack';
-import { useIsClient } from 'usehooks-ts';
+import { useAccount } from 'wagmi';
 
 import { chainL1, chainL2 } from '../constants';
 

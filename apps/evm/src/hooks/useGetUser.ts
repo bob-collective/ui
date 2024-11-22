@@ -1,9 +1,11 @@
 'use client';
 
-import { INTERVAL, UseQueryOptions, useQuery } from '@gobob/react-query';
-import { useAccount } from '@gobob/wagmi';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+import { useAccount } from 'wagmi';
 
 import { UserResponse, apiClient } from '../utils';
+
+import { INTERVAL } from '@/constants';
 
 const useGetUser = (
   props: Omit<

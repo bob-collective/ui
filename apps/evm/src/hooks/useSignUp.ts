@@ -1,8 +1,8 @@
-import { useMutation, UseMutationOptions } from '@gobob/react-query';
 import { toast } from '@gobob/ui';
-import { useAccount, useSignMessage } from '@gobob/wagmi';
 import { chain as chainFn } from '@react-aria/utils';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
+import { useAccount, useSignMessage } from 'wagmi';
 
 import { signUpKeys } from '../lib/react-query';
 import { apiClient } from '../utils';

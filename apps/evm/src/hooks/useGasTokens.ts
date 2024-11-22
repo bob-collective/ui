@@ -1,11 +1,13 @@
 import { ChainId } from '@gobob/chains';
 import { ERC20Token, Ether } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import { NATIVE } from '@gobob/tokens';
+import { useQuery } from '@tanstack/react-query';
 
 import { tokens } from '../constants/assets';
 
 import { TokenData } from './useTokens';
+
+import { INTERVAL } from '@/constants';
 
 const useGasTokens = (chainId: ChainId) => {
   return useQuery<TokenData[]>({

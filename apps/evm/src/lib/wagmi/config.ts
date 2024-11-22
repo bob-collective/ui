@@ -42,6 +42,7 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
   ];
 
   return createConfig({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     chains: (isProd ? prodChains : allChains) as any,
     multiInjectedProviderDiscovery,
     transports: {
@@ -54,4 +55,4 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
   });
 };
 
-export { allChains, prodChains, testnetChains, getConfig };
+export { getConfig };

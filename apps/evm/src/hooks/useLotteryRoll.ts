@@ -1,4 +1,4 @@
-import { useMutation, UseMutationOptions, useQueryClient } from '@gobob/react-query';
+import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query';
 
 import { useGetUser } from './useGetUser';
 

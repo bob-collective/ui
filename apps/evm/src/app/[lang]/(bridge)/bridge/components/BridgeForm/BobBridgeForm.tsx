@@ -2,18 +2,18 @@
 'use client';
 
 import { Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
-import { useApproval } from '@gobob/hooks';
-import { useMutation, usePrices } from '@gobob/react-query';
+import { useApproval, usePrices } from '@gobob/hooks';
 import { USDC } from '@gobob/tokens';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
-import { useAccount, useIsContract, usePublicClient } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
+import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
 import { useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
+import { useAccount, usePublicClient } from 'wagmi';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -26,6 +26,7 @@ import {
   BridgeToken,
   useBalances,
   useBridgeTokens,
+  useIsContract,
   usePublicClientL1,
   usePublicClientL2,
   useWalletClientL1,

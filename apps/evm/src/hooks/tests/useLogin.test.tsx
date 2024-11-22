@@ -1,16 +1,16 @@
 import { waitFor } from '@testing-library/react';
-import { renderHook, act } from '@testing-library/react-hooks';
-import { useSignMessage, useChainId } from '@gobob/wagmi';
-import { Mock, vi } from 'vitest';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { SiweMessage } from 'siwe';
+import { Mock, vi } from 'vitest';
+import { useChainId, useSignMessage } from 'wagmi';
 
 import { useLogin } from '../useLogin';
 
 import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

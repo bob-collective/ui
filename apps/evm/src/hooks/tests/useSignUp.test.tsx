@@ -1,16 +1,16 @@
-import { PropsWithChildren } from 'react';
-import { renderHook, act } from '@testing-library/react-hooks';
-import { useAccount, useSignMessage } from '@gobob/wagmi';
 import { toast } from '@gobob/ui';
+import { act, renderHook } from '@testing-library/react-hooks';
+import { PropsWithChildren } from 'react';
 import { Mock, vi } from 'vitest';
+import { useAccount, useSignMessage } from 'wagmi';
 
-import { useSignUp } from '../useSignUp';
 import { useGetUser } from '../useGetUser';
+import { useSignUp } from '../useSignUp';
 
 import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

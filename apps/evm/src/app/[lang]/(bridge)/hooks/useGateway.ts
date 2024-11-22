@@ -3,15 +3,6 @@
 import { GatewayQuoteParams } from '@gobob/bob-sdk';
 import { Bitcoin, CurrencyAmount, ERC20Token } from '@gobob/currency';
 import {
-  INTERVAL,
-  Optional,
-  useMutation,
-  UseMutationResult,
-  useQuery,
-  useQueryClient,
-  UseQueryResult
-} from '@gobob/react-query';
-import {
   BtcAddressType,
   FeeRateReturnType,
   useAccount as useSatsAccount,
@@ -21,14 +12,23 @@ import {
 } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { toast } from '@gobob/ui';
-import { Address, useAccount } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import * as Sentry from '@sentry/nextjs';
+import {
+  Optional,
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+  UseQueryResult
+} from '@tanstack/react-query';
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
-import { isAddress } from 'viem';
+import { Address, isAddress } from 'viem';
+import { useAccount } from 'wagmi';
 
+import { INTERVAL } from '@/constants';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import {

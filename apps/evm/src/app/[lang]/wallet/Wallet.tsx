@@ -1,13 +1,13 @@
 'use client';
 
 import { Button, Card, Dd, Dl, DlGroup, Dt, Flex, H1, P } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
+import { useAccount } from 'wagmi';
 
 import { TokenTable } from './components';
 
-import { AuthButton, useConnectModal } from '@/connect-ui';
 import { Main } from '@/components';
+import { AuthButton, useConnectModal } from '@/connect-ui';
 import { L2_CHAIN, isL2Chain } from '@/constants';
 import { useTotalBalance } from '@/hooks';
 

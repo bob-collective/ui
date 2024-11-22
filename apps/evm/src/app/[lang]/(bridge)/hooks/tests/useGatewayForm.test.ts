@@ -1,13 +1,14 @@
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { useAccount, useIsContract } from '@gobob/wagmi';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { Mock, vi } from 'vitest';
+import { useAccount } from 'wagmi';
 
 import { useGatewayForm } from '../useGatewayForm';
 
+import { useIsContract } from '@/hooks';
 import { BRIDGE_AMOUNT, BRIDGE_ASSET, BRIDGE_RECIPIENT } from '@/lib/form/bridge';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

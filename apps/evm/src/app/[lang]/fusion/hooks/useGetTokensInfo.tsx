@@ -1,5 +1,6 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
+import { useQuery } from '@tanstack/react-query';
 
+import { INTERVAL } from '@/constants';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
 

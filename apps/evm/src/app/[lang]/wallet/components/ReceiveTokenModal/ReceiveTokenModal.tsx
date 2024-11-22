@@ -1,5 +1,7 @@
 'use client';
 
+import { useAccount as useSatsWagmi } from '@gobob/sats-wagmi';
+import { BITCOIN } from '@gobob/tokens';
 import {
   Button,
   Card,
@@ -12,12 +14,10 @@ import {
   ModalProps,
   P
 } from '@gobob/ui';
-import { BITCOIN } from '@gobob/tokens';
-import QRCode from 'react-qr-code';
-import { useAccount } from '@gobob/wagmi';
-import { useAccount as useSatsWagmi } from '@gobob/sats-wagmi';
-import { useCopyToClipboard } from 'usehooks-ts';
 import { Trans } from '@lingui/macro';
+import QRCode from 'react-qr-code';
+import { useCopyToClipboard } from 'usehooks-ts';
+import { useAccount } from 'wagmi';
 
 import { TokenData } from '@/hooks';
 

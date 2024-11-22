@@ -1,4 +1,3 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import {
   Bars3,
   Button,
@@ -19,11 +18,12 @@ import {
   Tooltip,
   useLocale
 } from '@gobob/ui';
-import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
-import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useQuery } from '@tanstack/react-query';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -42,12 +42,12 @@ import {
 import { UserInfoCard } from './UserInfoCard';
 import { UserReferralModal } from './UserReferralModal';
 
-import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
-import { isClient, RoutesPath } from '@/constants';
-import { fusionKeys } from '@/lib/react-query';
-import { apiClient, QuestS3Response, UserResponse } from '@/utils';
-import { SessionStorageKey } from '@/types';
 import { AppData } from '@/app/[lang]/apps/hooks';
+import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
+import { INTERVAL, isClient, RoutesPath } from '@/constants';
+import { fusionKeys } from '@/lib/react-query';
+import { SessionStorageKey } from '@/types';
+import { apiClient, QuestS3Response, UserResponse } from '@/utils';
 
 type UserInfoProps = {
   user?: UserResponse;

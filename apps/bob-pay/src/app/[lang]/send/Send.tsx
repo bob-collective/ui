@@ -4,16 +4,16 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { MaxUint256 } from '@gobob/currency/src/constants';
-import { useGetApprovalData } from '@gobob/hooks';
-import { useMutation, usePrices } from '@gobob/react-query';
+import { useGetApprovalData, usePrices } from '@gobob/hooks';
 import { Button, Flex, Input, QrCode, toast, TokenInput, useForm } from '@gobob/ui';
-import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
+import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
 import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
+import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 
 import { ScannerModal, TokenButtonGroup } from './components';
 

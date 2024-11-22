@@ -1,12 +1,13 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { getAppLogo } from '../utils';
 
 import { useGetVotingApps, VotingAppData } from './useGetVotingApps';
 
-import { apiClient, PartnerS3 } from '@/utils';
-import { appsKeys } from '@/lib/react-query';
+import { INTERVAL } from '@/constants';
 import { useGetUser } from '@/hooks';
+import { appsKeys } from '@/lib/react-query';
+import { apiClient, PartnerS3 } from '@/utils';
 
 type AppData = PartnerS3 & {
   logoSrc: string;

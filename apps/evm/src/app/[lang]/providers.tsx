@@ -1,18 +1,19 @@
 'use client';
 
-import { QueryClientProvider } from '@gobob/react-query';
-import { WagmiProvider } from '@gobob/wagmi';
-import { PropsWithChildren } from 'react';
 import { SatsWagmiConfig } from '@gobob/sats-wagmi';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { PropsWithChildren } from 'react';
+import { WagmiProvider } from 'wagmi';
 
 import { NestedProviders } from './nested-providers';
 
 import { bitcoinNetwork, isProd } from '@/constants';
 import { queryClient } from '@/lib/react-query';
+import { getConfig } from '@/lib/wagmi';
 
 export function Providers({ children }: PropsWithChildren) {
   return (
-    <WagmiProvider isProd={isProd}>
+    <WagmiProvider isProd={getConfig({ isProd })}>
       <QueryClientProvider client={queryClient}>
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}>

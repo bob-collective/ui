@@ -1,6 +1,7 @@
 import { ChainId, isTestnetChainId } from '@gobob/chains';
-import { bob, bobSepolia, mainnet, sepolia } from '@gobob/wagmi';
 import { Chain } from 'viem';
+
+import { bob, bobSepolia, mainnet, sepolia } from '@/lib/wagmi';
 
 const validL1Chains = [ChainId.SEPOLIA, ChainId.ETHEREUM] as const;
 
@@ -29,4 +30,4 @@ const isProd = !isL1Testnet;
 const chainL1: Chain = isProd ? mainnet : sepolia;
 const chainL2: Chain = isProd ? bob : bobSepolia;
 
-export { L1_CHAIN, L2_CHAIN, chainL1, chainL2, isL2Chain, isProd, isValidChain };
+export { chainL1, chainL2, isL2Chain, isProd, isValidChain, L1_CHAIN, L2_CHAIN };

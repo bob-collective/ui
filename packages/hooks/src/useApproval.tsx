@@ -1,11 +1,11 @@
 import { Currency, CurrencyAmount, Token } from '@gobob/currency';
-import { useAccount, useSimulateContract, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
 import { USDT_ETH, ethereumTokens, sepoliaTokens } from '@gobob/tokens';
 import { useCallback, useEffect, useMemo } from 'react';
 import { Address, erc20Abi, isAddressEqual } from 'viem';
+import { useAccount, useSimulateContract, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 
-import { useTokenAllowance } from './useTokenAlowance';
 import { USDTAbi } from './abis/USDT.abi';
+import { useTokenAllowance } from './useTokenAlowance';
 
 const UINT_256_MAX = BigInt(2 ** 256) - BigInt(1);
 
@@ -177,5 +177,5 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
   };
 };
 
-export { useApproval, UINT_256_MAX };
+export { UINT_256_MAX, useApproval };
 export type { UseApprovalProps };

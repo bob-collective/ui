@@ -4,7 +4,7 @@ import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
 import { ZeroDevSmartWalletConnectors } from '@dynamic-labs/ethereum-aa';
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
-import { QueryClientProvider } from '@gobob/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { PropsWithChildren } from 'react';
 import { bob, bobSepolia } from 'viem/chains';
 import { createConfig, http, WagmiProvider } from 'wagmi';

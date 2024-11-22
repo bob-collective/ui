@@ -1,14 +1,14 @@
 'use client';
 
 import { CurrencyAmount, ERC20Token } from '@gobob/currency';
-import { Optional } from '@gobob/react-query';
 import { Avatar, Flex, Input, Item, P, Select } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
+import { Optional } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
@@ -17,7 +17,7 @@ import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
 import { TokenData } from '@/hooks';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
+import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
 type BtcBridgeFormProps = {
   availableTokens: TokenData[];

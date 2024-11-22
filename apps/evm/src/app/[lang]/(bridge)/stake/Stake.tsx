@@ -1,22 +1,22 @@
 'use client';
 
 import { Tabs, TabsItem } from '@gobob/ui';
-import { Key, useCallback, useEffect, useMemo, useRef } from 'react';
-import { useRouter } from 'next/navigation';
 import { Trans } from '@lingui/macro';
-import { useConfig, watchAccount } from '@gobob/wagmi';
 import { useStore } from '@tanstack/react-store';
+import { watchAccount } from '@wagmi/core';
+import { useRouter } from 'next/navigation';
+import { Key, useCallback, useEffect, useMemo, useRef } from 'react';
+import { useConfig } from 'wagmi';
 
-import { Layout } from '../components';
-import { TransactionList } from '../components';
+import { Layout, TransactionList } from '../components';
 import { GetGatewayTransactionsReturnType, useGetGatewayTransactions } from '../hooks';
 
 import { StakingForm } from './components';
 import { useGetStakingStrategies } from './hooks';
 import { StyledCard, StyledFlex } from './Stake.style';
 
-import { store } from '@/lib/store';
 import { PageLangParam } from '@/i18n/withLigui';
+import { store } from '@/lib/store';
 import { GatewayTransactionType, TransactionDirection } from '@/types';
 
 enum Type {

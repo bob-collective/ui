@@ -1,5 +1,5 @@
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import { useCurrencyFormatter } from '@gobob/ui';
 import { useMemo } from 'react';
 
