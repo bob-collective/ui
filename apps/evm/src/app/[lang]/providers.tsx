@@ -13,9 +13,8 @@ import { getConfig } from '@/lib/wagmi';
 
 export function Providers({ children }: PropsWithChildren) {
   return (
-    <WagmiProvider isProd={getConfig({ isProd })}>
+    <WagmiProvider config={getConfig({ isProd })}>
       <QueryClientProvider client={queryClient}>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}>
           <NestedProviders>{children}</NestedProviders>
         </SatsWagmiConfig>

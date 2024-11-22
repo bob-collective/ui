@@ -43,10 +43,10 @@
     "@testing-library/react": "^14.3.1",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.5.2",
-    "@types/node": "^20.14.2",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@types/styled-components": "^5.1.34",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/styled-components": "catalog:",
     "@typescript-eslint/eslint-plugin": "^7.12.0",
     "@typescript-eslint/parser": "^7.12.0",
     "@vitejs/plugin-react": "^4.0.3",
@@ -62,12 +62,12 @@
     "eslint-plugin-testing-library": "^6.2.2",
     "eslint-plugin-unused-imports": "^3.2.0",
     "husky": "^8.0.3",
-    "jsdom": "^25.0.1",
+    "jsdom": "catalog:",
     "knip": "^5.17.4",
     "lint-staged": "^14.0.1",
     "prettier": "^3.3.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "rimraf": "^5.0.7",
     "start-server-and-test": "^2.0.3",
     "storybook": "^7.6.19",
@@ -80,8 +80,8 @@
   },
   "pnpm": {
     "overrides": {
-      "react": "^18.2.0",
-      "react-dom": "^18.2.0"
+      "react": "catalog:",
+      "react-dom": "catalog:"
     }
   },
   "engines": {

@@ -32,16 +32,16 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "react": "catalog:uiPeerDeps"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.35.1",
+    "@tanstack/react-query": "catalog:",
     "@gobob/currency": "workspace:^",
     "@gobob/tokens": "workspace:^",
-    "viem": "^2.10.2",
-    "wagmi": "^2.12.30"
+    "viem": "catalog:",
+    "wagmi": "catalog:"
   },
   "devDependencies": {
-    "react": "^18.2.0"
+    "react": "catalog:"
   }
 }

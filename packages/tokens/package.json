@@ -35,6 +35,6 @@
     "@gobob/chains": "workspace:^",
     "@gobob/currency": "workspace:^",
     "tokenlist": "github:bob-collective/ethereum-optimism.github.io#3aedcb117bae1a2db77225345ea119ffda850980",
-    "viem": "^2.10.2"
+    "viem": "catalog:"
   }
 }

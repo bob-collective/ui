@@ -20,9 +20,9 @@
     "jest-axe": "^8.0.0"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "react": "catalog:uiPeerDeps"
   },
   "devDependencies": {
-    "react": "^18.2.0"
+    "react": "catalog:"
   }
 }
