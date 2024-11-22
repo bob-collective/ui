@@ -11,7 +11,7 @@ import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 
@@ -49,6 +49,7 @@ import {
   TransactionDirection,
   TransactionType
 } from '@/types';
+import { calculateAmountUSD } from '@/utils';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
@@ -92,23 +93,23 @@ const BobBridgeForm = ({
 
   const nativeToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
 
-  const defaultTicker = tickerProp || nativeToken.symbol;
+  const initialSymbol = tickerProp || nativeToken.symbol;
 
-  const [ticker, setTicker] = useState(defaultTicker);
+  const [symbol, setSymbol] = useState(initialSymbol);
 
   const [prevDirection, setPrevDirection] = useState<TransactionDirection>();
 
   const [amount, setAmount] = useDebounceValue('', 300);
 
   const { selectedCurrency, selectedToken } = useMemo(() => {
-    const selectedToken = tokens?.find((token) => token.l1Currency.symbol === ticker);
+    const selectedToken = tokens?.find((token) => token.l1Currency.symbol === symbol);
 
     return {
       selectedToken,
       selectedCurrency:
         direction === TransactionDirection.L1_TO_L2 ? selectedToken?.l1Currency : selectedToken?.l2Currency
     };
-  }, [ticker, tokens, direction]);
+  }, [symbol, tokens, direction]);
 
   const currencyAmount = useMemo(
     () =>
@@ -128,6 +129,7 @@ const BobBridgeForm = ({
       toast.error(t(i18n)`Something went wrong. Please try again later.`);
     }
   };
+
   const handleSuccess = (data: BridgeTransaction) => {
     onBridgeSuccess?.(data);
 
@@ -147,7 +149,7 @@ const BobBridgeForm = ({
     (direction === TransactionDirection.L1_TO_L2 ||
       (direction === TransactionDirection.L2_TO_L1 && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency)));
 
-  const contract = selectedCurrency && getBridgeContract(selectedCurrency);
+  const bridgeContract = selectedCurrency && getBridgeContract(selectedCurrency);
 
   const {
     isApproveRequired,
@@ -159,10 +161,10 @@ const BobBridgeForm = ({
   } = useApproval({
     amount: currencyAmount,
     spender:
-      shouldCheckAllowance && contract
+      shouldCheckAllowance && bridgeContract
         ? direction === TransactionDirection.L1_TO_L2
-          ? contract.l1Bridge
-          : contract.l2Bridge
+          ? bridgeContract.l1Bridge
+          : bridgeContract.l2Bridge
         : undefined
   });
 
@@ -181,7 +183,7 @@ const BobBridgeForm = ({
         throw new Error('Allowance data missing');
       }
 
-      if (!(contract && contract.l1Bridge)) {
+      if (!(bridgeContract && bridgeContract.l1Bridge)) {
         throw new Error('Contract missing');
       }
 
@@ -240,7 +242,7 @@ const BobBridgeForm = ({
       const { request } = await publicClientL1.simulateContract({
         account: address,
         abi: l1StandardBridgeAbi,
-        address: contract.l1Bridge,
+        address: bridgeContract.l1Bridge,
         functionName: 'depositERC20To',
         args: [l1Address, l2Address, to, amount, 0, '0x']
       });
@@ -273,7 +275,7 @@ const BobBridgeForm = ({
         throw new Error('Allowance data missing');
       }
 
-      if (!(contract && contract.l1Bridge)) {
+      if (!(bridgeContract && bridgeContract.l1Bridge)) {
         throw new Error('Contract missing');
       }
 
@@ -333,7 +335,7 @@ const BobBridgeForm = ({
       const { request } = await publicClientL2.simulateContract({
         account: address,
         abi: l2StandardBridgeAbi,
-        address: contract.l2Bridge,
+        address: bridgeContract.l2Bridge,
         functionName: 'withdrawTo',
         args: [l2Address, to, amount, 0, '0x']
       });
@@ -374,7 +376,7 @@ const BobBridgeForm = ({
   const initialValues = useMemo(
     () => ({
       [BRIDGE_AMOUNT]: '',
-      [BRIDGE_ASSET]: defaultTicker,
+      [BRIDGE_ASSET]: symbol,
       [BRIDGE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -403,29 +405,23 @@ const BobBridgeForm = ({
   });
 
   const handleReset = () => {
-    setPrevDirection(direction);
-
     form.resetForm();
 
-    setTicker(defaultTicker);
+    setSymbol(initialSymbol);
     setAmount('');
   };
 
   if (prevDirection !== direction) {
     handleReset();
+
+    setPrevDirection(direction);
   }
 
-  const handleChangeTicker = (currency: Currency) => {
-    setTicker(currency.symbol as string);
+  const handleChangeSymbol = (currency: Currency) => {
+    setSymbol(currency.symbol as string);
   };
 
-  const getUsdValue = useCallback(
-    (ticker: string, amount: string | number) =>
-      !isNaN(+amount) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
-    [getPrice]
-  );
-
-  const valueUSD = useMemo(() => getUsdValue(ticker, amount), [amount, getUsdValue, ticker]);
+  const valueUSD = currencyAmount ? calculateAmountUSD(currencyAmount, getPrice(symbol)) : 0;
 
   const tokenInputItems: TokenSelectItemProps[] = useMemo(
     () =>
@@ -434,12 +430,12 @@ const BobBridgeForm = ({
 
         return {
           balance: balance?.toExact() || 0,
-          balanceUSD: getUsdValue(token.l1Currency.symbol, balance?.toExact() || 0),
+          balanceUSD: balance ? calculateAmountUSD(balance, getPrice(token.l1Currency.symbol)) : 0,
           logoUrl: token.l1Token.logoUrl,
           currency: token.l1Currency
         };
       }) || [],
-    [tokens, getBalance, getUsdValue]
+    [tokens, getBalance, getPrice]
   );
 
   const isCheckingAllowance = shouldCheckAllowance && (isAllowanceLoading || !allowance);
@@ -472,7 +468,7 @@ const BobBridgeForm = ({
         label={t(i18n)`Amount`}
         type='selectable'
         valueUSD={valueUSD}
-        onChangeCurrency={handleChangeTicker}
+        onChangeCurrency={handleChangeSymbol}
         {...mergeProps(form.getSelectableTokenFieldProps({ amount: BRIDGE_AMOUNT, currency: BRIDGE_ASSET }), {
           onValueChange: (value: string) => setAmount(value)
         })}
