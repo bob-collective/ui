@@ -38,9 +38,7 @@ Replace `0x97632B3760460A623E068CC70aBF11D5fA99Be5f` with the user address:
 
 ```graphql
 query ThroughL1StandardBridge {
-  ethbridgeInitiateds(
-    where: { from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }
-  ) {
+  ethbridgeInitiateds(where: { from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }) {
     from
     to
     block_number
@@ -52,15 +50,13 @@ query ThroughL1StandardBridge {
 
 ```graphql
 query ThroughOptimismPortal {
-    transactionDepositeds(
-        where: { from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }
-    ) {
-        from
-        to
-        block_number
-        transactionHash_
-        opaqueData
-    }
+  transactionDepositeds(where: { from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }) {
+    from
+    to
+    block_number
+    transactionHash_
+    opaqueData
+  }
 }
 ```
 
@@ -102,29 +98,26 @@ Replace `0x97632B3760460A623E068CC70aBF11D5fA99Be5f` with the user address:
 
 ```graphql
 query ThroughL2StandardBridgeOnBob {
-    ethbridgeInitiateds(
-        where: { from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }
-    ) {
-        from
-        to
-        block_number
-        transactionHash_
-        amount
-    }
+  ethbridgeInitiateds(where: { from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }) {
+    from
+    to
+    block_number
+    transactionHash_
+    amount
+  }
 }
 ```
 
 ```graphql
 query ThroughL2MessagePasserOnBob {
-  messagePasseds(
-    where: { sender_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }
-  ) {
+  messagePasseds(where: { sender_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }) {
     from: sender
     to: target
     block_number
     transactionHash_
-    amount:value
+    amount: value
   }
 }
 ```
+
 ---
