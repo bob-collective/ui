@@ -3,11 +3,10 @@
 import { usePrices } from '@gobob/hooks';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { watchAccount } from '@wagmi/core';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
-import { useAccount, useAccountEffect, useChainId, useConfig, useReconnect, useSwitchChain } from 'wagmi';
+import { useAccount, useAccountEffect, useChainId, useReconnect, useSwitchChain } from 'wagmi';
 
 import { Header, Layout, Sidebar } from '@/components';
 import { ConnectProvider } from '@/connect-ui';
@@ -20,7 +19,7 @@ const AuthCheck = () => {
   const pathname = usePathname();
   const params = useParams();
 
-  const config = useConfig();
+  // const config = useConfig();
 
   // We don't want to disconnect users if they switch account on the wallet or the bridge
   const shouldDisconnect =
@@ -37,25 +36,25 @@ const AuthCheck = () => {
   });
   const watchAccountRef = useRef<() => void>();
 
-  useEffect(() => {
-    watchAccountRef.current = watchAccount(config, {
-      onChange: (account) => {
-        if (
-          shouldDisconnect &&
-          user &&
-          account.address &&
-          address &&
-          (account.address !== user.evm_address || account.address !== address)
-        ) {
-          logout({});
-          setOpen(true);
-        }
-      }
-    });
+  // useEffect(() => {
+  //   watchAccountRef.current = watchAccount(config, {
+  //     onChange: (account) => {
+  //       if (
+  //         shouldDisconnect &&
+  //         user &&
+  //         account.address &&
+  //         address &&
+  //         (account.address !== user.evm_address || account.address !== address)
+  //       ) {
+  //         logout({});
+  //         setOpen(true);
+  //       }
+  //     }
+  //   });
 
-    // Cleanup by calling unwatch to unsubscribe from the account change event
-    return () => watchAccountRef.current?.();
-  }, [user, address, shouldDisconnect, config, logout]);
+  //   // Cleanup by calling unwatch to unsubscribe from the account change event
+  //   return () => watchAccountRef.current?.();
+  // }, [user, address, shouldDisconnect, config, logout]);
 
   useEffect(() => {
     if (!address && user) {

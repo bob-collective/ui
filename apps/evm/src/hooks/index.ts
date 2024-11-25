@@ -17,3 +17,4 @@ export * from './useSignUp';
 export * from './useTokens';
 export * from './useTotalBalance';
 export * from './useWalletClient';
+export * from './useApproval';

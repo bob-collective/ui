@@ -4,8 +4,10 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { Address, erc20Abi, isAddressEqual } from 'viem';
 import { useAccount, useSimulateContract, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 
-import { USDTAbi } from './abis/USDT.abi';
+// import { USDTAbi } from './abis/USDT.abi';
 import { useTokenAllowance } from './useTokenAlowance';
+
+import { USDTAbi } from '@/abis/USDT.abi';
 
 const UINT_256_MAX = BigInt(2 ** 256) - BigInt(1);
 

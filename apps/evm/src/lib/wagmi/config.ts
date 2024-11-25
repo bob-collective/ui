@@ -45,6 +45,7 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     chains: (isProd ? prodChains : allChains) as any,
     multiInjectedProviderDiscovery,
+    ssr: true,
     transports: {
       [mainnet.id]: http(),
       [sepolia.id]: http(),

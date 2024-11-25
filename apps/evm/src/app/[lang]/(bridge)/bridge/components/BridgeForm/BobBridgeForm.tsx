@@ -2,7 +2,7 @@
 'use client';
 
 import { Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
-import { useApproval, usePrices } from '@gobob/hooks';
+import { usePrices } from '@gobob/hooks';
 import { USDC } from '@gobob/tokens';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { t } from '@lingui/macro';
@@ -24,6 +24,7 @@ import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { bridgeContracts } from '@/constants/bridge';
 import {
   BridgeToken,
+  useApproval,
   useBalances,
   useBridgeTokens,
   useIsContract,

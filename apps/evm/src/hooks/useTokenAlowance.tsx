@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { Address, erc20Abi } from 'viem';
 import { useReadContract } from 'wagmi';
 
-import { USDTAbi } from './abis/USDT.abi';
+import { USDTAbi } from '@/abis/USDT.abi';
 
 type UseTokenAllowanceProps = {
   token?: Token;

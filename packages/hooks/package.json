@@ -35,11 +35,7 @@
     "react": "catalog:uiPeerDeps"
   },
   "dependencies": {
-    "@tanstack/react-query": "catalog:",
-    "@gobob/currency": "workspace:^",
-    "@gobob/tokens": "workspace:^",
-    "viem": "catalog:",
-    "wagmi": "catalog:"
+    "@tanstack/react-query": "catalog:"
   },
   "devDependencies": {
     "react": "catalog:"

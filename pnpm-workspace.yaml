@@ -43,15 +43,17 @@ catalog:
   viem: ^2.21.35
   '@wagmi/core': ^2.11.0
 
-  next: ^14.2.15
-  '@sentry/nextjs': ^8.30.0
-
   '@tanstack/react-store': ^0.5.6
   '@tanstack/react-query': ^5.35.1
 
   usehooks-ts: ^3.1.0
 
   graphql-request: ^6.1.0
+
+  next: ^14.2.15
+  '@sentry/nextjs': ^8.30.0
+  negotiator: ^0.6.3
+  '@types/negotiator': ^0.6.3
 
 catalogs:
   uiPeerDeps:

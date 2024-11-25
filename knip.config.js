@@ -13,13 +13,7 @@ const config = {
     'packages/sats-wagmi/package.json',
     '.storybook/vite.config.ts'
   ],
-  ignoreDependencies: [
-    '@lingui/swc-plugin',
-    '@lingui/loader',
-    'sharp',
-    'vite-plugin-node-polyfills',
-    'vite-plugin-wasm'
-  ]
+  ignoreDependencies: ['@lingui/swc-plugin', '@lingui/loader', 'vite-plugin-node-polyfills', 'vite-plugin-wasm']
 };
 
 export default config;
