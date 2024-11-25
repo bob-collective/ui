@@ -1,3 +1,4 @@
+export * from './allowance';
 export * from './useBalances';
 export * from './useBridgeTokens';
 export * from './useFeatureFlag';
@@ -17,4 +18,3 @@ export * from './useSignUp';
 export * from './useTokens';
 export * from './useTotalBalance';
 export * from './useWalletClient';
-export * from './useApproval';

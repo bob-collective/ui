@@ -5,7 +5,6 @@ const RoutesPath = {
   FUSION: '/fusion',
   BRIDGE: '/bridge',
   STAKE: '/stake',
-  WALLET: '/wallet',
   LEADERBOARD: '/leaderboard',
   GEOBLOCK: '/geoblock',
   NOT_FOUND: '/404'

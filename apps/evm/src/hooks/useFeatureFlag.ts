@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 
 enum FeatureFlags {
-  WALLET
+  // TODO: replace with real feature flag
+  EMPTY
 }
 
 const featureFlags: Record<FeatureFlags, string | undefined> = {
-  [FeatureFlags.WALLET]: process.env.NEXT_PUBLIC_FEATURE_FLAG_WALLET
+  [FeatureFlags.EMPTY]: process.env.NEXT_PUBLIC_FEATURE_FLAG_EMPTY
 };
 
 const useFeatureFlag = (feature: FeatureFlags): boolean =>
