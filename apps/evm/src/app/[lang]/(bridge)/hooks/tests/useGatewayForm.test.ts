@@ -13,7 +13,15 @@ vi.mock(import('wagmi'), async (importOriginal) => {
 
   return {
     ...actual,
-    useAccount: vi.fn(),
+    useAccount: vi.fn()
+  };
+});
+
+vi.mock(import('@/hooks'), async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
     useIsContract: vi.fn()
   };
 });
