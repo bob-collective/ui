@@ -15,7 +15,7 @@ To access user deposit transactions from Layer 1 (L1) to Layer 2 (L2), utilize t
 Replace `0x97632B3760460A623E068CC70aBF11D5fA99Be5f` with the user address:
 
 ```graphql
-query get_all_erc20_deposits {
+query getERC20Deposits_StandardAndCustomBridges_WSETH_USDC {
     erc20DepositInitiateds(
         where: {
             from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f"
@@ -79,7 +79,7 @@ For accessing user withdrawal transactions from Layer 2 (L2) to Layer 1 (L1), us
 Replace `0x97632B3760460A623E068CC70aBF11D5fA99Be5f` with the user address:
 
 ```graphql
-query get_all_erc20_withdraws {
+query getERC20Withdrawals_StandardAndCustomBridges_WSETH_USDC {
     withdrawalInitiateds(
         where: {
             from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f"
