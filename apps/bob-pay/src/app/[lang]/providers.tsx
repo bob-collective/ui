@@ -4,7 +4,7 @@ import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
 import { ZeroDevSmartWalletConnectors } from '@dynamic-labs/ethereum-aa';
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
-import { QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { INTERVAL, QueryClient, QueryClientProvider } from '@gobob/react-query';
 import { PropsWithChildren, useState } from 'react';
 import { bob, bobSepolia } from 'viem/chains';
 import { createConfig, http, WagmiProvider } from 'wagmi';
@@ -33,8 +33,8 @@ export function Providers({ children }: PropsWithChildren) {
             // Ideally, these default values should never be used.
             // Each query should set its own `staleTime` and `gcTime` depending on how often the data is expected to change,
             // and how important it is to keep the data fresh every time a component mounts.
-            staleTime: 15 * 1000,
-            gcTime: 24 * 60 * 60 * 1000,
+            staleTime: 15 * INTERVAL.MINUTE,
+            gcTime: 24 * INTERVAL.HOUR,
             // Retry once, only if the error is a 500 fetch error.
             refetchOnWindowFocus: false,
             retry: (failureCount, error): boolean => {

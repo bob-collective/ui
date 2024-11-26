@@ -120,7 +120,7 @@ msgstr "An Exclusive Bitcoin Staking and DeFi Campaign"
 #~ msgid "An exclusive quest campaign."
 #~ msgstr "An exclusive quest campaign."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:266
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:259
 msgid "and that you have read and understood our"
 msgstr "and that you have read and understood our"
 
@@ -279,7 +279,7 @@ msgstr "BTC bridge is currently unavailable. This may be due to: {0}. Please try
 msgid "BTC LST Lending"
 msgstr "BTC LST Lending"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:258
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:251
 msgid "By clicking ‘Connect’ you acknowledge and agree to the"
 msgstr "By clicking ‘Connect’ you acknowledge and agree to the"
 
@@ -304,7 +304,8 @@ msgstr "Category"
 msgid "Checking Allowance"
 msgstr "Checking Allowance"
 
-#: src/connect-ui/component/ConnectModal/WalletList.tsx:116
+#: src/connect-ui/component/ConnectModal/BtcWalletList.tsx:39
+#: src/connect-ui/component/ConnectModal/EvmWalletList.tsx:76
 msgid "choose available wallets"
 msgstr "choose available wallets"
 
@@ -328,7 +329,7 @@ msgstr "Close"
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 
-#: src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:87
+#: src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:123
 #: src/app/[lang]/(bridge)/stake/components/Unstake/ExternalStakeCard.tsx:83
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:42
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:210
@@ -370,22 +371,22 @@ msgstr "Connect BTC Wallet"
 msgid "Connect BTC wallet to access fee rate settings."
 msgstr "Connect BTC wallet to access fee rate settings."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:141
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:134
 msgid "Connect request is already pending"
 msgstr "Connect request is already pending"
 
 #: src/app/[lang]/wallet/Wallet.tsx:77
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:63
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:220
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:213
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:35
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:302
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:295
 msgid "Connect your Bitcoin Wallet (Optional)"
 msgstr "Connect your Bitcoin Wallet (Optional)"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:287
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:280
 msgid "Connect your EVM Wallet (Mandatory)"
 msgstr "Connect your EVM Wallet (Mandatory)"
 
@@ -429,7 +430,7 @@ msgstr "Current TVL:"
 msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
 msgstr "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:132
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:128
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:38
 msgid "Deposit"
 msgstr "Deposit"
@@ -463,7 +464,7 @@ msgstr "DEX *"
 msgid "DEX Liquidity Provisioning"
 msgstr "DEX Liquidity Provisioning"
 
-#: src/app/[lang]/nested-providers.tsx:76
+#: src/app/[lang]/nested-providers.tsx:67
 msgid "Disconnected"
 msgstr "Disconnected"
 
@@ -537,8 +538,8 @@ msgstr "Estimated within 30 minutes"
 msgid "Estimated within the next block"
 msgstr "Estimated within the next block"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:144
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:180
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:137
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:173
 msgid "Failed to connect to {0}"
 msgstr "Failed to connect to {0}"
 
@@ -651,8 +652,8 @@ msgstr "Get ETH for transaction fees on BOB"
 msgid "Get tickets"
 msgstr "Get tickets"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:195
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:209
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:188
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:202
 msgid "go back"
 msgstr "go back"
 
@@ -660,7 +661,7 @@ msgstr "go back"
 msgid "Go Back"
 msgstr "Go Back"
 
-#: src/app/[lang]/nested-providers.tsx:91
+#: src/app/[lang]/nested-providers.tsx:82
 msgid "Got it!"
 msgstr "Got it!"
 
@@ -970,7 +971,7 @@ msgstr "Not your lucky day... yet!"
 msgid "OKX Cryptopedia"
 msgstr "OKX Cryptopedia"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:252
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:245
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 msgstr "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 
@@ -1033,7 +1034,7 @@ msgstr "POWERED BY BTC & ETH"
 msgid "Preparing..."
 msgstr "Preparing..."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:272
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:265
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
@@ -1162,11 +1163,11 @@ msgstr "Season 3 Harvested Spice"
 msgid "Season Three"
 msgstr "Season Three"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:217
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:210
 msgid "Select Bitcoin Wallet"
 msgstr "Select Bitcoin Wallet"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:203
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:196
 msgid "Select EVM Wallet"
 msgstr "Select EVM Wallet"
 
@@ -1234,12 +1235,13 @@ msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:112
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
-#: src/components/LoginButton/LoginButton.tsx:29
+#: src/hooks/useLogin.ts:48
+#: src/hooks/useSignUp.ts:50
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
 #: src/app/[lang]/sign-up/SignUp.tsx:72
-#: src/components/LoginButton/LoginButton.tsx:43
+#: src/components/LoginButton/LoginButton.tsx:29
 #: src/components/SignUpButton/SignUpButton.tsx:29
 msgid "Something went wrong. Please try connecting your wallet again."
 msgstr "Something went wrong. Please try connecting your wallet again."
@@ -1409,7 +1411,7 @@ msgstr "T&Cs"
 msgid "Take em home"
 msgstr "Take em home"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:264
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:257
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
@@ -1647,8 +1649,9 @@ msgid "Use your Spice total to support your favourite BOB builders. Winners will
 msgstr "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:110
-#: src/components/LoginButton/LoginButton.tsx:27
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:137
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:130
+#: src/hooks/useLogin.ts:46
+#: src/hooks/useSignUp.ts:48
 msgid "User rejected the request"
 msgstr "User rejected the request"
 
@@ -1743,7 +1746,7 @@ msgstr "When you vote for a project, your Spice total is added to their vote tot
 msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 msgstr "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:135
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:131
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:38
 msgid "Withdraw"
 msgstr "Withdraw"
@@ -1782,7 +1785,7 @@ msgstr "You can change your votes at any time before the end of the weekly votin
 msgid "You Have 0 Tickets"
 msgstr "You Have 0 Tickets"
 
-#: src/app/[lang]/nested-providers.tsx:83
+#: src/app/[lang]/nested-providers.tsx:74
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 msgstr "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 
@@ -1840,7 +1843,7 @@ msgstr "Your assets will be delivered shortly, with an estimated arrival time of
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 
-#: src/app/[lang]/nested-providers.tsx:80
+#: src/app/[lang]/nested-providers.tsx:71
 msgid "Your funds are safe!"
 msgstr "Your funds are safe!"
 
