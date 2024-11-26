@@ -1,11 +1,11 @@
-import { PropsWithChildren } from 'react';
-import { renderHook, act } from '@testing-library/react-hooks';
-import { useAccount, useSignMessage } from '@gobob/wagmi';
 import { toast } from '@gobob/ui';
+import { useAccount, useSignMessage } from '@gobob/wagmi';
+import { act, renderHook } from '@testing-library/react-hooks';
+import { PropsWithChildren } from 'react';
 import { Mock, vi } from 'vitest';
 
-import { useSignUp } from '../useSignUp';
 import { useGetUser } from '../useGetUser';
+import { useSignUp } from '../useSignUp';
 
 import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
@@ -50,7 +50,8 @@ describe('useSignUp', () => {
     vi.clearAllMocks();
   });
 
-  it('calls onSuccess and refetchUser on successful sign-up', async () => {
+  it('calls refetchUser on successful sign-up', async () => {
+    vi.useFakeTimers();
     const mockAddress = '0x123';
     const mockChainId = 1;
     const mockNonce = 'mock-nonce';
@@ -64,17 +65,17 @@ describe('useSignUp', () => {
     (apiClient.signUp as Mock).mockResolvedValue(mockSignUpResponse);
     (useGetUser as Mock).mockReturnValue({ refetch: mockRefetchUser });
 
-    const onSuccess = vi.fn();
-    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onSuccess }), {
+    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp(), {
       wrapper
     });
 
-    await act(() => result.current.mutate({}));
+    await act(() => result.current.mutate(mockAddress));
+
+    vi.runAllTimers();
 
     expect(apiClient.getNonce).toHaveBeenCalled();
     expect(mockSignMessageAsync).toHaveBeenCalledWith({ message: 'Message for 0x123' });
     expect(apiClient.signUp).toHaveBeenCalledWith(expect.any(Object), 'mock-signature');
-    expect(onSuccess).toHaveBeenCalled();
     expect(mockRefetchUser).toHaveBeenCalled();
   });
 
@@ -86,14 +87,12 @@ describe('useSignUp', () => {
     (useAccount as Mock).mockReturnValue({ address: mockAddress, chain: { id: mockChainId } });
     (useSignMessage as Mock).mockReturnValue({ signMessageAsync: mockSignMessageAsync });
 
-    const onError = vi.fn();
-    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onError }), {
+    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp(), {
       wrapper
     });
 
-    await act(() => result.current.mutate({}));
+    await act(() => result.current.mutate(mockAddress));
 
-    expect(onError).toHaveBeenCalled();
     expect(toast.error).toHaveBeenCalledWith('User rejected the request');
   });
 
@@ -105,14 +104,12 @@ describe('useSignUp', () => {
     (useAccount as Mock).mockReturnValue({ address: mockAddress, chain: { id: mockChainId } });
     (useSignMessage as Mock).mockReturnValue({ signMessageAsync: mockSignMessageAsync });
 
-    const onError = vi.fn();
-    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp({ onError }), {
+    const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp(), {
       wrapper
     });
 
-    await act(() => result.current.mutate({}));
+    await act(() => result.current.mutate(mockAddress));
 
-    expect(onError).toHaveBeenCalled();
     expect(toast.error).toHaveBeenCalledWith('Network error');
   });
 });
