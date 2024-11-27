@@ -42,6 +42,7 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
   ];
 
   return createConfig({
+    ssr: true,
     chains: (isProd ? prodChains : allChains) as any,
     multiInjectedProviderDiscovery,
     transports: {
