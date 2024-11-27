@@ -30,7 +30,7 @@ enum StakeTableColumns {
   PROTOCOL = 'bridge',
   REWARDS = 'incentives',
   TVL = 'tvl',
-  ACTION = 'action'
+  ACTIONS = 'actions'
 }
 
 type StakeTableRow = {
@@ -39,15 +39,15 @@ type StakeTableRow = {
   [StakeTableColumns.PROTOCOL]: ReactNode;
   [StakeTableColumns.REWARDS]: ReactNode;
   [StakeTableColumns.TVL]: ReactNode;
-  [StakeTableColumns.ACTION]: ReactNode;
+  [StakeTableColumns.ACTIONS]: ReactNode;
 };
 
 const columns = [
-  { name: <Trans>Strategy Name</Trans>, id: StakeTableColumns.STRATEGY_NAME, minWidth: '240px' },
-  { name: <Trans>Protocol</Trans>, id: StakeTableColumns.PROTOCOL, minWidth: '150px' },
+  { name: <Trans>Strategy Name</Trans>, id: StakeTableColumns.STRATEGY_NAME, minWidth: 240 },
+  { name: <Trans>Protocol</Trans>, id: StakeTableColumns.PROTOCOL, minWidth: 150 },
   { name: <Trans>Rewards</Trans>, id: StakeTableColumns.REWARDS },
-  { name: <Trans>TVL (on BOB)</Trans>, id: StakeTableColumns.TVL, minWidth: '96px' },
-  { name: <Trans>Action</Trans>, id: StakeTableColumns.ACTION }
+  { name: <Trans>TVL (on BOB)</Trans>, id: StakeTableColumns.TVL, minWidth: 96 },
+  { name: '', id: StakeTableColumns.ACTIONS }
 ];
 
 const stakingInfo = {
@@ -247,10 +247,20 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
       ),
       [StakeTableColumns.REWARDS]: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.incentives,
       [StakeTableColumns.TVL]: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.tvl,
-      [StakeTableColumns.ACTION]: (
-        <Button color='primary' onPress={() => setStrategy(strategy)}>
-          <Trans>Stake</Trans>
-        </Button>
+      [StakeTableColumns.ACTIONS]: (
+        <Flex direction='row' gap='md'>
+          <Button color='primary' onPress={() => setStrategy(strategy)}>
+            <Trans>Stake</Trans>
+          </Button>
+          <Button
+            variant='outline'
+            onPress={() =>
+              window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
+            }
+          >
+            <Trans>Manage</Trans>
+          </Button>
+        </Flex>
       )
     };
   });
