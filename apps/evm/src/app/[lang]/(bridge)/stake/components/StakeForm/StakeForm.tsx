@@ -1,10 +1,10 @@
 'use client';
 
-import { Flex } from '@gobob/ui';
 import { useState } from 'react';
 
 import { GatewayTransactionModal } from '../../../components';
 import { StrategyData } from '../../hooks';
+import { StyledFlex } from '../../Stake.style';
 
 import { BtcStakeForm } from './BtcStakeForm';
 
@@ -40,14 +40,14 @@ const StakingForm = ({ strategy, onStakeSuccess }: BridgeFormProps): JSX.Element
 
   return (
     <>
-      <Flex direction='column'>
+      <StyledFlex direction='column'>
         <BtcStakeForm
           strategy={strategy}
           onError={handleCloseGatewayModal}
           onStart={handleStartGateway}
           onSuccess={handleGatewaySuccess}
         />
-      </Flex>
+      </StyledFlex>
       {gatewayModalState.data && (
         <GatewayTransactionModal
           data={gatewayModalState.data}

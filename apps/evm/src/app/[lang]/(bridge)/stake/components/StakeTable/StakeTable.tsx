@@ -4,7 +4,6 @@ import {
   Flex,
   Avatar,
   Button,
-  ArrowLongRight,
   ModalHeader,
   ModalBody,
   P,
@@ -18,7 +17,6 @@ import {
 import { Trans, t } from '@lingui/macro';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { PellNetwork } from '@gobob/icons';
-import { ChainId } from '@gobob/chains';
 import { useLingui } from '@lingui/react';
 
 import { StyledFlex, StyledCard } from '../../Stake.style';
@@ -26,7 +24,6 @@ import { StakingForm } from '../StakeForm';
 import { StrategyData, useGetStakingStrategies } from '../../hooks';
 
 import { chainL2 } from '@/constants';
-import { Chain } from '@/components';
 
 enum StakeTableColumns {
   STRATEGY_NAME = 'strategyName',
@@ -57,15 +54,8 @@ const stakingInfo = {
   'bedrock-unibtc': {
     strategyName: 'Liquid Staking Bedrock-Babylon',
     protocol: 'Bedrock',
-    strategy: (
-      <>
-        <Chain chainId='BTC' iconProps={{ size: 'xs' }} label={false} />
-        <ArrowLongRight color='grey-50' size='s' />
-        <Chain chainId={ChainId.BOB} iconProps={{ size: 'xs' }} label={false} /> uniBTC
-      </>
-    ),
     incentives: <Trans>Spice + Bedrock Diamonds + Babylon Points</Trans>,
-    tvl: '$10',
+    tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
         <P>
@@ -84,15 +74,8 @@ const stakingInfo = {
   'solv-solvbtcbbn': {
     strategyName: 'Liquid Staking Solv-Babylon',
     protocol: 'Solv',
-    strategy: (
-      <>
-        <Chain chainId='BTC' iconProps={{ size: 'xs' }} label={false} />
-        <ArrowLongRight color='grey-50' size='s' />
-        <Chain chainId={ChainId.BOB} iconProps={{ size: 'xs' }} label={false} /> SolvBTC.BBN
-      </>
-    ),
     incentives: <Trans>Spice + Solv XP + Babylon Points</Trans>,
-    tvl: '$10',
+    tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
         <P>
@@ -111,15 +94,8 @@ const stakingInfo = {
   'pell-solvbtcbbn': {
     strategyName: 'Restaking Pell-SolvBTC-Babylon',
     protocol: 'Pell',
-    strategy: (
-      <>
-        <Chain chainId='BTC' iconProps={{ size: 'xs' }} label={false} />
-        <ArrowLongRight color='grey-50' size='s' />
-        <Chain chainId={ChainId.BOB} iconProps={{ size: 'xs' }} label={false} /> SolvBTC.BBN
-      </>
-    ),
     incentives: <Trans>Spice + Pell Points + Solv XP + Babylon Points</Trans>,
-    tvl: '$10',
+    tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
         <P>
@@ -140,15 +116,8 @@ const stakingInfo = {
   'pell-unibtc': {
     strategyName: 'Restaking Pell-uniBTC-Babylon',
     protocol: 'Pell',
-    strategy: (
-      <>
-        <Chain chainId='BTC' iconProps={{ size: 'xs' }} label={false} />
-        <ArrowLongRight color='grey-50' size='s' />
-        <Chain chainId={ChainId.BOB} iconProps={{ size: 'xs' }} label={false} /> uniBTC
-      </>
-    ),
     incentives: <Trans>Spice + Pell Points + Bedrock Diamond + Babylon Points</Trans>,
-    tvl: '$10',
+    tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
         <P>
@@ -169,15 +138,8 @@ const stakingInfo = {
   'segment-tbtc': {
     strategyName: 'Lending Segment-tBTC',
     protocol: 'Segment',
-    strategy: (
-      <>
-        <Chain chainId='BTC' iconProps={{ size: 'xs' }} label={false} />
-        <ArrowLongRight color='grey-50' size='s' />
-        <Chain chainId={ChainId.BOB} iconProps={{ size: 'xs' }} /> tBTC
-      </>
-    ),
     incentives: <Trans>Spice + Segment Points + Supply APR</Trans>,
-    tvl: '$10',
+    tvl: '-',
     about: <Trans>Lend out tBTC on Segment.</Trans>,
     inputToken: 'BTC',
     outputToken: 'tBTC',
@@ -187,15 +149,8 @@ const stakingInfo = {
   'segment-wbtc': {
     strategyName: 'Lending Segment-wBTC',
     protocol: 'Segment',
-    strategy: (
-      <>
-        <Chain chainId='BTC' iconProps={{ size: 'xs' }} label={false} />
-        <ArrowLongRight color='grey-50' size='s' />
-        <Chain chainId={ChainId.BOB} iconProps={{ size: 'xs' }} label={false} /> wBTC
-      </>
-    ),
     incentives: <Trans>Spice + Segment Points + Supply APR</Trans>,
-    tvl: '$10',
+    tvl: '-',
     about: <Trans>Lend out wBTC on Segment.</Trans>,
     inputToken: 'BTC',
     outputToken: 'wBTC',
@@ -205,15 +160,8 @@ const stakingInfo = {
   'segment-sesolvbtcbbn': {
     strategyName: 'Staked Lending Segment-SolvBTC-Babylon',
     protocol: 'Segment',
-    strategy: (
-      <>
-        <Chain chainId='BTC' iconProps={{ size: 'xs' }} label={false} />
-        <ArrowLongRight color='grey-50' size='s' />
-        <Chain chainId={ChainId.BOB} iconProps={{ size: 'xs' }} label={false} /> seSOLVBTCBBN
-      </>
-    ),
     incentives: <Trans>Spice + Segment Points + Supply APR + Solv XP + Babylon Points</Trans>,
-    tvl: '$10',
+    tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
         <P>
@@ -234,15 +182,8 @@ const stakingInfo = {
   'segment-seunibtc': {
     strategyName: 'Staked Lending Segment-uniBTC-Babylon',
     protocol: 'Segment',
-    strategy: (
-      <>
-        <Chain chainId='BTC' iconProps={{ size: 'xs' }} label={false} />
-        <ArrowLongRight color='grey-50' size='s' />
-        <Chain chainId={ChainId.BOB} iconProps={{ size: 'xs' }} label={false} /> seUNIBTC
-      </>
-    ),
     incentives: <Trans>Spice + Segment Points + Supply APR + Bedrock Diamonds + Babylon Points</Trans>,
-    tvl: '$10',
+    tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
         <P>
@@ -334,15 +275,13 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
               </Flex>
             </ModalHeader>
             <ModalBody>
-              <StyledFlex direction='row' gap='xl'>
-                <StyledFlex>
-                  <StakingForm strategy={strategy} onStakeSuccess={onStakeSuccess} />
-                </StyledFlex>
+              <StyledFlex direction={{ base: 'column', md: 'row' }} gap='xl'>
+                <StakingForm strategy={strategy} onStakeSuccess={onStakeSuccess} />
                 <StyledFlex direction='column' gap='xl'>
                   <Dl direction='column' gap='lg'>
                     <DlGroup alignItems='center' justifyContent='space-between'>
                       <Dd size='md' style={{ minWidth: '15ch' }}>
-                        Input Token
+                        <Trans>Input Token</Trans>
                       </Dd>
                       <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
                         {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.inputToken}
@@ -351,7 +290,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
                     <Divider />
                     <DlGroup alignItems='center' justifyContent='space-between'>
                       <Dd size='md' style={{ minWidth: '15ch' }}>
-                        Output Token
+                        <Trans>Output Token</Trans>
                       </Dd>
                       <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
                         <Link
@@ -373,7 +312,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
                         <Divider />
                         <DlGroup alignItems='center' justifyContent='space-between'>
                           <Dd size='md' style={{ minWidth: '15ch' }}>
-                            Security Review by Bitcoin Layers
+                            <Trans>Security Review by Bitcoin Layers</Trans>
                           </Dd>
                           <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
                             <Link
@@ -392,7 +331,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
                     <Divider />
                     <DlGroup alignItems='center' justifyContent='space-between'>
                       <Dd size='md' style={{ minWidth: '15ch' }}>
-                        Website
+                        <Trans>Website</Trans>
                       </Dd>
                       <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
                         <Link
