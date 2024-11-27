@@ -43,10 +43,10 @@ type StakeTableRow = {
 };
 
 const columns = [
-  { name: <Trans>Strategy Name</Trans>, id: StakeTableColumns.STRATEGY_NAME },
-  { name: <Trans>Protocol</Trans>, id: StakeTableColumns.PROTOCOL },
+  { name: <Trans>Strategy Name</Trans>, id: StakeTableColumns.STRATEGY_NAME, minWidth: '240px' },
+  { name: <Trans>Protocol</Trans>, id: StakeTableColumns.PROTOCOL, minWidth: '150px' },
   { name: <Trans>Rewards</Trans>, id: StakeTableColumns.REWARDS },
-  { name: <Trans>TVL (on BOB)</Trans>, id: StakeTableColumns.TVL },
+  { name: <Trans>TVL (on BOB)</Trans>, id: StakeTableColumns.TVL, minWidth: '96px' },
   { name: <Trans>Action</Trans>, id: StakeTableColumns.ACTION }
 ];
 
@@ -249,7 +249,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
       [StakeTableColumns.TVL]: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.tvl,
       [StakeTableColumns.ACTION]: (
         <Button color='primary' onPress={() => setStrategy(strategy)}>
-          Stake
+          <Trans>Stake</Trans>
         </Button>
       )
     };
