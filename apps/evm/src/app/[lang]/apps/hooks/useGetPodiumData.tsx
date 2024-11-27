@@ -1,4 +1,4 @@
-import { useQuery } from '@gobob/react-query';
+import { INTERVAL, useQuery } from '@gobob/react-query';
 
 import { getAppLogo } from '../utils';
 
@@ -21,6 +21,7 @@ const useGetPodiumData = () => {
   return useQuery({
     queryKey: appsKeys.appsResultVotes(),
     queryFn: () => apiClient.getLastVotingResults(),
+    gcTime: INTERVAL.HOUR,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     select: (data): ResultVotingAppInfo => {
