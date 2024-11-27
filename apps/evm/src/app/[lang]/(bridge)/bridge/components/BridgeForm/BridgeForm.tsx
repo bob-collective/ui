@@ -154,14 +154,14 @@ const BridgeForm = ({
   );
 
   const availableNetworks = useMemo(() => {
-    const isBtcNetworkAvailable = direction === TransactionDirection.L1_TO_L2 && !!btcTokens?.length;
+    const isBtcNetworkAvailable = direction === TransactionDirection.L1_TO_L2;
 
     if (!isBtcNetworkAvailable) {
       return allNetworks.filter((network) => network !== 'BTC');
     }
 
     return allNetworks;
-  }, [btcTokens?.length, direction]);
+  }, [direction]);
 
   const fromChainSelectProps =
     direction === TransactionDirection.L1_TO_L2
@@ -227,9 +227,9 @@ const BridgeForm = ({
           </Alert>
         )}
         {bridgeOrigin === BridgeOrigin.Internal ? (
-          chain === 'BTC' && btcTokens?.length ? (
+          chain === 'BTC' ? (
             <BtcBridgeForm
-              key={btcTokens.length}
+              key={btcTokens?.length}
               availableTokens={btcTokens}
               onError={handleCloseGatewayModal}
               onStart={handleStartGateway}

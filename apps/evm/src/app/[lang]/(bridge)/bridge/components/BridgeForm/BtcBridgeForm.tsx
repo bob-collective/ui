@@ -2,7 +2,7 @@
 
 import { CurrencyAmount, ERC20Token } from '@gobob/currency';
 import { Optional } from '@gobob/react-query';
-import { Avatar, Flex, Input, Item, P, Select } from '@gobob/ui';
+import { Avatar, Flex, Input, Item, P, Select, Skeleton } from '@gobob/ui';
 import { useAccount } from '@gobob/wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -20,7 +20,7 @@ import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
 
 type BtcBridgeFormProps = {
-  availableTokens: TokenData[];
+  availableTokens?: TokenData[];
   onStart: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
   onSuccess: (data: InitGatewayTransaction) => void;
   onError: () => void;
@@ -28,7 +28,7 @@ type BtcBridgeFormProps = {
 
 const toChain = isProd ? 'bob' : 'bob-sepolia';
 
-const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBridgeFormProps): JSX.Element => {
+const BtcBridgeForm = ({ availableTokens = [], onError, onStart, onSuccess }: BtcBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
 
   const searchParams = useSearchParams();
@@ -112,6 +112,7 @@ const BtcBridgeForm = ({ availableTokens, onError, onStart, onSuccess }: BtcBrid
         items={availableTokens}
         label={t(i18n)`Receive`}
         modalProps={{ title: 'Select Token', size: 'xs' }}
+        placeholder={<Skeleton height='3xl' width='8xl' />}
         size='lg'
         type='modal'
         {...mergeProps(fields.asset, {
