@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount } from '@gobob/currency';
-import { INTERVAL, useQueries, useQuery } from '@gobob/react-query';
+import { INTERVAL, useQueries, useQuery, useQueryClient } from '@gobob/react-query';
 import { Address, useAccount } from '@gobob/wagmi';
+import { useStore } from '@tanstack/react-store';
 import request, { gql } from 'graphql-request';
 import { useCallback } from 'react';
 import { TransactionReceipt, isAddressEqual } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
-import { useStore } from '@tanstack/react-store';
 
+import { ETH, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
+import { useBridgeTokens, usePublicClientL1, usePublicClientL2 } from '@/hooks';
+import { bridgeKeys } from '@/lib/react-query';
 import { store } from '@/lib/store';
 import { BridgeTransaction, BridgeTransactionStatus, TransactionDirection, TransactionType } from '@/types';
-import { useBridgeTokens, usePublicClientL1, usePublicClientL2 } from '@/hooks';
-import { ETH, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
-import { bridgeKeys, queryClient } from '@/lib/react-query';
 
 type Erc20TransactionResponse = {
   remoteToken: Address;
@@ -180,6 +180,8 @@ const useGetBridgeTransactions = () => {
   const publicClientL1 = usePublicClientL1();
   const publicClientL2 = usePublicClientL2();
 
+  const queryClient = useQueryClient();
+
   const unconfirmedTransactions = useStore(store, (state) => state.bridge.transactions.bridge.unconfirmed);
 
   const getTxReceipt = useCallback(
@@ -203,7 +205,7 @@ const useGetBridgeTransactions = () => {
 
       return receipt;
     },
-    [publicClientL1, publicClientL2]
+    [publicClientL1, publicClientL2, queryClient]
   );
 
   const getDepositStatus = useCallback(
@@ -281,7 +283,7 @@ const useGetBridgeTransactions = () => {
 
       return remainingTime ? new Date(remainingTime) : undefined;
     },
-    [address, publicClientL1, publicClientL2.chain]
+    [address, publicClientL1, publicClientL2.chain, queryClient]
   );
 
   const getWithdrawStatus = useCallback(
@@ -321,7 +323,7 @@ const useGetBridgeTransactions = () => {
         statusEndDate
       };
     },
-    [getTxReceipt, address, publicClientL1, getStatusEndDate]
+    [getTxReceipt, address, publicClientL1, getStatusEndDate, queryClient]
   );
 
   const getEthDeposit = useCallback(
