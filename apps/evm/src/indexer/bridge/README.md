@@ -16,19 +16,15 @@ Replace `0x97632B3760460A623E068CC70aBF11D5fA99Be5f` with the user address:
 
 ```graphql
 query getERC20Deposits_StandardAndCustomBridges_WSETH_USDC {
-    erc20DepositInitiateds(
-        where: {
-            from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f"
-        }
-    ) {
-        l1Token
-        l2Token
-        from
-        to
-        block_number
-        transactionHash_
-        amount
-    }
+  erc20DepositInitiateds(where: { from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }) {
+    l1Token
+    l2Token
+    from
+    to
+    block_number
+    transactionHash_
+    amount
+  }
 }
 ```
 
@@ -80,19 +76,15 @@ Replace `0x97632B3760460A623E068CC70aBF11D5fA99Be5f` with the user address:
 
 ```graphql
 query getERC20Withdrawals_StandardAndCustomBridges_WSETH_USDC {
-    withdrawalInitiateds(
-        where: {
-            from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f"
-        }
-    ) {
-        l1Token
-        l2Token
-        from
-        to
-        block_number
-        transactionHash_
-        amount
-    }
+  withdrawalInitiateds(where: { from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }) {
+    l1Token
+    l2Token
+    from
+    to
+    block_number
+    transactionHash_
+    amount
+  }
 }
 ```
 
