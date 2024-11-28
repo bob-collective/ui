@@ -1,17 +1,17 @@
 'use client';
 
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { SatsConnector } from '@gobob/sats-wagmi';
-import { Connector, useAccount, useConnect, Address } from '@gobob/wagmi';
+import { SatsConnector, useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { Avatar, Button, ButtonProps, Flex, Skeleton, Span } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 import { chain } from '@react-aria/utils';
 import { useIsClient } from 'usehooks-ts';
-import { Trans } from '@lingui/macro';
+import { Connector, useAccount, useConnect } from 'wagmi';
+import { Address } from 'viem';
 
-import { EvmAddressLabel } from '../EvmAddressLabel';
-import { WalletIcon } from '../WalletIcon';
 import { useConnectModal } from '../../providers';
 import { ConnectType } from '../../types';
+import { EvmAddressLabel } from '../EvmAddressLabel';
+import { WalletIcon } from '../WalletIcon';
 
 import { StyledWallets } from './ConnectWallet.style';
 

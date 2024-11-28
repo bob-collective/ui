@@ -1,11 +1,11 @@
-import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
-import { renderHook, act } from '@testing-library/react-hooks';
-import { useQueryClient } from '@gobob/react-query';
-import { useDisconnect, useAccountEffect } from '@gobob/wagmi';
+import { useQueryClient } from '@tanstack/react-query';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
+import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
+import { useAccountEffect, useDisconnect } from 'wagmi';
 
-import { useLogout } from '../useLogout';
 import { useGetUser } from '../useGetUser';
+import { useLogout } from '../useLogout';
 
 import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
@@ -17,7 +17,7 @@ vi.mock('@/utils', () => ({
   }
 }));
 
-vi.mock(import('@gobob/react-query'), async (importOriginal) => {
+vi.mock(import('@tanstack/react-query'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {
@@ -26,7 +26,7 @@ vi.mock(import('@gobob/react-query'), async (importOriginal) => {
   };
 });
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

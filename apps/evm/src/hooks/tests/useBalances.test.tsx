@@ -1,16 +1,16 @@
-import { PropsWithChildren } from 'react';
-import { renderHook } from '@testing-library/react-hooks';
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, Ether } from '@gobob/currency';
-import { describe, it, expect, beforeEach, vi, Mock } from 'vitest';
-import { useAccount, useBalance, usePublicClient } from '@gobob/wagmi';
+import { renderHook } from '@testing-library/react-hooks';
+import { PropsWithChildren } from 'react';
+import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
+import { useAccount, useBalance, usePublicClient } from 'wagmi';
 
 import { useBalances } from '../useBalances';
 import { useTokens } from '../useTokens';
 
 import { wrapper } from '@/test-utils';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

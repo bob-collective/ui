@@ -1,10 +1,10 @@
 import { CurrencyAmount, Token } from '@gobob/currency';
-import { useMemo } from 'react';
 import { USDT_ETH } from '@gobob/tokens';
-import { useReadContract } from '@gobob/wagmi';
+import { useMemo } from 'react';
 import { Address, erc20Abi } from 'viem';
+import { useReadContract } from 'wagmi';
 
-import { USDTAbi } from './abis/USDT.abi';
+import { USDTAbi } from '@/abis/USDT.abi';
 
 type UseTokenAllowanceProps = {
   token?: Token;

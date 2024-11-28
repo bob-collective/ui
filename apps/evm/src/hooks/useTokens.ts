@@ -1,9 +1,9 @@
 import { ChainId } from '@gobob/chains';
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import { ERC20Token, Ether } from '@gobob/currency';
 import { NATIVE } from '@gobob/tokens';
+import { useQuery } from '@tanstack/react-query';
 
-import { RawToken, tokens } from '../constants/assets';
+import { INTERVAL, RawToken, tokens } from '@/constants';
 
 type TokenData = {
   raw: RawToken;

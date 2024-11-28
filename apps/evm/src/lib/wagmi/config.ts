@@ -42,8 +42,10 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
   ];
 
   return createConfig({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     chains: (isProd ? prodChains : allChains) as any,
     multiInjectedProviderDiscovery,
+    ssr: true,
     transports: {
       [mainnet.id]: http(),
       [sepolia.id]: http(),
@@ -54,4 +56,4 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
   });
 };
 
-export { allChains, prodChains, testnetChains, getConfig };
+export { getConfig };

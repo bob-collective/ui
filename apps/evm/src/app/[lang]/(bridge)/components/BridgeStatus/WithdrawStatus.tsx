@@ -1,12 +1,12 @@
 'use client';
 
-import { useMutation } from '@gobob/react-query';
 import { Flex, FlexProps, toast } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
 import * as Sentry from '@sentry/nextjs';
+import { useMutation } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { getWithdrawals } from 'viem/op-stack';
+import { useAccount } from 'wagmi';
 
 import { BridgeTransaction } from '../../hooks';
 

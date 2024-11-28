@@ -1,9 +1,10 @@
-import { useMutation } from '@gobob/react-query';
 import { toast } from '@gobob/ui';
-import { Address, useAccount, useSignMessage } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useMutation } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
+import { Address } from 'viem';
+import { useAccount, useSignMessage } from 'wagmi';
 
 import { useGetUser } from './useGetUser';
 

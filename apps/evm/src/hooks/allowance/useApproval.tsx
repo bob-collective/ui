@@ -1,15 +1,27 @@
 import { Currency, CurrencyAmount, Token } from '@gobob/currency';
-import { useAccount, useSimulateContract, useWaitForTransactionReceipt, useWriteContract } from '@gobob/wagmi';
 import { USDT_ETH, ethereumTokens, sepoliaTokens } from '@gobob/tokens';
 import { useCallback, useEffect, useMemo } from 'react';
-import { Address, erc20Abi, isAddressEqual } from 'viem';
+import { Abi, Address, erc20Abi, isAddressEqual, maxInt256 } from 'viem';
+import { useAccount, useSimulateContract, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 
 import { useTokenAllowance } from './useTokenAlowance';
-import { USDTAbi } from './abis/USDT.abi';
 
-const UINT_256_MAX = BigInt(2 ** 256) - BigInt(1);
+const usdt_abi: Abi = [
+  {
+    constant: false,
+    inputs: [
+      { name: '_spender', type: 'address' },
+      { name: '_value', type: 'uint256' }
+    ],
+    name: 'approve',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function'
+  }
+];
 
-export const useGetApprovalData = (amount: CurrencyAmount<Token> | undefined, address?: Address, spender?: Address) => {
+const useGetApprovalData = (amount: CurrencyAmount<Token> | undefined, address?: Address, spender?: Address) => {
   const { allowance, isPending, refetch, isLoading } = useTokenAllowance({
     token: amount?.currency,
     owner: address,
@@ -67,7 +79,7 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
   } = useGetApprovalData(tokenAmount, address, spender);
 
   const abi = useMemo(
-    () => (tokenAmount?.currency.symbol === USDT_ETH?.symbol ? USDTAbi : erc20Abi) as typeof erc20Abi,
+    () => (tokenAmount?.currency.symbol === USDT_ETH?.symbol ? usdt_abi : erc20Abi) as typeof erc20Abi,
     [tokenAmount]
   );
 
@@ -78,7 +90,7 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
     address: tokenAmount?.currency.address,
     abi,
     functionName: 'approve',
-    args: [spender!, UINT_256_MAX]
+    args: [spender!, maxInt256]
   });
 
   const {
@@ -177,5 +189,4 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
   };
 };
 
-export { useApproval, UINT_256_MAX };
-export type { UseApprovalProps };
+export { useApproval };

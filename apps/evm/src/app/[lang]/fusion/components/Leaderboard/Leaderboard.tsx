@@ -1,19 +1,19 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Chip, Flex, H2, Skeleton, Span, Table, Tabs, TabsItem, useLocale } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
-import { useCallback, useId, useState } from 'react';
-import { ReactNode } from 'react';
 import { Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
+import { ReactNode, useCallback, useId, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import { QuestOwnerIcon } from '../QuestOwnerAvatar';
 
 import { StyledQuestList, StyledSkeletonWrapper } from './Leaderboard.style';
 
 import { Medal } from '@/app/[lang]/apps/components/Medal';
-import { useGetUser } from '@/hooks';
-import { QuestRefCodes, apiClient } from '@/utils';
-import { fusionKeys } from '@/lib/react-query';
 import { SpiceAmount } from '@/components';
+import { INTERVAL } from '@/constants';
+import { useGetUser } from '@/hooks';
+import { fusionKeys } from '@/lib/react-query';
+import { QuestRefCodes, apiClient } from '@/utils';
 
 const SpiceColumn = ({ amount }: { amount: number }) => <SpiceAmount amount={amount} />;
 

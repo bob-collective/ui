@@ -4,7 +4,7 @@ import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
 import { ZeroDevSmartWalletConnectors } from '@dynamic-labs/ethereum-aa';
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
-import { INTERVAL, QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PropsWithChildren, useState } from 'react';
 import { bob, bobSepolia } from 'viem/chains';
 import { createConfig, http, WagmiProvider } from 'wagmi';
@@ -13,6 +13,7 @@ import { NestedProviders } from './nested-providers';
 
 import { BalanceProvider } from '@/providers';
 import { FetchError } from '@/types/fetch';
+import { INTERVAL } from '@/constants';
 
 const config = createConfig({
   chains: [bob, bobSepolia],
