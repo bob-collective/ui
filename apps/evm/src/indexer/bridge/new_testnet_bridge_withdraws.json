@@ -4,6 +4,9 @@
   "abis": {
     "bridge": {
       "path": "./L2BridgeABI.json"
+    },
+    "l2-to-l1-message-passer": {
+      "path": "./L2ToL1MessagePasserABI.json"
     }
   },
   "chains": ["bob-sepolia"],
@@ -18,6 +21,12 @@
       "abi": "bridge",
       "address": "0x5C2A45A35ba99d8Ee58c4bB96e2Ce30dA86C530b",
       "startBlock": 253101,
+      "chain": "bob-sepolia"
+    },
+    {
+      "abi": "l2-to-l1-message-passer",
+      "address": "0x4200000000000000000000000000000000000016",
+      "startBlock": 2526171,
       "chain": "bob-sepolia"
     }
   ]

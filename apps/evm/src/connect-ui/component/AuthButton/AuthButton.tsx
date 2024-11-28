@@ -1,12 +1,12 @@
 'use client';
 
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { useAccount, useSwitchChain } from '@gobob/wagmi';
-import { Button, ButtonProps } from '@gobob/ui';
 import { ChainId, getChainName } from '@gobob/chains';
-import { useIsClient } from 'usehooks-ts';
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { Button, ButtonProps } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useIsClient } from 'usehooks-ts';
+import { useAccount, useSwitchChain } from 'wagmi';
 
 import { useConnectModal } from '../..';
 

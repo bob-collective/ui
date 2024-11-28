@@ -1,18 +1,19 @@
 'use client';
 
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { useForm } from '@gobob/ui';
-import { useAccount, useIsContract } from '@gobob/wagmi';
 import Big from 'big.js';
 import { useState } from 'react';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { useAccount } from 'wagmi';
 
 import { UseGatewayQueryDataReturnType } from './useGateway';
 
+import { useIsContract } from '@/hooks';
 import {
   BRIDGE_AMOUNT,
+  BRIDGE_ASSET,
   BRIDGE_BTC_WALLET,
   BRIDGE_RECIPIENT,
-  BRIDGE_ASSET,
   BridgeFormValidationParams,
   BridgeFormValues,
   bridgeSchema

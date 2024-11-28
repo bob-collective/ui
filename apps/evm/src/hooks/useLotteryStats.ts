@@ -1,5 +1,5 @@
-import { useQuery, UseQueryOptions } from '@gobob/react-query';
-import { useAccount } from '@gobob/wagmi';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useAccount } from 'wagmi';
 
 import { useGetUser } from './useGetUser';
 

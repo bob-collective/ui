@@ -1,9 +1,10 @@
-import { QueryCache, QueryClient, QueryClientProvider } from '@gobob/react-query';
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BOBUIProvider } from '@gobob/ui';
-import { WagmiProvider } from '@gobob/wagmi';
 import { PropsWithChildren } from 'react';
+import { WagmiProvider } from 'wagmi';
 
 import { LinguiClientProvider } from '@/i18n/provider';
+import { getConfig } from '@/lib/wagmi';
 
 export const wrapper = ({ children }: PropsWithChildren) => {
   const queryClient = new QueryClient({
@@ -23,7 +24,7 @@ export const wrapper = ({ children }: PropsWithChildren) => {
   return (
     <LinguiClientProvider initialLocale='en' initialMessages={{}}>
       <QueryClientProvider client={queryClient}>
-        <WagmiProvider>
+        <WagmiProvider config={getConfig({ isProd: false })}>
           <BOBUIProvider>{children}</BOBUIProvider>
         </WagmiProvider>
       </QueryClientProvider>

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Currency, CurrencyAmount } from '@gobob/currency';
+import { usePrices } from '@gobob/hooks';
 import { Flex, Span, useCurrencyFormatter, useLocale } from '@gobob/ui';
 import { Item } from '@react-stately/collections';
-import { Currency, CurrencyAmount } from '@gobob/currency';
-import { usePrices } from '@gobob/react-query';
 import { useMemo, useState } from 'react';
 import Big from 'big.js';
 

@@ -1,16 +1,17 @@
 import { waitFor } from '@testing-library/react';
-import { renderHook, act } from '@testing-library/react-hooks';
-import { useSignMessage, useChainId } from '@gobob/wagmi';
-import { Mock, vi } from 'vitest';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { SiweMessage } from 'siwe';
+import { Mock, vi } from 'vitest';
+import { useChainId, useSignMessage } from 'wagmi';
 
 import { useLogin } from '../useLogin';
 
 import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
+import { FetchError } from '@/types/fetch';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {
@@ -85,7 +86,7 @@ describe('useLogin', () => {
   it('throws an error if signature verification fails', async () => {
     const errorMessage = 'Verification failed';
 
-    (apiClient.verify as Mock).mockResolvedValue({ ok: false, message: errorMessage });
+    (apiClient.verify as Mock).mockRejectedValue(new FetchError(errorMessage, 401, errorMessage));
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {

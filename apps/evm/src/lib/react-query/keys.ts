@@ -63,12 +63,9 @@ export const bridgeKeys = {
     'deposit'
   ],
   btcTokens: () => ['btc-tokens'],
-  strategies: () => ['strategies']
-};
-
-export const signUpKeys = {
-  signUp: () => ['sign-up'],
-  referralCode: () => ['referral-code']
+  strategies: () => ['strategies'],
+  deposit: (address: Address | undefined) => ['bridge-deposit', address],
+  withdraw: (address: Address | undefined) => ['bridge-withdraw', address]
 };
 
 export const appsKeys = {
@@ -80,6 +77,10 @@ export const appsKeys = {
 
 export const fusionKeys = {
   fusion: () => ['fusion'],
+  user: () => [...fusionKeys.fusion(), 'user'],
+  login: () => [...fusionKeys.fusion(), 'login'],
+  signUp: () => [...fusionKeys.fusion(), 'sign-up'],
+  referralCode: () => [...fusionKeys.fusion(), 'referral-code'],
   leaderboard: () => [...fusionKeys.fusion(), 'leaderboard'],
   leaderboardOverview: () => [...fusionKeys.fusion(), 'leaderboard-overview'],
   tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],

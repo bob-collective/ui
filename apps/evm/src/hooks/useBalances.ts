@@ -1,13 +1,14 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
-import { useAccount, useBalance, usePublicClient } from '@gobob/wagmi';
 import { chain } from '@react-aria/utils';
+import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
-
-import { ERC20Abi } from '../abis/ERC20.abi';
+import { erc20Abi } from 'viem';
+import { useAccount, useBalance, usePublicClient } from 'wagmi';
 
 import { useTokens } from './useTokens';
+
+import { INTERVAL } from '@/constants';
 
 type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
@@ -31,16 +32,18 @@ const useBalances = (chainId: ChainId) => {
     queryFn: async () => {
       if (!tokens || !publicClient) return;
 
+      const erc20List = tokens.filter((token) => token.currency.isToken);
+
       const balancesMulticallResult = await publicClient.multicall({
-        contracts: tokens.map((token) => ({
-          abi: ERC20Abi,
+        contracts: erc20List.map((token) => ({
+          abi: erc20Abi,
           address: token.raw.address,
           functionName: 'balanceOf',
           args: [address]
         }))
       });
 
-      return tokens.reduce<Balances>(
+      return erc20List.reduce<Balances>(
         (result, token, index) => ({
           ...result,
           [token.raw.symbol]: CurrencyAmount.fromRawAmount(

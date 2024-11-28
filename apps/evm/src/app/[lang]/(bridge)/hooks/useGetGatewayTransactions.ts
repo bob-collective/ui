@@ -1,9 +1,10 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Token } from '@gobob/currency';
-import { INTERVAL, UndefinedInitialDataOptions, useQuery } from '@gobob/react-query';
-import { useAccount } from '@gobob/wagmi';
+import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
 import { Address } from 'viem';
+import { useAccount } from 'wagmi';
 
+import { INTERVAL } from '@/constants';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { GatewaySteps, GatewayTransaction, GatewayTransactionType, TransactionType } from '@/types';
 import { esploraClient } from '@/utils';

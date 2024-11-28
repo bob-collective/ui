@@ -1,11 +1,11 @@
+import { Bitcoin, CurrencyAmount } from '@gobob/currency';
+import { usePrices } from '@gobob/hooks';
+import { BITCOIN } from '@gobob/tokens';
 import { TokenInput, TokenInputProps } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { BITCOIN } from '@gobob/tokens';
-import { usePrices } from '@gobob/react-query';
-import { useMemo } from 'react';
 import Big from 'big.js';
-import { Bitcoin, CurrencyAmount } from '@gobob/currency';
+import { useMemo } from 'react';
 
 type Props = {
   amount?: string;

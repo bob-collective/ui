@@ -1,6 +1,6 @@
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import {
   Card,
   Dd,

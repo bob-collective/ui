@@ -12,16 +12,6 @@ exports[`WETH9 Snapshot > should match snapshot for WETH9 1`] = `
     "projectLink": "https://weth.io",
     "symbol": "WETH",
   },
-  "111": ERC20Token {
-    "address": "0x4200000000000000000000000000000000000006",
-    "chainId": 111,
-    "decimals": 18,
-    "isNative": false,
-    "isToken": true,
-    "name": "Wrapped Ether",
-    "projectLink": "https://weth.io",
-    "symbol": "WETH",
-  },
   "11155111": ERC20Token {
     "address": "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
     "chainId": 11155111,
