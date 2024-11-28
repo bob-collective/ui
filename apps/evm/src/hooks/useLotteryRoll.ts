@@ -15,7 +15,7 @@ const useLotteryRoll = (props: Omit<UseMutationOptions<LotteryRoll, Error, void,
     onSuccess: (data) => {
       queryClient.setQueryData(fusionKeys.lotteryStats(user?.username), data);
       queryClient.refetchQueries({ queryKey: fusionKeys.lotteryStats(user?.username) });
-      if (data.winningPackageId !== null) queryClient.refetchQueries({ queryKey: ['user'] });
+      if (data.winningPackageId !== null) queryClient.refetchQueries({ queryKey: fusionKeys.user() });
     },
     ...props
   });

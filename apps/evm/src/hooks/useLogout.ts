@@ -1,24 +1,12 @@
-import { UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAccountEffect, useDisconnect } from 'wagmi';
-
-import { apiClient } from '../utils';
 
 import { useGetUser } from './useGetUser';
 
-const useLogout = (
-  props: Omit<
-    UseMutationOptions<
-      void,
-      unknown,
-      | {
-          shouldDisconnect?: boolean | undefined;
-        }
-      | undefined,
-      unknown
-    >,
-    'mutationKey' | 'mutationFn'
-  > = {}
-) => {
+import { apiClient } from '@/utils';
+import { fusionKeys } from '@/lib/react-query';
+
+const useLogout = () => {
   const { data: user } = useGetUser();
 
   const { disconnect } = useDisconnect();
@@ -29,12 +17,11 @@ const useLogout = (
     mutationKey: ['logout'],
     mutationFn: async ({ shouldDisconnect = true }: { shouldDisconnect?: boolean } = {}) => {
       await apiClient.logout();
-      queryClient.removeQueries({ queryKey: ['user'] });
+      queryClient.removeQueries({ queryKey: fusionKeys.user() });
       if (shouldDisconnect) {
         disconnect();
       }
-    },
-    ...props
+    }
   });
 
   useAccountEffect({

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount } from '@gobob/currency';
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useStore } from '@tanstack/react-store';
 import request, { gql } from 'graphql-request';
 import { useCallback } from 'react';
@@ -11,7 +11,7 @@ import { useAccount } from 'wagmi';
 
 import { ETH, INTERVAL, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
 import { useBridgeTokens, usePublicClientL1, usePublicClientL2 } from '@/hooks';
-import { bridgeKeys, queryClient } from '@/lib/react-query';
+import { bridgeKeys } from '@/lib/react-query';
 import { store } from '@/lib/store';
 import { BridgeTransaction, BridgeTransactionStatus, TransactionDirection, TransactionType } from '@/types';
 
@@ -41,6 +41,7 @@ type BridgeDepositTransactionResponse = {
   l1StandardBridgeEth: EthTransactionResponse[];
   optimismPortalEth: EthRawTransactionResponse[];
   erc20: Erc20TransactionResponse[];
+  westEth?: Erc20TransactionResponse[];
 };
 
 type BridgeWithdrawTransactionResponse = {
@@ -72,11 +73,11 @@ const getDepositBridgeTransactions = gql`
       timestamp: timestamp_
       opaqueData
     }
-    erc20: erc20BridgeInitiateds(where: { from_starts_with_nocase: $address }) {
+    erc20: erc20DepositInitiateds(where: { from_starts_with_nocase: $address }) {
+      localToken: l1Token
+      remoteToken: l2Token
       from
       to
-      localToken
-      remoteToken
       blockNumber: block_number
       transactionHash: transactionHash_
       timestamp: timestamp_
@@ -195,6 +196,8 @@ const useGetBridgeTransactions = () => {
   const publicClientL1 = usePublicClientL1();
   const publicClientL2 = usePublicClientL2();
 
+  const queryClient = useQueryClient();
+
   const unconfirmedTransactions = useStore(store, (state) => state.bridge.transactions.bridge.unconfirmed);
 
   const getTxReceipt = useCallback(
@@ -218,7 +221,7 @@ const useGetBridgeTransactions = () => {
 
       return receipt;
     },
-    [publicClientL1, publicClientL2]
+    [publicClientL1, publicClientL2, queryClient]
   );
 
   const getDepositStatus = useCallback(
@@ -296,7 +299,7 @@ const useGetBridgeTransactions = () => {
 
       return remainingTime ? new Date(remainingTime) : undefined;
     },
-    [address, publicClientL1, publicClientL2.chain]
+    [address, publicClientL1, publicClientL2.chain, queryClient]
   );
 
   const getWithdrawStatus = useCallback(
@@ -336,7 +339,7 @@ const useGetBridgeTransactions = () => {
         statusEndDate
       };
     },
-    [getTxReceipt, address, publicClientL1, getStatusEndDate]
+    [getTxReceipt, address, publicClientL1, getStatusEndDate, queryClient]
   );
 
   const getEthDeposit = useCallback(

@@ -9,6 +9,7 @@ import { useLogout } from '../useLogout';
 
 import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
+import { fusionKeys } from '@/lib/react-query';
 
 vi.mock('@/utils', () => ({
   apiClient: {
@@ -61,7 +62,7 @@ describe('useLogout Hook', () => {
     await act(() => result.current.logout({ shouldDisconnect: true }));
 
     expect(apiClient.logout).toHaveBeenCalled();
-    expect(queryClientMock.removeQueries).toHaveBeenCalledWith({ queryKey: ['user'] });
+    expect(queryClientMock.removeQueries).toHaveBeenCalledWith({ queryKey: fusionKeys.user() });
     expect(disconnectMock).toHaveBeenCalled();
   });
 
@@ -72,7 +73,7 @@ describe('useLogout Hook', () => {
 
     await act(() => result.current.logout({ shouldDisconnect: false }));
     expect(apiClient.logout).toHaveBeenCalled();
-    expect(queryClientMock.removeQueries).toHaveBeenCalledWith({ queryKey: ['user'] });
+    expect(queryClientMock.removeQueries).toHaveBeenCalledWith({ queryKey: fusionKeys.user() });
     expect(disconnectMock).not.toHaveBeenCalled();
   });
 
@@ -82,7 +83,7 @@ describe('useLogout Hook', () => {
     renderHook<PropsWithChildren, ReturnType<typeof useLogout>>(() => useLogout(), { wrapper });
 
     expect(apiClient.logout).toHaveBeenCalled();
-    expect(queryClientMock.removeQueries).toHaveBeenCalledWith({ queryKey: ['user'] });
+    expect(queryClientMock.removeQueries).toHaveBeenCalledWith({ queryKey: fusionKeys.user() });
     expect(disconnectMock).not.toHaveBeenCalled();
   });
 });

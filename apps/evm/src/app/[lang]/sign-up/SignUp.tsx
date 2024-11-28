@@ -16,7 +16,7 @@ import { Geoblock, LoginSection, Main } from '@/components';
 import { useConnectModal } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN, RoutesPath, isValidChain } from '@/constants';
 import { useGetUser, useSignUp } from '@/hooks';
-import { signUpKeys } from '@/lib/react-query';
+import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
 
 const SignUp = (): JSX.Element | null => {
@@ -27,7 +27,7 @@ const SignUp = (): JSX.Element | null => {
 
   const router = useRouter();
   const params = useParams();
-  const { data: user } = useGetUser({ retry: 5, retryDelay: 1000 });
+  const { data: user } = useGetUser();
 
   const [referalCode, setReferalCode] = useState('');
 
@@ -39,7 +39,7 @@ const SignUp = (): JSX.Element | null => {
     isPending: isPendingValidateReferralCode,
     reset
   } = useMutation({
-    mutationKey: signUpKeys.referralCode(),
+    mutationKey: fusionKeys.referralCode(),
     mutationFn: async (code: string) => apiClient.postReferralCode(code)
   });
 

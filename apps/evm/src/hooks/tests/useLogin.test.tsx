@@ -9,6 +9,7 @@ import { useLogin } from '../useLogin';
 
 import { wrapper } from '@/test-utils';
 import { apiClient } from '@/utils';
+import { FetchError } from '@/types/fetch';
 
 vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -85,7 +86,7 @@ describe('useLogin', () => {
   it('throws an error if signature verification fails', async () => {
     const errorMessage = 'Verification failed';
 
-    (apiClient.verify as Mock).mockResolvedValue({ ok: false, message: errorMessage });
+    (apiClient.verify as Mock).mockRejectedValue(new FetchError(errorMessage, 401, errorMessage));
     (SiweMessage as Mock).mockReturnValue({ prepareMessage: vi.fn() });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useLogin>>(() => useLogin(), {

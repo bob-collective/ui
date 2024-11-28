@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getAppLogo } from '../utils';
 
+import { INTERVAL } from '@/constants';
 import { appsKeys } from '@/lib/react-query';
 import { apiClient, ResultProject, ResultProjectCategory, ResultProjectVotingInfo } from '@/utils';
 
@@ -21,6 +22,7 @@ const useGetPodiumData = () => {
   return useQuery({
     queryKey: appsKeys.appsResultVotes(),
     queryFn: () => apiClient.getLastVotingResults(),
+    gcTime: INTERVAL.HOUR,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     select: (data): ResultVotingAppInfo => {

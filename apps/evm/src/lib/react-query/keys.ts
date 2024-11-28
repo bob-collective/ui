@@ -68,11 +68,6 @@ export const bridgeKeys = {
   withdraw: (address: Address | undefined) => ['bridge-withdraw', address]
 };
 
-export const signUpKeys = {
-  signUp: () => ['sign-up'],
-  referralCode: () => ['referral-code']
-};
-
 export const appsKeys = {
   apps: () => ['apps'],
   appsVotes: (username: string | undefined) => [...appsKeys.apps(), 'votes', username],
@@ -82,6 +77,10 @@ export const appsKeys = {
 
 export const fusionKeys = {
   fusion: () => ['fusion'],
+  user: () => [...fusionKeys.fusion(), 'user'],
+  login: () => [...fusionKeys.fusion(), 'login'],
+  signUp: () => [...fusionKeys.fusion(), 'sign-up'],
+  referralCode: () => [...fusionKeys.fusion(), 'referral-code'],
   leaderboard: () => [...fusionKeys.fusion(), 'leaderboard'],
   leaderboardOverview: () => [...fusionKeys.fusion(), 'leaderboard-overview'],
   tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],
