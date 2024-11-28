@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount } from '@gobob/currency';
-import { INTERVAL, useQueries, useQuery, useQueryClient } from '@gobob/react-query';
-import { Address, useAccount } from '@gobob/wagmi';
+import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useStore } from '@tanstack/react-store';
 import request, { gql } from 'graphql-request';
 import { useCallback } from 'react';
-import { TransactionReceipt, decodeAbiParameters, isAddressEqual, parseAbiParameters } from 'viem';
+import { Address, TransactionReceipt, decodeAbiParameters, isAddressEqual, parseAbiParameters } from 'viem';
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
+import { useAccount } from 'wagmi';
 
-import { ETH, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
+import { ETH, INTERVAL, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
 import { useBridgeTokens, usePublicClientL1, usePublicClientL2 } from '@/hooks';
 import { bridgeKeys } from '@/lib/react-query';
 import { store } from '@/lib/store';
@@ -55,7 +55,6 @@ type RawTransactionsData = {
   deposits: BridgeDepositTransactionResponse;
   withdraws: BridgeWithdrawTransactionResponse;
 };
-
 const getDepositBridgeTransactions = gql`
   query getBridgeDeposits($address: String!) {
     l1StandardBridgeEth: ethbridgeInitiateds(where: { from_starts_with_nocase: $address }) {

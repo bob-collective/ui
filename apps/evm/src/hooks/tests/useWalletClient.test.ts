@@ -1,14 +1,14 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { useAccount } from '@gobob/wagmi';
+import { useIsClient } from 'usehooks-ts';
 import { createWalletClient, custom } from 'viem';
 import { Mock, vi } from 'vitest';
-import { useIsClient } from 'usehooks-ts';
+import { useAccount } from 'wagmi';
 
 import { useWalletClientL1, useWalletClientL2 } from '../useWalletClient';
 
 import { chainL1, chainL2 } from '@/constants';
 
-vi.mock('@gobob/wagmi', () => ({
+vi.mock('wagmi', () => ({
   useAccount: vi.fn()
 }));
 

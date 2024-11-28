@@ -1,8 +1,9 @@
 'use client';
 
-import { useConfig, watchAccount } from '@gobob/wagmi';
-import { useEffect, useMemo, useRef } from 'react';
 import { useStore } from '@tanstack/react-store';
+import { watchAccount } from '@wagmi/core';
+import { useEffect, useMemo, useRef } from 'react';
+import { useConfig } from 'wagmi';
 
 import { GetGatewayTransactionsReturnType, useGetBridgeTransactions, useGetGatewayTransactions } from '../../hooks';
 

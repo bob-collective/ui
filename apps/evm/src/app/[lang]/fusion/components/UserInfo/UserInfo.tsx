@@ -1,4 +1,3 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import {
   Bars3,
   Button,
@@ -21,6 +20,7 @@ import {
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
@@ -44,7 +44,7 @@ import { UserReferralModal } from './UserReferralModal';
 
 import { AppData } from '@/app/[lang]/apps/hooks';
 import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
-import { isClient, LocalStorageKey, RoutesPath } from '@/constants';
+import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
 import { fusionKeys } from '@/lib/react-query';
 import { SessionStorageKey } from '@/types';
 import { apiClient, QuestS3Response, UserResponse } from '@/utils';

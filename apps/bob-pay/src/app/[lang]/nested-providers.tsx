@@ -1,10 +1,10 @@
 'use client';
 
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import { BOBUIProvider, CSSReset } from '@gobob/ui';
-import { useChainId, useReconnect } from 'wagmi';
 import { usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, useEffect } from 'react';
+import { useChainId, useReconnect } from 'wagmi';
 
 import { Header, Layout } from '@/components';
 import { useBalances, useTokens } from '@/hooks';

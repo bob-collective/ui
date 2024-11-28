@@ -1,9 +1,9 @@
-import { useMutation, useQueryClient } from '@gobob/react-query';
 import { toast } from '@gobob/ui';
-import { useChainId, useSignMessage } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
+import { useChainId, useSignMessage } from 'wagmi';
 
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';

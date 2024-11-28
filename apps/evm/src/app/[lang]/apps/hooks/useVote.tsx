@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from '@gobob/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { useGetUser } from '@/hooks';
 import { appsKeys, fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
-import { useGetUser } from '@/hooks';
 
 const useVote = () => {
   const queryClient = useQueryClient();

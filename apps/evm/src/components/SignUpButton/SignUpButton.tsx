@@ -1,8 +1,8 @@
 import { ChainId } from '@gobob/chains';
 import { Button, ButtonProps, toast } from '@gobob/ui';
-import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
 import { mergeProps } from '@react-aria/utils';
+import { useAccount, useSwitchChain } from 'wagmi';
 
 import { useConnectModal } from '@/connect-ui';
 import { L2_CHAIN, isValidChain } from '@/constants';

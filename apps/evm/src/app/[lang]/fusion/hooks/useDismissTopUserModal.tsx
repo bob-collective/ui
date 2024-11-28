@@ -1,11 +1,12 @@
-import { useMutation } from '@gobob/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useGetUser } from '@/hooks';
-import { fusionKeys, queryClient } from '@/lib/react-query';
+import { fusionKeys } from '@/lib/react-query';
 import { apiClient, UserResponse } from '@/utils';
 
 const useDismissTopUserModal = () => {
   const { data: user } = useGetUser();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: fusionKeys.topUserModal(user?.username),

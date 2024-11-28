@@ -1,16 +1,16 @@
-import { describe, expect, it, vi, beforeEach, Mock } from 'vitest';
-import { useAccount } from '@gobob/wagmi';
-import request from 'graphql-request';
-import { act, renderHook } from '@testing-library/react-hooks';
-import { CurrencyAmount, Ether } from '@gobob/currency';
 import { ChainId } from '@gobob/chains';
+import { CurrencyAmount, Ether } from '@gobob/currency';
+import { act, renderHook } from '@testing-library/react-hooks';
+import request from 'graphql-request';
+import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
+import { useAccount } from 'wagmi';
 
 import { BridgeTransaction, useGetBridgeTransactions } from '../useGetBridgeTransactions';
 
 import { wrapper } from '@/test-utils';
 import { BridgeTransactionStatus, TransactionDirection, TransactionType } from '@/types';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

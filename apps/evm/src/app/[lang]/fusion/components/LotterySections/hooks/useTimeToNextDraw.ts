@@ -1,7 +1,8 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
 
 import { getLocale } from '@/utils';
+import { INTERVAL } from '@/constants';
 
 const useTimeToNextDraw = (lang: 'en' | 'zh' = 'en') => {
   return useQuery({

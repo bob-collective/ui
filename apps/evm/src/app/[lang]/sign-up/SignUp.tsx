@@ -1,13 +1,13 @@
 'use client';
 
 import { ChainId } from '@gobob/chains';
-import { useMutation } from '@gobob/react-query';
 import { Button, Divider, Flex, P, toast } from '@gobob/ui';
-import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useMutation } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { FormEventHandler, Suspense, useEffect, useState } from 'react';
+import { useAccount, useSwitchChain } from 'wagmi';
 
 import { Auditors, HighlightText, ReferralInput } from './components';
 import { StyledAuthCard, StyledH1 } from './SignUp.style';

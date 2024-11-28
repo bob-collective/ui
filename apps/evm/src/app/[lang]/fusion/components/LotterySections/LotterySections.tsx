@@ -1,12 +1,12 @@
-import { Chip, Flex, H2, P, SolidClock, Span, Skeleton } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
+import { Chip, Flex, H2, P, Skeleton, SolidClock, Span } from '@gobob/ui';
 import { Plural, t, Trans } from '@lingui/macro';
-import { useState } from 'react';
-import Image from 'next/image';
-import { useIsClient } from 'usehooks-ts';
 import { useLingui } from '@lingui/react';
 import { useParams } from 'next/navigation';
 import lottery from '@public/assets/lottery.png';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useIsClient } from 'usehooks-ts';
+import { useAccount } from 'wagmi';
 
 import { LotteryModal } from './LotteryModal';
 import { StyledButton, StyledCard } from './LotterySections.style';

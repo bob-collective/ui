@@ -1,21 +1,14 @@
 'use client';
 
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P } from '@gobob/ui';
-import {
-  useAccount,
-  useAccountEffect,
-  useChainId,
-  useConfig,
-  useReconnect,
-  useSwitchChain,
-  watchAccount
-} from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
+import { watchAccount } from '@wagmi/core';
 import { usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 import { isAddressEqual } from 'viem';
+import { useAccount, useAccountEffect, useChainId, useConfig, useReconnect, useSwitchChain } from 'wagmi';
 
 import { Header, Layout, Sidebar } from '@/components';
 import { ConnectProvider } from '@/connect-ui';

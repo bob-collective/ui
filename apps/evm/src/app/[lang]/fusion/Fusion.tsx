@@ -1,12 +1,12 @@
 'use client';
 
 import { Card, Flex, H1, H2, Link, P } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
-import { useCallback, useEffect, useId, useState } from 'react';
 import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import x from '@public/assets/x.png';
+import { useCallback, useEffect, useId, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -19,6 +19,7 @@ import {
   WelcomeBackModal,
   WelcomeModal
 } from './components';
+import { LotterySection } from './components/LotterySections';
 import {
   StyledBackground,
   StyledBannerImg,
@@ -30,12 +31,11 @@ import {
   StyledStrategiesWrapper
 } from './Fusion.style';
 import { useDismissTopUserModal, useGetQuests } from './hooks';
-import { LotterySection } from './components/LotterySections';
 import { TopUserModal } from './components/TopUserModal';
 
-import { useGetUser } from '@/hooks';
 import { Geoblock } from '@/components';
 import { LocalStorageKey } from '@/constants';
+import { useGetUser } from '@/hooks';
 import { SessionStorageKey } from '@/types';
 
 const Fusion = () => {
