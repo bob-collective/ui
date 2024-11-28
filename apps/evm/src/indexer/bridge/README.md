@@ -12,19 +12,23 @@ To access user deposit transactions from Layer 1 (L1) to Layer 2 (L2), utilize t
 
 ### Get All ERC20 Deposits by Address
 
-Replace `0x854AD5bFCF0617D77Ef519c628C4037e8F88c2F6` with the user address:
+Replace `0x97632B3760460A623E068CC70aBF11D5fA99Be5f` with the user address:
 
-```json
-{
-	erc20BridgeInitiateds( where:{from_starts_with_nocase:"0x854AD5bFCF0617D77Ef519c628C4037e8F88c2F6"}) {
-        localToken
-        remoteToken
+```graphql
+query getERC20Deposits_StandardAndCustomBridges_WSETH_USDC {
+    erc20DepositInitiateds(
+        where: {
+            from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f"
+        }
+    ) {
+        l1Token
+        l2Token
         from
         to
         block_number
         transactionHash_
         amount
-  }
+    }
 }
 ```
 
@@ -72,19 +76,23 @@ For accessing user withdrawal transactions from Layer 2 (L2) to Layer 1 (L1), us
 
 ### Get All ERC20 Withdrawals by Address
 
-Replace `0x02c6107638Dd465D504117043A0F68693D9c64A7` with the user address:
+Replace `0x97632B3760460A623E068CC70aBF11D5fA99Be5f` with the user address:
 
-```json
-{
-	erc20BridgeInitiateds( where:{from_starts_with_nocase:"0x02c6107638Dd465D504117043A0F68693D9c64A7"}) {
-    localToken
-    remoteToken
-    from
-    to
-    block_number
-    transactionHash_
-    amount
-  }
+```graphql
+query getERC20Withdrawals_StandardAndCustomBridges_WSETH_USDC {
+    withdrawalInitiateds(
+        where: {
+            from_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f"
+        }
+    ) {
+        l1Token
+        l2Token
+        from
+        to
+        block_number
+        transactionHash_
+        amount
+    }
 }
 ```
 
