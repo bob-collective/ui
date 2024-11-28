@@ -23,7 +23,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
+import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -44,7 +44,7 @@ import { UserReferralModal } from './UserReferralModal';
 
 import { AppData } from '@/app/[lang]/apps/hooks';
 import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
-import { isClient, RoutesPath } from '@/constants';
+import { isClient, LocalStorageKey, RoutesPath } from '@/constants';
 import { fusionKeys } from '@/lib/react-query';
 import { SessionStorageKey } from '@/types';
 import { apiClient, QuestS3Response, UserResponse } from '@/utils';
@@ -63,6 +63,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const params = useParams();
   const { i18n } = useLingui();
   const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
+    initializeWithValue: isClient
+  });
+  const [, setShowTopUserModal] = useLocalStorage(LocalStorageKey.SHOW_TOP_USER_MODAL, true, {
     initializeWithValue: isClient
   });
   const [, copy] = useCopyToClipboard();
@@ -106,7 +109,14 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   return (
     <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
-      <Flex direction='row' justifyContent='flex-end'>
+      <Flex alignItems='center' direction='row' justifyContent='flex-end'>
+        {user?.notices.showIsFusionTopUser && (
+          <Flex flex='1'>
+            <Button color='primary' size='s' variant='outline' onPress={() => setShowTopUserModal(true)}>
+              <Trans>Book a call with the founders</Trans>
+            </Button>
+          </Flex>
+        )}
         <Card padding='md'>
           <Dl direction='row' gap='xxs' justifyContent='space-between'>
             <DlGroup>

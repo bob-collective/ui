@@ -49,14 +49,12 @@ const Fusion = () => {
 
   const questsSectionId = useId();
 
-  const [shouldDisplayTopUserModal, setShouldDisplayTopUserModal] = useState(false);
-
-  useEffect(() => {
-    if (user?.notices.showIsFusionTopUser) setShouldDisplayTopUserModal(true);
-  }, [user]);
+  const [showTopUserModal, setShowTopUserModal] = useLocalStorage(LocalStorageKey.SHOW_TOP_USER_MODAL, true, {
+    initializeWithValue: isClient
+  });
 
   const onCloseModal = (shouldDismissTopUserModal: boolean) => {
-    setShouldDisplayTopUserModal(false);
+    setShowTopUserModal(false);
     if (shouldDismissTopUserModal) dismissTopUserModal();
   };
 
@@ -93,6 +91,7 @@ const Fusion = () => {
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
+  const shouldDisplayTopUserModal = user?.notices.showIsFusionTopUser && showTopUserModal;
 
   return (
     <Geoblock>
