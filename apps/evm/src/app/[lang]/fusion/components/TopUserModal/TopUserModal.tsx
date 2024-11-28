@@ -46,9 +46,6 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
           </P>
         </ModalBody>
         <ModalFooter gap='lg'>
-          <Switch isSelected={dontShow} onChange={(e) => setDontShow(e.target.checked)}>
-            <Trans>Don&apos;t show this message again</Trans>
-          </Switch>
           <Flex gap='xl'>
             <Button fullWidth color='primary' size='xl' onPress={() => setIsCalendlyOpen(true)}>
               <Trans>Book A Call</Trans>
@@ -57,6 +54,13 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
               <Trans>Hide</Trans>
             </Button>
           </Flex>
+          <Switch
+            isSelected={dontShow}
+            style={{ justifyContent: 'flex-end' }}
+            onChange={(e) => setDontShow(e.target.checked)}
+          >
+            <Trans>Don&apos;t show this message again</Trans>
+          </Switch>
         </ModalFooter>
       </Modal>
       <PopupModal
