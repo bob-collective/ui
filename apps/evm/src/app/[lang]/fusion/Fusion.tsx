@@ -49,6 +49,17 @@ const Fusion = () => {
 
   const questsSectionId = useId();
 
+  const [shouldDisplayTopUserModal, setShouldDisplayTopUserModal] = useState(false);
+
+  useEffect(() => {
+    if (user?.notices.showIsFusionTopUser) setShouldDisplayTopUserModal(true);
+  }, [user]);
+
+  const onCloseModal = (shouldDismissTopUserModal: boolean) => {
+    setShouldDisplayTopUserModal(false);
+    if (shouldDismissTopUserModal) dismissTopUserModal();
+  };
+
   const [scrollQuests, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
     initializeWithValue: isClient
   });
@@ -82,7 +93,6 @@ const Fusion = () => {
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
-  const isFusionTopUser = user?.notices.showIsFusionTopUser;
 
   return (
     <Geoblock>
@@ -142,8 +152,8 @@ const Fusion = () => {
           <CommunityVoting />
           <Leaderboard />
           {user ? (
-            isFusionTopUser ? (
-              <TopUserModal isOpen={isFusionTopUser} onClose={dismissTopUserModal} />
+            shouldDisplayTopUserModal ? (
+              <TopUserModal isOpen={shouldDisplayTopUserModal} onClose={onCloseModal} />
             ) : hasPastHarvest ? (
               <WelcomeBackModal
                 isOpen={!isHideFusionWelcomeBackModal && isAuthenticated}

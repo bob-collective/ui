@@ -1,4 +1,4 @@
-import { Button, H3, Link, Modal, ModalBody, ModalFooter, ModalProps, P } from '@gobob/ui';
+import { Button, Flex, H3, Link, Modal, ModalBody, ModalFooter, ModalProps, P, Switch } from '@gobob/ui';
 import { colors } from '@gobob/ui/src/theme/themes/bob/colors';
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
@@ -6,7 +6,7 @@ import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 // import { sendGTMEvent } from '@next/third-parties/google';
 
 type Props = {
-  onClose: () => void;
+  onClose: (shouldDismissTopUserModal: boolean) => void;
 };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
@@ -15,11 +15,12 @@ type TopUserModalProps = Props & InheritAttrs;
 
 const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Element => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const [dontShow, setDontShow] = useState(false);
 
   useCalendlyEventListener({
     onEventScheduled: () => {
       // sendGTMEvent(e.data); // send `.event` and `.payload`
-      onClose();
+      onClose(true);
     }
   });
 
@@ -44,13 +45,18 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
             </Trans>
           </P>
         </ModalBody>
-        <ModalFooter direction='row' elementType='form' gap='xl'>
-          <Button fullWidth color='primary' size='xl' onPress={() => setIsCalendlyOpen(true)}>
-            <Trans>Book Meeting</Trans>
-          </Button>
-          <Button fullWidth color='default' size='xl' variant='outline' onPress={onClose}>
-            <Trans>No Thanks</Trans>
-          </Button>
+        <ModalFooter gap='lg'>
+          <Switch isSelected={dontShow} onChange={(e) => setDontShow(e.target.checked)}>
+            <Trans>Don&apos;t show this message again</Trans>
+          </Switch>
+          <Flex gap='xl'>
+            <Button fullWidth color='primary' size='xl' onPress={() => setIsCalendlyOpen(true)}>
+              <Trans>Book a call</Trans>
+            </Button>
+            <Button fullWidth color='default' size='xl' variant='outline' onPress={() => onClose(dontShow)}>
+              <Trans>Hide</Trans>
+            </Button>
+          </Flex>
         </ModalFooter>
       </Modal>
       <PopupModal
