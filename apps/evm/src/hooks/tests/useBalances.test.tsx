@@ -40,8 +40,8 @@ beforeEach(() => {
 
   (useTokens as Mock).mockReturnValue({
     data: [
-      { raw: { address: '0xTokenAddress1', symbol: 'TOKEN1' }, currency: { decimals: 18 } },
-      { raw: { address: '0xTokenAddress2', symbol: 'TOKEN2' }, currency: { decimals: 18 } }
+      { raw: { address: '0xTokenAddress1', symbol: 'TOKEN1' }, currency: { decimals: 18, isToken: true } },
+      { raw: { address: '0xTokenAddress2', symbol: 'TOKEN2' }, currency: { decimals: 18, isToken: true } }
     ]
   });
 });

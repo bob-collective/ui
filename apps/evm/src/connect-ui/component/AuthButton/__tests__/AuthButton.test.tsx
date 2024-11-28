@@ -1,11 +1,10 @@
 import { render } from '@testing-library/react';
-import { QueryClientProvider } from '@gobob/react-query';
+import { QueryClientProvider, QueryClient } from '@gobob/react-query';
 import { WagmiProvider } from '@gobob/wagmi';
 import { BOBUIProvider } from '@gobob/ui';
 
 import { AuthButton } from '..';
 
-import { queryClient } from '@/lib/react-query';
 import { LinguiClientProvider } from '@/i18n/provider';
 
 describe('AuthButton', () => {
@@ -13,7 +12,7 @@ describe('AuthButton', () => {
     const { unmount } = render(<AuthButton />, {
       wrapper: ({ children }) => (
         <LinguiClientProvider initialLocale='en' initialMessages={{}}>
-          <QueryClientProvider client={queryClient}>
+          <QueryClientProvider client={new QueryClient()}>
             <WagmiProvider>
               <BOBUIProvider>{children}</BOBUIProvider>
             </WagmiProvider>

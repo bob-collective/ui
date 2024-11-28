@@ -1,4 +1,4 @@
-import { UseMutationOptions, useMutation, useQueryClient } from '@gobob/react-query';
+import { useMutation, useQueryClient } from '@gobob/react-query';
 import { useDisconnect } from '@gobob/wagmi';
 import { useAccountEffect } from '@gobob/wagmi';
 
@@ -6,20 +6,9 @@ import { apiClient } from '../utils';
 
 import { useGetUser } from './useGetUser';
 
-const useLogout = (
-  props: Omit<
-    UseMutationOptions<
-      void,
-      unknown,
-      | {
-          shouldDisconnect?: boolean | undefined;
-        }
-      | undefined,
-      unknown
-    >,
-    'mutationKey' | 'mutationFn'
-  > = {}
-) => {
+import { fusionKeys } from '@/lib/react-query';
+
+const useLogout = () => {
   const { data: user } = useGetUser();
 
   const { disconnect } = useDisconnect();
@@ -30,12 +19,11 @@ const useLogout = (
     mutationKey: ['logout'],
     mutationFn: async ({ shouldDisconnect = true }: { shouldDisconnect?: boolean } = {}) => {
       await apiClient.logout();
-      queryClient.removeQueries({ queryKey: ['user'] });
+      queryClient.removeQueries({ queryKey: fusionKeys.user() });
       if (shouldDisconnect) {
         disconnect();
       }
-    },
-    ...props
+    }
   });
 
   useAccountEffect({

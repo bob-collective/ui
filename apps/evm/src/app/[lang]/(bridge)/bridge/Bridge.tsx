@@ -53,11 +53,7 @@ const Bridge = ({ searchParams }: Props) => {
   const initialChain = useMemo(() => {
     const network = urlSearchParams.get('network');
 
-    if (!network) {
-      return L1_CHAIN;
-    }
-
-    if (network === 'bitcoin') {
+    if (!network || network === 'bitcoin') {
       return 'BTC';
     }
 

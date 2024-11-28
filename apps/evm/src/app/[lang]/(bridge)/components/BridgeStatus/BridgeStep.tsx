@@ -199,7 +199,7 @@ const getStepUrl = (
 ) => {
   switch (step) {
     case 'deposit': {
-      return `${chainL2.blockExplorers?.default.url}/tx/${transactionHash}`;
+      return `${chainL1.blockExplorers?.default.url}/tx/${transactionHash}`;
     }
     case 'l1-confirmation': {
       return l1TransactionHash ? `${chainL1.blockExplorers?.default.url}/tx/${l1TransactionHash}` : undefined;

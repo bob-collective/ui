@@ -1,5 +1,7 @@
 export { watchAccount, watchContractEvent } from '@wagmi/core';
+export type { WriteContractErrorType, WriteContractReturnType } from '@wagmi/core';
 export * from 'wagmi';
+export * from 'wagmi/query';
 export * from './bob';
 export * from './config';
 export * from './hooks';

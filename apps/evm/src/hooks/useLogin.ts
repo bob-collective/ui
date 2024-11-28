@@ -1,17 +1,23 @@
-import { UseMutationOptions, useMutation } from '@gobob/react-query';
+import { useMutation, useQueryClient } from '@gobob/react-query';
+import { toast } from '@gobob/ui';
 import { useChainId, useSignMessage } from '@gobob/wagmi';
+import { t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { SiweMessage } from 'siwe';
 
-import { apiClient } from '../utils';
+import { fusionKeys } from '@/lib/react-query';
+import { apiClient } from '@/utils';
 
-const useLogin = ({
-  ...props
-}: Omit<UseMutationOptions<void, unknown, string, unknown>, 'mutationKey' | 'mutationFn'> = {}) => {
+const useLogin = () => {
   const { signMessageAsync } = useSignMessage();
   const chainId = useChainId();
 
+  const { i18n } = useLingui();
+
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationKey: ['login'],
+    mutationKey: fusionKeys.login(),
     mutationFn: async (address: string) => {
       const nonce = await apiClient.getNonce();
 
@@ -29,11 +35,19 @@ const useLogin = ({
         message: message.prepareMessage()
       });
 
-      const res = await apiClient.verify(message, signature);
-
-      if (!res.ok) throw new Error(res?.message || 'Error verifying message');
+      await apiClient.verify(message, signature);
     },
-    ...props
+    onSuccess: async () => {
+      setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (e: any) => {
+      if (e.code === 4001) {
+        toast.error(t(i18n)`User rejected the request`);
+      } else {
+        toast.error(e.message || t(i18n)`Something went wrong. Please try again later.`);
+      }
+    }
   });
 };
 
