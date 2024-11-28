@@ -241,7 +241,11 @@ msgid "BOB Wallet"
 msgstr "BOB 钱包"
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:54
-msgid "Book a call"
+#~ msgid "Book a call"
+#~ msgstr ""
+
+#: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:54
+msgid "Book A Call"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:49

@@ -51,7 +51,7 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
           </Switch>
           <Flex gap='xl'>
             <Button fullWidth color='primary' size='xl' onPress={() => setIsCalendlyOpen(true)}>
-              <Trans>Book a call</Trans>
+              <Trans>Book A Call</Trans>
             </Button>
             <Button fullWidth color='default' size='xl' variant='outline' onPress={() => onClose(dontShow)}>
               <Trans>Hide</Trans>
