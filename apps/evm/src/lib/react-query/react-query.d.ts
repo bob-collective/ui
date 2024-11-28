@@ -1,5 +1,5 @@
-import '@gobob/react-query';
-import { DefaultError, Query } from '@gobob/react-query';
+import '@tanstack/react-query';
+import { DefaultError, Query } from '@tanstack/react-query';
 
 // https://tanstack.com/query/latest/docs/framework/react/typescript#typing-meta
 interface CustomQueryMeta<TQueryFnData = unknown> extends Record<string, unknown> {
@@ -14,7 +14,7 @@ interface CustomQueryMeta<TQueryFnData = unknown> extends Record<string, unknown
     | undefined;
 }
 
-declare module '@gobob/react-query' {
+declare module '@tanstack/react-query' {
   interface Register extends Record<string, unknown> {
     queryMeta: CustomQueryMeta;
   }
