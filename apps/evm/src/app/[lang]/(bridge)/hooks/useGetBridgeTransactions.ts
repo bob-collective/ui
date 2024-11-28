@@ -41,6 +41,7 @@ type BridgeDepositTransactionResponse = {
   l1StandardBridgeEth: EthTransactionResponse[];
   optimismPortalEth: EthRawTransactionResponse[];
   erc20: Erc20TransactionResponse[];
+  westEth?: Erc20TransactionResponse[];
 };
 
 type BridgeWithdrawTransactionResponse = {
@@ -54,6 +55,7 @@ type RawTransactionsData = {
   deposits: BridgeDepositTransactionResponse;
   withdraws: BridgeWithdrawTransactionResponse;
 };
+
 const getDepositBridgeTransactions = gql`
   query getBridgeDeposits($address: String!) {
     l1StandardBridgeEth: ethbridgeInitiateds(where: { from_starts_with_nocase: $address }) {
@@ -72,11 +74,11 @@ const getDepositBridgeTransactions = gql`
       timestamp: timestamp_
       opaqueData
     }
-    erc20: erc20BridgeInitiateds(where: { from_starts_with_nocase: $address }) {
+    erc20: erc20DepositInitiateds(where: { from_starts_with_nocase: $address }) {
+      localToken: l1Token
+      remoteToken: l2Token
       from
       to
-      localToken
-      remoteToken
       blockNumber: block_number
       transactionHash: transactionHash_
       timestamp: timestamp_
