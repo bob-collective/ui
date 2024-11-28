@@ -12,11 +12,14 @@ import {
   DlGroup,
   Dt,
   Divider,
-  Link
+  Link,
+  Span,
+  Chip,
+  Card
 } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
-import { PellNetwork } from '@gobob/icons';
+import { PellNetwork, Spice } from '@gobob/icons';
 import { useLingui } from '@lingui/react';
 
 import { StyledFlex, StyledCard } from '../../Stake.style';
@@ -25,9 +28,101 @@ import { StrategyData, useGetStakingStrategies } from '../../hooks';
 
 import { chainL2 } from '@/constants';
 
+const SpiceRewards = () => (
+  <Card background='primary-500' padding='xs'>
+    <Spice size='xs' />
+  </Card>
+);
+
+const PellPoints = () => (
+  <Chip background='dark' size='s' startAdornment={<PellNetwork size='xs' />}>
+    <Trans>Points</Trans>
+  </Chip>
+);
+
+const BedrockDiamond = () => (
+  <Chip
+    background='blue-800'
+    size='s'
+    startAdornment={
+      <Avatar size='xl' src='https://raw.githubusercontent.com/bob-collective/bob/master/assets/uniBTC.svg' />
+    }
+  >
+    <Trans>Diamond</Trans>
+  </Chip>
+);
+
+const SegmentPoints = () => (
+  <Chip
+    size='s'
+    startAdornment={
+      <Avatar size='xl' src='https://raw.githubusercontent.com/bob-collective/bob/master/assets/segment.svg' />
+    }
+    style={{ backgroundColor: '#2C3CFE' }}
+  >
+    <Trans>Points</Trans>
+  </Chip>
+);
+
+const BabylonPoints = () => (
+  <Chip
+    background='dark'
+    size='s'
+    startAdornment={<Avatar size='xl' src='https://avatars.githubusercontent.com/u/106378782?s=200&v=4' />}
+  >
+    <Trans>Points</Trans>
+  </Chip>
+);
+
+const SolvXP = () => (
+  <Chip
+    size='s'
+    startAdornment={<Avatar size='2xl' src='https://static.gobob.xyz/logos/SOLV%20LOGO%20purple.png' />}
+    style={{ backgroundColor: '#301F5E' }}
+  >
+    <Trans>Solv XP</Trans>
+  </Chip>
+);
+
+const SupplyApr = () => (
+  <Chip background='grey-800' size='s'>
+    <Trans>Supply APR</Trans>
+  </Chip>
+);
+
+const StrategyCell = ({ name, protocol }: { protocol: string; name: string }) => (
+  <Flex alignItems='flex-start' direction='column'>
+    <Span size='xs' weight='bold'>
+      {name}
+    </Span>
+    <Span color='grey-50' size='xs' weight='medium'>
+      {protocol}
+    </Span>
+  </Flex>
+);
+
+enum Incentives {
+  spice,
+  pell,
+  beckrock,
+  segment,
+  babylon,
+  solv,
+  supply
+}
+
+const incentivesMap: Record<Incentives, () => ReactNode> = {
+  [Incentives.babylon]: BabylonPoints,
+  [Incentives.beckrock]: BedrockDiamond,
+  [Incentives.pell]: PellPoints,
+  [Incentives.segment]: SegmentPoints,
+  [Incentives.solv]: SolvXP,
+  [Incentives.spice]: SpiceRewards,
+  [Incentives.supply]: SupplyApr
+};
+
 enum StakeTableColumns {
-  STRATEGY_NAME = 'strategyName',
-  PROTOCOL = 'bridge',
+  STRATEGY = 'strategy',
   REWARDS = 'incentives',
   TVL = 'tvl',
   ACTIONS = 'actions'
@@ -35,16 +130,15 @@ enum StakeTableColumns {
 
 type StakeTableRow = {
   id: string;
-  [StakeTableColumns.STRATEGY_NAME]: ReactNode;
-  [StakeTableColumns.PROTOCOL]: ReactNode;
+  [StakeTableColumns.STRATEGY]: ReactNode;
   [StakeTableColumns.REWARDS]: ReactNode;
   [StakeTableColumns.TVL]: ReactNode;
   [StakeTableColumns.ACTIONS]: ReactNode;
 };
 
 const columns = [
-  { name: <Trans>Strategy Name</Trans>, id: StakeTableColumns.STRATEGY_NAME, minWidth: 240 },
-  { name: <Trans>Protocol</Trans>, id: StakeTableColumns.PROTOCOL, minWidth: 150 },
+  { name: <Trans>Strategy</Trans>, id: StakeTableColumns.STRATEGY, minWidth: 240 },
+  // { name: <Trans>Protocol</Trans>, id: StakeTableColumns.PROTOCOL, minWidth: 150 },
   { name: <Trans>Rewards</Trans>, id: StakeTableColumns.REWARDS },
   { name: <Trans>TVL (on BOB)</Trans>, id: StakeTableColumns.TVL, minWidth: 96 },
   { name: '', id: StakeTableColumns.ACTIONS }
@@ -52,9 +146,9 @@ const columns = [
 
 const stakingInfo = {
   'bedrock-unibtc': {
-    strategyName: 'Liquid Staking Bedrock-Babylon',
+    strategy: 'Liquid Staking Bedrock-Babylon',
     protocol: 'Bedrock',
-    incentives: <Trans>Spice + Bedrock Diamonds + Babylon Points</Trans>,
+    incentives: [Incentives.beckrock, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -72,9 +166,9 @@ const stakingInfo = {
     website: 'https://app.bedrock.technology/unibtc'
   },
   'solv-solvbtcbbn': {
-    strategyName: 'Liquid Staking Solv-Babylon',
+    strategy: 'Liquid Staking Solv-Babylon',
     protocol: 'Solv',
-    incentives: <Trans>Spice + Solv XP + Babylon Points</Trans>,
+    incentives: [Incentives.solv, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -92,9 +186,9 @@ const stakingInfo = {
     website: 'https://app.solv.finance/babylon?network=bob'
   },
   'pell-solvbtcbbn': {
-    strategyName: 'Restaking Pell-SolvBTC-Babylon',
+    strategy: 'Restaking Pell-SolvBTC-Babylon',
     protocol: 'Pell',
-    incentives: <Trans>Spice + Pell Points + Solv XP + Babylon Points</Trans>,
+    incentives: [Incentives.pell, Incentives.solv, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -114,9 +208,9 @@ const stakingInfo = {
     website: 'https://app.pell.network/restake'
   },
   'pell-unibtc': {
-    strategyName: 'Restaking Pell-uniBTC-Babylon',
+    strategy: 'Restaking Pell-uniBTC-Babylon',
     protocol: 'Pell',
-    incentives: <Trans>Spice + Pell Points + Bedrock Diamond + Babylon Points</Trans>,
+    incentives: [Incentives.pell, Incentives.beckrock, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -136,9 +230,9 @@ const stakingInfo = {
     website: 'https://app.pell.network/restake'
   },
   'segment-tbtc': {
-    strategyName: 'Lending Segment-tBTC',
+    strategy: 'Lending Segment-tBTC',
     protocol: 'Segment',
-    incentives: <Trans>Spice + Segment Points + Supply APR</Trans>,
+    incentives: [Incentives.segment, Incentives.supply],
     tvl: '-',
     about: <Trans>Lend out tBTC on Segment.</Trans>,
     inputToken: 'BTC',
@@ -147,9 +241,9 @@ const stakingInfo = {
     website: 'https://app.segment.finance'
   },
   'segment-wbtc': {
-    strategyName: 'Lending Segment-wBTC',
+    strategy: 'Lending Segment-wBTC',
     protocol: 'Segment',
-    incentives: <Trans>Spice + Segment Points + Supply APR</Trans>,
+    incentives: [Incentives.segment, Incentives.supply],
     tvl: '-',
     about: <Trans>Lend out wBTC on Segment.</Trans>,
     inputToken: 'BTC',
@@ -158,9 +252,9 @@ const stakingInfo = {
     website: 'https://app.segment.finance'
   },
   'segment-sesolvbtcbbn': {
-    strategyName: 'Staked Lending Segment-SolvBTC-Babylon',
+    strategy: 'Staked Lending Segment-SolvBTC-Babylon',
     protocol: 'Segment',
-    incentives: <Trans>Spice + Segment Points + Supply APR + Solv XP + Babylon Points</Trans>,
+    incentives: [Incentives.segment, Incentives.supply, Incentives.solv, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -180,9 +274,9 @@ const stakingInfo = {
     website: 'https://app.segment.finance'
   },
   'segment-seunibtc': {
-    strategyName: 'Staked Lending Segment-uniBTC-Babylon',
+    strategy: 'Staked Lending Segment-uniBTC-Babylon',
     protocol: 'Segment',
-    incentives: <Trans>Spice + Segment Points + Supply APR + Bedrock Diamonds + Babylon Points</Trans>,
+    incentives: [Incentives.segment, Incentives.supply, Incentives.beckrock, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -201,7 +295,7 @@ const stakingInfo = {
     securityReview: '',
     website: 'https://app.segment.finance'
   }
-};
+} as const;
 
 const stakingInfoAny = stakingInfo as Record<string, (typeof stakingInfo)[keyof typeof stakingInfo] | undefined>;
 
@@ -230,22 +324,29 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   const rows: StakeTableRow[] = strategies.map((strategy, idx) => {
     return {
       id: `${strategy.raw.id}${idx}`,
-      [StakeTableColumns.STRATEGY_NAME]: (
+      [StakeTableColumns.STRATEGY]: (
         <Flex alignItems='center' gap='lg'>
           {strategy.raw.integration.logo ? (
             <Avatar size={'2xl'} src={strategy.raw.integration.logo} />
           ) : (
             <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
           )}
-          {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.strategyName}
+          <StrategyCell
+            name={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.strategy as string}
+            protocol={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.protocol as string}
+          />
         </Flex>
       ),
-      [StakeTableColumns.PROTOCOL]: (
-        <Flex alignItems='center' gap='lg'>
-          <>{stakingInfoAny[strategy?.raw.integration.slug ?? '']?.protocol}</>
+      [StakeTableColumns.REWARDS]: (
+        <Flex gap='xs'>
+          <SpiceRewards />
+          {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.incentives.map((incentive, key) => {
+            const Comp = incentivesMap[incentive];
+
+            return <Comp key={key} />;
+          })}
         </Flex>
       ),
-      [StakeTableColumns.REWARDS]: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.incentives,
       [StakeTableColumns.TVL]: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.tvl,
       [StakeTableColumns.ACTIONS]: (
         <Flex direction='row' gap='md'>
