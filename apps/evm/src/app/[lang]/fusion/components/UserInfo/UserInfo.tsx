@@ -109,6 +109,14 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
 
   return (
     <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
+      {user?.notices.showIsFusionTopUser && (
+        <P color='grey-50'>
+          <Trans>
+            You are one of the top 100 Spice holders in BOB Fusion. We would love to hear your thoughts on the BOB
+            ecosystem and Bitcoin DeFi.
+          </Trans>
+        </P>
+      )}
       <Flex alignItems='center' direction='row' justifyContent='flex-end'>
         {user?.notices.showIsFusionTopUser && (
           <Flex flex='1'>
