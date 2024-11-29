@@ -13,7 +13,7 @@ const useDismissTopUserModal = () => {
     mutationFn: () => apiClient.dismissTopUserModal(),
     onSuccess() {
       queryClient.setQueryData(
-        ['user'],
+        fusionKeys.user(),
         (oldData: UserResponse): UserResponse => ({
           ...oldData,
           notices: {
@@ -23,7 +23,7 @@ const useDismissTopUserModal = () => {
       );
     },
     onSettled() {
-      queryClient.refetchQueries({ queryKey: ['user'] });
+      queryClient.refetchQueries({ queryKey: fusionKeys.user() });
     }
   });
 };
