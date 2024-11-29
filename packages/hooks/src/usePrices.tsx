@@ -7,7 +7,7 @@ enum PriceCurrency {
   EUR = 'eur'
 }
 
-enum CurrencyTickers {
+export enum CurrencyTickers {
   ALEX = 'ALEX',
   DAI = 'DAI',
   DLLR = 'DLLR',
@@ -20,7 +20,9 @@ enum CurrencyTickers {
   USDT = 'USDT',
   WBTC = 'WBTC',
   WSTETH = 'wstETH',
-  BTC = 'BTC'
+  BTC = 'BTC',
+  UNIBTC = 'uniBTC',
+  'SolvBTC.BBN' = 'SOLVBTC.BBN'
 }
 
 // TODO: Add other supported currencies. Move.
@@ -38,8 +40,10 @@ const COINGECKO_IDS = [
   'wrapped-bitcoin',
   'wrapped-steth',
   'bitcoin',
-  'sovryn-dollar'
-];
+  'sovryn-dollar',
+  'solv-protocol-solvbtc-bbn',
+  'universal-btc'
+] as const;
 
 const COINGECKO_ID_BY_CURRENCY_TICKER: Record<string, (typeof COINGECKO_IDS)[number]> = {
   [CurrencyTickers.ALEX]: 'alexgo',
@@ -54,7 +58,9 @@ const COINGECKO_ID_BY_CURRENCY_TICKER: Record<string, (typeof COINGECKO_IDS)[num
   [CurrencyTickers.USDT]: 'tether',
   [CurrencyTickers.WBTC]: 'wrapped-bitcoin',
   [CurrencyTickers.WSTETH]: 'wrapped-steth',
-  [CurrencyTickers.BTC]: 'bitcoin'
+  [CurrencyTickers.BTC]: 'bitcoin',
+  [CurrencyTickers['SolvBTC.BBN']]: 'solv-protocol-solvbtc-bbn',
+  [CurrencyTickers.UNIBTC]: 'universal-btc'
 };
 
 type PricesData = Record<string, Record<PriceCurrency, number>>;
