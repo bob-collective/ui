@@ -24,6 +24,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
+import { Optimism, Spice } from '@gobob/icons';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -103,6 +104,8 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
     : tvlLevel?.tvlGoal
       ? Number(tvlLevel.tvlGoal)
       : currentTvl + currentTvl * 0.2;
+
+  const isOpSuperuser = true;
 
   return (
     <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
@@ -220,11 +223,19 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         </UserInfoCard>
         <UserInfoCard
           description={user?.referral_code}
-          title={t(i18n)`Your Referral Code`}
+          style={{ position: 'relative' }}
+          title={t(i18n)`Your ${isOpSuperuser ? 'Special ' : ''} Referral Code`}
           tooltipLabel={t(
             i18n
-          )`Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer`}
+          )`${isOpSuperuser ? 'As an OP Superuser, you enjoy extra rewards. ' : undefined}Share this link with a friend and when they sign up, you will receive ${isOpSuperuser ? '30% (instead of 15%)' : '15%'} of their Spice harvest as a bonus, plus ${isOpSuperuser ? '14% (instead of 7%)' : '7%'} of the Spice harvest of anyone they refer`}
         >
+          <Flex padding='s' style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+            <Flex style={{ position: 'relative' }}>
+              <Optimism size='4xl' style={{ width: '7rem', height: '7rem' }} />
+              <Spice size='xl' style={{ position: 'absolute' }} />
+              <Spice size='md' style={{ position: 'absolute', bottom: 0 }} />
+            </Flex>
+          </Flex>
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (
               <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>

@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
   useLocale
 } from '@gobob/ui';
-import { Spice } from '@gobob/icons';
+import { Optimism, Spice } from '@gobob/icons';
 import { useFocusRing } from '@react-aria/focus';
 import { Trans } from '@lingui/macro';
 
@@ -41,7 +41,14 @@ const FusionPopover = (): JSX.Element | null => {
     <>
       <Popover>
         <PopoverTrigger>
-          <StyledChip {...focusProps} $isFocusVisible={isFocusVisible} borderColor='grey-300' rounded='md'>
+          <StyledChip
+            {...focusProps}
+            $isFocusVisible={isFocusVisible}
+            borderColor='red-500'
+            rounded='md'
+            style={{ borderColor: 'FF0420', background: 'rgba(255, 4, 32, .1)' }}
+          >
+            {/* <Flex style={{ position: 'absolute', backgroundColor: 'rgba(255, 0, 0, 0.5)', inset: 0, opacity: 0.1 }} /> */}
             <Flex alignItems='center' gap='xs'>
               <Spice size='xs' />
               {Intl.NumberFormat(locale, { notation: 'compact' }).format(season3TotalPoints!)}
@@ -70,6 +77,26 @@ const FusionPopover = (): JSX.Element | null => {
                 <Trans>Current Leaderboard Rank</Trans>
               </P>
               <P>#{season3leaderboardData?.group_rank}</P>
+            </Card>
+            <Card background='grey-500' rounded='lg' style={{ position: 'relative' }}>
+              <Flex style={{ position: 'absolute', backgroundColor: 'rgba(255, 0, 0, 0.5)', inset: 0, opacity: 0.1 }} />
+              <Optimism
+                style={{
+                  right: 0,
+                  top: '50%',
+                  position: 'absolute',
+                  opacity: 0.1,
+                  height: '7rem',
+                  width: '7rem',
+                  transform: 'translate(25%, -50%)'
+                }}
+              />
+              <Flex direction='column' gap='xs'>
+                <P color='grey-50' size='s'>
+                  <Trans>Welcome OP Superuser</Trans>
+                </P>
+                <P size='s'>Enjoy our special bonuses for you</P>
+              </Flex>
             </Card>
             <>
               <Divider marginY='xs' />

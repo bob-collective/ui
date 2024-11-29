@@ -13,13 +13,14 @@ import { useGetApps } from '../apps/hooks';
 import {
   CommunityVoting,
   Leaderboard,
+  LotterySection,
+  OpSuperuserModal,
   Quest,
   Strategies,
   UserInfo,
   WelcomeBackModal,
   WelcomeModal
 } from './components';
-import { LotterySection } from './components/LotterySections';
 import {
   StyledBackground,
   StyledBannerImg,
@@ -160,6 +161,7 @@ const Fusion = () => {
           ) : null}
         </StyledContent>
       </StyledMain>
+      <OpSuperuserModal />
     </Geoblock>
   );
 };
