@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useIsClient } from 'usehooks-ts';
-import { createWalletClient, custom } from 'viem';
+import { createWalletClient, custom, http } from 'viem';
 import { Mock, vi } from 'vitest';
 import { useAccount } from 'wagmi';
 
@@ -14,7 +14,8 @@ vi.mock('wagmi', () => ({
 
 vi.mock('viem', () => ({
   createWalletClient: vi.fn(),
-  custom: vi.fn()
+  custom: vi.fn(),
+  http: vi.fn()
 }));
 
 vi.mock('@/constants', () => ({
@@ -41,10 +42,12 @@ describe('useWalletClientL1 and useWalletClientL2 hooks', () => {
   const mockUseAccount = useAccount as Mock;
   const mockCreateWalletClient = createWalletClient as Mock;
   const mockCustom = custom as Mock;
+  const mockHttp = http as Mock;
 
   beforeEach(() => {
     vi.clearAllMocks();
-    mockCustom.mockReturnValue('mockTransport');
+    mockCustom.mockReturnValue('mockCustomTransport');
+    mockHttp.mockReturnValue('mockHttpTransport');
   });
 
   it('creates a wallet client for L1 with the correct account', () => {
@@ -61,7 +64,7 @@ describe('useWalletClientL1 and useWalletClientL2 hooks', () => {
     expect(mockCreateWalletClient).toHaveBeenCalledWith({
       account: mockAddress,
       chain: chainL1,
-      transport: 'mockTransport'
+      transport: 'mockHttpTransport'
     });
 
     expect(result.current).toBe('mockExtendedClientL1');
@@ -81,7 +84,7 @@ describe('useWalletClientL1 and useWalletClientL2 hooks', () => {
     expect(mockCreateWalletClient).toHaveBeenCalledWith({
       account: mockAddress,
       chain: chainL2,
-      transport: 'mockTransport'
+      transport: 'mockHttpTransport'
     });
 
     expect(result.current).toBe('mockExtendedClientL2');
