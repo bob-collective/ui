@@ -21,7 +21,7 @@ const seTokensToUnderlyingMapping: Record<string, CurrencyTickers> = {
   seWBTC: CurrencyTickers.WBTC
 };
 
-function hasUnderlyingToken(symbol: string | undefined): symbol is keyof typeof seTokensToUnderlyingMapping {
+function hasUnderlying(symbol: string | undefined): symbol is keyof typeof seTokensToUnderlyingMapping {
   if (typeof symbol === 'undefined') return false;
 
   return Boolean(seTokensToUnderlyingMapping[symbol]);
@@ -71,7 +71,7 @@ const useGetStakingStrategies = () => {
     },
     allowFailure: false,
     contracts: strategies?.flatMap((strategy) =>
-      hasUnderlyingToken(strategy.raw.outputToken?.symbol)
+      hasUnderlying(strategy.raw.outputToken?.symbol)
         ? [
             {
               address: strategy.raw.outputToken.address as Address,
@@ -93,7 +93,7 @@ const useGetStakingStrategies = () => {
 
     return strategies.reduce(
       (acc, strategy) => {
-        if (hasUnderlyingToken(strategy.raw.outputToken?.symbol) && seTokensContractData) {
+        if (hasUnderlying(strategy.raw.outputToken?.symbol) && seTokensContractData) {
           const idx = Object.keys(acc).length * 2;
 
           // for each se* token we need tulpes of 2 call results
@@ -150,7 +150,7 @@ const useGetStakingStrategies = () => {
       strategies?.map((strategy) => {
         const symbol = strategy.raw.outputToken?.symbol;
 
-        if (hasUnderlyingToken(symbol) && seTokenContractDataCalls?.[symbol]) {
+        if (hasUnderlying(symbol) && seTokenContractDataCalls?.[symbol]) {
           const [exchangeRateStored, totalSupply] = seTokenContractDataCalls[symbol];
 
           const totalSuppleInUnderlyingAsset = exchangeRateStored * totalSupply;
