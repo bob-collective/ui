@@ -17,7 +17,7 @@ const useWalletClientL2 = () => {
       createWalletClient({
         account: address,
         chain: chainL2,
-        transport: isClient ? custom(window?.ethereum) : http()
+        transport: isClient && window?.ethereum ? custom(window.ethereum) : http()
       }).extend(walletActionsL2()),
     [address, isClient]
   );
@@ -32,7 +32,7 @@ const useWalletClientL1 = () => {
       createWalletClient({
         account: address,
         chain: chainL1,
-        transport: isClient ? custom(window?.ethereum) : http()
+        transport: isClient && window?.ethereum ? custom(window.ethereum) : http()
       }).extend(walletActionsL1()),
 
     [address, isClient]
