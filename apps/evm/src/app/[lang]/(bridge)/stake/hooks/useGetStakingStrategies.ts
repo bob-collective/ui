@@ -5,6 +5,7 @@ import { useCallback, useMemo } from 'react';
 import { ResolvedRegister, useReadContracts } from 'wagmi';
 import { CurrencyTickers, usePrices } from '@gobob/hooks';
 import { Address, erc20Abi } from 'viem';
+import Big from 'big.js';
 
 import { useGetStrategies } from '@/hooks';
 import { seTokenAbi } from '@/abis/seToken.abi';
@@ -65,7 +66,12 @@ const useGetStakingStrategies = () => {
   });
 
   // se tokens contract data
-  const { data: seTokensContractData } = useReadContracts<unknown[], boolean, ResolvedRegister['config'], bigint[]>({
+  const { data: seTokensContractData } = useReadContracts<
+    unknown[],
+    boolean,
+    ResolvedRegister['config'],
+    (bigint | number)[]
+  >({
     query: {
       enabled: !isStrategiesLoading
     },
@@ -82,6 +88,11 @@ const useGetStakingStrategies = () => {
               address: strategy.raw.outputToken.address as Address,
               abi: seTokenAbi,
               functionName: 'totalSupply'
+            },
+            {
+              address: strategy.raw.outputToken.address as Address,
+              abi: seTokenAbi,
+              functionName: 'decimals'
             }
           ]
         : []
@@ -94,20 +105,25 @@ const useGetStakingStrategies = () => {
     return strategies.reduce(
       (acc, strategy) => {
         if (hasUnderlying(strategy.raw.outputToken?.symbol) && seTokensContractData) {
-          const idx = Object.keys(acc).length * 2;
+          const idx = Object.keys(acc).length * 3;
 
-          // for each se* token we need tulpes of 2 call results
-          acc[strategy.raw.outputToken?.symbol] = seTokensContractData.slice(idx, idx + 2) as [bigint, bigint];
+          // for each se* token we need tulpes of 3 call results
+          acc[strategy.raw.outputToken?.symbol] = seTokensContractData.slice(idx, idx + 3) as [bigint, bigint, number];
         }
 
         return acc;
       },
-      {} as Record<keyof typeof seTokensToUnderlyingMapping, [bigint, bigint]>
+      {} as Record<keyof typeof seTokensToUnderlyingMapping, [bigint, bigint, number]>
     );
   }, [seTokensContractData, strategies]);
 
   // erc20 tokens contract data
-  const { data: tokensContractData } = useReadContracts<unknown[], boolean, ResolvedRegister['config'], bigint[]>({
+  const { data: tokensContractData } = useReadContracts<
+    unknown[],
+    boolean,
+    ResolvedRegister['config'],
+    (bigint | number)[]
+  >({
     query: {
       enabled: !isStrategiesLoading
     },
@@ -119,6 +135,11 @@ const useGetStakingStrategies = () => {
               address: strategy.raw.outputToken.address as Address,
               abi: erc20Abi,
               functionName: 'totalSupply'
+            },
+            {
+              address: strategy.raw.outputToken.address as Address,
+              abi: erc20Abi,
+              functionName: 'decimals'
             }
           ]
         : []
@@ -131,14 +152,14 @@ const useGetStakingStrategies = () => {
     return strategies.reduce(
       (acc, strategy) => {
         if (hasCGId(strategy.raw.outputToken?.symbol) && tokensContractData) {
-          const idx = Object.keys(acc).length;
+          const idx = Object.keys(acc).length * 2;
 
-          acc[strategy.raw.outputToken?.symbol] = tokensContractData[idx] as bigint;
+          acc[strategy.raw.outputToken?.symbol] = tokensContractData.slice(idx, idx + 2) as [bigint, number];
         }
 
         return acc;
       },
-      {} as Record<keyof typeof tokenToIdMapping, bigint>
+      {} as Record<keyof typeof tokenToIdMapping, [bigint, number]>
     );
   }, [strategies, tokensContractData]);
 
@@ -151,24 +172,34 @@ const useGetStakingStrategies = () => {
         const symbol = strategy.raw.outputToken?.symbol;
 
         if (hasUnderlying(symbol) && seTokenContractDataCalls?.[symbol]) {
-          const [exchangeRateStored, totalSupply] = seTokenContractDataCalls[symbol];
+          // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
+          const [exchangeRateStored, totalSupply, decimals] = seTokenContractDataCalls[symbol];
 
           const totalSuppleInUnderlyingAsset = exchangeRateStored * totalSupply;
-          const underlyingAssetTicker = seTokensToUnderlyingMapping[symbol];
+          const underlyingTicker = seTokensToUnderlyingMapping[symbol];
+          const underlyingPrice = getPrice(underlyingTicker!);
 
           return {
             ...strategy,
-            tvl: (totalSuppleInUnderlyingAsset * BigInt(getPrice(underlyingAssetTicker!))) / BigInt(1e18)
+            tvl: new Big(totalSuppleInUnderlyingAsset.toString())
+              .mul(underlyingPrice)
+              .div(1e18)
+              .div(10 ** decimals)
+              .toNumber()
           };
         }
 
         if (hasCGId(symbol) && tokensContractDataCalls?.[symbol]) {
-          const totalSupply = tokensContractDataCalls[symbol];
-          const assetTicker = tokenToIdMapping[symbol];
+          const [totalSupply, decimals] = tokensContractDataCalls[symbol];
+          const ticker = tokenToIdMapping[symbol];
+          const price = getPrice(ticker!);
 
           return {
             ...strategy,
-            tvl: (totalSupply * BigInt(getPrice(assetTicker!))) / BigInt(1e18)
+            tvl: new Big(totalSupply.toString())
+              .mul(price)
+              .div(10 ** decimals)
+              .toNumber()
           };
         }
 
