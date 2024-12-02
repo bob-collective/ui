@@ -1,15 +1,14 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { chain } from '@react-aria/utils';
-import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { erc20Abi } from 'viem';
-import { useAccount, useBalance, usePublicClient } from 'wagmi';
+import { useAccount, useBalance, usePublicClient, useReadContracts } from 'wagmi';
 import { watchContractEvent } from '@wagmi/core';
 
 import { useTokens } from './useTokens';
 
-import { INTERVAL, isProd } from '@/constants';
+import { isProd } from '@/constants';
 import { getConfig } from '@/lib/wagmi';
 
 type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
@@ -22,40 +21,41 @@ const useBalances = (chainId: ChainId) => {
 
   const { data: tokens } = useTokens(chainId);
 
-  // TODO: useReadContracts instead https://wagmi.sh/react/guides/migrate-from-v1-to-v2#deprecated-usebalance-token-parameter
+  const balanceSelector = useCallback(
+    (data: (string | number | bigint)[]): Balances => {
+      if (!tokens) return {} as Balances;
+
+      return tokens.reduce<Balances>((result, token) => {
+        if (token.currency.isToken) {
+          const idx = Object.keys(result).length;
+
+          result[token.raw.symbol] = CurrencyAmount.fromRawAmount(token.currency, data[idx]!);
+        }
+
+        return result;
+      }, {} as Balances);
+    },
+    [tokens]
+  );
+
   const {
     data: erc20Balances,
     refetch: refetchErc20,
     ...queryResult
-  } = useQuery({
-    queryKey: ['balances', chainId, address],
-    enabled: Boolean(address && publicClient && tokens),
-    queryFn: async () => {
-      if (!tokens || !publicClient) return;
-
-      const erc20List = tokens.filter((token) => token.currency.isToken);
-
-      const balancesMulticallResult = await publicClient.multicall({
-        contracts: erc20List.map((token) => ({
-          abi: erc20Abi,
-          address: token.raw.address,
-          functionName: 'balanceOf',
-          args: [address]
-        }))
-      });
-
-      return erc20List.reduce<Balances>(
-        (result, token, index) => ({
-          ...result,
-          [token.raw.symbol]: CurrencyAmount.fromRawAmount(
-            token.currency,
-            (balancesMulticallResult[index]?.result as bigint) || 0n
-          )
-        }),
-        {} as Balances
-      );
+  } = useReadContracts({
+    allowFailure: false,
+    query: {
+      enabled: Boolean(address && publicClient && tokens),
+      select: balanceSelector
     },
-    refetchInterval: INTERVAL.MINUTE
+    contracts: tokens
+      ?.filter((token) => token.currency.isToken)
+      .map((token) => ({
+        abi: erc20Abi,
+        address: token.raw.address,
+        functionName: 'balanceOf',
+        args: [address]
+      }))
   });
 
   const shouldRefetchRef = useRef(false);
