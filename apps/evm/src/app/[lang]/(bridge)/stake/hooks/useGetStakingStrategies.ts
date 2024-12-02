@@ -57,11 +57,7 @@ const useGetStakingStrategies = () => {
     []
   );
 
-  const {
-    data: strategies,
-    isLoading: isStrategiesLoading,
-    ...rest
-  } = useGetStrategies({
+  const { data: strategies, isSuccess: isStrategiesSucess } = useGetStrategies({
     select: selectStrategyData
   });
 
@@ -73,7 +69,7 @@ const useGetStakingStrategies = () => {
     (bigint | number)[]
   >({
     query: {
-      enabled: !isStrategiesLoading
+      enabled: isStrategiesSucess
     },
     allowFailure: false,
     contracts: strategies?.flatMap((strategy) =>
@@ -125,7 +121,7 @@ const useGetStakingStrategies = () => {
     number[]
   >({
     query: {
-      enabled: Boolean(seTokenContractDataCalls)
+      enabled: isStrategiesSucess
     },
     allowFailure: false,
     contracts: strategies?.flatMap((strategy) =>
@@ -166,7 +162,7 @@ const useGetStakingStrategies = () => {
     (bigint | number)[]
   >({
     query: {
-      enabled: !isStrategiesLoading
+      enabled: isStrategiesSucess
     },
     allowFailure: false,
     contracts: strategies?.flatMap((strategy) =>
@@ -258,7 +254,7 @@ const useGetStakingStrategies = () => {
     [strategies, seTokenContractDataCalls, seTokenUnderlyingContractDataCalls, tokensContractDataCalls, getPrice]
   );
 
-  return { ...rest, data: strategiesData, isLoading: isStrategiesLoading };
+  return { data: strategiesData };
 };
 
 export { useGetStakingStrategies };
