@@ -1,8 +1,8 @@
-import { Button, ButtonProps, toast } from '@gobob/ui';
-import { useAccount, useSwitchChain } from '@gobob/wagmi';
-import { mergeProps } from '@react-aria/utils';
 import { ChainId } from '@gobob/chains';
+import { Button, ButtonProps, toast } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
+import { mergeProps } from '@react-aria/utils';
+import { useAccount, useSwitchChain } from 'wagmi';
 
 import { useConnectModal } from '@/connect-ui';
 import { L2_CHAIN, isValidChain } from '@/constants';
@@ -30,7 +30,7 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
             }
           }
 
-          return signUp({});
+          return signUp(address);
         }
       });
     }
@@ -39,7 +39,7 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
       await switchChainAsync({ chainId: L2_CHAIN });
     }
 
-    return signUp({});
+    return signUp(address);
   };
 
   return <Button loading={isSigningUp} {...mergeProps(props, { onPress: handlePress })} />;

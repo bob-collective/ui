@@ -1,14 +1,13 @@
-import { Dd, Dl, DlGroup, Dt, Modal, ModalBody, ModalHeader } from '@gobob/ui';
-import { useLocale } from '@gobob/ui';
+import { Dd, Dl, DlGroup, Dt, Modal, ModalBody, ModalHeader, useLocale } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { useAccount, useIsContract } from '@gobob/wagmi';
+import { useAccount } from 'wagmi';
 
 import { useLayoutContext } from '../Layout';
 
-import { WithdrawForm } from './WithdrawForm';
 import { DepositedAssets } from './DepositedAssets';
+import { WithdrawForm } from './WithdrawForm';
 
-import { useGetUser } from '@/hooks';
+import { useGetUser, useIsContract } from '@/hooks';
 
 const WithdrawModal = () => {
   const { data: user } = useGetUser();

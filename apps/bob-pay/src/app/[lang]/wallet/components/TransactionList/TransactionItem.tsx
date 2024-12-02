@@ -1,5 +1,5 @@
+import { usePrices } from '@gobob/hooks';
 import { Avatar, Flex, FlexProps, P, Span, useLocale } from '@gobob/ui';
-import { usePrices } from '@gobob/react-query';
 import { truncateEthAddress } from '@gobob/utils';
 import { format } from 'date-fns';
 

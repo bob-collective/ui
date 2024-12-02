@@ -16,23 +16,47 @@ vi.mock('../useTokens', () => ({
 describe('useBridgeTokens', () => {
   const mockL1Tokens = [
     {
-      raw: { address: '0xL1Token1', symbol: 'TOKEN1' },
-      currency: new ERC20Token(ChainId.ETHEREUM, '0xL1Token1', 18, 'TOKEN1', 'Token One')
+      raw: { address: '0x0000000000000000000000000000000000000001', symbol: 'TOKEN1' },
+      currency: new ERC20Token(
+        ChainId.ETHEREUM,
+        '0x0000000000000000000000000000000000000001',
+        18,
+        'TOKEN1',
+        'Token One'
+      )
     },
     {
-      raw: { address: '0xL1Token2', symbol: 'TOKEN2' },
-      currency: new ERC20Token(ChainId.ETHEREUM, '0xL1Token2', 18, 'TOKEN2', 'Token Two')
+      raw: { address: '0x0000000000000000000000000000000000000002', symbol: 'TOKEN2' },
+      currency: new ERC20Token(
+        ChainId.ETHEREUM,
+        '0x0000000000000000000000000000000000000002',
+        18,
+        'TOKEN2',
+        'Token Two'
+      )
     }
   ];
 
   const mockL2Tokens = [
     {
-      raw: { address: '0xL2Token1', symbol: 'TOKEN1' },
-      currency: new ERC20Token(ChainId.SEPOLIA, '0xL2Token1', 18, 'TOKEN1', 'Token One on L2')
+      raw: { address: '0x0000000000000000000000000000000000000003', symbol: 'TOKEN1' },
+      currency: new ERC20Token(
+        ChainId.SEPOLIA,
+        '0x0000000000000000000000000000000000000003',
+        18,
+        'TOKEN1',
+        'Token One on L2'
+      )
     },
     {
-      raw: { address: '0xL2Token3', symbol: 'TOKEN3' },
-      currency: new ERC20Token(ChainId.SEPOLIA, '0xL2Token3', 18, 'TOKEN3', 'Token Three on L2')
+      raw: { address: '0x0000000000000000000000000000000000000004', symbol: 'TOKEN3' },
+      currency: new ERC20Token(
+        ChainId.SEPOLIA,
+        '0x0000000000000000000000000000000000000004',
+        18,
+        'TOKEN3',
+        'Token Three on L2'
+      )
     }
   ];
 
@@ -54,8 +78,8 @@ describe('useBridgeTokens', () => {
 
     expect(bridgeTokens).toHaveLength(1);
     expect(bridgeTokens[0]).toMatchObject({
-      l1Token: { address: '0xL1Token1', symbol: 'TOKEN1' },
-      l2Token: { address: '0xL2Token1', symbol: 'TOKEN1' },
+      l1Token: { address: '0x0000000000000000000000000000000000000001', symbol: 'TOKEN1' },
+      l2Token: { address: '0x0000000000000000000000000000000000000003', symbol: 'TOKEN1' },
       l1Currency: expect.any(ERC20Token),
       l2Currency: expect.any(ERC20Token)
     });
@@ -70,8 +94,14 @@ describe('useBridgeTokens', () => {
       .mockImplementationOnce(() => ({
         data: [
           {
-            raw: { address: '0xL2Token4', symbol: 'TOKEN4' },
-            currency: new ERC20Token(ChainId.SEPOLIA, '0xL2Token4', 18, 'TOKEN4', 'Token Four')
+            raw: { address: '0x0000000000000000000000000000000000000005', symbol: 'TOKEN4' },
+            currency: new ERC20Token(
+              ChainId.SEPOLIA,
+              '0x0000000000000000000000000000000000000005',
+              18,
+              'TOKEN4',
+              'Token Four'
+            )
           }
         ]
       }));

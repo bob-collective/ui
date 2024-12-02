@@ -1,9 +1,9 @@
-import { useAccount, usePublicClient } from '@gobob/wagmi';
+import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { INTERVAL, useQuery } from '@gobob/react-query';
+import { useAccount, usePublicClient } from 'wagmi';
 
-import { ContractType, L1_CHAIN, getContract } from '../constants';
 import { FusionLockAbi } from '../abis/FusionLock.abi';
+import { ContractType, INTERVAL, L1_CHAIN, getContract } from '../constants';
 
 import { TokenData, useTokens } from '.';
 

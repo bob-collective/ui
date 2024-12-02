@@ -13,7 +13,6 @@ import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 
 import { DocsLinks, RoutesPath } from '@/constants';
-import { useFeatureFlag, FeatureFlags } from '@/hooks';
 
 type Props = { isTestnet?: boolean; isFusion?: boolean };
 
@@ -24,7 +23,6 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
-  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
 
   if (isMobile) {
     const handleClose = () => setSidebarOpen(false);
@@ -46,11 +44,6 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
               <NavItem href={RoutesPath.APPS}>
                 <Trans>Apps</Trans>
               </NavItem>
-              {isWalletEnabled && (
-                <NavItem href={RoutesPath.WALLET}>
-                  <Trans>Wallet</Trans>
-                </NavItem>
-              )}
               <NavItem href={RoutesPath.STAKE}>
                 <Trans>Stake</Trans>
               </NavItem>

@@ -2,12 +2,12 @@
 
 import { ChainId } from '@gobob/chains';
 import { Token } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
-import { useChainId } from '@gobob/wagmi';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useQuery } from '@tanstack/react-query';
 import { Key, useCallback, useMemo, useState } from 'react';
+import { useChainId } from 'wagmi';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -19,7 +19,7 @@ import { BobBridgeForm } from './BobBridgeForm';
 import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { INTERVAL, L1_CHAIN, L2_CHAIN } from '@/constants';
 import { TokenData } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';

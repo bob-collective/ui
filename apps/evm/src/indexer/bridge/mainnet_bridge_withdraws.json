@@ -10,6 +10,9 @@
     },
     "l2-wsteth-bridge": {
       "path": "./L2BridgeABI.json"
+    },
+    "l2-to-l1-message-passer": {
+      "path": "./L2ToL1MessagePasserABI.json"
     }
   },
   "chains": ["bob"],
@@ -30,6 +33,12 @@
       "abi": "l2-wsteth-bridge",
       "address": "0xd1559523374D93972E0F7fE1AA98642754f5c4d1",
       "startBlock": 462151,
+      "chain": "bob"
+    },
+    {
+      "abi": "l2-to-l1-message-passer",
+      "address": "0x4200000000000000000000000000000000000016",
+      "startBlock": 542391,
       "chain": "bob"
     }
   ]

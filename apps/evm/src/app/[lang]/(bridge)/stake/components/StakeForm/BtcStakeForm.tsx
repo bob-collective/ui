@@ -1,14 +1,14 @@
 'use client';
 
 import { PellNetwork } from '@gobob/icons/src/PellNetwork';
-import { Optional } from '@gobob/react-query';
 import { Avatar, Flex, Input, Item, P, Select, Skeleton, Span, UnstyledButton } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
+import { Optional } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
@@ -19,7 +19,7 @@ import { StrategyData } from './StakeForm';
 import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
+import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
 const INITIAL_SELECTED_STRATEGY_SLUG = 'solv-solvbtcbbn';
 
