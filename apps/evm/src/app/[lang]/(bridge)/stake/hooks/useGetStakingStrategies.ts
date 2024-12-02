@@ -172,6 +172,7 @@ const useGetStakingStrategies = () => {
         const symbol = strategy.raw.outputToken?.symbol;
 
         if (hasUnderlying(symbol) && seTokenContractDataCalls?.[symbol]) {
+          // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
           // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
           const [exchangeRateStored, totalSupply, decimals] = seTokenContractDataCalls[symbol];
 
