@@ -92,7 +92,7 @@ const useGetStakingStrategies = () => {
             {
               address: strategy.raw.outputToken.address as Address,
               abi: seTokenAbi,
-              functionName: 'decimals'
+              functionName: 'underlying'
             }
           ]
         : []
@@ -108,14 +108,55 @@ const useGetStakingStrategies = () => {
           const idx = Object.keys(acc).length * 3;
 
           // for each se* token we need tulpes of 3 call results
-          acc[strategy.raw.outputToken?.symbol] = seTokensContractData.slice(idx, idx + 3) as [bigint, bigint, number];
+          acc[strategy.raw.outputToken?.symbol] = seTokensContractData.slice(idx, idx + 3) as [bigint, bigint, Address];
         }
 
         return acc;
       },
-      {} as Record<keyof typeof seTokensToUnderlyingMapping, [bigint, bigint, number]>
+      {} as Record<keyof typeof seTokensToUnderlyingMapping, [bigint, bigint, Address]>
     );
   }, [seTokensContractData, strategies]);
+
+  // // se tokens underlying contract data
+  const { data: seTokensUnderlyingContractData } = useReadContracts<
+    unknown[],
+    boolean,
+    ResolvedRegister['config'],
+    number[]
+  >({
+    query: {
+      enabled: Boolean(seTokenContractDataCalls)
+    },
+    allowFailure: false,
+    contracts: strategies?.flatMap((strategy) =>
+      hasUnderlying(strategy.raw.outputToken?.symbol)
+        ? [
+            {
+              address: seTokenContractDataCalls?.[strategy.raw.outputToken?.symbol]?.[2],
+              abi: seTokenAbi,
+              functionName: 'decimals'
+            }
+          ]
+        : []
+    )
+  });
+
+  const seTokenUnderlyingContractDataCalls = useMemo(() => {
+    if (!strategies) return null;
+
+    return strategies.reduce(
+      (acc, strategy) => {
+        if (hasUnderlying(strategy.raw.outputToken?.symbol) && seTokensUnderlyingContractData) {
+          const idx = Object.keys(acc).length;
+
+          acc[strategy.raw.outputToken?.symbol] = seTokensUnderlyingContractData[idx] as number;
+        }
+
+        return acc;
+      },
+      {} as Record<keyof typeof seTokensToUnderlyingMapping, number>
+    );
+  }, [seTokensUnderlyingContractData, strategies]);
 
   // erc20 tokens contract data
   const { data: tokensContractData } = useReadContracts<
@@ -171,21 +212,26 @@ const useGetStakingStrategies = () => {
       strategies?.map((strategy) => {
         const symbol = strategy.raw.outputToken?.symbol;
 
-        if (hasUnderlying(symbol) && seTokenContractDataCalls?.[symbol]) {
+        if (
+          hasUnderlying(symbol) &&
+          seTokenContractDataCalls?.[symbol] &&
+          seTokenUnderlyingContractDataCalls?.[symbol]
+        ) {
           // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
           // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-          const [exchangeRateStored, totalSupply, decimals] = seTokenContractDataCalls[symbol];
+          const [exchangeRateStored, totalSupply] = seTokenContractDataCalls[symbol];
+          const underlyingDecimals = seTokenUnderlyingContractDataCalls[symbol];
 
-          const totalSuppleInUnderlyingAsset = exchangeRateStored * totalSupply;
+          const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
           const underlyingTicker = seTokensToUnderlyingMapping[symbol];
           const underlyingPrice = getPrice(underlyingTicker!);
 
           return {
             ...strategy,
-            tvl: new Big(totalSuppleInUnderlyingAsset.toString())
+            tvl: new Big(totalSupplyInUnderlyingAsset.toString())
               .mul(underlyingPrice)
               .div(1e18)
-              .div(10 ** decimals)
+              .div(10 ** underlyingDecimals)
               .toNumber()
           };
         }
@@ -209,7 +255,7 @@ const useGetStakingStrategies = () => {
           tvl: null
         };
       }),
-    [strategies, seTokenContractDataCalls, getPrice, tokensContractDataCalls]
+    [strategies, seTokenContractDataCalls, seTokenUnderlyingContractDataCalls, tokensContractDataCalls, getPrice]
   );
 
   return { ...rest, data: strategiesData, isLoading: isStrategiesLoading };
