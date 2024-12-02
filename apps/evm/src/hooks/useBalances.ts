@@ -2,13 +2,15 @@ import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { chain } from '@react-aria/utils';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { erc20Abi } from 'viem';
 import { useAccount, useBalance, usePublicClient } from 'wagmi';
+import { watchContractEvent } from '@wagmi/core';
 
 import { useTokens } from './useTokens';
 
-import { INTERVAL } from '@/constants';
+import { INTERVAL, isProd } from '@/constants';
+import { getConfig } from '@/lib/wagmi';
 
 type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
@@ -20,7 +22,6 @@ const useBalances = (chainId: ChainId) => {
 
   const { data: tokens } = useTokens(chainId);
 
-  // TODO: add transfer event listener and update balance on transfer in/out
   // TODO: useReadContracts instead https://wagmi.sh/react/guides/migrate-from-v1-to-v2#deprecated-usebalance-token-parameter
   const {
     data: erc20Balances,
@@ -56,6 +57,40 @@ const useBalances = (chainId: ChainId) => {
     },
     refetchInterval: INTERVAL.MINUTE
   });
+
+  const shouldRefetchRef = useRef(false);
+
+  useEffect(() => {
+    const unwatchers = tokens?.map((token) =>
+      watchContractEvent(getConfig({ isProd }), {
+        address: token.raw.address,
+        abi: erc20Abi,
+        eventName: 'Transfer',
+        onLogs(logs) {
+          shouldRefetchRef.current = logs.reduce(
+            (acc, log) => acc || log.args.from === address || log.args.to === address,
+            false
+          );
+        }
+      })
+    );
+
+    const intervalId = setInterval(() => {
+      if (shouldRefetchRef.current) {
+        shouldRefetchRef.current = false;
+        chain(refetch, refetchErc20);
+      }
+    }, 3000);
+
+    return () => {
+      if (shouldRefetchRef.current) {
+        shouldRefetchRef.current = false;
+        chain(refetch, refetchErc20);
+      }
+      clearInterval(intervalId);
+      unwatchers?.forEach((unwatch) => unwatch());
+    };
+  }, [address, refetch, refetchErc20, tokens]);
 
   const balances = useMemo(() => {
     const ether = Ether.onChain(chainId);
