@@ -2,11 +2,13 @@ import { Metadata } from 'next';
 import { Inter, Chakra_Petch } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import { t } from '@lingui/macro';
+import { cookieToInitialState } from 'wagmi';
+import { headers } from 'next/headers';
 
 import linguiConfig from '../../../lingui.config';
 
 import './index.css';
-import { Providers } from './providers';
+import { config, Providers } from './providers';
 
 import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
 import { LinguiClientProvider } from '@/i18n/provider';
@@ -59,12 +61,14 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
 }
 
 export default withLinguiLayout(function LangLayout({ children, params: { lang } }: PropsWithChildren<PageLangParam>) {
+  const initialState = cookieToInitialState(config, headers().get('cookie'));
+
   return (
     <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
       <body>
         <div id='root'>
           <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
-            <Providers>{children}</Providers>
+            <Providers initialState={initialState}>{children}</Providers>
           </LinguiClientProvider>
         </div>
         {/* <!-- Fathom - beautiful, simple website analytics --> */}
