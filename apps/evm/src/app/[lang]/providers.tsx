@@ -3,7 +3,7 @@
 import { SatsWagmiConfig } from '@gobob/sats-wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PropsWithChildren, useState } from 'react';
-import { WagmiProvider } from 'wagmi';
+import { State, WagmiProvider } from 'wagmi';
 
 import { NestedProviders } from './nested-providers';
 
@@ -11,7 +11,7 @@ import { bitcoinNetwork, INTERVAL, isProd } from '@/constants';
 import { getConfig } from '@/lib/wagmi';
 import { FetchError } from '@/types/fetch';
 
-export function Providers({ children }: PropsWithChildren) {
+export function Providers({ initialState, children }: PropsWithChildren<{ initialState: State | undefined }>) {
   // Instead do this, which ensures each request has its own cache:
   const [queryClient] = useState(
     () =>
@@ -38,9 +38,10 @@ export function Providers({ children }: PropsWithChildren) {
         }
       })
   );
+  const [config] = useState(() => getConfig({ isProd }));
 
   return (
-    <WagmiProvider config={getConfig({ isProd })}>
+    <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
         <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}>
           <NestedProviders>{children}</NestedProviders>
