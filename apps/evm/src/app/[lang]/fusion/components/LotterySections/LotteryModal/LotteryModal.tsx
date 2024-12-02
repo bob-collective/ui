@@ -17,12 +17,11 @@ import {
   useLocale
 } from '@gobob/ui';
 import { Plural, Trans } from '@lingui/macro';
-import { formatDistanceToNow } from 'date-fns';
 import { useParams } from 'next/navigation';
 
-import { ROUND_END_TIME } from '../constants';
 import { Ticket } from '../icons';
 import confettiAnimationData from '../lotties/confettie.json';
+import { useTimeToNextDraw } from '../hooks';
 
 import { StyledButton, StyledLottie, StyledPoints } from './LotteryModal.style';
 
@@ -50,6 +49,7 @@ const LotteryModal = ({
   const { lang } = useParams();
   const { locale } = useLocale();
   const { data: user } = useGetUser();
+  const { data: timeToNextDraw } = useTimeToNextDraw(lang as Parameters<typeof useTimeToNextDraw>[0]);
   const {
     data: lotteryRollData,
     isIdle,
@@ -67,7 +67,7 @@ const LotteryModal = ({
         <ModalBody padding='2xl'>
           <Flex alignItems='center' direction='column' gap='5xl'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-              <Trans>new tickets drop in {formatDistanceToNow(ROUND_END_TIME)}</Trans>
+              <Trans>new tickets drop in {timeToNextDraw}</Trans>
             </Chip>
             <H3 align='center' size='2xl'>
               <Trans>
@@ -160,7 +160,7 @@ const LotteryModal = ({
       <ModalBody padding='2xl'>
         <Flex alignItems='center' direction='column' gap='5xl'>
           <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-            <Trans>new tickets drop in {formatDistanceToNow(ROUND_END_TIME)}</Trans>
+            <Trans>new tickets drop in {timeToNextDraw}</Trans>
           </Chip>
           <H3 align='center' size='2xl'>
             {getHeaderText()}

@@ -3,11 +3,13 @@ import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
 import { Trans } from '@lingui/macro';
 import { useIsClient } from 'usehooks-ts';
+import { useParams } from 'next/navigation';
 
 import { StyledCard, StyledOpacityOverlay, StyledSpice } from './CommunityVoting.style';
 
 import { useGetVotingApps } from '@/app/[lang]/apps/hooks';
 import { RoutesPath } from '@/constants';
+import { getLocale } from '@/utils';
 
 type CommunityVotingProps = object;
 
@@ -15,6 +17,7 @@ const CommunityVoting = ({}: CommunityVotingProps) => {
   const theme = useTheme();
   const isClient = useIsClient();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+  const { lang } = useParams();
   const { data: votingAppsData } = useGetVotingApps();
 
   return (
@@ -34,7 +37,12 @@ const CommunityVoting = ({}: CommunityVotingProps) => {
       >
         {votingAppsData?.roundEndsAt ? (
           <Chip startAdornment={<SolidClock size='s' />}>
-            <Trans>{formatDistanceToNow(votingAppsData.roundEndsAt)} until voting round ends</Trans>
+            <Trans>
+              {formatDistanceToNow(votingAppsData.roundEndsAt, {
+                locale: getLocale(lang as Parameters<typeof getLocale>[0])
+              })}{' '}
+              until voting round ends
+            </Trans>
           </Chip>
         ) : (
           <Skeleton height='3xl' width='9xl' />

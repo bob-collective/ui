@@ -1,11 +1,11 @@
 'use client';
 
 import { Card, Flex, H1, H2, Link, P } from '@gobob/ui';
-import { t, Trans } from '@lingui/macro';
+import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import x from '@public/assets/x.png';
 import { useCallback, useEffect, useId, useState } from 'react';
-import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 import { useGetApps } from '../apps/hooks';
@@ -31,10 +31,11 @@ import {
   StyledMain,
   StyledStrategiesWrapper
 } from './Fusion.style';
-import { useGetQuests } from './hooks';
+import { useDismissTopUserModal, useGetQuests } from './hooks';
+import { TopUserModal } from './components/TopUserModal';
 
 import { Geoblock } from '@/components';
-import { isClient, LocalStorageKey } from '@/constants';
+import { LocalStorageKey } from '@/constants';
 import { useGetUser } from '@/hooks';
 import { SessionStorageKey } from '@/types';
 
@@ -44,8 +45,19 @@ const Fusion = () => {
   const { data: user } = useGetUser();
   const { data: apps } = useGetApps();
   const { data: quests } = useGetQuests();
+  const { mutate: dismissTopUserModal } = useDismissTopUserModal();
+  const isClient = useIsClient();
 
   const questsSectionId = useId();
+
+  const [showTopUserModal, setShowTopUserModal] = useLocalStorage(LocalStorageKey.SHOW_TOP_USER_MODAL, true, {
+    initializeWithValue: isClient
+  });
+
+  const onCloseModal = (shouldDismissTopUserModal: boolean) => {
+    setShowTopUserModal(false);
+    if (shouldDismissTopUserModal) dismissTopUserModal();
+  };
 
   const [scrollQuests, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
     initializeWithValue: isClient
@@ -80,6 +92,7 @@ const Fusion = () => {
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
+  const shouldDisplayTopUserModal = user?.notices.showIsFusionTopUser && showTopUserModal;
 
   return (
     <Geoblock>
@@ -139,7 +152,9 @@ const Fusion = () => {
           <CommunityVoting />
           <Leaderboard />
           {user ? (
-            hasPastHarvest ? (
+            shouldDisplayTopUserModal ? (
+              <TopUserModal isOpen={shouldDisplayTopUserModal} onClose={onCloseModal} />
+            ) : hasPastHarvest ? (
               <WelcomeBackModal
                 isOpen={!isHideFusionWelcomeBackModal && isAuthenticated}
                 user={user}
