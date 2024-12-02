@@ -2,7 +2,6 @@
 
 import { GatewayQuoteParams } from '@gobob/bob-sdk';
 import { Bitcoin, CurrencyAmount, ERC20Token } from '@gobob/currency';
-
 import { BITCOIN } from '@gobob/tokens';
 import { toast } from '@gobob/ui';
 import { t } from '@lingui/macro';
@@ -20,9 +19,9 @@ import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } f
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
 import { Address, isAddress } from 'viem';
 import { useAccount } from 'wagmi';
+import { AddressType } from 'bitcoin-address-validation';
 
 import { INTERVAL } from '@/constants';
-
 import {
   BtcFeeRateReturnType,
   useBtcAccount,
@@ -41,7 +40,6 @@ import {
   InitGatewayTransaction,
   TransactionType
 } from '@/types';
-import { BtcAddressType } from '@gobob/utils';
 
 const DUST_THRESHOLD = 1000;
 
@@ -176,7 +174,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
   const minAmount = useMemo(() => getMinAmount(isTopUpEnabled), [isTopUpEnabled]);
 
-  const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
+  const isTapRootAddress = btcAddressType === AddressType.p2tr;
 
   const liquidityQueryEnabled = Boolean(
     params.toChain && params.toToken && params.type === GatewayTransactionType.STAKE ? params.strategyAddress : true

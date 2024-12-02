@@ -1,6 +1,5 @@
 'use client';
 
-import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 import {
   Bars3,
   Button,
@@ -26,6 +25,7 @@ import { StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
+import { ConnectButton } from './ConnectButton';
 
 import { DocsLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
@@ -114,7 +114,8 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         </Popover>
         <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
-        <DynamicWidget />
+        <ConnectButton />
+        {/* <DynamicWidget /> */}
       </Flex>
     </StyledHeader>
   );

@@ -58,8 +58,8 @@ const SignUp = (): JSX.Element | null => {
 
   useAccountEffect({
     onConnect: () => {
-      if (isConnecting) {
-        signUp({});
+      if (isConnecting && address) {
+        signUp(address);
 
         setConnecting(false);
       }

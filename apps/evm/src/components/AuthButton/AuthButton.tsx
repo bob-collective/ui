@@ -3,10 +3,9 @@
 import { useDynamicContext, useDynamicModals } from '@dynamic-labs/sdk-react-core';
 import { ChainId, getChainName } from '@gobob/chains';
 import { Button, ButtonProps } from '@gobob/ui';
-import { useAccount, useSwitchChain } from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
-import { PressEvent } from '@react-aria/interactions';
 import { useIsClient } from 'usehooks-ts';
+import { useAccount, useSwitchChain } from 'wagmi';
 
 import { useBtcAccount } from '@/hooks';
 
@@ -71,8 +70,9 @@ const AuthButton = ({
     const name = getChainName(chainProp);
     const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
 
-    const handlePress = async (e: PressEvent) => {
-      await switchChainAsync?.({ chainId: chainProp });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handlePress = async (e: any) => {
+      switchChainAsync?.({ chainId: chainProp });
 
       if (shouldPressAfterSwitch) {
         onPress?.(e);

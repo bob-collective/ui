@@ -4,7 +4,7 @@ import { mergeProps } from '@react-aria/utils';
 import { useState } from 'react';
 import { useAccount, useAccountEffect } from 'wagmi';
 
-import { useGetUser, useLogin } from '@/hooks';
+import { useLogin } from '@/hooks';
 
 type LoginButtonProps = ButtonProps;
 

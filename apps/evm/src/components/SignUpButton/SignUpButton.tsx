@@ -19,8 +19,8 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
 
   useAccountEffect({
     onConnect: () => {
-      if (isConnecting) {
-        signUp({});
+      if (isConnecting && address) {
+        signUp(address);
 
         setConnecting(false);
       }
