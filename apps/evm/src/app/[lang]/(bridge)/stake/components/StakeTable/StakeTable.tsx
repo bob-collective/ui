@@ -402,26 +402,30 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
                         {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.inputToken}
                       </Dt>
                     </DlGroup>
-                    <Divider />
-                    <DlGroup alignItems='center' justifyContent='space-between'>
-                      <Dd size='md' style={{ minWidth: '15ch' }}>
-                        <Trans>Output Token</Trans>
-                      </Dd>
-                      <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                        <Link
-                          external
-                          color='grey-50'
-                          href={new URL(
-                            `/address/${strategy?.raw.outputToken?.address}`,
-                            chainL2.blockExplorers?.default.url
-                          ).toString()}
-                          size='md'
-                          underlined='always'
-                        >
-                          {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.outputToken}
-                        </Link>
-                      </Dt>
-                    </DlGroup>
+                    {strategy?.raw.outputToken && (
+                      <>
+                        <Divider />
+                        <DlGroup alignItems='center' justifyContent='space-between'>
+                          <Dd size='md' style={{ minWidth: '15ch' }}>
+                            <Trans>Output Token</Trans>
+                          </Dd>
+                          <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
+                            <Link
+                              external
+                              color='grey-50'
+                              href={new URL(
+                                `/address/${strategy?.raw.outputToken?.address}`,
+                                chainL2.blockExplorers?.default.url
+                              ).toString()}
+                              size='md'
+                              underlined='always'
+                            >
+                              {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.outputToken}
+                            </Link>
+                          </Dt>
+                        </DlGroup>
+                      </>
+                    )}
                     {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.securityReview && (
                       <>
                         <Divider />
