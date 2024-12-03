@@ -130,6 +130,9 @@ export type UserResponse = {
   quests_breakdown: Record<string, number>;
   total_quest_points: string;
   season3Data: Season3Data;
+  notices: {
+    showIsFusionTopUser: boolean;
+  };
 };
 
 type LeaderboardResponse = {
@@ -574,6 +577,15 @@ class ApiClient {
     });
 
     return this.handleResponse<ProjectVotingInfo>(response);
+  }
+
+  async dismissTopUserModal(): Promise<unknown> {
+    const response = await fetch(`${this.baseUrl}/me/dismiss-fusion-top-user-notice`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    return response.json();
   }
 
   async getLastVotingResults(): Promise<ResultProjectVotingInfo> {

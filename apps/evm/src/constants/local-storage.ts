@@ -4,6 +4,7 @@ enum LocalStorageKey {
   HIDE_FAULT_PROOFS_NOTICE = 'hideFaultsProofsNotice',
   HIDE_FUSION_WELCOME_MODAL = 'hideFusionWelcomeModal',
   HIDE_FUSION_WELCOME_BACK_MODAL = 'hideFusionWelcomeBackModal',
-  PROMPT_SWITCH_CHAIN = 'promptSwitchChain'
+  PROMPT_SWITCH_CHAIN = 'promptSwitchChain',
+  SHOW_TOP_USER_MODAL = 'showTopUserModal'
 }
 export { LocalStorageKey };

@@ -3,15 +3,17 @@ import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
 import { Trans } from '@lingui/macro';
 import { useIsClient } from 'usehooks-ts';
+import { useParams } from 'next/navigation';
 
 import { StyledCard, StyledDescription, StyledIntract, StyledOpacityOverlay } from './Quest.style';
 
-import { QuestS3Response } from '@/utils';
+import { getLocale, QuestS3Response } from '@/utils';
 
 type QuestProps = { quests: QuestS3Response | undefined; id: string };
 
 const Quest = ({ id, quests }: QuestProps) => {
   const theme = useTheme();
+  const { lang } = useParams();
   const isClient = useIsClient();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
@@ -37,7 +39,12 @@ const Quest = ({ id, quests }: QuestProps) => {
         {intractQuest ? (
           <Chip startAdornment={<SolidClock size='s' />}>
             {isActive ? (
-              <Trans>{formatDistanceToNow(intractQuest.end_date)} until quest ends</Trans>
+              <Trans>
+                {formatDistanceToNow(intractQuest.end_date, {
+                  locale: getLocale(lang as Parameters<typeof getLocale>[0])
+                })}{' '}
+                until quest ends
+              </Trans>
             ) : (
               <Trans>Coming Soon</Trans>
             )}
