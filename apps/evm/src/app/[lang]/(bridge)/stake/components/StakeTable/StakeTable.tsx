@@ -15,7 +15,8 @@ import {
   Link,
   Span,
   Chip,
-  Card
+  Card,
+  useCurrencyFormatter
 } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
@@ -308,6 +309,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   const [strategy, setStrategy] = useState<StrategyData>();
 
   const { i18n } = useLingui();
+  const format = useCurrencyFormatter();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const { data: strategies = [] } = useGetStakingStrategies();
@@ -347,7 +349,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
           })}
         </Flex>
       ),
-      [StakeTableColumns.TVL]: strategy?.tvl ?? '-',
+      [StakeTableColumns.TVL]: strategy?.tvl ? format(strategy.tvl) : '-',
       [StakeTableColumns.ACTIONS]: (
         <Flex direction='row' gap='md'>
           <Button color='primary' onPress={() => setStrategy(strategy)}>
