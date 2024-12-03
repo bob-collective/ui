@@ -215,8 +215,8 @@ const useGetStakingStrategies = () => {
         ) {
           // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
           // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-          const [exchangeRateStored, totalSupply] = seTokenContractDataCalls[symbol];
-          const underlyingDecimals = seTokenUnderlyingContractDataCalls[symbol];
+          const [exchangeRateStored, totalSupply] = seTokenContractDataCalls[symbol]!;
+          const underlyingDecimals = seTokenUnderlyingContractDataCalls[symbol]!;
 
           const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
           const underlyingTicker = seTokensToUnderlyingMapping[symbol];
@@ -233,7 +233,7 @@ const useGetStakingStrategies = () => {
         }
 
         if (hasCGId(symbol) && tokensContractDataCalls?.[symbol]) {
-          const [totalSupply, decimals] = tokensContractDataCalls[symbol];
+          const [totalSupply, decimals] = tokensContractDataCalls[symbol]!;
           const ticker = tokenToIdMapping[symbol];
           const price = getPrice(ticker!);
 
