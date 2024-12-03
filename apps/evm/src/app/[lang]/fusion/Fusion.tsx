@@ -19,7 +19,8 @@ import {
   Strategies,
   UserInfo,
   WelcomeBackModal,
-  WelcomeModal
+  WelcomeModal,
+  TopUserModal
 } from './components';
 import {
   StyledBackground,
@@ -31,8 +32,7 @@ import {
   StyledMain,
   StyledStrategiesWrapper
 } from './Fusion.style';
-import { useDismissTopUserModal, useGetQuests } from './hooks';
-import { TopUserModal } from './components/TopUserModal';
+import { useDismissOPSuperuserModal, useDismissTopUserModal, useGetQuests } from './hooks';
 
 import { Geoblock } from '@/components';
 import { LocalStorageKey } from '@/constants';
@@ -46,6 +46,7 @@ const Fusion = () => {
   const { data: apps } = useGetApps();
   const { data: quests } = useGetQuests();
   const { mutate: dismissTopUserModal } = useDismissTopUserModal();
+  const { mutate: dismissOPSuperuserModal } = useDismissOPSuperuserModal();
   const isClient = useIsClient();
 
   const questsSectionId = useId();
@@ -54,9 +55,20 @@ const Fusion = () => {
     initializeWithValue: isClient
   });
 
-  const onCloseModal = (shouldDismissTopUserModal: boolean) => {
+  const [showOPSuperuserModal, setShowOPSuperuserModal] = useLocalStorage(
+    LocalStorageKey.SHOW_OP_SUPERUSER_MODAL,
+    true,
+    { initializeWithValue: isClient }
+  );
+
+  const onCloseTopUserModal = (shouldDismissTopUserModal: boolean) => {
     setShowTopUserModal(false);
     if (shouldDismissTopUserModal) dismissTopUserModal();
+  };
+
+  const onCloseOPUserModal = (shouldDismissOPSuperuserModal: boolean) => {
+    setShowOPSuperuserModal(false);
+    if (shouldDismissOPSuperuserModal) dismissOPSuperuserModal();
   };
 
   const [scrollQuests, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
@@ -92,6 +104,7 @@ const Fusion = () => {
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
+  const shouldDisplayOPSuperuserModal = user?.notices.showIsOpUser && showOPSuperuserModal;
   const shouldDisplayTopUserModal = user?.notices.showIsFusionTopUser && showTopUserModal;
 
   return (
@@ -152,8 +165,10 @@ const Fusion = () => {
           <CommunityVoting />
           <Leaderboard />
           {user ? (
-            shouldDisplayTopUserModal ? (
-              <TopUserModal isOpen={shouldDisplayTopUserModal} onClose={onCloseModal} />
+            shouldDisplayOPSuperuserModal ? (
+              <OpSuperuserModal isOpen={shouldDisplayOPSuperuserModal} onClose={onCloseOPUserModal} />
+            ) : shouldDisplayTopUserModal ? (
+              <TopUserModal isOpen={shouldDisplayTopUserModal} onClose={onCloseTopUserModal} />
             ) : hasPastHarvest ? (
               <WelcomeBackModal
                 isOpen={!isHideFusionWelcomeBackModal && isAuthenticated}
@@ -176,7 +191,6 @@ const Fusion = () => {
           ) : null}
         </StyledContent>
       </StyledMain>
-      <OpSuperuserModal />
     </Geoblock>
   );
 };

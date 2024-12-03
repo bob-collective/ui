@@ -132,6 +132,8 @@ export type UserResponse = {
   season3Data: Season3Data;
   notices: {
     showIsFusionTopUser: boolean;
+    showIsOpUser: boolean; // will be set to false once dismissed
+    isOpUser: boolean; // stable
   };
 };
 
@@ -581,6 +583,15 @@ class ApiClient {
 
   async dismissTopUserModal(): Promise<unknown> {
     const response = await fetch(`${this.baseUrl}/me/dismiss-fusion-top-user-notice`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    return response.json();
+  }
+
+  async dismissOPUserModal(): Promise<unknown> {
+    const response = await fetch(`${this.baseUrl}/me/dismiss-op-user-notice`, {
       method: 'POST',
       credentials: 'include'
     });

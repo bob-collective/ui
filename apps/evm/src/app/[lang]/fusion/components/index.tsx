@@ -2,6 +2,7 @@ export * from './CommunityVoting';
 export * from './Leaderboard';
 export * from './LotterySections';
 export * from './OpSuperuserModal';
+export * from './TopUserModal';
 export * from './Quest';
 export * from './Strategies';
 export * from './UserInfo';

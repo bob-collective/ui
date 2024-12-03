@@ -5,8 +5,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import Image from 'next/image';
 import styled from 'styled-components';
-
-import { UserResponse } from '@/utils';
+import optimismCity from '@public/assets/optimism-city.png';
 
 const StyledList = styled(Flex)`
   list-style-type: disc;
@@ -16,7 +15,7 @@ const StyledList = styled(Flex)`
   }
 `;
 
-type Props = { user: UserResponse; onClose: (hideForever: boolean) => void };
+type Props = { onClose: (hideForever: boolean) => void };
 
 type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 
@@ -29,24 +28,14 @@ const OpSuperuserModal = ({ onClose, ...props }: OpSuperuserModalProps): JSX.Ele
   return (
     <Modal {...props} size='lg'>
       <Image
-        fill
-        alt={t(i18n)`Lottery`}
-        // placeholder='blur'
-        src='https://raw.githubusercontent.com/ethereum-optimism/brand-kit/refs/heads/main/assets/images/optimism-city.png'
+        alt={t(i18n)`Optimism city`}
+        placeholder='blur'
+        sizes='100vw'
+        src={optimismCity}
         style={{
-          objectFit: 'cover',
-          zIndex: 0,
-          opacity: 0.1,
-          transform: 'translate(40%,25%)'
+          width: '100%',
+          height: 'auto'
         }}
-        // style={{
-        //   position: 'absolute',
-        //   top: '50%',
-        //   left: '50%',
-        //   width: 'auto',
-        //   height: 'auto',
-        //   transform: 'translate(-50%, -50%)'
-        // }}
       />
       <ModalBody gap='lg' padding='2xl' style={{ zIndex: 1 }}>
         <H3 color='primary-500' size='3xl'>
@@ -54,8 +43,10 @@ const OpSuperuserModal = ({ onClose, ...props }: OpSuperuserModalProps): JSX.Ele
         </H3>
         <Flex direction='column' elementType='ol' gap='lg'>
           <P color='grey-50'>
-            As an OP Superuser, you unlock special rewards when you join BOB’s Fusion campaign and explore the future of
-            Bitcoin DeFi.
+            <Trans>
+              As an OP Superuser, you unlock special rewards when you join BOB&apos;s Fusion campaign and explore the
+              future of Bitcoin DeFi.
+            </Trans>
           </P>
           <P color='grey-50'>Here&apos;s what you get: </P>
           <StyledList direction='column' elementType='ul' marginLeft='2xl'>
@@ -72,7 +63,9 @@ const OpSuperuserModal = ({ onClose, ...props }: OpSuperuserModalProps): JSX.Ele
               </Trans>
             </li>
           </StyledList>
-          <P color='grey-50'>Start earning exclusive perks and solidify your role as a leader in Bitcoin DeFi today!</P>
+          <P color='grey-50'>
+            <Trans>Start earning exclusive perks and solidify your role as a leader in Bitcoin DeFi today!</Trans>
+          </P>
         </Flex>
       </ModalBody>
       <ModalFooter direction='column' elementType='form' gap='xl' style={{ zIndex: 1 }}>

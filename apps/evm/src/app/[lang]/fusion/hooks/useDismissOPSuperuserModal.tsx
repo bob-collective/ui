@@ -4,13 +4,13 @@ import { useGetUser } from '@/hooks';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient, UserResponse } from '@/utils';
 
-const useDismissTopUserModal = () => {
+const useDismissOPSuperuserModal = () => {
   const { data: user } = useGetUser();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: fusionKeys.topUserModal(user?.username),
-    mutationFn: () => apiClient.dismissTopUserModal(),
+    mutationKey: fusionKeys.OPSuperuserModal(user?.username),
+    mutationFn: () => apiClient.dismissOPUserModal(),
     onSuccess() {
       queryClient.setQueryData(
         fusionKeys.user(),
@@ -18,7 +18,7 @@ const useDismissTopUserModal = () => {
           ...oldData,
           notices: {
             ...oldData.notices,
-            showIsFusionTopUser: false
+            showIsOpUser: false
           }
         })
       );
@@ -29,4 +29,4 @@ const useDismissTopUserModal = () => {
   });
 };
 
-export { useDismissTopUserModal };
+export { useDismissOPSuperuserModal };

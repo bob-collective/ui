@@ -15,7 +15,7 @@ type TopUserModalProps = Props & InheritAttrs;
 
 const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Element => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-  const [dontShow, setDontShow] = useState(false);
+  const [shouldHideForever, setShouldHideForever] = useState(false);
 
   useCalendlyEventListener({
     onEventScheduled: () => {
@@ -50,11 +50,11 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
             <Button fullWidth color='primary' size='xl' onPress={() => setIsCalendlyOpen(true)}>
               <Trans>Book A Call</Trans>
             </Button>
-            <Button fullWidth color='default' size='xl' variant='outline' onPress={() => onClose(dontShow)}>
+            <Button fullWidth color='default' size='xl' variant='outline' onPress={() => onClose(shouldHideForever)}>
               <Trans>Hide</Trans>
             </Button>
           </Flex>
-          <Switch isSelected={dontShow} onChange={(e) => setDontShow(e.target.checked)}>
+          <Switch isSelected={shouldHideForever} onChange={(e) => setShouldHideForever(e.target.checked)}>
             <Trans>Don&apos;t show this message again</Trans>
           </Switch>
         </ModalFooter>
