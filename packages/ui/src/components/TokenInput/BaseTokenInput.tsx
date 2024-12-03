@@ -48,6 +48,7 @@ type Props = {
   balance?: string;
   balanceHelper?: ReactNode;
   humanBalance?: string | number;
+  placeholder?: ReactNode;
   onClickBalance?: (balance: string) => void;
   onValueChange?: (value: string | number) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -103,7 +104,7 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
         value,
         onChange: () => {},
         defaultValue,
-        placeholder,
+        placeholder: placeholder as string,
         autoComplete: 'off'
       },
       inputRef
@@ -161,7 +162,7 @@ const BaseTokenInput = forwardRef<HTMLInputElement, BaseTokenInputProps>(
               <StyledBaseInput
                 ref={inputRef}
                 $isInvalid={isInvalid}
-                placeholder={placeholder}
+                placeholder={placeholder as string}
                 {...mergeProps(inputProps, focusProps, { onChange: handleChange })}
               />
             </Flex>
