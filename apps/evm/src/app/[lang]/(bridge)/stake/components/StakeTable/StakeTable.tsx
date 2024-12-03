@@ -314,6 +314,8 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const { data: strategies = [] } = useGetStakingStrategies();
 
+  const sortedStrategies = strategies.sort((a, b) => (b?.tvl || 0) - (a?.tvl || 0));
+
   useEffect(() => {
     if (!strategies || !urlSearchParams) return;
 
@@ -323,7 +325,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
     setStrategy(validStrategy);
   }, [urlSearchParams, strategies]);
 
-  const rows: StakeTableRow[] = strategies.map((strategy, idx) => {
+  const rows: StakeTableRow[] = sortedStrategies.map((strategy, idx) => {
     return {
       id: `${strategy.raw.id}${idx}`,
       [StakeTableColumns.STRATEGY]: (

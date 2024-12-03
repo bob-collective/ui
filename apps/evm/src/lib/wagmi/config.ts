@@ -11,7 +11,7 @@ const binanceConnector = getWagmiConnectorV2();
 
 const testnetChains = [bobSepolia, sepolia];
 
-const prodChains = [mainnet, bob];
+const prodChains = [bob, mainnet];
 
 const allChains = [...testnetChains, ...prodChains];
 
