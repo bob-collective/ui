@@ -11,6 +11,8 @@ import { useTokens } from './useTokens';
 import { isProd } from '@/constants';
 import { getConfig } from '@/lib/wagmi';
 
+let isWatching = false;
+
 type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
 const useBalances = (chainId: ChainId) => {
@@ -61,35 +63,40 @@ const useBalances = (chainId: ChainId) => {
   const shouldRefetchRef = useRef(false);
 
   useEffect(() => {
-    const unwatchers = tokens?.map((token) =>
-      watchContractEvent(getConfig({ isProd }), {
-        address: token.raw.address,
-        abi: erc20Abi,
-        eventName: 'Transfer',
-        onLogs(logs) {
-          shouldRefetchRef.current = logs.reduce(
-            (acc, log) => acc || log.args.from === address || log.args.to === address,
-            false
-          );
+    if (!isWatching) {
+      isWatching = true;
+
+      const unwatchers = tokens?.map((token) =>
+        watchContractEvent(getConfig({ isProd }), {
+          address: token.raw.address,
+          abi: erc20Abi,
+          eventName: 'Transfer',
+          onLogs(logs) {
+            shouldRefetchRef.current = logs.reduce(
+              (acc, log) => acc || log.args.from === address || log.args.to === address,
+              false
+            );
+          }
+        })
+      );
+
+      const intervalId = setInterval(() => {
+        if (shouldRefetchRef.current) {
+          shouldRefetchRef.current = false;
+          chain(refetch, refetchErc20);
         }
-      })
-    );
+      }, 3000);
 
-    const intervalId = setInterval(() => {
-      if (shouldRefetchRef.current) {
-        shouldRefetchRef.current = false;
-        chain(refetch, refetchErc20);
-      }
-    }, 3000);
-
-    return () => {
-      if (shouldRefetchRef.current) {
-        shouldRefetchRef.current = false;
-        chain(refetch, refetchErc20);
-      }
-      clearInterval(intervalId);
-      unwatchers?.forEach((unwatch) => unwatch());
-    };
+      return () => {
+        if (shouldRefetchRef.current) {
+          shouldRefetchRef.current = false;
+          chain(refetch, refetchErc20);
+        }
+        clearInterval(intervalId);
+        unwatchers?.forEach((unwatch) => unwatch());
+        isWatching = false;
+      };
+    }
   }, [address, refetch, refetchErc20, tokens]);
 
   const balances = useMemo(() => {
