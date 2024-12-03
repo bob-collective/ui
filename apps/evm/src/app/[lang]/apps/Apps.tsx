@@ -1,6 +1,6 @@
 'use client';
 
-import { useAccount } from '@gobob/wagmi';
+import { useAccount } from 'wagmi';
 
 import { AppsList, AppsPodium, HeroBanner, VotingDashboard } from './components';
 import { useGetApps, useGetVotingApps, useVote, VotingAppData } from './hooks';

@@ -10,6 +10,9 @@
     },
     "l1-wsteth-bridge": {
       "path": "./L1BridgeABI.json"
+    },
+    "optimism-portal": {
+      "path": "./OptimismPortal.json"
     }
   },
   "chains": ["mainnet"],
@@ -30,6 +33,12 @@
       "abi": "l1-wsteth-bridge",
       "address": "0x091dF5E1284E49fA682407096aD34cfD42B95B72",
       "startBlock": 19710718,
+      "chain": "mainnet"
+    },
+    {
+      "abi": "optimism-portal",
+      "address": "0x8AdeE124447435fE03e3CD24dF3f4cAE32E65a3E",
+      "startBlock": 19634328,
       "chain": "mainnet"
     }
   ]

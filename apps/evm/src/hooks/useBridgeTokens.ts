@@ -1,10 +1,10 @@
 import { ChainId } from '@gobob/chains';
 import { ERC20Token, Ether } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
-
-import { RawToken } from '../constants/assets';
+import { useQuery } from '@tanstack/react-query';
 
 import { useTokens } from './useTokens';
+
+import { INTERVAL, RawToken } from '@/constants';
 
 type BridgeToken = {
   l1Token: RawToken;

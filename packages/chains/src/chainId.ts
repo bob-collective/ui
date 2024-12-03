@@ -1,7 +1,6 @@
 export enum ChainId {
   ETHEREUM = 1,
   SEPOLIA = 11155111,
-  OLD_BOB_SEPOLIA = 111,
   BOB_SEPOLIA = 808813,
   BOB = 60808,
   BASE = 8453,
@@ -16,4 +15,4 @@ export enum ChainId {
   BITLAYER = 200901
 }
 
-export const testnetChainIds = [ChainId.SEPOLIA, ChainId.BOB_SEPOLIA, ChainId.OLD_BOB_SEPOLIA];
+export const testnetChainIds = [ChainId.SEPOLIA, ChainId.BOB_SEPOLIA];

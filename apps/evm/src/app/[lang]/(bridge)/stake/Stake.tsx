@@ -1,19 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { Flex } from '@gobob/ui';
-import { useEffect, useRef } from 'react';
-import { useConfig, watchAccount } from '@gobob/wagmi';
 import { useStore } from '@tanstack/react-store';
+import { watchAccount } from '@wagmi/core';
+import { useEffect, useRef } from 'react';
+import { useConfig } from 'wagmi';
+import { Flex } from '@gobob/ui';
 
-import { Layout } from '../components';
-import { TransactionList } from '../components';
+import { Layout, TransactionList } from '../components';
 import { GetGatewayTransactionsReturnType, useGetGatewayTransactions } from '../hooks';
 
 import { StakeTable } from './components';
 
-import { store } from '@/lib/store';
 import { PageLangParam } from '@/i18n/withLigui';
+import { store } from '@/lib/store';
 import { GatewayTransactionType } from '@/types';
 
 type Props = PageLangParam & {

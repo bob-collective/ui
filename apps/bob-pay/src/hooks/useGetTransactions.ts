@@ -1,10 +1,10 @@
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
+import { useQuery } from '@tanstack/react-query';
 import request, { gql } from 'graphql-request';
 import { Address, isAddressEqual } from 'viem';
 
-import { CHAIN } from '../constants';
+import { CHAIN, INTERVAL } from '../constants';
 
 import { useDynamicAddress } from './useDynamicAddress';
 import { paymasters } from './useKernelClient';

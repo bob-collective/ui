@@ -1,12 +1,13 @@
 'use client';
 
-import { INTERVAL, UseQueryOptions, useQuery } from '@gobob/react-query';
-import { useAccount } from '@gobob/wagmi';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+import { useAccount } from 'wagmi';
 
 import { UserResponse, apiClient } from '../utils';
 
-import { FetchError } from '@/types/fetch';
+import { INTERVAL } from '@/constants';
 import { fusionKeys } from '@/lib/react-query';
+import { FetchError } from '@/types/fetch';
 
 const useGetUser = (
   props: Omit<

@@ -1,11 +1,11 @@
 'use client';
 
-import { Optional } from '@gobob/react-query';
 import { Flex, Input } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
+import { Optional } from '@tanstack/react-query';
+import { useAccount } from 'wagmi';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
@@ -14,7 +14,7 @@ import { StrategyData } from './StakeForm';
 
 import { AuthButton } from '@/connect-ui';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { InitGatewayTransaction, GatewayTransactionType } from '@/types';
+import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
 type BtcBridgeFormProps = {
   strategy: StrategyData;

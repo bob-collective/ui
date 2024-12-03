@@ -1,11 +1,9 @@
-import { useMutation, useQueryClient } from '@gobob/react-query';
-import { useDisconnect } from '@gobob/wagmi';
-import { useAccountEffect } from '@gobob/wagmi';
-
-import { apiClient } from '../utils';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAccountEffect, useDisconnect } from 'wagmi';
 
 import { useGetUser } from './useGetUser';
 
+import { apiClient } from '@/utils';
 import { fusionKeys } from '@/lib/react-query';
 
 const useLogout = () => {

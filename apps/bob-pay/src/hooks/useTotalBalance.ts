@@ -1,5 +1,5 @@
 import { ChainId } from '@gobob/chains';
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import Big from 'big.js';
 
 import { calculateAmountUSD } from '../utils';

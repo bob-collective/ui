@@ -1,15 +1,15 @@
-import { PropsWithChildren } from 'react';
 import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
-import { vi, describe, it, expect, beforeEach, Mock } from 'vitest';
-import { useAccount } from '@gobob/wagmi';
+import { PropsWithChildren } from 'react';
+import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
+import { useAccount } from 'wagmi';
 
 import { useGetUser } from '../useGetUser';
 
-import { apiClient } from '@/utils';
 import { wrapper } from '@/test-utils';
+import { apiClient } from '@/utils';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

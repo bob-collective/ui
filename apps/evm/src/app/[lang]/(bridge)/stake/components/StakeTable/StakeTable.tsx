@@ -29,7 +29,7 @@ import { StrategyData, useGetStakingStrategies } from '../../hooks';
 import { chainL2 } from '@/constants';
 
 const SpiceRewards = () => (
-  <Card background='primary-500' padding='xs'>
+  <Card background='primary-500' padding='xs' style={{ width: 'fit-content' }}>
     <Spice size='xs' />
   </Card>
 );
@@ -338,7 +338,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
         </Flex>
       ),
       [StakeTableColumns.REWARDS]: (
-        <Flex gap='xs'>
+        <Flex direction={{ base: 'column', md: 'row' }} gap='xs'>
           <SpiceRewards />
           {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.incentives.map((incentive, key) => {
             const Comp = incentivesMap[incentive];
@@ -347,7 +347,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
           })}
         </Flex>
       ),
-      [StakeTableColumns.TVL]: stakingInfoAny[strategy?.raw.integration.slug ?? '']?.tvl,
+      [StakeTableColumns.TVL]: strategy?.tvl ?? '-',
       [StakeTableColumns.ACTIONS]: (
         <Flex direction='row' gap='md'>
           <Button color='primary' onPress={() => setStrategy(strategy)}>
