@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { PellNetwork, Spice } from '@gobob/icons';
 import { useLingui } from '@lingui/react';
 
-import { stakingInfo, StakingInfo } from '../../../utils/stakeData';
+import { stakingInfo, StakingInfo, Incentive } from '../../../utils/stakeData';
 import { StrategyData, useGetStakingStrategies } from '../../hooks';
 import { StrategyModal } from '../StrategyModal';
 
@@ -81,24 +81,14 @@ const StrategyCell = ({ name, protocol }: { protocol: string; name: string }) =>
   </Flex>
 );
 
-enum Incentives {
-  spice,
-  pell,
-  bedrock,
-  segment,
-  babylon,
-  solv,
-  supply
-}
-
-const incentivesMap: Record<Incentives, () => ReactNode> = {
-  [Incentives.babylon]: BabylonPoints,
-  [Incentives.beckrock]: BedrockDiamond,
-  [Incentives.pell]: PellPoints,
-  [Incentives.segment]: SegmentPoints,
-  [Incentives.solv]: SolvXP,
-  [Incentives.spice]: SpiceRewards,
-  [Incentives.supply]: SupplyApr
+const incentivesMap: Record<Incentive, () => ReactNode> = {
+  [Incentive.babylon]: BabylonPoints,
+  [Incentive.bedrock]: BedrockDiamond,
+  [Incentive.pell]: PellPoints,
+  [Incentive.segment]: SegmentPoints,
+  [Incentive.solv]: SolvXP,
+  [Incentive.spice]: SpiceRewards,
+  [Incentive.supply]: SupplyApr
 };
 
 enum StakeTableColumns {
@@ -139,7 +129,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const { data: strategies = [] } = useGetStakingStrategies();
 
-  const sortedStrategies = strategies.sort((a, b) => (b?.tvl || 0) - (a?.tvl || 0));
+  const sortedStrategies = useMemo(() => [...strategies].sort((a, b) => (b?.tvl || 0) - (a?.tvl || 0)), [strategies]);
 
   useEffect(() => {
     if (!strategies || !urlSearchParams) return;
@@ -150,50 +140,55 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
     setStrategy(validStrategy);
   }, [urlSearchParams, strategies]);
 
-  const rows: StakeTableRow[] = sortedStrategies.map((strategy, idx) => {
-    return {
-      id: `${strategy.raw.id}${idx}`,
-      [StakeTableColumns.STRATEGY]: (
-        <Flex alignItems='center' gap='lg'>
-          {strategy.raw.integration.logo ? (
-            <Avatar size={'2xl'} src={strategy.raw.integration.logo} />
-          ) : (
-            <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
-          )}
-          <StrategyCell
-            name={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.strategy as string}
-            protocol={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.protocol as string}
-          />
-        </Flex>
-      ),
-      [StakeTableColumns.REWARDS]: (
-        <Flex direction={{ base: 'column', md: 'row' }} gap='xs'>
-          <SpiceRewards />
-          {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.incentives.map((incentive, key) => {
-            const Comp = incentivesMap[incentive];
+  const rows: StakeTableRow[] = useMemo(
+    () =>
+      sortedStrategies.map((strategy, idx) => {
+        return {
+          id: `${strategy.raw.id}${idx}`,
+          [StakeTableColumns.STRATEGY]: (
+            <Flex alignItems='center' gap='lg'>
+              {strategy.raw.integration.logo ? (
+                <Avatar size={'2xl'} src={strategy.raw.integration.logo} />
+              ) : (
+                <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
+              )}
+              <StrategyCell
+                name={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.strategy as string}
+                protocol={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.protocol as string}
+              />
+            </Flex>
+          ),
+          [StakeTableColumns.REWARDS]: (
+            <Flex direction={{ base: 'column', md: 'row' }} gap='xs'>
+              <SpiceRewards />
+              {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.incentives.map((incentive, key) => {
+                const Comp = incentivesMap[incentive];
 
-            return <Comp key={key} />;
-          })}
-        </Flex>
-      ),
-      [StakeTableColumns.TVL]: strategy?.tvl ? format(strategy.tvl) : '-',
-      [StakeTableColumns.ACTIONS]: (
-        <Flex direction='row' gap='md'>
-          <Button color='primary' onPress={() => setStrategy(strategy)}>
-            <Trans>Stake</Trans>
-          </Button>
-          <Button
-            variant='outline'
-            onPress={() =>
-              window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
-            }
-          >
-            <Trans>Manage</Trans>
-          </Button>
-        </Flex>
-      )
-    };
-  });
+                return <Comp key={key} />;
+              })}
+            </Flex>
+          ),
+          [StakeTableColumns.TVL]: strategy?.tvl ? format(strategy.tvl) : '-',
+          [StakeTableColumns.ACTIONS]: (
+            <Flex direction='row' gap='md'>
+              <Button color='primary' onPress={() => setStrategy(strategy)}>
+                <Trans>Stake</Trans>
+              </Button>
+              <Button
+                variant='outline'
+                onPress={() =>
+                  window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
+                }
+              >
+                <Trans>Manage</Trans>
+              </Button>
+            </Flex>
+          )
+        };
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sortedStrategies]
+  );
 
   return (
     <>

@@ -1,23 +1,24 @@
 import { Flex, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
+import { ValueOf } from 'viem';
 
-enum Incentives {
+enum Incentive {
   spice,
   pell,
-  beckrock,
+  bedrock,
   segment,
   babylon,
   solv,
   supply
 }
 
-export type StakingInfo = Record<string, (typeof stakingInfo)[keyof typeof stakingInfo] | undefined>;
+type StakingInfo = Record<string, ValueOf<typeof stakingInfo> | undefined>;
 
 const stakingInfo = {
   'bedrock-unibtc': {
     strategy: 'Liquid Staking Bedrock-Babylon',
     protocol: 'Bedrock',
-    incentives: [Incentives.beckrock, Incentives.babylon],
+    incentives: [Incentive.bedrock, Incentive.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -37,7 +38,7 @@ const stakingInfo = {
   'solv-solvbtcbbn': {
     strategy: 'Liquid Staking Solv-Babylon',
     protocol: 'Solv',
-    incentives: [Incentives.solv, Incentives.babylon],
+    incentives: [Incentive.solv, Incentive.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -57,7 +58,7 @@ const stakingInfo = {
   'pell-solvbtcbbn': {
     strategy: 'Restaking Pell-SolvBTC-Babylon',
     protocol: 'Pell',
-    incentives: [Incentives.pell, Incentives.solv, Incentives.babylon],
+    incentives: [Incentive.pell, Incentive.solv, Incentive.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -79,7 +80,7 @@ const stakingInfo = {
   'pell-unibtc': {
     strategy: 'Restaking Pell-uniBTC-Babylon',
     protocol: 'Pell',
-    incentives: [Incentives.pell, Incentives.bedrock, Incentives.babylon],
+    incentives: [Incentive.pell, Incentive.bedrock, Incentive.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -101,7 +102,7 @@ const stakingInfo = {
   'segment-tbtc': {
     strategy: 'Lending Segment-tBTC',
     protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply],
+    incentives: [Incentive.segment, Incentive.supply],
     tvl: '-',
     about: <Trans>Lend out tBTC on Segment.</Trans>,
     inputToken: 'BTC',
@@ -112,7 +113,7 @@ const stakingInfo = {
   'segment-wbtc': {
     strategy: 'Lending Segment-wBTC',
     protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply],
+    incentives: [Incentive.segment, Incentive.supply],
     tvl: '-',
     about: <Trans>Lend out wBTC on Segment.</Trans>,
     inputToken: 'BTC',
@@ -123,7 +124,7 @@ const stakingInfo = {
   'segment-sesolvbtcbbn': {
     strategy: 'Staked Lending Segment-SolvBTC-Babylon',
     protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply, Incentives.solv, Incentives.babylon],
+    incentives: [Incentive.segment, Incentive.supply, Incentive.solv, Incentive.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -145,7 +146,7 @@ const stakingInfo = {
   'segment-seunibtc': {
     strategy: 'Staked Lending Segment-uniBTC-Babylon',
     protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply, Incentives.beckrock, Incentives.babylon],
+    incentives: [Incentive.segment, Incentive.supply, Incentive.bedrock, Incentive.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -166,5 +167,5 @@ const stakingInfo = {
   }
 } as const;
 
-export { stakingInfo };
+export { stakingInfo, Incentive };
 export type { StakingInfo };
