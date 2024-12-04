@@ -84,7 +84,7 @@ const StrategyCell = ({ name, protocol }: { protocol: string; name: string }) =>
 enum Incentives {
   spice,
   pell,
-  beckrock,
+  bedrock,
   segment,
   babylon,
   solv,
