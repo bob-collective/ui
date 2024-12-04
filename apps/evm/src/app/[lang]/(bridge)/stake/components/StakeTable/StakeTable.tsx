@@ -1,33 +1,12 @@
-import {
-  Table,
-  Modal,
-  Flex,
-  Avatar,
-  Button,
-  ModalHeader,
-  ModalBody,
-  P,
-  Dl,
-  Dd,
-  DlGroup,
-  Dt,
-  Divider,
-  Link,
-  Span,
-  Chip,
-  Card,
-  useCurrencyFormatter
-} from '@gobob/ui';
+import { Table, Flex, Avatar, Button, Span, Chip, Card, useCurrencyFormatter } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { PellNetwork, Spice } from '@gobob/icons';
 import { useLingui } from '@lingui/react';
 
-import { StyledFlex, StyledCard } from '../../Stake.style';
-import { StakingForm } from '../StakeForm';
+import { stakingInfo, StakingInfo } from '../../../utils/stakeData';
 import { StrategyData, useGetStakingStrategies } from '../../hooks';
-
-import { chainL2 } from '@/constants';
+import { StrategyModal } from '../StrategyModal';
 
 const SpiceRewards = () => (
   <Card background='primary-500' padding='xs' style={{ width: 'fit-content' }}>
@@ -139,166 +118,12 @@ type StakeTableRow = {
 
 const columns = [
   { name: <Trans>Strategy</Trans>, id: StakeTableColumns.STRATEGY, minWidth: 240 },
-  // { name: <Trans>Protocol</Trans>, id: StakeTableColumns.PROTOCOL, minWidth: 150 },
   { name: <Trans>Rewards</Trans>, id: StakeTableColumns.REWARDS },
   { name: <Trans>TVL (on BOB)</Trans>, id: StakeTableColumns.TVL, minWidth: 96 },
   { name: '', id: StakeTableColumns.ACTIONS }
 ];
 
-const stakingInfo = {
-  'bedrock-unibtc': {
-    strategy: 'Liquid Staking Bedrock-Babylon',
-    protocol: 'Bedrock',
-    incentives: [Incentives.beckrock, Incentives.babylon],
-    tvl: '-',
-    about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC.</Trans>
-        </P>
-        <P>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
-      </Flex>
-    ),
-    inputToken: 'BTC',
-    outputToken: 'uniBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bedrock',
-    website: 'https://app.bedrock.technology/unibtc'
-  },
-  'solv-solvbtcbbn': {
-    strategy: 'Liquid Staking Solv-Babylon',
-    protocol: 'Solv',
-    incentives: [Incentives.solv, Incentives.babylon],
-    tvl: '-',
-    about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.</Trans>
-        </P>
-        <P>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
-      </Flex>
-    ),
-    inputToken: 'BTC',
-    outputToken: 'SolvBTC.BBN',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/solvlst',
-    website: 'https://app.solv.finance/babylon?network=bob'
-  },
-  'pell-solvbtcbbn': {
-    strategy: 'Restaking Pell-SolvBTC-Babylon',
-    protocol: 'Pell',
-    incentives: [Incentives.pell, Incentives.solv, Incentives.babylon],
-    tvl: '-',
-    about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>
-            Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell.
-          </Trans>
-        </P>
-        <P>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
-      </Flex>
-    ),
-    inputToken: 'BTC',
-    outputToken: 'SolvBTC.BBN',
-    securityReview: '',
-    website: 'https://app.pell.network/restake'
-  },
-  'pell-unibtc': {
-    strategy: 'Restaking Pell-uniBTC-Babylon',
-    protocol: 'Pell',
-    incentives: [Incentives.pell, Incentives.beckrock, Incentives.babylon],
-    tvl: '-',
-    about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>
-            Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking.
-          </Trans>
-        </P>
-        <P>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
-      </Flex>
-    ),
-    inputToken: 'BTC',
-    outputToken: 'uniBTC',
-    securityReview: '',
-    website: 'https://app.pell.network/restake'
-  },
-  'segment-tbtc': {
-    strategy: 'Lending Segment-tBTC',
-    protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply],
-    tvl: '-',
-    about: <Trans>Lend out tBTC on Segment.</Trans>,
-    inputToken: 'BTC',
-    outputToken: 'tBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/tbtc',
-    website: 'https://app.segment.finance'
-  },
-  'segment-wbtc': {
-    strategy: 'Lending Segment-wBTC',
-    protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply],
-    tvl: '-',
-    about: <Trans>Lend out wBTC on Segment.</Trans>,
-    inputToken: 'BTC',
-    outputToken: 'wBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/wbtc',
-    website: 'https://app.segment.finance'
-  },
-  'segment-sesolvbtcbbn': {
-    strategy: 'Staked Lending Segment-SolvBTC-Babylon',
-    protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply, Incentives.solv, Incentives.babylon],
-    tvl: '-',
-    about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>
-            Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment.
-          </Trans>
-        </P>
-        <P>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
-      </Flex>
-    ),
-    inputToken: 'BTC',
-    outputToken: 'seUNIBTC',
-    securityReview: '',
-    website: 'https://app.segment.finance'
-  },
-  'segment-seunibtc': {
-    strategy: 'Staked Lending Segment-uniBTC-Babylon',
-    protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply, Incentives.beckrock, Incentives.babylon],
-    tvl: '-',
-    about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>
-            Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment.
-          </Trans>
-        </P>
-        <P>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
-      </Flex>
-    ),
-    inputToken: 'BTC',
-    outputToken: 'seUNIBTC',
-    securityReview: '',
-    website: 'https://app.segment.finance'
-  }
-} as const;
-
-const stakingInfoAny = stakingInfo as Record<string, (typeof stakingInfo)[keyof typeof stakingInfo] | undefined>;
+const stakingInfoAny = stakingInfo as StakingInfo;
 
 interface Props {
   searchParams?: { receive: string };
@@ -374,102 +199,12 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
     <>
       <Table aria-label={t(i18n)`Staking table`} columns={columns} rows={rows} />
       {strategy && (
-        <Modal isOpen={!!strategy} size='4xl' onClose={() => setStrategy(undefined)}>
-          <StyledCard>
-            <ModalHeader>
-              <Flex direction='column' gap='lg'>
-                <Flex alignItems='center' gap='lg'>
-                  {strategy.raw.integration.logo ? (
-                    <Avatar size={'4xl'} src={strategy.raw.integration.logo} />
-                  ) : (
-                    <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
-                  )}
-                  {strategy.raw.integration.name}
-                </Flex>
-                {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.about}
-              </Flex>
-            </ModalHeader>
-            <ModalBody>
-              <StyledFlex direction={{ base: 'column', md: 'row' }} gap='xl'>
-                <StakingForm strategy={strategy} onStakeSuccess={onStakeSuccess} />
-                <StyledFlex direction='column' gap='xl'>
-                  <Dl direction='column' gap='lg'>
-                    <DlGroup alignItems='center' justifyContent='space-between'>
-                      <Dd size='md' style={{ minWidth: '15ch' }}>
-                        <Trans>Input Token</Trans>
-                      </Dd>
-                      <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                        {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.inputToken}
-                      </Dt>
-                    </DlGroup>
-                    {strategy?.raw.outputToken && (
-                      <>
-                        <Divider />
-                        <DlGroup alignItems='center' justifyContent='space-between'>
-                          <Dd size='md' style={{ minWidth: '15ch' }}>
-                            <Trans>Output Token</Trans>
-                          </Dd>
-                          <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                            <Link
-                              external
-                              color='grey-50'
-                              href={new URL(
-                                `/address/${strategy?.raw.outputToken?.address}`,
-                                chainL2.blockExplorers?.default.url
-                              ).toString()}
-                              size='md'
-                              underlined='always'
-                            >
-                              {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.outputToken}
-                            </Link>
-                          </Dt>
-                        </DlGroup>
-                      </>
-                    )}
-                    {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.securityReview && (
-                      <>
-                        <Divider />
-                        <DlGroup alignItems='center' justifyContent='space-between'>
-                          <Dd size='md' style={{ minWidth: '15ch' }}>
-                            <Trans>Security Review by Bitcoin Layers</Trans>
-                          </Dd>
-                          <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                            <Link
-                              external
-                              color='grey-50'
-                              href={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.securityReview}
-                              size='md'
-                              underlined='always'
-                            >
-                              {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.securityReview}
-                            </Link>
-                          </Dt>
-                        </DlGroup>
-                      </>
-                    )}
-                    <Divider />
-                    <DlGroup alignItems='center' justifyContent='space-between'>
-                      <Dd size='md' style={{ minWidth: '15ch' }}>
-                        <Trans>Website</Trans>
-                      </Dd>
-                      <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                        <Link
-                          external
-                          color='grey-50'
-                          href={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website}
-                          size='md'
-                          underlined='always'
-                        >
-                          {stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website}
-                        </Link>
-                      </Dt>
-                    </DlGroup>
-                  </Dl>
-                </StyledFlex>
-              </StyledFlex>
-            </ModalBody>
-          </StyledCard>
-        </Modal>
+        <StrategyModal
+          stakingInfo={stakingInfoAny[strategy?.raw.integration.slug]}
+          strategy={strategy}
+          onCloseModal={() => setStrategy(undefined)}
+          onStakeSuccess={onStakeSuccess}
+        />
       )}
     </>
   );
