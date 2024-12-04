@@ -79,7 +79,7 @@ const stakingInfo = {
   'pell-unibtc': {
     strategy: 'Restaking Pell-uniBTC-Babylon',
     protocol: 'Pell',
-    incentives: [Incentives.pell, Incentives.beckrock, Incentives.babylon],
+    incentives: [Incentives.pell, Incentives.bedrock, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
