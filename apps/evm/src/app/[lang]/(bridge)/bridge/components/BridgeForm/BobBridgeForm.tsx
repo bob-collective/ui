@@ -4,7 +4,7 @@
 import { Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { USDC } from '@gobob/tokens';
-import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
+import { Flex, Input, Skeleton, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
@@ -468,6 +468,7 @@ const BobBridgeForm = ({
         humanBalance={humanBalance}
         items={tokenInputItems}
         label={t(i18n)`Amount`}
+        placeholder={<Skeleton height='3xl' width='7xl' />}
         type='selectable'
         valueUSD={valueUSD}
         onChangeCurrency={handleChangeSymbol}

@@ -8,7 +8,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 import { isAddressEqual } from 'viem';
-import { useAccount, useAccountEffect, useChainId, useConfig, useReconnect, useSwitchChain } from 'wagmi';
+import { useAccount, useAccountEffect, useChainId, useConfig, useSwitchChain } from 'wagmi';
 
 import { Header, Layout, Sidebar } from '@/components';
 import { ConnectProvider } from '@/connect-ui';
@@ -132,12 +132,6 @@ export function NestedProviders({ children }: PropsWithChildren) {
   useTokens(chainId);
 
   usePromptSwitchChain();
-
-  const { reconnect } = useReconnect();
-
-  useEffect(() => {
-    reconnect();
-  }, [reconnect]);
 
   return (
     <StyledComponentsRegistry>

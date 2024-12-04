@@ -4,7 +4,7 @@ import { usePrices } from '@gobob/hooks';
 import { BOBUIProvider, CSSReset } from '@gobob/ui';
 import { usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, useEffect } from 'react';
-import { useChainId, useReconnect } from 'wagmi';
+import { useChainId } from 'wagmi';
 
 import { Header, Layout } from '@/components';
 import { useBalances, useTokens } from '@/hooks';
@@ -30,12 +30,6 @@ export function NestedProviders({ children }: PropsWithChildren) {
   usePrices();
   useBalances(chainId);
   useTokens(chainId);
-
-  const { reconnect } = useReconnect();
-
-  useEffect(() => {
-    reconnect();
-  }, [reconnect]);
 
   return (
     <StyledComponentsRegistry>
