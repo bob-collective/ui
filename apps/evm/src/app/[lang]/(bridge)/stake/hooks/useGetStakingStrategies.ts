@@ -330,7 +330,7 @@ const useGetStakingStrategies = () => {
         const strategyAddress = strategy.raw.address;
 
         if (hasNoOutputToken(strategyAddress) && noOuputTokenContractSharesToUnderlyingDataCalls?.[strategyAddress]) {
-          const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingDataCalls[strategyAddress];
+          const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingDataCalls[strategyAddress]!;
           const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
           const [ticker, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
           const price = getPrice(ticker!);
