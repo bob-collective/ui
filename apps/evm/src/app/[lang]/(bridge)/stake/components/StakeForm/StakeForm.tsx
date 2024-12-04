@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import { GatewayTransactionModal } from '../../../components';
 import { StrategyData } from '../../hooks';
-import { StyledFlex } from '../../Stake.style';
 
+import { StyledFlex } from './StakeForm.style';
 import { BtcStakeForm } from './BtcStakeForm';
 
 import { InitGatewayTransaction } from '@/types';

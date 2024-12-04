@@ -3,10 +3,11 @@ import { Modal, ModalHeader, Flex, Avatar, ModalBody, Dl, DlGroup, Dd, Dt, Divid
 import { Trans } from '@lingui/macro';
 import { Link } from '@gobob/ui';
 
-import { StyledCard, StyledFlex } from '../../Stake.style';
 import { StakingForm } from '../StakeForm';
 import { StakingInfo } from '../../../utils/stakeData';
 import { StrategyData } from '../../hooks';
+
+import { StyledCard, StyledFlex } from './StrategyModal.style';
 
 import { chainL2 } from '@/constants';
 
