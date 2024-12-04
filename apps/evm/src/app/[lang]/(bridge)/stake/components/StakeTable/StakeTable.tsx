@@ -93,7 +93,7 @@ enum Incentives {
 
 const incentivesMap: Record<Incentives, () => ReactNode> = {
   [Incentives.babylon]: BabylonPoints,
-  [Incentives.beckrock]: BedrockDiamond,
+  [Incentives.bedrock]: BedrockDiamond,
   [Incentives.pell]: PellPoints,
   [Incentives.segment]: SegmentPoints,
   [Incentives.solv]: SolvXP,

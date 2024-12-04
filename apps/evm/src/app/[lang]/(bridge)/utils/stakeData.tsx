@@ -4,20 +4,20 @@ import { Trans } from '@lingui/macro';
 enum Incentives {
   spice,
   pell,
-  beckrock,
+  bedrock,
   segment,
   babylon,
   solv,
   supply
 }
 
-export type StakingInfo = Record<string, (typeof stakingInfo)[keyof typeof stakingInfo] | undefined>;
+type StakingInfo = Record<string, (typeof stakingInfo)[keyof typeof stakingInfo] | undefined>;
 
 const stakingInfo = {
   'bedrock-unibtc': {
     strategy: 'Liquid Staking Bedrock-Babylon',
     protocol: 'Bedrock',
-    incentives: [Incentives.beckrock, Incentives.babylon],
+    incentives: [Incentives.bedrock, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -145,7 +145,7 @@ const stakingInfo = {
   'segment-seunibtc': {
     strategy: 'Staked Lending Segment-uniBTC-Babylon',
     protocol: 'Segment',
-    incentives: [Incentives.segment, Incentives.supply, Incentives.beckrock, Incentives.babylon],
+    incentives: [Incentives.segment, Incentives.supply, Incentives.bedrock, Incentives.babylon],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
