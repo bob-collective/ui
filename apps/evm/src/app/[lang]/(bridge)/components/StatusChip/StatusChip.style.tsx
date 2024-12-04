@@ -9,7 +9,6 @@ type StyledChipProps = {
 
 const StyledChip = styled(Link)<StyledChipProps>`
   display: inline-flex;
-  height: 32px;
   width: min-content;
   white-space: nowrap;
   gap: ${({ theme }) => theme.spacing('xs')};
