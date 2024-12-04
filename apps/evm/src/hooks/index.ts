@@ -19,5 +19,6 @@ export * from './useSubscribeBalances';
 export * from './useTokens';
 export * from './useTotalBalance';
 export * from './useWalletClient';
+export * from './useGetTransactions';
 
 export * from './btc';

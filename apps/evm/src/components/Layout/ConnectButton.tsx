@@ -1,17 +1,43 @@
 'use client';
 
-import { Button, Drawer } from '@gobob/ui';
+import { useDynamicContext, UserProfile } from '@dynamic-labs/sdk-react-core';
+import { Button, Flex, Span } from '@gobob/ui';
 import { truncateBtcAddress, truncateEthAddress } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
-import { useAccount } from 'wagmi';
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import ProfileAvatar from 'boring-avatars';
 import { useState } from 'react';
+import { Address } from 'viem';
+import { useAccount } from 'wagmi';
+
+import { ProfileDrawer } from '../ProfileDrawer';
 
 import { useBtcAccount } from '@/hooks';
 
-const ConnectButton = (): JSX.Element => {
-  const { setShowAuthFlow } = useDynamicContext();
+const Profile = ({
+  evmAddress,
+  btcAddress,
+  user
+}: {
+  btcAddress?: string;
+  evmAddress?: Address;
+  user?: UserProfile;
+}) => {
+  const displayedAddress = evmAddress
+    ? truncateEthAddress(evmAddress)
+    : btcAddress
+      ? truncateBtcAddress(btcAddress)
+      : undefined;
 
+  return (
+    <Flex alignItems='center' elementType='span' gap='s'>
+      {user?.userId ? <ProfileAvatar name={user.userId} size='1.5rem' /> : undefined}
+      <Span size='s'>{displayedAddress}</Span>
+    </Flex>
+  );
+};
+
+const ConnectButton = (): JSX.Element => {
+  const { setShowAuthFlow, user } = useDynamicContext();
   const { address: evmAddress } = useAccount();
   const { address: btcAddress } = useBtcAccount();
 
@@ -25,7 +51,7 @@ const ConnectButton = (): JSX.Element => {
     };
 
     return (
-      <Button onPress={handleConnect}>
+      <Button variant='ghost' onPress={handleConnect}>
         <Trans>Connect Wallet</Trans>
       </Button>
     );
@@ -37,12 +63,10 @@ const ConnectButton = (): JSX.Element => {
 
   return (
     <>
-      <Button onPress={handleOpen}>
-        {evmAddress ? truncateEthAddress(evmAddress) : btcAddress ? truncateBtcAddress(btcAddress) : undefined}
+      <Button variant='ghost' onPress={handleOpen}>
+        <Profile btcAddress={btcAddress} evmAddress={evmAddress} user={user} />
       </Button>
-      <Drawer isOpen={isOpen} onClose={handleClose}>
-        Here
-      </Drawer>
+      <ProfileDrawer isOpen={isOpen} onClose={handleClose} />
     </>
   );
 };
