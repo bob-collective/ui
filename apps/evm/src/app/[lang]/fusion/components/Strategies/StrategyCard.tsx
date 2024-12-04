@@ -1,7 +1,10 @@
 import { Flex, H3, Modal, ModalBody, ModalHeader, P, SolidGift, Span } from '@gobob/ui';
 import { ReactNode, useId, useState } from 'react';
 import { Spice } from '@gobob/icons';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import Image from 'next/image';
+import { useLingui } from '@lingui/react';
+import spiceShapedBackground from '@public/assets/spice-shape-background.jpg';
 
 import { StyledBanner, StyledBannerWrapper, StyledCard, StyledTitle } from './Strategies.style';
 
@@ -24,6 +27,7 @@ type StrategyCardProps = Props;
 
 const StrategyCard = ({ title, longDescription, rewards, shortDescription, steps, isDisabled }: StrategyCardProps) => {
   const [isOpen, setOpen] = useState(false);
+  const { i18n } = useLingui();
 
   const stepId = useId();
   const rewardsId = useId();
@@ -40,6 +44,17 @@ const StrategyCard = ({ title, longDescription, rewards, shortDescription, steps
     >
       <StyledBannerWrapper flex={1}>
         <StyledBanner alignItems='center' justifyContent='center'>
+          <Image
+            fill
+            alt={t(i18n)`Spice styled background`}
+            placeholder='blur'
+            quality={100}
+            sizes='100vw'
+            src={spiceShapedBackground}
+            style={{
+              objectFit: 'cover'
+            }}
+          />
           <Spice color='primary-500' filter='drop-shadow(0px 0px 10px #F25D00)' size='3xl' />
         </StyledBanner>
       </StyledBannerWrapper>

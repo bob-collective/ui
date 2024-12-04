@@ -4,6 +4,7 @@ import { Inter, Chakra_Petch } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import { t } from '@lingui/macro';
 import { userAgentFromString } from 'next/server';
+import { cookieToInitialState } from 'wagmi';
 
 import linguiConfig from '../../../lingui.config';
 
@@ -14,6 +15,8 @@ import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
 import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
 import { UserAgentProvider } from '@/user-agent/provider';
+import { getConfig } from '@/lib/wagmi';
+import { isProd } from '@/constants';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
@@ -63,6 +66,7 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
 
 export default withLinguiLayout(function LangLayout({ children, params: { lang } }: PropsWithChildren<PageLangParam>) {
   const userAgent: ReturnType<typeof userAgentFromString> = userAgentFromString(headers().get('user-agent') ?? '');
+  const initialState = cookieToInitialState(getConfig({ isProd }), headers().get('cookie'));
 
   return (
     <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
@@ -70,7 +74,7 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
         <div id='root'>
           <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
             <UserAgentProvider userAgent={userAgent}>
-              <Providers>{children}</Providers>
+              <Providers initialState={initialState}>{children}</Providers>
             </UserAgentProvider>
           </LinguiClientProvider>
         </div>
