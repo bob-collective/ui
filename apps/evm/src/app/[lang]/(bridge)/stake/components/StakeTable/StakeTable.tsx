@@ -1,4 +1,4 @@
-import { Table, Flex, Avatar, Button, Span, Chip, Card, useCurrencyFormatter } from '@gobob/ui';
+import { Table, Flex, Avatar, Button, Span, Chip, useCurrencyFormatter } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { PellNetwork, Spice } from '@gobob/icons';
@@ -9,9 +9,9 @@ import { StrategyData, useGetStakingStrategies } from '../../hooks';
 import { StrategyModal } from '../StrategyModal';
 
 const SpiceRewards = () => (
-  <Card background='primary-500' padding='xs' style={{ width: 'fit-content' }}>
-    <Spice size='xs' />
-  </Card>
+  <Chip background='primary-500' size='s' startAdornment={<Spice size='xs' />}>
+    <Trans>Spice</Trans>
+  </Chip>
 );
 
 const PellPoints = () => (

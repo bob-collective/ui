@@ -30,7 +30,7 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
               ) : (
                 <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
               )}
-              {strategy.raw.integration.name}
+              {stakingInfo.strategy}
             </Flex>
             {stakingInfo?.about}
           </Flex>
