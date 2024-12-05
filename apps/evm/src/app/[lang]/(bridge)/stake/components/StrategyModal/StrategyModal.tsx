@@ -2,6 +2,7 @@ import { PellNetwork } from '@gobob/icons';
 import { Modal, ModalHeader, Flex, Avatar, ModalBody, Dl, DlGroup, Dd, Dt, Divider, Span } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { Link } from '@gobob/ui';
+import { truncateUrl } from '@gobob/utils';
 
 import { StakingForm } from '../StakeForm';
 import { StrategyData } from '../../hooks';
@@ -84,7 +85,7 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
                       </Dd>
                       <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
                         <Link external color='grey-50' href={stakingInfo?.securityReview} size='md' underlined='always'>
-                          {stakingInfo?.securityReview}
+                          {truncateUrl(stakingInfo?.securityReview)}
                         </Link>
                       </Dt>
                     </DlGroup>
@@ -97,7 +98,7 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
                   </Dd>
                   <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
                     <Link external color='grey-50' href={stakingInfo?.website} size='md' underlined='always'>
-                      {stakingInfo?.website}
+                      {truncateUrl(stakingInfo?.website)}
                     </Link>
                   </Dt>
                 </DlGroup>
