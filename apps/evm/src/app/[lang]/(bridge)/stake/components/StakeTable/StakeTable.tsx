@@ -72,10 +72,10 @@ const SupplyApr = () => (
 
 const StrategyCell = ({ name, protocol }: { protocol: string; name: string }) => (
   <Flex alignItems='flex-start' direction='column'>
-    <Span size='xs' weight='bold'>
+    <Span size='s' weight='bold'>
       {name}
     </Span>
-    <Span color='grey-50' size='xs' weight='medium'>
+    <Span color='grey-50' size='s' weight='medium'>
       {protocol}
     </Span>
   </Flex>

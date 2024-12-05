@@ -132,7 +132,7 @@ const stakingInfo = {
   'segment-sesolvbtcbbn': {
     strategy: 'Staked Lending Segment-SolvBTC-Babylon',
     protocol: 'Segment',
-    incentives: [Incentive.segment, Incentive.supply, Incentive.solv, Incentive.babylon],
+    incentives: [Incentive.segment, Incentive.solv, Incentive.babylon, Incentive.supply],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
@@ -154,7 +154,7 @@ const stakingInfo = {
   'segment-seunibtc': {
     strategy: 'Staked Lending Segment-uniBTC-Babylon',
     protocol: 'Segment',
-    incentives: [Incentive.segment, Incentive.supply, Incentive.bedrock, Incentive.babylon],
+    incentives: [Incentive.segment, Incentive.bedrock, Incentive.babylon, Incentive.supply],
     tvl: '-',
     about: (
       <Flex direction='column' gap='md'>
