@@ -105,7 +105,7 @@ msgstr "All Apps"
 msgid "Already harvesting?"
 msgstr "Already harvesting?"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:470
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:473
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 msgid "Amount"
 msgstr "Amount"
@@ -126,7 +126,7 @@ msgstr "and that you have read and understood our"
 msgid "Apply"
 msgstr "Apply"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:454
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:457
 msgid "Approve"
 msgstr "Approve"
 
@@ -156,8 +156,8 @@ msgstr "Asset"
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:49
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:71
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:93
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:137
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:159
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:145
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:167
 msgid "Attention: Babylon does not yet support withdrawals."
 msgstr "Attention: Babylon does not yet support withdrawals."
 
@@ -245,7 +245,7 @@ msgstr "BOB TVL Progress"
 msgid "Bridge"
 msgstr "Bridge"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:455
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:458
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:148
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
@@ -259,7 +259,7 @@ msgstr "Bridge Assets"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "Bridge BTC LSTs to BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:450
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:453
 msgid "Bridge Disabled"
 msgstr "Bridge Disabled"
 
@@ -308,7 +308,7 @@ msgstr "Cannot stake into {assetName} due to insufficient liquidity."
 #~ msgid "Category"
 #~ msgstr "Category"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:452
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:455
 msgid "Checking Allowance"
 msgstr "Checking Allowance"
 
@@ -343,8 +343,8 @@ msgid "Coming Soon"
 msgstr "Coming Soon"
 
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:74
-msgid "Coming SoonSteps"
-msgstr "Coming SoonSteps"
+#~ msgid "Coming SoonSteps"
+#~ msgstr "Coming SoonSteps"
 
 #: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:41
 msgid "Common Prefix auditor"
@@ -516,7 +516,7 @@ msgstr "enable ETH top-up for transaction fees on BOB network"
 #~ msgid "Enter Address"
 #~ msgstr "Enter Address"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:481
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:87
 msgid "Enter destination address"
@@ -737,7 +737,7 @@ msgstr "If you already own BTC LSTs on other chains, you can bridge them over to
 #~ msgid "Incentives"
 #~ msgstr "Incentives"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:45
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:51
 msgid "Input Token"
 msgstr "Input Token"
 
@@ -778,11 +778,11 @@ msgstr "Learn More"
 #~ msgid "Learn more about {0}"
 #~ msgstr "Learn more about {0}"
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:107
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:109
 msgid "Lend out tBTC on Segment."
 msgstr "Lend out tBTC on Segment."
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:118
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:124
 msgid "Lend out wBTC on Segment."
 msgstr "Lend out wBTC on Segment."
 
@@ -1024,7 +1024,7 @@ msgstr "or"
 msgid "OtterSec auditor"
 msgstr "OtterSec auditor"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:54
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:58
 msgid "Output Token"
 msgstr "Output Token"
 
@@ -1129,7 +1129,7 @@ msgstr "Receive"
 #~ msgid "Receive {ticker}"
 #~ msgstr "Receive {ticker}"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:480
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:483
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:86
 msgid "Recipient"
@@ -1199,7 +1199,7 @@ msgstr "Season 3 Harvested Spice"
 msgid "Season Three"
 msgstr "Season Three"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:78
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:84
 msgid "Security Review by Bitcoin Layers"
 msgstr "Security Review by Bitcoin Layers"
 
@@ -1277,7 +1277,7 @@ msgstr "Solv XP"
 #~ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 #~ msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:131
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:134
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:51
@@ -1294,6 +1294,7 @@ msgstr "Something went wrong. Please try connecting your wallet again."
 msgid "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 msgstr "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:13
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:79
 msgid "Spice"
 msgstr "Spice"
@@ -1380,7 +1381,7 @@ msgstr "Stake BTC into Babylon via Bedrock and receive liquid staking token uniB
 msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking."
 msgstr "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking."
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:154
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:162
 msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment."
 msgstr "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment."
 
@@ -1392,7 +1393,7 @@ msgstr "Stake BTC into Babylon via Solv Protocol and receive liquid staking toke
 msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
 msgstr "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:132
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:140
 msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
 msgstr "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
 
@@ -1429,6 +1430,10 @@ msgstr "Step One"
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:43
 msgid "Step Two"
 msgstr "Step Two"
+
+#: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:74
+msgid "Steps"
+msgstr "Steps"
 
 #: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:110
 msgid "Strategy"
@@ -1736,7 +1741,7 @@ msgstr "Use your bridged assets in apps to maximise your Spice harvest.<0/>TIP: 
 msgid "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 msgstr "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:129
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:132
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:131
 #: src/hooks/useLogin.ts:46
 #: src/hooks/useSignUp.ts:49
@@ -1814,7 +1819,7 @@ msgstr "We will provide you with updates accordingly. You can monitor the progre
 msgid "We're Sorry"
 msgstr "We're Sorry"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:91
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:97
 msgid "Website"
 msgstr "Website"
 

@@ -71,7 +71,7 @@ const StrategyCard = ({ title, longDescription, rewards, shortDescription, steps
         <ModalBody gap='lg' padding='even'>
           <P color='grey-50'>{longDescription}</P>
           <StyledTitle id={stepId} size='lg'>
-            <Trans>Coming SoonSteps</Trans>
+            <Trans>Steps</Trans>
           </StyledTitle>
           <Flex
             aria-labelledby={stepId}
