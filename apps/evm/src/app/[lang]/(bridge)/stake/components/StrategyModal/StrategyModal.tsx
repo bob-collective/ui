@@ -51,30 +51,30 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
                   </Dd>
                   <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>{stakingInfo?.inputToken}</Dt>
                 </DlGroup>
-                {strategy?.raw.outputToken && (
-                  <>
-                    <Divider />
-                    <DlGroup alignItems='center' justifyContent='space-between'>
-                      <Dd size='md' style={{ minWidth: '15ch' }}>
-                        <Trans>Output Token</Trans>
-                      </Dd>
-                      <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                        <Link
-                          external
-                          color='grey-50'
-                          href={new URL(
-                            `/address/${strategy?.raw.outputToken?.address}`,
-                            chainL2.blockExplorers?.default.url
-                          ).toString()}
-                          size='md'
-                          underlined='always'
-                        >
-                          {stakingInfo?.outputToken}
-                        </Link>
-                      </Dt>
-                    </DlGroup>
-                  </>
-                )}
+                <Divider />
+                <DlGroup alignItems='center' justifyContent='space-between'>
+                  <Dd size='md' style={{ minWidth: '15ch' }}>
+                    <Trans>Output Token</Trans>
+                  </Dd>
+                  <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
+                    {strategy?.raw.outputToken ? (
+                      <Link
+                        external
+                        color='grey-50'
+                        href={new URL(
+                          `/address/${strategy?.raw.outputToken?.address}`,
+                          chainL2.blockExplorers?.default.url
+                        ).toString()}
+                        size='md'
+                        underlined='always'
+                      >
+                        {stakingInfo?.outputToken}
+                      </Link>
+                    ) : (
+                      stakingInfo?.outputToken
+                    )}
+                  </Dt>
+                </DlGroup>
                 {stakingInfo?.securityReview && (
                   <>
                     <Divider />
