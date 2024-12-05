@@ -5,7 +5,8 @@ export const sepolia = defineChain({
   ...wagmiSepolia,
   rpcUrls: {
     default: {
-      http: ['https://ethereum-sepolia-rpc.publicnode.com/']
+      http: ['https://ethereum-sepolia-rpc.publicnode.com/'],
+      webSocket: ['wss://ethereum-sepolia-rpc.publicnode.com/']
     }
   },
   contracts: {
