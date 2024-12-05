@@ -1,5 +1,5 @@
 import { PellNetwork } from '@gobob/icons';
-import { Modal, ModalHeader, Flex, Avatar, ModalBody, Dl, DlGroup, Dd, Dt, Divider } from '@gobob/ui';
+import { Modal, ModalHeader, Flex, Avatar, ModalBody, Dl, DlGroup, Dd, Dt, Divider, Span } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { Link } from '@gobob/ui';
 
@@ -30,7 +30,12 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
               ) : (
                 <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
               )}
-              {stakingInfo.strategy}
+              <Flex alignItems='flex-start' direction='column'>
+                <Span size='lg'>{stakingInfo.strategy}</Span>
+                <Span color='grey-50' size='md' weight='medium'>
+                  {stakingInfo.protocol}
+                </Span>
+              </Flex>
             </Flex>
             {stakingInfo?.about}
           </Flex>
