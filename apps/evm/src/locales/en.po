@@ -404,8 +404,8 @@ msgid "Coming Soon"
 msgstr "Coming Soon"
 
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:74
-msgid "Coming SoonSteps"
-msgstr "Coming SoonSteps"
+#~ msgid "Coming SoonSteps"
+#~ msgstr "Coming SoonSteps"
 
 #: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:41
 msgid "Common Prefix auditor"
@@ -1361,6 +1361,10 @@ msgstr "Sign-Up"
 msgid "Solv XP"
 msgstr "Solv XP"
 
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:110
+#~ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
+#~ msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
+
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:134
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/hooks/useLogin.ts:48
@@ -1519,6 +1523,10 @@ msgstr "Step One"
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:43
 msgid "Step Two"
 msgstr "Step Two"
+
+#: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:74
+msgid "Steps"
+msgstr "Steps"
 
 #: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:110
 msgid "Strategy"
