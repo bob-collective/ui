@@ -23,7 +23,6 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Optimism, Spice } from '@gobob/icons';
 import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
 import { Barometer } from './Barometer';
@@ -242,30 +241,16 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         <UserInfoCard
           description={user?.referral_code}
           title={t(i18n)`Your ${isOpSuperuser ? 'Special ' : ''} Referral Code`}
-          tooltipLabel={t(
-            i18n
-          )`${isOpSuperuser ? 'As an OP Superuser, you enjoy extra rewards. ' : ''}Share this link with a friend and when they sign up, you will receive ${isOpSuperuser ? '30% (instead of 15%)' : '15%'} of their Spice harvest as a bonus, plus ${isOpSuperuser ? '14% (instead of 7%)' : '7%'} of the Spice harvest of anyone they refer`}
+          tooltipLabel={
+            isOpSuperuser
+              ? t(
+                  i18n
+                )`Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign.`
+              : t(
+                  i18n
+                )`Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer`
+          }
         >
-          <Flex
-            padding='s'
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              transform: 'translate(20%, -25%)',
-              opacity: 0.1,
-              zIndex: 0
-            }}
-          >
-            {isOpSuperuser && (
-              <Flex style={{ position: 'relative' }}>
-                <Optimism size='4xl' style={{ width: '7rem', height: '7rem' }} />
-                <Spice size='xl' style={{ position: 'absolute', top: 10, left: '-5px' }} />
-                <Spice size='md' style={{ position: 'absolute', left: '-2px', bottom: 0 }} />
-                <Spice size='s' style={{ position: 'absolute', right: '30px', bottom: 0 }} />
-              </Flex>
-            )}
-          </Flex>
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (
               <Button disabled={!isAuthenticated} variant='outline' onPress={() => setUserReferralModalOpen(true)}>
@@ -290,26 +275,6 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           )}
         </UserInfoCard>
         <StyledMeterCard gap='s' justifyContent='space-between' style={{ position: 'relative' }}>
-          <Flex
-            padding='s'
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              transform: 'translate(20%, -25%)',
-              opacity: 0.1,
-              zIndex: 0
-            }}
-          >
-            {isOpSuperuser && (
-              <Flex style={{ position: 'relative' }}>
-                <Optimism size='4xl' style={{ width: '7rem', height: '7rem' }} />
-                <Spice size='xl' style={{ position: 'absolute', top: 10, left: '-5px' }} />
-                <Spice size='md' style={{ position: 'absolute', left: '-2px', bottom: 0 }} />
-                <Spice size='s' style={{ position: 'absolute', right: '30px', bottom: 0 }} />
-              </Flex>
-            )}
-          </Flex>
           <Flex direction='column' gap='md'>
             {isLoadingTvlLevel ? (
               <Flex direction='column'>

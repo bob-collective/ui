@@ -5,8 +5,9 @@ import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import x from '@public/assets/x.png';
-import { useCallback, useEffect, useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useAccount } from 'wagmi';
+import { Optimism } from '@gobob/icons';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -89,11 +90,13 @@ const Fusion = () => {
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
-  const onPressBanner = useCallback(
-    () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer'),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  const onPressXBanner = () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
+  const onPressOPBanner = () =>
+    window.open(
+      'https://blog.gobob.xyz/posts/bob-hybrid-l2-joins-superchain-to-accelerate-bitcoin-defi',
+      '_blank',
+      'noreferrer'
+    );
 
   useEffect(() => {
     if (scrollQuests) {
@@ -106,6 +109,7 @@ const Fusion = () => {
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
   const shouldDisplayOPSuperuserModal = user?.notices.showIsOpUser && showOPSuperuserModal;
   const shouldDisplayTopUserModal = user?.notices.showIsFusionTopUser && showTopUserModal;
+  const isOpSuperuser = user?.notices.isOpUser;
 
   return (
     <Geoblock>
@@ -134,24 +138,55 @@ const Fusion = () => {
               </P>
             </Flex>
             <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
-            <Flex direction='column' marginTop='lg'>
-              <Card
-                isPressable
-                justifyContent='center'
-                paddingX='xl'
-                paddingY='6xl'
-                style={{ position: 'relative', maxHeight: '8.5rem' }}
-                onPress={onPressBanner}
-              >
-                <H2 size='2xl' weight='bold'>
-                  <Trans>Follow us on X</Trans>
-                </H2>
-                <P color='grey-50'>
-                  <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
-                </P>
-                <StyledBannerImg alt='x' height='123' placeholder='blur' src={x} width='336' />
-              </Card>
-            </Flex>
+            {isOpSuperuser ? (
+              <Flex direction='column' marginTop='lg'>
+                <Card
+                  isPressable
+                  justifyContent='center'
+                  paddingX='xl'
+                  paddingY='6xl'
+                  style={{ position: 'relative', maxHeight: '8.5rem' }}
+                  onPress={onPressOPBanner}
+                >
+                  <Flex alignItems='center' justifyContent='center'>
+                    <Flex direction='column'>
+                      <H2 size='2xl' weight='bold'>
+                        <Trans>Bringing Bitcoin DeFi to the Superchain</Trans>
+                      </H2>
+                      <P color='grey-50'>
+                        <Trans>
+                          To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on
+                          all Spice harvested between 9 December 2024 and 12 January 2025.{' '}
+                          <Link href='https://blog.gobob.xyz/posts/bob-hybrid-l2-joins-superchain-to-accelerate-bitcoin-defi'>
+                            Learn more
+                          </Link>
+                        </Trans>
+                      </P>
+                    </Flex>
+                    <Optimism size='4xl' style={{ width: '7rem', height: '7rem', top: 0, right: 0, opacity: 0.7 }} />
+                  </Flex>
+                </Card>
+              </Flex>
+            ) : (
+              <Flex direction='column' marginTop='lg'>
+                <Card
+                  isPressable
+                  justifyContent='center'
+                  paddingX='xl'
+                  paddingY='6xl'
+                  style={{ position: 'relative', maxHeight: '8.5rem' }}
+                  onPress={onPressXBanner}
+                >
+                  <H2 size='2xl' weight='bold'>
+                    <Trans>Follow us on X</Trans>
+                  </H2>
+                  <P color='grey-50'>
+                    <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
+                  </P>
+                  <StyledBannerImg alt='x' height='123' placeholder='blur' src={x} width='336' />
+                </Card>
+              </Flex>
+            )}
             <LotterySection />
           </StyledHeroSection>
         </StyledHeroSectionWrapper>

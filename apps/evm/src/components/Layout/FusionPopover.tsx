@@ -95,10 +95,13 @@ const FusionPopover = (): JSX.Element | null => {
                   }}
                 />
                 <Flex direction='column' gap='xs'>
-                  <P color='grey-50' size='s'>
-                    <Trans>Welcome OP Superuser</Trans>
+                  <P size='s'>
+                    <Trans>
+                      Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50%
+                      bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be
+                      applied at the end of the campaign.
+                    </Trans>
                   </P>
-                  <P size='s'>Enjoy our special bonuses for you</P>
                 </Flex>
               </Card>
             )}
