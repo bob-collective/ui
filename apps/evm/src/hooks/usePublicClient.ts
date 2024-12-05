@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { createPublicClient, webSocket } from 'viem';
+import { createPublicClient, http } from 'viem';
 import { publicActionsL1, publicActionsL2 } from 'viem/op-stack';
 
 import { chainL1, chainL2 } from '../constants';
@@ -9,7 +9,7 @@ const usePublicClientL2 = () =>
     () =>
       createPublicClient({
         chain: chainL2,
-        transport: webSocket()
+        transport: http(undefined, { batch: true })
       }).extend(publicActionsL2()),
     []
   );
@@ -19,7 +19,7 @@ const usePublicClientL1 = () =>
     () =>
       createPublicClient({
         chain: chainL1,
-        transport: webSocket()
+        transport: http(undefined, { batch: true })
       }).extend(publicActionsL1()),
     []
   );
