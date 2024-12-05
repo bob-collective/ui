@@ -52,6 +52,7 @@ import {
   TransactionType
 } from '@/types';
 import { calculateAmountUSD } from '@/utils';
+import { useSubscribeBalances } from '@/hooks';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
@@ -82,6 +83,8 @@ const BobBridgeForm = ({
 
   const { getPrice } = usePrices();
   const { getBalance, refetch: refetchBalances } = useBalances(bridgeChainId);
+
+  useSubscribeBalances(bridgeChainId);
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
 

@@ -191,7 +191,9 @@ const GatewayTransactionDetails = ({
                   <Tooltip isDisabled={!!btcAddress} label={t(i18n)`Connect BTC wallet to access fee rate settings.`}>
                     <UnstyledButton disabled={!btcAddress} onPress={() => setOpen(true)}>
                       <Flex alignItems='center' gap='xs'>
-                        <Span size='xs'>{Math.ceil(settings.fee.rate)} sat/vB</Span>
+                        <Span size='xs'>
+                          {Math.ceil(settings.fee.rate)} sat/vB ({settings.fee.selected.speed})
+                        </Span>
                         <Cog color='grey-50' size='s' />
                       </Flex>
                     </UnstyledButton>

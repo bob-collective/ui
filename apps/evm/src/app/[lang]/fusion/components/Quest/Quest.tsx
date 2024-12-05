@@ -1,9 +1,12 @@
 import { Button, Chip, Flex, H2, Link, Skeleton, SolidClock, useMediaQuery } from '@gobob/ui';
 import { formatDistanceToNow } from 'date-fns';
 import { useTheme } from 'styled-components';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useIsClient } from 'usehooks-ts';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
+import { useLingui } from '@lingui/react';
+import welcomeSeason3 from '@public/assets/welcome-season-3.jpg';
 
 import { StyledCard, StyledDescription, StyledIntract, StyledOpacityOverlay } from './Quest.style';
 
@@ -15,7 +18,9 @@ const Quest = ({ id, quests }: QuestProps) => {
   const theme = useTheme();
   const { lang } = useParams();
   const isClient = useIsClient();
+
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+  const { i18n } = useLingui();
 
   const [intractQuest] = quests?.questBreakdown || [];
 
@@ -25,6 +30,17 @@ const Quest = ({ id, quests }: QuestProps) => {
     <Flex direction={{ base: 'column-reverse', s: 'row-reverse' }} gap='3xl' id={id} marginTop='8xl'>
       {isClient && !isMobile && (
         <StyledCard borderColor='grey-300' flex={0.4}>
+          <Image
+            fill
+            alt={t(i18n)`Welcome season 3`}
+            placeholder='blur'
+            quality={100}
+            sizes='100vw'
+            src={welcomeSeason3}
+            style={{
+              objectFit: 'cover'
+            }}
+          />
           <StyledOpacityOverlay />
           <StyledIntract />
         </StyledCard>

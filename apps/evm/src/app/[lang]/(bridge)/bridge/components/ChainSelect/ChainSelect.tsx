@@ -1,5 +1,5 @@
 import { ChainId } from '@gobob/chains';
-import { Card, Item, SelectProps } from '@gobob/ui';
+import { Card, Item, SelectProps, Skeleton } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 
 import { StyledSelect } from './ChainSelect.style';
@@ -18,7 +18,7 @@ const ChainSelect = ({ chainId, selectProps }: ChainSelectProps): JSX.Element =>
     return (
       <StyledSelect
         modalProps={{ title: <Trans>Select Network</Trans>, size: 'xs' }}
-        placeholder={<></>}
+        placeholder={<Skeleton height='3xl' width='10xl' />}
         size='lg'
         type='modal'
         {...selectProps}

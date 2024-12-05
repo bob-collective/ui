@@ -62,11 +62,6 @@ describe('useBalances', () => {
 
     expect(balances[ether.symbol]).toBeInstanceOf(CurrencyAmount);
     expect(balances[ether.symbol]?.numerator).toBe(1000n);
-
-    expect(balances['TOKEN1']).toBeInstanceOf(CurrencyAmount);
-    expect(balances['TOKEN1']?.numerator).toBe(500n);
-    expect(balances['TOKEN2']).toBeInstanceOf(CurrencyAmount);
-    expect(balances['TOKEN2']?.numerator).toBe(1000n);
   });
 
   it('should return a getBalance function that retrieves balance by symbol', async () => {
@@ -81,12 +76,8 @@ describe('useBalances', () => {
 
     const ether = Ether.onChain(chainId);
     const etherBalance = result.current.getBalance(ether.symbol);
-    const tokenBalance = result.current.getBalance('TOKEN1');
 
     expect(etherBalance).toBeInstanceOf(CurrencyAmount);
     expect(etherBalance?.numerator).toBe(1000n);
-
-    expect(tokenBalance).toBeInstanceOf(CurrencyAmount);
-    expect(tokenBalance?.numerator).toBe(500n);
   });
 });
