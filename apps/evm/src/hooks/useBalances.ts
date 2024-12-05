@@ -1,17 +1,13 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { chain } from '@react-aria/utils';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 import { erc20Abi } from 'viem';
 import { useAccount, useBalance, usePublicClient, useReadContracts } from 'wagmi';
-import { watchContractEvent } from '@wagmi/core';
 
 import { useTokens } from './useTokens';
 
-import { isProd } from '@/constants';
-import { getConfig } from '@/lib/wagmi';
-
-let isWatching = false;
+import { INTERVAL } from '@/constants';
 
 type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
@@ -19,7 +15,13 @@ const useBalances = (chainId: ChainId) => {
   const publicClient = usePublicClient({ chainId });
   const { address } = useAccount();
 
-  const { data: ethBalance, refetch } = useBalance({ address, chainId });
+  const { data: ethBalance, refetch } = useBalance({
+    address,
+    chainId,
+    query: {
+      refetchInterval: INTERVAL.SECONDS_30
+    }
+  });
 
   const { data: tokens } = useTokens(chainId);
 
@@ -60,45 +62,6 @@ const useBalances = (chainId: ChainId) => {
       }))
   });
 
-  const shouldRefetchRef = useRef(false);
-
-  useEffect(() => {
-    if (!isWatching) {
-      isWatching = true;
-
-      const unwatchers = tokens?.map((token) =>
-        watchContractEvent(getConfig({ isProd }), {
-          address: token.raw.address,
-          abi: erc20Abi,
-          eventName: 'Transfer',
-          onLogs(logs) {
-            shouldRefetchRef.current = logs.reduce(
-              (acc, log) => acc || log.args.from === address || log.args.to === address,
-              false
-            );
-          }
-        })
-      );
-
-      const intervalId = setInterval(() => {
-        if (shouldRefetchRef.current) {
-          shouldRefetchRef.current = false;
-          chain(refetch, refetchErc20);
-        }
-      }, 3000);
-
-      return () => {
-        if (shouldRefetchRef.current) {
-          shouldRefetchRef.current = false;
-          chain(refetch, refetchErc20);
-        }
-        clearInterval(intervalId);
-        unwatchers?.forEach((unwatch) => unwatch());
-        isWatching = false;
-      };
-    }
-  }, [address, refetch, refetchErc20, tokens]);
-
   const balances = useMemo(() => {
     const ether = Ether.onChain(chainId);
 
@@ -111,8 +74,9 @@ const useBalances = (chainId: ChainId) => {
   }, [erc20Balances, ethBalance, chainId]);
 
   const getBalance = useCallback((symbol: string) => balances?.[symbol], [balances]);
+  const refetchBalance = useCallback(() => chain(refetch, refetchErc20), [refetch, refetchErc20]);
 
-  return { ...queryResult, balances, getBalance, refetch: chain(refetch, refetchErc20) };
+  return { ...queryResult, balances, getBalance, refetch: refetchBalance };
 };
 
 export { useBalances };
