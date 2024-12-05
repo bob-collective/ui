@@ -7,13 +7,21 @@ import { useAccount, useBalance, usePublicClient, useReadContracts } from 'wagmi
 
 import { useTokens } from './useTokens';
 
+import { INTERVAL } from '@/constants';
+
 type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
 const useBalances = (chainId: ChainId) => {
   const publicClient = usePublicClient({ chainId });
   const { address } = useAccount();
 
-  const { data: ethBalance, refetch } = useBalance({ address, chainId });
+  const { data: ethBalance, refetch } = useBalance({
+    address,
+    chainId,
+    query: {
+      staleTime: INTERVAL.SECONDS_30
+    }
+  });
 
   const { data: tokens } = useTokens(chainId);
 
