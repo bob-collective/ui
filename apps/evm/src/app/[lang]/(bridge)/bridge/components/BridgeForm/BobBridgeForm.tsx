@@ -52,7 +52,7 @@ import {
   TransactionType
 } from '@/types';
 import { calculateAmountUSD } from '@/utils';
-import { useSubscribeBalances } from '@/hooks/useSubscribeBalances';
+import { useSubscribeBalances } from '@/hooks';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
