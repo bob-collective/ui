@@ -19,7 +19,7 @@ const useBalances = (chainId: ChainId) => {
     address,
     chainId,
     query: {
-      staleTime: INTERVAL.SECONDS_30
+      refetchInterval: INTERVAL.SECONDS_30
     }
   });
 
