@@ -6,10 +6,13 @@ import { useReadContracts } from 'wagmi';
 import { CurrencyTickers, usePrices } from '@gobob/hooks';
 import { Address, erc20Abi } from 'viem';
 import Big from 'big.js';
+import { bob } from 'viem/chains';
 
 import { useGetStrategies } from '@/hooks';
 import { seTokenAbi } from '@/abis/seToken.abi';
 import { strategyBaseTVLLimitAbi } from '@/abis/StrategyBaseTVL.abi';
+import { getConfig } from '@/lib/wagmi';
+import { isProd } from '@/constants';
 
 type StrategyData = {
   raw: GatewayStrategyContract;
@@ -91,6 +94,10 @@ const useGetStakingStrategies = () => {
       enabled: isStrategiesSucess
     },
     allowFailure: false,
+    config: {
+      ...getConfig({ isProd }),
+      chains: [bob]
+    },
     contracts: strategies?.flatMap((strategy) =>
       hasUnderlying(strategy.raw.outputToken?.symbol)
         ? ([
@@ -138,6 +145,10 @@ const useGetStakingStrategies = () => {
       enabled: isStrategiesSucess
     },
     allowFailure: false,
+    config: {
+      ...getConfig({ isProd }),
+      chains: [bob]
+    },
     contracts: strategies?.flatMap((strategy) =>
       hasUnderlying(strategy.raw.outputToken?.symbol)
         ? ([
@@ -174,6 +185,10 @@ const useGetStakingStrategies = () => {
       enabled: isStrategiesSucess
     },
     allowFailure: false,
+    config: {
+      ...getConfig({ isProd }),
+      chains: [bob]
+    },
     contracts: strategies?.flatMap((strategy) =>
       hasCGId(strategy.raw.outputToken?.symbol)
         ? ([
@@ -215,6 +230,10 @@ const useGetStakingStrategies = () => {
       enabled: isStrategiesSucess
     },
     allowFailure: false,
+    config: {
+      ...getConfig({ isProd }),
+      chains: [bob]
+    },
     contracts: strategies?.flatMap((strategy) =>
       hasNoOutputToken(strategy.raw.address)
         ? ([
