@@ -24,7 +24,8 @@ const StyledSpinnerWrapper = styled.span`
 
 const StyledTransactionList = styled(Flex)`
   overflow-y: auto;
-  flex: 1 1 auto;
+  position: absolute;
+  inset: 0;
 `;
 
 const StyledTransactionListWrapper = styled(Flex)`

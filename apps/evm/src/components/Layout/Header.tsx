@@ -19,13 +19,13 @@ import { useTheme } from 'styled-components';
 
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
+import { ConnectButton } from '../ConnectButton';
 
 import { FusionPopover } from './FusionPopover';
 import { StyledHeader, StyledLogoWrapper } from './Layout.style';
 import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
-import { ConnectButton } from './ConnectButton';
 
 import { DocsLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';

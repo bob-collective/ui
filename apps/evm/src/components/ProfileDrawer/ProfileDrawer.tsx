@@ -1,66 +1,55 @@
 'use client';
 
-import {
-  Button,
-  Card,
-  ChevronRight,
-  Cog,
-  Drawer,
-  Flex,
-  P,
-  Power,
-  QrCode,
-  SolidCreditCard,
-  Span,
-  Tabs,
-  TabsItem
-} from '@gobob/ui';
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { Button, Card, ChevronLeft, Cog, Flex, P, Power, QrCode, SolidCreditCard, Span, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useAccount } from 'wagmi';
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
-import { ETH } from '@gobob/icons';
-import { WalletIcon } from '@dynamic-labs/wallet-book';
-import { truncateEthAddress } from '@gobob/utils';
-
-import { ChainLogo } from '../ChainLogo';
+import { useState } from 'react';
 
 import { ProfileTag } from './ProfileTag';
-import { TransactionList } from './TransactionList';
 import { ProfileTokenList } from './ProfileTokenList';
-import { AddornedAsset } from './AddornedAsset';
+import { TransactionList } from './TransactionList';
+import { ProfileEvmWallet } from './ProfileEvmWallet';
+import { ProfileBtcWallet } from './ProfileBtcWallet';
+import { StyledTabs, SyledWrapper } from './ProfileDrawer.style';
 
-import { useBalances, useBtcAccount, useTotalBalance } from '@/hooks';
-import { chainL1, L1_CHAIN } from '@/constants';
+import { L1_CHAIN } from '@/constants';
+import { useBtcAccount, useTotalBalance } from '@/hooks';
 import { useGetTransactions } from '@/hooks/useGetTransactions';
 
+enum ProfileViews {
+  Main = 'main',
+  BtcWallet = 'btc-wallet',
+  EvmWallet = 'evm-wallet'
+}
+
 enum ProfileDrawerTabs {
-  Tokens = 'tokens',
+  Wallet = 'wallet',
   Activity = 'activity'
 }
 
 type ProfileDrawerProps = {
-  isOpen: boolean;
+  isMobile: boolean;
+  snap: any;
   onClose: () => void;
 };
 
-const ProfileDrawer = ({ isOpen, onClose }: ProfileDrawerProps): JSX.Element => {
+const ProfileDrawer = ({ snap, isMobile, onClose }: ProfileDrawerProps): JSX.Element => {
   const { setShowAuthFlow, user, handleLogOut } = useDynamicContext();
   const { address: evmAddress, chain } = useAccount();
   const { address: btcAddress } = useBtcAccount();
 
   const chainId = chain?.id || L1_CHAIN;
-  const chainName = chain?.name || chainL1.name;
 
   const { formatted } = useTotalBalance(chainId);
-
-  const { getBalance } = useBalances(chainId);
-  const { primaryWallet } = useDynamicContext();
 
   const {
     data: transactions,
     isInitialLoading: isTransactionsInitialLoading,
     refetch: refetchTransaction
   } = useGetTransactions();
+
+  const [view, setView] = useState(ProfileViews.Main);
 
   const isAuthenticated = evmAddress || btcAddress;
 
@@ -81,76 +70,75 @@ const ProfileDrawer = ({ isOpen, onClose }: ProfileDrawerProps): JSX.Element => 
     onClose();
   };
 
+  const handlePressEvmWallet = () => setView(ProfileViews.EvmWallet);
+
+  const handlePressBtcWallet = () => setView(ProfileViews.BtcWallet);
+
+  const handlePressBack = () => setView(ProfileViews.Main);
+
   return (
-    <Drawer isOpen={isOpen} onClose={onClose}>
-      <Flex direction='column' gap='xl' paddingX='s'>
-        <Flex alignItems='center' justifyContent='space-between' padding='s'>
-          <ProfileTag btcAddress={btcAddress} evmAddress={evmAddress} size='md' user={user} />
-          <Flex>
-            <Button isIconOnly aria-label='disconnect wallet(s)' size='s' variant='ghost' onPress={handleLogout}>
-              <Cog size='s' />
-            </Button>
-            <Button isIconOnly aria-label='disconnect wallet(s)' size='s' variant='ghost' onPress={handleLogout}>
-              <Power size='s' />
-            </Button>
-          </Flex>
+    <SyledWrapper direction='column' flex={1} gap='xl' paddingX='lg' paddingY='md' snap={isMobile ? snap : undefined}>
+      <Flex alignItems='center' justifyContent='space-between' padding='s'>
+        <ProfileTag btcAddress={btcAddress} evmAddress={evmAddress} size='md' user={user} />
+        <Flex>
+          <Button isIconOnly aria-label='disconnect wallet(s)' size='s' variant='ghost' onPress={handleLogout}>
+            <Cog size='s' />
+          </Button>
+          <Button isIconOnly aria-label='disconnect wallet(s)' size='s' variant='ghost' onPress={handleLogout}>
+            <Power size='s' />
+          </Button>
         </Flex>
-        {primaryWallet && (
-          <Card
-            alignItems='center'
-            background='grey-600'
-            direction='row'
-            gap='md'
-            justifyContent='space-between'
-            padding='md'
-          >
-            <Flex alignItems='center'>
-              <AddornedAsset addornment={<ChainLogo chainId={chainId} size='xs' />} asset={<ETH size='xl' />} />
-              <Flex direction='column'>
-                <Span size='s'>{getBalance('ETH')?.toSignificant()} ETH</Span>
-                <Flex gap='s'>
-                  <Span color='grey-50' size='xs'>
-                    {truncateEthAddress(primaryWallet.address)}{' '}
-                  </Span>
-                  <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={primaryWallet?.connector?.key} />
-                </Flex>
-              </Flex>
-            </Flex>
-            <ChevronRight />
-          </Card>
-        )}
-        <P size='3xl' weight='bold'>
-          {formatted}
-        </P>
-        <Flex gap='md'>
-          <Card isHoverable isPressable flex={1} gap='lg' padding='lg' style={{ backgroundColor: '#3A1F12' }}>
-            <SolidCreditCard color='primary-500' />
-            <P color='primary-500' weight='bold'>
-              Buy
-            </P>
-          </Card>
-          <Card isHoverable isPressable flex={1} gap='lg' padding='lg' style={{ backgroundColor: '#3A1F12' }}>
-            <QrCode color='primary-500' />
-            <P color='primary-500' weight='bold'>
-              Receive
-            </P>
-          </Card>
-        </Flex>
-        <Tabs fullWidth size='s'>
-          <TabsItem key={ProfileDrawerTabs.Tokens} title={<Trans>Tokens</Trans>}>
-            <ProfileTokenList />
-          </TabsItem>
-          <TabsItem key={ProfileDrawerTabs.Activity} title={<Trans>Activity</Trans>}>
-            <TransactionList
-              data={transactions}
-              isInitialLoading={isTransactionsInitialLoading}
-              onProveSuccess={refetchTransaction.bridge}
-              onRelaySuccess={refetchTransaction.bridge}
-            />
-          </TabsItem>
-        </Tabs>
       </Flex>
-    </Drawer>
+      <P size='3xl' weight='bold'>
+        {formatted}
+      </P>
+      <Flex gap='md'>
+        <Card isHoverable isPressable flex={1} gap='lg' padding='lg' style={{ backgroundColor: '#3A1F12' }}>
+          <SolidCreditCard color='primary-500' />
+          <P color='primary-500' weight='bold'>
+            Buy
+          </P>
+        </Card>
+        <Card isHoverable isPressable flex={1} gap='lg' padding='lg' style={{ backgroundColor: '#3A1F12' }}>
+          <QrCode color='primary-500' />
+          <P color='primary-500' weight='bold'>
+            Receive
+          </P>
+        </Card>
+      </Flex>
+      {view === ProfileViews.Main ? (
+        <Flex direction='column' flex={1} gap='xl'>
+          <Flex direction='column' gap='md'>
+            <ProfileEvmWallet chainId={chainId} onPress={handlePressEvmWallet} />
+            <ProfileBtcWallet onPress={handlePressBtcWallet} />
+          </Flex>
+          <StyledTabs fullWidth size='s'>
+            <TabsItem key={ProfileDrawerTabs.Wallet} title={<Trans>Wallet</Trans>}>
+              <ProfileTokenList chainId={chainId} />
+            </TabsItem>
+            <TabsItem key={ProfileDrawerTabs.Activity} title={<Trans>Activity</Trans>}>
+              <TransactionList
+                data={transactions}
+                isInitialLoading={isTransactionsInitialLoading}
+                onProveSuccess={refetchTransaction.bridge}
+                onRelaySuccess={refetchTransaction.bridge}
+              />
+            </TabsItem>
+          </StyledTabs>
+        </Flex>
+      ) : (
+        <Flex alignItems='flex-start' direction='column' gap='xl'>
+          <Button style={{ padding: '0' }} onPress={handlePressBack}>
+            <Flex alignItems='center' elementType='span' gap='xxs'>
+              <ChevronLeft size='xs' />
+              <Span size='s'>Back</Span>
+            </Flex>
+          </Button>
+          {view === ProfileViews.EvmWallet && <Flex>Evm</Flex>}
+          {view === ProfileViews.BtcWallet && <Flex>Btc</Flex>}
+        </Flex>
+      )}
+    </SyledWrapper>
   );
 };
 

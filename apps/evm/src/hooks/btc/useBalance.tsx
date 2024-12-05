@@ -1,11 +1,11 @@
 'use client';
 
 import { EsploraClient } from '@gobob/bob-sdk';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { useBtcAccount } from './useAccount';
 
 import { bitcoinNetwork, INTERVAL } from '@/constants';
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 type GetBtcBalanceReturnType = { confirmed: bigint; unconfirmed: bigint; total: bigint };
 

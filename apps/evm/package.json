@@ -62,6 +62,7 @@
     "styled-components": "catalog:",
     "use-count-up": "^3.0.1",
     "usehooks-ts": "catalog:",
+    "vaul": "^1.1.1",
     "viem": "catalog:",
     "wagmi": "catalog:",
     "yup": "catalog:"
