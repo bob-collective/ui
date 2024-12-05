@@ -1,4 +1,4 @@
-import { Flex, P } from '@gobob/ui';
+import { Alert, Flex, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { ValueOf } from 'viem';
 
@@ -25,9 +25,9 @@ const stakingInfo = {
         <P>
           <Trans>Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC.</Trans>
         </P>
-        <P>
+        <Alert status='warning'>
           <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
+        </Alert>
       </Flex>
     ),
     inputToken: 'BTC',
@@ -45,9 +45,9 @@ const stakingInfo = {
         <P>
           <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.</Trans>
         </P>
-        <P>
+        <Alert status='warning'>
           <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
+        </Alert>
       </Flex>
     ),
     inputToken: 'BTC',
@@ -67,9 +67,9 @@ const stakingInfo = {
             Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell.
           </Trans>
         </P>
-        <P>
+        <Alert status='warning'>
           <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
+        </Alert>
       </Flex>
     ),
     inputToken: 'BTC',
@@ -89,9 +89,9 @@ const stakingInfo = {
             Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking.
           </Trans>
         </P>
-        <P>
+        <Alert status='warning'>
           <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
+        </Alert>
       </Flex>
     ),
     inputToken: 'BTC',
@@ -104,7 +104,11 @@ const stakingInfo = {
     protocol: 'Segment',
     incentives: [Incentive.segment, Incentive.supply],
     tvl: '-',
-    about: <Trans>Lend out tBTC on Segment.</Trans>,
+    about: (
+      <P>
+        <Trans>Lend out tBTC on Segment.</Trans>
+      </P>
+    ),
     inputToken: 'BTC',
     outputToken: 'tBTC',
     securityReview: 'https://www.bitcoinlayers.org/infrastructure/tbtc',
@@ -115,7 +119,11 @@ const stakingInfo = {
     protocol: 'Segment',
     incentives: [Incentive.segment, Incentive.supply],
     tvl: '-',
-    about: <Trans>Lend out wBTC on Segment.</Trans>,
+    about: (
+      <P>
+        <Trans>Lend out wBTC on Segment.</Trans>
+      </P>
+    ),
     inputToken: 'BTC',
     outputToken: 'wBTC',
     securityReview: 'https://www.bitcoinlayers.org/infrastructure/wbtc',
@@ -133,9 +141,9 @@ const stakingInfo = {
             Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment.
           </Trans>
         </P>
-        <P>
+        <Alert status='warning'>
           <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
+        </Alert>
       </Flex>
     ),
     inputToken: 'BTC',
@@ -155,9 +163,9 @@ const stakingInfo = {
             Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment.
           </Trans>
         </P>
-        <P>
+        <Alert status='warning'>
           <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </P>
+        </Alert>
       </Flex>
     ),
     inputToken: 'BTC',
