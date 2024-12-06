@@ -3,19 +3,17 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { Button, Card, ChevronLeft, Cog, Flex, P, Power, QrCode, SolidCreditCard, Span, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { useAccount } from 'wagmi';
 import { useState } from 'react';
+import { useAccount } from 'wagmi';
 
-import { ProfileTag } from './ProfileTag';
-import { ProfileTokenList } from './ProfileTokenList';
-import { TransactionList } from './TransactionList';
-import { ProfileEvmWallet } from './ProfileEvmWallet';
 import { ProfileBtcWallet } from './ProfileBtcWallet';
 import { StyledTabs, SyledWrapper } from './ProfileDrawer.style';
+import { ProfileEvmWallet } from './ProfileEvmWallet';
+import { ProfileTag } from './ProfileTag';
+import { ProfileTokenList } from './ProfileTokenList';
 
 import { L1_CHAIN } from '@/constants';
 import { useBtcAccount, useTotalBalance } from '@/hooks';
-import { useGetTransactions } from '@/hooks/useGetTransactions';
 
 enum ProfileViews {
   Main = 'main',
@@ -30,6 +28,7 @@ enum ProfileDrawerTabs {
 
 type ProfileDrawerProps = {
   isMobile: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   snap: any;
   onClose: () => void;
 };
@@ -42,12 +41,6 @@ const ProfileDrawer = ({ snap, isMobile, onClose }: ProfileDrawerProps): JSX.Ele
   const chainId = chain?.id || L1_CHAIN;
 
   const { formatted } = useTotalBalance(chainId);
-
-  const {
-    data: transactions,
-    isInitialLoading: isTransactionsInitialLoading,
-    refetch: refetchTransaction
-  } = useGetTransactions();
 
   const [view, setView] = useState(ProfileViews.Main);
 
@@ -117,12 +110,13 @@ const ProfileDrawer = ({ snap, isMobile, onClose }: ProfileDrawerProps): JSX.Ele
               <ProfileTokenList chainId={chainId} />
             </TabsItem>
             <TabsItem key={ProfileDrawerTabs.Activity} title={<Trans>Activity</Trans>}>
-              <TransactionList
+              <P>No Activity here</P>
+              {/* <TransactionList
                 data={transactions}
                 isInitialLoading={isTransactionsInitialLoading}
                 onProveSuccess={refetchTransaction.bridge}
                 onRelaySuccess={refetchTransaction.bridge}
-              />
+              /> */}
             </TabsItem>
           </StyledTabs>
         </Flex>

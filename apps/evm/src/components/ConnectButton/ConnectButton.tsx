@@ -43,10 +43,10 @@ const Profile = ({
   );
 };
 
-const snapPoints = ['148px', '355px', 1];
+const snapPoints = ['500px', 1];
 
 const ConnectButton = (): JSX.Element => {
-  const [snap, setSnap] = useState<number | string | null>(snapPoints[0]);
+  const [snap, setSnap] = useState<number | string | null>(snapPoints[0] as number);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));

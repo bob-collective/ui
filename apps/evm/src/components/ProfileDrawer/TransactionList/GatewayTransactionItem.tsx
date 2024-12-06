@@ -2,10 +2,10 @@ import { Flex, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
 import { TransactionDetails } from './TransactionDetails';
+import { GatewayStatus } from './GatewayStatus';
 
 import { L2_CHAIN } from '@/constants';
 import { GatewayTransaction, TransactionDirection } from '@/types';
-import { GatewayStatus } from '@/app/[lang]/(bridge)/components/GatewayStatus';
 
 type Props = { data: GatewayTransaction };
 

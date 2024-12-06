@@ -31,6 +31,7 @@ const TransactionList = ({
       flex={1}
       gap='xl'
       justifyContent={isInitialLoading || !hasData ? 'center' : undefined}
+      paddingX='md'
       paddingY='xl'
     >
       {!isClient || isInitialLoading ? (

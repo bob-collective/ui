@@ -2,12 +2,14 @@ import { Flex, Tabs } from '@gobob/ui';
 import styled from 'styled-components';
 import { css } from 'styled-components';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SyledWrapper = styled(Flex)<{ snap: any }>`
   background: ${({ theme }) => theme.color('grey-400')};
   border-radius: ${({ theme }) => theme.rounded('lg')};
   ${({ snap }) => css`
-    overflow-y-auto: ${snap === 1};
-    overflow-hidden: ${snap !== 1};
+    // @ts-expect-error
+    overflow-y: ${snap === 1 ? 'auto' : undefined};
+    overflow: ${snap !== 1 ? 'hidden' : undefined};
   `}
 `;
 

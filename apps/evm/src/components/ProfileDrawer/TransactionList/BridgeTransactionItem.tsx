@@ -2,10 +2,10 @@ import { Flex, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
 import { TransactionDetails } from './TransactionDetails';
+import { BridgeStatus } from './BridgeStatus';
 
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { BridgeTransaction, TransactionDirection } from '@/types';
-import { BridgeStatus } from '@/app/[lang]/(bridge)/components/BridgeStatus';
 
 type Props = { data: BridgeTransaction; onProveSuccess?: () => void; onRelaySuccess?: () => void };
 
