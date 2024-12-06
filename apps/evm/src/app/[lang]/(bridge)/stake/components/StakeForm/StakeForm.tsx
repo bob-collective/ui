@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { GatewayTransactionModal } from '../../../components';
 import { StrategyData } from '../../hooks';
 
-import { StyledFlex } from './StakeForm.style';
 import { BtcStakeForm } from './BtcStakeForm';
 
 import { InitGatewayTransaction } from '@/types';
@@ -40,14 +39,12 @@ const StakingForm = ({ strategy, onStakeSuccess }: BridgeFormProps): JSX.Element
 
   return (
     <>
-      <StyledFlex direction='column' flex={1}>
-        <BtcStakeForm
-          strategy={strategy}
-          onError={handleCloseGatewayModal}
-          onStart={handleStartGateway}
-          onSuccess={handleGatewaySuccess}
-        />
-      </StyledFlex>
+      <BtcStakeForm
+        strategy={strategy}
+        onError={handleCloseGatewayModal}
+        onStart={handleStartGateway}
+        onSuccess={handleGatewaySuccess}
+      />
       {gatewayModalState.data && (
         <GatewayTransactionModal
           data={gatewayModalState.data}
