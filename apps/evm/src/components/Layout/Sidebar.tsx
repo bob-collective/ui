@@ -44,7 +44,7 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
               <NavItem href={RoutesPath.APPS}>
                 <Trans>Apps</Trans>
               </NavItem>
-              <NavItem href={RoutesPath.STAKE}>
+              <NavItem href={RoutesPath.STRATEGIES}>
                 <Trans>Stake</Trans>
               </NavItem>
               <NavItem href={RoutesPath.FUSION}>

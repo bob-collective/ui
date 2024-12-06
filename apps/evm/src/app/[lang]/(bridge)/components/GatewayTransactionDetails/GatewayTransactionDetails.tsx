@@ -83,10 +83,10 @@ const GatewayTransactionDetails = ({
       {!query.liquidity.isPending && query.liquidity.data && !query.liquidity.data.hasLiquidity && (
         <Alert status='warning'>
           <P size='s'>
-            {type === 'stake' ? (
-              <Trans>Cannot stake into {assetName} due to insufficient liquidity.</Trans>
+            {type === GatewayTransactionType.STRATEGY ? (
+              <Trans>Currently, there is no available liquidity for this strategy.</Trans>
             ) : (
-              <Trans>There is currently no available liquidity to onramp BTC into {assetName}.</Trans>
+              <Trans>Currently, there is no available liquidity to onramp BTC into {assetName}.</Trans>
             )}
           </P>
         </Alert>

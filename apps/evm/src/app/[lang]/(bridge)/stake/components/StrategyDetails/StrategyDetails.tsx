@@ -1,0 +1,211 @@
+'use client';
+
+import {
+  ArrowTopRightOnSquare,
+  Avatar,
+  Card,
+  Dd,
+  Divider,
+  Dl,
+  DlGroup,
+  Dt,
+  Flex,
+  Link,
+  Span,
+  useCurrencyFormatter,
+  useMediaQuery
+} from '@gobob/ui';
+import { Trans } from '@lingui/macro';
+import { truncateEthAddress } from '@gobob/utils';
+import { useTheme } from 'styled-components';
+import { Address } from 'viem';
+
+import { StrategyData } from '../../hooks';
+import { StrategyRewards } from '../StrategyRewards';
+
+import { StrategyBreakdown } from './StrategyBreakdown';
+
+import { AmountLabel, ChainAsset } from '@/components';
+import { chainL2, L2_CHAIN } from '@/constants';
+
+type StrategyDetailsProps = {
+  strategy: StrategyData;
+  isLending?: boolean;
+};
+
+const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+
+  const format = useCurrencyFormatter();
+
+  const middleNodes = strategy.info.breakdown.slice(0, -1); // All nodes except the last
+
+  const hasManyMiddleNodes = middleNodes.length >= 3;
+
+  const lastNode = strategy.info.breakdown[strategy.info.breakdown.length - 1];
+
+  const btcNode = (
+    <Card
+      alignItems='center'
+      background='grey-600'
+      direction='row'
+      gap='md'
+      justifyContent='center'
+      paddingX='lg'
+      paddingY='s'
+    >
+      <Avatar
+        alt='BTC'
+        size='5xl'
+        src='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
+      />
+
+      <Flex direction='column' style={{ overflow: 'hidden' }}>
+        <Span color='grey-50' size='xs'>
+          <Trans>Input</Trans>
+        </Span>
+        <Span lineHeight='1.2' rows={1} size='s'>
+          BTC
+        </Span>
+        <Span color='grey-50' size='xs'>
+          Bitcoin
+        </Span>
+      </Flex>
+    </Card>
+  );
+
+  const handleContractNavigate = (address: Address) =>
+    window.open(new URL(`/address/${address}`, chainL2.blockExplorers?.default.url).toString(), '_blank', 'noreferrer');
+
+  const outputNode = lastNode && (
+    <Card
+      isHoverable
+      isPressable
+      alignItems='center'
+      background='grey-600'
+      direction='row'
+      gap='md'
+      justifyContent='center'
+      paddingX='lg'
+      paddingY='s'
+      onPress={() => handleContractNavigate(lastNode.currency.address)}
+    >
+      <ChainAsset
+        asset={<Avatar alt={lastNode.currency.symbol} size='5xl' src={lastNode.logoUrl} />}
+        chainId={L2_CHAIN}
+        chainProps={{ size: 'xs' }}
+      />
+      <Flex direction='column' style={{ overflow: 'hidden' }}>
+        <Flex alignItems='center' gap='xs' justifyContent='space-between'>
+          <Span color='grey-50' size='xs'>
+            <Trans>Output</Trans>
+          </Span>
+          <ArrowTopRightOnSquare color='grey-50' size='xxs' />
+        </Flex>
+        <Span lineHeight='1.2' rows={1} size='s'>
+          {lastNode.currency.symbol}
+        </Span>
+        <Span noWrap color='grey-50' rows={1} size='xs'>
+          {truncateEthAddress(lastNode.currency.address)}
+        </Span>
+      </Flex>
+    </Card>
+  );
+
+  return (
+    <Dl direction='column' flex='1.2 0 0%' gap='xl'>
+      {strategy.userDepositAmount && (
+        <Card alignItems='flex-start' direction='column'>
+          <Dt color='grey-50' size='s'>
+            {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
+          </Dt>
+          <Dd color='light' size='lg' weight='semibold'>
+            <AmountLabel hidePrice amount={strategy.userDepositAmount} />
+          </Dd>
+        </Card>
+      )}
+      <Flex direction={{ base: 'column', s: 'row' }} gap='xl' style={{ width: '100%' }}>
+        <Card alignItems='flex-start' direction='column' flex={0.7} gap='md'>
+          <Dt color='grey-50' size='s'>
+            <Trans>Rewards</Trans>
+          </Dt>
+          <StrategyRewards wrap elementType='dd' incentives={strategy.info.incentives} />
+        </Card>
+        <Card alignItems='flex-start' direction='column' flex={0.3} gap='md'>
+          <Dt color='grey-50' size='s'>
+            <Trans>TVL</Trans>
+          </Dt>
+          <Dd color='light' size='lg' weight='semibold'>
+            {strategy?.tvl ? format(strategy.tvl) : '-'}
+          </Dd>
+        </Card>
+      </Flex>
+      <Card direction='column' gap='xl' style={{ width: '100%' }}>
+        <DlGroup alignItems='flex-start' direction='column'>
+          <Dt color='grey-50' size='s'>
+            <Trans>Description</Trans>
+          </Dt>
+          <Dd size='s'>{strategy.info.description}</Dd>
+        </DlGroup>
+        <Divider />
+        <Flex gap='md'>
+          <DlGroup alignItems='flex-start' direction='column' gap='xl' style={{ width: '100%' }}>
+            <Dt color='grey-50' size='s'>
+              <Trans>Strategy Breakdown</Trans>
+            </Dt>
+            <StrategyBreakdown
+              firstNode={btcNode}
+              lastNode={outputNode}
+              middleNodes={middleNodes.map((node, idx) => (
+                <Card
+                  key={idx}
+                  isHoverable
+                  isPressable
+                  alignItems='center'
+                  background='grey-600'
+                  direction='row'
+                  gap='s'
+                  justifyContent='center'
+                  padding='md'
+                  onPress={() => handleContractNavigate(node.currency.address)}
+                >
+                  <ChainAsset
+                    asset={<Avatar alt={node.currency.symbol} size='4xl' src={node.logoUrl} />}
+                    chainId={L2_CHAIN}
+                    chainProps={{ size: 'xs' }}
+                  />
+                  {!isMobile && !hasManyMiddleNodes && (
+                    <Span lineHeight='1.2' rows={1} size='s'>
+                      {node.currency.symbol}
+                    </Span>
+                  )}
+                </Card>
+              ))}
+            />
+          </DlGroup>
+        </Flex>
+        <Divider />
+        <DlGroup alignItems='flex-start' direction='column' gap='lg'>
+          <Dt color='grey-50' size='s'>
+            <Trans>Additional Information</Trans>
+          </Dt>
+          <Flex wrap elementType='dd' gap={{ base: 'md', s: 'xl' }}>
+            <Link external icon href={strategy.info.links.landingPage}>
+              <Trans>Website</Trans>
+            </Link>
+            {strategy.info.links.securityReview && (
+              <>
+                <Link external icon href={strategy.info.links.securityReview}>
+                  <Trans>Security Review by Bitcoin Layers</Trans>
+                </Link>
+              </>
+            )}
+          </Flex>
+        </DlGroup>
+      </Card>
+    </Dl>
+  );
+};
+
+export { StrategyDetails };

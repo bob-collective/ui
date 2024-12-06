@@ -4,10 +4,15 @@ import { TabsSize, TabsVariant } from '../../theme';
 import { AlignItems } from '../../theme';
 import { hideScrollbar } from '../utils/visually-hidden';
 
-const StyledTabs = styled.div`
+type StyledTabsProps = {
+  $fullHeight?: boolean;
+};
+
+const StyledTabs = styled.div<StyledTabsProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: ${({ $fullHeight }) => $fullHeight && '100%'};
 `;
 
 type TabListProps = {
