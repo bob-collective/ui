@@ -15,6 +15,7 @@ declare global {
       NEXT_PUBLIC_TRACES_SAMPLE_RATE: `${number}`;
 
       SENTRY_AUTH_TOKEN: string;
+      NEXT_PUBLIC_FEATURE_FLAG_OP_SUPERUSER: 'enabled' | 'disabled';
       NEXT_PUBLIC_FEATURE_FLAG_TOP_100_SPICE_USERS: 'enabled' | 'disabled';
     }
   }

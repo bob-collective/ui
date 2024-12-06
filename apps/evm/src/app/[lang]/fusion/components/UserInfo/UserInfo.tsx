@@ -109,8 +109,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       : currentTvl + currentTvl * 0.2;
 
   const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
+  const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
 
-  const isOpSuperuser = user?.notices.isOpUser;
+  const isOpSuperuser = isOPSuperusersEnabled && user?.notices.isOpUser;
   const showFusionTopUser = isTop100SpiceUsersEnabled && user?.notices.showIsFusionTopUser;
 
   return (

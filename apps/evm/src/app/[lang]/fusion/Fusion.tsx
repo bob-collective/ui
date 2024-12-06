@@ -50,6 +50,7 @@ const Fusion = () => {
   const { mutate: dismissOPSuperuserModal } = useDismissOPSuperuserModal();
   const isClient = useIsClient();
   const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
+  const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
 
   const questsSectionId = useId();
 
@@ -108,9 +109,9 @@ const Fusion = () => {
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
-  const shouldDisplayOPSuperuserModal = user?.notices.showIsOpUser && showOPSuperuserModal;
-  const shouldDisplayTopUserModal = isTop100SpiceUsersEnabled && user?.notices.showIsFusionTopUser && showTopUserModal;
-  const isOpSuperuser = user?.notices.isOpUser;
+  const shouldDisplayOPSuperuserModal = isOPSuperusersEnabled && showOPSuperuserModal && user?.notices.showIsOpUser;
+  const shouldDisplayTopUserModal = isTop100SpiceUsersEnabled && showTopUserModal && user?.notices.showIsFusionTopUser;
+  const isOpSuperuser = isOPSuperusersEnabled && user?.notices.isOpUser;
   const isFusionTopUser = isTop100SpiceUsersEnabled && user?.is_fusion_top_user;
 
   return (
