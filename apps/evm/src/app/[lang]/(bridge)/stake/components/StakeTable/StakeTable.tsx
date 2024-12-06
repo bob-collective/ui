@@ -1,5 +1,5 @@
 import { PellNetwork } from '@gobob/icons';
-import { Avatar, Button, Flex, Span, Table, useCurrencyFormatter } from '@gobob/ui';
+import { Avatar, Button, Flex, Link, Span, Table, useCurrencyFormatter } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
@@ -8,6 +8,8 @@ import { stakingInfo } from '../../../utils/stakeData';
 import { StrategyData, useGetStakingStrategies } from '../../hooks';
 import { StakeRewards } from '../StakeRewards';
 import { StrategyModal } from '../StrategyModal';
+
+import { RoutesPath } from '@/constants';
 
 const StrategyCell = ({ name, protocol }: { protocol: string; name: string }) => (
   <Flex alignItems='flex-start' direction='column'>
@@ -91,7 +93,11 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
           [StakeTableColumns.TVL]: strategy?.tvl ? format(strategy.tvl) : '-',
           [StakeTableColumns.ACTIONS]: (
             <Flex direction='row' gap='md'>
-              <Button color='primary' onPress={() => setStrategy(strategy)}>
+              <Button
+                color='primary'
+                elementType={Link}
+                {...{ href: `${RoutesPath.STAKE}/${strategy.raw.integration.slug}` }}
+              >
                 <Trans>Stake</Trans>
               </Button>
               {Number(strategy?.userStaked) > 0 && (
