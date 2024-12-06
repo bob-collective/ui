@@ -48,6 +48,7 @@ import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
 import { fusionKeys } from '@/lib/react-query';
 import { SessionStorageKey } from '@/types';
 import { apiClient, QuestS3Response, UserResponse } from '@/utils';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -107,17 +108,20 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       ? Number(tvlLevel.tvlGoal)
       : currentTvl + currentTvl * 0.2;
 
+  const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
+
   const isOpSuperuser = user?.notices.isOpUser;
+  const showFusionTopUser = isTop100SpiceUsersEnabled && user?.notices.showIsFusionTopUser;
 
   return (
     <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
-      {user?.notices.showIsFusionTopUser && (
+      {showFusionTopUser && (
         <P color='grey-50'>
           <Trans>We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi.</Trans>
         </P>
       )}
       <Flex alignItems='center' direction='row' justifyContent='flex-end'>
-        {user?.notices.showIsFusionTopUser && (
+        {showFusionTopUser && (
           <Flex flex='1'>
             <Button color='primary' size='s' variant='outline' onPress={() => setShowTopUserModal(true)}>
               <Trans>Book a call with the founders</Trans>

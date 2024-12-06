@@ -37,7 +37,7 @@ import { useDismissOPSuperuserModal, useDismissTopUserModal, useGetQuests } from
 
 import { Geoblock } from '@/components';
 import { LocalStorageKey } from '@/constants';
-import { useGetUser } from '@/hooks';
+import { FeatureFlags, useFeatureFlag, useGetUser } from '@/hooks';
 import { SessionStorageKey } from '@/types';
 
 const Fusion = () => {
@@ -49,6 +49,7 @@ const Fusion = () => {
   const { mutate: dismissTopUserModal } = useDismissTopUserModal();
   const { mutate: dismissOPSuperuserModal } = useDismissOPSuperuserModal();
   const isClient = useIsClient();
+  const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
 
   const questsSectionId = useId();
 
@@ -108,9 +109,9 @@ const Fusion = () => {
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
   const shouldDisplayOPSuperuserModal = user?.notices.showIsOpUser && showOPSuperuserModal;
-  const shouldDisplayTopUserModal = user?.notices.showIsFusionTopUser && showTopUserModal;
+  const shouldDisplayTopUserModal = isTop100SpiceUsersEnabled && user?.notices.showIsFusionTopUser && showTopUserModal;
   const isOpSuperuser = user?.notices.isOpUser;
-  const isFusionTopUser = user?.is_fusion_top_user;
+  const isFusionTopUser = isTop100SpiceUsersEnabled && user?.is_fusion_top_user;
 
   return (
     <Geoblock>
