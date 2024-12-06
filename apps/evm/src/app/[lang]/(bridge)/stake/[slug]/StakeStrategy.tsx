@@ -1,25 +1,23 @@
 'use client';
 
-import { Dd, Divider, Dl, DlGroup, Dt, Flex, Link } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
-import { truncateUrl } from '@gobob/utils';
+import { PellNetwork } from '@gobob/icons';
+import { ArrowLeft, Avatar, Flex, H1, H2, Link, P } from '@gobob/ui';
 
-import { useGetStakingStrategies } from '../hooks';
-import { StakingForm } from '../components';
 import { useGetGatewayTransactions } from '../../hooks';
 import { stakingInfo as stakingData } from '../../utils/stakeData';
+import { StakingForm } from '../components';
+import { StakeDetails } from '../components/StakeDetails';
+import { useGetStakingStrategies } from '../hooks';
 
-import { Layout } from '@/components';
+import { Layout, Main } from '@/components';
+import { RoutesPath } from '@/constants';
 import { PageLangParam } from '@/i18n/withLigui';
-import { chainL2 } from '@/constants';
 
 type Props = PageLangParam & {
   params: { slug: string };
 };
 
 function StakeStrategy({ params }: Props) {
-  console.log(params);
-
   const { refetch: refetchTransactions } = useGetGatewayTransactions({});
 
   const { data: strategies = [] } = useGetStakingStrategies();
@@ -27,7 +25,7 @@ function StakeStrategy({ params }: Props) {
   const strategy = strategies.find((strategy) => strategy.raw.integration.slug === params.slug);
 
   if (!strategy) {
-    throw new Error('Missing strategy');
+    return null;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,69 +33,33 @@ function StakeStrategy({ params }: Props) {
 
   return (
     <Layout>
-      <Flex direction={{ base: 'column', md: 'row' }} gap='xl' style={{ width: '100%' }}>
-        <StakingForm strategy={strategy} onStakeSuccess={refetchTransactions} />
-        <Flex direction='column' gap='xl' style={{ width: '100%' }}>
-          <Dl direction='column' gap='lg'>
-            <DlGroup alignItems='center' justifyContent='space-between'>
-              <Dd size='md' style={{ minWidth: '15ch' }}>
-                <Trans>Input Token</Trans>
-              </Dd>
-              <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>{stakingInfo?.inputToken}</Dt>
-            </DlGroup>
-            <Divider />
-            <DlGroup alignItems='center' justifyContent='space-between'>
-              <Dd size='md' style={{ minWidth: '15ch' }}>
-                <Trans>Output Token</Trans>
-              </Dd>
-              <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                {strategy?.raw.outputToken ? (
-                  <Link
-                    external
-                    color='grey-50'
-                    href={new URL(
-                      `/address/${strategy?.raw.outputToken?.address}`,
-                      chainL2.blockExplorers?.default.url
-                    ).toString()}
-                    size='md'
-                    underlined='always'
-                  >
-                    {stakingInfo?.outputToken}
-                  </Link>
-                ) : (
-                  stakingInfo?.outputToken
-                )}
-              </Dt>
-            </DlGroup>
-            {stakingInfo?.securityReview && (
-              <>
-                <Divider />
-                <DlGroup alignItems='center' justifyContent='space-between'>
-                  <Dd size='md' style={{ minWidth: '15ch' }}>
-                    <Trans>Security Review by Bitcoin Layers</Trans>
-                  </Dd>
-                  <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                    <Link external color='grey-50' href={stakingInfo?.securityReview} size='md' underlined='always'>
-                      {truncateUrl(stakingInfo?.securityReview)}
-                    </Link>
-                  </Dt>
-                </DlGroup>
-              </>
+      <Main maxWidth='5xl' padding='lg'>
+        <Link href={RoutesPath.STAKE}>
+          <Flex alignItems='center' gap='s'>
+            <ArrowLeft size='xs' /> Back
+          </Flex>
+        </Link>
+        <Flex direction='column' gap='lg' marginTop='4xl'>
+          <Flex alignItems='center' gap='lg'>
+            {strategy.raw.integration.logo ? (
+              <Avatar size={'4xl'} src={strategy.raw.integration.logo} />
+            ) : (
+              <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
             )}
-            <Divider />
-            <DlGroup alignItems='center' justifyContent='space-between'>
-              <Dd size='md' style={{ minWidth: '15ch' }}>
-                <Trans>Website</Trans>
-              </Dd>
-              <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
-                <Link external color='grey-50' href={stakingInfo?.website} size='md' underlined='always'>
-                  {truncateUrl(stakingInfo?.website)}
-                </Link>
-              </Dt>
-            </DlGroup>
-          </Dl>
+            <Flex alignItems='flex-start' direction='column'>
+              <H1 size='lg'>{stakingInfo.strategy}</H1>
+              <H2 color='grey-50' size='md' weight='medium'>
+                {stakingInfo.protocol}
+              </H2>
+            </Flex>
+          </Flex>
+          <P>{stakingInfo?.about}</P>
         </Flex>
-      </Flex>
+        <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
+          <StakingForm strategy={strategy} onStakeSuccess={refetchTransactions} />
+          <StakeDetails strategy={strategy} />
+        </Flex>
+      </Main>
     </Layout>
   );
 }
