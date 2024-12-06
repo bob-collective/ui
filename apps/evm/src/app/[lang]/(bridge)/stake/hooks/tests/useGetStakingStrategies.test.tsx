@@ -116,11 +116,46 @@ const mockSegmentStrategy: GatewayStrategyContract = {
   }
 } as const;
 
+const mockPellUniBTCStrategy: GatewayStrategyContract = {
+  id: 'pell-unibtc',
+  type: 'deposit',
+  address: '0xf5f2f90d3edc557b7ff0a285169a0b194df7b6f2',
+  method: '',
+  chain: {
+    id: '',
+    chainId: 60808,
+    slug: 'bob',
+    name: 'bob',
+    logo: '',
+    type: 'evm',
+    singleChainSwap: true,
+    singleChainStaking: true
+  },
+  integration: {
+    type: 'staking',
+    slug: 'pell-unibtc',
+    name: 'Pell (uniBTC)',
+    logo: '',
+    monetization: false
+  },
+  inputToken: {
+    symbol: 'WBTC',
+    address: '0x03c7054bcb39f7b2e5b2c7acb37583e32d70cfa3',
+    logo: 'https://ethereum-optimism.github.io/data/WBTC/logo.svg',
+    decimals: 8,
+    chain: 'bob'
+  },
+  outputToken: null
+} as const;
+
+const uniBTCDecimals = 8;
+
 describe('useGetStakingStrategies', () => {
   afterEach(vi.clearAllMocks);
 
   const mockExchangeRateStored = 207520794671396869399540716n;
   const mockTotalSupply = 9036849246n;
+  const mockTotalShares = 9223619436n;
   const mockUnderlying = '0xabc';
 
   const underlyingDecimals = 18;
@@ -138,6 +173,12 @@ describe('useGetStakingStrategies', () => {
       })
       .mockReturnValueOnce({
         data: [mockTotalSupply, decimals]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
       });
 
     (usePrices as Mock).mockReturnValue({
@@ -155,6 +196,12 @@ describe('useGetStakingStrategies', () => {
       })
       .mockReturnValueOnce({
         data: [mockTotalSupply, decimals]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
       });
 
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockStrategy]);
@@ -197,6 +244,12 @@ describe('useGetStakingStrategies', () => {
       })
       .mockReturnValueOnce({
         data: [mockTotalSupply, decimals]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
       });
 
     const mockStrategyWithoutToken = {
@@ -231,6 +284,12 @@ describe('useGetStakingStrategies', () => {
       })
       .mockReturnValueOnce({
         data: [mockTotalSupply, decimals]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
       });
 
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockSegmentStrategy]);
@@ -257,6 +316,45 @@ describe('useGetStakingStrategies', () => {
         .mul(mockPrice)
         .div(1e18)
         .div(10 ** underlyingDecimals)
+        .toNumber()
+    };
+
+    expect(result.current.data).toEqual([expectedData]);
+  });
+
+  it('should return tvl value if no output', async () => {
+    (useReadContracts as Mock)
+      .mockReturnValueOnce({
+        data: [mockExchangeRateStored, mockTotalSupply, mockUnderlying]
+      })
+      .mockReturnValueOnce({
+        data: [underlyingDecimals]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalSupply, decimals]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
+      })
+      .mockReturnValueOnce({
+        data: [mockTotalShares]
+      });
+
+    (gatewaySDK.getStrategies as Mock).mockReturnValue([mockPellUniBTCStrategy]);
+
+    const { result, waitForValueToChange } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
+      () => useGetStakingStrategies(),
+      { wrapper }
+    );
+
+    await waitForValueToChange(() => result.current.data);
+
+    const expectedData = {
+      raw: mockPellUniBTCStrategy,
+      currency: undefined,
+      tvl: new Big(mockTotalShares.toString())
+        .mul(mockPrice)
+        .div(10 ** uniBTCDecimals)
         .toNumber()
     };
 
