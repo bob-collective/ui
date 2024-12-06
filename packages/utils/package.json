@@ -33,8 +33,5 @@
   },
   "devDependencies": {
     "vitest": "^1.5.2"
-  },
-  "dependencies": {
-    "bitcoin-address-validation": "^2.2.3"
   }
 }

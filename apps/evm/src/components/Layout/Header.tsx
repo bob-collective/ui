@@ -13,12 +13,13 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
-import { useLingui } from '@lingui/react';
 
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
+import { ConnectButton } from '../ConnectButton';
 
 import { FusionPopover } from './FusionPopover';
 import { StyledHeader, StyledLogoWrapper } from './Layout.style';
@@ -26,7 +27,6 @@ import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 
-import { ConnectWallet } from '@/connect-ui';
 import { DocsLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
 
@@ -38,6 +38,7 @@ type HeaderProps = Props & InheritAttrs;
 
 const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => {
   const { i18n } = useLingui();
+
   const { setSidebarOpen } = useLayoutContext();
   const [isOpen, setOpen] = useState(false);
 
@@ -113,7 +114,8 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         </Popover>
         <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
-        <ConnectWallet variant='ghost' />
+        <ConnectButton />
+        {/* <DynamicWidget /> */}
       </Flex>
     </StyledHeader>
   );

@@ -17,7 +17,6 @@ const StyledLayout = styled(Flex)`
 const StyledHeader = styled(Flex)`
   width: 100%;
   padding-right: ${({ theme }) => theme.spacing('3xl')};
-  overflow-x: hidden;
   z-index: 20;
   margin: 0 auto;
 `;
