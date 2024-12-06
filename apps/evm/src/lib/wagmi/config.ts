@@ -1,13 +1,12 @@
 import { cookieStorage, createConfig, createStorage, http } from 'wagmi';
-import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
-import { getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
+import { injected, walletConnect } from 'wagmi/connectors';
 
 import { Config } from './types';
 import { bob, bobSepolia } from './bob';
 import { mainnet } from './mainnet';
 import { sepolia } from './sepolia';
 
-const binanceConnector = getWagmiConnectorV2();
+// const binanceConnector = getWagmiConnectorV2();
 
 const testnetChains = [bobSepolia, sepolia];
 
@@ -33,12 +32,12 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
         url: 'https://www.app.gobob.xyz',
         icons: ['https://uploads-ssl.webflow.com/64e85c2f3609488b3ed725f4/64ecae53ef4b561482f1c49f_bob1.jpg']
       }
-    }),
-    coinbaseWallet({
-      appName: 'BOB',
-      appLogoUrl: 'https://uploads-ssl.webflow.com/64e85c2f3609488b3ed725f4/64ecae53ef4b561482f1c49f_bob1.jpg'
-    }),
-    binanceConnector()
+    })
+    // coinbaseWallet({
+    //   appName: 'BOB',
+    //   appLogoUrl: 'https://uploads-ssl.webflow.com/64e85c2f3609488b3ed725f4/64ecae53ef4b561482f1c49f_bob1.jpg'
+    // }),
+    // binanceConnector()
   ];
 
   return createConfig({
