@@ -105,7 +105,7 @@ msgstr "7 days"
 msgid "About"
 msgstr "About"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:246
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:243
 #: src/components/Layout/FusionPopover.tsx:99
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
@@ -122,9 +122,13 @@ msgstr "Advanced Fee Settings"
 msgid "All Apps"
 msgstr "All Apps"
 
+#: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:43
+msgid "All Spice you harvest between 9 December 2024 and 12 January 2025 will receive an exclusive 50% bonus, only available to OP airdrop recipients."
+msgstr "All Spice you harvest between 9 December 2024 and 12 January 2025 will receive an exclusive 50% bonus, only available to OP airdrop recipients."
+
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:37
-msgid "All Spice you harvest during between 9 December 2024 and 12 January 2025 will receive an exclusive 50% bonus, only available to OP airdrop recipients."
-msgstr "All Spice you harvest during between 9 December 2024 and 12 January 2025 will receive an exclusive 50% bonus, only available to OP airdrop recipients."
+#~ msgid "All Spice you harvest during between 9 December 2024 and 12 January 2025 will receive an exclusive 50% bonus, only available to OP airdrop recipients."
+#~ msgstr "All Spice you harvest during between 9 December 2024 and 12 January 2025 will receive an exclusive 50% bonus, only available to OP airdrop recipients."
 
 #: src/components/LoginSection/LoginSection.tsx:11
 msgid "Already harvesting?"
@@ -165,7 +169,7 @@ msgstr "Apps"
 msgid "Apps leaderboard hero"
 msgstr "Apps leaderboard hero"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:195
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:192
 msgid "Apps Used"
 msgstr "Apps Used"
 
@@ -246,7 +250,7 @@ msgid "BOB Ecosystem on OKX Cryptopedia"
 msgstr "BOB Ecosystem on OKX Cryptopedia"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:118
+#: src/app/[lang]/fusion/Fusion.tsx:126
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion: The Final Season"
 
@@ -267,11 +271,11 @@ msgstr "BOB Gateway is live!"
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 
-#: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:43
+#: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:37
 msgid "BOB is bringing Bitcoin DeFi to the Superchain, and to celebrate, active Superchain ecosystem users like you have unlocked an exclusive BOB Spice bonus."
 msgstr "BOB is bringing Bitcoin DeFi to the Superchain, and to celebrate, active Superchain ecosystem users like you have unlocked an exclusive BOB Spice bonus."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:299
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:296
 msgid "BOB TVL Progress"
 msgstr "BOB TVL Progress"
 
@@ -287,7 +291,7 @@ msgstr "BOB TVL Progress"
 msgid "Book A Call"
 msgstr "Book A Call"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:126
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:123
 msgid "Book a call with the founders"
 msgstr "Book a call with the founders"
 
@@ -307,7 +311,7 @@ msgstr "Bridge"
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:188
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:185
 msgid "Bridge Assets"
 msgstr "Bridge Assets"
 
@@ -336,7 +340,7 @@ msgstr "Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 
-#: src/app/[lang]/fusion/Fusion.tsx:149
+#: src/app/[lang]/fusion/Fusion.tsx:158
 msgid "Bringing Bitcoin DeFi to the Superchain"
 msgstr "Bringing Bitcoin DeFi to the Superchain"
 
@@ -463,7 +467,7 @@ msgstr "Connected with <0>{wallet}</0>"
 #~ msgid "Copy Address"
 #~ msgstr "Copy Address"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:266
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:263
 msgid "Copy referral URL"
 msgstr "Copy referral URL"
 
@@ -483,7 +487,7 @@ msgstr "Current Leaderboard Rank"
 msgid "Current Spice"
 msgstr "Current Spice"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:338
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:335
 msgid "Current TVL:"
 msgstr "Current TVL:"
 
@@ -676,7 +680,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
-#: src/app/[lang]/fusion/Fusion.tsx:174
+#: src/app/[lang]/fusion/Fusion.tsx:192
 msgid "Follow us on X"
 msgstr "Follow us on X"
 
@@ -702,8 +706,8 @@ msgstr "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bi
 msgid "Fusion season three"
 msgstr "Fusion season three"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:134
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:330
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:131
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:327
 msgid "Fusion Users:"
 msgstr "Fusion Users:"
 
@@ -740,7 +744,7 @@ msgstr "Go Back"
 msgid "Got it!"
 msgstr "Got it!"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:320
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:317
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 
@@ -764,7 +768,7 @@ msgstr "Harvest {pointsMissing} more Spice to play"
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
 #~ msgstr "Harvest {pointsMissing} more SPICE to your account to play"
 
-#: src/app/[lang]/fusion/Fusion.tsx:121
+#: src/app/[lang]/fusion/Fusion.tsx:130
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 
@@ -776,7 +780,7 @@ msgstr "Here are your active referrals and the Spice they're currently earning f
 msgid "Hero banner"
 msgstr "Hero banner"
 
-#: src/app/[lang]/fusion/Fusion.tsx:114
+#: src/app/[lang]/fusion/Fusion.tsx:119
 msgid "Hero dots"
 msgstr "Hero dots"
 
@@ -820,7 +824,7 @@ msgstr "Invalid referral code. You can try again, or proceed without one."
 #~ msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 #~ msgstr "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:155
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:152
 msgid "Last 24 hours"
 msgstr "Last 24 hours"
 
@@ -841,7 +845,7 @@ msgid "Leaderboard"
 msgstr "Leaderboard"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:131
+#: src/app/[lang]/fusion/Fusion.tsx:140
 msgid "Learn More"
 msgstr "Learn More"
 
@@ -908,7 +912,7 @@ msgstr "Locked Capital Breakdown"
 msgid "Log in"
 msgstr "Log in"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:316
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:313
 msgid "Log in to View Dashboard"
 msgstr "Log in to View Dashboard"
 
@@ -1051,7 +1055,7 @@ msgstr "new tickets drop in {timeToNextDraw}"
 msgid "No bridging operations found"
 msgstr "No bridging operations found"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:302
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:299
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "No new goal at the moment. Stay tuned for updates!"
 
@@ -1185,7 +1189,7 @@ msgstr "Provide liquidity into Oku DEX"
 msgid "Quests"
 msgstr "Quests"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:226
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:223
 msgid "Quests Completed"
 msgstr "Quests Completed"
 
@@ -1267,7 +1271,7 @@ msgstr "Satoshi protocol points"
 msgid "Season 1 & 2 (Completed)"
 msgstr "Season 1 & 2 (Completed)"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:170
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:167
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "Season 1 & 2 Total Spice (Completed):"
 
@@ -1279,7 +1283,7 @@ msgstr "Season 2 Final Rank"
 msgid "Season 3 (Ongoing)"
 msgstr "Season 3 (Ongoing)"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:148
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:145
 msgid "Season 3 Harvested Spice"
 msgstr "Season 3 Harvested Spice"
 
@@ -1345,7 +1349,7 @@ msgstr "Select Token"
 msgid "Share on X"
 msgstr "Share on X"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:249
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:246
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 
@@ -1507,7 +1511,7 @@ msgid "Start Harvesting"
 msgstr "Start Harvesting"
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:55
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:323
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:320
 #: src/app/[lang]/sign-up/SignUp.tsx:127
 msgid "Start Harvesting Spice"
 msgstr "Start Harvesting Spice"
@@ -1626,11 +1630,11 @@ msgstr "The leaderboard resets for the new season"
 msgid "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 msgstr "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:196
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:193
 msgid "The number of BOB ecosystem apps that you have harvested Spice with"
 msgstr "The number of BOB ecosystem apps that you have harvested Spice with"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:227
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:224
 msgid "The number of Intract and Galxe quests that you have completed"
 msgstr "The number of Intract and Galxe quests that you have completed"
 
@@ -1691,7 +1695,7 @@ msgstr "There is currently no available liquidity to onramp BTC into {assetName}
 msgid "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
 msgstr "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:159
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:156
 msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
 msgstr "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
 
@@ -1715,7 +1719,7 @@ msgstr "Time left until voting round ends"
 msgid "To cast your vote, please log in"
 msgstr "To cast your vote, please log in"
 
-#: src/app/[lang]/fusion/Fusion.tsx:152
+#: src/app/[lang]/fusion/Fusion.tsx:161
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
 msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
 
@@ -1725,7 +1729,7 @@ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP ex
 #~ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more&Hat;"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:177
+#: src/app/[lang]/fusion/Fusion.tsx:195
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
@@ -1818,7 +1822,7 @@ msgstr "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will b
 msgid "Use any of the <0>supported bridges</0>."
 msgstr "Use any of the <0>supported bridges</0>."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:212
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:209
 msgid "Use Apps"
 msgstr "Use Apps"
 
@@ -1870,12 +1874,12 @@ msgstr "View All Transactions"
 msgid "View Intract"
 msgstr "View Intract"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:185
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:182
 msgid "View Multipliers"
 msgstr "View Multipliers"
 
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:101
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:238
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:235
 msgid "View Quests"
 msgstr "View Quests"
 
@@ -1916,6 +1920,10 @@ msgstr "Wallet"
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:81
 msgid "We will provide you with updates accordingly. You can monitor the progress on your bridge page; it will be marked as complete once the process has concluded."
 msgstr "We will provide you with updates accordingly. You can monitor the progress on your bridge page; it will be marked as complete once the process has concluded."
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:116
+msgid "We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi."
+msgstr "We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi."
 
 #: src/app/[lang]/geoblock/Geoblock.tsx:14
 msgid "We're Sorry"
@@ -1974,12 +1982,13 @@ msgid "You"
 msgstr "You"
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:32
+#: src/app/[lang]/fusion/Fusion.tsx:124
 msgid "You are one of the top 100 Spice holders in BOB Fusion"
 msgstr "You are one of the top 100 Spice holders in BOB Fusion"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:116
-msgid "You are one of the top 100 Spice holders in BOB Fusion. We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi."
-msgstr "You are one of the top 100 Spice holders in BOB Fusion. We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi."
+#~ msgid "You are one of the top 100 Spice holders in BOB Fusion. We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi."
+#~ msgstr "You are one of the top 100 Spice holders in BOB Fusion. We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi."
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:76
 #~ msgid "You are using a BTC address type (Taproot/P2TR) which we don't support yet. Change the BTC address type to Native SegWit in your wallet to continue."
@@ -2036,8 +2045,8 @@ msgstr "You've used all your tickets for today, new tickets will be available on
 #~ msgstr "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more SPICE!"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:243
-msgid "Your {0} Referral Code"
-msgstr "Your {0} Referral Code"
+#~ msgid "Your {0} Referral Code"
+#~ msgstr "Your {0} Referral Code"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:53
 msgid "Your Active Referrals"
@@ -2063,9 +2072,9 @@ msgstr "Your funds are safe!"
 msgid "Your performance in seasons 1 & 2"
 msgstr "Your performance in seasons 1 & 2"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:223
-#~ msgid "Your Referral Code"
-#~ msgstr "Your Referral Code"
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:240
+msgid "Your Referral Code"
+msgstr "Your Referral Code"
 
 #: src/components/Layout/FusionPopover.tsx:60
 msgid "Your Spice Harvest Overview"

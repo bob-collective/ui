@@ -113,6 +113,7 @@ export type UserResponse = {
   data: any;
   created_at: Date;
   updated_at: Date;
+  is_fusion_top_user: boolean;
   leaderboardRank?: {
     user_address: string;
     total_points: number;

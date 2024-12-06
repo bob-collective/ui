@@ -110,6 +110,7 @@ const Fusion = () => {
   const shouldDisplayOPSuperuserModal = user?.notices.showIsOpUser && showOPSuperuserModal;
   const shouldDisplayTopUserModal = user?.notices.showIsFusionTopUser && showTopUserModal;
   const isOpSuperuser = user?.notices.isOpUser;
+  const isFusionTopUser = user?.is_fusion_top_user;
 
   return (
     <Geoblock>
@@ -120,7 +121,11 @@ const Fusion = () => {
           <StyledHeroSection direction='column'>
             <Flex direction='column' gap='lg'>
               <H1 size='4xl'>
-                <Trans>BOB Fusion: The Final Season</Trans>
+                {isFusionTopUser ? (
+                  <Trans>You are one of the top 100 Spice holders in BOB Fusion</Trans>
+                ) : (
+                  <Trans>BOB Fusion: The Final Season</Trans>
+                )}
               </H1>
               <P color='grey-50'>
                 <Trans>
