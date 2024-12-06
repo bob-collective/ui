@@ -14,6 +14,7 @@ import { BITCOIN } from '@gobob/tokens';
 import { toast } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
 import {
   Optional,
@@ -23,7 +24,6 @@ import {
   useQueryClient,
   UseQueryResult
 } from '@tanstack/react-query';
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
 import { Address, isAddress } from 'viem';
 import { useAccount } from 'wagmi';
@@ -211,9 +211,16 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     }
   });
 
+  const estimateFeeErrorMessage = t(i18n)`Failed to get estimated fee`;
+
   const feeRatesQueryResult = useSatsFeeRate({
     query: {
-      select: feeRatesSelect
+      select: feeRatesSelect,
+      meta: {
+        onError() {
+          toast.error(estimateFeeErrorMessage);
+        }
+      }
     }
   });
 
@@ -225,16 +232,14 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     feeRate: feeRate,
     query: {
       enabled: Boolean(satsBalance && satsBalance.total > 0n && evmAddress),
-      select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount)
+      select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount),
+      meta: {
+        onError() {
+          toast.error(estimateFeeErrorMessage);
+        }
+      }
     }
   });
-
-  useEffect(() => {
-    if (feeEstimateQueryResult.error || feeRatesQueryResult.error) {
-      toast.error(t(i18n)`Failed to get estimated fee`);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feeRatesQueryResult.error, feeEstimateQueryResult.error]);
 
   const balance = useMemo(
     () => getBalanceAmount(satsBalance?.total, feeEstimateQueryResult.data, liquidityQueryResult.data?.liquidityAmount),

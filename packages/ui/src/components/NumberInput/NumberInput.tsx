@@ -2,7 +2,7 @@
 
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { mergeProps } from '@react-aria/utils';
-import { ChangeEventHandler, forwardRef, useEffect, useState } from 'react';
+import { ChangeEventHandler, forwardRef, useState } from 'react';
 
 import { useDOMRef } from '../../hooks';
 import { BaseInput, BaseInputProps } from '../Input';
@@ -70,11 +70,9 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       inputRef
     );
 
-    useEffect(() => {
-      if (valueProp === undefined) return;
-
-      setValue(valueProp.toString());
-    }, [valueProp]);
+    if (value !== valueProp?.toString()) {
+      if (valueProp !== undefined) setValue(valueProp.toString());
+    }
 
     return (
       <BaseInput

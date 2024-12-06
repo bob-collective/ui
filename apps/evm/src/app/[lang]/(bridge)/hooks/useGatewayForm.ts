@@ -3,7 +3,7 @@
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { useForm } from '@gobob/ui';
 import Big from 'big.js';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { useAccount } from 'wagmi';
 
 import { UseGatewayQueryDataReturnType } from './useGateway';
@@ -33,13 +33,6 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
 
   const { address: btcAddress } = useSatsAccount();
 
-  useEffect(() => {
-    if (!query.fee.estimate.data || !form.values[BRIDGE_AMOUNT]) return;
-
-    form.validateField(BRIDGE_AMOUNT);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.fee.rates.data]);
-
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
       minAmount: new Big(query.minAmount.toExact()),
@@ -61,6 +54,16 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
     onSubmit,
     hideErrors: 'untouched'
   });
+
+  const [prevData, setPrevData] = useState(query.fee.rates.data);
+
+  if (prevData !== query.fee.rates.data) {
+    setPrevData(query.fee.rates.data);
+
+    if (query.fee.estimate.data && form.values[BRIDGE_AMOUNT]) {
+      form.validateField(BRIDGE_AMOUNT);
+    }
+  }
 
   return {
     isDisabled: isFormDisabled(form),
