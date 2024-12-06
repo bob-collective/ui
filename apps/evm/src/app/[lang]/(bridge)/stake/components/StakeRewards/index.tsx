@@ -1,0 +1,1 @@
+export { StakeRewards } from './StakeRewards';

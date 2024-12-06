@@ -40,7 +40,7 @@ const StakingForm = ({ strategy, onStakeSuccess }: BridgeFormProps): JSX.Element
 
   return (
     <>
-      <StyledFlex direction='column'>
+      <StyledFlex direction='column' flex={1}>
         <BtcStakeForm
           strategy={strategy}
           onError={handleCloseGatewayModal}

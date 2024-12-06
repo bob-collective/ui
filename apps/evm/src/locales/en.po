@@ -468,7 +468,7 @@ msgstr "DEX *"
 msgid "DEX Liquidity Provisioning"
 msgstr "DEX Liquidity Provisioning"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:31
+#: src/app/[lang]/(bridge)/stake/components/StakeRewards/StakeRewards.tsx:28
 msgid "Diamond"
 msgstr "Diamond"
 
@@ -737,7 +737,7 @@ msgstr "If you already own BTC LSTs on other chains, you can bridge them over to
 #~ msgid "Incentives"
 #~ msgstr "Incentives"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:51
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:67
 msgid "Input Token"
 msgstr "Input Token"
 
@@ -861,7 +861,7 @@ msgstr "Lottery"
 msgid "LST provider points"
 msgstr "LST provider points"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:183
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:105
 msgid "Manage"
 msgstr "Manage"
 
@@ -1024,7 +1024,7 @@ msgstr "or"
 msgid "OtterSec auditor"
 msgstr "OtterSec auditor"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:58
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:74
 msgid "Output Token"
 msgstr "Output Token"
 
@@ -1057,9 +1057,9 @@ msgstr "Please confirm transaction in your wallet"
 msgid "Please note:"
 msgstr "Please note:"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:19
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:43
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:53
+#: src/app/[lang]/(bridge)/stake/components/StakeRewards/StakeRewards.tsx:16
+#: src/app/[lang]/(bridge)/stake/components/StakeRewards/StakeRewards.tsx:40
+#: src/app/[lang]/(bridge)/stake/components/StakeRewards/StakeRewards.tsx:50
 msgid "Points"
 msgstr "Points"
 
@@ -1164,7 +1164,8 @@ msgstr "Remove vote"
 #~ msgid "Restaking"
 #~ msgstr "Restaking"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:111
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:40
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:98
 #: src/app/[lang]/apps/components/AppsList/AppCard.tsx:131
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:107
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:87
@@ -1199,7 +1200,7 @@ msgstr "Season 3 Harvested Spice"
 msgid "Season Three"
 msgstr "Season Three"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:84
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:121
 msgid "Security Review by Bitcoin Layers"
 msgstr "Security Review by Bitcoin Layers"
 
@@ -1269,7 +1270,7 @@ msgstr "Show secondary navigation"
 msgid "Sign-Up"
 msgstr "Sign-Up"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:63
+#: src/app/[lang]/(bridge)/stake/components/StakeRewards/StakeRewards.tsx:60
 msgid "Solv XP"
 msgstr "Solv XP"
 
@@ -1294,7 +1295,7 @@ msgstr "Something went wrong. Please try connecting your wallet again."
 msgid "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 msgstr "Sorry, the page you are looking for doesn't exist or has been moved. Here are some helpful links:"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:13
+#: src/app/[lang]/(bridge)/stake/components/StakeRewards/StakeRewards.tsx:10
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:79
 msgid "Spice"
 msgstr "Spice"
@@ -1366,7 +1367,7 @@ msgid "Spice styled background"
 msgstr "Spice styled background"
 
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:97
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:175
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:97
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:73
 #: src/components/Layout/Sidebar.tsx:48
@@ -1401,7 +1402,7 @@ msgstr "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking
 #~ msgid "Stake with"
 #~ msgstr "Stake with"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:195
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:117
 msgid "Staking table"
 msgstr "Staking table"
 
@@ -1435,7 +1436,7 @@ msgstr "Step Two"
 msgid "Steps"
 msgstr "Steps"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:110
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:39
 msgid "Strategy"
 msgstr "Strategy"
 
@@ -1451,7 +1452,7 @@ msgstr "Successfully finalized transaction"
 msgid "Successfully submitted ${0} proof"
 msgstr "Successfully submitted ${0} proof"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:69
+#: src/app/[lang]/(bridge)/stake/components/StakeRewards/StakeRewards.tsx:66
 msgid "Supply APR"
 msgstr "Supply APR"
 
@@ -1671,7 +1672,8 @@ msgstr "Transfer time"
 msgid "TVL"
 msgstr "TVL"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:112
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:41
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:110
 msgid "TVL (on BOB)"
 msgstr "TVL (on BOB)"
 
@@ -1819,7 +1821,7 @@ msgstr "We will provide you with updates accordingly. You can monitor the progre
 msgid "We're Sorry"
 msgstr "We're Sorry"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:97
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:134
 msgid "Website"
 msgstr "Website"
 
