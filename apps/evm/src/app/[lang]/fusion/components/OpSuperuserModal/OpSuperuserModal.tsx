@@ -41,8 +41,8 @@ const OpSuperuserModal = ({ onClose, ...props }: OpSuperuserModalProps): JSX.Ele
           </P>
           <P color='grey-50'>
             <Trans>
-              All Spice you harvest during between 9 December 2024 and 12 January 2025 will receive an exclusive 50%
-              bonus, only available to OP airdrop recipients.
+              All Spice you harvest between 9 December 2024 and 12 January 2025 will receive an exclusive 50% bonus,
+              only available to OP airdrop recipients.
             </Trans>
           </P>
         </Flex>

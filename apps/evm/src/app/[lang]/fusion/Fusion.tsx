@@ -7,7 +7,7 @@ import { useLingui } from '@lingui/react';
 import x from '@public/assets/x.png';
 import { useEffect, useId, useState } from 'react';
 import { useAccount } from 'wagmi';
-import { Optimism } from '@gobob/icons';
+import { Superchain } from '@gobob/icons';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -163,7 +163,14 @@ const Fusion = () => {
                         </Trans>
                       </P>
                     </Flex>
-                    <Optimism size='4xl' style={{ width: '7rem', height: '7rem', top: 0, right: 0, opacity: 0.7 }} />
+                    <Superchain
+                      size='4xl'
+                      style={{
+                        width: '10rem',
+                        top: 0,
+                        right: 0
+                      }}
+                    />
                   </Flex>
                 </Card>
               </Flex>
