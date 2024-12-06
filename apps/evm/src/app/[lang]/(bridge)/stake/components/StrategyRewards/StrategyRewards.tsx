@@ -1,9 +1,9 @@
-import { Flex, Avatar, Chip, FlexProps } from '@gobob/ui';
+import { Babylon, PellNetwork, Spice } from '@gobob/icons';
+import { Avatar, Chip, Flex, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
-import { Babylon, PellNetwork, Spice } from '@gobob/icons';
 
-import { stakingInfo, Incentive } from '../../../utils/stakeData';
+import { StrategyIncentive } from '../../constants';
 
 const SpiceRewards = () => (
   <Chip background='primary-500' size='s' startAdornment={<Spice size='xs' />}>
@@ -63,28 +63,28 @@ const SupplyApr = () => (
   </Chip>
 );
 
-const incentivesMap: Record<Incentive, () => ReactNode> = {
-  [Incentive.babylon]: BabylonPoints,
-  [Incentive.bedrock]: BedrockDiamond,
-  [Incentive.pell]: PellPoints,
-  [Incentive.segment]: SegmentPoints,
-  [Incentive.solv]: SolvXP,
-  [Incentive.spice]: SpiceRewards,
-  [Incentive.supply]: SupplyApr
+const incentivesMap: Record<StrategyIncentive, () => ReactNode> = {
+  [StrategyIncentive.babylon]: BabylonPoints,
+  [StrategyIncentive.bedrock]: BedrockDiamond,
+  [StrategyIncentive.pell]: PellPoints,
+  [StrategyIncentive.segment]: SegmentPoints,
+  [StrategyIncentive.solv]: SolvXP,
+  [StrategyIncentive.spice]: SpiceRewards,
+  [StrategyIncentive.supply]: SupplyApr
 };
 
 type Props = {
-  slug: string;
+  incentives: StrategyIncentive[];
 };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
-type StakeRewardsProps = Props & InheritAttrs;
+type StrategyRewardsProps = Props & InheritAttrs;
 
-const StakeRewards = ({ slug, ...props }: StakeRewardsProps) => (
-  <Flex gap='xs' {...props}>
+const StrategyRewards = ({ incentives, ...props }: StrategyRewardsProps) => (
+  <Flex wrap gap='xs' {...props}>
     <SpiceRewards />
-    {stakingInfo[slug]?.incentives.map((incentive, key) => {
+    {incentives.map((incentive, key) => {
       const Comp = incentivesMap[incentive];
 
       return <Comp key={key} />;
@@ -92,4 +92,4 @@ const StakeRewards = ({ slug, ...props }: StakeRewardsProps) => (
   </Flex>
 );
 
-export { StakeRewards };
+export { StrategyRewards };

@@ -4,28 +4,51 @@ import { Alert, Flex, Input, P } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
-import { Optional } from '@tanstack/react-query';
 import { useAccount } from 'wagmi';
+import { useState } from 'react';
 
-import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
+import {
+  BtcTokenInput,
+  GatewayGasSwitch,
+  GatewayTransactionDetails,
+  GatewayTransactionModal
+} from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
-import { StakingInfo } from '../../../utils/stakeData';
-
-import { StrategyData } from './StakeForm';
+import { StrategyData } from '../../hooks';
 
 import { AuthButton } from '@/connect-ui';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
-type BtcBridgeFormProps = {
-  strategy: StrategyData;
-  stakingInfo: StakingInfo;
-  onStart: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
-  onSuccess: (data: InitGatewayTransaction) => void;
-  onError: () => void;
+type GatewayTransactionModalState = {
+  isOpen: boolean;
+  data?: InitGatewayTransaction;
 };
 
-const BtcStakeForm = ({ strategy, stakingInfo, onStart, onSuccess, onError }: BtcBridgeFormProps): JSX.Element => {
+type BtcBridgeFormProps = {
+  isLending: boolean;
+  strategy: StrategyData;
+  onSuccess: () => void;
+};
+
+const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): JSX.Element => {
+  const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
+    isOpen: false
+  });
+
+  const handleStartGateway = (data: InitGatewayTransaction) => {
+    setGatewayModalState({ isOpen: true, data });
+  };
+
+  const handleGatewaySuccess = (data: InitGatewayTransaction) => {
+    onSuccess?.();
+    setGatewayModalState({ isOpen: true, data });
+  };
+
+  const handleCloseGatewayModal = () => {
+    setGatewayModalState((s) => ({ ...s, isOpen: false }));
+  };
+
   const { i18n } = useLingui();
 
   const { address: evmAddress } = useAccount();
@@ -35,17 +58,17 @@ const BtcStakeForm = ({ strategy, stakingInfo, onStart, onSuccess, onError }: Bt
   };
 
   const gateway = useGateway({
-    isDisabled: !!stakingInfo.isDisabled,
+    isDisabled: !!strategy.info.isDisabled,
     params: {
-      type: GatewayTransactionType.STAKE,
-      toChain: strategy?.raw.chain.chainId,
-      toToken: strategy?.raw.inputToken.address,
-      strategyAddress: strategy?.raw.address,
-      assetName: strategy?.raw.integration.name
+      type: GatewayTransactionType.STRATEGY,
+      toChain: strategy?.contract.chain.chainId,
+      toToken: strategy?.contract.inputToken.address,
+      strategyAddress: strategy?.contract.address,
+      assetName: strategy?.contract.integration.name
     },
-    onError,
-    onMutate: onStart,
-    onSuccess: chain(onSuccess, handleSuccess)
+    onError: handleCloseGatewayModal,
+    onMutate: handleStartGateway,
+    onSuccess: chain(handleGatewaySuccess, handleSuccess)
   });
 
   const handleSubmit = async (data: BridgeFormValues) => {
@@ -61,9 +84,9 @@ const BtcStakeForm = ({ strategy, stakingInfo, onStart, onSuccess, onError }: Bt
     fields,
     form
   } = useGatewayForm({
-    type: GatewayTransactionType.STAKE,
+    type: GatewayTransactionType.STRATEGY,
     query: gateway.query,
-    defaultAsset: strategy?.raw.integration.slug,
+    defaultAsset: strategy?.contract.integration.slug,
     onSubmit: handleSubmit
   });
 
@@ -72,13 +95,13 @@ const BtcStakeForm = ({ strategy, stakingInfo, onStart, onSuccess, onError }: Bt
     gateway.isDisabled ||
     !gateway.isReady ||
     gateway.query.quote.isPending ||
-    stakingInfo.isDisabled;
+    strategy.info.isDisabled;
 
   const isLoading = gateway.mutation.isPending || gateway.query.quote.isLoading;
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
+    <Flex direction='column' elementType='form' flex={1} gap='xl' marginTop='xl' onSubmit={form.handleSubmit as any}>
       <BtcTokenInput
         amount={gateway.amount}
         balance={gateway.query.balance.data}
@@ -98,22 +121,29 @@ const BtcStakeForm = ({ strategy, stakingInfo, onStart, onSuccess, onError }: Bt
         />
       )}
       <GatewayTransactionDetails
-        amountLabel={<Trans>You will stake</Trans>}
-        assetName={strategy?.raw.integration.name}
+        amountLabel={isLending ? <Trans>You will supply</Trans> : <Trans>You will stake</Trans>}
+        assetName={strategy.contract.integration.name}
         gateway={gateway}
       />
-      {stakingInfo.isDisabled && (
+      {strategy.info.isDisabled && (
         <Alert status='warning' variant='outlined'>
           <P size='s'>
-            <Trans>Staking to {stakingInfo.strategy} is temporarily unavailable.</Trans>
+            <Trans>Staking to {strategy.info.name} is temporarily unavailable.</Trans>
           </P>
         </Alert>
       )}
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
-        {gateway.isReady ? <Trans>Stake</Trans> : <Trans>Preparing...</Trans>}
+        {gateway.isReady ? isLending ? <Trans>Lend</Trans> : <Trans>Stake</Trans> : <Trans>Preparing...</Trans>}
       </AuthButton>
+      {gatewayModalState.data && (
+        <GatewayTransactionModal
+          data={gatewayModalState.data}
+          isOpen={gatewayModalState.isOpen}
+          onClose={handleCloseGatewayModal}
+        />
+      )}
     </Flex>
   );
 };
 
-export { BtcStakeForm };
+export { StrategyForm };

@@ -39,3 +39,4 @@ const ChainLogo = ({ chainId, ...props }: ChainLogoProps) => {
 };
 
 export { ChainLogo };
+export type { ChainLogoProps };
