@@ -1,7 +1,8 @@
 import { PellNetwork } from '@gobob/icons';
-import { Avatar, Button, Flex, Link, Span, Table, useCurrencyFormatter } from '@gobob/ui';
+import { Avatar, ChevronRight, Flex, Span, Table, useCurrencyFormatter } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { stakingInfo, StakingInfo } from '../../../utils/stakeData';
@@ -54,6 +55,8 @@ interface Props {
 const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   const [strategy, setStrategy] = useState<StrategyData>();
 
+  const router = useRouter();
+
   const { i18n } = useLingui();
   const format = useCurrencyFormatter();
 
@@ -73,9 +76,9 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
 
   const rows: StakeTableRow[] = useMemo(
     () =>
-      sortedStrategies.map((strategy, idx) => {
+      sortedStrategies.map((strategy) => {
         return {
-          id: `${strategy.raw.id}${idx}`,
+          id: strategy.raw.integration.slug,
           [StakeTableColumns.STRATEGY]: (
             <Flex alignItems='center' gap='lg'>
               {strategy.raw.integration.logo ? (
@@ -93,25 +96,26 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
             <StakeRewards direction={{ base: 'column', md: 'row' }} slug={strategy?.raw.integration.slug ?? ''} />
           ),
           [StakeTableColumns.TVL]: strategy?.tvl ? format(strategy.tvl) : '-',
-          [StakeTableColumns.ACTIONS]: (
-            <Flex direction='row' gap='md'>
-              <Button
-                color='primary'
-                elementType={Link}
-                {...{ href: `${RoutesPath.STAKE}/${strategy.raw.integration.slug}` }}
-              >
-                <Trans>Stake</Trans>
-              </Button>
-              <Button
-                variant='outline'
-                onPress={() =>
-                  window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
-                }
-              >
-                <Trans>Manage</Trans>
-              </Button>
-            </Flex>
-          )
+          [StakeTableColumns.ACTIONS]: <ChevronRight color='grey-50' size='s' />
+          // [StakeTableColumns.ACTIONS]: (
+          //   <Flex direction='row' gap='md'>
+          //     <Button
+          //       color='primary'
+          //       elementType={Link}
+          //       {...{ href: `${RoutesPath.STAKE}/${strategy.raw.integration.slug}` }}
+          //     >
+          //       <Trans>Stake</Trans>
+          //     </Button>
+          //     <Button
+          //       variant='outline'
+          //       onPress={() =>
+          //         window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
+          //       }
+          //     >
+          //       <Trans>Manage</Trans>
+          //     </Button>
+          //   </Flex>
+          // )
         };
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,7 +124,12 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
 
   return (
     <>
-      <Table aria-label={t(i18n)`Staking table`} columns={columns} rows={rows} />
+      <Table
+        aria-label={t(i18n)`Staking table`}
+        columns={columns}
+        rows={rows}
+        onRowAction={(id) => router.push(`${RoutesPath.STAKE}/${id}`)}
+      />
       {strategy && (
         <StrategyModal
           stakingInfo={stakingInfoAny[strategy?.raw.integration.slug]}
