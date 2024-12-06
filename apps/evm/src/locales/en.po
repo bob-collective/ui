@@ -89,6 +89,10 @@ msgstr "7 days"
 msgid "About"
 msgstr "About"
 
+#: src/app/[lang]/(bridge)/stake/components/StakeDetails/StakeDetails.tsx:99
+msgid "Additional Information"
+msgstr "Additional Information"
+
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:106
 msgid "Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to significant delays in confirmation time."
 msgstr "Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to significant delays in confirmation time."
@@ -111,8 +115,8 @@ msgid "Amount"
 msgstr "Amount"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OKXCryptopediaBanner.tsx:26
-msgid "An Exclusive Bitcoin Staking and DeFi Campaign"
-msgstr "An Exclusive Bitcoin Staking and DeFi Campaign"
+#~ msgid "An Exclusive Bitcoin Staking and DeFi Campaign"
+#~ msgstr "An Exclusive Bitcoin Staking and DeFi Campaign"
 
 #: src/components/BannerCarousel/BinanceCampaignBanner.tsx:25
 #~ msgid "An exclusive quest campaign."
@@ -158,8 +162,8 @@ msgstr "Asset"
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:93
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:145
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:167
-msgid "Attention: Babylon does not yet support withdrawals."
-msgstr "Attention: Babylon does not yet support withdrawals."
+#~ msgid "Attention: Babylon does not yet support withdrawals."
+#~ msgstr "Attention: Babylon does not yet support withdrawals."
 
 #: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:16
 msgid "Audited by"
@@ -205,8 +209,8 @@ msgid "BOB Bridge"
 msgstr "BOB Bridge"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OKXCryptopediaBanner.tsx:22
-msgid "BOB Ecosystem on OKX Cryptopedia"
-msgstr "BOB Ecosystem on OKX Cryptopedia"
+#~ msgid "BOB Ecosystem on OKX Cryptopedia"
+#~ msgstr "BOB Ecosystem on OKX Cryptopedia"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:92
@@ -222,8 +226,8 @@ msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 #~ msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OnrampBanner.tsx:17
-msgid "BOB Gateway is live!"
-msgstr "BOB Gateway is live!"
+#~ msgid "BOB Gateway is live!"
+#~ msgstr "BOB Gateway is live!"
 
 #: src/app/[lang]/layout.tsx:33
 #: src/app/[lang]/layout.tsx:52
@@ -779,12 +783,12 @@ msgstr "Learn More"
 #~ msgstr "Learn more about {0}"
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:109
-msgid "Lend out tBTC on Segment."
-msgstr "Lend out tBTC on Segment."
+#~ msgid "Lend out tBTC on Segment."
+#~ msgstr "Lend out tBTC on Segment."
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:124
-msgid "Lend out wBTC on Segment."
-msgstr "Lend out wBTC on Segment."
+#~ msgid "Lend out wBTC on Segment."
+#~ msgstr "Lend out wBTC on Segment."
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:70
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:76
@@ -862,8 +866,8 @@ msgid "LST provider points"
 msgstr "LST provider points"
 
 #: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:105
-msgid "Manage"
-msgstr "Manage"
+#~ msgid "Manage"
+#~ msgstr "Manage"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:145
 msgid "Maximize your chances by using all your tickets before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery tickets daily."
@@ -922,7 +926,7 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:90
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:61
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
@@ -996,8 +1000,8 @@ msgid "Not your lucky day... yet!"
 msgstr "Not your lucky day... yet!"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OKXCryptopediaBanner.tsx:30
-msgid "OKX Cryptopedia"
-msgstr "OKX Cryptopedia"
+#~ msgid "OKX Cryptopedia"
+#~ msgstr "OKX Cryptopedia"
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:246
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
@@ -1164,7 +1168,8 @@ msgstr "Remove vote"
 #~ msgid "Restaking"
 #~ msgstr "Restaking"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:40
+#: src/app/[lang]/(bridge)/stake/components/StakeDetails/StakeDetails.tsx:36
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:43
 #: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:98
 #: src/app/[lang]/apps/components/AppsList/AppCard.tsx:131
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:107
@@ -1200,6 +1205,7 @@ msgstr "Season 3 Harvested Spice"
 msgid "Season Three"
 msgstr "Season Three"
 
+#: src/app/[lang]/(bridge)/stake/components/StakeDetails/StakeDetails.tsx:108
 #: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:121
 msgid "Security Review by Bitcoin Layers"
 msgstr "Security Review by Bitcoin Layers"
@@ -1366,8 +1372,8 @@ msgstr "Spice rewards (Medium)"
 msgid "Spice styled background"
 msgstr "Spice styled background"
 
+#: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:14
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:97
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:97
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:73
 #: src/components/Layout/Sidebar.tsx:48
@@ -1375,34 +1381,34 @@ msgid "Stake"
 msgstr "Stake"
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:26
-msgid "Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC."
-msgstr "Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC."
+#~ msgid "Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC."
+#~ msgstr "Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC."
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:88
-msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking."
-msgstr "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking."
+#~ msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking."
+#~ msgstr "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking."
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:162
-msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment."
-msgstr "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment."
+#~ msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment."
+#~ msgstr "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment."
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:46
-msgid "Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN."
-msgstr "Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN."
+#~ msgid "Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN."
+#~ msgstr "Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN."
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:66
-msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
-msgstr "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
+#~ msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
+#~ msgstr "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:140
-msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
-msgstr "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
+#~ msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
+#~ msgstr "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
 
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:138
 #~ msgid "Stake with"
 #~ msgstr "Stake with"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:117
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:128
 msgid "Staking table"
 msgstr "Staking table"
 
@@ -1436,9 +1442,13 @@ msgstr "Step Two"
 msgid "Steps"
 msgstr "Steps"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:39
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:42
 msgid "Strategy"
 msgstr "Strategy"
+
+#: src/app/[lang]/(bridge)/stake/components/StakeDetails/StakeDetails.tsx:56
+msgid "Strategy Breakdown"
+msgstr "Strategy Breakdown"
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:100
 msgid "Successfully finalized transaction"
@@ -1514,8 +1524,8 @@ msgid "Thank you for your understanding and we hope to be able to serve you in a
 msgstr "Thank you for your understanding and we hope to be able to serve you in a more decentralized future. The BOB L2 network itself is fully decentralized, cannot be censored and all code is open source."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OnrampBanner.tsx:21
-msgid "The fastest and easiest way to bridge BTC to BOB."
-msgstr "The fastest and easiest way to bridge BTC to BOB."
+#~ msgid "The fastest and easiest way to bridge BTC to BOB."
+#~ msgstr "The fastest and easiest way to bridge BTC to BOB."
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:39
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:24
@@ -1668,11 +1678,12 @@ msgstr "Transaction Submitted"
 msgid "Transfer time"
 msgstr "Transfer time"
 
+#: src/app/[lang]/(bridge)/stake/components/StakeDetails/StakeDetails.tsx:44
 #: src/app/[lang]/fusion/components/UserInfo/Barometer.tsx:67
 msgid "TVL"
 msgstr "TVL"
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:41
+#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:44
 #: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:110
 msgid "TVL (on BOB)"
 msgstr "TVL (on BOB)"
@@ -1821,6 +1832,7 @@ msgstr "We will provide you with updates accordingly. You can monitor the progre
 msgid "We're Sorry"
 msgstr "We're Sorry"
 
+#: src/app/[lang]/(bridge)/stake/components/StakeDetails/StakeDetails.tsx:103
 #: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:134
 msgid "Website"
 msgstr "Website"
