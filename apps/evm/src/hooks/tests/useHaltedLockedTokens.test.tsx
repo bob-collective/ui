@@ -1,15 +1,15 @@
 import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
-import { useAccount, usePublicClient } from '@gobob/wagmi';
-import { Mock, vi } from 'vitest';
 import { PropsWithChildren } from 'react';
+import { Mock, vi } from 'vitest';
+import { useAccount, usePublicClient } from 'wagmi';
 
-import { useTokens } from '../useTokens';
 import { useHaltedLockedTokens } from '../useHaltedLockedTokens';
+import { useTokens } from '../useTokens';
 
 import { wrapper } from '@/test-utils';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

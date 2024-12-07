@@ -1,38 +1,49 @@
+/* eslint-disable no-console */
 'use client';
 
-import { NumberLike } from '@eth-optimism/sdk';
-import { Currency, CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
-import { UINT_256_MAX, useApproval } from '@gobob/hooks';
-import { INTERVAL, useMutation, usePrices, useQuery } from '@gobob/react-query';
+import { Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
+import { usePrices } from '@gobob/hooks';
 import { USDC } from '@gobob/tokens';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
-import { useAccount, useChainId, useIsContract, usePublicClient } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
+import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
-
-import { USDCCrossBridgeConfig, useCrossChainMessenger } from '../../hooks';
+import { useAccount, usePublicClient } from 'wagmi';
 
 import { BridgeAlert } from './BridgeAlert';
 
+import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
+import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
 import { AuthButton } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
-import { BridgeToken, useBalances, useBridgeTokens } from '@/hooks';
+import { bridgeContracts } from '@/constants/bridge';
+import {
+  BridgeToken,
+  useApproval,
+  useBalances,
+  useBridgeTokens,
+  useIsContract,
+  usePublicClientL1,
+  usePublicClientL2,
+  useWalletClientL1,
+  useWalletClientL2
+} from '@/hooks';
 import {
   BRIDGE_AMOUNT,
   BRIDGE_ASSET,
   BRIDGE_BTC_WALLET,
-  BRIDGE_GAS_TOKEN,
   BRIDGE_RECIPIENT,
   BridgeFormValidationParams,
   BridgeFormValues,
   bridgeSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
+import { bridgeKeys } from '@/lib/react-query';
 import {
   BridgeTransaction,
   BridgeTransactionStatus,
@@ -40,6 +51,11 @@ import {
   TransactionDirection,
   TransactionType
 } from '@/types';
+import { calculateAmountUSD } from '@/utils';
+import { useSubscribeBalances } from '@/hooks';
+
+const getBridgeContract = (currency: Ether | ERC20Token) =>
+  currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
 
 type BobBridgeFormProps = {
   direction: TransactionDirection;
@@ -63,39 +79,42 @@ const BobBridgeForm = ({
   const bridgeChainId = direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN;
 
   const publicClient = usePublicClient();
-  const chainId = useChainId();
-  const { address, chain } = useAccount();
+  const { address } = useAccount();
 
   const { getPrice } = usePrices();
-  const { getBalance } = useBalances(bridgeChainId);
+  const { getBalance, refetch: refetchBalances } = useBalances(bridgeChainId);
+
+  useSubscribeBalances(bridgeChainId);
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
 
-  const messenger = useCrossChainMessenger();
+  const publicClientL1 = usePublicClientL1();
+  const publicClientL2 = usePublicClientL2();
 
-  const [amount, setAmount] = useDebounceValue('', 300);
+  const walletClientL1 = useWalletClientL1();
+  const walletClientL2 = useWalletClientL2();
 
   const { isContract: isSmartAccount } = useIsContract({ address, chainId: bridgeChainId });
 
   const nativeToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
 
-  const [ticker, setTicker] = useState(tickerProp || nativeToken.symbol);
-  const [gasTicker, setGasTicker] = useState(nativeToken.symbol);
+  const initialSymbol = tickerProp || nativeToken.symbol;
+
+  const [symbol, setSymbol] = useState(initialSymbol);
+
+  const [prevDirection, setPrevDirection] = useState<TransactionDirection>();
+
+  const [amount, setAmount] = useDebounceValue('', 300);
 
   const { selectedCurrency, selectedToken } = useMemo(() => {
-    const selectedToken = tokens?.find((token) => token.l1Currency.symbol === ticker);
+    const selectedToken = tokens?.find((token) => token.l1Currency.symbol === symbol);
 
     return {
       selectedToken,
       selectedCurrency:
         direction === TransactionDirection.L1_TO_L2 ? selectedToken?.l1Currency : selectedToken?.l2Currency
     };
-  }, [ticker, tokens, direction]);
-
-  const selectedGasToken = useMemo(
-    () => tokens?.find((token) => token.l1Currency.symbol === gasTicker),
-    [gasTicker, tokens]
-  );
+  }, [symbol, tokens, direction]);
 
   const currencyAmount = useMemo(
     () =>
@@ -103,113 +122,59 @@ const BobBridgeForm = ({
     [selectedCurrency, amount]
   );
 
-  const handleError = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (e: any) => {
-      if (e.code === 4001) {
-        toast.error(t(i18n)`User rejected the request`);
-      } else {
-        toast.error(t(i18n)`Something went wrong. Please try again later.`);
-      }
-    },
-    [i18n]
-  );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleError = (error: any) => {
+    console.error(error);
 
-  const gasEstimateMutation = useMutation({
-    mutationKey: ['gasEstimate', amount, address],
-    mutationFn: async ({
-      currencyAmount,
-      selectedToken
-    }: {
-      selectedToken: BridgeToken;
-      currencyAmount: CurrencyAmount<ERC20Token | Ether>;
-    }) => {
-      if (!messenger) {
-        throw new Error('Missing messenger');
-      }
+    onFailBridge?.();
 
-      if (currencyAmount.currency.isNative) {
-        const amount = currencyAmount.numerator.toString();
-
-        const gasAmount = await (direction === TransactionDirection.L1_TO_L2
-          ? messenger.estimateGas.depositETH(amount)
-          : messenger.estimateGas.withdrawETH(amount));
-
-        return CurrencyAmount.fromRawAmount(nativeToken, gasAmount.toBigInt());
-      }
-
-      const l1Address = selectedToken.l1Token.address;
-      const l2Address = selectedToken.l2Token.address;
-      const amount = currencyAmount.numerator.toString();
-
-      // TODO: USDC requires approval on withdraw
-      if (direction === TransactionDirection.L1_TO_L2) {
-        const approval = await messenger.approval(l1Address, l2Address);
-
-        const approvalAmount = CurrencyAmount.fromRawAmount(currencyAmount.currency, approval.toBigInt());
-
-        if (approvalAmount.lessThan(currencyAmount)) {
-          const gasAmount = await messenger.estimateGas.approveERC20(
-            l1Address,
-            l2Address,
-            UINT_256_MAX as unknown as NumberLike
-          );
-
-          return CurrencyAmount.fromRawAmount(nativeToken, gasAmount.toBigInt());
-        }
-      }
-
-      const gasAmount = await (direction === TransactionDirection.L1_TO_L2
-        ? messenger.estimateGas.depositERC20(l1Address, l2Address, amount)
-        : messenger.estimateGas.withdrawERC20(l1Address, l2Address, amount));
-
-      return CurrencyAmount.fromRawAmount(nativeToken, gasAmount.toBigInt());
+    if (error.code === 4001) {
+      toast.error(t(i18n)`User rejected the request`);
+    } else {
+      toast.error(t(i18n)`Something went wrong. Please try again later.`);
     }
-  });
+  };
+
+  const handleSuccess = (data: BridgeTransaction) => {
+    onBridgeSuccess?.(data);
+
+    handleReset();
+
+    refetchBalances();
+  };
 
   const isBridgeDisabled =
     direction === TransactionDirection.L1_TO_L2
       ? selectedToken?.l1Token.bridgeDisabled
       : selectedToken?.l2Token.bridgeDisabled;
 
+  const shouldCheckAllowance =
+    currencyAmount &&
+    currencyAmount.currency.isToken &&
+    (direction === TransactionDirection.L1_TO_L2 ||
+      (direction === TransactionDirection.L2_TO_L1 && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency)));
+
+  const bridgeContract = selectedCurrency && getBridgeContract(selectedCurrency);
+
   const {
-    data: allowance,
-    refetch: refetchL1Allowance,
-    isLoading: isLoadingAllowance,
-    isFetching: isFetchingAllowance
-  } = useQuery({
-    queryKey: ['allowance', ticker, address],
-    enabled: Boolean(
-      !isBridgeDisabled &&
-        currencyAmount &&
-        address &&
-        selectedCurrency?.isToken &&
-        direction === TransactionDirection.L1_TO_L2
-    ),
-    queryFn: async () => {
-      if (!messenger) {
-        throw new Error('Missing messenger');
-      }
-
-      if (!selectedToken || !selectedCurrency) return;
-
-      const l1Address = selectedToken.l1Token.address;
-      const l2Address = selectedToken.l2Token.address;
-
-      const approval = await messenger.approval(l1Address, l2Address);
-
-      return CurrencyAmount.fromRawAmount(selectedCurrency, approval.toBigInt());
-    },
-    staleTime: INTERVAL.HOUR
+    isApproveRequired,
+    approveAsync,
+    isApproving,
+    allowance,
+    isAllowanceLoading,
+    refetch: refetchAllowance
+  } = useApproval({
+    amount: currencyAmount,
+    spender:
+      shouldCheckAllowance && bridgeContract
+        ? direction === TransactionDirection.L1_TO_L2
+          ? bridgeContract.l1Bridge
+          : bridgeContract.l2Bridge
+        : undefined
   });
 
-  const isApproveRequired = useMemo(
-    () => !!currencyAmount && !!allowance && allowance.lessThan(currencyAmount),
-    [allowance, currencyAmount]
-  );
-
   const depositMutation = useMutation({
-    mutationKey: ['deposit', address],
+    mutationKey: bridgeKeys.deposit(address),
     mutationFn: async ({
       currencyAmount,
       selectedToken,
@@ -219,87 +184,89 @@ const BobBridgeForm = ({
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
       recipient: Address;
     }): Promise<BridgeTransaction> => {
-      if (!messenger) {
-        throw new Error('Missing messenger');
-      }
-
-      if (!allowance && currencyAmount.currency.isToken) {
+      if (shouldCheckAllowance && !allowance) {
         throw new Error('Allowance data missing');
       }
+
+      if (!(bridgeContract && bridgeContract.l1Bridge)) {
+        throw new Error('Contract missing');
+      }
+
+      const l1Address = selectedToken.l1Token.address;
+      const l2Address = selectedToken.l2Token.address;
 
       const data: InitBridgeTransaction = {
         amount: currencyAmount,
         direction: TransactionDirection.L1_TO_L2,
         from: address!,
         to: recipient,
-        l1Token: selectedToken.l1Token.address,
-        l2Token: selectedToken.l2Token.address,
+        l1Token: l1Address,
+        l2Token: l2Address,
         type: TransactionType.Bridge
       };
+
+      const to = recipient || address!;
+      const amount = BigInt(currencyAmount.numerator);
 
       if (currencyAmount.currency.isNative) {
         onStartBridge?.(data);
 
-        const tx = await messenger.depositETH(currencyAmount.numerator.toString(), { recipient });
+        // simulate deposit
+        const args = await publicClientL2.buildDepositTransaction({
+          account: address!,
+          mint: amount,
+          to
+        });
+
+        const transactionHash = await walletClientL1.depositTransaction(args);
 
         return {
           ...data,
-          transactionHash: tx.hash as Address,
+          transactionHash,
           status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
           date: new Date()
         };
       }
 
-      const l1Address = selectedToken.l1Token.address;
-      const l2Address = selectedToken.l2Token.address;
-
       if (isApproveRequired) {
         onStartApproval?.(data);
 
-        const tx = await messenger.approveERC20(l1Address, l2Address, UINT_256_MAX.toString());
+        const approveResult = await approveAsync?.();
 
-        await tx.wait();
+        if (!approveResult) {
+          throw new Error('Approve failed');
+        }
 
-        await refetchL1Allowance();
+        await publicClient?.waitForTransactionReceipt({ hash: approveResult });
+
+        refetchAllowance();
       }
 
       onStartBridge?.(data);
 
-      const tx = await messenger.depositERC20(l1Address, l2Address, currencyAmount.numerator.toString(), { recipient });
+      const { request } = await publicClientL1.simulateContract({
+        account: address,
+        abi: l1StandardBridgeAbi,
+        address: bridgeContract.l1Bridge,
+        functionName: 'depositERC20To',
+        args: [l1Address, l2Address, to, amount, 0, '0x']
+      });
+
+      const transactionHash = await walletClientL1.writeContract(request);
 
       return {
         ...data,
-        transactionHash: tx.hash as Address,
+        transactionHash,
         status: BridgeTransactionStatus.UNCONFIRMED_L1_TO_L2_MESSAGE,
         date: new Date()
       };
     },
-    onSuccess: (data) => {
-      gasEstimateMutation.reset();
-      setAmount('');
-      onBridgeSuccess?.(data);
-      form.resetForm();
-    },
-    onError: (error) => {
-      onFailBridge?.();
-      handleError(error);
-    }
-  });
-
-  const isUSDCWithdraw =
-    currencyAmount && direction === TransactionDirection.L2_TO_L1 && USDC?.[L2_CHAIN]?.equals(currencyAmount.currency);
-
-  const {
-    isApproveRequired: isUSDCApproveRequired,
-    approveAsync: approveUSDCAsync,
-    isApproving: isApprovingUSDC
-  } = useApproval({
-    amount: isUSDCWithdraw ? (currencyAmount as CurrencyAmount<Token>) : undefined,
-    spender: USDCCrossBridgeConfig[L2_CHAIN].l2Bridge as Address
+    onSuccess: handleSuccess,
+    onError: handleError
   });
 
   const withdrawMutation = useMutation({
-    mutationKey: ['withdraw', address],
+    mutationKey: bridgeKeys.withdraw(address),
     mutationFn: async ({
       currencyAmount,
       selectedToken,
@@ -309,120 +276,90 @@ const BobBridgeForm = ({
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
       recipient: Address;
     }): Promise<BridgeTransaction> => {
-      if (!messenger) {
-        throw new Error('Missing messenger');
+      if (shouldCheckAllowance && !allowance) {
+        throw new Error('Allowance data missing');
       }
+
+      if (!(bridgeContract && bridgeContract.l1Bridge)) {
+        throw new Error('Contract missing');
+      }
+
+      const l1Address = selectedToken.l1Token.address;
+      const l2Address = selectedToken.l2Token.address;
 
       const data: InitBridgeTransaction = {
         amount: currencyAmount,
         direction: TransactionDirection.L2_TO_L1,
         from: address!,
         to: recipient,
-        l1Token: selectedToken.l1Token.address,
-        l2Token: selectedToken.l2Token.address,
+        l1Token: l1Address,
+        l2Token: l2Address,
         type: TransactionType.Bridge
       };
+
+      const to = recipient || address!;
+      const amount = BigInt(currencyAmount.numerator);
 
       if (currencyAmount.currency.isNative) {
         onStartBridge?.(data);
 
-        const tx = await messenger.withdrawETH(currencyAmount.numerator.toString(), { recipient });
+        // simulate withdrawal
+        const args = await publicClientL1.buildInitiateWithdrawal({
+          account: address!,
+          value: amount,
+          to
+        });
+
+        const transactionHash = await walletClientL2.initiateWithdrawal(args);
 
         return {
           ...data,
-          transactionHash: tx.hash as Address,
+          transactionHash,
           status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
           date: new Date()
         };
       }
 
-      const l1Address = selectedToken.l1Token.address;
-      const l2Address = selectedToken.l2Token.address;
-
-      if (isUSDCApproveRequired) {
+      // Only needed for USDC
+      if (isApproveRequired) {
         onStartApproval?.(data);
 
-        const approveResult = await approveUSDCAsync?.();
+        const approveResult = await approveAsync?.();
 
         if (!approveResult) {
           throw new Error('Approve failed');
         }
 
         await publicClient?.waitForTransactionReceipt({ hash: approveResult });
+
+        refetchAllowance();
       }
+
       onStartBridge?.(data);
 
-      const tx = await messenger.withdrawERC20(l1Address, l2Address, currencyAmount.numerator.toString(), {
-        recipient
+      const { request } = await publicClientL2.simulateContract({
+        account: address,
+        abi: l2StandardBridgeAbi,
+        address: bridgeContract.l2Bridge,
+        functionName: 'withdrawTo',
+        args: [l2Address, to, amount, 0, '0x']
       });
+
+      const transactionHash = await walletClientL2.writeContract(request);
 
       return {
         ...data,
-        transactionHash: tx.hash as Address,
+        transactionHash,
         status: BridgeTransactionStatus.STATE_ROOT_NOT_PUBLISHED,
         date: new Date()
       };
     },
-    onSuccess: (data) => {
-      gasEstimateMutation.reset();
-      setAmount('');
-      onBridgeSuccess?.(data);
-      form.resetForm();
-    },
-    onError: (error) => {
-      onFailBridge?.();
-      handleError(error);
-    }
+    onSuccess: handleSuccess,
+    onError: handleError
   });
 
-  const handleChangeCurrencyAmount = (currencyAmount: CurrencyAmount<ERC20Token | Ether>, token: BridgeToken) => {
-    if (
-      direction === TransactionDirection.L1_TO_L2 &&
-      chainId === L1_CHAIN &&
-      currencyAmount.currency.isToken &&
-      currencyAmount.greaterThan(0)
-    ) {
-      refetchL1Allowance();
-    }
-
-    if (currencyAmount.greaterThan(0)) {
-      gasEstimateMutation.mutate({ currencyAmount, selectedToken: token });
-    }
-  };
-
-  useEffect(() => {
-    if (!amount) return;
-
-    const formAmount = form.values[BRIDGE_AMOUNT];
-
-    if (!formAmount || isNaN(+formAmount) || !selectedCurrency || !selectedToken) return;
-
-    // TODO: change currency
-    const currencyAmount = CurrencyAmount.fromBaseAmount(selectedCurrency, formAmount);
-
-    handleChangeCurrencyAmount(currencyAmount, selectedToken);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount]);
-
-  useEffect(() => {
-    form.resetForm();
-    gasEstimateMutation.reset();
-
-    setTicker(nativeToken.symbol);
-    setGasTicker(nativeToken.symbol);
-    setAmount('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [direction]);
-
-  useEffect(() => {
-    if (currencyAmount && selectedToken) {
-      handleChangeCurrencyAmount(currencyAmount, selectedToken);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chain]);
-
   const handleSubmit = async (data: BridgeFormValues) => {
-    if (!currencyAmount || !selectedToken || !selectedGasToken || isBridgeDisabled) return;
+    if (!currencyAmount || !selectedToken || isBridgeDisabled) return;
 
     const recipient = (data[BRIDGE_RECIPIENT] as Address) || undefined;
 
@@ -444,8 +381,7 @@ const BobBridgeForm = ({
   const initialValues = useMemo(
     () => ({
       [BRIDGE_AMOUNT]: '',
-      [BRIDGE_ASSET]: ticker,
-      [BRIDGE_GAS_TOKEN]: gasTicker,
+      [BRIDGE_ASSET]: symbol,
       [BRIDGE_RECIPIENT]: ''
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -473,28 +409,24 @@ const BobBridgeForm = ({
     hideErrors: 'untouched'
   });
 
-  const handleChangeTicker = (currency: Currency) => {
-    setTicker(currency.symbol as string);
+  const handleReset = () => {
+    form.resetForm();
 
-    const selectedToken = tokens?.find((token) => token.l1Currency.symbol === currency.symbol);
-
-    const selectedCurrency =
-      direction === TransactionDirection.L1_TO_L2 ? selectedToken?.l1Currency : selectedToken?.l2Currency;
-
-    if (!selectedCurrency || !selectedToken) return;
-
-    const currencyAmount = CurrencyAmount.fromBaseAmount(selectedCurrency, amount || 0);
-
-    handleChangeCurrencyAmount(currencyAmount, selectedToken);
+    setSymbol(initialSymbol);
+    setAmount('');
   };
 
-  const getUsdValue = useCallback(
-    (ticker: string, amount: string | number) =>
-      !isNaN(+amount) ? new Big(amount || 0).mul(getPrice(ticker) || 0).toNumber() : 0,
-    [getPrice]
-  );
+  if (prevDirection !== direction) {
+    handleReset();
 
-  const valueUSD = useMemo(() => getUsdValue(ticker, amount), [amount, getUsdValue, ticker]);
+    setPrevDirection(direction);
+  }
+
+  const handleChangeSymbol = (currency: Currency) => {
+    setSymbol(currency.symbol as string);
+  };
+
+  const valueUSD = currencyAmount ? calculateAmountUSD(currencyAmount, getPrice(symbol)) : 0;
 
   const tokenInputItems: TokenSelectItemProps[] = useMemo(
     () =>
@@ -503,29 +435,32 @@ const BobBridgeForm = ({
 
         return {
           balance: balance?.toExact() || 0,
-          balanceUSD: getUsdValue(token.l1Currency.symbol, balance?.toExact() || 0),
+          balanceUSD: balance ? calculateAmountUSD(balance, getPrice(token.l1Currency.symbol)) : 0,
           logoUrl: token.l1Token.logoUrl,
           currency: token.l1Currency
         };
       }) || [],
-    [tokens, getBalance, getUsdValue]
+    [tokens, getBalance, getPrice]
   );
+
+  const isCheckingAllowance = shouldCheckAllowance && (isAllowanceLoading || !allowance);
 
   const isBridgingLoading = depositMutation.isPending || withdrawMutation.isPending;
 
-  const isSubmitDisabled = isFormDisabled(form) || !messenger || isFetchingAllowance || isBridgeDisabled;
+  const isSubmitDisabled = isFormDisabled(form) || isBridgeDisabled;
 
   const btnLabel = isBridgeDisabled
     ? t(i18n)`Bridge Disabled`
-    : isFetchingAllowance
+    : isCheckingAllowance
       ? t(i18n)`Checking Allowance`
-      : (!isLoadingAllowance && isApproveRequired) || isUSDCApproveRequired
+      : isApproveRequired
         ? t(i18n)`Approve`
         : t(i18n)`Bridge Asset`;
 
-  const isLoading = isFetchingAllowance || isApprovingUSDC || isBridgingLoading;
+  const isLoading = isCheckingAllowance || isApproving || isBridgingLoading;
 
   const balance = tokenBalance?.toExact() || '0';
+
   const humanBalance = tokenBalance?.toSignificant();
 
   return (
@@ -538,7 +473,7 @@ const BobBridgeForm = ({
         label={t(i18n)`Amount`}
         type='selectable'
         valueUSD={valueUSD}
-        onChangeCurrency={handleChangeTicker}
+        onChangeCurrency={handleChangeSymbol}
         {...mergeProps(form.getSelectableTokenFieldProps({ amount: BRIDGE_AMOUNT, currency: BRIDGE_ASSET }), {
           onValueChange: (value: string) => setAmount(value)
         })}

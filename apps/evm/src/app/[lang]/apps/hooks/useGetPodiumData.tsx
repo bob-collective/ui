@@ -1,9 +1,10 @@
-import { useQuery } from '@gobob/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { getAppLogo } from '../utils';
 
-import { apiClient, ResultProject, ResultProjectCategory, ResultProjectVotingInfo } from '@/utils';
+import { INTERVAL } from '@/constants';
 import { appsKeys } from '@/lib/react-query';
+import { apiClient, ResultProject, ResultProjectCategory, ResultProjectVotingInfo } from '@/utils';
 
 type ResultVotingAppData = ResultProject & {
   logoSrc: string;
@@ -21,6 +22,7 @@ const useGetPodiumData = () => {
   return useQuery({
     queryKey: appsKeys.appsResultVotes(),
     queryFn: () => apiClient.getLastVotingResults(),
+    gcTime: INTERVAL.HOUR,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     select: (data): ResultVotingAppInfo => {
@@ -38,4 +40,4 @@ const useGetPodiumData = () => {
 };
 
 export { useGetPodiumData };
-export type { ResultVotingAppData, ResultVotingAppCategory, ResultVotingAppInfo };
+export type { ResultVotingAppCategory, ResultVotingAppData, ResultVotingAppInfo };

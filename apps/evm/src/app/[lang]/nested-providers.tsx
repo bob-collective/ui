@@ -1,58 +1,42 @@
 'use client';
 
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import { BOBUIProvider, Button, CSSReset, Modal, ModalBody, ModalFooter, ModalHeader, P } from '@gobob/ui';
-import {
-  useAccount,
-  useAccountEffect,
-  useChainId,
-  useConfig,
-  useReconnect,
-  useSwitchChain,
-  watchAccount
-} from '@gobob/wagmi';
 import { Trans } from '@lingui/macro';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { watchAccount } from '@wagmi/core';
+import { usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren, Suspense, useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
+import { isAddressEqual } from 'viem';
+import { useAccount, useAccountEffect, useChainId, useConfig, useSwitchChain } from 'wagmi';
 
 import { Header, Layout, Sidebar } from '@/components';
 import { ConnectProvider } from '@/connect-ui';
-import { isClient, L2_CHAIN, LocalStorageKey, RoutesPath } from '@/constants';
+import { isClient, L2_CHAIN, LocalStorageKey } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
-  const pathname = usePathname();
-  const params = useParams();
 
   const config = useConfig();
 
-  // We don't want to disconnect users if they switch account on the wallet or the bridge
-  const shouldDisconnect =
-    pathname === `/${params.lang}${RoutesPath.HOME}` || pathname === `/${params.lang}${RoutesPath.FUSION}`;
-
-  const { data: user, refetch: refetchUser } = useGetUser();
+  const { data: user } = useGetUser();
 
   const { address } = useAccount();
 
-  const { logout } = useLogout({
-    onSuccess: () => {
-      refetchUser();
-    }
-  });
+  const { logout } = useLogout();
+
   const watchAccountRef = useRef<() => void>();
 
   useEffect(() => {
     watchAccountRef.current = watchAccount(config, {
       onChange: (account) => {
         if (
-          shouldDisconnect &&
           user &&
           account.address &&
           address &&
-          (account.address !== user.evm_address || account.address !== address)
+          (!isAddressEqual(account.address, user.evm_address) || !isAddressEqual(account.address, address))
         ) {
           logout({});
           setOpen(true);
@@ -62,7 +46,7 @@ const AuthCheck = () => {
 
     // Cleanup by calling unwatch to unsubscribe from the account change event
     return () => watchAccountRef.current?.();
-  }, [user, address, shouldDisconnect, config, logout]);
+  }, [user, address, config, logout]);
 
   useEffect(() => {
     if (!address && user) {
@@ -148,12 +132,6 @@ export function NestedProviders({ children }: PropsWithChildren) {
   useTokens(chainId);
 
   usePromptSwitchChain();
-
-  const { reconnect } = useReconnect();
-
-  useEffect(() => {
-    reconnect();
-  }, [reconnect]);
 
   return (
     <StyledComponentsRegistry>

@@ -20,6 +20,8 @@ import { useGetTokensInfo } from '../../hooks';
 
 import { TokenInfo } from '@/utils';
 
+const excludedAssets = ['0xd6890176e8d912142AC489e8B5D8D93F8dE74D60'];
+
 const yieldAssetsAddresses = [
   '0x236f8c0a61da474db21b693fb2ea7aab0c803894',
   '0xcc0966d8418d412c599a6421b760a847eb169a8c',
@@ -129,10 +131,10 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
     ? sortedData
         ?.filter(
           (item) =>
-            !yieldAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
+            ![...yieldAssetsAddresses, ...featuredAssetsAddresses, ...excludedAssets].find((address) =>
+              isAddressEqual(item.l2_address as Address, address as Address)
+            )
         )
-        // TODO: remove when FBTC is added
-        .filter((item) => item.symbol !== 'FBTC')
         .filter((item) => Number(item.multiplier) > 0)
         .map(getRow)
     : Array(10)

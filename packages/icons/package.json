@@ -35,14 +35,14 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18",
-    "styled-components": ">=6.0.0"
+    "react": "catalog:uiPeerDeps",
+    "react-dom": "catalog:uiPeerDeps",
+    "styled-components": "catalog:uiPeerDeps"
   },
   "devDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "styled-components": "^6.0.7"
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "styled-components": "catalog:"
   },
   "dependencies": {
     "@gobob/ui": "workspace:^"

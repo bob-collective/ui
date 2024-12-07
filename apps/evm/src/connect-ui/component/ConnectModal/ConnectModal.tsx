@@ -1,28 +1,29 @@
 'use client';
 
 import {
+  SatsConnector,
+  useAccount as useSatsAccount,
+  useConnect as useSatsConnect,
+  useDisconnect as useSatsDisconnect
+} from '@gobob/sats-wagmi';
+import {
+  ArrowLeft,
   Button,
   Flex,
+  Link,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalProps,
   P,
-  toast,
-  ArrowLeft,
-  Link
+  toast
 } from '@gobob/ui';
-import { Address, Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from '@gobob/wagmi';
-import {
-  useAccount as useSatsAccount,
-  useDisconnect as useSatsDisconnect,
-  useConnect as useSatsConnect,
-  SatsConnector
-} from '@gobob/sats-wagmi';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from 'wagmi';
+import { Address } from 'viem';
 
 import { ConnectType, WalletType } from '../../types';
 
@@ -333,4 +334,4 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 ConnectModal.displayName = 'ConnectModal';
 
 export { ConnectModal };
-export type { ConnectModalProps, ConnectEvmHandler, ConnectBtcHandler };
+export type { ConnectBtcHandler, ConnectEvmHandler, ConnectModalProps };

@@ -1,7 +1,7 @@
 import { Avatar, Flex, List, ListItem, ListProps, Spinner } from '@gobob/ui';
-import { Connector } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { Connector } from 'wagmi';
 
 import { WalletIcon } from '../WalletIcon';
 

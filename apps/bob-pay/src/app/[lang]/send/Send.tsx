@@ -3,23 +3,29 @@
 
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
-import { MaxUint256 } from '@gobob/currency/src/constants';
-import { useGetApprovalData } from '@gobob/hooks';
-import { useMutation, usePrices } from '@gobob/react-query';
-import { Button, Flex, Input, QrCode, toast, TokenInput, useForm } from '@gobob/ui';
-import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+import { usePrices } from '@gobob/hooks';
+import { Button, Flex, Input, QrCode, Skeleton, toast, TokenInput, useForm } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
+import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
-import { Address, encodeFunctionData, erc20Abi, isAddress } from 'viem';
+import { Address, encodeFunctionData, erc20Abi, isAddress, maxInt256 } from 'viem';
+import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 
 import { ScannerModal, TokenButtonGroup } from './components';
 
 import { Main } from '@/components';
 import { CHAIN } from '@/constants';
-import { paymasters, useBalances, useIsDynamicSmartAccount, useKernelClient, useTokens } from '@/hooks';
+import {
+  paymasters,
+  useBalances,
+  useGetApprovalData,
+  useIsDynamicSmartAccount,
+  useKernelClient,
+  useTokens
+} from '@/hooks';
 import {
   TRANSFER_TOKEN_AMOUNT,
   TRANSFER_TOKEN_RECIPIENT,
@@ -256,7 +262,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
                 to: (currencyAmount.currency as Token).address,
                 data: encodeFunctionData({
                   abi: erc20Abi,
-                  args: [paymasterAddress, MaxUint256],
+                  args: [paymasterAddress, maxInt256],
                   functionName: 'approve'
                 }),
                 value: BigInt(0)
@@ -374,6 +380,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
           humanBalance={humanBalance}
           items={tokenInputItems}
           label={<Trans>Amount</Trans>}
+          placeholder={<Skeleton height='3xl' width='7xl' />}
           type='selectable'
           valueUSD={calculateAmountUSD(currencyAmount, getPrice(token.currency.symbol))}
           onChangeCurrency={(currency) => {
