@@ -24,6 +24,7 @@ import { useLingui } from '@lingui/react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from 'wagmi';
 import { Address } from 'viem';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 import { ConnectType, WalletType } from '../../types';
 
@@ -160,9 +161,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         setPendingSatsConnector(satsConnector);
 
         try {
-          await satsConnectAsync({
+          const btcAddress = await satsConnectAsync({
             connector: satsConnector
           });
+
+          sendGTMEvent({ event: 'btc-conenct', address: btcAddress });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingSatsConnector(undefined);
