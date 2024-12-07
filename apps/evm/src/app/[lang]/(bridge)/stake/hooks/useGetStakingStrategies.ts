@@ -15,6 +15,7 @@ import { getConfig } from '@/lib/wagmi';
 import { isProd } from '@/constants';
 
 type StrategyData = {
+  tvl?: number | null;
   raw: GatewayStrategyContract;
   currency?: ERC20Token;
 };

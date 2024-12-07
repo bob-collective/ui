@@ -3,8 +3,6 @@ import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import styled, { css } from 'styled-components';
 
-import { OnrampImg } from './OnrampImg';
-
 const StyledCarouselWrapper = styled(Card)`
   position: relative;
   text-decoration: none;
@@ -66,40 +64,6 @@ const StyledBannerTitle = styled(H1)`
   text-overflow: ellipsis;
 `;
 
-const StyledOnrampImg = styled(OnrampImg)`
-  position: absolute;
-
-  ${({ theme }) => {
-    return css`
-      height: 4rem;
-      right: ${theme.spacing('7xl')};
-
-      @media ${theme.breakpoints.down('md')} {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
-const StyledOKXCryptopediaImg = styled(Image)`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      right: 0;
-
-      @media ${theme.breakpoints.down('md')} {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
 const StyledFusionImg = styled(Image)`
   ${({ theme }) => {
     return css`
@@ -157,8 +121,6 @@ export {
   StyledCarousel,
   StyledCarouselWrapper,
   StyledFusionImg,
-  StyledOnrampImg,
   StyledXImg,
-  StyledHybridL2Img,
-  StyledOKXCryptopediaImg
+  StyledHybridL2Img
 };

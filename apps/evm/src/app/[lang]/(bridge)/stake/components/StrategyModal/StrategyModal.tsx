@@ -1,11 +1,25 @@
 import { PellNetwork } from '@gobob/icons';
-import { Modal, ModalHeader, Flex, Avatar, ModalBody, Dl, DlGroup, Dd, Dt, Divider, Span } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
-import { Link } from '@gobob/ui';
+import {
+  Avatar,
+  Dd,
+  Divider,
+  Dl,
+  DlGroup,
+  Dt,
+  Flex,
+  Link,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Span,
+  useCurrencyFormatter
+} from '@gobob/ui';
 import { truncateUrl } from '@gobob/utils';
+import { Trans } from '@lingui/macro';
 
-import { StakingForm } from '../StakeForm';
 import { StrategyData } from '../../hooks';
+import { StakingForm } from '../StakeForm';
+import { StakeRewards } from '../StakeRewards';
 
 import { StyledCard, StyledFlex } from './StrategyModal.style';
 
@@ -20,6 +34,8 @@ interface Props {
 }
 
 const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: Props) => {
+  const format = useCurrencyFormatter();
+
   return (
     <Modal isOpen={!!strategy} size='4xl' onClose={onCloseModal}>
       <StyledCard>
@@ -44,7 +60,7 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
         <ModalBody>
           <StyledFlex direction={{ base: 'column', md: 'row' }} gap='xl'>
             <StakingForm strategy={strategy} onStakeSuccess={onStakeSuccess} />
-            <StyledFlex direction='column' gap='xl'>
+            <StyledFlex direction='column' flex={1} gap='xl'>
               <Dl direction='column' gap='lg'>
                 <DlGroup alignItems='center' justifyContent='space-between'>
                   <Dd size='md' style={{ minWidth: '15ch' }}>
@@ -74,6 +90,27 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
                     ) : (
                       stakingInfo?.outputToken
                     )}
+                  </Dt>
+                </DlGroup>
+                <Divider />
+                <DlGroup alignItems='center' justifyContent='space-between'>
+                  <Dd size='md' style={{ minWidth: '15ch' }}>
+                    <Trans>Rewards</Trans>
+                  </Dd>
+                  <StakeRewards
+                    wrap
+                    elementType='dt'
+                    justifyContent='flex-end'
+                    slug={strategy?.raw.integration.slug ?? ''}
+                  />
+                </DlGroup>
+                <Divider />
+                <DlGroup alignItems='center' justifyContent='space-between'>
+                  <Dd size='md' style={{ minWidth: '15ch' }}>
+                    <Trans>TVL (on BOB)</Trans>
+                  </Dd>
+                  <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
+                    {strategy?.tvl ? format(strategy.tvl) : '-'}
                   </Dt>
                 </DlGroup>
                 {stakingInfo?.securityReview && (
