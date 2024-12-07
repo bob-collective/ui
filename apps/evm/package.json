@@ -28,6 +28,7 @@
     "@gobob/utils": "workspace:^",
     "@lingui/core": "catalog:",
     "@lingui/react": "catalog:",
+    "@next/third-parties": "^15.0.3",
     "@react-aria/button": "catalog:",
     "@react-aria/focus": "catalog:",
     "@react-aria/interactions": "catalog:",
