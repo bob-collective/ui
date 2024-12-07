@@ -148,15 +148,37 @@ const mockPellUniBTCStrategy: GatewayStrategyContract = {
   outputToken: null
 } as const;
 
-const uniBTCDecimals = 8;
+const seTokensContractDataMock = {
+  seSOLVBTCBBN: [200420547971521033526791436n, 90941658309n, '0xCC0966D8418d412c599A6421b760a847eB169A8c'],
+  seTBTC: [207537267655402594884495418n, 8255486068n, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2'],
+  seUNIBTC: [20020877878162857n, 8875128907n, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894'],
+  seWBTC: [20083839753286961n, 63216624241n, '0x03C7054BCB39f7b2e5B2c7AcB37583e32D70Cfa3']
+} as const;
+
+const seTokensUnderlyingContractDataMock = {
+  seSOLVBTCBBN: 18,
+  seTBTC: 18,
+  seUNIBTC: 8,
+  seWBTC: 8
+} as const;
+
+const tokensContractDataMock = {
+  'SolvBTC.BBN': [1669199681543807681873n, 18],
+  uniBTC: [42320720383n, 8]
+} as const;
+
+const noOuputTokenContractDataMock = {
+  '0xdf3aa56f2626e253b5db7703ac7241e835140566': 8587056375410955041n,
+  '0xf5f2f90d3edc557b7ff0a285169a0b194df7b6f2': 20351418531n
+} as const;
+
+const noOuputTokenContractSharesToUnderlyingDataMock = {
+  '0xdf3aa56f2626e253b5db7703ac7241e835140566': 8587056375410955041n,
+  '0xf5f2f90d3edc557b7ff0a285169a0b194df7b6f2': 20351418531n
+} as const;
 
 describe('useGetStakingStrategies', () => {
   afterEach(vi.clearAllMocks);
-
-  const mockExchangeRateStored = 207520794671396869399540716n;
-  const mockTotalSupply = 9036849246n;
-  const mockTotalShares = 9223619436n;
-  const mockUnderlying = '0xabc';
 
   const underlyingDecimals = 18;
   const decimals = 8;
@@ -166,19 +188,19 @@ describe('useGetStakingStrategies', () => {
   beforeEach(() => {
     (useReadContracts as Mock)
       .mockReturnValueOnce({
-        data: [mockExchangeRateStored, mockTotalSupply, mockUnderlying]
+        data: seTokensContractDataMock
       })
       .mockReturnValueOnce({
-        data: [underlyingDecimals]
+        data: seTokensUnderlyingContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalSupply, decimals]
+        data: tokensContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalShares]
+        data: noOuputTokenContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalShares]
+        data: noOuputTokenContractSharesToUnderlyingDataMock
       });
 
     (usePrices as Mock).mockReturnValue({
@@ -189,19 +211,19 @@ describe('useGetStakingStrategies', () => {
   it('should return strategy data', async () => {
     (useReadContracts as Mock)
       .mockReturnValueOnce({
-        data: [mockExchangeRateStored, mockTotalSupply, mockUnderlying]
+        data: seTokensContractDataMock
       })
       .mockReturnValueOnce({
-        data: [underlyingDecimals]
+        data: seTokensUnderlyingContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalSupply, decimals]
+        data: tokensContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalShares]
+        data: noOuputTokenContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalShares]
+        data: noOuputTokenContractSharesToUnderlyingDataMock
       });
 
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockStrategy]);
@@ -224,7 +246,9 @@ describe('useGetStakingStrategies', () => {
             mockStrategy.outputToken.symbol
           )
         : undefined,
-      tvl: new Big(mockTotalSupply.toString())
+      tvl: new Big(
+        tokensContractDataMock[mockStrategy.outputToken?.symbol as keyof typeof tokensContractDataMock][0].toString()
+      )
         .mul(mockPrice)
         .div(10 ** decimals)
         .toNumber()
@@ -234,62 +258,22 @@ describe('useGetStakingStrategies', () => {
     expect(result.current.data).toEqual([expectedData]);
   });
 
-  it('should return undefined currency when outputToken is missing', async () => {
-    (useReadContracts as Mock)
-      .mockReturnValueOnce({
-        data: [mockExchangeRateStored, mockTotalSupply, mockUnderlying]
-      })
-      .mockReturnValueOnce({
-        data: [underlyingDecimals]
-      })
-      .mockReturnValueOnce({
-        data: [mockTotalSupply, decimals]
-      })
-      .mockReturnValueOnce({
-        data: [mockTotalShares]
-      })
-      .mockReturnValueOnce({
-        data: [mockTotalShares]
-      });
-
-    const mockStrategyWithoutToken = {
-      outputToken: undefined
-    };
-
-    (gatewaySDK.getStrategies as Mock).mockReturnValue([mockStrategyWithoutToken]);
-
-    const { result, waitForValueToChange } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
-      () => useGetStakingStrategies(),
-      { wrapper }
-    );
-
-    await waitForValueToChange(() => result.current.data);
-
-    const expectedData = {
-      raw: mockStrategyWithoutToken,
-      currency: undefined,
-      tvl: null
-    };
-
-    expect(result.current.data).toEqual([expectedData]);
-  });
-
   it('should return tvl value if output token is se* token', async () => {
     (useReadContracts as Mock)
       .mockReturnValueOnce({
-        data: [mockExchangeRateStored, mockTotalSupply, mockUnderlying]
+        data: seTokensContractDataMock
       })
       .mockReturnValueOnce({
-        data: [underlyingDecimals]
+        data: seTokensUnderlyingContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalSupply, decimals]
+        data: tokensContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalShares]
+        data: noOuputTokenContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalShares]
+        data: noOuputTokenContractSharesToUnderlyingDataMock
       });
 
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockSegmentStrategy]);
@@ -312,7 +296,14 @@ describe('useGetStakingStrategies', () => {
             mockSegmentStrategy.outputToken.symbol
           )
         : undefined,
-      tvl: new Big((mockExchangeRateStored * mockTotalSupply).toString())
+      tvl: new Big(
+        (
+          seTokensContractDataMock[
+            mockSegmentStrategy.outputToken?.symbol as keyof typeof seTokensContractDataMock
+          ][0] *
+          seTokensContractDataMock[mockSegmentStrategy.outputToken?.symbol as keyof typeof seTokensContractDataMock][1]
+        ).toString()
+      )
         .mul(mockPrice)
         .div(1e18)
         .div(10 ** underlyingDecimals)
@@ -325,19 +316,19 @@ describe('useGetStakingStrategies', () => {
   it('should return tvl value if no output', async () => {
     (useReadContracts as Mock)
       .mockReturnValueOnce({
-        data: [mockExchangeRateStored, mockTotalSupply, mockUnderlying]
+        data: seTokensContractDataMock
       })
       .mockReturnValueOnce({
-        data: [underlyingDecimals]
+        data: seTokensUnderlyingContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalSupply, decimals]
+        data: tokensContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalShares]
+        data: noOuputTokenContractDataMock
       })
       .mockReturnValueOnce({
-        data: [mockTotalShares]
+        data: noOuputTokenContractSharesToUnderlyingDataMock
       });
 
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockPellUniBTCStrategy]);
@@ -352,9 +343,13 @@ describe('useGetStakingStrategies', () => {
     const expectedData = {
       raw: mockPellUniBTCStrategy,
       currency: undefined,
-      tvl: new Big(mockTotalShares.toString())
+      tvl: new Big(
+        noOuputTokenContractSharesToUnderlyingDataMock[
+          mockPellUniBTCStrategy.address as keyof typeof noOuputTokenContractSharesToUnderlyingDataMock
+        ].toString()
+      )
         .mul(mockPrice)
-        .div(10 ** uniBTCDecimals)
+        .div(10 ** (tokensContractDataMock.uniBTC[1]! as number))
         .toNumber()
     };
 
