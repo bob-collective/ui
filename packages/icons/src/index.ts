@@ -22,6 +22,8 @@ export { Metamask } from './Metamask';
 export { Moonbeam } from './Moonbeam';
 export { OKXWallet } from './OKXWallet';
 export { Optimism } from './Optimism';
+export { SuperchainEco } from './SuperchainEco';
+export { Superchain } from './Superchain';
 export { Polygon } from './Polygon';
 export { RabbyWallet } from './RabbyWallet';
 export { Spice } from './Spice';

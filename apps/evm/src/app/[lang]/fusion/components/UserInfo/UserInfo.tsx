@@ -23,7 +23,7 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
+import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -44,10 +44,11 @@ import { UserReferralModal } from './UserReferralModal';
 
 import { AppData } from '@/app/[lang]/apps/hooks';
 import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
-import { INTERVAL, isClient, RoutesPath } from '@/constants';
+import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
 import { fusionKeys } from '@/lib/react-query';
 import { SessionStorageKey } from '@/types';
 import { apiClient, QuestS3Response, UserResponse } from '@/utils';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -63,6 +64,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const params = useParams();
   const { i18n } = useLingui();
   const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
+    initializeWithValue: isClient
+  });
+  const [, setShowTopUserModal] = useLocalStorage(LocalStorageKey.SHOW_TOP_USER_MODAL, true, {
     initializeWithValue: isClient
   });
   const [, copy] = useCopyToClipboard();
@@ -104,9 +108,27 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       ? Number(tvlLevel.tvlGoal)
       : currentTvl + currentTvl * 0.2;
 
+  const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
+  const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
+
+  const isOpSuperuser = isOPSuperusersEnabled && user?.notices.isOpUser;
+  const showFusionTopUser = isTop100SpiceUsersEnabled && user?.notices.showIsFusionTopUser;
+
   return (
     <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
-      <Flex direction='row' justifyContent='flex-end'>
+      {showFusionTopUser && (
+        <P color='grey-50'>
+          <Trans>We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi.</Trans>
+        </P>
+      )}
+      <Flex alignItems='center' direction='row' justifyContent='flex-end'>
+        {showFusionTopUser && (
+          <Flex flex='1'>
+            <Button color='primary' size='s' variant='outline' onPress={() => setShowTopUserModal(true)}>
+              <Trans>Book a call with the founders</Trans>
+            </Button>
+          </Flex>
+        )}
         <Card padding='md'>
           <Dl direction='row' gap='xxs' justifyContent='space-between'>
             <DlGroup>
@@ -221,9 +243,15 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         <UserInfoCard
           description={user?.referral_code}
           title={t(i18n)`Your Referral Code`}
-          tooltipLabel={t(
-            i18n
-          )`Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer`}
+          tooltipLabel={
+            isOpSuperuser
+              ? t(
+                  i18n
+                )`Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign.`
+              : t(
+                  i18n
+                )`Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer`
+          }
         >
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (
@@ -248,7 +276,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             />
           )}
         </UserInfoCard>
-        <StyledMeterCard gap='s' justifyContent='space-between'>
+        <StyledMeterCard gap='s' justifyContent='space-between' style={{ position: 'relative' }}>
           <Flex direction='column' gap='md'>
             {isLoadingTvlLevel ? (
               <Flex direction='column'>

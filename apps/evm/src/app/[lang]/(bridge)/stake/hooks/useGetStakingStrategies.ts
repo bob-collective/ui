@@ -90,9 +90,31 @@ const useGetStakingStrategies = () => {
   });
 
   // se tokens contract data
+  const seTokenContractDataSelector = useCallback(
+    (data: (bigint | `0x${string}`)[]) => {
+      if (!strategies) return null;
+
+      return strategies.reduce(
+        (acc, strategy) => {
+          if (hasUnderlying(strategy.raw.outputToken?.symbol) && data) {
+            const idx = Object.keys(acc).length * 3;
+
+            // for each se* token we need tulpes of 3 call results
+            acc[strategy.raw.outputToken?.symbol] = data.slice(idx, idx + 3) as [bigint, bigint, Address];
+          }
+
+          return acc;
+        },
+        {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, Address]>
+      );
+    },
+    [strategies]
+  );
+
   const { data: seTokensContractData } = useReadContracts({
     query: {
-      enabled: isStrategiesSucess
+      enabled: isStrategiesSucess,
+      select: seTokenContractDataSelector
     },
     allowFailure: false,
     config: {
@@ -122,28 +144,31 @@ const useGetStakingStrategies = () => {
     )
   });
 
-  const seTokenContractDataCalls = useMemo(() => {
-    if (!strategies) return null;
-
-    return strategies.reduce(
-      (acc, strategy) => {
-        if (hasUnderlying(strategy.raw.outputToken?.symbol) && seTokensContractData) {
-          const idx = Object.keys(acc).length * 3;
-
-          // for each se* token we need tulpes of 3 call results
-          acc[strategy.raw.outputToken?.symbol] = seTokensContractData.slice(idx, idx + 3) as [bigint, bigint, Address];
-        }
-
-        return acc;
-      },
-      {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, Address]>
-    );
-  }, [seTokensContractData, strategies]);
-
   // se tokens underlying contract data
+  const seTokenUnderlyingContractDataSelector = useCallback(
+    (data: number[]) => {
+      if (!strategies) return null;
+
+      return strategies.reduce(
+        (acc, strategy) => {
+          if (hasUnderlying(strategy.raw.outputToken?.symbol) && data) {
+            const idx = Object.keys(acc).length;
+
+            acc[strategy.raw.outputToken?.symbol] = data[idx] as number;
+          }
+
+          return acc;
+        },
+        {} as Record<keyof typeof seTokenToUnderlyingMapping, number>
+      );
+    },
+    [strategies]
+  );
+
   const { data: seTokensUnderlyingContractData } = useReadContracts({
     query: {
-      enabled: isStrategiesSucess
+      enabled: isStrategiesSucess,
+      select: seTokenUnderlyingContractDataSelector
     },
     allowFailure: false,
     config: {
@@ -154,7 +179,7 @@ const useGetStakingStrategies = () => {
       hasUnderlying(strategy.raw.outputToken?.symbol)
         ? ([
             {
-              address: seTokenContractDataCalls?.[strategy.raw.outputToken?.symbol]?.[2] as Address,
+              address: seTokensContractData?.[strategy.raw.outputToken?.symbol]?.[2] as Address,
               abi: erc20Abi,
               functionName: 'decimals'
             }
@@ -163,27 +188,31 @@ const useGetStakingStrategies = () => {
     )
   });
 
-  const seTokenUnderlyingContractDataCalls = useMemo(() => {
-    if (!strategies) return null;
-
-    return strategies.reduce(
-      (acc, strategy) => {
-        if (hasUnderlying(strategy.raw.outputToken?.symbol) && seTokensUnderlyingContractData) {
-          const idx = Object.keys(acc).length;
-
-          acc[strategy.raw.outputToken?.symbol] = seTokensUnderlyingContractData[idx] as number;
-        }
-
-        return acc;
-      },
-      {} as Record<keyof typeof seTokenToUnderlyingMapping, number>
-    );
-  }, [seTokensUnderlyingContractData, strategies]);
-
   // erc20 tokens contract data
+  const tokensContractDataSelector = useCallback(
+    (data: (number | bigint)[]) => {
+      if (!strategies) return null;
+
+      return strategies.reduce(
+        (acc, strategy) => {
+          if (hasCGId(strategy.raw.outputToken?.symbol) && data) {
+            const idx = Object.keys(acc).length * 2;
+
+            acc[strategy.raw.outputToken?.symbol] = data.slice(idx, idx + 2) as [bigint, number];
+          }
+
+          return acc;
+        },
+        {} as Record<keyof typeof tokenToIdMapping, [bigint, number]>
+      );
+    },
+    [strategies]
+  );
+
   const { data: tokensContractData } = useReadContracts({
     query: {
-      enabled: isStrategiesSucess
+      enabled: isStrategiesSucess,
+      select: tokensContractDataSelector
     },
     allowFailure: false,
     config: {
@@ -208,27 +237,31 @@ const useGetStakingStrategies = () => {
     )
   });
 
-  const tokensContractDataCalls = useMemo(() => {
-    if (!strategies) return null;
-
-    return strategies.reduce(
-      (acc, strategy) => {
-        if (hasCGId(strategy.raw.outputToken?.symbol) && tokensContractData) {
-          const idx = Object.keys(acc).length * 2;
-
-          acc[strategy.raw.outputToken?.symbol] = tokensContractData.slice(idx, idx + 2) as [bigint, number];
-        }
-
-        return acc;
-      },
-      {} as Record<keyof typeof tokenToIdMapping, [bigint, number]>
-    );
-  }, [strategies, tokensContractData]);
-
   // no output token strategies contract data
+  const noOuputTokenContractDataSelector = useCallback(
+    (data: bigint[]) => {
+      if (!strategies) return null;
+
+      return strategies.reduce(
+        (acc, strategy) => {
+          if (hasNoOutputToken(strategy.raw.address) && data) {
+            const idx = Object.keys(acc).length;
+
+            acc[strategy.raw.address] = data[idx] as bigint;
+          }
+
+          return acc;
+        },
+        {} as Record<keyof typeof tokenToIdMapping, bigint>
+      );
+    },
+    [strategies]
+  );
+
   const { data: noOuputTokenContractData } = useReadContracts({
     query: {
-      enabled: isStrategiesSucess
+      enabled: isStrategiesSucess,
+      select: noOuputTokenContractDataSelector
     },
     allowFailure: false,
     config: {
@@ -248,58 +281,45 @@ const useGetStakingStrategies = () => {
     )
   });
 
-  const noOuputTokenContractDataCalls = useMemo(() => {
-    if (!strategies) return null;
+  const noOuputTokenContractSharesToUnderlyingDataSelector = useCallback(
+    (data: bigint[]) => {
+      if (!strategies) return null;
 
-    return strategies.reduce(
-      (acc, strategy) => {
-        if (hasNoOutputToken(strategy.raw.address) && noOuputTokenContractData) {
-          const idx = Object.keys(acc).length;
+      return strategies.reduce(
+        (acc, strategy) => {
+          if (hasNoOutputToken(strategy.raw.address) && data) {
+            const idx = Object.keys(acc).length;
 
-          acc[strategy.raw.address] = noOuputTokenContractData[idx] as bigint;
-        }
+            acc[strategy.raw.address] = data[idx] as bigint;
+          }
 
-        return acc;
-      },
-      {} as Record<keyof typeof tokenToIdMapping, bigint>
-    );
-  }, [noOuputTokenContractData, strategies]);
+          return acc;
+        },
+        {} as Record<keyof typeof tokenToIdMapping, bigint>
+      );
+    },
+    [strategies]
+  );
 
   const { data: noOuputTokenContractSharesToUnderlyingData } = useReadContracts({
     query: {
-      enabled: isStrategiesSucess
+      enabled: isStrategiesSucess,
+      select: noOuputTokenContractSharesToUnderlyingDataSelector
     },
     allowFailure: false,
     contracts: strategies?.flatMap((strategy) =>
-      hasNoOutputToken(strategy.raw.address) && noOuputTokenContractDataCalls?.[strategy.raw.address]
+      hasNoOutputToken(strategy.raw.address) && noOuputTokenContractData?.[strategy.raw.address]
         ? ([
             {
               address: strategyToLimitsMapping[strategy.raw.address] as Address,
               abi: strategyBaseTVLLimitAbi,
               functionName: 'sharesToUnderlyingView',
-              args: [noOuputTokenContractDataCalls[strategy.raw.address]]
+              args: [noOuputTokenContractData[strategy.raw.address]]
             }
           ] as const)
         : ([] as const)
     )
   });
-
-  const noOuputTokenContractSharesToUnderlyingDataCalls = useMemo(() => {
-    if (!strategies) return null;
-
-    return strategies.reduce(
-      (acc, strategy) => {
-        if (hasNoOutputToken(strategy.raw.address) && noOuputTokenContractSharesToUnderlyingData) {
-          const idx = Object.keys(acc).length;
-
-          acc[strategy.raw.address] = noOuputTokenContractSharesToUnderlyingData[idx] as bigint;
-        }
-
-        return acc;
-      },
-      {} as Record<keyof typeof tokenToIdMapping, bigint>
-    );
-  }, [noOuputTokenContractSharesToUnderlyingData, strategies]);
 
   // get prices
   const { getPrice } = usePrices();
@@ -309,15 +329,11 @@ const useGetStakingStrategies = () => {
       strategies?.map((strategy) => {
         const symbol = strategy.raw.outputToken?.symbol;
 
-        if (
-          hasUnderlying(symbol) &&
-          seTokenContractDataCalls?.[symbol] &&
-          seTokenUnderlyingContractDataCalls?.[symbol]
-        ) {
+        if (hasUnderlying(symbol) && seTokensContractData?.[symbol] && seTokensUnderlyingContractData?.[symbol]) {
           // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
           // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-          const [exchangeRateStored, totalSupply] = seTokenContractDataCalls[symbol]!;
-          const underlyingDecimals = seTokenUnderlyingContractDataCalls[symbol]!;
+          const [exchangeRateStored, totalSupply] = seTokensContractData[symbol]!;
+          const underlyingDecimals = seTokensUnderlyingContractData[symbol]!;
 
           const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
           const underlyingTicker = seTokenToUnderlyingMapping[symbol];
@@ -333,8 +349,8 @@ const useGetStakingStrategies = () => {
           };
         }
 
-        if (hasCGId(symbol) && tokensContractDataCalls?.[symbol]) {
-          const [totalSupply, decimals] = tokensContractDataCalls[symbol]!;
+        if (hasCGId(symbol) && tokensContractData?.[symbol]) {
+          const [totalSupply, decimals] = tokensContractData[symbol]!;
           const ticker = tokenToIdMapping[symbol];
           const price = getPrice(ticker!);
 
@@ -349,8 +365,8 @@ const useGetStakingStrategies = () => {
 
         const strategyAddress = strategy.raw.address;
 
-        if (hasNoOutputToken(strategyAddress) && noOuputTokenContractSharesToUnderlyingDataCalls?.[strategyAddress]) {
-          const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingDataCalls[strategyAddress]!;
+        if (hasNoOutputToken(strategyAddress) && noOuputTokenContractSharesToUnderlyingData?.[strategyAddress]) {
+          const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingData[strategyAddress]!;
           const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
           const [ticker, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
           const price = getPrice(ticker!);
@@ -371,10 +387,10 @@ const useGetStakingStrategies = () => {
       }),
     [
       strategies,
-      seTokenContractDataCalls,
-      seTokenUnderlyingContractDataCalls,
-      tokensContractDataCalls,
-      noOuputTokenContractSharesToUnderlyingDataCalls,
+      seTokensContractData,
+      seTokensUnderlyingContractData,
+      tokensContractData,
+      noOuputTokenContractSharesToUnderlyingData,
       getPrice
     ]
   );

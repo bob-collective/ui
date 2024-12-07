@@ -12,8 +12,8 @@ type InheritAttrs = Omit<CardProps, keyof Props>;
 type UserInfoCardProps = Props & InheritAttrs;
 
 const UserInfoCard = ({ description, title, tooltipLabel, children, ...props }: UserInfoCardProps) => (
-  <Card flex={1} gap='md' justifyContent='space-between' {...props}>
-    <Flex direction='column' gap='md'>
+  <Card flex={1} gap='md' justifyContent='space-between' style={{ position: 'relative' }} {...props}>
+    <Flex direction='column' gap='md' style={{ zIndex: 1 }}>
       <Flex alignItems='center' gap='s'>
         <Dt>{title}</Dt>
         {tooltipLabel && (

@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useAccount } from 'wagmi';
 
 import { useGetUser } from '@/hooks';
 import { appsKeys, fusionKeys } from '@/lib/react-query';
@@ -9,10 +8,8 @@ const useVote = () => {
   const queryClient = useQueryClient();
   const { data: user } = useGetUser();
 
-  const { address } = useAccount();
-
   return useMutation({
-    mutationKey: appsKeys.vote(address),
+    mutationKey: appsKeys.vote(user?.username),
     mutationFn: async ({ isRetract, refCode }: { refCode: string; isRetract: boolean }) => {
       if (isRetract) {
         return apiClient.retractVote(refCode);

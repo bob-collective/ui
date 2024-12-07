@@ -1,5 +1,6 @@
-/** @type {import('@lingui/conf').LinguiConfig} */
-module.exports = {
+import { LinguiConfig } from '@lingui/conf';
+
+const config = {
   locales: ['en', 'zh'],
   sourceLocale: 'en',
   fallbackLocales: {
@@ -11,4 +12,6 @@ module.exports = {
       include: ['src/']
     }
   ]
-};
+} as const satisfies LinguiConfig;
+
+export default config;
