@@ -27,6 +27,9 @@ catalogs:
     '@lingui/swc-plugin':
       specifier: 4.0.8
       version: 4.0.8
+    '@next/third-parties':
+      specifier: ^15.0.3
+      version: 15.0.4
     '@react-aria/button':
       specifier: ^3.8.1
       version: 3.9.5
@@ -304,7 +307,7 @@ importers:
         specifier: 'catalog:'
         version: 4.12.0(react@18.3.1)
       '@next/third-parties':
-        specifier: ^15.0.3
+        specifier: 'catalog:'
         version: 15.0.4(next@14.2.15(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(@playwright/test@1.44.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@react-aria/tag':
         specifier: ^3.4.7
@@ -479,7 +482,7 @@ importers:
         specifier: 'catalog:'
         version: 4.12.0(react@18.3.1)
       '@next/third-parties':
-        specifier: ^15.0.3
+        specifier: 'catalog:'
         version: 15.0.4(next@14.2.15(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(@playwright/test@1.44.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@react-aria/button':
         specifier: 'catalog:'
