@@ -19,6 +19,9 @@ declare global {
 
       NEXT_COINGECKO_API_KEY: string;
 
+      NEXT_PUBLIC_GTM_ID: string;
+      NEXT_PUBLIC_GA_ID: string;
+
       KV_REST_API_URL: string;
       KV_REST_API_TOKEN: string;
 

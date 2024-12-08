@@ -4,6 +4,8 @@ import { Inter, Chakra_Petch } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import { t } from '@lingui/macro';
 import { userAgentFromString } from 'next/server';
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 import { cookieToInitialState } from 'wagmi';
 
 import linguiConfig from '../../../lingui.config';
@@ -18,8 +20,8 @@ import { UserAgentProvider } from '@/user-agent/provider';
 import { getConfig } from '@/lib/wagmi';
 import { isProd } from '@/constants';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
 const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }));
@@ -69,7 +71,9 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
   const initialState = cookieToInitialState(getConfig({ isProd }), headers().get('cookie'));
 
   return (
-    <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
+    <html className={`${chakraPetch.className} ${inter.className}`} lang={lang}>
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       <body>
         <div id='root'>
           <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
@@ -79,7 +83,7 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
           </LinguiClientProvider>
         </div>
         {/* <!-- Fathom - beautiful, simple website analytics --> */}
-        <script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />
+        <Script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />
         {/* <!-- / Fathom --> */}
       </body>
     </html>
