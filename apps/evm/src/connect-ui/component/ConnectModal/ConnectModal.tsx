@@ -121,9 +121,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         setPendingConnector(connector);
 
         try {
-          await connectAsync({
+          const connectData = await connectAsync({
             connector
           });
+
+          sendGTMEvent({ event: 'evm-conenct', address: connectData.accounts });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);
