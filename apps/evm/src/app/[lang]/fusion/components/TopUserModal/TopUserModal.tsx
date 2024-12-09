@@ -23,7 +23,7 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
 
   useCalendlyEventListener({
     onEventScheduled: (event) => {
-      sendGTMEvent(event.data); // send `.event` and `.payload`
+      sendGTMEvent(event.data);
       onClose(true);
     }
   });

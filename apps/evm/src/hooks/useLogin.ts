@@ -39,7 +39,7 @@ const useLogin = () => {
       await apiClient.verify(message, signature);
     },
     onSuccess: async (_, address) => {
-      sendGTMEvent({ event: 'login', address });
+      sendGTMEvent({ event: 'login', payload: { address } });
       setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

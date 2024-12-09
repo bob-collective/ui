@@ -42,7 +42,12 @@ const useSignUp = () => {
       await apiClient.signUp(message, signature);
     },
     onSuccess: (_, address) => {
-      sendGTMEvent({ event: 'signup', walletAddress: address });
+      sendGTMEvent({
+        event: 'signup',
+        payload: {
+          address
+        }
+      });
       setTimeout(() => refetchUser(), 100);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
