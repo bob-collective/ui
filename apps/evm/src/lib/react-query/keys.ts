@@ -90,6 +90,6 @@ export const fusionKeys = {
   lotteryRoll: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-roll', username] as string[],
   lotteryTimeToNextDraw: () => [...fusionKeys.fusion(), 'lottery-time-to-next-draw'],
   topUserModal: (username: string | undefined) => [...fusionKeys.fusion(), 'top-user-modal', username] as string[],
-  OPSuperuserModal: (username: string | undefined) =>
+  opSuperuserModal: (username: string | undefined) =>
     [...fusionKeys.fusion(), 'op-superuser-modal', username] as string[]
 };

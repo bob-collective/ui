@@ -9,7 +9,7 @@ const useDismissOPSuperuserModal = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: fusionKeys.OPSuperuserModal(user?.username),
+    mutationKey: fusionKeys.opSuperuserModal(user?.username),
     mutationFn: () => apiClient.dismissOPUserModal(),
     onSuccess() {
       queryClient.setQueryData(

@@ -273,7 +273,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:37
 msgid "BOB is bringing Bitcoin DeFi to the Superchain, and to celebrate, active Superchain ecosystem users like you have unlocked an exclusive BOB Spice bonus."
-msgstr ""
+msgstr "将比特币 DeFi 引入OP超级链"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:301
 msgid "BOB TVL Progress"
@@ -1718,12 +1718,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/Fusion.tsx:168
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
-msgstr ""
-
-#: src/app/[lang]/(bridge)/components/BannerCarousel/OPBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:168
-#~ msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more&Hat;"
-#~ msgstr ""
+msgstr "为庆祝 BOB 加入”超级链”，您已符合资格获得 OP 专属奖励：2024 年 12 月 9 日至 2025 年 1 月 12 日期间收获的所有 Spice 可享额外 50% 奖励。<0>了解更多</0>"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:206
