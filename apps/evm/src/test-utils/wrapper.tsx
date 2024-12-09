@@ -16,7 +16,7 @@ export const wrapper = ({ children }: PropsWithChildren) => {
     <LinguiClientProvider initialLocale='en' initialMessages={{}}>
       <DynamicContextProvider
         settings={{
-          environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID as string,
+          environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID,
           walletConnectors: [BitcoinWalletConnectors, EthereumWalletConnectors]
         }}
       >
