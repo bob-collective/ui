@@ -1,25 +1,30 @@
 'use client';
 
-import { Card, Flex, H1, H2, Link, P } from '@gobob/ui';
-import { t, Trans } from '@lingui/macro';
+import { Card, Flex, H1, H2, Link, P, useMediaQuery } from '@gobob/ui';
+import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import x from '@public/assets/x.png';
-import { useCallback, useEffect, useId, useState } from 'react';
-import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import { useEffect, useId, useState } from 'react';
 import { useAccount } from 'wagmi';
+import superchainEco from '@public/assets/partners/superchain-eco.png';
+import Image from 'next/image';
+import { useTheme } from 'styled-components';
 
 import { useGetApps } from '../apps/hooks';
 
 import {
   CommunityVoting,
   Leaderboard,
+  LotterySection,
+  OpSuperuserModal,
   Quest,
   Strategies,
   UserInfo,
   WelcomeBackModal,
-  WelcomeModal
+  WelcomeModal,
+  TopUserModal
 } from './components';
-import { LotterySection } from './components/LotterySections';
 import {
   StyledBackground,
   StyledBannerImg,
@@ -30,11 +35,11 @@ import {
   StyledMain,
   StyledStrategiesWrapper
 } from './Fusion.style';
-import { useGetQuests } from './hooks';
+import { useDismissOPSuperuserModal, useDismissTopUserModal, useGetQuests } from './hooks';
 
 import { Geoblock } from '@/components';
-import { isClient, LocalStorageKey } from '@/constants';
-import { useGetUser } from '@/hooks';
+import { LocalStorageKey } from '@/constants';
+import { FeatureFlags, useFeatureFlag, useGetUser } from '@/hooks';
 import { SessionStorageKey } from '@/types';
 
 const Fusion = () => {
@@ -43,8 +48,35 @@ const Fusion = () => {
   const { data: user } = useGetUser();
   const { data: apps } = useGetApps();
   const { data: quests } = useGetQuests();
+  const { mutate: dismissTopUserModal } = useDismissTopUserModal();
+  const { mutate: dismissOPSuperuserModal } = useDismissOPSuperuserModal();
+  const isClient = useIsClient();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
+  const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
 
   const questsSectionId = useId();
+
+  const [showTopUserModal, setShowTopUserModal] = useLocalStorage(LocalStorageKey.SHOW_TOP_USER_MODAL, true, {
+    initializeWithValue: isClient
+  });
+
+  const [showOPSuperuserModal, setShowOPSuperuserModal] = useLocalStorage(
+    LocalStorageKey.SHOW_OP_SUPERUSER_MODAL,
+    true,
+    { initializeWithValue: isClient }
+  );
+
+  const onCloseTopUserModal = (shouldDismissTopUserModal: boolean) => {
+    setShowTopUserModal(false);
+    if (shouldDismissTopUserModal) dismissTopUserModal();
+  };
+
+  const onCloseOPUserModal = (shouldDismissOPSuperuserModal: boolean) => {
+    setShowOPSuperuserModal(false);
+    if (shouldDismissOPSuperuserModal) dismissOPSuperuserModal();
+  };
 
   const [scrollQuests, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
     initializeWithValue: isClient
@@ -64,11 +96,13 @@ const Fusion = () => {
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
-  const onPressBanner = useCallback(
-    () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer'),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  const onPressXBanner = () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
+  const onPressOPBanner = () =>
+    window.open(
+      'https://blog.gobob.xyz/posts/bob-hybrid-l2-joins-superchain-to-accelerate-bitcoin-defi',
+      '_blank',
+      'noreferrer'
+    );
 
   useEffect(() => {
     if (scrollQuests) {
@@ -79,6 +113,10 @@ const Fusion = () => {
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
+  const shouldDisplayOPSuperuserModal = isOPSuperusersEnabled && showOPSuperuserModal && user?.notices.showIsOpUser;
+  const shouldDisplayTopUserModal = isTop100SpiceUsersEnabled && showTopUserModal && user?.notices.showIsFusionTopUser;
+  const isOpSuperuser = isOPSuperusersEnabled && user?.notices.isOpUser;
+  const isFusionTopUser = isTop100SpiceUsersEnabled && user?.is_fusion_top_user;
 
   return (
     <Geoblock>
@@ -89,7 +127,11 @@ const Fusion = () => {
           <StyledHeroSection direction='column'>
             <Flex direction='column' gap='lg'>
               <H1 size='4xl'>
-                <Trans>BOB Fusion: The Final Season</Trans>
+                {isFusionTopUser ? (
+                  <Trans>You are one of the top 100 Spice holders in BOB Fusion</Trans>
+                ) : (
+                  <Trans>BOB Fusion: The Final Season</Trans>
+                )}
               </H1>
               <P color='grey-50'>
                 <Trans>
@@ -107,24 +149,66 @@ const Fusion = () => {
               </P>
             </Flex>
             <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
-            <Flex direction='column' marginTop='lg'>
-              <Card
-                isPressable
-                justifyContent='center'
-                paddingX='xl'
-                paddingY='6xl'
-                style={{ position: 'relative', maxHeight: '8.5rem' }}
-                onPress={onPressBanner}
-              >
-                <H2 size='2xl' weight='bold'>
-                  <Trans>Follow us on X</Trans>
-                </H2>
-                <P color='grey-50'>
-                  <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
-                </P>
-                <StyledBannerImg alt='x' height='123' placeholder='blur' src={x} width='336' />
-              </Card>
-            </Flex>
+            {isOpSuperuser ? (
+              <Flex direction='column' marginTop='lg'>
+                <Card
+                  isPressable
+                  justifyContent='center'
+                  paddingX='xl'
+                  paddingY='6xl'
+                  style={{ position: 'relative', maxHeight: '8.5rem' }}
+                  onPress={onPressOPBanner}
+                >
+                  <Flex alignItems='center' justifyContent='center'>
+                    <Flex direction='column'>
+                      <H2 size='2xl' weight='bold'>
+                        <Trans>Bringing Bitcoin DeFi to the Superchain</Trans>
+                      </H2>
+                      <P color='grey-50'>
+                        <Trans>
+                          To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on
+                          all Spice harvested between 9 December 2024 and 12 January 2025.{' '}
+                          <Link href='https://blog.gobob.xyz/posts/bob-hybrid-l2-joins-superchain-to-accelerate-bitcoin-defi'>
+                            Learn more
+                          </Link>
+                        </Trans>
+                      </P>
+                    </Flex>
+                    <Image
+                      alt={t(i18n)`Superchain Eco`}
+                      height='123'
+                      placeholder='blur'
+                      src={superchainEco}
+                      style={{
+                        position: isMobile ? 'absolute' : undefined,
+                        opacity: isMobile ? 0.2 : undefined,
+                        height: 'auto'
+                      }}
+                      width='336'
+                    />
+                  </Flex>
+                </Card>
+              </Flex>
+            ) : (
+              <Flex direction='column' marginTop='lg'>
+                <Card
+                  isPressable
+                  justifyContent='center'
+                  paddingX='xl'
+                  paddingY='6xl'
+                  style={{ position: 'relative', maxHeight: '8.5rem' }}
+                  onPress={onPressXBanner}
+                >
+                  <H2 size='2xl' weight='bold'>
+                    <Trans>Follow us on X</Trans>
+                  </H2>
+                  <P color='grey-50'>
+                    <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
+                  </P>
+                  <StyledBannerImg alt='x' height='123' placeholder='blur' src={x} width='336' />
+                </Card>
+              </Flex>
+            )}
             <LotterySection />
           </StyledHeroSection>
         </StyledHeroSectionWrapper>
@@ -138,7 +222,11 @@ const Fusion = () => {
           <CommunityVoting />
           <Leaderboard />
           {user ? (
-            hasPastHarvest ? (
+            shouldDisplayOPSuperuserModal ? (
+              <OpSuperuserModal isOpen={shouldDisplayOPSuperuserModal} onClose={onCloseOPUserModal} />
+            ) : shouldDisplayTopUserModal ? (
+              <TopUserModal isOpen={shouldDisplayTopUserModal} onClose={onCloseTopUserModal} />
+            ) : hasPastHarvest ? (
               <WelcomeBackModal
                 isOpen={!isHideFusionWelcomeBackModal && isAuthenticated}
                 user={user}
