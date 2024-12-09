@@ -12,7 +12,7 @@ const getSizeStyles = (width: string, height: string, percentage: string): Switc
     width: `calc(${height} * ${percentage})`,
     height: `calc(${height} * ${percentage})`,
     transform: `translateX(calc(${width} / 15))`,
-    top: `calc(50% - (${height} * 0.35))`,
+    top: `calc(50% - (${height} * 0.375))`,
     left: 0
   },
   checked: {
