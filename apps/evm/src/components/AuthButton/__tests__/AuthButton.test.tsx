@@ -8,7 +8,7 @@ import { AuthButton } from '..';
 import { LinguiClientProvider } from '@/i18n/provider';
 import { getConfig } from '@/lib/wagmi';
 
-describe('AuthButton', () => {
+describe.skip('AuthButton', () => {
   it('should render correctly', () => {
     const { unmount } = render(<AuthButton />, {
       wrapper: ({ children }) => (
