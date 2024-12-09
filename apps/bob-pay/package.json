@@ -26,6 +26,7 @@
     "@gobob/tokens": "workspace:^",
     "@gobob/ui": "workspace:^",
     "@gobob/utils": "workspace:^",
+    "@next/third-parties": "catalog:",
     "@lingui/core": "catalog:",
     "@lingui/react": "catalog:",
     "@react-aria/tag": "^3.4.7",
