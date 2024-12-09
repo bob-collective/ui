@@ -1,8 +1,11 @@
 import { Button, Flex, H3, Link, Modal, ModalBody, ModalFooter, ModalProps, P, Switch } from '@gobob/ui';
 import { colors } from '@gobob/ui/src/theme/themes/bob/colors';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { PopupModal, useCalendlyEventListener } from 'react-calendly';
+import top100SpiceUser from '@public/assets/top-100-spice.webp';
+import Image from 'next/image';
+import { useLingui } from '@lingui/react';
 // import { sendGTMEvent } from '@next/third-parties/google';
 
 type Props = {
@@ -16,6 +19,7 @@ type TopUserModalProps = Props & InheritAttrs;
 const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Element => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [shouldHideForever, setShouldHideForever] = useState(false);
+  const { i18n } = useLingui();
 
   useCalendlyEventListener({
     onEventScheduled: () => {
@@ -27,6 +31,16 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
   return (
     <>
       <Modal {...props} isOpen={isOpen && !isCalendlyOpen} size='lg'>
+        <Image
+          alt={t(i18n)`Top 100 spice user`}
+          placeholder='blur'
+          sizes='100vw'
+          src={top100SpiceUser}
+          style={{
+            width: '100%',
+            height: 'auto'
+          }}
+        />
         <ModalBody gap='xl' padding='2xl'>
           <H3 size='3xl'>
             <Trans>You are one of the top 100 Spice holders in BOB Fusion</Trans>

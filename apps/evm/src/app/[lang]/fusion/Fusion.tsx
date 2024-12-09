@@ -1,14 +1,15 @@
 'use client';
 
-import { Card, Flex, H1, H2, Link, P } from '@gobob/ui';
+import { Card, Flex, H1, H2, Link, P, useMediaQuery } from '@gobob/ui';
 import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import x from '@public/assets/x.png';
 import { useEffect, useId, useState } from 'react';
 import { useAccount } from 'wagmi';
-import superchainEco from '@public/assets/superchain-eco.png';
+import superchainEco from '@public/assets/partners/superchain-eco.png';
 import Image from 'next/image';
+import { useTheme } from 'styled-components';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -50,6 +51,8 @@ const Fusion = () => {
   const { mutate: dismissTopUserModal } = useDismissTopUserModal();
   const { mutate: dismissOPSuperuserModal } = useDismissOPSuperuserModal();
   const isClient = useIsClient();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
   const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
 
@@ -177,6 +180,8 @@ const Fusion = () => {
                       placeholder='blur'
                       src={superchainEco}
                       style={{
+                        position: isMobile ? 'absolute' : undefined,
+                        opacity: isMobile ? 0.2 : undefined,
                         height: 'auto'
                       }}
                       width='336'

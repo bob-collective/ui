@@ -9,6 +9,10 @@ export enum QuestRefCodes {
   INTRACT = '6y2pac'
 }
 
+interface PostResponse {
+  ok: boolean;
+}
+
 type Logos = { default?: string };
 
 interface DepositStat {
@@ -582,22 +586,22 @@ class ApiClient {
     return this.handleResponse<ProjectVotingInfo>(response);
   }
 
-  async dismissTopUserModal(): Promise<unknown> {
+  async dismissTopUserModal(): Promise<PostResponse> {
     const response = await fetch(`${this.baseUrl}/me/dismiss-fusion-top-user-notice`, {
       method: 'POST',
       credentials: 'include'
     });
 
-    return response.json();
+    return this.handleResponse<PostResponse>(response);
   }
 
-  async dismissOPUserModal(): Promise<unknown> {
+  async dismissOPUserModal(): Promise<PostResponse> {
     const response = await fetch(`${this.baseUrl}/me/dismiss-op-user-notice`, {
       method: 'POST',
       credentials: 'include'
     });
 
-    return response.json();
+    return this.handleResponse<PostResponse>(response);
   }
 
   async getLastVotingResults(): Promise<ResultProjectVotingInfo> {

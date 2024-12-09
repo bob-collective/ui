@@ -3,10 +3,11 @@ import { formatDistanceToNow } from 'date-fns';
 
 import { getLocale } from '@/utils';
 import { INTERVAL } from '@/constants';
+import { fusionKeys } from '@/lib/react-query';
 
 const useTimeToNextDraw = (lang: 'en' | 'zh' = 'en') => {
   return useQuery({
-    queryKey: ['lottery-time-to-next-draw'],
+    queryKey: fusionKeys.lotteryTimeToNextDraw(),
     queryFn: () => {
       const date = new Date();
 
