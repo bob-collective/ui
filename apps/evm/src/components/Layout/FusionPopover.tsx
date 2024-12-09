@@ -46,7 +46,7 @@ const FusionPopover = (): JSX.Element | null => {
           <StyledChip
             {...focusProps}
             $isFocusVisible={isFocusVisible}
-            borderColor={isOpSuperuser ? 'red-500' : 'grey-300'}
+            borderColor={isOPSuperusersEnabled && isOpSuperuser ? 'red-500' : 'grey-300'}
             rounded='md'
             style={
               isOPSuperusersEnabled && isOpSuperuser
