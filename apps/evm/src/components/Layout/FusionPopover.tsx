@@ -20,11 +20,12 @@ import { SpiceAmount } from '../SpiceAmount';
 
 import { StyledChip, StyledContentWrapper, StyledHarvestCard, StyledOpacityOverlay } from './FusionPopover.style';
 
-import { useGetUser, useHaltedLockedTokens, useLockedTokens } from '@/hooks';
+import { FeatureFlags, useFeatureFlag, useGetUser, useHaltedLockedTokens, useLockedTokens } from '@/hooks';
 
 const FusionPopover = (): JSX.Element | null => {
   const { data: user } = useGetUser();
   const { locale } = useLocale();
+  const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
 
   useLockedTokens();
   useHaltedLockedTokens();
@@ -47,7 +48,11 @@ const FusionPopover = (): JSX.Element | null => {
             $isFocusVisible={isFocusVisible}
             borderColor={isOpSuperuser ? 'red-500' : 'grey-300'}
             rounded='md'
-            style={isOpSuperuser ? { borderColor: 'FF0420', background: 'rgba(255, 4, 32, .1)' } : {}}
+            style={
+              isOPSuperusersEnabled && isOpSuperuser
+                ? { borderColor: 'FF0420', background: 'rgba(255, 4, 32, .1)' }
+                : undefined
+            }
           >
             <Flex alignItems='center' gap='xs'>
               <Spice size='xs' />
