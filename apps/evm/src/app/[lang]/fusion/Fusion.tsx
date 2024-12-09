@@ -7,7 +7,8 @@ import { useLingui } from '@lingui/react';
 import x from '@public/assets/x.png';
 import { useEffect, useId, useState } from 'react';
 import { useAccount } from 'wagmi';
-import { Superchain } from '@gobob/icons';
+import superchainEco from '@public/assets/superchain-eco.png';
+import Image from 'next/image';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -170,13 +171,15 @@ const Fusion = () => {
                         </Trans>
                       </P>
                     </Flex>
-                    <Superchain
-                      size='4xl'
+                    <Image
+                      alt={t(i18n)`Superchain Eco`}
+                      height='123'
+                      placeholder='blur'
+                      src={superchainEco}
                       style={{
-                        width: '10rem',
-                        top: 0,
-                        right: 0
+                        height: 'auto'
                       }}
+                      width='336'
                     />
                   </Flex>
                 </Card>
