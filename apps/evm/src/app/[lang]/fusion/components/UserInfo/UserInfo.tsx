@@ -9,7 +9,6 @@ import {
   Dt,
   Flex,
   H3,
-  InformationCircle,
   Link,
   P,
   Skeleton,
@@ -144,26 +143,42 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       </Flex>
       <StyledDl aria-hidden={!isAuthenticated && 'true'} gap='lg'>
         <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
-          <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
+          <Flex direction='column' flex={{ base: 1 }} gap='lg' justifyContent='space-between'>
             <DlGroup alignItems='flex-start' direction='column'>
               <Dt>
                 <Trans>Season 3 Harvested Spice</Trans>
               </Dt>
-              <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
+              <Flex wrap alignItems='center' elementType='dd' gap='s'>
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
-                <Flex alignItems='center' gap='xs'>
-                  <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
-                    (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/
-                    <Trans>Last 24 hours</Trans>)
+                <Flex gap='s'>
+                  <Span size='2xl' style={{ lineHeight: 1.2 }}>
+                    +
+                  </Span>
+                  <NebuPoints showAnimation amount={totalPoints} size='2xl' />
+                </Flex>
+              </Flex>
+            </DlGroup>
+            <DlGroup alignItems='flex-start' direction='column'>
+              <Flex alignItems='center' elementType='dt' gap='s'>
+                <Span color='grey-50' size='s'>
+                  <Trans>Last 24 hours</Trans>
+                </Span>
+                <Tooltip
+                  color='primary'
+                  label={t(
+                    i18n
+                  )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes.`}
+                >
+                  <SolidInformationCircle color='grey-50' size='xs' />
+                </Tooltip>
+              </Flex>
+              <Flex alignItems='center' elementType='dd' gap='xs'>
+                <Flex wrap alignItems='center' elementType='dd' gap='s'>
+                  <SpiceAmount showAnimation amount={spicePerDay || 0} />
+                  <Flex gap='s'>
+                    <Span style={{ lineHeight: 1.2 }}>+</Span>
+                    <NebuPoints showAnimation amount={spicePerDay || 0} />
                   </Flex>
-                  <Tooltip
-                    color='primary'
-                    label={t(
-                      i18n
-                    )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes.`}
-                  >
-                    <InformationCircle color='grey-50' size='xs' />
-                  </Tooltip>
                 </Flex>
               </Flex>
             </DlGroup>
@@ -176,13 +191,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </Dd>
             </DlGroup>
           </Flex>
-          <Flex
-            alignItems='center'
-            flex={1}
-            gap='md'
-            justifyContent={{ base: 'center', s: 'flex-end' }}
-            marginTop='2xl'
-          >
+          <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'center' }} marginTop='2xl'>
             <Button variant='outline' onPress={() => setMultipliersModalOpen(true)}>
               <Trans>View Multipliers</Trans>
             </Button>

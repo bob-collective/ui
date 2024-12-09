@@ -8,6 +8,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Span,
   useLocale
 } from '@gobob/ui';
 import { Optimism, Spice } from '@gobob/icons';
@@ -17,6 +18,7 @@ import { Trans } from '@lingui/macro';
 import { WithdrawAlert } from '../WithdrawAlert';
 import { WithdrawModal } from '../WithdrawModal';
 import { SpiceAmount } from '../SpiceAmount';
+import { NebuPoints } from '../NebuPoints';
 
 import { StyledChip, StyledContentWrapper, StyledHarvestCard, StyledOpacityOverlay } from './FusionPopover.style';
 
@@ -68,13 +70,17 @@ const FusionPopover = (): JSX.Element | null => {
             <P color='grey-50' size='s'>
               <Trans>Season 3 (Ongoing)</Trans>
             </P>
-            <StyledHarvestCard rounded='md'>
+            <StyledHarvestCard rounded='md' style={{ maxWidth: 300, overflow: 'hidden' }}>
               <StyledOpacityOverlay />
               <StyledContentWrapper direction='column'>
                 <P color='grey-50' size='s'>
                   <Trans>Current Harvest</Trans>
                 </P>
-                <SpiceAmount amount={season3TotalPoints!} />
+                <Flex wrap gap='s'>
+                  <SpiceAmount amount={season3TotalPoints!} />
+                  <Span>+</Span>
+                  <NebuPoints amount={290} />
+                </Flex>
               </StyledContentWrapper>
             </StyledHarvestCard>
             <Card background='grey-500' rounded='lg'>
