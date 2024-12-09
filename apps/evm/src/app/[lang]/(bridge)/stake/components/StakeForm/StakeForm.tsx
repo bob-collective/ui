@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { sendGTMEvent } from '@next/third-parties/google';
+import { useUserWallets } from '@dynamic-labs/sdk-react-core';
 
 import { GatewayTransactionModal } from '../../../components';
 import { StrategyData } from '../../hooks';
@@ -24,6 +26,7 @@ const StakingForm = ({ strategy, onStakeSuccess }: BridgeFormProps): JSX.Element
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false
   });
+  const userWallets = useUserWallets();
 
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
@@ -32,6 +35,18 @@ const StakingForm = ({ strategy, onStakeSuccess }: BridgeFormProps): JSX.Element
   const handleGatewaySuccess = (data: InitGatewayTransaction) => {
     onStakeSuccess?.();
     setGatewayModalState({ isOpen: true, data });
+
+    const btcWallet = userWallets.find((wallet) => wallet.chain === 'BTC');
+    const evmWallet = userWallets.find((wallet) => wallet.chain === 'EVM');
+
+    sendGTMEvent({
+      event: 'btc-stake',
+      payload: {
+        btcWallet,
+        evmWallet,
+        data
+      }
+    });
   };
 
   const handleCloseGatewayModal = () => {

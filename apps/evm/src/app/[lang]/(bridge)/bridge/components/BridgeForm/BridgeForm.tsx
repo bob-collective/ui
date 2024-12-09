@@ -8,6 +8,8 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { Key, useCallback, useMemo, useState } from 'react';
 import { useChainId } from 'wagmi';
+import { sendGTMEvent } from '@next/third-parties/google';
+import { useUserWallets } from '@dynamic-labs/sdk-react-core';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -72,6 +74,7 @@ const BridgeForm = ({
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
+  const userWallets = useUserWallets();
 
   const { refetch: refetchTransactions, addPlaceholderTransaction } = useGetTransactions();
 
@@ -118,6 +121,18 @@ const BridgeForm = ({
     refetchTransactions.bridge();
 
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
+
+    const btcWallet = userWallets.find((wallet) => wallet.chain === 'BTC');
+    const evmWallet = userWallets.find((wallet) => wallet.chain === 'EVM');
+
+    sendGTMEvent({
+      event: 'btc-bridge',
+      payload: {
+        btcWallet,
+        evmWallet,
+        data
+      }
+    });
   };
 
   const handleStartApproval = (data: InitBridgeTransaction) => {
@@ -136,6 +151,18 @@ const BridgeForm = ({
     refetchTransactions.gateway();
 
     setGatewayModalState({ isOpen: true, data });
+
+    const btcWallet = userWallets.find((wallet) => wallet.chain === 'BTC');
+    const evmWallet = userWallets.find((wallet) => wallet.chain === 'EVM');
+
+    sendGTMEvent({
+      event: 'evm-bridge',
+      payload: {
+        btcWallet,
+        evmWallet,
+        data
+      }
+    });
   };
 
   const handleCloseGatewayModal = () => {
