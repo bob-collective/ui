@@ -571,6 +571,9 @@ importers:
       react-otp-input:
         specifier: ^3.1.1
         version: 3.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-qr-code:
+        specifier: ^2.0.12
+        version: 2.0.14(react@18.3.1)
       siwe:
         specifier: ^2.1.4
         version: 2.3.2(ethers@6.13.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))

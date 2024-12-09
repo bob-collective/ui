@@ -1,1 +1,0 @@
-export { ProfileTokenList } from './ProfileTokenList';

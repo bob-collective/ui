@@ -3,21 +3,18 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { ETH } from '@gobob/icons';
-import { Button, Card, ChevronRight, Flex, Span } from '@gobob/ui';
+import { Card, Flex, Span } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
 
-import { ChainLogo } from '../ChainLogo';
-
-import { AddornedAsset } from './AddornedAsset';
+import { ChainAsset } from '../ChainAsset';
 
 import { useBalances } from '@/hooks';
 
 type ProfileEvmWalletProps = {
   chainId: number;
-  onPress?: () => void;
 };
 
-const ProfileEvmWallet = ({ chainId, onPress }: ProfileEvmWalletProps): JSX.Element | null => {
+const ProfileEvmWallet = ({ chainId }: ProfileEvmWalletProps): JSX.Element | null => {
   const { getBalance } = useBalances(chainId);
   const { primaryWallet } = useDynamicContext();
 
@@ -33,7 +30,7 @@ const ProfileEvmWallet = ({ chainId, onPress }: ProfileEvmWalletProps): JSX.Elem
       padding='md'
     >
       <Flex alignItems='center' gap='md'>
-        <AddornedAsset addornment={<ChainLogo chainId={chainId} size='xs' />} asset={<ETH size='xl' />} />
+        <ChainAsset asset={<ETH size='xl' />} chainId={chainId} chainProps={{ size: 'xs' }} />
         <Flex direction='column'>
           <Span size='s' weight='semibold'>
             {getBalance('ETH')?.toSignificant()} ETH
@@ -46,9 +43,6 @@ const ProfileEvmWallet = ({ chainId, onPress }: ProfileEvmWalletProps): JSX.Elem
           </Flex>
         </Flex>
       </Flex>
-      <Button isIconOnly variant='ghost' onPress={onPress}>
-        <ChevronRight color='grey-50' />
-      </Button>
     </Card>
   );
 };

@@ -21,12 +21,14 @@ const ProfileTag = ({
   evmAddress,
   btcAddress,
   user,
-  size = 's'
+  size = 's',
+  isLoading
 }: {
   btcAddress?: string;
   evmAddress?: Address;
   user?: UserProfile;
   size?: 's' | 'md';
+  isLoading?: boolean;
 }) => {
   const displayedAddress = evmAddress
     ? truncateEthAddress(evmAddress)
