@@ -12,7 +12,7 @@ import { useGateway, useGatewayForm } from '../../../hooks';
 
 import { StrategyData } from './StakeForm';
 
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 

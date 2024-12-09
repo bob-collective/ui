@@ -12,7 +12,7 @@ type StyledDialogProps = {
 };
 
 const StyledModal = styled.div<StyledModalProps>`
-  transform: ${({ $isOpen }) => ($isOpen ? 'translateX(100%)' : 'translateX(0%)')};
+  transform: ${({ $isOpen }) => ($isOpen ? 'translateX(-100%)' : 'translateX(0%)')};
   ${({ $isOpen }) => overlayCSS(!!$isOpen)}
 
   visibility: visible;
@@ -26,11 +26,11 @@ const StyledModal = styled.div<StyledModalProps>`
   position: fixed;
   top: 0;
   bottom: 0;
-  left: auto;
-  right: 100%;
+  right: auto;
+  left: 100%;
 
   height: 100%;
-  max-width: 300px;
+  max-width: 320px;
   width: 100%;
 
   transition: transform ${({ $isOpen }) => ($isOpen ? '250ms' : '100ms')} ease-in-out;

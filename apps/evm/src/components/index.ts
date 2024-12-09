@@ -9,3 +9,4 @@ export * from './WithdrawAlert';
 export * from './LoginButton';
 export * from './SignUpButton';
 export * from './SpiceAmount';
+export * from './AuthButton';

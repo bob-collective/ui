@@ -40,6 +40,7 @@
     "@yudiel/react-qr-scanner": "^2.0.4",
     "@zerodev/sdk": "^5.3.4",
     "big.js": "catalog:",
+    "bitcoin-address-validation": "^2.2.3",
     "date-fns": "catalog:",
     "graphql-request": "catalog:",
     "negotiator": "catalog:",
