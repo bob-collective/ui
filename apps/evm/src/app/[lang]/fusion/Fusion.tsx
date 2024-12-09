@@ -98,11 +98,7 @@ const Fusion = () => {
 
   const onPressXBanner = () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
   const onPressOPBanner = () =>
-    window.open(
-      'https://blog.gobob.xyz/posts/bob-hybrid-l2-joins-superchain-to-accelerate-bitcoin-defi',
-      '_blank',
-      'noreferrer'
-    );
+    window.open('https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin', '_blank', 'noreferrer');
 
   useEffect(() => {
     if (scrollQuests) {
