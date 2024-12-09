@@ -168,9 +168,7 @@ const Fusion = () => {
                         <Trans>
                           To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on
                           all Spice harvested between 9 December 2024 and 12 January 2025.{' '}
-                          <Link href='https://blog.gobob.xyz/posts/bob-hybrid-l2-joins-superchain-to-accelerate-bitcoin-defi'>
-                            Learn more
-                          </Link>
+                          <Link href='https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin'>Learn more</Link>
                         </Trans>
                       </P>
                     </Flex>
