@@ -125,7 +125,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector
           });
 
-          sendGTMEvent({ event: 'evm-conenct', address: connectData.accounts });
+          sendGTMEvent({ event: 'evm-connect', address: connectData.accounts });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);
@@ -167,7 +167,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector: satsConnector
           });
 
-          sendGTMEvent({ event: 'btc-conenct', address: btcAddress.address });
+          sendGTMEvent({ event: 'btc-connect', address: btcAddress.address });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingSatsConnector(undefined);
