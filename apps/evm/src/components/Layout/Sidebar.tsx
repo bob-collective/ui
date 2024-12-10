@@ -65,6 +65,13 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
               <NavItem isExternal href='https://gobob.xyz/'>
                 <Trans>About</Trans>
               </NavItem>
+              <NavItem
+                isExternal
+                href='https://docs.google.com/document/d/1D00oItKIz7QXjXom07UAaMnz4mov80ld/edit'
+                size='s'
+              >
+                <Trans>Privacy policy</Trans>
+              </NavItem>
             </Nav>
             <SocialsGroup />
           </Flex>
