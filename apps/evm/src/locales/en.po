@@ -106,7 +106,7 @@ msgid "About"
 msgstr "About"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:248
-#: src/components/Layout/FusionPopover.tsx:99
+#: src/components/Layout/FusionPopover.tsx:104
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 
@@ -147,7 +147,7 @@ msgstr "Amount"
 #~ msgid "An exclusive quest campaign."
 #~ msgstr "An exclusive quest campaign."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:260
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:265
 msgid "and that you have read and understood our"
 msgstr "and that you have read and understood our"
 
@@ -250,7 +250,7 @@ msgstr "BOB co-founder, <0>Alexei Zamyatin</0>, would like to invite you to a pr
 #~ msgstr "BOB Ecosystem on OKX Cryptopedia"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:133
+#: src/app/[lang]/fusion/Fusion.tsx:129
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion: The Final Season"
 
@@ -266,8 +266,8 @@ msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 #~ msgid "BOB Gateway is live!"
 #~ msgstr "BOB Gateway is live!"
 
-#: src/app/[lang]/layout.tsx:33
-#: src/app/[lang]/layout.tsx:52
+#: src/app/[lang]/layout.tsx:35
+#: src/app/[lang]/layout.tsx:54
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 
@@ -340,7 +340,7 @@ msgstr "Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 
-#: src/app/[lang]/fusion/Fusion.tsx:165
+#: src/app/[lang]/fusion/Fusion.tsx:161
 msgid "Bringing Bitcoin DeFi to the Superchain"
 msgstr "Bringing Bitcoin DeFi to the Superchain"
 
@@ -352,7 +352,7 @@ msgstr "BTC bridge is currently unavailable. This may be due to: {0}. Please try
 msgid "BTC LST Lending"
 msgstr "BTC LST Lending"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:252
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:257
 msgid "By clicking ‘Connect’ you acknowledge and agree to the"
 msgstr "By clicking ‘Connect’ you acknowledge and agree to the"
 
@@ -441,21 +441,21 @@ msgstr "Connect BTC Wallet"
 msgid "Connect BTC wallet to access fee rate settings."
 msgstr "Connect BTC wallet to access fee rate settings."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:135
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:138
 msgid "Connect request is already pending"
 msgstr "Connect request is already pending"
 
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:63
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:214
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:219
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:35
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:296
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:301
 msgid "Connect your Bitcoin Wallet (Optional)"
 msgstr "Connect your Bitcoin Wallet (Optional)"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:281
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:286
 msgid "Connect your EVM Wallet (Mandatory)"
 msgstr "Connect your EVM Wallet (Mandatory)"
 
@@ -475,11 +475,11 @@ msgstr "Copy referral URL"
 msgid "Create Account"
 msgstr "Create Account"
 
-#: src/components/Layout/FusionPopover.tsx:70
+#: src/components/Layout/FusionPopover.tsx:75
 msgid "Current Harvest"
 msgstr "Current Harvest"
 
-#: src/components/Layout/FusionPopover.tsx:77
+#: src/components/Layout/FusionPopover.tsx:82
 msgid "Current Leaderboard Rank"
 msgstr "Current Leaderboard Rank"
 
@@ -617,8 +617,8 @@ msgstr "Estimated within the next block"
 msgid "Exclusive Spice Bonus For Superchain Users"
 msgstr "Exclusive Spice Bonus For Superchain Users"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:138
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:174
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:141
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:179
 msgid "Failed to connect to {0}"
 msgstr "Failed to connect to {0}"
 
@@ -680,7 +680,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
-#: src/app/[lang]/fusion/Fusion.tsx:203
+#: src/app/[lang]/fusion/Fusion.tsx:197
 msgid "Follow us on X"
 msgstr "Follow us on X"
 
@@ -731,8 +731,8 @@ msgstr "Get ETH for transaction fees on BOB"
 msgid "Get tickets"
 msgstr "Get tickets"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:189
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:203
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:194
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:208
 msgid "go back"
 msgstr "go back"
 
@@ -768,7 +768,7 @@ msgstr "Harvest {pointsMissing} more Spice to play"
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
 #~ msgstr "Harvest {pointsMissing} more SPICE to your account to play"
 
-#: src/app/[lang]/fusion/Fusion.tsx:137
+#: src/app/[lang]/fusion/Fusion.tsx:133
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 
@@ -780,7 +780,7 @@ msgstr "Here are your active referrals and the Spice they're currently earning f
 msgid "Hero banner"
 msgstr "Hero banner"
 
-#: src/app/[lang]/fusion/Fusion.tsx:126
+#: src/app/[lang]/fusion/Fusion.tsx:122
 msgid "Hero dots"
 msgstr "Hero dots"
 
@@ -845,7 +845,7 @@ msgid "Leaderboard"
 msgstr "Leaderboard"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:147
+#: src/app/[lang]/fusion/Fusion.tsx:143
 msgid "Learn More"
 msgstr "Learn More"
 
@@ -1087,7 +1087,7 @@ msgstr "Not your lucky day... yet!"
 #~ msgid "OKX Cryptopedia"
 #~ msgstr "OKX Cryptopedia"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:246
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:251
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 msgstr "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 
@@ -1164,7 +1164,9 @@ msgstr "POWERED BY BTC & ETH"
 msgid "Preparing..."
 msgstr "Preparing..."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:266
+#: src/components/Layout/Header.tsx:115
+#: src/components/Layout/Sidebar.tsx:73
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:271
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
@@ -1268,7 +1270,7 @@ msgstr "Rewards"
 msgid "Satoshi protocol points"
 msgstr "Satoshi protocol points"
 
-#: src/components/Layout/FusionPopover.tsx:111
+#: src/components/Layout/FusionPopover.tsx:116
 msgid "Season 1 & 2 (Completed)"
 msgstr "Season 1 & 2 (Completed)"
 
@@ -1276,11 +1278,11 @@ msgstr "Season 1 & 2 (Completed)"
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "Season 1 & 2 Total Spice (Completed):"
 
-#: src/components/Layout/FusionPopover.tsx:122
+#: src/components/Layout/FusionPopover.tsx:127
 msgid "Season 2 Final Rank"
 msgstr "Season 2 Final Rank"
 
-#: src/components/Layout/FusionPopover.tsx:64
+#: src/components/Layout/FusionPopover.tsx:69
 msgid "Season 3 (Ongoing)"
 msgstr "Season 3 (Ongoing)"
 
@@ -1296,11 +1298,11 @@ msgstr "Season Three"
 msgid "Security Review by Bitcoin Layers"
 msgstr "Security Review by Bitcoin Layers"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:211
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:216
 msgid "Select Bitcoin Wallet"
 msgstr "Select Bitcoin Wallet"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:197
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:202
 msgid "Select EVM Wallet"
 msgstr "Select EVM Wallet"
 
@@ -1372,8 +1374,8 @@ msgstr "Solv XP"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:134
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
-#: src/hooks/useLogin.ts:48
-#: src/hooks/useSignUp.ts:51
+#: src/hooks/useLogin.ts:50
+#: src/hooks/useSignUp.ts:53
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
@@ -1549,7 +1551,7 @@ msgstr "Successfully finalized transaction"
 msgid "Successfully submitted ${0} proof"
 msgstr "Successfully submitted ${0} proof"
 
-#: src/app/[lang]/fusion/Fusion.tsx:178
+#: src/app/[lang]/fusion/Fusion.tsx:172
 msgid "Superchain Eco"
 msgstr "Superchain Eco"
 
@@ -1602,7 +1604,7 @@ msgstr "T&Cs"
 msgid "Take em home"
 msgstr "Take em home"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:258
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:263
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
@@ -1724,7 +1726,7 @@ msgstr "Time left until voting round ends"
 msgid "To cast your vote, please log in"
 msgstr "To cast your vote, please log in"
 
-#: src/app/[lang]/fusion/Fusion.tsx:168
+#: src/app/[lang]/fusion/Fusion.tsx:164
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
 msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
 
@@ -1734,7 +1736,7 @@ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP ex
 #~ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more&Hat;"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:206
+#: src/app/[lang]/fusion/Fusion.tsx:200
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
@@ -1754,7 +1756,7 @@ msgstr "Top up Gas"
 #~ msgid "Total Assets"
 #~ msgstr "Total Assets"
 
-#: src/components/Layout/FusionPopover.tsx:115
+#: src/components/Layout/FusionPopover.tsx:120
 msgid "Total Harvest"
 msgstr "Total Harvest"
 
@@ -1858,9 +1860,9 @@ msgid "Use your Spice total to support your favourite BOB builders. Winners will
 msgstr "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:132
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:131
-#: src/hooks/useLogin.ts:46
-#: src/hooks/useSignUp.ts:49
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:134
+#: src/hooks/useLogin.ts:48
+#: src/hooks/useSignUp.ts:51
 msgid "User rejected the request"
 msgstr "User rejected the request"
 
@@ -1992,7 +1994,7 @@ msgid "You"
 msgstr "You"
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:46
-#: src/app/[lang]/fusion/Fusion.tsx:131
+#: src/app/[lang]/fusion/Fusion.tsx:127
 msgid "You are one of the top 100 Spice holders in BOB Fusion"
 msgstr "You are one of the top 100 Spice holders in BOB Fusion"
 
@@ -2086,6 +2088,6 @@ msgstr "Your performance in seasons 1 & 2"
 msgid "Your Referral Code"
 msgstr "Your Referral Code"
 
-#: src/components/Layout/FusionPopover.tsx:60
+#: src/components/Layout/FusionPopover.tsx:65
 msgid "Your Spice Harvest Overview"
 msgstr "Your Spice Harvest Overview"

@@ -106,7 +106,7 @@ msgid "About"
 msgstr "关于"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:248
-#: src/components/Layout/FusionPopover.tsx:99
+#: src/components/Layout/FusionPopover.tsx:104
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr ""
 
@@ -147,7 +147,7 @@ msgstr ""
 #~ msgid "An exclusive quest campaign."
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:260
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:265
 msgid "and that you have read and understood our"
 msgstr ""
 
@@ -250,7 +250,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:133
+#: src/app/[lang]/fusion/Fusion.tsx:129
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
 
@@ -266,8 +266,8 @@ msgstr ""
 #~ msgid "BOB Gateway is live!"
 #~ msgstr ""
 
-#: src/app/[lang]/layout.tsx:33
-#: src/app/[lang]/layout.tsx:52
+#: src/app/[lang]/layout.tsx:35
+#: src/app/[lang]/layout.tsx:54
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr ""
 
@@ -340,7 +340,7 @@ msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <0>公告</0>。"
 
-#: src/app/[lang]/fusion/Fusion.tsx:165
+#: src/app/[lang]/fusion/Fusion.tsx:161
 msgid "Bringing Bitcoin DeFi to the Superchain"
 msgstr "将比特币 DeFi 引入OP超级链"
 
@@ -352,7 +352,7 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:252
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:257
 msgid "By clicking ‘Connect’ you acknowledge and agree to the"
 msgstr ""
 
@@ -441,21 +441,21 @@ msgstr "连接比特币钱包"
 msgid "Connect BTC wallet to access fee rate settings."
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:135
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:138
 msgid "Connect request is already pending"
 msgstr ""
 
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:63
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:214
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:219
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:35
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:296
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:301
 msgid "Connect your Bitcoin Wallet (Optional)"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:281
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:286
 msgid "Connect your EVM Wallet (Mandatory)"
 msgstr ""
 
@@ -475,11 +475,11 @@ msgstr "复制推荐URL"
 msgid "Create Account"
 msgstr "创建账户"
 
-#: src/components/Layout/FusionPopover.tsx:70
+#: src/components/Layout/FusionPopover.tsx:75
 msgid "Current Harvest"
 msgstr "当前收获"
 
-#: src/components/Layout/FusionPopover.tsx:77
+#: src/components/Layout/FusionPopover.tsx:82
 msgid "Current Leaderboard Rank"
 msgstr "当前排行榜排名"
 
@@ -617,8 +617,8 @@ msgstr ""
 msgid "Exclusive Spice Bonus For Superchain Users"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:138
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:174
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:141
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:179
 msgid "Failed to connect to {0}"
 msgstr ""
 
@@ -680,7 +680,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
-#: src/app/[lang]/fusion/Fusion.tsx:203
+#: src/app/[lang]/fusion/Fusion.tsx:197
 msgid "Follow us on X"
 msgstr ""
 
@@ -731,8 +731,8 @@ msgstr ""
 msgid "Get tickets"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:189
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:203
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:194
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:208
 msgid "go back"
 msgstr ""
 
@@ -768,7 +768,7 @@ msgstr ""
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:137
+#: src/app/[lang]/fusion/Fusion.tsx:133
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关注特别活动"
 
@@ -780,7 +780,7 @@ msgstr "这里展示了你推荐的活跃用户及他们为你赚取的Spice。�
 msgid "Hero banner"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:126
+#: src/app/[lang]/fusion/Fusion.tsx:122
 msgid "Hero dots"
 msgstr ""
 
@@ -845,7 +845,7 @@ msgid "Leaderboard"
 msgstr "排行榜"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:147
+#: src/app/[lang]/fusion/Fusion.tsx:143
 msgid "Learn More"
 msgstr "了解更多"
 
@@ -1087,7 +1087,7 @@ msgstr ""
 #~ msgid "OKX Cryptopedia"
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:246
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:251
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 msgstr ""
 
@@ -1164,9 +1164,11 @@ msgstr "比特币 + 以太坊共同驱动"
 msgid "Preparing..."
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:266
+#: src/components/Layout/Header.tsx:115
+#: src/components/Layout/Sidebar.tsx:73
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:271
 msgid "Privacy policy"
-msgstr ""
+msgstr "隐私政策"
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:121
 msgid "Protocol Fee"
@@ -1268,7 +1270,7 @@ msgstr "奖励"
 msgid "Satoshi protocol points"
 msgstr "Satoshi协议积分"
 
-#: src/components/Layout/FusionPopover.tsx:111
+#: src/components/Layout/FusionPopover.tsx:116
 msgid "Season 1 & 2 (Completed)"
 msgstr "第1季和第2季（已完成）"
 
@@ -1276,11 +1278,11 @@ msgstr "第1季和第2季（已完成）"
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "第1季和第2季总Spice（已完成）："
 
-#: src/components/Layout/FusionPopover.tsx:122
+#: src/components/Layout/FusionPopover.tsx:127
 msgid "Season 2 Final Rank"
 msgstr "第2季最终排名"
 
-#: src/components/Layout/FusionPopover.tsx:64
+#: src/components/Layout/FusionPopover.tsx:69
 msgid "Season 3 (Ongoing)"
 msgstr "第3季（进行中）"
 
@@ -1296,11 +1298,11 @@ msgstr "第三季"
 msgid "Security Review by Bitcoin Layers"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:211
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:216
 msgid "Select Bitcoin Wallet"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:197
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:202
 msgid "Select EVM Wallet"
 msgstr ""
 
@@ -1372,8 +1374,8 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:134
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
-#: src/hooks/useLogin.ts:48
-#: src/hooks/useSignUp.ts:51
+#: src/hooks/useLogin.ts:50
+#: src/hooks/useSignUp.ts:53
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
@@ -1545,7 +1547,7 @@ msgstr ""
 msgid "Successfully submitted ${0} proof"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:178
+#: src/app/[lang]/fusion/Fusion.tsx:172
 msgid "Superchain Eco"
 msgstr ""
 
@@ -1598,7 +1600,7 @@ msgstr "条款与条件"
 msgid "Take em home"
 msgstr "回到主页"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:258
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:263
 msgid "Terms of Service"
 msgstr ""
 
@@ -1716,12 +1718,12 @@ msgstr ""
 msgid "To cast your vote, please log in"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:168
+#: src/app/[lang]/fusion/Fusion.tsx:164
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
 msgstr "为庆祝 BOB 加入”超级链”，您已符合资格获得 OP 专属奖励：2024 年 12 月 9 日至 2025 年 1 月 12 日期间收获的所有 Spice 可享额外 50% 奖励。<0>了解更多</0>"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:206
+#: src/app/[lang]/fusion/Fusion.tsx:200
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
@@ -1741,7 +1743,7 @@ msgstr ""
 #~ msgid "Total Assets"
 #~ msgstr "总资产"
 
-#: src/components/Layout/FusionPopover.tsx:115
+#: src/components/Layout/FusionPopover.tsx:120
 msgid "Total Harvest"
 msgstr "总收获"
 
@@ -1845,9 +1847,9 @@ msgid "Use your Spice total to support your favourite BOB builders. Winners will
 msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将每周公布。"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:132
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:131
-#: src/hooks/useLogin.ts:46
-#: src/hooks/useSignUp.ts:49
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:134
+#: src/hooks/useLogin.ts:48
+#: src/hooks/useSignUp.ts:51
 msgid "User rejected the request"
 msgstr ""
 
@@ -1979,7 +1981,7 @@ msgid "You"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:46
-#: src/app/[lang]/fusion/Fusion.tsx:131
+#: src/app/[lang]/fusion/Fusion.tsx:127
 msgid "You are one of the top 100 Spice holders in BOB Fusion"
 msgstr ""
 
@@ -2073,6 +2075,6 @@ msgstr "你在第1季和第2季的表现"
 msgid "Your Referral Code"
 msgstr "你的推荐码"
 
-#: src/components/Layout/FusionPopover.tsx:60
+#: src/components/Layout/FusionPopover.tsx:65
 msgid "Your Spice Harvest Overview"
 msgstr ""
