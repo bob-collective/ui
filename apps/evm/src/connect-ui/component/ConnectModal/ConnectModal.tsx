@@ -265,7 +265,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
                 <Trans>and that you have read and understood our </Trans>
                 <Link
                   external
-                  href='https://uploads-ssl.webflow.com/6620e8932695794632789d89/66aa4eac1074934d060d127c_20240731%20-%20BOB%20Foundation%20-%20Privacy%20Policy.pdf'
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/66aa4eac1074934d060d127c_20240731%20-%20BOB%20Foundation%20-%20Privacy%20Policy.pdf'
                   size='inherit'
                 >
                   <Trans>Privacy policy</Trans>

@@ -67,7 +67,7 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
               </NavItem>
               <NavItem
                 isExternal
-                href='https://docs.google.com/document/d/1D00oItKIz7QXjXom07UAaMnz4mov80ld/edit'
+                href='https://cdn.prod.website-files.com/6620e8932695794632789d89/66aa4eac1074934d060d127c_20240731%20-%20BOB%20Foundation%20-%20Privacy%20Policy.pdf'
                 size='s'
               >
                 <Trans>Privacy policy</Trans>
