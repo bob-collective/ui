@@ -3,7 +3,6 @@ import { usePrices } from '@gobob/hooks';
 import { BITCOIN } from '@gobob/tokens';
 import { Flex, P } from '@gobob/ui';
 
-import { StyledTokenList } from './ProfileDrawer.style';
 import { ProfileTokenListItem } from './ProfileTokenListItem';
 
 import { useBalances, useBtcBalance, useTokens } from '@/hooks';
@@ -28,7 +27,7 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
   const ethBalance = ethData && getBalance(ethData.raw.symbol);
 
   return (
-    <StyledTokenList direction='column' flex={1} gap='xl' paddingX='md' paddingY='xl'>
+    <Flex direction='column' flex={1} gap='xl' paddingX='md' paddingY='xl'>
       {ethBalance && ethData && (
         <ProfileTokenListItem
           amountUSD={calculateAmountUSD(ethBalance, getPrice(ethBalance.currency.symbol))}
@@ -63,7 +62,7 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
           ))}
         </Flex>
       </Flex>
-    </StyledTokenList>
+    </Flex>
   );
 };
 

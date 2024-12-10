@@ -1,6 +1,15 @@
 import styled from 'styled-components';
-import { Drawer } from 'vaul';
 
-const StyledContent = styled(Drawer.Content)``;
+const StyledContentWrapper = styled.div`
+  background: ${({ theme }) => theme.color('grey-400')};
+`;
 
-export { StyledContent };
+const StyledMobileContentWrapper = styled(StyledContentWrapper)`
+  border-top-right-radius: ${({ theme }) => theme.rounded('lg')};
+  border-top-left-radius: ${({ theme }) => theme.rounded('lg')};
+  overflow-y: auto;
+  padding: 1rem;
+  flex: 1 1 0%;
+`;
+
+export { StyledContentWrapper, StyledMobileContentWrapper };

@@ -14,7 +14,7 @@ import { useTheme } from 'styled-components';
 
 import { ProfileDrawer } from '../ProfileDrawer';
 
-import { StyledContent } from './ConnectButton.style';
+import { StyledMobileContentWrapper } from './ConnectButton.style';
 
 import { useBtcAccount } from '@/hooks';
 
@@ -43,11 +43,7 @@ const Profile = ({
   );
 };
 
-const snapPoints = ['500px', 1];
-
 const ConnectButton = (): JSX.Element => {
-  const [snap, setSnap] = useState<number | string | null>(snapPoints[0] as number);
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
@@ -73,13 +69,52 @@ const ConnectButton = (): JSX.Element => {
 
   const handleClose = () => setOpen(false);
 
-  const snapProps = isMobile ? { activeSnapPoint: snap, setActiveSnapPoint: setSnap, snapPoints } : undefined;
+  if (isMobile) {
+    return (
+      <Drawer.Root direction='bottom' open={isOpen} onOpenChange={setOpen}>
+        <Drawer.Trigger asChild>
+          <Button variant='ghost'>
+            <Profile hideAddress btcAddress={btcAddress} evmAddress={evmAddress} user={user} />
+          </Button>
+        </Drawer.Trigger>
+        <Drawer.Portal>
+          <Drawer.Overlay
+            style={{
+              position: 'fixed',
+              top: '0',
+              right: '0',
+              bottom: '0',
+              left: '0',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)'
+            }}
+          />
+          <Drawer.Content
+            style={{
+              display: 'flex',
+              position: 'fixed',
+              right: '0',
+              bottom: '0',
+              left: '0',
+              marginTop: '6rem',
+              flexDirection: 'column',
+              outlineStyle: 'none',
+              height: 'calc(100% - 72px)'
+            }}
+          >
+            <StyledMobileContentWrapper>
+              <ProfileDrawer onClose={handleClose} />
+            </StyledMobileContentWrapper>
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
+    );
+  }
 
   return (
-    <Drawer.Root direction={isMobile ? 'bottom' : 'right'} open={isOpen} onOpenChange={setOpen} {...snapProps}>
+    <Drawer.Root direction='right' open={isOpen} onOpenChange={setOpen}>
       <Drawer.Trigger asChild>
         <Button variant='ghost'>
-          <Profile btcAddress={btcAddress} evmAddress={evmAddress} hideAddress={isMobile} user={user} />
+          <Profile btcAddress={btcAddress} evmAddress={evmAddress} user={user} />
         </Button>
       </Drawer.Trigger>
       <Drawer.Portal>
@@ -93,37 +128,23 @@ const ConnectButton = (): JSX.Element => {
             backgroundColor: 'rgba(0, 0, 0, 0.6)'
           }}
         />
-        <StyledContent
+        <Drawer.Content
           style={
-            isMobile
-              ? {
-                  display: 'flex',
-                  position: 'fixed',
-                  right: '0',
-                  bottom: '0',
-                  left: '0',
-                  // marginTop: '6rem',
-                  flexDirection: 'column',
-                  outlineStyle: 'none',
-                  height: '100%',
-                  maxHeight: '97%'
-                  // height: 'fit-content'
-                }
-              : ({
-                  display: 'flex',
-                  position: 'fixed',
-                  top: '0.5rem',
-                  right: '0.5rem',
-                  bottom: '0.5rem',
-                  zIndex: 10,
-                  outlineStyle: 'none',
-                  width: '310px',
-                  '--initial-transform': 'calc(100% + 8px)'
-                } as React.CSSProperties)
+            {
+              display: 'flex',
+              position: 'fixed',
+              top: '0.5rem',
+              right: '0.5rem',
+              bottom: '0.5rem',
+              zIndex: 10,
+              outlineStyle: 'none',
+              width: '310px',
+              '--initial-transform': 'calc(100% + 8px)'
+            } as React.CSSProperties
           }
         >
-          <ProfileDrawer isMobile={isMobile} snap={snap} onClose={handleClose} />
-        </StyledContent>
+          <ProfileDrawer onClose={handleClose} />
+        </Drawer.Content>
       </Drawer.Portal>
     </Drawer.Root>
   );
