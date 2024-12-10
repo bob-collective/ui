@@ -42,8 +42,9 @@ const StakingForm = ({ strategy, onStakeSuccess }: BridgeFormProps): JSX.Element
     sendGTMEvent({
       event: 'btc-stake',
       payload: {
-        btcWallet,
-        evmWallet,
+        // `_connector` is a circular structure -- has to be removed
+        btcWallet: { ...btcWallet, _connector: undefined },
+        evmWallet: { ...evmWallet, _connector: undefined },
         data
       }
     });

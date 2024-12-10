@@ -128,8 +128,9 @@ const BridgeForm = ({
     sendGTMEvent({
       event: 'btc-bridge',
       payload: {
-        btcWallet,
-        evmWallet,
+        // `_connector` is a circular structure -- has to be removed
+        btcWallet: { ...btcWallet, _connector: undefined },
+        evmWallet: { ...evmWallet, _connector: undefined },
         data
       }
     });
@@ -158,8 +159,9 @@ const BridgeForm = ({
     sendGTMEvent({
       event: 'evm-bridge',
       payload: {
-        btcWallet,
-        evmWallet,
+        // `_connector` is a circular structure -- has to be removed
+        btcWallet: { ...btcWallet, _connector: undefined },
+        evmWallet: { ...evmWallet, _connector: undefined },
         data
       }
     });
