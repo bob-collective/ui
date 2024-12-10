@@ -17,6 +17,10 @@ msgstr ""
 msgid ", due to the challenge period"
 msgstr ", due to the challenge period"
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:144
+msgid "(user_spice / total_qualified_spice) * [y] daily Babylon points"
+msgstr "(user_spice / total_qualified_spice) * [y] daily Babylon points"
+
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
 #~ msgid "{0}"
@@ -111,8 +115,8 @@ msgid "Amount"
 msgstr "Amount"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OKXCryptopediaBanner.tsx:26
-msgid "An Exclusive Bitcoin Staking and DeFi Campaign"
-msgstr "An Exclusive Bitcoin Staking and DeFi Campaign"
+#~ msgid "An Exclusive Bitcoin Staking and DeFi Campaign"
+#~ msgstr "An Exclusive Bitcoin Staking and DeFi Campaign"
 
 #: src/components/BannerCarousel/BinanceCampaignBanner.tsx:25
 #~ msgid "An exclusive quest campaign."
@@ -140,7 +144,7 @@ msgstr "Apps"
 msgid "Apps leaderboard hero"
 msgstr "Apps leaderboard hero"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:175
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:214
 msgid "Apps Used"
 msgstr "Apps Used"
 
@@ -205,8 +209,8 @@ msgid "BOB Bridge"
 msgstr "BOB Bridge"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OKXCryptopediaBanner.tsx:22
-msgid "BOB Ecosystem on OKX Cryptopedia"
-msgstr "BOB Ecosystem on OKX Cryptopedia"
+#~ msgid "BOB Ecosystem on OKX Cryptopedia"
+#~ msgstr "BOB Ecosystem on OKX Cryptopedia"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:92
@@ -222,15 +226,15 @@ msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB"
 #~ msgstr "BOB Gateway allows you to swap BTC on Bitcoin to ETH on BOB."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OnrampBanner.tsx:17
-msgid "BOB Gateway is live!"
-msgstr "BOB Gateway is live!"
+#~ msgid "BOB Gateway is live!"
+#~ msgstr "BOB Gateway is live!"
 
 #: src/app/[lang]/layout.tsx:33
 #: src/app/[lang]/layout.tsx:52
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:273
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:312
 msgid "BOB TVL Progress"
 msgstr "BOB TVL Progress"
 
@@ -250,7 +254,7 @@ msgstr "Bridge"
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:168
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:207
 msgid "Bridge Assets"
 msgstr "Bridge Assets"
 
@@ -402,7 +406,7 @@ msgstr "Connected with <0>{wallet}</0>"
 #~ msgid "Copy Address"
 #~ msgstr "Copy Address"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:240
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:279
 msgid "Copy referral URL"
 msgstr "Copy referral URL"
 
@@ -410,11 +414,11 @@ msgstr "Copy referral URL"
 msgid "Create Account"
 msgstr "Create Account"
 
-#: src/components/Layout/FusionPopover.tsx:63
+#: src/components/Layout/FusionPopover.tsx:65
 msgid "Current Harvest"
 msgstr "Current Harvest"
 
-#: src/components/Layout/FusionPopover.tsx:70
+#: src/components/Layout/FusionPopover.tsx:76
 msgid "Current Leaderboard Rank"
 msgstr "Current Leaderboard Rank"
 
@@ -422,7 +426,7 @@ msgstr "Current Leaderboard Rank"
 msgid "Current Spice"
 msgstr "Current Spice"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:312
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:351
 msgid "Current TVL:"
 msgstr "Current TVL:"
 
@@ -636,7 +640,7 @@ msgid "Fusion season three"
 msgstr "Fusion season three"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:114
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:304
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:343
 msgid "Fusion Users:"
 msgstr "Fusion Users:"
 
@@ -673,7 +677,7 @@ msgstr "Go Back"
 msgid "Got it!"
 msgstr "Got it!"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:294
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:333
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 
@@ -749,7 +753,7 @@ msgstr "Invalid referral code. You can try again, or proceed without one."
 #~ msgid "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 #~ msgstr "Join BOB's voting campaign, vote on projects, & get tickets for prizes. New users get a spice bonus. Engage, vote, and win!"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:135
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:172
 msgid "Last 24 hours"
 msgstr "Last 24 hours"
 
@@ -833,7 +837,7 @@ msgstr "Locked Capital Breakdown"
 msgid "Log in"
 msgstr "Log in"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:290
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:329
 msgid "Log in to View Dashboard"
 msgstr "Log in to View Dashboard"
 
@@ -922,7 +926,7 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:90
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:61
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
@@ -971,7 +975,7 @@ msgstr "new tickets drop in {0}"
 msgid "No bridging operations found"
 msgstr "No bridging operations found"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:276
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:315
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "No new goal at the moment. Stay tuned for updates!"
 
@@ -996,8 +1000,8 @@ msgid "Not your lucky day... yet!"
 msgstr "Not your lucky day... yet!"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OKXCryptopediaBanner.tsx:30
-msgid "OKX Cryptopedia"
-msgstr "OKX Cryptopedia"
+#~ msgid "OKX Cryptopedia"
+#~ msgstr "OKX Cryptopedia"
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:246
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
@@ -1097,7 +1101,7 @@ msgstr "Provide liquidity into Oku DEX"
 msgid "Quests"
 msgstr "Quests"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:206
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:245
 msgid "Quests Completed"
 msgstr "Quests Completed"
 
@@ -1176,25 +1180,29 @@ msgstr "Rewards"
 msgid "Satoshi protocol points"
 msgstr "Satoshi protocol points"
 
-#: src/components/Layout/FusionPopover.tsx:77
+#: src/components/Layout/FusionPopover.tsx:83
 msgid "Season 1 & 2 (Completed)"
 msgstr "Season 1 & 2 (Completed)"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:150
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:195
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "Season 1 & 2 Total Spice (Completed):"
 
-#: src/components/Layout/FusionPopover.tsx:88
+#: src/components/Layout/FusionPopover.tsx:94
 msgid "Season 2 Final Rank"
 msgstr "Season 2 Final Rank"
 
-#: src/components/Layout/FusionPopover.tsx:57
+#: src/components/Layout/FusionPopover.tsx:59
 msgid "Season 3 (Ongoing)"
 msgstr "Season 3 (Ongoing)"
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:129
+msgid "Season 3 Harvested"
+msgstr "Season 3 Harvested"
+
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:128
-msgid "Season 3 Harvested Spice"
-msgstr "Season 3 Harvested Spice"
+#~ msgid "Season 3 Harvested Spice"
+#~ msgstr "Season 3 Harvested Spice"
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:220
 msgid "Season Three"
@@ -1258,7 +1266,7 @@ msgstr "Select Token"
 msgid "Share on X"
 msgstr "Share on X"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:224
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:263
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 
@@ -1415,7 +1423,7 @@ msgstr "Staking table"
 msgid "Start Harvesting"
 msgstr "Start Harvesting"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:297
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:336
 #: src/app/[lang]/sign-up/SignUp.tsx:127
 msgid "Start Harvesting Spice"
 msgstr "Start Harvesting Spice"
@@ -1514,8 +1522,8 @@ msgid "Thank you for your understanding and we hope to be able to serve you in a
 msgstr "Thank you for your understanding and we hope to be able to serve you in a more decentralized future. The BOB L2 network itself is fully decentralized, cannot be censored and all code is open source."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OnrampBanner.tsx:21
-msgid "The fastest and easiest way to bridge BTC to BOB."
-msgstr "The fastest and easiest way to bridge BTC to BOB."
+#~ msgid "The fastest and easiest way to bridge BTC to BOB."
+#~ msgstr "The fastest and easiest way to bridge BTC to BOB."
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:39
 #: src/app/[lang]/fusion/components/WelcomeModal/WelcomeModal.tsx:24
@@ -1534,11 +1542,11 @@ msgstr "The leaderboard resets for the new season"
 msgid "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 msgstr "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:176
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:215
 msgid "The number of BOB ecosystem apps that you have harvested Spice with"
 msgstr "The number of BOB ecosystem apps that you have harvested Spice with"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:207
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:246
 msgid "The number of Intract and Galxe quests that you have completed"
 msgstr "The number of Intract and Galxe quests that you have completed"
 
@@ -1599,7 +1607,7 @@ msgstr "There is currently no available liquidity to onramp BTC into {assetName}
 msgid "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
 msgstr "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:139
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:176
 msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
 msgstr "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
 
@@ -1640,7 +1648,7 @@ msgstr "Top up Gas"
 #~ msgid "Total Assets"
 #~ msgstr "Total Assets"
 
-#: src/components/Layout/FusionPopover.tsx:81
+#: src/components/Layout/FusionPopover.tsx:87
 msgid "Total Harvest"
 msgstr "Total Harvest"
 
@@ -1718,7 +1726,7 @@ msgstr "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will b
 msgid "Use any of the <0>supported bridges</0>."
 msgstr "Use any of the <0>supported bridges</0>."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:192
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:231
 msgid "Use Apps"
 msgstr "Use Apps"
 
@@ -1750,6 +1758,10 @@ msgstr "Use your Spice total to support your favourite BOB builders. Winners wil
 msgid "User rejected the request"
 msgstr "User rejected the request"
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:142
+msgid "user_babylon_points ="
+msgstr "user_babylon_points ="
+
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:23
 msgid "Username"
 msgstr "Username"
@@ -1770,12 +1782,12 @@ msgstr "View All Transactions"
 msgid "View Intract"
 msgstr "View Intract"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:165
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:204
 msgid "View Multipliers"
 msgstr "View Multipliers"
 
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:94
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:218
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:257
 msgid "View Quests"
 msgstr "View Quests"
 
@@ -1842,6 +1854,14 @@ msgstr "When you vote for a project, your Spice total is added to their vote tot
 msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 msgstr "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:147
+msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
+msgstr "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:147
+#~ msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion. We can then replace the daily_babylon_points with the actual number once we have it"
+#~ msgstr "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion. We can then replace the daily_babylon_points with the actual number once we have it"
+
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:131
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:38
 msgid "Withdraw"
@@ -1884,6 +1904,10 @@ msgstr "You Have 0 Tickets"
 #: src/app/[lang]/nested-providers.tsx:67
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 msgstr "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:136
+msgid "You maximise Babylon points by maximising your Spice harvest. Babylon points are distributed for 45 days starting on [x date] calculated on a daily basis as:"
+msgstr "You maximise Babylon points by maximising your Spice harvest. Babylon points are distributed for 45 days starting on [x date] calculated on a daily basis as:"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:73
 msgid "You need at least {0} Spice to participate in Lottery."
@@ -1947,10 +1971,10 @@ msgstr "Your funds are safe!"
 msgid "Your performance in seasons 1 & 2"
 msgstr "Your performance in seasons 1 & 2"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:223
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:262
 msgid "Your Referral Code"
 msgstr "Your Referral Code"
 
-#: src/components/Layout/FusionPopover.tsx:53
+#: src/components/Layout/FusionPopover.tsx:55
 msgid "Your Spice Harvest Overview"
 msgstr "Your Spice Harvest Overview"

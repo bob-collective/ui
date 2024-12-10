@@ -130,6 +130,10 @@ export type UserResponse = {
   quests_breakdown: Record<string, number>;
   total_quest_points: string;
   season3Data: Season3Data;
+  baby: {
+    total: number;
+    daily: number;
+  };
 };
 
 type LeaderboardResponse = {

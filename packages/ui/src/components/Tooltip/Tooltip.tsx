@@ -21,6 +21,7 @@ const DEFAULT_DELAY = 250;
 type Props = {
   label?: ReactNode;
   placement?: Placement;
+  maxWidth?: string | number;
 };
 
 type AriaOverlaysAttrs = { shouldFlip?: boolean; crossOffset?: number; offset?: number; containerPadding?: number };
@@ -41,7 +42,8 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref): JSX.Eleme
     isDisabled,
     offset = DEFAULT_OFFSET,
     trigger: triggerAction,
-    delay = DEFAULT_DELAY
+    delay = DEFAULT_DELAY,
+    maxWidth
   } = props;
 
   const state = useTooltipTriggerState({ ...props, delay });
@@ -109,7 +111,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref): JSX.Eleme
             $placement={placement}
             className={props.className}
           >
-            <StyledTooltipLabel>{label}</StyledTooltipLabel>
+            <StyledTooltipLabel $maxWidth={maxWidth}>{label}</StyledTooltipLabel>
             <StyledTooltipTip $placement={placement} {...arrowProps} />
           </StyledTooltip>
         </Overlay>

@@ -12,6 +12,10 @@ type StyledTooltipTipProps = {
   $placement: Placement;
 };
 
+type StyledTooltipLabelProps = {
+  $maxWidth?: number | string;
+};
+
 const StyledTooltip = styled.div<StyledTooltipProps>`
   position: relative;
   display: inline-flex;
@@ -95,8 +99,8 @@ const StyledTooltipTip = styled.span<StyledTooltipTipProps>`
   }}
 `;
 
-const StyledTooltipLabel = styled.div`
-  max-inline-size: 200px;
+const StyledTooltipLabel = styled.div<StyledTooltipLabelProps>`
+  max-inline-size: ${({ $maxWidth }) => (typeof $maxWidth === 'number' ? `${$maxWidth}px` : $maxWidth) || '200px'};
 `;
 
 export { StyledTooltip, StyledTooltipLabel, StyledTooltipTip };
