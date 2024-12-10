@@ -1168,7 +1168,7 @@ msgstr ""
 #: src/components/Layout/Sidebar.tsx:73
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:271
 msgid "Privacy policy"
-msgstr ""
+msgstr "隐私政策"
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:121
 msgid "Protocol Fee"
