@@ -1,1 +1,0 @@
-export { NebuPoints } from './NebuPoints';

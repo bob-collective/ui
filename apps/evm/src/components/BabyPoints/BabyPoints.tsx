@@ -3,10 +3,10 @@
 import { AnimantedAmount, AnimantedAmountProps } from '../AnimantedAmount';
 import { BabylonLogo } from '../BabylonLogo';
 
-type NebuPointsProps = Omit<AnimantedAmountProps, 'icon'>;
+type BabyPointsProps = Omit<AnimantedAmountProps, 'icon'>;
 
-const NebuPoints = (props: NebuPointsProps) => (
+const BabyPoints = (props: BabyPointsProps) => (
   <AnimantedAmount icon={<BabylonLogo style={{ width: '1em', height: '1em' }} />} {...props} />
 );
 
-export { NebuPoints };
+export { BabyPoints };

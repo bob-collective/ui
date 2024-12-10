@@ -17,6 +17,10 @@ msgstr ""
 msgid ", due to the challenge period"
 msgstr ""
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:144
+msgid "(user_spice / total_qualified_spice) * [y] daily Babylon points"
+msgstr ""
+
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
 #~ msgid "{0}"
@@ -1853,6 +1857,10 @@ msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将�
 msgid "User rejected the request"
 msgstr ""
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:142
+msgid "user_babylon_points ="
+msgstr ""
+
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:23
 msgid "Username"
 msgstr ""
@@ -1953,6 +1961,14 @@ msgstr "当你为一个项目投票时，你的Spice总数将被计入他们的�
 msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计算你的投票权重。"
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:147
+msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
+msgstr ""
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:147
+#~ msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion. We can then replace the daily_babylon_points with the actual number once we have it"
+#~ msgstr ""
+
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:131
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 msgid "Withdraw"
@@ -2003,6 +2019,10 @@ msgstr ""
 
 #: src/app/[lang]/nested-providers.tsx:67
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
+msgstr ""
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:136
+msgid "You maximise Babylon points by maximising your Spice harvest. Babylon points are distributed for 45 days starting on [x date] calculated on a daily basis as:"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:73

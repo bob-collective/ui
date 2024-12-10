@@ -17,6 +17,10 @@ msgstr ""
 msgid ", due to the challenge period"
 msgstr ", due to the challenge period"
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:144
+msgid "(user_spice / total_qualified_spice) * [y] daily Babylon points"
+msgstr "(user_spice / total_qualified_spice) * [y] daily Babylon points"
+
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:171
 #~ msgid "{0}"
@@ -1866,6 +1870,10 @@ msgstr "Use your Spice total to support your favourite BOB builders. Winners wil
 msgid "User rejected the request"
 msgstr "User rejected the request"
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:142
+msgid "user_babylon_points ="
+msgstr "user_babylon_points ="
+
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:23
 msgid "Username"
 msgstr "Username"
@@ -1966,6 +1974,14 @@ msgstr "When you vote for a project, your Spice total is added to their vote tot
 msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 msgstr "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:147
+msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
+msgstr "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:147
+#~ msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion. We can then replace the daily_babylon_points with the actual number once we have it"
+#~ msgstr "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion. We can then replace the daily_babylon_points with the actual number once we have it"
+
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:131
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 msgid "Withdraw"
@@ -2017,6 +2033,10 @@ msgstr "You Have 0 Tickets"
 #: src/app/[lang]/nested-providers.tsx:67
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 msgstr "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:136
+msgid "You maximise Babylon points by maximising your Spice harvest. Babylon points are distributed for 45 days starting on [x date] calculated on a daily basis as:"
+msgstr "You maximise Babylon points by maximising your Spice harvest. Babylon points are distributed for 45 days starting on [x date] calculated on a daily basis as:"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:73
 msgid "You need at least {0} Spice to participate in Lottery."
