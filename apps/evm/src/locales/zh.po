@@ -106,7 +106,7 @@ msgid "About"
 msgstr "关于"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:248
-#: src/components/Layout/FusionPopover.tsx:99
+#: src/components/Layout/FusionPopover.tsx:104
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr ""
 
@@ -250,7 +250,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:133
+#: src/app/[lang]/fusion/Fusion.tsx:129
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
 
@@ -340,7 +340,7 @@ msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <0>公告</0>。"
 
-#: src/app/[lang]/fusion/Fusion.tsx:165
+#: src/app/[lang]/fusion/Fusion.tsx:161
 msgid "Bringing Bitcoin DeFi to the Superchain"
 msgstr "将比特币 DeFi 引入OP超级链"
 
@@ -475,11 +475,11 @@ msgstr "复制推荐URL"
 msgid "Create Account"
 msgstr "创建账户"
 
-#: src/components/Layout/FusionPopover.tsx:70
+#: src/components/Layout/FusionPopover.tsx:75
 msgid "Current Harvest"
 msgstr "当前收获"
 
-#: src/components/Layout/FusionPopover.tsx:77
+#: src/components/Layout/FusionPopover.tsx:82
 msgid "Current Leaderboard Rank"
 msgstr "当前排行榜排名"
 
@@ -680,7 +680,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
-#: src/app/[lang]/fusion/Fusion.tsx:203
+#: src/app/[lang]/fusion/Fusion.tsx:197
 msgid "Follow us on X"
 msgstr ""
 
@@ -768,7 +768,7 @@ msgstr ""
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:137
+#: src/app/[lang]/fusion/Fusion.tsx:133
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关注特别活动"
 
@@ -780,7 +780,7 @@ msgstr "这里展示了你推荐的活跃用户及他们为你赚取的Spice。�
 msgid "Hero banner"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:126
+#: src/app/[lang]/fusion/Fusion.tsx:122
 msgid "Hero dots"
 msgstr ""
 
@@ -845,7 +845,7 @@ msgid "Leaderboard"
 msgstr "排行榜"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:147
+#: src/app/[lang]/fusion/Fusion.tsx:143
 msgid "Learn More"
 msgstr "了解更多"
 
@@ -1268,7 +1268,7 @@ msgstr "奖励"
 msgid "Satoshi protocol points"
 msgstr "Satoshi协议积分"
 
-#: src/components/Layout/FusionPopover.tsx:111
+#: src/components/Layout/FusionPopover.tsx:116
 msgid "Season 1 & 2 (Completed)"
 msgstr "第1季和第2季（已完成）"
 
@@ -1276,11 +1276,11 @@ msgstr "第1季和第2季（已完成）"
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "第1季和第2季总Spice（已完成）："
 
-#: src/components/Layout/FusionPopover.tsx:122
+#: src/components/Layout/FusionPopover.tsx:127
 msgid "Season 2 Final Rank"
 msgstr "第2季最终排名"
 
-#: src/components/Layout/FusionPopover.tsx:64
+#: src/components/Layout/FusionPopover.tsx:69
 msgid "Season 3 (Ongoing)"
 msgstr "第3季（进行中）"
 
@@ -1545,7 +1545,7 @@ msgstr ""
 msgid "Successfully submitted ${0} proof"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:178
+#: src/app/[lang]/fusion/Fusion.tsx:172
 msgid "Superchain Eco"
 msgstr ""
 
@@ -1716,12 +1716,12 @@ msgstr ""
 msgid "To cast your vote, please log in"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:168
+#: src/app/[lang]/fusion/Fusion.tsx:164
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
 msgstr "为庆祝 BOB 加入”超级链”，您已符合资格获得 OP 专属奖励：2024 年 12 月 9 日至 2025 年 1 月 12 日期间收获的所有 Spice 可享额外 50% 奖励。<0>了解更多</0>"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:206
+#: src/app/[lang]/fusion/Fusion.tsx:200
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
@@ -1741,7 +1741,7 @@ msgstr ""
 #~ msgid "Total Assets"
 #~ msgstr "总资产"
 
-#: src/components/Layout/FusionPopover.tsx:115
+#: src/components/Layout/FusionPopover.tsx:120
 msgid "Total Harvest"
 msgstr "总收获"
 
@@ -1979,7 +1979,7 @@ msgid "You"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:46
-#: src/app/[lang]/fusion/Fusion.tsx:131
+#: src/app/[lang]/fusion/Fusion.tsx:127
 msgid "You are one of the top 100 Spice holders in BOB Fusion"
 msgstr ""
 
@@ -2073,6 +2073,6 @@ msgstr "你在第1季和第2季的表现"
 msgid "Your Referral Code"
 msgstr "你的推荐码"
 
-#: src/components/Layout/FusionPopover.tsx:60
+#: src/components/Layout/FusionPopover.tsx:65
 msgid "Your Spice Harvest Overview"
 msgstr ""

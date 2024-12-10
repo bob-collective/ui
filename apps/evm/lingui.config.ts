@@ -1,7 +1,7 @@
 import { LinguiConfig } from '@lingui/conf';
 
 const config = {
-  locales: ['en', 'zh'],
+  locales: ['en', 'zh', 'ko'],
   sourceLocale: 'en',
   fallbackLocales: {
     default: 'en'
