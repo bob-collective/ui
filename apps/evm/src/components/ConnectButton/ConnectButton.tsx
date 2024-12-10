@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { Address } from 'viem';
 import { useAccount } from 'wagmi';
 import { Drawer } from 'vaul';
-import { useMediaQuery } from 'usehooks-ts';
+import { useIsClient, useMediaQuery } from 'usehooks-ts';
 import { useTheme } from 'styled-components';
 
 import { ProfileDrawer } from '../ProfileDrawer';
@@ -17,28 +17,36 @@ import { ProfileDrawer } from '../ProfileDrawer';
 import { StyledContent } from './ConnectButton.style';
 
 import { useBtcAccount } from '@/hooks';
+import { useUserAgent } from '@/user-agent';
 
 const Profile = ({
   evmAddress,
   btcAddress,
-  user,
-  hideAddress
+  user
 }: {
   btcAddress?: string;
   evmAddress?: Address;
   user?: UserProfile;
-  hideAddress?: boolean;
 }) => {
+  const theme = useTheme();
+  const isClient = useIsClient();
+  const { isMobile: isMobileUserAgent } = useUserAgent();
+  const isMobileViewport = useMediaQuery(theme.breakpoints.down('s'));
+
   const displayedAddress = evmAddress
     ? truncateEthAddress(evmAddress)
     : btcAddress
       ? truncateBtcAddress(btcAddress)
       : undefined;
 
+  const isMobile = isMobileViewport || isMobileUserAgent;
+
   return (
     <Flex alignItems='center' elementType='span' gap='s'>
       {user?.userId ? <ProfileAvatar name={user.userId} size='1.5rem' /> : undefined}
-      {!hideAddress && <Span size='s'>{displayedAddress}</Span>}
+      <Span hidden={!isClient || isMobile} size='s'>
+        {displayedAddress}
+      </Span>
     </Flex>
   );
 };
@@ -49,11 +57,12 @@ const ConnectButton = (): JSX.Element => {
   const [snap, setSnap] = useState<number | string | null>(snapPoints[0] as number);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+  const isMobileViewport = useMediaQuery(theme.breakpoints.down('s'));
 
   const { setShowAuthFlow, user } = useDynamicContext();
   const { address: evmAddress } = useAccount();
   const { address: btcAddress } = useBtcAccount();
+  const { isMobile: isMobileUserAgent } = useUserAgent();
 
   const [isOpen, setOpen] = useState(false);
 
@@ -73,13 +82,15 @@ const ConnectButton = (): JSX.Element => {
 
   const handleClose = () => setOpen(false);
 
+  const isMobile = isMobileViewport || isMobileUserAgent;
+
   const snapProps = isMobile ? { activeSnapPoint: snap, setActiveSnapPoint: setSnap, snapPoints } : undefined;
 
   return (
     <Drawer.Root direction={isMobile ? 'bottom' : 'right'} open={isOpen} onOpenChange={setOpen} {...snapProps}>
       <Drawer.Trigger asChild>
         <Button variant='ghost'>
-          <Profile btcAddress={btcAddress} evmAddress={evmAddress} hideAddress={isMobile} user={user} />
+          <Profile btcAddress={btcAddress} evmAddress={evmAddress} user={user} />
         </Button>
       </Drawer.Trigger>
       <Drawer.Portal>
