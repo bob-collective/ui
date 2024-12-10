@@ -9,6 +9,10 @@ export enum QuestRefCodes {
   INTRACT = '6y2pac'
 }
 
+interface PostResponse {
+  ok: boolean;
+}
+
 type Logos = { default?: string };
 
 interface DepositStat {
@@ -113,6 +117,7 @@ export type UserResponse = {
   data: any;
   created_at: Date;
   updated_at: Date;
+  is_fusion_top_user: boolean;
   leaderboardRank?: {
     user_address: string;
     total_points: number;
@@ -130,6 +135,11 @@ export type UserResponse = {
   quests_breakdown: Record<string, number>;
   total_quest_points: string;
   season3Data: Season3Data;
+  notices: {
+    showIsFusionTopUser: boolean;
+    showIsOpUser: boolean; // will be set to false once dismissed
+    isOpUser: boolean; // stable
+  };
 };
 
 type LeaderboardResponse = {
@@ -574,6 +584,24 @@ class ApiClient {
     });
 
     return this.handleResponse<ProjectVotingInfo>(response);
+  }
+
+  async dismissTopUserModal(): Promise<PostResponse> {
+    const response = await fetch(`${this.baseUrl}/me/dismiss-fusion-top-user-notice`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    return this.handleResponse<PostResponse>(response);
+  }
+
+  async dismissOPUserModal(): Promise<PostResponse> {
+    const response = await fetch(`${this.baseUrl}/me/dismiss-op-user-notice`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    return this.handleResponse<PostResponse>(response);
   }
 
   async getLastVotingResults(): Promise<ResultProjectVotingInfo> {
