@@ -1,54 +1,13 @@
-import { Avatar, Flex, P, useCurrencyFormatter } from '@gobob/ui';
-import { usePrices } from '@gobob/hooks';
 import { CurrencyAmount } from '@gobob/currency';
+import { usePrices } from '@gobob/hooks';
 import { BITCOIN } from '@gobob/tokens';
+import { Flex, P } from '@gobob/ui';
 
-import { AddornedAsset } from '../AddornedAsset';
-
-import { StyledTransactionList } from './ProfileTokenList.style';
+import { StyledTokenList } from './ProfileDrawer.style';
+import { ProfileTokenListItem } from './ProfileTokenListItem';
 
 import { useBalances, useBtcBalance, useTokens } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
-import { ChainLogo } from '@/components';
-
-const ProfileTokenListItem = ({
-  chainId,
-  amountUSD,
-  balance,
-  logoUrl,
-  name,
-  symbol
-}: {
-  chainId?: number;
-  name: string;
-  logoUrl: string;
-  balance: string;
-  symbol: string;
-  amountUSD: number;
-}) => {
-  const format = useCurrencyFormatter();
-
-  return (
-    <Flex alignItems='center' justifyContent='space-between'>
-      <Flex alignItems='center' gap='lg'>
-        {chainId ? (
-          <AddornedAsset
-            addornment={<ChainLogo chainId={chainId} size='xs' />}
-            asset={<Avatar alt={name} size='5xl' src={logoUrl} />}
-          />
-        ) : (
-          <Avatar alt={name} size='5xl' src={logoUrl} />
-        )}
-        <Flex direction='column'>
-          <P rows={1}>{name}</P>
-          <P color='grey-50' rows={1} size='s'>
-            {balance} {symbol} ({format(amountUSD)})
-          </P>
-        </Flex>
-      </Flex>
-    </Flex>
-  );
-};
 
 type ProfileTokenListProps = {
   chainId: number;
@@ -69,7 +28,7 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
   const ethBalance = ethData && getBalance(ethData.raw.symbol);
 
   return (
-    <StyledTransactionList direction='column' flex={1} gap='xl' paddingX='md' paddingY='xl'>
+    <StyledTokenList direction='column' flex={1} gap='xl' paddingX='md' paddingY='xl'>
       {ethBalance && ethData && (
         <ProfileTokenListItem
           amountUSD={calculateAmountUSD(ethBalance, getPrice(ethBalance.currency.symbol))}
@@ -104,7 +63,7 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
           ))}
         </Flex>
       </Flex>
-    </StyledTransactionList>
+    </StyledTokenList>
   );
 };
 

@@ -2,14 +2,12 @@
 
 import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { BTC } from '@gobob/icons';
-import { Button, Card, ChevronRight, Flex, Span } from '@gobob/ui';
+import { Card, Flex, Span } from '@gobob/ui';
 import { truncateBtcAddress } from '@gobob/utils';
 
 import { useBtcAccount, useBtcBalance } from '@/hooks';
 
-type ProfileBtcWalletProps = { onPress?: () => void };
-
-const ProfileBtcWallet = ({ onPress }: ProfileBtcWalletProps): JSX.Element | null => {
+const ProfileBtcWallet = (): JSX.Element | null => {
   const { data: btcBalance } = useBtcBalance();
   const { address: btcAddress, connector: btcConnector } = useBtcAccount();
 
@@ -38,9 +36,6 @@ const ProfileBtcWallet = ({ onPress }: ProfileBtcWalletProps): JSX.Element | nul
           </Flex>
         </Flex>
       </Flex>
-      <Button isIconOnly variant='ghost' onPress={onPress}>
-        <ChevronRight color='grey-50' />
-      </Button>
     </Card>
   );
 };
