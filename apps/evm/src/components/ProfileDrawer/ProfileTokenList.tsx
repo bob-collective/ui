@@ -1,7 +1,8 @@
 import { CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { BITCOIN } from '@gobob/tokens';
-import { Flex, P } from '@gobob/ui';
+import { Card, Flex, P } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 
 import { ProfileTokenListItem } from './ProfileTokenListItem';
 
@@ -27,7 +28,12 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
   const ethBalance = ethData && getBalance(ethData.raw.symbol);
 
   return (
-    <Flex direction='column' flex={1} gap='xl' paddingX='md' paddingY='xl'>
+    <Flex direction='column' flex={1} gap='lg'>
+      <Card background='grey-600' padding='s'>
+        <P align='center' size='s'>
+          <Trans>Wallet</Trans>
+        </P>
+      </Card>
       {ethBalance && ethData && (
         <ProfileTokenListItem
           amountUSD={calculateAmountUSD(ethBalance, getPrice(ethBalance.currency.symbol))}
@@ -44,24 +50,20 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
         name='Bitcoin'
         symbol='BTC'
       />
-      <Flex direction='column' gap='s'>
-        <P color='grey-50' size='xs'>
-          Tokens
-        </P>
-        <Flex direction='column' gap='lg'>
-          {list?.map((item) => (
-            <ProfileTokenListItem
-              key={item.token.raw.address}
-              amountUSD={calculateAmountUSD(item.balance!, getPrice(item.balance!.currency.symbol))}
-              balance={item.balance!.toSignificant()}
-              chainId={chainId}
-              logoUrl={item.token.raw.logoUrl}
-              name={item.token.raw.name}
-              symbol={item.token.currency.symbol}
-            />
-          ))}
-        </Flex>
-      </Flex>
+      <P color='grey-50' size='xs'>
+        Tokens
+      </P>
+      {list?.map((item) => (
+        <ProfileTokenListItem
+          key={item.token.raw.address}
+          amountUSD={calculateAmountUSD(item.balance!, getPrice(item.balance!.currency.symbol))}
+          balance={item.balance!.toSignificant()}
+          chainId={chainId}
+          logoUrl={item.token.raw.logoUrl}
+          name={item.token.raw.name}
+          symbol={item.token.currency.symbol}
+        />
+      ))}
     </Flex>
   );
 };

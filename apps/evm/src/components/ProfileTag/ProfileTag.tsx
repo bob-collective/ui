@@ -1,7 +1,7 @@
 'use client';
 
 import { UserProfile } from '@dynamic-labs/sdk-react-core';
-import { Flex, Span } from '@gobob/ui';
+import { Flex, Skeleton, Span } from '@gobob/ui';
 import { truncateBtcAddress, truncateEthAddress } from '@gobob/utils';
 import ProfileAvatar from 'boring-avatars';
 import { Address } from 'viem';
@@ -22,14 +22,25 @@ const ProfileTag = ({
   btcAddress,
   user,
   size = 's',
-  isLoading
+  isLoading,
+  hideAddress
 }: {
   btcAddress?: string;
   evmAddress?: Address;
   user?: UserProfile;
   size?: 's' | 'md';
   isLoading?: boolean;
+  hideAddress?: boolean;
 }) => {
+  if (isLoading) {
+    return (
+      <Flex alignItems='center' elementType='span' gap='md'>
+        <Skeleton height='1.5rem' rounded='full' width='1.5rem' />
+        {!hideAddress && <Skeleton width='6.25rem' />}
+      </Flex>
+    );
+  }
+
   const displayedAddress = evmAddress
     ? truncateEthAddress(evmAddress)
     : btcAddress
@@ -39,9 +50,11 @@ const ProfileTag = ({
   return (
     <Flex alignItems='center' elementType='span' gap='md'>
       {user?.userId ? <ProfileAvatar name={user.userId} size={sizeMap[size].icon} /> : undefined}
-      <Span size={sizeMap[size].text} weight='semibold'>
-        {displayedAddress}
-      </Span>
+      {!hideAddress && (
+        <Span size={sizeMap[size].text} weight='semibold'>
+          {displayedAddress}
+        </Span>
+      )}
     </Flex>
   );
 };

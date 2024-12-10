@@ -28,6 +28,7 @@ export { EllipsisHorizontal } from './EllipsisHorizontal';
 export { EllipsisVertical } from './EllipsisVertical';
 export { ExclamationCircle } from './ExclamationCircle';
 export { InformationCircle } from './InformationCircle';
+export { LinkSlash } from './LinkSlash';
 export { ListBullet } from './ListBullet';
 export { PencilSquare } from './PencilSquare';
 export { Photo } from './Photo';

@@ -2,7 +2,7 @@
 
 import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { BTC } from '@gobob/icons';
-import { Button, Card, ChevronRight, Flex, Power, Span } from '@gobob/ui';
+import { Button, Card, ChevronRight, Flex, LinkSlash, Span, Tooltip } from '@gobob/ui';
 import { truncateBtcAddress } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
 
@@ -67,9 +67,11 @@ const ProfileBtcWallet = ({ onPressConnect, onUnlink }: ProfileBtcWalletProps): 
           </Flex>
         </Flex>
       </Flex>
-      <Button isIconOnly variant='ghost' onPress={() => onUnlink(btcWallet.id)}>
-        <Power color='grey-50' />
-      </Button>
+      <Tooltip label={<Trans>Unlink wallet</Trans>}>
+        <Button isIconOnly size='s' variant='ghost' onPress={() => onUnlink(btcWallet.id)}>
+          <LinkSlash color='grey-50' size='s' />
+        </Button>
+      </Tooltip>
     </Card>
   );
 };
