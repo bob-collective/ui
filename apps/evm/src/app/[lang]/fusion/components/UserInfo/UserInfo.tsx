@@ -42,7 +42,7 @@ import { UserInfoCard } from './UserInfoCard';
 import { UserReferralModal } from './UserReferralModal';
 
 import { AppData } from '@/app/[lang]/apps/hooks';
-import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
+import { BabyPoints, LoginSection, SignUpButton, SpiceAmount } from '@/components';
 import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
 import { fusionKeys } from '@/lib/react-query';
 import { SessionStorageKey } from '@/types';
@@ -145,16 +145,45 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
           <Flex direction='column' flex={{ base: 1 }} gap='lg' justifyContent='space-between'>
             <DlGroup alignItems='flex-start' direction='column'>
-              <Dt>
-                <Trans>Season 3 Harvested Spice</Trans>
-              </Dt>
+              <Flex alignItems='center' elementType='dt' gap='s'>
+                <Span color='grey-50' size='s'>
+                  <Trans>Season 3 Harvested</Trans>
+                </Span>
+                <Tooltip
+                  color='primary'
+                  label={
+                    <Flex direction='column' gap='s'>
+                      <P size='xs'>
+                        <Trans>
+                          You maximise Babylon points by maximising your Spice harvest. Babylon points are distributed
+                          for 45 days starting on [x date] calculated on a daily basis as:
+                        </Trans>
+                      </P>
+                      <P size='xs'>
+                        <Trans>user_babylon_points =</Trans>
+                        <br />
+                        <Trans>(user_spice / total_qualified_spice) * [y] daily Babylon points</Trans>
+                      </P>
+                      <P size='xs'>
+                        <Trans>
+                          Where total_qualified_spice is the total spice earned by all users that qualify for Babylon
+                          points, i.e., had LST in their wallet at some points and are registered in Fusion.
+                        </Trans>
+                      </P>
+                    </Flex>
+                  }
+                  maxWidth={350}
+                >
+                  <SolidInformationCircle color='grey-50' size='s' />
+                </Tooltip>
+              </Flex>
               <Flex wrap alignItems='center' elementType='dd' gap='s'>
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
-                <Flex gap='s'>
-                  <Span size='2xl' style={{ lineHeight: 1.2 }}>
+                <Flex alignItems='center' gap='s'>
+                  <Span size='2xl' style={{ lineHeight: 1.3 }}>
                     +
                   </Span>
-                  <NebuPoints showAnimation amount={totalPoints} size='2xl' />
+                  <BabyPoints showAnimation amount={user?.baby.total || 0} size='2xl' />
                 </Flex>
               </Flex>
             </DlGroup>
@@ -177,7 +206,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                   <SpiceAmount showAnimation amount={spicePerDay || 0} />
                   <Flex gap='s'>
                     <Span style={{ lineHeight: 1.2 }}>+</Span>
-                    <NebuPoints showAnimation amount={spicePerDay || 0} />
+                    <BabyPoints showAnimation amount={user?.baby.daily || 0} />
                   </Flex>
                 </Flex>
               </Flex>

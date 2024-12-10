@@ -1,3 +1,4 @@
+import { Optimism, Spice } from '@gobob/icons';
 import {
   Card,
   Divider,
@@ -11,14 +12,13 @@ import {
   Span,
   useLocale
 } from '@gobob/ui';
-import { Optimism, Spice } from '@gobob/icons';
-import { useFocusRing } from '@react-aria/focus';
 import { Trans } from '@lingui/macro';
+import { useFocusRing } from '@react-aria/focus';
 
+import { BabyPoints } from '../BabyPoints/BabyPoints';
+import { SpiceAmount } from '../SpiceAmount';
 import { WithdrawAlert } from '../WithdrawAlert';
 import { WithdrawModal } from '../WithdrawModal';
-import { SpiceAmount } from '../SpiceAmount';
-import { NebuPoints } from '../NebuPoints';
 
 import { StyledChip, StyledContentWrapper, StyledHarvestCard, StyledOpacityOverlay } from './FusionPopover.style';
 
@@ -79,7 +79,7 @@ const FusionPopover = (): JSX.Element | null => {
                 <Flex wrap gap='s'>
                   <SpiceAmount amount={season3TotalPoints!} />
                   <Span>+</Span>
-                  <NebuPoints amount={290} />
+                  <BabyPoints amount={user.baby.total} />
                 </Flex>
               </StyledContentWrapper>
             </StyledHarvestCard>
