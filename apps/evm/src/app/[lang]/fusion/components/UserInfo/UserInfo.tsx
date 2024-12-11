@@ -79,9 +79,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
     refetchOnMount: false
   });
 
-  const { data: leaderboard } = useQuery({
-    queryKey: fusionKeys.leaderboardOverview(),
-    queryFn: async () => apiClient.getLeaderboard(0, 0),
+  const { data: totalHarvesters } = useQuery({
+    queryKey: fusionKeys.totalHarvesters(),
+    queryFn: async () => apiClient.getTotalHarvesters(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR
@@ -136,7 +136,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 <Trans>Fusion Users:</Trans>
               </Dd>
               <Dt color='light' size='s' weight='semibold'>
-                {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+                {totalHarvesters?.count ? Intl.NumberFormat(locale).format(Number(totalHarvesters.count)) : '-'}
               </Dt>
             </DlGroup>
           </Dl>
@@ -332,7 +332,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                     <Trans>Fusion Users:</Trans>
                   </Dd>
                   <Dt color='light' weight='semibold'>
-                    {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+                    {totalHarvesters?.count ? Intl.NumberFormat(locale).format(Number(totalHarvesters.count)) : '-'}
                   </Dt>
                 </DlGroup>
                 <DlGroup justifyContent='space-between'>

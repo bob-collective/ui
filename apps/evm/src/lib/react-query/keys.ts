@@ -84,6 +84,7 @@ export const fusionKeys = {
   leaderboard: () => [...fusionKeys.fusion(), 'leaderboard'],
   leaderboardOverview: () => [...fusionKeys.fusion(), 'leaderboard-overview'],
   tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],
+  totalHarvesters: () => [...fusionKeys.fusion(), 'total-harvesters'],
   quests: () => [...fusionKeys.fusion(), 'quests'],
   tvlLevel: () => [...fusionKeys.fusion(), 'tvl-level'],
   lotteryStats: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-stats', username] as string[],

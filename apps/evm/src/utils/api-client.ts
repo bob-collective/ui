@@ -379,6 +379,10 @@ export interface TokenInfo {
   incentives: string[];
 }
 
+interface TotalHarvesters {
+  count: number;
+}
+
 export interface QuestS3Response {
   questBreakdown: QuestBreakdown[];
 }
@@ -620,6 +624,12 @@ class ApiClient {
     const response = await fetch(`${this.baseUrl}/get-quests-s3`);
 
     return this.handleResponse<QuestS3Response>(response);
+  }
+
+  async getTotalHarvesters(): Promise<TotalHarvesters> {
+    const response = await fetch(`${this.baseUrl}/get-spice-harvesters-count`);
+
+    return this.handleResponse<TotalHarvesters>(response);
   }
 
   async getTokenInfo(): Promise<TokenInfo[]> {
