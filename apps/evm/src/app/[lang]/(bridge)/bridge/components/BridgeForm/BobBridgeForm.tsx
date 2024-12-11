@@ -37,6 +37,7 @@ import {
   BRIDGE_AMOUNT,
   BRIDGE_ASSET,
   BRIDGE_BTC_WALLET,
+  BRIDGE_EVM_WALLET,
   BRIDGE_RECIPIENT,
   BridgeFormValidationParams,
   BridgeFormValues,
@@ -399,7 +400,8 @@ const BobBridgeForm = ({
       maxAmount: new Big(tokenBalance?.toExact() || 0)
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount,
-    [BRIDGE_BTC_WALLET]: null
+    [BRIDGE_BTC_WALLET]: null,
+    [BRIDGE_EVM_WALLET]: address
   };
 
   const form = useForm<BridgeFormValues>({
