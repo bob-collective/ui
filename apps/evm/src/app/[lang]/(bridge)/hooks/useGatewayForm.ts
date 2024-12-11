@@ -13,6 +13,7 @@ import {
   BRIDGE_AMOUNT,
   BRIDGE_ASSET,
   BRIDGE_BTC_WALLET,
+  BRIDGE_EVM_WALLET,
   BRIDGE_RECIPIENT,
   BridgeFormValidationParams,
   BridgeFormValues,
@@ -46,7 +47,8 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
       maxAmount: new Big(query.balance.toExact())
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount,
-    [BRIDGE_BTC_WALLET]: btcAddress
+    [BRIDGE_BTC_WALLET]: btcAddress,
+    [BRIDGE_EVM_WALLET]: evmAddress
   };
 
   const initialValues = {
