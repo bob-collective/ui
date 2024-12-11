@@ -2,9 +2,14 @@
 
 import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { BTC } from '@gobob/icons';
-import { Button, Card, ChevronRight, Flex, LinkSlash, Span, Tooltip } from '@gobob/ui';
+import { Button, Card, ChevronRight, Flex, LinkSlash, Span, Spinner, Tooltip } from '@gobob/ui';
 import { truncateBtcAddress } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
+import { CurrencyAmount } from '@gobob/currency';
+import { BITCOIN } from '@gobob/tokens';
+import { useState } from 'react';
+
+import { CopyAddress } from '../CopyAddress';
 
 import { StyledWalletCard } from './ProfileDrawer.style';
 
@@ -19,6 +24,14 @@ const ProfileBtcWallet = ({ onPressConnect, onUnlink }: ProfileBtcWalletProps): 
   const { data: btcBalance } = useBtcBalance();
   const { address: btcAddress, connector: btcConnector } = useBtcAccount();
   const btcWallet = useBtcDynamicWallet();
+
+  const [prevBtcWallet, setPrevBtcWallet] = useState<string | undefined>(btcWallet?.id);
+  const [isDisconnecting, setDisconnecting] = useState(false);
+
+  if (btcWallet && btcWallet?.id !== prevBtcWallet) {
+    setPrevBtcWallet(btcWallet?.id);
+    setDisconnecting(false);
+  }
 
   if (!btcConnector || !btcAddress || !btcWallet) {
     return (
@@ -44,8 +57,14 @@ const ProfileBtcWallet = ({ onPressConnect, onUnlink }: ProfileBtcWalletProps): 
     );
   }
 
+  const handleUnlink = () => {
+    onUnlink(btcWallet.id);
+    setDisconnecting(true);
+  };
+
   return (
     <Card
+      key={btcWallet.id}
       alignItems='center'
       background='grey-600'
       direction='row'
@@ -57,19 +76,23 @@ const ProfileBtcWallet = ({ onPressConnect, onUnlink }: ProfileBtcWalletProps): 
         <BTC size='xl' />
         <Flex direction='column'>
           <Span size='s' weight='semibold'>
-            {(btcBalance?.total || 0).toString()} BTC
+            {CurrencyAmount.fromRawAmount(BITCOIN, btcBalance?.total || 0).toSignificant()} BTC
           </Span>
           <Flex alignItems='center' gap='s'>
             <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={btcConnector.key} />
-            <Span color='grey-50' size='xs' weight='semibold'>
-              {truncateBtcAddress(btcAddress)}
-            </Span>
+            <CopyAddress
+              address={btcAddress || ''}
+              color='grey-50'
+              size='xs'
+              truncatedAddress={truncateBtcAddress(btcAddress || '')}
+              weight='semibold'
+            />
           </Flex>
         </Flex>
       </Flex>
       <Tooltip label={<Trans>Unlink wallet</Trans>}>
-        <Button isIconOnly size='s' variant='ghost' onPress={() => onUnlink(btcWallet.id)}>
-          <LinkSlash color='grey-50' size='s' />
+        <Button isIconOnly size='s' variant='ghost' onPress={handleUnlink}>
+          {isDisconnecting ? <Spinner size='s' /> : <LinkSlash color='grey-50' size='s' />}
         </Button>
       </Tooltip>
     </Card>

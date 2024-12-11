@@ -1,7 +1,7 @@
 'use client';
 
 import { useDynamicContext, useDynamicModals } from '@dynamic-labs/sdk-react-core';
-import { Button, Card, Flex, P, Power, QrCode, SolidCreditCard } from '@gobob/ui';
+import { Button, Card, Flex, P, Power, QrCode, Skeleton, SolidCreditCard, Tooltip } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useAccount } from 'wagmi';
 
@@ -20,7 +20,7 @@ type ProfileDrawerProps = {
 };
 
 const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
-  const { setShowAuthFlow, user, handleLogOut } = useDynamicContext();
+  const { setShowAuthFlow, handleLogOut } = useDynamicContext();
   const { address: evmAddress, chain } = useAccount();
   const { address: btcAddress } = useBtcAccount();
   const { handleUnlinkWallet, setSelectedTabIndex } = useDynamicContext();
@@ -28,7 +28,7 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
 
   const chainId = chain?.id || L1_CHAIN;
 
-  const { formatted } = useTotalBalance(chainId);
+  const { formatted, isPending: isBalancePending } = useTotalBalance(chainId);
 
   const isAuthenticated = evmAddress || btcAddress;
 
@@ -72,16 +72,20 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} gap='xl'>
       <Flex alignItems='center' justifyContent='space-between'>
-        <ProfileTag btcAddress={btcAddress} evmAddress={evmAddress} size='md' user={user} />
-        <Flex>
+        <ProfileTag isCopyEnabled labelProps={{ weight: 'semibold' }} size='md' />
+        <Tooltip label='Disconnect'>
           <Button isIconOnly aria-label='disconnect wallet(s)' size='s' variant='ghost' onPress={handleLogout}>
             <Power size='s' />
           </Button>
-        </Flex>
+        </Tooltip>
       </Flex>
-      <P size='2xl' style={{ fontFamily: 'eurostar' }} weight='bold'>
-        {formatted}
-      </P>
+      {isBalancePending ? (
+        <Skeleton height='4xl' width='10rem' />
+      ) : (
+        <P size='2xl' style={{ fontFamily: 'eurostar' }} weight='bold'>
+          {formatted}
+        </P>
+      )}
       <Flex gap='md'>
         <Card
           isHoverable

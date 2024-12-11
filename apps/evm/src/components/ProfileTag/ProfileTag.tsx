@@ -1,37 +1,50 @@
 'use client';
 
-import { UserProfile } from '@dynamic-labs/sdk-react-core';
-import { Flex, Skeleton, Span } from '@gobob/ui';
+import { useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
+import { Flex, Skeleton, Span, SpanProps } from '@gobob/ui';
 import { truncateBtcAddress, truncateEthAddress } from '@gobob/utils';
 import ProfileAvatar from 'boring-avatars';
-import { Address } from 'viem';
+import { useAccount } from 'wagmi';
+
+import { ChainAsset } from '../ChainAsset';
+import { CopyAddress } from '../CopyAddress';
+
+import { useBtcAccount } from '@/hooks';
 
 const sizeMap = {
   s: {
     icon: '1.5rem',
-    text: 's'
+    text: 's',
+    chain: 'xxs'
   },
   md: {
     icon: '2rem',
-    text: 'md'
+    text: 'md',
+    chain: 'xs'
   }
 } as const;
 
 const ProfileTag = ({
-  evmAddress,
-  btcAddress,
-  user,
   size = 's',
-  isLoading,
-  hideAddress
+  hideAddress,
+  labelProps,
+  isCopyEnabled
 }: {
-  btcAddress?: string;
-  evmAddress?: Address;
-  user?: UserProfile;
   size?: 's' | 'md';
-  isLoading?: boolean;
   hideAddress?: boolean;
+  labelProps?: SpanProps;
+  isCopyEnabled?: boolean;
 }) => {
+  const { user, primaryWallet, sdkHasLoaded } = useDynamicContext();
+
+  const { address: evmAddress, chain } = useAccount();
+  const { address: btcAddress } = useBtcAccount();
+  const isLoggedIn = useIsLoggedIn();
+
+  const fallbackEvmAddress = primaryWallet?.chain === 'EVM' ? primaryWallet.address : evmAddress;
+
+  const isLoading = !sdkHasLoaded || (isLoggedIn && !(fallbackEvmAddress || btcAddress));
+
   if (isLoading) {
     return (
       <Flex alignItems='center' elementType='span' gap='md'>
@@ -41,18 +54,34 @@ const ProfileTag = ({
     );
   }
 
-  const displayedAddress = evmAddress
-    ? truncateEthAddress(evmAddress)
+  const address = fallbackEvmAddress || btcAddress;
+
+  const truncatedAddress = fallbackEvmAddress
+    ? truncateEthAddress(fallbackEvmAddress)
     : btcAddress
       ? truncateBtcAddress(btcAddress)
       : undefined;
 
   return (
     <Flex alignItems='center' elementType='span' gap='md'>
-      {user?.userId ? <ProfileAvatar name={user.userId} size={sizeMap[size].icon} /> : undefined}
-      {!hideAddress && (
+      {user?.userId ? (
+        <ChainAsset
+          asset={<ProfileAvatar name={user.userId} size={sizeMap[size].icon} />}
+          chainId={chain?.id}
+          chainProps={{ size: sizeMap[size].chain }}
+        />
+      ) : undefined}
+      {!hideAddress && isCopyEnabled ? (
+        <CopyAddress
+          {...labelProps}
+          address={address || ''}
+          iconVisibility='hover'
+          size={sizeMap[size].text}
+          truncatedAddress={truncatedAddress}
+        />
+      ) : (
         <Span size={sizeMap[size].text} weight='semibold'>
-          {displayedAddress}
+          {truncatedAddress}
         </Span>
       )}
     </Flex>

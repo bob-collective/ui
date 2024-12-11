@@ -22,6 +22,7 @@ export { ChevronLeft } from './ChevronLeft';
 export { ChevronRight } from './ChevronRight';
 export { Clock } from './Clock';
 export { Cog } from './Cog';
+export { CopyClipboard } from './CopyClipboard';
 export { CreditCard } from './CreditCard';
 export { DocumentDuplicate } from './DocumentDuplicate';
 export { EllipsisHorizontal } from './EllipsisHorizontal';

@@ -2,7 +2,6 @@ import {
   ArrowLeft,
   Button,
   Card,
-  DocumentDuplicate,
   Flex,
   Modal,
   ModalBody,
@@ -14,7 +13,6 @@ import {
 } from '@gobob/ui';
 import QRCode from 'react-qr-code';
 import { useAccount } from 'wagmi';
-import { useCopyToClipboard } from 'usehooks-ts';
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { useStore } from '@tanstack/react-store';
@@ -26,6 +24,8 @@ import { ChainId } from '@gobob/chains';
 
 import { Chain } from '../Chain';
 import { ChainAsset } from '../ChainAsset/ChainAsset';
+import { CopyButton } from '../CopyButton';
+import { CopyAddress } from '../CopyAddress';
 
 import { useBtcAccount } from '@/hooks';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
@@ -44,7 +44,6 @@ const ReceiveModal = (): JSX.Element => {
   const { primaryWallet } = useDynamicContext();
   const { address: evmAddress } = useAccount();
   const { address: btcAddress, connector: btcConnector } = useBtcAccount();
-  const [, copy] = useCopyToClipboard();
 
   const address = (step === ReceiveSteps.EVM ? evmAddress : btcAddress) || '';
 
@@ -55,7 +54,8 @@ const ReceiveModal = (): JSX.Element => {
         ? truncateBtcAddress(btcAddress)
         : undefined;
 
-  const handleClose = () =>
+  const handleClose = () => {
+    setStep(ReceiveSteps.Main);
     store.setState((state) => ({
       ...state,
       shared: {
@@ -63,6 +63,7 @@ const ReceiveModal = (): JSX.Element => {
         isReceiveModalOpen: false
       }
     }));
+  };
 
   return (
     <Modal elementType='form' isOpen={isReceiveModalOpen} onClose={handleClose}>
@@ -115,9 +116,13 @@ const ReceiveModal = (): JSX.Element => {
                     </Span>
                   </Flex>
                   <Flex>
-                    <Button isIconOnly size='s' variant='ghost' onPress={() => copy(evmAddress)}>
-                      <DocumentDuplicate color='grey-50' size='s' />
-                    </Button>
+                    <CopyButton
+                      isIconOnly
+                      iconProps={{ color: 'grey-50', size: 's' }}
+                      size='s'
+                      value={evmAddress}
+                      variant='ghost'
+                    />
                     <Button isIconOnly size='s' variant='ghost' onPress={() => setStep(ReceiveSteps.EVM)}>
                       <QrCode color='grey-50' />
                     </Button>
@@ -149,9 +154,14 @@ const ReceiveModal = (): JSX.Element => {
                     </Span>
                   </Flex>
                   <Flex>
-                    <Button isIconOnly size='s' variant='ghost' onPress={() => copy(btcAddress)}>
-                      <DocumentDuplicate color='grey-50' size='s' />
-                    </Button>
+                    <CopyButton
+                      isIconOnly
+                      iconProps={{ color: 'grey-50', size: 's' }}
+                      size='s'
+                      value={btcAddress}
+                      variant='ghost'
+                    />
+
                     <Button isIconOnly size='s' variant='ghost' onPress={() => setStep(ReceiveSteps.BTC)}>
                       <QrCode color='grey-50' />
                     </Button>
@@ -163,9 +173,14 @@ const ReceiveModal = (): JSX.Element => {
         )}
         {step !== ReceiveSteps.Main && (
           <>
-            <P align='center' weight='semibold'>
-              {shortAddress}
-            </P>
+            <CopyAddress
+              address={address}
+              align='center'
+              iconVisibility='hover'
+              style={{ flex: 1 }}
+              truncatedAddress={shortAddress}
+              weight='semibold'
+            />
             <Card background='grey-800' gap='2xl' marginX='3xl' padding='2xl'>
               <QRCode
                 bgColor='transparent'

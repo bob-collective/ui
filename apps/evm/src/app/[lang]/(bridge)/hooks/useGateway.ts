@@ -226,7 +226,9 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
     feeRate: feeRate,
     query: {
       enabled: Boolean(satsBalance && satsBalance.total > 0n && evmAddress),
-      select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount)
+      select: (data) => {
+        return data.amount ? CurrencyAmount.fromRawAmount(BITCOIN, data.amount) : null;
+      }
     }
   });
 

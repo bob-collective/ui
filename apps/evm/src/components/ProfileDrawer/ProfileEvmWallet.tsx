@@ -5,8 +5,10 @@ import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { ETH } from '@gobob/icons';
 import { Card, Flex, Span } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
+import { useAccount } from 'wagmi';
 
 import { ChainAsset } from '../ChainAsset';
+import { CopyAddress } from '../CopyAddress';
 
 import { useBalances } from '@/hooks';
 
@@ -17,6 +19,7 @@ type ProfileEvmWalletProps = {
 const ProfileEvmWallet = ({ chainId }: ProfileEvmWalletProps): JSX.Element | null => {
   const { getBalance } = useBalances(chainId);
   const { primaryWallet } = useDynamicContext();
+  const { address } = useAccount();
 
   if (!primaryWallet) return null;
 
@@ -37,9 +40,13 @@ const ProfileEvmWallet = ({ chainId }: ProfileEvmWalletProps): JSX.Element | nul
           </Span>
           <Flex alignItems='center' gap='s'>
             <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={primaryWallet.connector.key} />
-            <Span color='grey-50' size='xs' weight='semibold'>
-              {truncateEthAddress(primaryWallet.address)}{' '}
-            </Span>
+            <CopyAddress
+              address={address || ''}
+              color='grey-50'
+              size='xs'
+              truncatedAddress={truncateEthAddress(address || '')}
+              weight='semibold'
+            />
           </Flex>
         </Flex>
       </Flex>

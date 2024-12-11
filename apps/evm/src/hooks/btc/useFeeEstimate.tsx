@@ -1,12 +1,12 @@
 'use client';
 
 import { estimateTxFee } from '@gobob/bob-sdk';
+import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
 
 import { useBtcAccount } from './useAccount';
 import { useBtcFeeRate } from './useFeeRate';
 
 import { bitcoinNetwork, INTERVAL } from '@/constants';
-import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
 
 type UseBtcFeeEstimateReturnType = { amount: bigint; feeRate: number };
 
