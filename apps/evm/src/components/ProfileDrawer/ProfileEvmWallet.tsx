@@ -21,7 +21,11 @@ const ProfileEvmWallet = ({ chainId }: ProfileEvmWalletProps): JSX.Element | nul
   const { primaryWallet } = useDynamicContext();
   const { address } = useAccount();
 
+  // const { switchChain } = useSwitchChain();
+
   if (!primaryWallet) return null;
+
+  // const otherChain = chainId === L1_CHAIN ? L2_CHAIN : L1_CHAIN;
 
   return (
     <Card
@@ -50,6 +54,9 @@ const ProfileEvmWallet = ({ chainId }: ProfileEvmWalletProps): JSX.Element | nul
           </Flex>
         </Flex>
       </Flex>
+      {/* <Button onPress={() => switchChain(otherChain)}>
+        Switch <ChainLogo chainId={otherChain} />
+      </Button> */}
     </Card>
   );
 };
