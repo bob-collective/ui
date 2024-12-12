@@ -36,7 +36,6 @@ catalog:
   '@react-aria/utils': ^3.23.2
   '@react-stately/collections': ^3.10.0
   '@react-stately/list': ^3.9.1
-  '@react-types/shared': ^3.19.0
 
   yup: ^0.32.11
 

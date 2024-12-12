@@ -88,7 +88,7 @@
   "devDependencies": {
     "@gobob/test-utils": "workspace:^",
     "@react-types/grid": "^3.2.0",
-    "@react-types/shared": "catalog:",
+    "@react-types/shared": "^3.19.0",
     "@react-types/tabs": "^3.3.2",
     "@types/react-transition-group": "^4.4.6",
     "@types/styled-components": "catalog:",

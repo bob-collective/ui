@@ -23,12 +23,10 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:49
-#: src/components/ProfileDrawer/TransactionList/TransactionDetails.tsx:56
 msgid "{0} ago"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/TimeStep.tsx:47
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/TimeStep.tsx:45
 msgid "{0} remaining"
 msgstr ""
 
@@ -70,7 +68,6 @@ msgid "<0>Stake your BTC with 1-click</0> and receive BTC LSTs on BOB."
 msgstr "<0>一键质押你的BTC</0> 并在BOB上接收BTC LSTs。"
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/TimeStep.tsx:44
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/TimeStep.tsx:42
 msgid "2 hours"
 msgstr ""
 
@@ -84,7 +81,6 @@ msgid "404 Error"
 msgstr "404 错误"
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/TimeStep.tsx:44
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/TimeStep.tsx:42
 msgid "7 days"
 msgstr ""
 
@@ -94,8 +90,8 @@ msgid "About"
 msgstr "关于"
 
 #: src/components/ProfileDrawer/ProfileDrawer.tsx:112
-msgid "Activity"
-msgstr ""
+#~ msgid "Activity"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:106
 msgid "Adjusting the fee rate affects how quickly your Bitcoin transaction is confirmed. Lower fees may lead to significant delays in confirmation time."
@@ -184,6 +180,10 @@ msgstr "审计"
 msgid "Babylon points"
 msgstr "Babylon积分"
 
+#: src/components/ReceiveModal/ReceiveModal.tsx:78
+msgid "Back"
+msgstr ""
+
 #: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:111
 #~ msgid "Balance"
 #~ msgstr "余额"
@@ -233,8 +233,8 @@ msgstr ""
 #~ msgid "BOB Gateway is live!"
 #~ msgstr ""
 
-#: src/app/[lang]/layout.tsx:33
-#: src/app/[lang]/layout.tsx:52
+#: src/app/[lang]/layout.tsx:30
+#: src/app/[lang]/layout.tsx:49
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr ""
 
@@ -340,7 +340,7 @@ msgstr "点击 <0/> 你喜爱应用旁边的图标"
 msgid "Close"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:106
+#: src/app/[lang]/sign-up/SignUp.tsx:107
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
@@ -376,6 +376,7 @@ msgid "Congratulations you won!<0/>Take a screenshot to share with your friends!
 msgstr ""
 
 #: src/components/AuthButton/AuthButton.tsx:97
+#: src/components/ProfileDrawer/ProfileBtcWallet.tsx:52
 msgid "Connect BTC Wallet"
 msgstr "连接比特币钱包"
 
@@ -388,8 +389,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/AuthButton/AuthButton.tsx:64
-#: src/components/ConnectButton/ConnectButton.tsx:69
-#: src/components/ProfileDrawer/ProfileDrawer.tsx:56
+#: src/components/ConnectButton/ConnectButton.tsx:46
+#: src/components/ProfileDrawer/ProfileDrawer.tsx:43
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
@@ -404,6 +405,11 @@ msgstr "连接钱包"
 #: src/connect-ui/component/ConnectModal/ConnectedWalletSection.tsx:37
 #~ msgid "Connected with <0>{wallet}</0>"
 #~ msgstr ""
+
+#: src/components/CopyAddress/CopyAddress.tsx:37
+#: src/components/CopyButton/CopyButton.tsx:30
+msgid "Copied"
+msgstr ""
 
 #: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:89
 #~ msgid "Copy Address"
@@ -443,7 +449,6 @@ msgstr "将高优先级资产部署到高优先级DeFi协议中，以最大化�
 
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:128
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:38
-#: src/components/ProfileDrawer/TransactionList/TransactionDetails.tsx:38
 msgid "Deposit"
 msgstr ""
 
@@ -560,7 +565,6 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:107
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/WithdrawStatus.tsx:106
 msgid "Failed to finalize."
 msgstr ""
 
@@ -573,7 +577,6 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:69
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/WithdrawStatus.tsx:68
 msgid "Failed to submit proof."
 msgstr ""
 
@@ -599,7 +602,6 @@ msgid "Feeling lucky? Try your luck with the daily lottery!<0/>Participate in Fu
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:77
-#: src/components/ProfileDrawer/TransactionList/TransactionList.tsx:41
 msgid "Fetching bridging operations..."
 msgstr ""
 
@@ -612,7 +614,6 @@ msgid "Final Leaderboard Rank"
 msgstr "最终排行榜排名"
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/RelayStep.tsx:47
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/RelayStep.tsx:45
 msgid "Finalize"
 msgstr ""
 
@@ -629,6 +630,10 @@ msgstr ""
 msgid "Follow us on X for updates"
 msgstr ""
 
+#: src/components/ReceiveModal/ReceiveModal.tsx:88
+msgid "Fund your wallet(s) by transferring crypto from another wallet or account."
+msgstr ""
+
 #: src/app/[lang]/fusion/page.tsx:16
 #: src/components/Layout/Header.tsx:77
 #: src/components/Layout/Sidebar.tsx:51
@@ -636,8 +641,8 @@ msgid "Fusion"
 msgstr "Fusion"
 
 #: src/components/Logo/Logo.tsx:41
-msgid "FUSION"
-msgstr "FUSION"
+#~ msgid "FUSION"
+#~ msgstr "FUSION"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:43
 msgid "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
@@ -753,7 +758,7 @@ msgstr "如果你已经在其他链上拥有BTC LSTs，你可以将它们跨链�
 msgid "Input Token"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:115
+#: src/app/[lang]/sign-up/SignUp.tsx:116
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr ""
 
@@ -980,7 +985,6 @@ msgstr ""
 #~ msgstr "未显示的资产"
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:96
-#: src/components/ProfileDrawer/TransactionList/TransactionList.tsx:56
 msgid "No bridging operations found"
 msgstr ""
 
@@ -1042,7 +1046,6 @@ msgid "Output Token"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:62
-#: src/components/ProfileDrawer/TransactionList/TransactionDetails.tsx:64
 msgid "Pending"
 msgstr ""
 
@@ -1077,7 +1080,7 @@ msgstr "请注意："
 msgid "Points"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:102
+#: src/app/[lang]/sign-up/SignUp.tsx:103
 msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
@@ -1095,7 +1098,6 @@ msgid "Protocol Fee"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/ProveStep.tsx:41
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/ProveStep.tsx:40
 msgid "Prove"
 msgstr ""
 
@@ -1143,6 +1145,10 @@ msgstr "接收"
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:93
 #~ msgid "Receive {ticker}"
 #~ msgstr "接收 {ticker}"
+
+#: src/components/ReceiveModal/ReceiveModal.tsx:72
+msgid "Receive crypto"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:483
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
@@ -1431,7 +1437,7 @@ msgid "Start Harvesting"
 msgstr "开始收获"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:297
-#: src/app/[lang]/sign-up/SignUp.tsx:127
+#: src/app/[lang]/sign-up/SignUp.tsx:128
 msgid "Start Harvesting Spice"
 msgstr "开始收获Spice"
 
@@ -1456,7 +1462,6 @@ msgid "Strategy"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:100
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/WithdrawStatus.tsx:99
 msgid "Successfully finalized transaction"
 msgstr ""
 
@@ -1465,7 +1470,6 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:62
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/WithdrawStatus.tsx:61
 msgid "Successfully submitted ${0} proof"
 msgstr ""
 
@@ -1522,7 +1526,7 @@ msgstr "回到主页"
 #~ msgid "Terms of Service"
 #~ msgstr ""
 
-#: src/components/Logo/Logo.tsx:47
+#: src/components/Logo/Logo.tsx:42
 msgid "Testnet"
 msgstr ""
 
@@ -1539,7 +1543,7 @@ msgstr ""
 msgid "The final season"
 msgstr "最终季 - 不容错过！"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:99
+#: src/app/[lang]/sign-up/SignUp.tsx:100
 msgid "THE FIRST HYBRID L2"
 msgstr "首个混合型二层"
 
@@ -1704,9 +1708,11 @@ msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/BridgeStep.tsx:230
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:71
-#: src/components/ProfileDrawer/TransactionList/BridgeStatus/BridgeStep.tsx:235
-#: src/components/ProfileDrawer/TransactionList/TransactionDetails.tsx:73
 msgid "Unknown"
+msgstr ""
+
+#: src/components/ProfileDrawer/ProfileBtcWallet.tsx:93
+msgid "Unlink wallet"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/Stake.tsx:106
@@ -1823,7 +1829,7 @@ msgstr ""
 msgid "Waiting for confirmation"
 msgstr ""
 
-#: src/components/ProfileDrawer/ProfileDrawer.tsx:109
+#: src/components/ProfileDrawer/ProfileTokenList.tsx:37
 msgid "Wallet"
 msgstr "钱包"
 
@@ -1858,7 +1864,6 @@ msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计�
 
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:131
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:38
-#: src/components/ProfileDrawer/TransactionList/TransactionDetails.tsx:38
 msgid "Withdraw"
 msgstr ""
 
@@ -1891,6 +1896,10 @@ msgstr ""
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:42
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "你可以在每周投票期结束前随时更改你的投票"
+
+#: src/components/ReceiveModal/ReceiveModal.tsx:197
+msgid "You can receive tokens on our supported networks"
+msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:103
 msgid "You Have 0 Tickets"

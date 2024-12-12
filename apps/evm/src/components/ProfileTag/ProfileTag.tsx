@@ -69,9 +69,10 @@ const ProfileTag = ({
           asset={<ProfileAvatar name={user.userId} size={sizeMap[size].icon} />}
           chainId={chain?.id}
           chainProps={{ size: sizeMap[size].chain }}
+          style={{ pointerEvents: 'none' }}
         />
       ) : undefined}
-      {!hideAddress && isCopyEnabled ? (
+      {hideAddress ? undefined : isCopyEnabled ? (
         <CopyAddress
           {...labelProps}
           address={address || ''}

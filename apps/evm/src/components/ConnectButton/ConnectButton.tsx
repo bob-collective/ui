@@ -13,7 +13,7 @@ import { useAccount } from 'wagmi';
 import { ProfileDrawer } from '../ProfileDrawer';
 import { ProfileTag } from '../ProfileTag';
 
-import { StyledContent, StyledMobileContentWrapper, StyledUnderlay } from './ConnectButton.style';
+import { StyledContent, StyledMobileContentWrapper, StyledTrigger, StyledUnderlay } from './ConnectButton.style';
 
 import { useBtcAccount } from '@/hooks';
 import { store } from '@/lib/store';
@@ -57,11 +57,9 @@ const ConnectButton = (): JSX.Element => {
       open={isOpen}
       onOpenChange={setOpen}
     >
-      <Drawer.Trigger asChild>
-        <Button disabled={isLoading} variant='ghost'>
-          <ProfileTag hideAddress={isMobile} size='s' />
-        </Button>
-      </Drawer.Trigger>
+      <StyledTrigger disabled={isLoading}>
+        <ProfileTag hideAddress={isMobile} size='s' />
+      </StyledTrigger>
       <Drawer.Portal>
         <StyledUnderlay />
         <StyledContent>

@@ -14,11 +14,7 @@ import { NavItem } from './NavItem';
 
 import { DocsLinks, RoutesPath } from '@/constants';
 
-type Props = { isTestnet?: boolean; isFusion?: boolean };
-
-type SidebarProps = Props;
-
-const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
+const Sidebar = (): JSX.Element | null => {
   const { isSidebarOpen, setSidebarOpen } = useLayoutContext();
   const theme = useTheme();
 
@@ -31,7 +27,7 @@ const Sidebar = ({ isTestnet, isFusion }: SidebarProps): JSX.Element | null => {
       <StyledDrawer elementType='nav' isOpen={isSidebarOpen} onClose={handleClose}>
         <Flex direction='column' flex={1} gap='4xl' padding='2xl'>
           <Flex alignItems='center' justifyContent='space-between'>
-            <Logo href={RoutesPath.HOME} isFusion={isFusion} isTestnet={isTestnet} onPress={handleClose} />
+            <Logo href={RoutesPath.HOME} onPress={handleClose} />
             <Button isIconOnly variant='ghost' onPress={handleClose}>
               <XMark size='s' />
             </Button>

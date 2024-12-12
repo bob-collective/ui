@@ -56,4 +56,46 @@ const StyledMobileContentWrapper = styled.div`
   }}
 `;
 
-export { StyledContent, StyledUnderlay, StyledMobileContentWrapper };
+const StyledTrigger = styled(Drawer.Trigger)`
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  appearance: none;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  touch-action: manipulation;
+  align-items: center;
+  justify-content: center;
+  border: 0px solid;
+  white-space: nowrap;
+
+  user-select: none;
+
+  ${({ theme }) => {
+    const { hover } = theme.button.variant.ghost.color.default;
+
+    return css`
+      ${theme.button.base}
+      ${theme.button.size.s}
+      ${theme.button.variant.ghost.color.default.base}
+      &:hover:not([disabled]) {
+        ${hover}
+      }
+
+      &:active:not([disabled]) {
+        ${theme.button.active}
+      }
+
+      &[aria-disabled='true'],
+      &[disabled] {
+        pointer-events: none;
+        cursor: not-allowed;
+        ${theme.button.disabled}
+      }
+    `;
+  }}
+`;
+
+export { StyledContent, StyledTrigger, StyledUnderlay, StyledMobileContentWrapper };

@@ -14,6 +14,7 @@ import { ProfileTokenList } from './ProfileTokenList';
 import { L1_CHAIN } from '@/constants';
 import { useBtcAccount, useTotalBalance } from '@/hooks';
 import { store } from '@/lib/store';
+import { chakraPetch } from '@/app/fonts';
 
 type ProfileDrawerProps = {
   onClose: () => void;
@@ -82,7 +83,7 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
       {isBalancePending ? (
         <Skeleton height='4xl' width='10rem' />
       ) : (
-        <P size='2xl' style={{ fontFamily: 'eurostar' }} weight='bold'>
+        <P className={chakraPetch.className} size='3xl' weight='bold'>
           {formatted}
         </P>
       )}

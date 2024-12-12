@@ -5,7 +5,6 @@ import {
   Button,
   EllipsisHorizontal,
   Flex,
-  FlexProps,
   Popover,
   PopoverBody,
   PopoverContent,
@@ -30,13 +29,7 @@ import { NavItem } from './NavItem';
 import { DocsLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
 
-type Props = { isTestnet?: boolean; isFusion?: boolean };
-
-type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
-
-type HeaderProps = Props & InheritAttrs;
-
-const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => {
+const Header = (): JSX.Element => {
   const { i18n } = useLingui();
 
   const { setSidebarOpen } = useLayoutContext();
@@ -49,7 +42,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
   const isMobile = isMobileViewport || isMobileUserAgent;
 
   return (
-    <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>
+    <StyledHeader alignItems='center' elementType='header' justifyContent='space-between'>
       <StyledLogoWrapper alignItems='center' gap='md'>
         <Button
           isIconOnly
@@ -60,7 +53,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         >
           <Bars3 size='lg' />
         </Button>
-        <Logo hidden={isMobile} href={RoutesPath.HOME} isFusion={isFusion} isTestnet={isTestnet} />
+        <Logo hidden={isMobile} href={RoutesPath.HOME} />
       </StyledLogoWrapper>
       <Flex alignItems='center' elementType='header' gap='xl' justifyContent='flex-end'>
         <Nav hidden={isMobile}>
@@ -115,7 +108,6 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
         <ConnectButton />
-        {/* <DynamicWidget /> */}
       </Flex>
     </StyledHeader>
   );
