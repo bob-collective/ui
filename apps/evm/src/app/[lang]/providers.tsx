@@ -12,7 +12,7 @@ import { State, WagmiProvider } from 'wagmi';
 import { NestedProviders } from './nested-providers';
 
 import { getConfig } from '@/lib/wagmi';
-import { INTERVAL, isProd } from '@/constants';
+import { ExternalLinks, INTERVAL, isProd } from '@/constants';
 import { FetchError } from '@/types/fetch';
 
 export function Providers({ initialState, children }: PropsWithChildren<{ initialState: State | undefined }>) {
@@ -47,6 +47,7 @@ export function Providers({ initialState, children }: PropsWithChildren<{ initia
   return (
     <DynamicContextProvider
       settings={{
+        termsOfServiceUrl: ExternalLinks.TERMS_OF_SERVICE,
         environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID as string,
         walletConnectors: [BitcoinWalletConnectors, EthereumWalletConnectors],
         overrides: {

@@ -16,9 +16,9 @@ import { useLingui } from '@lingui/react';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
 
+import { ConnectButton } from '../ConnectButton';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
-import { ConnectButton } from '../ConnectButton';
 
 import { FusionPopover } from './FusionPopover';
 import { StyledHeader, StyledLogoWrapper } from './Layout.style';
@@ -26,7 +26,7 @@ import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 
-import { DocsLinks, RoutesPath } from '@/constants';
+import { ExternalLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
 
 const Header = (): JSX.Element => {
@@ -85,20 +85,16 @@ const Header = (): JSX.Element => {
           <PopoverContent hidden={isMobile}>
             <PopoverBody onClick={() => setOpen(false)}>
               <Nav direction='column'>
-                <NavItem
-                  isExternal
-                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
-                  size='s'
-                >
+                <NavItem isExternal href={ExternalLinks.TERMS_OF_SERVICE} size='s'>
                   <Trans>T&Cs</Trans>
                 </NavItem>
-                <NavItem isExternal href={DocsLinks.HOME} size='s'>
+                <NavItem isExternal href={ExternalLinks.DOCS} size='s'>
                   <Trans>Dev</Trans>
                 </NavItem>
-                <NavItem isExternal href='https://gobob.xyz/' size='s'>
+                <NavItem isExternal href={ExternalLinks.HOMEPAGE} size='s'>
                   <Trans>About</Trans>
                 </NavItem>
-                <NavItem isExternal href='https://safe.gobob.xyz/welcome' size='s'>
+                <NavItem isExternal href={ExternalLinks.SAFE} size='s'>
                   <Trans>Multisig</Trans>
                 </NavItem>
               </Nav>

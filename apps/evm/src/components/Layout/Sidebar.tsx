@@ -12,7 +12,7 @@ import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 
-import { DocsLinks, RoutesPath } from '@/constants';
+import { ExternalLinks, RoutesPath } from '@/constants';
 
 const Sidebar = (): JSX.Element | null => {
   const { isSidebarOpen, setSidebarOpen } = useLayoutContext();
@@ -46,19 +46,16 @@ const Sidebar = (): JSX.Element | null => {
               <NavItem href={RoutesPath.FUSION}>
                 <Trans>Fusion</Trans>
               </NavItem>
-              <NavItem isExternal href='https://safe.gobob.xyz/welcome'>
+              <NavItem isExternal href={ExternalLinks.SAFE}>
                 <Trans>Multisig</Trans>
               </NavItem>
-              <NavItem
-                isExternal
-                href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
-              >
+              <NavItem isExternal href={ExternalLinks.TERMS_OF_SERVICE}>
                 <Trans>T&Cs</Trans>
               </NavItem>
-              <NavItem isExternal href={DocsLinks.HOME}>
+              <NavItem isExternal href={ExternalLinks.DOCS}>
                 <Trans>Dev</Trans>
               </NavItem>
-              <NavItem isExternal href='https://gobob.xyz/'>
+              <NavItem isExternal href={ExternalLinks.HOMEPAGE}>
                 <Trans>About</Trans>
               </NavItem>
             </Nav>

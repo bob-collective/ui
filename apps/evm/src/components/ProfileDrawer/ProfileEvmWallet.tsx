@@ -3,14 +3,17 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { ETH } from '@gobob/icons';
-import { Card, Flex, Span } from '@gobob/ui';
+import { Card, Flex, Span, Tooltip, UnstyledButton } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
 import { useAccount } from 'wagmi';
+import { Trans } from '@lingui/macro';
+import { getCapitalizedChainName } from '@gobob/chains';
 
 import { ChainAsset } from '../ChainAsset';
 import { CopyAddress } from '../CopyAddress';
 
 import { useBalances } from '@/hooks';
+import { L1_CHAIN, L2_CHAIN } from '@/constants';
 
 type ProfileEvmWalletProps = {
   chainId: number;
@@ -25,7 +28,7 @@ const ProfileEvmWallet = ({ chainId }: ProfileEvmWalletProps): JSX.Element | nul
 
   if (!primaryWallet) return null;
 
-  // const otherChain = chainId === L1_CHAIN ? L2_CHAIN : L1_CHAIN;
+  const otherChain = chainId === L1_CHAIN ? L2_CHAIN : L1_CHAIN;
 
   return (
     <Card
@@ -37,7 +40,11 @@ const ProfileEvmWallet = ({ chainId }: ProfileEvmWalletProps): JSX.Element | nul
       padding='md'
     >
       <Flex alignItems='center' gap='md'>
-        <ChainAsset asset={<ETH size='xl' />} chainId={chainId} chainProps={{ size: 'xs' }} />
+        <Tooltip label={<Trans>Switch to {getCapitalizedChainName(otherChain)}</Trans>}>
+          <UnstyledButton>
+            <ChainAsset asset={<ETH size='xl' />} chainId={chainId} chainProps={{ size: 'xs' }} />
+          </UnstyledButton>
+        </Tooltip>
         <Flex direction='column'>
           <Span size='s' weight='semibold'>
             {getBalance('ETH')?.toSignificant()} ETH
