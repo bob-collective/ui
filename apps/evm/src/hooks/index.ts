@@ -22,3 +22,4 @@ export * from './useTotalBalance';
 export * from './useWalletClient';
 
 export * from './btc';
+export * from './dynamic';

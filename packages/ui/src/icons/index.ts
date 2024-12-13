@@ -2,6 +2,7 @@ export { ArrowDown } from './ArrowDown';
 export { ArrowDownCircle } from './ArrowDownCircle';
 export { ArrowLeft } from './ArrowLeft';
 export { ArrowLongRight } from './ArrowLongRight';
+export { ArrowPath } from './ArrowPath';
 export { ArrowPathRoundedSquare } from './ArrowPathRoundedSquare';
 export { ArrowRight } from './ArrowRight';
 export { ArrowRightCircle } from './ArrowRightCircle';

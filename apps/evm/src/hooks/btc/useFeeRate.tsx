@@ -1,9 +1,9 @@
 'use client';
 
 import { EsploraClient, EsploraFeeEstimates, MempoolClient, MempoolRecomendedFee } from '@gobob/bob-sdk';
+import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
 
 import { bitcoinNetwork, INTERVAL } from '@/constants';
-import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
 
 type BtcFeeRateReturnType = {
   memPool: Record<keyof MempoolRecomendedFee, number>;

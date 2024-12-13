@@ -9,7 +9,7 @@ import { useAccount } from 'wagmi';
 import { ChainAsset } from '../ChainAsset';
 import { CopyAddress } from '../CopyAddress';
 
-import { useBtcAccount } from '@/hooks';
+import { useBtcAccount, useDynamicWallets } from '@/hooks';
 
 const sizeMap = {
   s: {
@@ -35,15 +35,15 @@ const ProfileTag = ({
   labelProps?: SpanProps;
   isCopyEnabled?: boolean;
 }) => {
-  const { user, primaryWallet, sdkHasLoaded } = useDynamicContext();
+  const { user, sdkHasLoaded } = useDynamicContext();
 
-  const { address: evmAddress, chain } = useAccount();
+  const { evmWallet } = useDynamicWallets();
+
+  const { chain } = useAccount();
   const { address: btcAddress } = useBtcAccount();
   const isLoggedIn = useIsLoggedIn();
 
-  const fallbackEvmAddress = primaryWallet?.chain === 'EVM' ? primaryWallet.address : evmAddress;
-
-  const isLoading = !sdkHasLoaded || (isLoggedIn && !(fallbackEvmAddress || btcAddress));
+  const isLoading = !sdkHasLoaded || (isLoggedIn && !(evmWallet?.address || btcAddress));
 
   if (isLoading) {
     return (
@@ -54,10 +54,10 @@ const ProfileTag = ({
     );
   }
 
-  const address = fallbackEvmAddress || btcAddress;
+  const address = evmWallet?.address || btcAddress;
 
-  const truncatedAddress = fallbackEvmAddress
-    ? truncateEthAddress(fallbackEvmAddress)
+  const truncatedAddress = evmWallet?.address
+    ? truncateEthAddress(evmWallet?.address)
     : btcAddress
       ? truncateBtcAddress(btcAddress)
       : undefined;

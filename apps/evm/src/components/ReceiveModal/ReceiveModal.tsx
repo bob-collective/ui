@@ -19,7 +19,6 @@ import { useStore } from '@tanstack/react-store';
 import { truncateBtcAddress, truncateEthAddress } from '@gobob/utils';
 import { BTC, ETH } from '@gobob/icons';
 import { WalletIcon } from '@dynamic-labs/wallet-book';
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { ChainId } from '@gobob/chains';
 
 import { Chain } from '../Chain';
@@ -27,7 +26,7 @@ import { ChainAsset } from '../ChainAsset/ChainAsset';
 import { CopyButton } from '../CopyButton';
 import { CopyAddress } from '../CopyAddress';
 
-import { useBtcAccount } from '@/hooks';
+import { useBtcAccount, useDynamicWallets } from '@/hooks';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { store } from '@/lib/store';
 
@@ -41,7 +40,7 @@ const ReceiveModal = (): JSX.Element => {
   const isReceiveModalOpen = useStore(store, (state) => state.shared.isReceiveModalOpen);
 
   const [step, setStep] = useState(ReceiveSteps.Main);
-  const { primaryWallet } = useDynamicContext();
+  const { evmWallet } = useDynamicWallets();
   const { address: evmAddress } = useAccount();
   const { address: btcAddress, connector: btcConnector } = useBtcAccount();
 
@@ -103,11 +102,8 @@ const ReceiveModal = (): JSX.Element => {
                       asset={<ETH size='xl' />}
                       chainId={ChainId.ETHEREUM}
                       chainLogo={
-                        primaryWallet && (
-                          <WalletIcon
-                            style={{ height: '1rem', width: '1rem' }}
-                            walletKey={primaryWallet.connector.key}
-                          />
+                        evmWallet && (
+                          <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={evmWallet.connector.key} />
                         )
                       }
                     />

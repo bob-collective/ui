@@ -1,6 +1,7 @@
 'use client';
 
-import { useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
+import { isEthereumWallet } from '@dynamic-labs/ethereum';
+import { useDynamicContext, useDynamicEvents, useIsLoggedIn, useSwitchWallet } from '@dynamic-labs/sdk-react-core';
 import { Button } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
@@ -8,14 +9,14 @@ import { useState } from 'react';
 import { useTheme } from 'styled-components';
 import { useMediaQuery } from 'usehooks-ts';
 import { Drawer } from 'vaul';
-import { useAccount } from 'wagmi';
+import { isBitcoinWallet } from '@dynamic-labs/bitcoin';
 
 import { ProfileDrawer } from '../ProfileDrawer';
 import { ProfileTag } from '../ProfileTag';
 
 import { StyledContent, StyledMobileContentWrapper, StyledTrigger, StyledUnderlay } from './ConnectButton.style';
 
-import { useBtcAccount } from '@/hooks';
+import { useDynamicWallets } from '@/hooks';
 import { store } from '@/lib/store';
 
 const ConnectButton = (): JSX.Element => {
@@ -26,15 +27,40 @@ const ConnectButton = (): JSX.Element => {
 
   const [isOpen, setOpen] = useState(false);
 
-  const { setShowAuthFlow } = useDynamicContext();
+  const { setShowAuthFlow, handleUnlinkWallet } = useDynamicContext();
+  const switchWallet = useSwitchWallet();
   const isLoggedIn = useIsLoggedIn();
 
-  const { address: evmAddress } = useAccount();
-  const { address: btcAddress } = useBtcAccount();
+  const { btcWallet, evmWallet } = useDynamicWallets();
 
-  const isLoading = isLoggedIn && !(evmAddress || btcAddress);
+  const isLoading = isLoggedIn && !(btcWallet || evmWallet);
 
-  // const isAuthenticated = evmAddress || btcAddress;
+  useDynamicEvents('walletAdded', async (newWallet, userWallets) => {
+    const otherWallets = userWallets.filter((wallet) => wallet.id !== newWallet.id);
+
+    // Only newWallet is conencted
+    if (!otherWallets.length) return;
+
+    if (isEthereumWallet(newWallet)) {
+      await switchWallet(newWallet.id);
+
+      const evmWallet = otherWallets.find((wallet) => isEthereumWallet(wallet));
+
+      // unlink if there is another evm wallet
+      if (evmWallet) {
+        handleUnlinkWallet(evmWallet.id);
+      }
+    }
+
+    if (isBitcoinWallet(newWallet)) {
+      const btcWallet = otherWallets.find((wallet) => isBitcoinWallet(wallet) && wallet.id !== newWallet.id);
+
+      // unlink if there is another btc wallet
+      if (btcWallet) {
+        handleUnlinkWallet(btcWallet.id);
+      }
+    }
+  });
 
   if (!isLoggedIn) {
     const handleConnect = () => {

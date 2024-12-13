@@ -6,7 +6,8 @@ import { CurrencyAmount } from '@gobob/currency';
 import { BITCOIN } from '@gobob/tokens';
 
 import { useBalances } from './useBalances';
-import { useBtcBalance, useBtcDynamicWallet } from './btc';
+import { useBtcBalance } from './btc';
+import { useDynamicWallets } from './dynamic';
 
 import { calculateAmountUSD } from '@/utils';
 
@@ -14,7 +15,7 @@ const useTotalBalance = (chainId: ChainId) => {
   const { getPrice } = usePrices();
   const { balances, isPending: isEvmBalancePending } = useBalances(chainId);
 
-  const btcWallet = useBtcDynamicWallet();
+  const { btcWallet, evmWallet } = useDynamicWallets();
   const { data: btcBalance, isPending: isBtcBalancePending } = useBtcBalance();
 
   const format = useCurrencyFormatter();
@@ -31,7 +32,7 @@ const useTotalBalance = (chainId: ChainId) => {
   );
 
   return {
-    isPending: isEvmBalancePending || (btcWallet ? isBtcBalancePending : false),
+    isPending: (evmWallet ? isEvmBalancePending : false) || (btcWallet ? isBtcBalancePending : false),
     formatted: format(total.toNumber()),
     compact: Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
       total.toNumber()

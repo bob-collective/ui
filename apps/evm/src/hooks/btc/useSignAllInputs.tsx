@@ -2,19 +2,20 @@
 
 import { base64 } from '@scure/base';
 import { Transaction } from '@scure/btc-signer';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+
+import { useDynamicWallets } from '../dynamic';
 
 import { useBtcAccount } from './useAccount';
-import { useBtcDynamicWallet } from './useDynamicWallet';
 
 import { bitcoinNetwork } from '@/constants';
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
 type UseBtcSignAllInputsProps = {
   mutation?: Omit<UseMutationOptions<string, Error, string, unknown>, 'mutationFn' | 'mutationKey'>;
 };
 
 function useBtcSignAllInputs({ mutation }: UseBtcSignAllInputsProps = {}) {
-  const btcWallet = useBtcDynamicWallet();
+  const { btcWallet } = useDynamicWallets();
 
   const { address: btcAddress } = useBtcAccount();
 

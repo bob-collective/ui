@@ -3,10 +3,10 @@
 import { getAddressInfo } from 'bitcoin-address-validation';
 import { useMemo } from 'react';
 
-import { useBtcDynamicWallet } from './useDynamicWallet';
+import { useDynamicWallets } from '../dynamic';
 
 const useBtcAccount = () => {
-  const btcWallet = useBtcDynamicWallet();
+  const { btcWallet } = useDynamicWallets();
 
   const paymentAddress = btcWallet?.additionalAddresses.find((address) => address.type === 'payment');
 

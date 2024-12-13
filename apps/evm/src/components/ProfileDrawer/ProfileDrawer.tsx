@@ -1,8 +1,7 @@
 'use client';
 
-import { useDynamicContext, useDynamicModals } from '@dynamic-labs/sdk-react-core';
+import { useDynamicContext, useDynamicModals, useSwitchWallet } from '@dynamic-labs/sdk-react-core';
 import { Button, Card, Flex, P, Power, QrCode, Skeleton, SolidCreditCard, Tooltip } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
 import { useAccount } from 'wagmi';
 
 import { ProfileTag } from '../ProfileTag';
@@ -11,42 +10,34 @@ import { ProfileBtcWallet } from './ProfileBtcWallet';
 import { ProfileEvmWallet } from './ProfileEvmWallet';
 import { ProfileTokenList } from './ProfileTokenList';
 
-import { L1_CHAIN } from '@/constants';
-import { useBtcAccount, useTotalBalance } from '@/hooks';
-import { store } from '@/lib/store';
 import { chakraPetch } from '@/app/fonts';
+import { ExternalLinks, L1_CHAIN } from '@/constants';
+import { useDynamicWallets, useTotalBalance } from '@/hooks';
+import { store } from '@/lib/store';
 
 type ProfileDrawerProps = {
   onClose: () => void;
 };
 
 const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
-  const { setShowAuthFlow, handleLogOut } = useDynamicContext();
-  const { address: evmAddress, chain } = useAccount();
-  const { address: btcAddress } = useBtcAccount();
-  const { handleUnlinkWallet, setSelectedTabIndex } = useDynamicContext();
+  const { handleLogOut } = useDynamicContext();
+  const { chainId = L1_CHAIN } = useAccount();
+  const { handleUnlinkWallet, setSelectedTabIndex, primaryWallet } = useDynamicContext();
+  const switchWallet = useSwitchWallet();
   const { setShowLinkNewWalletModal } = useDynamicModals();
-
-  const chainId = chain?.id || L1_CHAIN;
+  const { evmWallet } = useDynamicWallets();
 
   const { formatted, isPending: isBalancePending } = useTotalBalance(chainId);
 
-  const isAuthenticated = evmAddress || btcAddress;
-
-  if (!isAuthenticated) {
-    const handleConnect = () => {
-      setShowAuthFlow(true);
-    };
-
-    return (
-      <Button variant='ghost' onPress={handleConnect}>
-        <Trans>Connect Wallet</Trans>
-      </Button>
-    );
-  }
-
   const handleLogout = () => {
+    setSelectedTabIndex(0);
     handleLogOut();
+    onClose();
+  };
+
+  const handleConnectEvmWallet = () => {
+    setSelectedTabIndex(1);
+    setShowLinkNewWalletModal(true);
     onClose();
   };
 
@@ -57,7 +48,8 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
   };
 
   const handlePressBuy = () => {
-    window.open('https://checkout.banxa.com/?coinType=ETH&fiatType=EUR&blockchain=BOB', '_blank', 'noreferrer');
+    window.open(ExternalLinks.BANXA, '_blank', 'noreferrer');
+
     onClose();
   };
 
@@ -69,6 +61,16 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
         isReceiveModalOpen: true
       }
     }));
+
+  const handleUnlinkBtc = async (walletId: string) => {
+    if (!evmWallet || !primaryWallet) return;
+
+    if (walletId === primaryWallet?.id) {
+      await switchWallet(evmWallet.id);
+    }
+
+    handleUnlinkWallet(walletId);
+  };
 
   return (
     <Flex direction='column' flex={1} gap='xl'>
@@ -118,8 +120,8 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
         </Card>
       </Flex>
       <Flex direction='column' gap='md'>
-        <ProfileEvmWallet chainId={chainId} />
-        <ProfileBtcWallet onPressConnect={handleConnectBtcWallet} onUnlink={handleUnlinkWallet} />
+        <ProfileEvmWallet chainId={chainId} onPressConnect={handleConnectEvmWallet} />
+        <ProfileBtcWallet onPressConnect={handleConnectBtcWallet} onUnlink={handleUnlinkBtc} />
       </Flex>
       <Flex direction='column' gap='md'>
         <ProfileTokenList chainId={chainId} />

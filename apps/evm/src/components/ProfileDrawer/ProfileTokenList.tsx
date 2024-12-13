@@ -6,7 +6,7 @@ import { Trans } from '@lingui/macro';
 
 import { ProfileTokenListItem } from './ProfileTokenListItem';
 
-import { useBalances, useBtcBalance, useBtcDynamicWallet, useTokens } from '@/hooks';
+import { useBalances, useBtcBalance, useDynamicWallets, useTokens } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
 
 type ProfileTokenListProps = {
@@ -17,7 +17,7 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
   const { data: tokens } = useTokens(chainId);
   const { getBalance } = useBalances(chainId);
 
-  const btcWallet = useBtcDynamicWallet();
+  const { btcWallet } = useDynamicWallets();
 
   const { data: btcBalance } = useBtcBalance();
 
