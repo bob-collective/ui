@@ -8,7 +8,7 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { Key, useCallback, useMemo, useState } from 'react';
 import { useChainId } from 'wagmi';
-import { sendGTMEvent } from '@next/third-parties/google';
+import { sendGAEvent } from '@next/third-parties/google';
 import { useUserWallets } from '@dynamic-labs/sdk-react-core';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
@@ -125,8 +125,7 @@ const BridgeForm = ({
     const btcWallet = userWallets.find((wallet) => wallet.chain === 'BTC');
     const evmWallet = userWallets.find((wallet) => wallet.chain === 'EVM');
 
-    sendGTMEvent({
-      event: 'btc-bridge',
+    sendGAEvent('event', 'btc-bridge', {
       payload: {
         // `_connector` is a circular structure -- has to be removed
         btcWallet: { ...btcWallet, _connector: undefined },
@@ -156,7 +155,7 @@ const BridgeForm = ({
     const btcWallet = userWallets.find((wallet) => wallet.chain === 'BTC');
     const evmWallet = userWallets.find((wallet) => wallet.chain === 'EVM');
 
-    sendGTMEvent({
+    sendGAEvent({
       event: 'evm-bridge',
       payload: {
         // `_connector` is a circular structure -- has to be removed

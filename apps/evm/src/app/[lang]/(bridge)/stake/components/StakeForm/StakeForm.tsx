@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { sendGTMEvent } from '@next/third-parties/google';
+import { sendGAEvent } from '@next/third-parties/google';
 import { useUserWallets } from '@dynamic-labs/sdk-react-core';
 
 import { GatewayTransactionModal } from '../../../components';
@@ -39,8 +39,7 @@ const StakingForm = ({ strategy, onStakeSuccess }: BridgeFormProps): JSX.Element
     const btcWallet = userWallets.find((wallet) => wallet.chain === 'BTC');
     const evmWallet = userWallets.find((wallet) => wallet.chain === 'EVM');
 
-    sendGTMEvent({
-      event: 'btc-stake',
+    sendGAEvent('event', 'btc-stake', {
       payload: {
         // `_connector` is a circular structure -- has to be removed
         btcWallet: { ...btcWallet, _connector: undefined },

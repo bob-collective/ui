@@ -6,7 +6,7 @@ import { PopupModal, useCalendlyEventListener } from 'react-calendly';
 import top100SpiceUser from '@public/assets/top-100-spice.webp';
 import Image from 'next/image';
 import { useLingui } from '@lingui/react';
-import { sendGTMEvent } from '@next/third-parties/google';
+import { sendGAEvent } from '@next/third-parties/google';
 
 type Props = {
   onClose: (shouldDismissTopUserModal: boolean) => void;
@@ -24,7 +24,7 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
   useCalendlyEventListener({
     onEventScheduled: (event) => {
       onClose(true);
-      sendGTMEvent(event.data);
+      sendGAEvent('event', event.data.event, { payload: event.data.payload });
     }
   });
 
