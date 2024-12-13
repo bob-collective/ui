@@ -42,6 +42,7 @@ const useSignUp = () => {
       await apiClient.signUp(message, signature);
     },
     onSuccess: (_, address) => {
+      sendGTMEvent({ event: 'signup', walletAddress: address });
       setTimeout(() => refetchUser(), 100);
       sendGTMEvent({
         event: 'signup',

@@ -39,6 +39,7 @@ const useLogin = () => {
       await apiClient.verify(message, signature);
     },
     onSuccess: async (_, address) => {
+      sendGTMEvent({ event: 'login', address });
       setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);
       sendGTMEvent({ event: 'login', payload: { address } });
     },

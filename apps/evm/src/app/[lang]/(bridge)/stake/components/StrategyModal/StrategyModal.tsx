@@ -16,10 +16,12 @@ import {
 } from '@gobob/ui';
 import { truncateUrl } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
+import { ValueOf } from 'viem';
 
 import { StrategyData } from '../../hooks';
 import { StakingForm } from '../StakeForm';
 import { StakeRewards } from '../StakeRewards';
+import { StakingInfo } from '../../../utils/stakeData';
 
 import { StyledCard, StyledFlex } from './StrategyModal.style';
 
@@ -28,8 +30,7 @@ import { chainL2 } from '@/constants';
 interface Props {
   onStakeSuccess: () => void;
   strategy: StrategyData;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  stakingInfo: any;
+  stakingInfo: ValueOf<StakingInfo>;
   onCloseModal: () => void;
 }
 
@@ -48,9 +49,9 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
                 <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
               )}
               <Flex alignItems='flex-start' direction='column'>
-                <Span size='lg'>{stakingInfo.strategy}</Span>
+                <Span size='lg'>{stakingInfo?.strategy}</Span>
                 <Span color='grey-50' size='md' weight='medium'>
-                  {stakingInfo.protocol}
+                  {stakingInfo?.protocol}
                 </Span>
               </Flex>
             </Flex>
@@ -135,7 +136,7 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
                   </Dd>
                   <Dt style={{ textAlign: 'right', wordBreak: 'break-word' }}>
                     <Link external color='grey-50' href={stakingInfo?.website} size='md' underlined='always'>
-                      {truncateUrl(stakingInfo?.website)}
+                      {truncateUrl(stakingInfo?.website || '')}
                     </Link>
                   </Dt>
                 </DlGroup>

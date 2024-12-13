@@ -173,7 +173,7 @@ const stakingInfo = {
     securityReview: '',
     website: 'https://app.segment.finance'
   }
-} as const;
+};
 
 export { stakingInfo, Incentive };
 export type { StakingInfo };

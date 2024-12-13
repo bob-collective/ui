@@ -71,6 +71,42 @@ yup.addMethod<yup.StringSchema>(
   }
 );
 
+yup.addMethod<yup.StringSchema>(
+  yup.string,
+  'btcWalletConnected',
+  function (btcAddress: string, customMessage?: string) {
+    return this.test('btcWalletConnected', (_, ctx) => {
+      if (btcAddress === null) return true;
+
+      if (!btcAddress) {
+        const message = customMessage || 'Bitcoin wallet not connected';
+
+        return ctx.createError({ message });
+      }
+
+      return true;
+    });
+  }
+);
+
+yup.addMethod<yup.StringSchema>(
+  yup.string,
+  'evmWalletConnected',
+  function (evmAddress: string, customMessage?: string) {
+    return this.test('evmWalletConnected', (_, ctx) => {
+      if (evmAddress === null) return true;
+
+      if (!evmAddress) {
+        const message = customMessage || 'Ethereum wallet not connected';
+
+        return ctx.createError({ message });
+      }
+
+      return true;
+    });
+  }
+);
+
 yup.addMethod<yup.StringSchema>(yup.string, 'btcAddress', function (network: BitcoinNetwork, customMessage?: string) {
   return this.test('btcAddress', (value, ctx) => {
     if (!value || !validate(value, network)) {
@@ -112,6 +148,7 @@ declare module 'yup' {
       action?: string,
       customMessage?: string
     ): StringSchema<TType, TContext>;
+    evmWalletConnected(address?: string | null, customMessage?: string): StringSchema<TType, TContext>;
     btcWalletConnected(address?: string | null, customMessage?: string): StringSchema<TType, TContext>;
     btcAddress(network: BitcoinNetwork, customMessage?: string): StringSchema<TType, TContext>;
     evmAddress(customMessage?: string): StringSchema<TType, TContext>;
