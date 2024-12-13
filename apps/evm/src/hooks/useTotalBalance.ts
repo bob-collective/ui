@@ -2,30 +2,42 @@ import { ChainId } from '@gobob/chains';
 import { usePrices } from '@gobob/hooks';
 import { useCurrencyFormatter, useLocale } from '@gobob/ui';
 import Big from 'big.js';
-import { useMemo } from 'react';
+import { CurrencyAmount } from '@gobob/currency';
+import { BITCOIN } from '@gobob/tokens';
 
 import { useBalances } from './useBalances';
+import { useBtcBalance, useBtcDynamicWallet } from './btc';
+
+import { calculateAmountUSD } from '@/utils';
 
 const useTotalBalance = (chainId: ChainId) => {
   const { getPrice } = usePrices();
-  const { balances } = useBalances(chainId);
+  const { balances, isPending: isEvmBalancePending } = useBalances(chainId);
+
+  const btcWallet = useBtcDynamicWallet();
+  const { data: btcBalance, isPending: isBtcBalancePending } = useBtcBalance();
+
   const format = useCurrencyFormatter();
   const { locale } = useLocale();
 
-  return useMemo(() => {
-    const total = Object.values(balances).reduce(
-      (total, balance) => total.plus(new Big(balance.toExact()).mul(getPrice(balance.currency.symbol) || 0).toNumber()),
-      new Big(0)
-    );
+  const total = Object.values(balances).reduce(
+    (total, balance) => total.plus(calculateAmountUSD(balance, getPrice(balance.currency.symbol) || 0)),
+    new Big(
+      calculateAmountUSD(
+        CurrencyAmount.fromRawAmount(BITCOIN, btcBalance?.total.toString() || 0),
+        getPrice(BITCOIN.symbol)
+      )
+    )
+  );
 
-    return {
-      formatted: format(total.toNumber()),
-      compact: Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
-        total.toNumber()
-      ),
-      amount: total
-    };
-  }, [balances, format, getPrice, locale]);
+  return {
+    isPending: isEvmBalancePending || (btcWallet ? isBtcBalancePending : false),
+    formatted: format(total.toNumber()),
+    compact: Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
+      total.toNumber()
+    ),
+    amount: total
+  };
 };
 
 export { useTotalBalance };

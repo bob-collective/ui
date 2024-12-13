@@ -13,7 +13,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 import { NestedProviders } from './nested-providers';
 
 import { getConfig } from '@/lib/wagmi';
-import { INTERVAL, isProd } from '@/constants';
+import { ExternalLinks, INTERVAL, isProd } from '@/constants';
 import { FetchError } from '@/types/fetch';
 
 export function Providers({ initialState, children }: PropsWithChildren<{ initialState: State | undefined }>) {
@@ -59,6 +59,7 @@ export function Providers({ initialState, children }: PropsWithChildren<{ initia
           }
         },
         environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID,
+        termsOfServiceUrl: ExternalLinks.TERMS_OF_SERVICE,
         walletConnectors: [BitcoinWalletConnectors, EthereumWalletConnectors],
         overrides: {
           multiWallet: true,

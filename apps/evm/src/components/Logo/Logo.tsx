@@ -7,9 +7,9 @@ import { useParams } from 'next/navigation';
 
 import { StyledBadge, StyledLogo } from './Logo.style';
 
+import { isProd } from '@/constants';
+
 type Props = {
-  isTestnet?: boolean;
-  isFusion?: boolean;
   onPress?: () => void;
   hidden?: boolean;
 };
@@ -18,7 +18,7 @@ type InheritAttrs = Omit<LinkProps, keyof Props | 'children'>;
 
 type LogoProps = Props & InheritAttrs;
 
-const Logo = ({ isTestnet, isFusion, href = '/', onPress, hidden, ...props }: LogoProps) => {
+const Logo = ({ href = '/', onPress, hidden, ...props }: LogoProps) => {
   const { i18n } = useLingui();
   const params = useParams();
 
@@ -36,13 +36,8 @@ const Logo = ({ isTestnet, isFusion, href = '/', onPress, hidden, ...props }: Lo
         <Span size='xl' weight='bold'>
           <Trans>BOB</Trans>
         </Span>
-        {isFusion && (
-          <Span color='primary-500' fontFamily='eurostar' size='xl' weight='bold'>
-            <Trans>FUSION</Trans>
-          </Span>
-        )}
       </StyledLogo>
-      {isTestnet && (
+      {!isProd && (
         <StyledBadge size='xs' weight='semibold'>
           <Trans>Testnet</Trans>
         </StyledBadge>

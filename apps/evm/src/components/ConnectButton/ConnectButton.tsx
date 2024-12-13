@@ -1,74 +1,45 @@
 'use client';
 
-import { useDynamicContext, UserProfile } from '@dynamic-labs/sdk-react-core';
-import { Button, Flex, Span } from '@gobob/ui';
-import { truncateBtcAddress, truncateEthAddress } from '@gobob/utils';
+import { useDynamicContext, useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
+import { Button } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import ProfileAvatar from 'boring-avatars';
+import { useStore } from '@tanstack/react-store';
 import { useState } from 'react';
-import { Address } from 'viem';
-import { useAccount } from 'wagmi';
-import { Drawer } from 'vaul';
-import { useIsClient, useMediaQuery } from 'usehooks-ts';
+import { useMediaQuery } from 'usehooks-ts';
 import { useTheme } from 'styled-components';
+import { Drawer } from 'vaul';
+import { useAccount } from 'wagmi';
 
 import { ProfileDrawer } from '../ProfileDrawer';
+import { ProfileTag } from '../ProfileTag';
 
-import { StyledContent } from './ConnectButton.style';
+import { StyledContent, StyledMobileContentWrapper, StyledTrigger, StyledUnderlay } from './ConnectButton.style';
 
 import { useBtcAccount } from '@/hooks';
 import { useUserAgent } from '@/user-agent';
 
-const Profile = ({
-  evmAddress,
-  btcAddress,
-  user
-}: {
-  btcAddress?: string;
-  evmAddress?: Address;
-  user?: UserProfile;
-}) => {
-  const theme = useTheme();
-  const isClient = useIsClient();
-  const { isMobile: isMobileUserAgent } = useUserAgent();
-  const isMobileViewport = useMediaQuery(theme.breakpoints.down('s'));
-
-  const displayedAddress = evmAddress
-    ? truncateEthAddress(evmAddress)
-    : btcAddress
-      ? truncateBtcAddress(btcAddress)
-      : undefined;
-
-  const isMobile = isMobileViewport || isMobileUserAgent;
-
-  return (
-    <Flex alignItems='center' elementType='span' gap='s'>
-      {user?.userId ? <ProfileAvatar name={user.userId} size='1.5rem' /> : undefined}
-      <Span hidden={!isClient || isMobile} size='s'>
-        {displayedAddress}
-      </Span>
-    </Flex>
-  );
-};
-
-const snapPoints = ['500px', 1];
+import { store } from '@/lib/store';
 
 const ConnectButton = (): JSX.Element => {
-  const [snap, setSnap] = useState<number | string | null>(snapPoints[0] as number);
-
   const theme = useTheme();
   const isMobileViewport = useMediaQuery(theme.breakpoints.down('s'));
 
-  const { setShowAuthFlow, user } = useDynamicContext();
-  const { address: evmAddress } = useAccount();
-  const { address: btcAddress } = useBtcAccount();
   const { isMobile: isMobileUserAgent } = useUserAgent();
+  const isReceiveModalOpen = useStore(store, (state) => state.shared.isReceiveModalOpen);
 
   const [isOpen, setOpen] = useState(false);
 
-  const isAuthenticated = evmAddress || btcAddress;
+  const { setShowAuthFlow } = useDynamicContext();
+  const isLoggedIn = useIsLoggedIn();
 
-  if (!isAuthenticated) {
+  const { address: evmAddress } = useAccount();
+  const { address: btcAddress } = useBtcAccount();
+
+  const isLoading = isLoggedIn && !(evmAddress || btcAddress);
+
+  // const isAuthenticated = evmAddress || btcAddress;
+
+  if (!isLoggedIn) {
     const handleConnect = () => {
       setShowAuthFlow(true);
     };
@@ -84,56 +55,23 @@ const ConnectButton = (): JSX.Element => {
 
   const isMobile = isMobileViewport || isMobileUserAgent;
 
-  const snapProps = isMobile ? { activeSnapPoint: snap, setActiveSnapPoint: setSnap, snapPoints } : undefined;
-
   return (
-    <Drawer.Root direction={isMobile ? 'bottom' : 'right'} open={isOpen} onOpenChange={setOpen} {...snapProps}>
-      <Drawer.Trigger asChild>
-        <Button variant='ghost'>
-          <Profile btcAddress={btcAddress} evmAddress={evmAddress} user={user} />
-        </Button>
-      </Drawer.Trigger>
+    <Drawer.Root
+      direction={isMobile ? 'bottom' : 'right'}
+      dismissible={!isReceiveModalOpen}
+      open={isOpen}
+      onOpenChange={setOpen}
+    >
+      <StyledTrigger disabled={isLoading}>
+        <ProfileTag hideAddress={isMobile} size='s' />
+      </StyledTrigger>
       <Drawer.Portal>
-        <Drawer.Overlay
-          style={{
-            position: 'fixed',
-            top: '0',
-            right: '0',
-            bottom: '0',
-            left: '0',
-            backgroundColor: 'rgba(0, 0, 0, 0.6)'
-          }}
-        />
-        <StyledContent
-          style={
-            isMobile
-              ? {
-                  display: 'flex',
-                  position: 'fixed',
-                  right: '0',
-                  bottom: '0',
-                  left: '0',
-                  // marginTop: '6rem',
-                  flexDirection: 'column',
-                  outlineStyle: 'none',
-                  height: '100%',
-                  maxHeight: '97%'
-                  // height: 'fit-content'
-                }
-              : ({
-                  display: 'flex',
-                  position: 'fixed',
-                  top: '0.5rem',
-                  right: '0.5rem',
-                  bottom: '0.5rem',
-                  zIndex: 10,
-                  outlineStyle: 'none',
-                  width: '310px',
-                  '--initial-transform': 'calc(100% + 8px)'
-                } as React.CSSProperties)
-          }
-        >
-          <ProfileDrawer isMobile={isMobile} snap={snap} onClose={handleClose} />
+        <StyledUnderlay />
+        <StyledContent>
+          <StyledMobileContentWrapper>
+            <Drawer.Title hidden>Profile</Drawer.Title>
+            <ProfileDrawer onClose={handleClose} />
+          </StyledMobileContentWrapper>
         </StyledContent>
       </Drawer.Portal>
     </Drawer.Root>

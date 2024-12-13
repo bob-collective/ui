@@ -7,6 +7,7 @@ export * from './useGeoblock';
 export * from './useGetStrategies';
 export * from './useGetUser';
 export * from './useHaltedLockedTokens';
+export * from './useIntervalTooltip';
 export * from './useIsContract';
 export * from './useLockedTokens';
 export * from './useLogin';
@@ -19,6 +20,5 @@ export * from './useSubscribeBalances';
 export * from './useTokens';
 export * from './useTotalBalance';
 export * from './useWalletClient';
-export * from './useGetTransactions';
 
 export * from './btc';

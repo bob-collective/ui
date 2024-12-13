@@ -8,21 +8,20 @@ import { ChainLogoProps } from '../ChainLogo/ChainLogo';
 import { StyledChain, StyledWrapper } from './ChainAsset.style';
 
 type Props = {
-  chainId: ChainId | 'BTC';
+  chainId?: ChainId | 'BTC';
   asset: ReactNode;
-  chainProps: Omit<ChainLogoProps, 'chainId'>;
+  chainProps?: Omit<ChainLogoProps, 'chainId'>;
+  chainLogo?: ReactNode;
 };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
 type ChainAssetProps = Props & InheritAttrs;
 
-const ChainAsset = ({ asset, chainId, chainProps, ...props }: ChainAssetProps) => (
+const ChainAsset = ({ asset, chainId, chainLogo, chainProps, ...props }: ChainAssetProps) => (
   <StyledWrapper elementType='span' {...props}>
     {asset}
-    <StyledChain>
-      <ChainLogo chainId={chainId} {...chainProps} />
-    </StyledChain>
+    <StyledChain>{chainLogo || (chainId ? <ChainLogo chainId={chainId} {...chainProps} /> : undefined)}</StyledChain>
   </StyledWrapper>
 );
 
