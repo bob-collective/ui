@@ -20,7 +20,7 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
   useAccountEffect({
     onConnect: () => {
       if (isConnecting && address) {
-        signUp(address);
+        signUp({ address });
 
         setConnecting(false);
       }
@@ -37,7 +37,7 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
       return;
     }
 
-    return signUp(address);
+    return signUp({ address });
   };
 
   return <Button loading={isSigningUp} {...mergeProps(props, { onPress: handlePress })} />;

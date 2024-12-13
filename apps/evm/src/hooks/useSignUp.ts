@@ -22,7 +22,7 @@ const useSignUp = () => {
 
   return useMutation({
     mutationKey: fusionKeys.signUp(),
-    mutationFn: async (address: Address) => {
+    mutationFn: async ({ address }: { address: Address; referralCode?: string }) => {
       const nonce = await apiClient.getNonce();
 
       const message = new SiweMessage({
@@ -41,8 +41,8 @@ const useSignUp = () => {
 
       await apiClient.signUp(message, signature);
     },
-    onSuccess: (_, address) => {
-      sendGAEvent('event', 'signup', { payload: { address } });
+    onSuccess: (_, { address, referralCode }) => {
+      sendGAEvent('event', 'signup', { payload: { address, referralCode } });
       setTimeout(() => refetchUser(), 100);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

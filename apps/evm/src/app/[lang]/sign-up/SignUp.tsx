@@ -30,7 +30,7 @@ const SignUp = (): JSX.Element | null => {
   const params = useParams();
   const { data: user } = useGetUser();
 
-  const [referalCode, setReferalCode] = useState('');
+  const [referralCode, setReferralCode] = useState('');
 
   const [isConnecting, setConnecting] = useState(false);
 
@@ -54,13 +54,13 @@ const SignUp = (): JSX.Element | null => {
 
   const handleChange = (code: string) => {
     reset();
-    setReferalCode(code);
+    setReferralCode(code);
   };
 
   useAccountEffect({
     onConnect: () => {
       if (isConnecting && address) {
-        signUp(address);
+        signUp({ address });
 
         setConnecting(false);
       }
@@ -70,8 +70,8 @@ const SignUp = (): JSX.Element | null => {
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
 
-    if (referalCode) {
-      await validateReferralCodeAsync?.(referalCode);
+    if (referralCode) {
+      await validateReferralCodeAsync?.(referralCode);
     }
 
     if (!address) {
@@ -83,7 +83,7 @@ const SignUp = (): JSX.Element | null => {
       return;
     }
 
-    return signUp(address);
+    return signUp({ address, referralCode });
   };
 
   return (
