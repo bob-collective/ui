@@ -12,14 +12,12 @@ const StyledContent = styled(Drawer.Content)`
       margin-top: 6rem;
       flex-direction: column;
       outline-style: none;
-      height: calc(100% - 72px);
 
       @media ${theme.breakpoints.up('s')} {
         top: 0.5rem;
         right: 0.5rem;
         bottom: 0.5rem;
         left: unset;
-        height: 100%;
         margin-top: 0;
 
         width: 310px;
@@ -43,8 +41,7 @@ const StyledMobileContentWrapper = styled.div`
     return css`
       background: ${theme.color('grey-400')};
       border: 1px solid ${theme.color('grey-300')};
-      border-top-right-radius: ${theme.rounded('xl')};
-      border-top-left-radius: ${theme.rounded('xl')};
+      border-radius: ${theme.rounded('xl')};
       overflow-y: auto;
       padding: 1rem;
       flex: 1 1 0%;
@@ -98,4 +95,16 @@ const StyledTrigger = styled(Drawer.Trigger)`
   }}
 `;
 
-export { StyledContent, StyledTrigger, StyledUnderlay, StyledMobileContentWrapper };
+const MobilePill = styled.div`
+  opacity: 1;
+  background-color: rgb(212 212 216);
+  border-radius: 9999px;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 0.375rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+export { StyledContent, StyledTrigger, StyledUnderlay, StyledMobileContentWrapper, MobilePill };
