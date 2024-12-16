@@ -8,7 +8,7 @@ import Big from 'big.js';
 import { StrategyData } from './useGetStakingStrategies';
 
 import { getConfig } from '@/lib/wagmi';
-import { isProd } from '@/constants';
+import { INTERVAL, isProd } from '@/constants';
 import { seTokenAbi } from '@/abis/seToken.abi';
 import { strategyBaseTVLLimitAbi } from '@/abis/StrategyBaseTVL.abi';
 
@@ -90,7 +90,8 @@ const useStrategiesContractData = (
   const { data: seTokensContractData } = useReadContracts({
     query: {
       enabled,
-      select: seTokenContractDataSelector
+      select: seTokenContractDataSelector,
+      refetchInterval: INTERVAL.HOUR
     },
     allowFailure: false,
     config: {
@@ -150,7 +151,8 @@ const useStrategiesContractData = (
   const { data: seTokensUnderlyingContractData } = useReadContracts({
     query: {
       enabled,
-      select: seTokenUnderlyingContractDataSelector
+      select: seTokenUnderlyingContractDataSelector,
+      refetchInterval: INTERVAL.HOUR
     },
     allowFailure: false,
     config: {
@@ -194,7 +196,8 @@ const useStrategiesContractData = (
   const { data: tokensContractData } = useReadContracts({
     query: {
       enabled,
-      select: tokensContractDataSelector
+      select: tokensContractDataSelector,
+      refetchInterval: INTERVAL.HOUR
     },
     allowFailure: false,
     config: {
@@ -249,7 +252,8 @@ const useStrategiesContractData = (
   const { data: noOuputTokenContractData } = useReadContracts({
     query: {
       enabled,
-      select: noOuputTokenContractDataSelector
+      select: noOuputTokenContractDataSelector,
+      refetchInterval: INTERVAL.HOUR
     },
     allowFailure: false,
     config: {
@@ -298,7 +302,8 @@ const useStrategiesContractData = (
   const { data: noOuputTokenContractSharesToUnderlyingData } = useReadContracts({
     query: {
       enabled,
-      select: noOuputTokenContractSharesToUnderlyingDataSelector
+      select: noOuputTokenContractSharesToUnderlyingDataSelector,
+      refetchInterval: INTERVAL.HOUR
     },
     allowFailure: false,
     contracts: strategies?.flatMap((strategy) =>
@@ -368,7 +373,7 @@ const useStrategiesContractData = (
             const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingData[strategyAddress]!;
             const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
             const [ticker, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
-            const userStaked = noOuputTokenContractData[strategyAddress][1]!;
+            const [, userStaked] = noOuputTokenContractData[strategyAddress]!;
             const price = getPrice(ticker!);
 
             acc[strategy.raw.id] = {
