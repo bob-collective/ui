@@ -29,7 +29,7 @@ const SignUp = (): JSX.Element | null => {
   const params = useParams();
   const { data: user } = useGetUser();
 
-  const [referalCode, setReferalCode] = useState('');
+  const [referralCode, setReferralCode] = useState('');
 
   const { mutate: signUp, isPending: isLoadingSignUp } = useSignUp();
 
@@ -51,14 +51,14 @@ const SignUp = (): JSX.Element | null => {
 
   const handleChange = (code: string) => {
     reset();
-    setReferalCode(code);
+    setReferralCode(code);
   };
 
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
 
-    if (referalCode) {
-      await validateReferralCodeAsync?.(referalCode);
+    if (referralCode) {
+      await validateReferralCodeAsync?.(referralCode);
     }
 
     if (!address) {
@@ -73,7 +73,7 @@ const SignUp = (): JSX.Element | null => {
             }
           }
 
-          return signUp(address);
+          return signUp({ address });
         }
       });
     }
@@ -82,7 +82,7 @@ const SignUp = (): JSX.Element | null => {
       await switchChainAsync({ chainId: L1_CHAIN });
     }
 
-    return signUp(address);
+    return signUp({ address, referralCode });
   };
 
   return (
