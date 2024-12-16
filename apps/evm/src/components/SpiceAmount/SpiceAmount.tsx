@@ -7,7 +7,7 @@ import { AnimantedAmount, AnimantedAmountProps } from '../AnimantedAmount';
 type SpiceAmountProps = Omit<AnimantedAmountProps, 'icon'>;
 
 const SpiceAmount = (props: SpiceAmountProps) => (
-  <AnimantedAmount icon={<Spice style={{ width: '1em', height: '1em' }} />} {...props} />
+  <AnimantedAmount key={props.amount} icon={<Spice style={{ width: '1em', height: '1em' }} />} {...props} />
 );
 
 export { SpiceAmount };

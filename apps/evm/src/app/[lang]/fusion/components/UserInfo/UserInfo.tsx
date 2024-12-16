@@ -1,7 +1,9 @@
 import {
+  Avatar,
   Bars3,
   Button,
   Card,
+  Chip,
   Dd,
   Divider,
   Dl,
@@ -11,10 +13,16 @@ import {
   H3,
   Link,
   P,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Skeleton,
   SolidInformationCircle,
   Span,
   Tooltip,
+  UnstyledButton,
   useLocale
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
@@ -44,10 +52,10 @@ import { UserReferralModal } from './UserReferralModal';
 import { AppData } from '@/app/[lang]/apps/hooks';
 import { BabyPoints, LoginSection, SignUpButton, SpiceAmount } from '@/components';
 import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { fusionKeys } from '@/lib/react-query';
 import { SessionStorageKey } from '@/types';
 import { apiClient, QuestS3Response, UserResponse } from '@/utils';
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -149,33 +157,67 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 <Span color='grey-50' size='s'>
                   <Trans>Season 3 Harvested</Trans>
                 </Span>
-                <Tooltip
-                  color='primary'
-                  label={
-                    <Flex direction='column' gap='s'>
-                      <P size='xs'>
+                <Span color='grey-50' size='s'>
+                  <Trans>+</Trans>
+                </Span>
+                <Popover>
+                  <PopoverTrigger>
+                    <UnstyledButton>
+                      <Chip
+                        background='dark'
+                        endAdornment={<SolidInformationCircle size='xs' />}
+                        size='s'
+                        startAdornment={
+                          <Avatar size='xl' src='https://avatars.githubusercontent.com/u/106378782?s=200&v=4' />
+                        }
+                      >
+                        <Trans>Babylon Campaign</Trans>
+                      </Chip>
+                    </UnstyledButton>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverHeader>
+                      <Trans>About Babylon Campaign</Trans>
+                    </PopoverHeader>
+                    <PopoverBody gap='md' padding='even'>
+                      <P size='s'>
                         <Trans>
-                          You maximise Babylon points by maximising your Spice harvest. Babylon points are distributed
-                          for 45 days starting on [x date] calculated on a daily basis as:
+                          BOB will distribute 100,000 Babylon Points per day to eligible users for 45 days. The points
+                          are allocated pro rata based on the percentage of the eligible daily Spice you have harvested.
+                          The more Spice you harvest the more Babylon points you will receive.
                         </Trans>
                       </P>
-                      <P size='xs'>
-                        <Trans>user_babylon_points =</Trans>
-                        <br />
-                        <Trans>(user_spice / total_qualified_spice) * [y] daily Babylon points</Trans>
-                      </P>
-                      <P size='xs'>
+                      <P size='s'>
                         <Trans>
-                          Where total_qualified_spice is the total spice earned by all users that qualify for Babylon
-                          points, i.e., had LST in their wallet at some points and are registered in Fusion.
+                          To be eligible, you must be registered for Fusion and hold or have held a Babylon LST in your
+                          wallet. You must also not reside in one of the jurisdictions which are excluded in Babylon’s{' '}
+                          <Link external href='https://babylonlabs.io/terms-of-use' size='inherit' underlined='always'>
+                            terms of use
+                          </Link>
+                          , e.g. the USA. For full details see the{' '}
+                          <Link
+                            external
+                            href='https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2'
+                            size='inherit'
+                            underlined='always'
+                          >
+                            BOB blog
+                          </Link>
+                          .
                         </Trans>
                       </P>
-                    </Flex>
-                  }
-                  maxWidth={350}
-                >
-                  <SolidInformationCircle color='grey-50' size='s' />
-                </Tooltip>
+                      <P size='s'>
+                        <Trans>
+                          The Babylon Points total displayed here only includes points earned during the BOB campaign.
+                          The figure does not include points collected by other means.
+                        </Trans>
+                      </P>
+                      <P size='s'>
+                        <Trans>The campaign will run until TIME & DATE.</Trans>
+                      </P>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
               </Flex>
               <Flex wrap alignItems='center' elementType='dd' gap='s'>
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
@@ -202,7 +244,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 </Tooltip>
               </Flex>
               <Flex alignItems='center' elementType='dd' gap='xs'>
-                <Flex wrap alignItems='center' elementType='dd' gap='s'>
+                <Flex wrap alignItems='center' elementType='span' gap='s'>
                   <SpiceAmount showAnimation amount={spicePerDay || 0} />
                   <Flex gap='s'>
                     <Span style={{ lineHeight: 1.2 }}>+</Span>

@@ -6,7 +6,7 @@ import { BabylonLogo } from '../BabylonLogo';
 type BabyPointsProps = Omit<AnimantedAmountProps, 'icon'>;
 
 const BabyPoints = (props: BabyPointsProps) => (
-  <AnimantedAmount icon={<BabylonLogo style={{ width: '1em', height: '1em' }} />} {...props} />
+  <AnimantedAmount key={props.amount} icon={<BabylonLogo style={{ width: '1em', height: '1em' }} />} {...props} />
 );
 
 export { BabyPoints };
