@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, FlexProps, Span, SpanProps, useLocale } from '@gobob/ui';
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { useCountUp } from 'use-count-up';
 
 type Props = {
@@ -35,20 +35,13 @@ const AnimantedAmount = ({
     [compact, locale]
   );
 
-  const { value, reset } = useCountUp({
+  const { value } = useCountUp({
     isCounting: showAnimation,
     start,
     end: amount,
     formatter,
     onComplete: () => setStart(amount)
   });
-
-  useEffect(() => {
-    if (showAnimation) {
-      reset();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, showAnimation]);
 
   return (
     <Flex alignItems='center' elementType={Span} gap={gap} {...props}>

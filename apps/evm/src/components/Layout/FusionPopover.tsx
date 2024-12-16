@@ -70,7 +70,7 @@ const FusionPopover = (): JSX.Element | null => {
             <P color='grey-50' size='s'>
               <Trans>Season 3 (Ongoing)</Trans>
             </P>
-            <StyledHarvestCard rounded='md' style={{ maxWidth: 300, overflow: 'hidden' }}>
+            <StyledHarvestCard rounded='md'>
               <StyledOpacityOverlay />
               <StyledContentWrapper direction='column'>
                 <P color='grey-50' size='s'>
