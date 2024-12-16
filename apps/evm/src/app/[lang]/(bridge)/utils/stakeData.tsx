@@ -147,7 +147,7 @@ const stakingInfo = {
       </Flex>
     ),
     inputToken: 'BTC',
-    outputToken: 'seUNIBTC',
+    outputToken: 'seSOLVBTCBBN',
     securityReview: '',
     website: 'https://app.segment.finance'
   },
