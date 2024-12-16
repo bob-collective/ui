@@ -40,17 +40,12 @@ const useGetStakingStrategies = () => {
     () =>
       strategies?.map((strategy) => {
         const tvl = strategiesContractData?.[strategy.raw.id]?.tvl;
-
-        if (tvl) {
-          return {
-            ...strategy,
-            tvl
-          };
-        }
+        const userStaked = strategiesContractData?.[strategy.raw.id]?.userStaked;
 
         return {
           ...strategy,
-          tvl: null
+          tvl,
+          userStaked
         };
       }),
     [strategiesContractData]

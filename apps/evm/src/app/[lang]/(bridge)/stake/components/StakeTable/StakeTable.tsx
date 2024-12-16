@@ -96,14 +96,16 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
               <Button color='primary' onPress={() => setStrategy(strategy)}>
                 <Trans>Stake</Trans>
               </Button>
-              <Button
-                variant='outline'
-                onPress={() =>
-                  window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
-                }
-              >
-                <Trans>Manage</Trans>
-              </Button>
+              {Number(strategy?.userStaked) > 0 && (
+                <Button
+                  variant='outline'
+                  onPress={() =>
+                    window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
+                  }
+                >
+                  <Trans>Manage</Trans>
+                </Button>
+              )}
             </Flex>
           )
         };
