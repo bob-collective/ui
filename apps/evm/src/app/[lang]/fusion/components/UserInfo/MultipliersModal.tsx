@@ -20,7 +20,7 @@ import { useGetTokensInfo } from '../../hooks';
 
 import { TokenInfo } from '@/utils';
 
-const excludedAssets = ['0xd6890176e8d912142AC489e8B5D8D93F8dE74D60'];
+const excludedAssets = ['0xd6890176e8d912142AC489e8B5D8D93F8dE74D60', '0x81392304A5bE58e1eb72053A47798b9285Eb948E'];
 
 const yieldAssetsAddresses = [
   '0x236f8c0a61da474db21b693fb2ea7aab0c803894',
