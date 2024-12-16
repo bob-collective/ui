@@ -13,13 +13,7 @@ import { useAccount } from 'wagmi';
 import { ProfileDrawer } from '../ProfileDrawer';
 import { ProfileTag } from '../ProfileTag';
 
-import {
-  MobilePill,
-  StyledContent,
-  StyledMobileContentWrapper,
-  StyledTrigger,
-  StyledUnderlay
-} from './ConnectButton.style';
+import { StyledContent, StyledMobileContentWrapper, StyledTrigger, StyledUnderlay } from './ConnectButton.style';
 
 import { useBtcAccount } from '@/hooks';
 import { useUserAgent } from '@/user-agent';
@@ -74,7 +68,7 @@ const ConnectButton = (): JSX.Element => {
         <StyledUnderlay />
         <StyledContent>
           <StyledMobileContentWrapper>
-            {isMobile && <MobilePill />}
+            {/* {isMobile && <MobilePill />} */}
             <Drawer.Title hidden>Profile</Drawer.Title>
             <ProfileDrawer onClose={handleClose} />
           </StyledMobileContentWrapper>
