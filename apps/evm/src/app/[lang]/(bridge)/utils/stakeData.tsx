@@ -42,7 +42,7 @@ const stakingInfo = {
     tvl: '-',
     about: (
       <P>
-        <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.</Trans>
+        <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token SolvBTC.BBN.</Trans>
       </P>
     ),
     inputToken: 'BTC',
