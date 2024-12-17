@@ -2,6 +2,8 @@ import { chain, useId } from '@react-aria/utils';
 import { Key, forwardRef, useCallback } from 'react';
 import { Currency } from '@gobob/currency';
 
+import { Skeleton } from '../Skeleton';
+
 import { BaseTokenInput, BaseTokenInputProps } from './BaseTokenInput';
 import { TokenSelectItemProps, TokenSelect, TokenSelectProps } from './TokenSelect';
 
@@ -64,6 +66,7 @@ const SelectableTokenInput = forwardRef<HTMLInputElement, SelectableTokenInputPr
         errorMessage={undefined}
         isInvalid={isInvalid}
         items={items}
+        placeholder={<Skeleton height='3xl' width='7xl' />}
         value={currency?.symbol}
         onSelectionChange={chain(onSelectionChange, handleSelectionChange)}
       />

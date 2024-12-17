@@ -7,7 +7,7 @@ import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PropsWithChildren, useState } from 'react';
 import { bob, bobSepolia } from 'viem/chains';
-import { createConfig, http, WagmiProvider } from 'wagmi';
+import { cookieStorage, createConfig, createStorage, http, State, WagmiProvider } from 'wagmi';
 
 import { NestedProviders } from './nested-providers';
 
@@ -15,7 +15,11 @@ import { BalanceProvider } from '@/providers';
 import { FetchError } from '@/types/fetch';
 import { INTERVAL } from '@/constants';
 
-const config = createConfig({
+export const config = createConfig({
+  ssr: true,
+  storage: createStorage({
+    storage: cookieStorage
+  }),
   chains: [bob, bobSepolia],
   multiInjectedProviderDiscovery: false,
   transports: {
@@ -24,7 +28,7 @@ const config = createConfig({
   }
 });
 
-export function Providers({ children }: PropsWithChildren) {
+export function Providers({ initialState, children }: PropsWithChildren<{ initialState: State | undefined }>) {
   // Instead do this, which ensures each request has its own cache:
   const [queryClient] = useState(
     () =>
@@ -59,7 +63,7 @@ export function Providers({ children }: PropsWithChildren) {
         walletConnectors: [EthereumWalletConnectors, ZeroDevSmartWalletConnectors]
       }}
     >
-      <WagmiProvider config={config}>
+      <WagmiProvider config={config} initialState={initialState}>
         <QueryClientProvider client={queryClient}>
           <DynamicWagmiConnector>
             <BalanceProvider>

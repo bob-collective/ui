@@ -1,4 +1,4 @@
-import { createConfig, http } from 'wagmi';
+import { cookieStorage, createConfig, createStorage, http } from 'wagmi';
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
 import { getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
 
@@ -11,7 +11,7 @@ const binanceConnector = getWagmiConnectorV2();
 
 const testnetChains = [bobSepolia, sepolia];
 
-const prodChains = [mainnet, bob];
+const prodChains = [bob, mainnet];
 
 const allChains = [...testnetChains, ...prodChains];
 
@@ -42,10 +42,13 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
   ];
 
   return createConfig({
+    ssr: true,
+    storage: createStorage({
+      storage: cookieStorage
+    }),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     chains: (isProd ? prodChains : allChains) as any,
     multiInjectedProviderDiscovery,
-    ssr: true,
     transports: {
       [mainnet.id]: http(),
       [sepolia.id]: http(),

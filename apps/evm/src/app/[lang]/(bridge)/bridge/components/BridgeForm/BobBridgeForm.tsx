@@ -37,6 +37,7 @@ import {
   BRIDGE_AMOUNT,
   BRIDGE_ASSET,
   BRIDGE_BTC_WALLET,
+  BRIDGE_EVM_WALLET,
   BRIDGE_RECIPIENT,
   BridgeFormValidationParams,
   BridgeFormValues,
@@ -52,6 +53,7 @@ import {
   TransactionType
 } from '@/types';
 import { calculateAmountUSD } from '@/utils';
+import { useSubscribeBalances } from '@/hooks';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
@@ -82,6 +84,8 @@ const BobBridgeForm = ({
 
   const { getPrice } = usePrices();
   const { getBalance, refetch: refetchBalances } = useBalances(bridgeChainId);
+
+  useSubscribeBalances(bridgeChainId);
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
 
@@ -396,7 +400,8 @@ const BobBridgeForm = ({
       maxAmount: new Big(tokenBalance?.toExact() || 0)
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount,
-    [BRIDGE_BTC_WALLET]: null
+    [BRIDGE_BTC_WALLET]: null,
+    [BRIDGE_EVM_WALLET]: address
   };
 
   const form = useForm<BridgeFormValues>({

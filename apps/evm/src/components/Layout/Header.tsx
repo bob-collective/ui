@@ -107,6 +107,13 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
                 <NavItem isExternal href='https://safe.gobob.xyz/welcome' size='s'>
                   <Trans>Multisig</Trans>
                 </NavItem>
+                <NavItem
+                  isExternal
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/675872861db67a29ec01d237_BOB%20Foundation%20-%20Privacy%20Policy.pdf'
+                  size='s'
+                >
+                  <Trans>Privacy policy</Trans>
+                </NavItem>
               </Nav>
             </PopoverBody>
           </PopoverContent>

@@ -6,10 +6,12 @@ export const mainnet = defineChain({
   rpcUrls: {
     ...wagmiMainnet.rpcUrls,
     default: {
-      http: ['https://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT']
+      http: ['https://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT'],
+      webSocket: ['wss://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT']
     },
     public: {
-      http: ['https://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT']
+      http: ['https://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT'],
+      webSocket: ['wss://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT']
     }
   },
   contracts: {

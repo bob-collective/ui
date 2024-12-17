@@ -96,7 +96,7 @@ const getWithdrawBridgeTransactions = (enableWestEth: boolean) => gql`
       timestamp: timestamp_
       amount
     }
-    l2MessagePasserEth: messagePasseds(where: { sender_starts_with_nocase: "0x97632B3760460A623E068CC70aBF11D5fA99Be5f" }) {
+    l2MessagePasserEth: messagePasseds(where: { sender_starts_with_nocase: $address }) {
       from: sender
       to: target
       blockNumber: block_number

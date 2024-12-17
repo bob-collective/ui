@@ -1,87 +1,32 @@
 'use client';
 
-import { PellNetwork } from '@gobob/icons/src/PellNetwork';
-import { Avatar, Flex, Input, Item, P, Select, Skeleton, Span, UnstyledButton } from '@gobob/ui';
+import { Flex, Input } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
 import { Optional } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 import { useAccount } from 'wagmi';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
-import { StrategyDetailsModal } from '../StrategyDetailsModal';
 
 import { StrategyData } from './StakeForm';
 
 import { AuthButton } from '@/connect-ui';
-import { isProd } from '@/constants';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
-const INITIAL_SELECTED_STRATEGY_SLUG = 'solv-solvbtcbbn';
-
 type BtcBridgeFormProps = {
-  strategies: StrategyData[];
+  strategy: StrategyData;
   onStart: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
   onSuccess: (data: InitGatewayTransaction) => void;
   onError: () => void;
 };
 
-const StrategyOption = ({ children, data }: PropsWithChildren<{ data: StrategyData }>) => {
-  return (
-    <Flex alignItems='center' gap='s'>
-      {data.raw.integration.logo ? (
-        <Avatar size={children ? '4xl' : '2xl'} src={data.raw.integration.logo} />
-      ) : (
-        <PellNetwork style={children ? { height: '2rem', width: '2rem' } : { height: '1.3rem', width: '1.3rem' }} />
-      )}
-      <P align='start' style={{ color: 'inherit', lineHeight: children ? '1rem' : undefined }}>
-        {data.raw.integration.name}
-        {children}
-      </P>
-    </Flex>
-  );
-};
-
-const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeFormProps): JSX.Element => {
+const BtcStakeForm = ({ strategy, onStart, onSuccess, onError }: BtcBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
 
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
   const { address: evmAddress } = useAccount();
-
-  const [isStrategyModalOpen, setStrategyModalOpen] = useState(false);
-
-  const [selectedStrategy, setSelectedStrategy] = useState(
-    searchParams?.get('stake-with') ?? (isProd ? INITIAL_SELECTED_STRATEGY_SLUG : strategies[0]?.raw.integration.slug)
-  );
-
-  const sortedStrategies = useMemo(
-    () =>
-      [...strategies].sort((strategyA, strategyB) =>
-        strategyB.raw.integration.type.localeCompare(strategyA.raw.integration.type)
-      ),
-    [strategies]
-  );
-
-  const strategy = useMemo(
-    () => strategies.find((strategy) => strategy.raw.integration.slug === selectedStrategy),
-    [selectedStrategy, strategies]
-  );
-
-  useEffect(() => {
-    if (searchParams) {
-      const urlSearchParams = new URLSearchParams(searchParams);
-
-      if (selectedStrategy) urlSearchParams.set('receive', selectedStrategy);
-      urlSearchParams.set('network', 'bitcoin');
-      router.replace('?' + urlSearchParams);
-    }
-  }, [selectedStrategy, router, searchParams]);
 
   const handleSuccess = () => {
     form.resetForm();
@@ -132,54 +77,6 @@ const BtcStakeForm = ({ strategies, onStart, onSuccess, onError }: BtcBridgeForm
           onValueChange: gateway.setAmount
         })}
       />
-      <Flex direction='column' gap='xs'>
-        <Select<StrategyData>
-          items={sortedStrategies}
-          label={t(i18n)`Get`}
-          modalProps={{ title: <Trans>Select Strategy</Trans>, size: 'xs' }}
-          renderValue={({ value }) => (value ? <StrategyOption data={value} /> : undefined)}
-          size='lg'
-          type='modal'
-          {...mergeProps(fields.asset, {
-            onSelectionChange: setSelectedStrategy
-          })}
-        >
-          {(data) => (
-            <Item key={data.raw.integration.slug} textValue={data.raw.integration.name}>
-              <StrategyOption data={data}>
-                <>
-                  <br />
-                  <Span color='grey-50' size='s' style={{ textTransform: 'capitalize' }}>
-                    {data.raw.integration.type}
-                  </Span>
-                </>
-              </StrategyOption>
-            </Item>
-          )}
-        </Select>
-        {strategy ? (
-          <>
-            <UnstyledButton
-              color='primary-500'
-              style={{ alignSelf: 'flex-start' }}
-              onPress={() => setStrategyModalOpen(true)}
-            >
-              <Span color='grey-50' size='s' style={{ textDecoration: 'underline' }}>
-                <Trans>Learn more about {strategy.raw.integration.name}</Trans>
-              </Span>
-            </UnstyledButton>
-            <StrategyDetailsModal
-              isOpen={isStrategyModalOpen}
-              strategy={strategy}
-              onClose={() => setStrategyModalOpen(false)}
-            />
-          </>
-        ) : (
-          <Span size='s'>
-            <Skeleton width='60%' />
-          </Span>
-        )}
-      </Flex>
       <GatewayGasSwitch
         isSelected={gateway.settings.topUp.isEnabled}
         onChange={(e) => gateway.settings.topUp.enable(e.target.checked)}

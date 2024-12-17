@@ -4,7 +4,7 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether, Token } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
-import { Button, Flex, Input, QrCode, toast, TokenInput, useForm } from '@gobob/ui';
+import { Button, Flex, Input, QrCode, Skeleton, toast, TokenInput, useForm } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
@@ -370,6 +370,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
           humanBalance={humanBalance}
           items={tokenInputItems}
           label={<Trans>Amount</Trans>}
+          placeholder={<Skeleton height='3xl' width='7xl' />}
           type='selectable'
           valueUSD={calculateAmountUSD(currencyAmount, getPrice(token.currency.symbol))}
           onChangeCurrency={(currency) => {
