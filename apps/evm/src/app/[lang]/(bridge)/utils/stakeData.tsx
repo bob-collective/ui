@@ -145,6 +145,21 @@ const stakingInfo = {
     outputToken: 'seUNIBTC',
     securityReview: '',
     website: 'https://app.segment.finance'
+  },
+  'lombard-lbtc': {
+    strategy: 'Liquid Staking Lombard BTC',
+    protocol: 'Lombard',
+    incentives: [Incentive.supply],
+    tvl: '-',
+    about: (
+      <P>
+        <Trans>Stake BTC into Lombard and receive liquid staking token LBTC</Trans>
+      </P>
+    ),
+    inputToken: 'BTC',
+    outputToken: 'LBTC',
+    securityReview: '',
+    website: 'https://lombard.finance/app/stake'
   }
 };
 
