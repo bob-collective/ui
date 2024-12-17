@@ -1,3 +1,5 @@
+import { withSentryConfig } from '@sentry/nextjs';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: {
@@ -14,8 +16,8 @@ const nextConfig = {
   rewrites() {
     return [
       {
-        source: '/bob-api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`
+        source: '/fusion-api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_FUSION_API_URL}/:path*`
       },
       {
         source: '/dynamic-api/:path*',
@@ -36,4 +38,11 @@ const nextConfig = {
   }
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  // An auth token is required for uploading source maps.
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  hideSourceMaps: true,
+  release: {
+    create: false
+  }
+});

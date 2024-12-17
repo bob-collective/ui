@@ -1,14 +1,14 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { ChainId } from '@gobob/chains';
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import { useCurrencyFormatter, useLocale } from '@gobob/ui';
+import { renderHook } from '@testing-library/react-hooks';
 import Big from 'big.js';
 import { Mock, vi } from 'vitest';
 
-import { useTotalBalance } from '../useTotalBalance';
 import { useBalances } from '../useBalances';
+import { useTotalBalance } from '../useTotalBalance';
 
-vi.mock('@gobob/react-query', () => ({
+vi.mock('@gobob/hooks', () => ({
   usePrices: vi.fn()
 }));
 
@@ -60,7 +60,7 @@ describe('useTotalBalance', () => {
   });
 
   it('returns zero if balances are empty', () => {
-    const chainId = ChainId.OLD_BOB_SEPOLIA;
+    const chainId = ChainId.BOB_SEPOLIA;
 
     mockUsePrices.mockReturnValue({
       getPrice: () => 0

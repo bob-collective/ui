@@ -5,32 +5,29 @@
     "build": {
       "outputs": [".next/**", "!.next/cache/**", "storybook-static/**"],
       "dependsOn": ["^build"],
-      "cache": true
+      "cache": false
     },
     "lint": {
-      "outputs": [],
-      "cache": true,
-      "dependsOn": ["^lint"]
+      "cache": false,
+      "outputs": []
     },
     "dev": {
-      "cache": false,
-      "persistent": true
+      "cache": false
     },
     "clean": {
       "cache": false
     },
     "typecheck": {
-      "cache": true,
+      "cache": false,
       "dependsOn": ["^typecheck"]
     },
     "test": {
       "dependsOn": ["build"],
       "outputs": [],
-      "cache": true
+      "cache": false
     },
     "format:check": {
-      "outputs": [],
-      "cache": true
+      "cache": false
     },
     "format:write": {
       "outputs": [],
@@ -38,7 +35,7 @@
     },
     "files:check": {
       "outputs": [],
-      "cache": true
+      "cache": false
     }
   }
 }

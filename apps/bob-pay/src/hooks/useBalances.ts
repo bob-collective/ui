@@ -1,12 +1,14 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
-import { usePublicClient } from '@gobob/wagmi';
+import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
 import { Address, erc20Abi } from 'viem';
+import { usePublicClient } from 'wagmi';
 
-import { useTokens } from './useTokens';
 import { useDynamicAddress } from './useDynamicAddress';
+import { useTokens } from './useTokens';
+
+import { INTERVAL } from '@/constants';
 
 type Balances = Record<Address, CurrencyAmount<ERC20Token | Ether>>;
 

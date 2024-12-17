@@ -1,34 +1,37 @@
 'use client';
 
 import {
+  SatsConnector,
+  useAccount as useSatsAccount,
+  useConnect as useSatsConnect,
+  useDisconnect as useSatsDisconnect
+} from '@gobob/sats-wagmi';
+import {
+  ArrowLeft,
   Button,
   Flex,
+  Link,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalProps,
   P,
-  toast,
-  ArrowLeft,
-  Link
+  toast
 } from '@gobob/ui';
-import { Address, Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from '@gobob/wagmi';
-import {
-  useAccount as useSatsAccount,
-  useDisconnect as useSatsDisconnect,
-  useConnect as useSatsConnect,
-  SatsConnector
-} from '@gobob/sats-wagmi';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from 'wagmi';
+import { Address } from 'viem';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 import { ConnectType, WalletType } from '../../types';
 
-import { WalletList } from './WalletList';
+import { BtcWalletList } from './BtcWalletList';
 import { ConnectedWalletSection } from './ConnectedWalletSection';
 import { ConnectWalletCard } from './ConnectWalletCard';
+import { EvmWalletList } from './EvmWalletList';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
@@ -109,14 +112,6 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const [selectedKey] = [...(key as any)];
 
-        if (selectedKey === 'okxWallet') {
-          window.open('https://www.okx.com/web3', '_blank', 'noreferrer');
-        }
-
-        if (selectedKey === 'bitgetWallet') {
-          window.open('https://web3.bitget.com/en/wallet-download', '_blank', 'noreferrer');
-        }
-
         const connector = connectors.find((el) => el.id === selectedKey);
 
         if (!connector) {
@@ -126,9 +121,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         setPendingConnector(connector);
 
         try {
-          await connectAsync({
+          const connectData = await connectAsync({
             connector
           });
+
+          sendGTMEvent({ event: 'evm-connect', address: connectData.accounts });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);
@@ -166,9 +163,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         setPendingSatsConnector(satsConnector);
 
         try {
-          await satsConnectAsync({
+          const btcAddress = await satsConnectAsync({
             connector: satsConnector
           });
+
+          sendGTMEvent({ event: 'btc-connect', address: btcAddress.address });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingSatsConnector(undefined);
@@ -266,7 +265,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
                 <Trans>and that you have read and understood our </Trans>
                 <Link
                   external
-                  href='https://uploads-ssl.webflow.com/6620e8932695794632789d89/66aa4eac1074934d060d127c_20240731%20-%20BOB%20Foundation%20-%20Privacy%20Policy.pdf'
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/675872861db67a29ec01d237_BOB%20Foundation%20-%20Privacy%20Policy.pdf'
                   size='inherit'
                 >
                   <Trans>Privacy policy</Trans>
@@ -307,21 +306,19 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             </>
           )}
           {(step === 'evm' || type === 'evm') && (
-            <WalletList
+            <EvmWalletList
               connector={connector}
               connectors={connectors}
               pendingConnector={pendingConnector}
-              type='evm'
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onSelectionChange={handleEvmWalletSelect as any}
             />
           )}
           {(step === 'btc' || type === 'btc') && (
-            <WalletList
+            <BtcWalletList
               connector={btcWalletConnector}
               connectors={satsConnectors}
               pendingConnector={pendingSatsConnector}
-              type='btc'
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onSelectionChange={handleBtcWalletSelect as any}
             />
@@ -342,4 +339,4 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 ConnectModal.displayName = 'ConnectModal';
 
 export { ConnectModal };
-export type { ConnectModalProps, ConnectEvmHandler, ConnectBtcHandler };
+export type { ConnectBtcHandler, ConnectEvmHandler, ConnectModalProps };

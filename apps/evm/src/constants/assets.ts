@@ -13,10 +13,7 @@ export type RawToken = {
   bridgeDisabled?: boolean;
 };
 
-export const ETH: Record<
-  ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA | ChainId.OLD_BOB_SEPOLIA,
-  RawToken
-> = {
+export const ETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA, RawToken> = {
   [ChainId.ETHEREUM]: {
     chainId: ChainId.ETHEREUM,
     address: '0x0000000000000000000000000000000000000000',
@@ -52,19 +49,10 @@ export const ETH: Record<
     decimals: 18,
     logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     apiId: 'ethereum'
-  },
-  [ChainId.OLD_BOB_SEPOLIA]: {
-    chainId: ChainId.OLD_BOB_SEPOLIA,
-    address: '0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000',
-    name: 'Ether',
-    symbol: 'ETH',
-    decimals: 18,
-    logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
-    apiId: 'ethereum'
   }
 };
 
-export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.OLD_BOB_SEPOLIA, RawToken> = {
+export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA, RawToken> = {
   [ChainId.ETHEREUM]: {
     chainId: ChainId.ETHEREUM,
     address: '0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0',
@@ -91,7 +79,7 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | C
     decimals: 18,
     logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
     apiId: 'wrapped-steth'
-  },
+  }
   // [ChainId.BOB_SEPOLIA]: {
   //   chainId: ChainId.BOB_SEPOLIA,
   //   address: '0x1f512b534F541424912AD78075d5A0a01C43C0CB',
@@ -101,20 +89,9 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | C
   //   logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
   //   apiId: 'wrapped-steth'
   // },
-  [ChainId.OLD_BOB_SEPOLIA]: {
-    chainId: ChainId.OLD_BOB_SEPOLIA,
-    address: '0x7363C130e10031344b813FAcd99f91e42864df3c',
-    name: 'Wrapped liquid staked Ether 2.0',
-    symbol: 'wstETH',
-    decimals: 18,
-    logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
-    apiId: 'wrapped-steth'
-  }
 };
 
-const usdc: Partial<
-  Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA | ChainId.OLD_BOB_SEPOLIA, RawToken>
-> = {
+const usdc: Partial<Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | ChainId.BOB_SEPOLIA, RawToken>> = {
   ...(USDC?.[ChainId.ETHEREUM] && {
     [ChainId.ETHEREUM]: {
       chainId: ChainId.ETHEREUM,
@@ -155,17 +132,6 @@ const usdc: Partial<
       name: USDC[ChainId.BOB_SEPOLIA].name!,
       symbol: USDC[ChainId.BOB_SEPOLIA].symbol!,
       decimals: USDC[ChainId.BOB_SEPOLIA].decimals,
-      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
-      apiId: 'usd-coin'
-    }
-  }),
-  ...(USDC?.[ChainId.OLD_BOB_SEPOLIA] && {
-    [ChainId.OLD_BOB_SEPOLIA]: {
-      chainId: ChainId.OLD_BOB_SEPOLIA,
-      address: USDC[ChainId.OLD_BOB_SEPOLIA].address,
-      name: USDC[ChainId.OLD_BOB_SEPOLIA].name!,
-      symbol: USDC[ChainId.OLD_BOB_SEPOLIA].symbol!,
-      decimals: USDC[ChainId.OLD_BOB_SEPOLIA].decimals,
       logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
       apiId: 'usd-coin'
     }
@@ -535,42 +501,4 @@ const bobSepoliaAssets: RawToken[] = [
   // wstETH[ChainId.BOB_SEPOLIA]
 ];
 
-const oldBobSepoliaAssets: RawToken[] = [
-  ETH[ChainId.OLD_BOB_SEPOLIA],
-  ...(USDT?.[ChainId.OLD_BOB_SEPOLIA]
-    ? [
-        {
-          chainId: ChainId.OLD_BOB_SEPOLIA,
-          address: USDT[ChainId.OLD_BOB_SEPOLIA].address,
-          name: USDT[ChainId.OLD_BOB_SEPOLIA].name!,
-          symbol: USDT[ChainId.OLD_BOB_SEPOLIA].symbol!,
-          decimals: USDT[ChainId.OLD_BOB_SEPOLIA].decimals,
-          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
-          apiId: 'tether'
-        }
-      ]
-    : []),
-  ...(TBTC?.[ChainId.OLD_BOB_SEPOLIA]
-    ? [
-        {
-          chainId: ChainId.OLD_BOB_SEPOLIA,
-          address: TBTC[ChainId.OLD_BOB_SEPOLIA].address,
-          name: TBTC[ChainId.OLD_BOB_SEPOLIA].name!,
-          symbol: TBTC[ChainId.OLD_BOB_SEPOLIA].symbol!,
-          decimals: TBTC[ChainId.OLD_BOB_SEPOLIA].decimals,
-          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
-          apiId: 'tbtc'
-        }
-      ]
-    : []),
-  ...(usdc[ChainId.OLD_BOB_SEPOLIA] ? [usdc[ChainId.OLD_BOB_SEPOLIA]] : []),
-  wstETH[ChainId.OLD_BOB_SEPOLIA]
-];
-
-export const tokens: RawToken[] = [
-  ...ethereumAssets,
-  ...sepoliaAssets,
-  ...bobAssets,
-  ...bobSepoliaAssets,
-  ...oldBobSepoliaAssets
-];
+export const tokens: RawToken[] = [...ethereumAssets, ...sepoliaAssets, ...bobAssets, ...bobSepoliaAssets];

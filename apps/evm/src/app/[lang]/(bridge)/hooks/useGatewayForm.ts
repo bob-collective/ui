@@ -1,18 +1,20 @@
 'use client';
 
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { useForm } from '@gobob/ui';
-import { useAccount, useIsContract } from '@gobob/wagmi';
 import Big from 'big.js';
 import { useEffect } from 'react';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { useAccount } from 'wagmi';
 
 import { UseGatewayQueryDataReturnType } from './useGateway';
 
+import { useIsContract } from '@/hooks';
 import {
   BRIDGE_AMOUNT,
-  BRIDGE_BTC_WALLET,
-  BRIDGE_RECIPIENT,
   BRIDGE_ASSET,
+  BRIDGE_BTC_WALLET,
+  BRIDGE_EVM_WALLET,
+  BRIDGE_RECIPIENT,
   BridgeFormValidationParams,
   BridgeFormValues,
   bridgeSchema
@@ -45,7 +47,8 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
       maxAmount: new Big(query.balance.toExact())
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount,
-    [BRIDGE_BTC_WALLET]: btcAddress
+    [BRIDGE_BTC_WALLET]: btcAddress,
+    [BRIDGE_EVM_WALLET]: evmAddress
   };
 
   const initialValues = {

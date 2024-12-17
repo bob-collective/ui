@@ -1,7 +1,7 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { useMemo } from 'react';
 import { Address } from 'viem';
-import { useAccount } from '@gobob/wagmi';
+import { useAccount } from 'wagmi';
 
 // This only works if we only enable embedded wallets to be smart accounts
 const useDynamicAddress = () => {

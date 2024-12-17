@@ -1,14 +1,14 @@
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { describe, expect, it, Mock, vi } from 'vitest';
-import { useAccount } from '@gobob/wagmi';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { useAccount } from 'wagmi';
 
 import { useGateway } from '../useGateway';
 
 import { wrapper } from '@/test-utils';
 import { GatewayTransactionType } from '@/types';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

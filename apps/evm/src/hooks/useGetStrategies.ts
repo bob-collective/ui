@@ -1,6 +1,7 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
-import { INTERVAL, useQuery, UseQueryOptions } from '@gobob/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
+import { INTERVAL } from '@/constants';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 

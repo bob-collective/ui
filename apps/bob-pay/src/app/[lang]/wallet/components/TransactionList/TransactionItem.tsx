@@ -1,5 +1,5 @@
+import { usePrices } from '@gobob/hooks';
 import { Avatar, Flex, FlexProps, P, Span, useLocale } from '@gobob/ui';
-import { usePrices } from '@gobob/react-query';
 import { truncateEthAddress } from '@gobob/utils';
 import { format } from 'date-fns';
 
@@ -15,7 +15,7 @@ type InheritAttrs = Omit<FlexProps, keyof Props>;
 type TransactionItemProps = Props & InheritAttrs;
 
 const TransactionItem = ({ transaction, ...props }: TransactionItemProps): JSX.Element => {
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { locale } = useLocale();
 
   const price = getPrice(transaction.amount.currency.symbol);

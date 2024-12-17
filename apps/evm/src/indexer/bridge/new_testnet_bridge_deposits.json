@@ -4,6 +4,9 @@
   "abis": {
     "bridge": {
       "path": "./L1BridgeABI.json"
+    },
+    "optimism-portal": {
+      "path": "./OptimismPortal.json"
     }
   },
   "chains": ["sepolia"],
@@ -18,6 +21,12 @@
       "abi": "bridge",
       "address": "0xA932eD4b73972c37DC4a691E8eC6f2C8a13951BE",
       "startBlock": 6441278,
+      "chain": "sepolia"
+    },
+    {
+      "abi": "optimism-portal",
+      "address": "0xBAAf3BAfdbd660380938b27d21c31bB7D072a799",
+      "startBlock": 6404317,
       "chain": "sepolia"
     }
   ]

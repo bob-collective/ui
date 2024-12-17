@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Currency, CurrencyAmount } from '@gobob/currency';
+import { usePrices } from '@gobob/hooks';
 import { Flex, Span, useCurrencyFormatter, useLocale } from '@gobob/ui';
 import { Item } from '@react-stately/collections';
-import { Currency, CurrencyAmount } from '@gobob/currency';
-import { usePrices } from '@gobob/react-query';
-import { useMemo, useState } from 'react';
 import Big from 'big.js';
+import { useMemo, useState } from 'react';
 
 import { ButtonGroup } from '../ButtonGroup';
 
@@ -22,7 +22,7 @@ type HeaderProps = Props;
 const TokenButtonGroup = ({ isSelected, currency, balance, onSelectionChange }: HeaderProps): JSX.Element => {
   const { locale } = useLocale();
   const format = useCurrencyFormatter();
-  const { getPrice, data: pricesData } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice, data: pricesData } = usePrices();
 
   const [key, setKey] = useState<string>();
   const [prevIsSelected, setPrevIsSelected] = useState<boolean>(isSelected);

@@ -1,1 +1,0 @@
-export { StrategyDetailsModal } from './StrategyDetailsModal';

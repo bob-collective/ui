@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import * as Sentry from '@sentry/nextjs';
 import { getContract, createPublicClient, toHex, http, encodePacked, isAddress, Address } from 'viem';
 import { sign, privateKeyToAddress } from 'viem/accounts';
 import { toPackedUserOperation } from 'viem/account-abstraction';
-import { bob, bobSepolia } from '@gobob/wagmi';
+import { bob, bobSepolia } from 'viem/chains';
 
 import { CHAIN } from '@/constants';
 import { paymasterAbi } from '@/abis/paymaster.abi';
@@ -84,7 +85,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error from guarantor endpoint: ', error);
 
-    // Sentry.captureException(error);
+    Sentry.captureException(error);
 
     return Response.json('Internal Guarantor Error', { status: 500 });
   }

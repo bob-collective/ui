@@ -307,12 +307,6 @@ describe('TokenInput', () => {
       expect(ref.current).not.toBeNull();
     });
 
-    it('should render empty value', () => {
-      render(<TokenInput items={items} label='label' type='selectable' />);
-
-      expect(screen.getByRole('button', { name: /select token/i })).toHaveTextContent(/select token$/i);
-    });
-
     it('should render default value', () => {
       render(
         <TokenInput

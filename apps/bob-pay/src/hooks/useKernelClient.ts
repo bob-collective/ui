@@ -7,7 +7,7 @@ import { ENTRYPOINT_ADDRESS_V07 } from 'permissionless';
 import { createPimlicoBundlerClient } from 'permissionless/clients/pimlico';
 import { useMemo } from 'react';
 import { Address, http } from 'viem';
-import { useAccount } from '@gobob/wagmi';
+import { useAccount } from 'wagmi';
 
 import { CHAIN } from '../constants';
 
@@ -113,4 +113,4 @@ const useKernelClient = (gasToken?: Currency) => {
     : undefined;
 };
 
-export { useKernelClient, paymasters };
+export { paymasters, useKernelClient };

@@ -1,6 +1,7 @@
+import { watchContractEvent } from '@wagmi/core';
 import { createContext, FC, ReactNode, useEffect, useRef } from 'react';
 import { erc20Abi, isAddressEqual, WatchContractEventReturnType } from 'viem';
-import { useAccount, useAccountEffect, useChainId, useConfig, watchContractEvent } from '@gobob/wagmi';
+import { useAccount, useAccountEffect, useChainId, useConfig } from 'wagmi';
 
 import { useBalances, useGetTransactions, useTokens } from '../hooks';
 

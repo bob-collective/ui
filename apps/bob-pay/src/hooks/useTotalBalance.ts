@@ -1,5 +1,5 @@
 import { ChainId } from '@gobob/chains';
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import Big from 'big.js';
 
 import { calculateAmountUSD } from '../utils';
@@ -7,7 +7,7 @@ import { calculateAmountUSD } from '../utils';
 import { useBalances } from './useBalances';
 
 const useTotalBalance = (chainId: ChainId) => {
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
 
   const { balances } = useBalances(chainId);
 

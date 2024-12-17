@@ -1,7 +1,7 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { useMemo } from 'react';
 import { Address, isAddressEqual } from 'viem';
-import { useAccount } from '@gobob/wagmi';
+import { useAccount } from 'wagmi';
 
 const useIsDynamicSmartAccount = () => {
   const { address } = useAccount();

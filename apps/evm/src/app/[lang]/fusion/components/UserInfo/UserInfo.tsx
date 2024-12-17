@@ -1,4 +1,3 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import {
   Bars3,
   Button,
@@ -10,6 +9,7 @@ import {
   Dt,
   Flex,
   H3,
+  InformationCircle,
   Link,
   P,
   Skeleton,
@@ -18,11 +18,12 @@ import {
   Tooltip,
   useLocale
 } from '@gobob/ui';
-import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
-import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useQuery } from '@tanstack/react-query';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -41,12 +42,13 @@ import {
 import { UserInfoCard } from './UserInfoCard';
 import { UserReferralModal } from './UserReferralModal';
 
-import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
-import { isClient, RoutesPath } from '@/constants';
-import { fusionKeys } from '@/lib/react-query';
-import { apiClient, QuestS3Response, UserResponse } from '@/utils';
-import { SessionStorageKey } from '@/types';
 import { AppData } from '@/app/[lang]/apps/hooks';
+import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
+import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
+import { fusionKeys } from '@/lib/react-query';
+import { SessionStorageKey } from '@/types';
+import { apiClient, QuestS3Response, UserResponse } from '@/utils';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -64,6 +66,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
     initializeWithValue: isClient
   });
+  const [, setShowTopUserModal] = useLocalStorage(LocalStorageKey.SHOW_TOP_USER_MODAL, true, {
+    initializeWithValue: isClient
+  });
   const [, copy] = useCopyToClipboard();
 
   const { data: tvlLevel, isLoading: isLoadingTvlLevel } = useQuery({
@@ -74,9 +79,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
     refetchOnMount: false
   });
 
-  const { data: leaderboard } = useQuery({
-    queryKey: fusionKeys.leaderboardOverview(),
-    queryFn: async () => apiClient.getLeaderboard(0, 0),
+  const { data: totalHarvesters } = useQuery({
+    queryKey: fusionKeys.totalHarvesters(),
+    queryFn: async () => apiClient.getTotalHarvesters(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR
@@ -103,9 +108,27 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       ? Number(tvlLevel.tvlGoal)
       : currentTvl + currentTvl * 0.2;
 
+  const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
+  const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
+
+  const isOpSuperuser = isOPSuperusersEnabled && user?.notices.isOpUser;
+  const showFusionTopUser = isTop100SpiceUsersEnabled && user?.notices.showIsFusionTopUser;
+
   return (
     <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
-      <Flex direction='row' justifyContent='flex-end'>
+      {showFusionTopUser && (
+        <P color='grey-50'>
+          <Trans>We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi.</Trans>
+        </P>
+      )}
+      <Flex alignItems='center' direction='row' justifyContent='flex-end'>
+        {showFusionTopUser && (
+          <Flex flex='1'>
+            <Button color='primary' size='s' variant='outline' onPress={() => setShowTopUserModal(true)}>
+              <Trans>Book a call with the founders</Trans>
+            </Button>
+          </Flex>
+        )}
         <Card padding='md'>
           <Dl direction='row' gap='xxs' justifyContent='space-between'>
             <DlGroup>
@@ -113,7 +136,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 <Trans>Fusion Users:</Trans>
               </Dd>
               <Dt color='light' size='s' weight='semibold'>
-                {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+                {totalHarvesters?.count ? Intl.NumberFormat(locale).format(Number(totalHarvesters.count)) : '-'}
               </Dt>
             </DlGroup>
           </Dl>
@@ -128,9 +151,19 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </Dt>
               <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
-                <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
-                  (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/
-                  <Trans>Day</Trans>)
+                <Flex alignItems='center' gap='xs'>
+                  <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
+                    (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/
+                    <Trans>Last 24 hours</Trans>)
+                  </Flex>
+                  <Tooltip
+                    color='primary'
+                    label={t(
+                      i18n
+                    )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes.`}
+                  >
+                    <InformationCircle color='grey-50' size='xs' />
+                  </Tooltip>
                 </Flex>
               </Flex>
             </DlGroup>
@@ -210,9 +243,15 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
         <UserInfoCard
           description={user?.referral_code}
           title={t(i18n)`Your Referral Code`}
-          tooltipLabel={t(
-            i18n
-          )`Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer`}
+          tooltipLabel={
+            isOpSuperuser
+              ? t(
+                  i18n
+                )`Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign.`
+              : t(
+                  i18n
+                )`Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer`
+          }
         >
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (
@@ -237,7 +276,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             />
           )}
         </UserInfoCard>
-        <StyledMeterCard gap='s' justifyContent='space-between'>
+        <StyledMeterCard gap='s' justifyContent='space-between' style={{ position: 'relative' }}>
           <Flex direction='column' gap='md'>
             {isLoadingTvlLevel ? (
               <Flex direction='column'>
@@ -293,7 +332,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                     <Trans>Fusion Users:</Trans>
                   </Dd>
                   <Dt color='light' weight='semibold'>
-                    {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+                    {totalHarvesters?.count ? Intl.NumberFormat(locale).format(Number(totalHarvesters.count)) : '-'}
                   </Dt>
                 </DlGroup>
                 <DlGroup justifyContent='space-between'>

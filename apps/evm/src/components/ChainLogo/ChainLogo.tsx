@@ -9,7 +9,6 @@ const chainLogo: Record<
   ForwardRefExoticComponent<PropsWithoutRef<IconProps> & RefAttributes<SVGSVGElement>>
 > = {
   [ChainId.BOB]: BOBLogo,
-  [ChainId.OLD_BOB_SEPOLIA]: BOBLogo,
   [ChainId.BOB_SEPOLIA]: BOBLogo,
   [ChainId.ETHEREUM]: ETH,
   [ChainId.SEPOLIA]: ETH,
@@ -40,4 +39,3 @@ const ChainLogo = ({ chainId, ...props }: ChainLogoProps) => {
 };
 
 export { ChainLogo };
-export type { ChainLogoProps };

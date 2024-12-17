@@ -63,28 +63,34 @@ export const bridgeKeys = {
     'deposit'
   ],
   btcTokens: () => ['btc-tokens'],
-  strategies: () => ['strategies']
-};
-
-export const signUpKeys = {
-  signUp: () => ['sign-up'],
-  referralCode: () => ['referral-code']
+  strategies: () => ['strategies'],
+  deposit: (address: Address | undefined) => ['bridge-deposit', address],
+  withdraw: (address: Address | undefined) => ['bridge-withdraw', address]
 };
 
 export const appsKeys = {
   apps: () => ['apps'],
   appsVotes: (username: string | undefined) => [...appsKeys.apps(), 'votes', username],
   appsResultVotes: () => [...appsKeys.apps(), 'result-votes'],
-  vote: (address: Address | undefined) => [appsKeys.apps(), 'vote', address]
+  vote: (username: string | undefined) => [appsKeys.apps(), 'vote', username] as string[]
 };
 
 export const fusionKeys = {
   fusion: () => ['fusion'],
+  user: () => [...fusionKeys.fusion(), 'user'],
+  login: () => [...fusionKeys.fusion(), 'login'],
+  signUp: () => [...fusionKeys.fusion(), 'sign-up'],
+  referralCode: () => [...fusionKeys.fusion(), 'referral-code'],
   leaderboard: () => [...fusionKeys.fusion(), 'leaderboard'],
   leaderboardOverview: () => [...fusionKeys.fusion(), 'leaderboard-overview'],
   tokenInfo: () => [...fusionKeys.fusion(), 'token-info'],
+  totalHarvesters: () => [...fusionKeys.fusion(), 'total-harvesters'],
   quests: () => [...fusionKeys.fusion(), 'quests'],
   tvlLevel: () => [...fusionKeys.fusion(), 'tvl-level'],
   lotteryStats: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-stats', username] as string[],
-  lotteryRoll: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-roll', username] as string[]
+  lotteryRoll: (username: string | undefined) => [...fusionKeys.fusion(), 'lottery-roll', username] as string[],
+  lotteryTimeToNextDraw: () => [...fusionKeys.fusion(), 'lottery-time-to-next-draw'],
+  topUserModal: (username: string | undefined) => [...fusionKeys.fusion(), 'top-user-modal', username] as string[],
+  opSuperuserModal: (username: string | undefined) =>
+    [...fusionKeys.fusion(), 'op-superuser-modal', username] as string[]
 };

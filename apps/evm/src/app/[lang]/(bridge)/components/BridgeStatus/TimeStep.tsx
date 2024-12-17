@@ -2,6 +2,7 @@ import { Clock, Flex, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { formatDistanceToNow, isFuture } from 'date-fns';
 import { ReactNode, useMemo } from 'react';
+import { useParams } from 'next/navigation';
 
 import { BridgeTransaction } from '../../hooks';
 
@@ -9,6 +10,7 @@ import { StyledTimePill } from './BridgeStatus.style';
 import { BridgeStep } from './BridgeStep';
 
 import { BridgeSteps } from '@/types';
+import { getLocale } from '@/utils';
 
 const TimeLabel = ({ label }: { label: ReactNode }) => (
   <StyledTimePill size='xs'>
@@ -28,6 +30,8 @@ type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 type TimeStepProps = Props & InheritAttrs;
 
 const TimeStep = ({ step, data, currentStep }: TimeStepProps): JSX.Element => {
+  const { lang } = useParams();
+
   const timeLabel = useMemo(() => {
     // should only show step if it is not a complete step
     const showTime =
@@ -44,8 +48,13 @@ const TimeStep = ({ step, data, currentStep }: TimeStepProps): JSX.Element => {
       return step === 'challenge-period' ? <Trans>7 days</Trans> : <Trans>2 hours</Trans>;
     }
 
-    return <Trans>{formatDistanceToNow(data.statusEndDate)} remaining</Trans>;
-  }, [step, currentStep, data.statusEndDate]);
+    return (
+      <Trans>
+        {formatDistanceToNow(data.statusEndDate, { locale: getLocale(lang as Parameters<typeof getLocale>[0]) })}{' '}
+        remaining
+      </Trans>
+    );
+  }, [step, lang, currentStep, data.statusEndDate]);
 
   return (
     <Flex alignItems='center' flex={1} justifyContent='space-between'>

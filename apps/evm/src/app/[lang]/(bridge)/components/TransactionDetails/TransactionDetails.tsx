@@ -1,6 +1,6 @@
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { usePrices } from '@gobob/react-query';
+import { usePrices } from '@gobob/hooks';
 import {
   Card,
   Dd,
@@ -54,7 +54,7 @@ const TransactionDetails = ({
   gasLabel = 'Estimated Gas',
   ...props
 }: TransactionDetailsProps): JSX.Element => {
-  const { getPrice } = usePrices({ baseUrl: process.env.NEXT_PUBLIC_MARKET_DATA_API });
+  const { getPrice } = usePrices();
   const { getBalance } = useBalances(chainId);
   const { data: gasTokens } = useGasTokens(chainId);
   const { i18n } = useLingui();
