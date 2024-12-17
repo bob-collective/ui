@@ -3,7 +3,7 @@ import { ChainId } from '@gobob/chains';
 import { ERC20Token, Token } from '@gobob/currency';
 import { useCallback, useMemo } from 'react';
 import { useReadContracts } from 'wagmi';
-import { CurrencyTickers, usePrices } from '@gobob/hooks';
+import { CurrencyTicker, usePrices } from '@gobob/hooks';
 import { Address, erc20Abi } from 'viem';
 import Big from 'big.js';
 import { bob } from 'viem/chains';
@@ -20,11 +20,11 @@ type StrategyData = {
   currency?: ERC20Token;
 };
 
-const seTokenToUnderlyingMapping: Record<string, CurrencyTickers> = {
-  seSOLVBTCBBN: CurrencyTickers['SolvBTC.BBN'],
-  seUNIBTC: CurrencyTickers.UNIBTC,
-  seTBTC: CurrencyTickers.TBTC,
-  seWBTC: CurrencyTickers.WBTC
+const seTokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
+  seSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN'],
+  seUNIBTC: CurrencyTicker.UNIBTC,
+  seTBTC: CurrencyTicker.TBTC,
+  seWBTC: CurrencyTicker.WBTC
 };
 
 function hasUnderlying(symbol: string | undefined): symbol is keyof typeof seTokenToUnderlyingMapping {
@@ -33,9 +33,10 @@ function hasUnderlying(symbol: string | undefined): symbol is keyof typeof seTok
   return Boolean(seTokenToUnderlyingMapping[symbol]);
 }
 
-const tokenToIdMapping: Record<string, CurrencyTickers> = {
-  uniBTC: CurrencyTickers.UNIBTC,
-  'SolvBTC.BBN': CurrencyTickers['SolvBTC.BBN']
+const tokenToIdMapping: Record<string, CurrencyTicker> = {
+  uniBTC: CurrencyTicker.UNIBTC,
+  'SolvBTC.BBN': CurrencyTicker['SolvBTC.BBN'],
+  LBTC: CurrencyTicker.LBTC
 };
 
 function hasCGId(symbol: string | undefined): symbol is keyof typeof tokenToIdMapping {
@@ -57,8 +58,8 @@ const strategyToLimitsMapping: Record<string, Address> = {
 type UnderlyingTicker = string;
 type UnderlyingDecimals = number;
 const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, UnderlyingDecimals]> = {
-  '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [CurrencyTickers['SolvBTC.BBN'], 18],
-  '0x631ae97e24f9F30150d31d958d37915975F12ed8': [CurrencyTickers.UNIBTC, 8]
+  '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [CurrencyTicker['SolvBTC.BBN'], 18],
+  '0x631ae97e24f9F30150d31d958d37915975F12ed8': [CurrencyTicker.UNIBTC, 8]
 };
 
 function hasNoOutputToken(strategyAddress: string): strategyAddress is keyof typeof strategyToLimitsMapping {
