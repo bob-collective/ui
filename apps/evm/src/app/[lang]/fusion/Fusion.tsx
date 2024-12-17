@@ -177,7 +177,7 @@ const Fusion = () => {
                     height='134'
                     placeholder='blur'
                     src={superchainEco}
-                    width='336'
+                    width='312'
                   />
                 </Card>
               </Flex>
@@ -210,7 +210,7 @@ const Fusion = () => {
                     height='134'
                     placeholder='blur'
                     src={babylon}
-                    width='725'
+                    width='312'
                   />
                 </Card>
               </Flex>
