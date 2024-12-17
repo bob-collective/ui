@@ -220,6 +220,15 @@ const ethereumAssets: RawToken[] = [
   },
   {
     chainId: ChainId.ETHEREUM,
+    address: '',
+    name: 'LBTC',
+    symbol: 'LBTC',
+    decimals: 8,
+    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
+    apiId: 'lombard-staked-btc'
+  },
+  {
+    chainId: ChainId.ETHEREUM,
     address: '0x7122985656e38BDC0302Db86685bb972b145bD3C',
     name: 'StakeStone Ether',
     symbol: 'STONE',
