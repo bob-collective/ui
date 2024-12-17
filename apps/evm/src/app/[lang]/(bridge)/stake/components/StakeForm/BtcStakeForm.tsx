@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Input } from '@gobob/ui';
+import { Flex, Input } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
@@ -69,7 +69,7 @@ const BtcStakeForm = ({ strategy, onStart, onSuccess, onError }: BtcBridgeFormPr
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <Card elementType='form' flex={1} gap='xl' onSubmit={form.handleSubmit as any}>
+    <Flex direction='column' elementType='form' flex={1} gap='xl' marginTop='xl' onSubmit={form.handleSubmit as any}>
       <BtcTokenInput
         amount={gateway.amount}
         balance={gateway.query.balance}
@@ -96,7 +96,7 @@ const BtcStakeForm = ({ strategy, onStart, onSuccess, onError }: BtcBridgeFormPr
       <AuthButton isBtcAuthRequired color='primary' disabled={isDisabled} loading={isLoading} size='xl' type='submit'>
         {gateway.isReady ? <Trans>Stake</Trans> : <Trans>Preparing...</Trans>}
       </AuthButton>
-    </Card>
+    </Flex>
   );
 };
 

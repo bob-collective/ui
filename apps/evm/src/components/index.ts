@@ -1,6 +1,7 @@
 export * from './AmountLabel';
 export * from './BabyPoints';
 export * from './Chain';
+export * from './ChainAsset';
 export * from './ChainLogo';
 export * from './Geoblock';
 export * from './Layout';
