@@ -220,7 +220,7 @@ const ethereumAssets: RawToken[] = [
   },
   {
     chainId: ChainId.ETHEREUM,
-    address: '0x0000000000000000000000000000000000000000',
+    address: '0x1010101010101010101010101010101010101010',
     name: 'LBTC',
     symbol: 'LBTC',
     decimals: 8,
@@ -414,6 +414,15 @@ const bobAssets: RawToken[] = [
     decimals: 18,
     logoUrl: 'https://s2.coinmarketcap.com/static/img/exchanges/64x64/1407.png',
     apiId: 'sovryn'
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0x1010101010101010101010101010101010101010',
+    name: 'LBTC',
+    symbol: 'LBTC',
+    decimals: 8,
+    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
+    apiId: 'lombard-staked-btc'
   },
   {
     chainId: ChainId.BOB,
