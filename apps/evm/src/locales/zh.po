@@ -1485,15 +1485,27 @@ msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and 
 msgstr ""
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:45
-msgid "Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN."
+#~ msgid "Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN."
+#~ msgstr ""
+
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:45
+msgid "Stake BTC into Babylon via Solv Protocol and receive liquid staking token SolvBTC.BBN."
 msgstr ""
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:60
-msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
+#~ msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
+#~ msgstr ""
+
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:60
+msgid "Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and deposit into Pell."
 msgstr ""
 
 #: src/app/[lang]/(bridge)/utils/stakeData.tsx:124
-msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
+#~ msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
+#~ msgstr ""
+
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:124
+msgid "Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and lend it out on Segment."
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:138
