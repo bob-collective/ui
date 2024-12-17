@@ -4,7 +4,7 @@ import { useLingui } from '@lingui/react';
 import babylon from '@public/assets/babylon.png';
 
 import { Banner } from './Banner';
-import { StyledBabylonImage, StyledBannerContent } from './BannerCarousel.style';
+import { StyledImg, StyledBannerContent } from './BannerCarousel.style';
 import { BannerTitle } from './BannerTitle';
 
 type FusionBannerProps = {
@@ -29,7 +29,7 @@ const BabylonBanner = ({ onPress }: FusionBannerProps) => {
           </Trans>
         </P>
       </StyledBannerContent>
-      <StyledBabylonImage alt={t(i18n)`Babylon campaign`} height='134' placeholder='blur' src={babylon} width='725' />
+      <StyledImg alt={t(i18n)`Babylon campaign`} height='134' placeholder='blur' src={babylon} width='312' />
     </Banner>
   );
 };
