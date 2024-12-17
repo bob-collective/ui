@@ -114,6 +114,8 @@ const StyledXImg = styled(Image)`
   }}
 `;
 
+const StyledBabylonImage = StyledFusionImg;
+
 export {
   StyledBanner,
   StyledBannerContent,
@@ -122,5 +124,6 @@ export {
   StyledCarouselWrapper,
   StyledFusionImg,
   StyledXImg,
-  StyledHybridL2Img
+  StyledHybridL2Img,
+  StyledBabylonImage
 };

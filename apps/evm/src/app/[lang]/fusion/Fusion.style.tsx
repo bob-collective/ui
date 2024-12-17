@@ -1,4 +1,4 @@
-import { Flex } from '@gobob/ui';
+import { Flex, H2 } from '@gobob/ui';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
 
@@ -45,12 +45,17 @@ const StyledContent = styled(Flex)`
   width: 100%;
 `;
 
+const StyledBannerContent = styled(Flex)`
+  max-width: ${({ theme }) => theme.maxWidth('2xl')};
+  z-index: 1;
+`;
+
 const StyledBannerImg = styled(Image)`
   ${({ theme }) => {
     return css`
       position: absolute;
-      top: 46%;
-      right: 1.5rem;
+      top: 50%;
+      right: 0;
       width: 21rem;
       transform: translateY(-50%);
       @media ${theme.breakpoints.down('md')} {
@@ -66,6 +71,12 @@ const StyledStrategiesWrapper = styled(Flex)`
   background: linear-gradient(90deg, #12161e 0%, #08090c 100%);
 `;
 
+const StyledBannerTitle = styled(H2)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 export {
   StyledBannerImg,
   StyledHeroSectionWrapper,
@@ -74,5 +85,7 @@ export {
   StyledHeroSection,
   StyledMain,
   StyledBackground,
-  StyledBgDots
+  StyledBgDots,
+  StyledBannerTitle,
+  StyledBannerContent
 };
