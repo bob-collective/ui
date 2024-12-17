@@ -122,7 +122,7 @@ const stakingInfo = {
     about: (
       <P>
         <Trans>
-          Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment.
+          Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and lend it out on Segment.
         </Trans>
       </P>
     ),
