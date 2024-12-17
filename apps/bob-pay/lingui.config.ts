@@ -1,15 +1,13 @@
 import { LinguiConfig } from '@lingui/conf';
 
+import linguiConfig from '../../lingui.config';
+
 const config = {
-  locales: ['en', 'zh'] as const,
-  sourceLocale: 'en',
-  fallbackLocales: {
-    default: 'en'
-  },
+  ...linguiConfig,
   catalogs: [
     {
-      path: 'src/locales/{locale}',
-      include: ['src/']
+      path: '../../locales/{locale}',
+      include: ['src/', '../bob-pay/src/']
     }
   ]
 } as const satisfies LinguiConfig;

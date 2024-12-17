@@ -54,7 +54,7 @@ const TimeStep = ({ step, data, currentStep }: TimeStepProps): JSX.Element => {
         remaining
       </Trans>
     );
-  }, [step, currentStep, data.statusEndDate]);
+  }, [step, lang, currentStep, data.statusEndDate]);
 
   return (
     <Flex alignItems='center' flex={1} justifyContent='space-between'>

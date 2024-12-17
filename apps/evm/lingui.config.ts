@@ -1,15 +1,13 @@
 import { LinguiConfig } from '@lingui/conf';
 
+import linguiConfig from '../../lingui.config';
+
 const config = {
-  locales: ['en', 'zh'],
-  sourceLocale: 'en',
-  fallbackLocales: {
-    default: 'en'
-  },
+  ...linguiConfig,
   catalogs: [
     {
-      path: 'src/locales/{locale}',
-      include: ['src/']
+      path: '../../locales/{locale}',
+      include: ['src/', '../evm/src/']
     }
   ]
 } as const satisfies LinguiConfig;
