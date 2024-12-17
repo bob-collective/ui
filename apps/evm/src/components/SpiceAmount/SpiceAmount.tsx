@@ -3,7 +3,7 @@
 import { Flex, FlexProps, Span, SpanProps, useLocale } from '@gobob/ui';
 import { Spice } from '@gobob/icons';
 import { useCountUp } from 'use-count-up';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 type Props = {
   amount: number;
@@ -27,20 +27,13 @@ const SpiceAmount = ({ amount, compact, hideIcon, gap = 'xs', showAnimation, ...
     [compact, locale]
   );
 
-  const { value, reset } = useCountUp({
+  const { value } = useCountUp({
     isCounting: showAnimation,
     start,
     end: amount,
     formatter,
     onComplete: () => setStart(amount)
   });
-
-  useEffect(() => {
-    if (showAnimation) {
-      reset();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, showAnimation]);
 
   return (
     <Flex alignItems='center' elementType={Span} gap={gap} {...props}>
