@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 
 enum Incentive {
@@ -25,7 +26,7 @@ type StakingInfo = {
   warningMessage?: ReactNode;
 };
 
-const babylonWithdrawWarning = 'Babylon does not yet support withdrawals.';
+const babylonWithdrawWarning = <Trans>Babylon does not yet support withdrawals.</Trans>;
 
 const stakingInfo: Record<string, StakingInfo> = {
   'bedrock-unibtc': {
@@ -33,7 +34,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     protocol: 'Bedrock',
     incentives: [Incentive.bedrock, Incentive.babylon],
     tvl: '-',
-    about: 'Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC.',
+    about: <Trans>Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC.</Trans>,
     inputToken: 'BTC',
     inputTokenLogoUrl: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
     outputToken: 'uniBTC',
@@ -46,7 +47,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     protocol: 'Solv',
     incentives: [Incentive.solv, Incentive.babylon],
     tvl: '-',
-    about: 'Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.',
+    about: <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.</Trans>,
     inputToken: 'BTC',
     inputTokenLogoUrl: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
     outputToken: 'SolvBTC.BBN',
@@ -59,7 +60,11 @@ const stakingInfo: Record<string, StakingInfo> = {
     protocol: 'Pell',
     incentives: [Incentive.pell, Incentive.solv, Incentive.babylon],
     tvl: '-',
-    about: 'Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell.',
+    about: (
+      <Trans>
+        Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell.
+      </Trans>
+    ),
     inputToken: 'BTC',
     inputTokenLogoUrl: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
     outputToken: 'SolvBTC.BBN',
@@ -72,7 +77,11 @@ const stakingInfo: Record<string, StakingInfo> = {
     protocol: 'Pell',
     incentives: [Incentive.pell, Incentive.bedrock, Incentive.babylon],
     tvl: '-',
-    about: 'Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking.',
+    about: (
+      <Trans>
+        Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking.
+      </Trans>
+    ),
     inputToken: 'BTC',
     inputTokenLogoUrl: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
     outputToken: 'uniBTC',
@@ -85,7 +94,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     protocol: 'Segment',
     incentives: [Incentive.segment, Incentive.supply],
     tvl: '-',
-    about: 'Lend out tBTC on Segment.',
+    about: <Trans>Lend out tBTC on Segment.</Trans>,
     inputToken: 'BTC',
     inputTokenLogoUrl: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
     outputToken: 'tBTC',
@@ -97,7 +106,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     protocol: 'Segment',
     incentives: [Incentive.segment, Incentive.supply],
     tvl: '-',
-    about: 'Lend out wBTC on Segment.',
+    about: <Trans>Lend out wBTC on Segment. </Trans>,
     inputToken: 'BTC',
     inputTokenLogoUrl: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
     outputToken: 'wBTC',
@@ -109,8 +118,11 @@ const stakingInfo: Record<string, StakingInfo> = {
     protocol: 'Segment',
     incentives: [Incentive.segment, Incentive.solv, Incentive.babylon, Incentive.supply],
     tvl: '-',
-    about:
-      'Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment.',
+    about: (
+      <Trans>
+        Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment.
+      </Trans>
+    ),
     inputToken: 'BTC',
     inputTokenLogoUrl: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
     outputToken: 'seUNIBTC',
@@ -123,7 +135,9 @@ const stakingInfo: Record<string, StakingInfo> = {
     protocol: 'Segment',
     incentives: [Incentive.segment, Incentive.bedrock, Incentive.babylon, Incentive.supply],
     tvl: '-',
-    about: 'Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment.',
+    about: (
+      <Trans>Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment.</Trans>
+    ),
     inputToken: 'BTC',
     inputTokenLogoUrl: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
     outputToken: 'seUNIBTC',
@@ -133,5 +147,5 @@ const stakingInfo: Record<string, StakingInfo> = {
   }
 } as const;
 
-export { stakingInfo, Incentive };
+export { Incentive, stakingInfo };
 export type { StakingInfo };

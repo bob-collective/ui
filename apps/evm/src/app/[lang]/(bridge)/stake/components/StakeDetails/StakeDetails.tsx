@@ -1,9 +1,8 @@
 'use client';
 
-import { Alert, Avatar, Card, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, Span, useCurrencyFormatter } from '@gobob/ui';
+import { Avatar, Card, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, Span, useCurrencyFormatter } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
-import { t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import { stakingInfo as stakingData } from '../../../utils/stakeData';
 import { StrategyData } from '../../hooks';
@@ -11,14 +10,14 @@ import { StakeRewards } from '../StakeRewards';
 
 import { StyledArrowLongRight } from './StakeDetails.style';
 
-import { chainL2 } from '@/constants';
+import { chainL2, L2_CHAIN } from '@/constants';
+import { ChainAsset } from '@/components';
 
 type StakeDetailsProps = {
   strategy: StrategyData;
 };
 
 const StakeDetails = ({ strategy }: StakeDetailsProps) => {
-  const { i18n } = useLingui();
   const format = useCurrencyFormatter();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,11 +25,6 @@ const StakeDetails = ({ strategy }: StakeDetailsProps) => {
 
   return (
     <Dl direction='column' flex={1} gap='xl'>
-      {stakingInfo?.warningMessage && (
-        <Alert status='warning' variant='outlined'>
-          {t(i18n)(stakingInfo.warningMessage)}
-        </Alert>
-      )}
       <Flex direction={{ base: 'column', s: 'row' }} gap='xl' style={{ width: '100%' }}>
         <Card flex={0.7}>
           <DlGroup alignItems='flex-start' direction='column'>
@@ -52,6 +46,13 @@ const StakeDetails = ({ strategy }: StakeDetailsProps) => {
         </Card>
       </Flex>
       <Card direction='column' gap='xl' style={{ width: '100%' }}>
+        <DlGroup alignItems='flex-start' direction='column'>
+          <Dt color='grey-50' size='s'>
+            <Trans>Description</Trans>
+          </Dt>
+          <Dd size='s'>{stakingInfo.about}</Dd>
+        </DlGroup>
+        <Divider />
         <Flex gap='md'>
           <DlGroup alignItems='flex-start' direction='column' gap='xl' style={{ width: '100%' }}>
             <Dd color='grey-50' size='s'>
@@ -67,7 +68,10 @@ const StakeDetails = ({ strategy }: StakeDetailsProps) => {
               <Flex alignItems='center' elementType='dt' gap='md'>
                 <Avatar alt={stakingInfo?.inputToken} size='5xl' src={stakingInfo?.inputTokenLogoUrl} />
                 <Flex direction='column'>
-                  <Span>{stakingInfo?.inputToken}</Span>
+                  <Span color='grey-50' size='xs'>
+                    Input
+                  </Span>
+                  <Span lineHeight='1.2'>{stakingInfo?.inputToken}</Span>
                   <Span color='grey-50' size='s'>
                     Bitcoin
                   </Span>
@@ -75,9 +79,17 @@ const StakeDetails = ({ strategy }: StakeDetailsProps) => {
               </Flex>
               <StyledArrowLongRight />
               <Flex alignItems='center' elementType='dt' gap='md'>
-                <Avatar alt={stakingInfo?.outputToken} size='5xl' src={strategy.raw.integration.logo} />
+                <ChainAsset
+                  asset={<Avatar alt={stakingInfo?.outputToken} size='5xl' src={strategy.raw.integration.logo} />}
+                  chainId={L2_CHAIN}
+                  chainProps={{ size: 'xs' }}
+                />
+
                 <Flex direction='column'>
-                  <Span>{stakingInfo?.outputToken}</Span>
+                  <Span color='grey-50' size='xs'>
+                    Output
+                  </Span>
+                  <Span lineHeight='1.2'>{stakingInfo?.outputToken}</Span>
                   <Link
                     external
                     icon
@@ -88,7 +100,7 @@ const StakeDetails = ({ strategy }: StakeDetailsProps) => {
                     ).toString()}
                     size='s'
                   >
-                    BOB - {truncateEthAddress(strategy?.raw.outputToken?.address || '')}
+                    {truncateEthAddress(strategy?.raw.outputToken?.address || '')}
                   </Link>
                 </Flex>
               </Flex>
