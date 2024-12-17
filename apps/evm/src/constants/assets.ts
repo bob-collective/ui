@@ -220,7 +220,7 @@ const ethereumAssets: RawToken[] = [
   },
   {
     chainId: ChainId.ETHEREUM,
-    address: '0x1010101010101010101010101010101010101010',
+    address: '0x8236a87084f8b84306f72007f36f2618a5634494',
     name: 'LBTC',
     symbol: 'LBTC',
     decimals: 8,
