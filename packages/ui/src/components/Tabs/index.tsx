@@ -1,7 +1,11 @@
-import { Item as TabsItem } from '@react-stately/collections';
-import { ItemProps as TabsItemProps } from '@react-types/shared';
+import { Item } from '@react-stately/collections';
+import { ItemProps } from '@react-types/shared';
 
-export type { TabsProps } from './Tabs';
+import { TabsItemProps } from './Tab';
+
+const TabsItem = Item as <T>(props: ItemProps<T> & TabsItemProps) => JSX.Element;
+
 export { Tabs } from './Tabs';
-export type { TabsItemProps };
+export type { TabsProps } from './Tabs';
 export { TabsItem };
+export type { TabsItemProps };

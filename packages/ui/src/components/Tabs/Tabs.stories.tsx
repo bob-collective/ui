@@ -64,3 +64,22 @@ export const ControlledSelected: StoryFn<TabsProps> = (args) => {
     </Tabs>
   );
 };
+
+export const TabWithTooltip: StoryFn<TabsProps> = (args) => {
+  return (
+    <Tabs {...args} disabledKeys={['completed']}>
+      <TabsItem key='all' title='Recent'>
+        <P>All</P>
+      </TabsItem>
+      <TabsItem key='pending' title='Pending'>
+        <P>Pending</P>
+      </TabsItem>
+      <TabsItem key='completed' title='Completed' tooltipProps={{ label: 'Available Soon' }}>
+        <P>Completed</P>
+      </TabsItem>
+      <TabsItem key='failed' title='Failed'>
+        <P>Failed</P>
+      </TabsItem>
+    </Tabs>
+  );
+};
