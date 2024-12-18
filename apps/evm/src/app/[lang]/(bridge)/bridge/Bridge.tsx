@@ -63,6 +63,8 @@ const Bridge = ({ searchParams }: Props) => {
 
   const [chain, setChain] = useState<ChainId | 'BTC'>(initialChain);
 
+  const [symbol, setSymbol] = useState<string | undefined>(urlSearchParams?.get('receive')?.toString());
+
   const handleChangeTab = useCallback(
     (key: Key) => {
       setBridgeOrigin((key as Type) === Type.Deposit ? BridgeOrigin.Internal : BridgeOrigin.External);
@@ -90,7 +92,14 @@ const Bridge = ({ searchParams }: Props) => {
 
   const handleChangeOrigin = useCallback((origin: BridgeOrigin) => setBridgeOrigin(origin), []);
 
-  const handleChangeChain = useCallback((chain: ChainId | 'BTC') => setChain(chain), []);
+  const handleChangeChain = (chain: ChainId | 'BTC') => {
+    setChain(chain);
+    setSymbol(undefined);
+  };
+
+  const handleChangeSymbol = (symbol?: string) => {
+    setSymbol(symbol);
+  };
 
   useEffect(() => {
     const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
@@ -98,17 +107,16 @@ const Bridge = ({ searchParams }: Props) => {
     urlSearchParams.set('type', type);
     urlSearchParams.set('network', network);
 
-    if (chain !== 'BTC') {
+    if (symbol) {
+      urlSearchParams.set('receive', symbol);
+    } else {
       urlSearchParams.delete('receive');
     }
 
     router.replace('?' + urlSearchParams);
-  }, [type, chain, urlSearchParams, router]);
+  }, [type, chain, router, symbol, urlSearchParams]);
 
   const [bridgeToBtc, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
-    initializeWithValue: isClient
-  });
-  const [ticker] = useSessionStorage(SessionStorageKey.TICKER, undefined, {
     initializeWithValue: isClient
   });
 
@@ -136,10 +144,11 @@ const Bridge = ({ searchParams }: Props) => {
             bridgeOrigin={bridgeOrigin}
             chain={chain}
             direction={direction}
-            ticker={ticker}
+            symbol={symbol}
             onChangeChain={handleChangeChain}
             onChangeNetwork={handleChangeNetwork}
             onChangeOrigin={handleChangeOrigin}
+            onChangeSymbol={handleChangeSymbol}
           />
         </StyledCard>
         <TransactionList

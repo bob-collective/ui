@@ -64,6 +64,11 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
     hideErrors: 'untouched'
   });
 
+  useEffect(() => {
+    form.setFieldValue(BRIDGE_ASSET, defaultAsset);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultAsset]);
+
   return {
     isDisabled: isFormDisabled(form),
     form,
