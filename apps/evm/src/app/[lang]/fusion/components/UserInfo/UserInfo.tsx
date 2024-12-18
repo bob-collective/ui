@@ -1,7 +1,9 @@
 import {
+  Avatar,
   Bars3,
   Button,
   Card,
+  Chip,
   Dd,
   Divider,
   Dl,
@@ -9,13 +11,18 @@ import {
   Dt,
   Flex,
   H3,
-  InformationCircle,
   Link,
   P,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Skeleton,
   SolidInformationCircle,
   Span,
   Tooltip,
+  UnstyledButton,
   useLocale
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
@@ -43,12 +50,12 @@ import { UserInfoCard } from './UserInfoCard';
 import { UserReferralModal } from './UserReferralModal';
 
 import { AppData } from '@/app/[lang]/apps/hooks';
-import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
+import { BabyPoints, LoginSection, SignUpButton, SpiceAmount } from '@/components';
 import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { fusionKeys } from '@/lib/react-query';
 import { SessionStorageKey } from '@/types';
 import { apiClient, QuestS3Response, UserResponse } from '@/utils';
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -144,26 +151,105 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       </Flex>
       <StyledDl aria-hidden={!isAuthenticated && 'true'} gap='lg'>
         <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
-          <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
+          <Flex direction='column' flex={{ base: 1 }} gap='lg' justifyContent='space-between'>
             <DlGroup alignItems='flex-start' direction='column'>
-              <Dt>
-                <Trans>Season 3 Harvested Spice</Trans>
-              </Dt>
-              <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
+              <Flex alignItems='center' elementType='dt' gap='s'>
+                <Span color='grey-50' size='s'>
+                  <Trans>Season 3 Harvested</Trans>
+                </Span>
+                <Span color='grey-50' size='s'>
+                  <Trans>+</Trans>
+                </Span>
+                <Popover>
+                  <PopoverTrigger>
+                    <UnstyledButton>
+                      <Chip
+                        background='dark'
+                        endAdornment={<SolidInformationCircle size='xs' />}
+                        size='s'
+                        startAdornment={
+                          <Avatar size='xl' src='https://avatars.githubusercontent.com/u/106378782?s=200&v=4' />
+                        }
+                      >
+                        <Trans>Babylon Campaign</Trans>
+                      </Chip>
+                    </UnstyledButton>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverHeader>
+                      <Trans>About Babylon Campaign</Trans>
+                    </PopoverHeader>
+                    <PopoverBody gap='md' padding='even'>
+                      <P size='s'>
+                        <Trans>
+                          BOB will distribute 100,000 Babylon Points per day to eligible users for 45 days. The points
+                          are allocated pro rata based on the percentage of the eligible daily Spice you have harvested.
+                          The more Spice you harvest the more Babylon points you will receive.
+                        </Trans>
+                      </P>
+                      <P size='s'>
+                        <Trans>
+                          To be eligible, you must be registered for Fusion and hold or have held a Babylon LST in your
+                          wallet. You must also not reside in one of the jurisdictions which are excluded in Babylon’s{' '}
+                          <Link external href='https://babylonlabs.io/terms-of-use' size='inherit' underlined='always'>
+                            terms of use
+                          </Link>
+                          , e.g. the USA. For full details see the{' '}
+                          <Link
+                            external
+                            href='https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2'
+                            size='inherit'
+                            underlined='always'
+                          >
+                            BOB blog
+                          </Link>
+                          .
+                        </Trans>
+                      </P>
+                      <P size='s'>
+                        <Trans>
+                          The Babylon Points total displayed here only includes points earned during the BOB campaign.
+                          The figure does not include points collected by other means.
+                        </Trans>
+                      </P>
+                      <P size='s'>
+                        <Trans>The campaign will run until TIME & DATE.</Trans>
+                      </P>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
+              </Flex>
+              <Flex wrap alignItems='center' elementType='dd' gap='s'>
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
-                <Flex alignItems='center' gap='xs'>
-                  <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
-                    (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/
-                    <Trans>Last 24 hours</Trans>)
+                <Flex alignItems='center' gap='s'>
+                  <Span size='2xl' style={{ lineHeight: 1.3 }}>
+                    +
+                  </Span>
+                  <BabyPoints showAnimation amount={user?.baby.total || 0} size='2xl' />
+                </Flex>
+              </Flex>
+            </DlGroup>
+            <DlGroup alignItems='flex-start' direction='column'>
+              <Flex alignItems='center' elementType='dt' gap='s'>
+                <Span color='grey-50' size='s'>
+                  <Trans>Last 24 hours</Trans>
+                </Span>
+                <Tooltip
+                  color='primary'
+                  label={t(
+                    i18n
+                  )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes.`}
+                >
+                  <SolidInformationCircle color='grey-50' size='xs' />
+                </Tooltip>
+              </Flex>
+              <Flex alignItems='center' elementType='dd' gap='xs'>
+                <Flex wrap alignItems='center' elementType='span' gap='s'>
+                  <SpiceAmount showAnimation amount={spicePerDay || 0} />
+                  <Flex gap='s'>
+                    <Span style={{ lineHeight: 1.2 }}>+</Span>
+                    <BabyPoints showAnimation amount={user?.baby.daily || 0} />
                   </Flex>
-                  <Tooltip
-                    color='primary'
-                    label={t(
-                      i18n
-                    )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes.`}
-                  >
-                    <InformationCircle color='grey-50' size='xs' />
-                  </Tooltip>
                 </Flex>
               </Flex>
             </DlGroup>
@@ -176,13 +262,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </Dd>
             </DlGroup>
           </Flex>
-          <Flex
-            alignItems='center'
-            flex={1}
-            gap='md'
-            justifyContent={{ base: 'center', s: 'flex-end' }}
-            marginTop='2xl'
-          >
+          <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'center' }} marginTop='2xl'>
             <Button variant='outline' onPress={() => setMultipliersModalOpen(true)}>
               <Trans>View Multipliers</Trans>
             </Button>
