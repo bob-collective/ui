@@ -1,5 +1,5 @@
 import { CurrencyTickers, usePrices } from '@gobob/hooks';
-import { Address, erc20Abi } from 'viem';
+import { Address, erc20Abi, zeroAddress } from 'viem';
 import { useCallback, useMemo } from 'react';
 import { useAccount, useReadContracts } from 'wagmi';
 import { bob } from 'viem/chains';
@@ -115,7 +115,7 @@ const useStrategiesContractData = (
               address: strategy.raw.outputToken.address as Address,
               abi: seTokenAbi,
               functionName: 'balanceOf',
-              args: [address]
+              args: address ? [address] : [zeroAddress]
             },
             {
               address: strategy.raw.outputToken.address as Address,
@@ -221,7 +221,7 @@ const useStrategiesContractData = (
               address: strategy.raw.outputToken.address as Address,
               abi: erc20Abi,
               functionName: 'balanceOf',
-              args: [address]
+              args: address ? [address] : [zeroAddress]
             }
           ] as const)
         : ([] as const)
@@ -272,7 +272,7 @@ const useStrategiesContractData = (
               address: strategyToLimitsMapping[strategy.raw.address] as Address,
               abi: strategyBaseTVLLimitAbi,
               functionName: 'shares',
-              args: [address]
+              args: address ? [address] : [zeroAddress]
             }
           ] as const)
         : ([] as const)
