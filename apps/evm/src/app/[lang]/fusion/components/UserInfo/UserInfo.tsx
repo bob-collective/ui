@@ -238,7 +238,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                   color='primary'
                   label={t(
                     i18n
-                  )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes.`}
+                  )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours.`}
                 >
                   <SolidInformationCircle color='grey-50' size='xs' />
                 </Tooltip>

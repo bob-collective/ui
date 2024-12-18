@@ -1034,7 +1034,7 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:68
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:73
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
@@ -1764,8 +1764,12 @@ msgid "This is often done to comply with local laws and regulations. Website hos
 msgstr "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:239
-msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
-msgstr "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
+#~ msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
+#~ msgstr "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:239
+msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
+msgstr "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
