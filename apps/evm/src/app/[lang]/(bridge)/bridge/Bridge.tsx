@@ -117,15 +117,38 @@ const Bridge = ({ searchParams }: Props) => {
     router.replace('?' + urlSearchParams);
   }, [type, chain, router, symbol, urlSearchParams]);
 
+  const isBobBridgeDisabled =
+    (direction === TransactionDirection.L1_TO_L2 && chain !== L1_CHAIN && chain !== 'BTC') ||
+    (direction === TransactionDirection.L2_TO_L1 && chain !== L1_CHAIN);
+
+  const isExternalBridgeDisabled = chain === 'BTC' || !!(symbol && externalUnsupportedTokens.includes(symbol));
+
+  const isWithdrawTabDisabled = chain === 'BTC';
+
+  const tabsDisabledKeys = isWithdrawTabDisabled ? [Type.Withdraw] : undefined;
+
   return (
     <Layout>
       <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
         <StyledCard>
-          <Tabs fullWidth selectedKey={type} size='lg' onSelectionChange={handleChangeTab}>
+          <Tabs
+            fullWidth
+            disabledKeys={tabsDisabledKeys}
+            selectedKey={type}
+            size='lg'
+            onSelectionChange={handleChangeTab}
+          >
             <TabsItem key={Type.Deposit} title={<Trans>Deposit</Trans>}>
               <></>
             </TabsItem>
-            <TabsItem key={Type.Withdraw} title={<Trans>Withdraw</Trans>}>
+            <TabsItem
+              key={Type.Withdraw}
+              title={<Trans>Withdraw</Trans>}
+              tooltipProps={{
+                isDisabled: !isWithdrawTabDisabled,
+                label: <Trans>Withdraws back to BTC are currently not supported</Trans>
+              }}
+            >
               <></>
             </TabsItem>
           </Tabs>
@@ -133,6 +156,8 @@ const Bridge = ({ searchParams }: Props) => {
             bridgeOrigin={bridgeOrigin}
             chain={chain}
             direction={direction}
+            isBobBridgeDisabled={isBobBridgeDisabled}
+            isExternalBridgeDisabled={isExternalBridgeDisabled}
             symbol={symbol}
             onChangeChain={handleChangeChain}
             onChangeOrigin={handleChangeOrigin}

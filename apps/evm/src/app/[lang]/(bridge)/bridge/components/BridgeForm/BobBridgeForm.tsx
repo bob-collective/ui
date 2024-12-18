@@ -137,7 +137,11 @@ const BobBridgeForm = ({
   const handleSuccess = (data: BridgeTransaction) => {
     onBridgeSuccess?.(data);
 
-    handleReset();
+    // Reseting form and defaulting ETH
+    form.resetForm({ values: { ...initialValues, [BRIDGE_ASSET]: initialToken.symbol } });
+
+    onChangeSymbol?.(initialToken.symbol);
+    setAmount('');
 
     refetchBalances();
   };
@@ -409,16 +413,10 @@ const BobBridgeForm = ({
     hideErrors: 'untouched'
   });
 
-  const handleReset = () => {
-    form.resetForm();
-
-    onChangeSymbol?.(initialValues[BRIDGE_ASSET]);
-    setAmount('');
-  };
-
+  // Reseting form but keeping the symbol between Deposit and Withdraw
   useEffect(() => {
-    handleReset();
-
+    form.resetForm({ values: { ...initialValues, [BRIDGE_ASSET]: symbol } });
+    setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [direction]);
 
