@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, FlexProps, Span, SpanProps, useLocale } from '@gobob/ui';
-import { ReactNode, useCallback, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useCountUp } from 'use-count-up';
 
 type Props = {
@@ -35,13 +35,19 @@ const AnimantedAmount = ({
     [compact, locale]
   );
 
-  const { value } = useCountUp({
+  const { value, reset } = useCountUp({
     isCounting: showAnimation,
     start,
     end: amount,
     formatter,
     onComplete: () => setStart(amount)
   });
+
+  useEffect(() => {
+    if (showAnimation) {
+      reset();
+    }
+  }, [amount, reset, showAnimation]);
 
   return (
     <Flex alignItems='center' elementType={Span} gap={gap} {...props}>
