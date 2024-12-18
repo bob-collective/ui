@@ -412,7 +412,7 @@ const BobBridgeForm = ({
   const handleReset = () => {
     form.resetForm();
 
-    onChangeSymbol?.(initialToken.symbol);
+    onChangeSymbol?.(initialValues[BRIDGE_ASSET]);
     setAmount('');
   };
 

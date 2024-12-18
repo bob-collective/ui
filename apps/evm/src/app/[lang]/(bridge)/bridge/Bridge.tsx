@@ -3,9 +3,8 @@
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { usePathname, useRouter } from 'next/navigation';
-import { Key, useCallback, useEffect, useMemo, useState } from 'react';
-import { useSessionStorage } from 'usehooks-ts';
+import { useRouter } from 'next/navigation';
+import { Key, useEffect, useMemo, useState } from 'react';
 
 import { Layout, TransactionList } from '../components';
 
@@ -13,9 +12,28 @@ import { StyledCard, StyledFlex } from './Bridge.style';
 import { BridgeForm } from './components';
 import { useGetTransactions } from './hooks';
 
-import { isClient, L1_CHAIN, L2_CHAIN } from '@/constants';
+import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { TransactionDirection } from '@/types';
-import { SessionStorageKey } from '@/types/session-storage';
+
+const externalUnsupportedTokens = ['LBTC'];
+
+const getOrigin = (type: Type, chain: ChainId | 'BTC', symbol?: string) => {
+  if (chain === 'BTC') {
+    return BridgeOrigin.Internal;
+  }
+
+  if (symbol && externalUnsupportedTokens.includes(symbol)) {
+    return BridgeOrigin.Internal;
+  }
+
+  const isDeposit = type === Type.Deposit;
+
+  if ((isDeposit && chain !== L1_CHAIN) || (!isDeposit && chain !== L2_CHAIN)) {
+    return BridgeOrigin.External;
+  }
+
+  return BridgeOrigin.Internal;
+};
 
 enum BridgeOrigin {
   Internal = 'INTERNAL',
@@ -39,16 +57,11 @@ const Bridge = ({ searchParams }: Props) => {
     txPendingUserAction
   } = useGetTransactions();
 
-  const location = usePathname();
   const router = useRouter();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
   const direction = type === Type.Deposit ? TransactionDirection.L1_TO_L2 : TransactionDirection.L2_TO_L1;
-
-  const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(
-    type === Type.Deposit ? BridgeOrigin.Internal : BridgeOrigin.External
-  );
 
   const initialChain = useMemo(() => {
     const network = urlSearchParams.get('network');
@@ -65,36 +78,24 @@ const Bridge = ({ searchParams }: Props) => {
 
   const [symbol, setSymbol] = useState<string | undefined>(urlSearchParams?.get('receive')?.toString());
 
-  const handleChangeTab = useCallback(
-    (key: Key) => {
-      setBridgeOrigin((key as Type) === Type.Deposit ? BridgeOrigin.Internal : BridgeOrigin.External);
-      setChain(L1_CHAIN);
-      urlSearchParams.set('type', key as string);
-      router.replace('?' + urlSearchParams);
-    },
-    [router, urlSearchParams]
-  );
+  const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(getOrigin(type, chain, symbol));
 
-  const handleChangeNetwork = useCallback(
-    (network: Key) => {
-      if (network === 'BTC') {
-        return setBridgeOrigin(BridgeOrigin.Internal);
-      }
+  const handleChangeTab = (key: Key) => {
+    const newChain = L1_CHAIN;
 
-      if (type === Type.Deposit ? network !== L1_CHAIN : network !== L2_CHAIN) {
-        setBridgeOrigin(BridgeOrigin.External);
-      } else {
-        setBridgeOrigin(BridgeOrigin.Internal);
-      }
-    },
-    [type]
-  );
+    setChain(newChain);
+    handleChangeOrigin(getOrigin(key as Type, newChain, symbol));
 
-  const handleChangeOrigin = useCallback((origin: BridgeOrigin) => setBridgeOrigin(origin), []);
+    urlSearchParams.set('type', key as string);
+    router.replace('?' + urlSearchParams);
+  };
+
+  const handleChangeOrigin = (origin: BridgeOrigin) => setBridgeOrigin(origin);
 
   const handleChangeChain = (chain: ChainId | 'BTC') => {
     setChain(chain);
     setSymbol(undefined);
+    handleChangeOrigin(getOrigin(type, chain));
   };
 
   const handleChangeSymbol = (symbol?: string) => {
@@ -116,18 +117,6 @@ const Bridge = ({ searchParams }: Props) => {
     router.replace('?' + urlSearchParams);
   }, [type, chain, router, symbol, urlSearchParams]);
 
-  const [bridgeToBtc, setBridgeToBtc] = useSessionStorage(SessionStorageKey.BRIDGE_TO_BTC, false, {
-    initializeWithValue: isClient
-  });
-
-  useEffect(() => {
-    if (bridgeToBtc) {
-      setBridgeToBtc(false);
-      setChain('BTC');
-      setBridgeOrigin(BridgeOrigin.Internal);
-    }
-  }, [bridgeToBtc, location, setBridgeToBtc]);
-
   return (
     <Layout>
       <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
@@ -146,7 +135,6 @@ const Bridge = ({ searchParams }: Props) => {
             direction={direction}
             symbol={symbol}
             onChangeChain={handleChangeChain}
-            onChangeNetwork={handleChangeNetwork}
             onChangeOrigin={handleChangeOrigin}
             onChangeSymbol={handleChangeSymbol}
           />
