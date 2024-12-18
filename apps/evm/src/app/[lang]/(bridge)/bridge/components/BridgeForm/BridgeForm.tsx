@@ -43,7 +43,6 @@ type BridgeFormProps = {
   symbol?: string;
   bridgeOrigin?: BridgeOrigin;
   onChangeSymbol: (symbol: string) => void;
-  onChangeNetwork?: (network: Key) => void;
   onChangeOrigin?: (origin: BridgeOrigin) => void;
   onChangeChain?: (chain: ChainId | 'BTC') => void;
 };
@@ -69,7 +68,6 @@ const BridgeForm = ({
   chain,
   symbol,
   onChangeSymbol,
-  onChangeNetwork,
   onChangeOrigin,
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
@@ -144,15 +142,13 @@ const BridgeForm = ({
     setGatewayModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleChangeNetwork = useCallback(
+  const handleChangeChain = useCallback(
     (network: Key) => {
       const parsedNetwork = network === 'BTC' ? network : (Number(network) as ChainId);
 
       onChangeChain?.(parsedNetwork);
-
-      onChangeNetwork?.(parsedNetwork);
     },
-    [onChangeNetwork, onChangeChain]
+    [onChangeChain]
   );
 
   const availableNetworks = useMemo(() => {
@@ -170,7 +166,7 @@ const BridgeForm = ({
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
-          onSelectionChange: handleChangeNetwork,
+          onSelectionChange: handleChangeChain,
           ['aria-label']: t(i18n)`select network to bridge from`
         }
       : undefined;
@@ -180,7 +176,7 @@ const BridgeForm = ({
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
-          onSelectionChange: handleChangeNetwork,
+          onSelectionChange: handleChangeChain,
           ['aria-label']: t(i18n)`select network to bridge to`
         }
       : undefined;
