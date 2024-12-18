@@ -6,8 +6,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
 import { Optional } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
@@ -21,39 +20,35 @@ import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
 type BtcBridgeFormProps = {
   availableTokens?: TokenData[];
+  symbol?: string;
   onStart: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
   onSuccess: (data: InitGatewayTransaction) => void;
   onError: () => void;
+  onChangeSymbol: (symbol: string) => void;
 };
 
 const toChain = isProd ? 'bob' : 'bob-sepolia';
 
-const BtcBridgeForm = ({ availableTokens = [], onError, onStart, onSuccess }: BtcBridgeFormProps): JSX.Element => {
+const BtcBridgeForm = ({
+  availableTokens = [],
+  symbol: symbolProp,
+  onError,
+  onStart,
+  onSuccess,
+  onChangeSymbol
+}: BtcBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
-
-  const searchParams = useSearchParams();
-  const router = useRouter();
 
   const { address: evmAddress } = useAccount();
 
-  const [receiveTicker, setReceiveTicker] = useState(
-    searchParams?.get('receive') ?? availableTokens[0]?.currency.symbol
-  );
+  const defaultToken = availableTokens[0];
+
+  const symbol = symbolProp || defaultToken?.currency.symbol;
 
   const btcToken = useMemo(
-    () => availableTokens.find((token) => token.currency.symbol === receiveTicker),
-    [availableTokens, receiveTicker]
+    () => availableTokens.find((token) => token.currency.symbol === symbol),
+    [availableTokens, symbol]
   );
-
-  useEffect(() => {
-    if (searchParams) {
-      const urlSearchParams = new URLSearchParams(searchParams);
-
-      if (receiveTicker) urlSearchParams.set('receive', receiveTicker);
-      urlSearchParams.set('network', 'bitcoin');
-      router.replace('?' + urlSearchParams);
-    }
-  }, [receiveTicker, router, searchParams]);
 
   const handleSuccess = () => {
     form.resetForm();
@@ -85,7 +80,7 @@ const BtcBridgeForm = ({ availableTokens = [], onError, onStart, onSuccess }: Bt
     form
   } = useGatewayForm({
     query: gateway.query,
-    defaultAsset: receiveTicker,
+    defaultAsset: symbol,
     onSubmit: handleSubmit
   });
 
@@ -116,7 +111,7 @@ const BtcBridgeForm = ({ availableTokens = [], onError, onStart, onSuccess }: Bt
         size='lg'
         type='modal'
         {...mergeProps(fields.asset, {
-          onSelectionChange: setReceiveTicker
+          onSelectionChange: onChangeSymbol
         })}
       >
         {(data) => (

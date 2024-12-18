@@ -40,8 +40,9 @@ type GatewayTransactionModalState = {
 type BridgeFormProps = {
   chain: ChainId | 'BTC';
   direction: TransactionDirection;
-  ticker?: string;
+  symbol?: string;
   bridgeOrigin?: BridgeOrigin;
+  onChangeSymbol: (symbol: string) => void;
   onChangeNetwork?: (network: Key) => void;
   onChangeOrigin?: (origin: BridgeOrigin) => void;
   onChangeChain?: (chain: ChainId | 'BTC') => void;
@@ -65,8 +66,9 @@ const allNetworks = [
 const BridgeForm = ({
   direction = TransactionDirection.L1_TO_L2,
   bridgeOrigin,
-  ticker,
   chain,
+  symbol,
+  onChangeSymbol,
   onChangeNetwork,
   onChangeOrigin,
   onChangeChain
@@ -231,6 +233,8 @@ const BridgeForm = ({
             <BtcBridgeForm
               key={btcTokens?.length}
               availableTokens={btcTokens}
+              symbol={symbol}
+              onChangeSymbol={onChangeSymbol}
               onError={handleCloseGatewayModal}
               onStart={handleStartGateway}
               onSuccess={handleGatewaySuccess}
@@ -238,8 +242,9 @@ const BridgeForm = ({
           ) : (
             <BobBridgeForm
               direction={direction}
-              ticker={ticker}
+              symbol={symbol}
               onBridgeSuccess={handleBridgeSuccess}
+              onChangeSymbol={onChangeSymbol}
               onFailBridge={handleCloseBridgeModal}
               onStartApproval={handleStartApproval}
               onStartBridge={handleStartBridge}
