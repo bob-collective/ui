@@ -139,6 +139,15 @@ const usdc: Partial<Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Ch
 };
 
 const ethereumAssets: RawToken[] = [
+  {
+    chainId: ChainId.ETHEREUM,
+    address: '0x8236a87084f8b84306f72007f36f2618a5634494',
+    name: 'LBTC',
+    symbol: 'LBTC',
+    decimals: 8,
+    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
+    apiId: 'lombard-staked-btc'
+  },
   ETH[ChainId.ETHEREUM],
   {
     chainId: ChainId.ETHEREUM,
@@ -217,15 +226,6 @@ const ethereumAssets: RawToken[] = [
     decimals: 18,
     logoUrl: 'https://s2.coinmarketcap.com/static/img/exchanges/64x64/1407.png',
     apiId: 'sovryn'
-  },
-  {
-    chainId: ChainId.ETHEREUM,
-    address: '0x8236a87084f8b84306f72007f36f2618a5634494',
-    name: 'LBTC',
-    symbol: 'LBTC',
-    decimals: 8,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
-    apiId: 'lombard-staked-btc'
   },
   {
     chainId: ChainId.ETHEREUM,
@@ -336,6 +336,15 @@ const sepoliaAssets: RawToken[] = [
 ];
 
 const bobAssets: RawToken[] = [
+  {
+    chainId: ChainId.BOB,
+    address: '0xa45d4121b3d47719ff57a947a9d961539ba33204',
+    name: 'LBTC',
+    symbol: 'LBTC',
+    decimals: 8,
+    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
+    apiId: 'lombard-staked-btc'
+  },
   ETH[ChainId.BOB],
   {
     chainId: ChainId.BOB,
@@ -414,15 +423,6 @@ const bobAssets: RawToken[] = [
     decimals: 18,
     logoUrl: 'https://s2.coinmarketcap.com/static/img/exchanges/64x64/1407.png',
     apiId: 'sovryn'
-  },
-  {
-    chainId: ChainId.BOB,
-    address: '0xa45d4121b3d47719ff57a947a9d961539ba33204',
-    name: 'LBTC',
-    symbol: 'LBTC',
-    decimals: 8,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
-    apiId: 'lombard-staked-btc'
   },
   {
     chainId: ChainId.BOB,
