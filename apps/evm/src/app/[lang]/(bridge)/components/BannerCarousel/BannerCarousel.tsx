@@ -40,7 +40,12 @@ const BannerCarousel = () => {
   );
 
   const onPressBabylonBanner = useCallback(
-    () => window.open('https://blog.gobob.xyz/posts/bob-fusion-the-final-season', '_blank', 'noreferrer'),
+    () =>
+      window.open(
+        'https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2',
+        '_blank',
+        'noreferrer'
+      ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
