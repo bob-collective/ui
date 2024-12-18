@@ -11,6 +11,7 @@ export { Discord } from './Discord';
 export { ETH } from './ETH';
 export { FuelStation } from './FuelStation';
 export { Galxe } from './Galxe';
+export { LBTC } from './LBTC';
 export { Intract } from './Intract';
 export { LeatherWallet } from './LeatherWallet';
 export { Ledger } from './Ledger';

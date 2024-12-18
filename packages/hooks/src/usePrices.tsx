@@ -22,7 +22,8 @@ export enum CurrencyTickers {
   WSTETH = 'wstETH',
   BTC = 'BTC',
   UNIBTC = 'uniBTC',
-  'SolvBTC.BBN' = 'SOLVBTC.BBN'
+  'SolvBTC.BBN' = 'SOLVBTC.BBN',
+  LBTC = 'LBTC'
 }
 
 // TODO: Add other supported currencies. Move.
@@ -42,7 +43,8 @@ const COINGECKO_IDS = [
   'bitcoin',
   'sovryn-dollar',
   'solv-protocol-solvbtc-bbn',
-  'universal-btc'
+  'universal-btc',
+  'lombard-staked-btc'
 ] as const;
 
 const COINGECKO_ID_BY_CURRENCY_TICKER: Record<string, (typeof COINGECKO_IDS)[number]> = {
@@ -60,7 +62,8 @@ const COINGECKO_ID_BY_CURRENCY_TICKER: Record<string, (typeof COINGECKO_IDS)[num
   [CurrencyTickers.WSTETH]: 'wrapped-steth',
   [CurrencyTickers.BTC]: 'bitcoin',
   [CurrencyTickers['SolvBTC.BBN']]: 'solv-protocol-solvbtc-bbn',
-  [CurrencyTickers.UNIBTC]: 'universal-btc'
+  [CurrencyTickers.UNIBTC]: 'universal-btc',
+  [CurrencyTickers.LBTC]: 'lombard-staked-btc'
 };
 
 type PricesData = Record<string, Record<PriceCurrency, number>>;
