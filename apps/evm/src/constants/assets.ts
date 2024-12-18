@@ -139,6 +139,7 @@ const usdc: Partial<Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Ch
 };
 
 const ethereumAssets: RawToken[] = [
+  ETH[ChainId.ETHEREUM],
   {
     chainId: ChainId.ETHEREUM,
     address: '0x8236a87084f8b84306f72007f36f2618a5634494',
@@ -148,7 +149,6 @@ const ethereumAssets: RawToken[] = [
     logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
     apiId: 'lombard-staked-btc'
   },
-  ETH[ChainId.ETHEREUM],
   {
     chainId: ChainId.ETHEREUM,
     address: '0xe7c3755482d0dA522678Af05945062d4427e0923',
@@ -336,6 +336,7 @@ const sepoliaAssets: RawToken[] = [
 ];
 
 const bobAssets: RawToken[] = [
+  ETH[ChainId.BOB],
   {
     chainId: ChainId.BOB,
     address: '0xa45d4121b3d47719ff57a947a9d961539ba33204',
@@ -345,7 +346,6 @@ const bobAssets: RawToken[] = [
     logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
     apiId: 'lombard-staked-btc'
   },
-  ETH[ChainId.BOB],
   {
     chainId: ChainId.BOB,
     address: '0xa669e059fDcbDFC532A2edd658eb2922799EEDb8',
