@@ -417,7 +417,7 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0x1010101010101010101010101010101010101010',
+    address: '0xa45d4121b3d47719ff57a947a9d961539ba33204',
     name: 'LBTC',
     symbol: 'LBTC',
     decimals: 8,
