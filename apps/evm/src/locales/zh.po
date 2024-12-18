@@ -1874,8 +1874,12 @@ msgid "Username"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:225
-msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge where possible. ETH, WBTC, USDT and USDC are widely supported but other tokens may be supported by individual bridges."
+msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr ""
+
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:225
+#~ msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge where possible. ETH, WBTC, USDT and USDC are widely supported but other tokens may be supported by individual bridges."
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:223
 #~ msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge."
