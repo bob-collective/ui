@@ -218,6 +218,11 @@ msgstr "Audited by"
 msgid "Authorize Wallet"
 msgstr "Authorize Wallet"
 
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:32
+#: src/app/[lang]/fusion/Fusion.tsx:209
+msgid "Babylon campaign"
+msgstr "Babylon campaign"
+
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:174
 msgid "Babylon Campaign"
 msgstr "Babylon Campaign"
@@ -270,7 +275,7 @@ msgstr "BOB co-founder, <0>Alexei Zamyatin</0>, would like to invite you to a pr
 #~ msgstr "BOB Ecosystem on OKX Cryptopedia"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:129
+#: src/app/[lang]/fusion/Fusion.tsx:132
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion: The Final Season"
 
@@ -364,7 +369,7 @@ msgstr "Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 
-#: src/app/[lang]/fusion/Fusion.tsx:161
+#: src/app/[lang]/fusion/Fusion.tsx:165
 msgid "Bringing Bitcoin DeFi to the Superchain"
 msgstr "Bringing Bitcoin DeFi to the Superchain"
 
@@ -420,6 +425,11 @@ msgstr "Click the <0/> icon next to your favourite apps"
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:194
 msgid "Close"
 msgstr "Close"
+
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:22
+#: src/app/[lang]/fusion/Fusion.tsx:198
+msgid "Collect Babylon Points on BOB"
+msgstr "Collect Babylon Points on BOB"
 
 #: src/app/[lang]/sign-up/SignUp.tsx:106
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
@@ -704,7 +714,6 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
-#: src/app/[lang]/fusion/Fusion.tsx:197
 msgid "Follow us on X"
 msgstr "Follow us on X"
 
@@ -792,7 +801,7 @@ msgstr "Harvest {pointsMissing} more Spice to play"
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
 #~ msgstr "Harvest {pointsMissing} more SPICE to your account to play"
 
-#: src/app/[lang]/fusion/Fusion.tsx:133
+#: src/app/[lang]/fusion/Fusion.tsx:136
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 
@@ -804,7 +813,7 @@ msgstr "Here are your active referrals and the Spice they're currently earning f
 msgid "Hero banner"
 msgstr "Hero banner"
 
-#: src/app/[lang]/fusion/Fusion.tsx:122
+#: src/app/[lang]/fusion/Fusion.tsx:125
 msgid "Hero dots"
 msgstr "Hero dots"
 
@@ -869,7 +878,7 @@ msgid "Leaderboard"
 msgstr "Leaderboard"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:143
+#: src/app/[lang]/fusion/Fusion.tsx:146
 msgid "Learn More"
 msgstr "Learn More"
 
@@ -1025,7 +1034,7 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:61
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:68
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
@@ -1591,7 +1600,7 @@ msgstr "Successfully finalized transaction"
 msgid "Successfully submitted ${0} proof"
 msgstr "Successfully submitted ${0} proof"
 
-#: src/app/[lang]/fusion/Fusion.tsx:172
+#: src/app/[lang]/fusion/Fusion.tsx:176
 msgid "Superchain Eco"
 msgstr "Superchain Eco"
 
@@ -1661,8 +1670,12 @@ msgid "The Babylon Points total displayed here only includes points earned durin
 msgstr "The Babylon Points total displayed here only includes points earned during the BOB campaign. The figure does not include points collected by other means."
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:216
-msgid "The campaign will run until TIME & DATE."
-msgstr "The campaign will run until TIME & DATE."
+msgid "The campaign will run until 1st February."
+msgstr "The campaign will run until 1st February."
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:216
+#~ msgid "The campaign will run until TIME & DATE."
+#~ msgstr "The campaign will run until TIME & DATE."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OnrampBanner.tsx:21
 #~ msgid "The fastest and easiest way to bridge BTC to BOB."
@@ -1778,9 +1791,18 @@ msgstr "To be eligible, you must be registered for Fusion and hold or have held 
 msgid "To cast your vote, please log in"
 msgstr "To cast your vote, please log in"
 
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:26
+#: src/app/[lang]/fusion/Fusion.tsx:201
+msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
+msgstr "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
+
 #: src/app/[lang]/fusion/Fusion.tsx:164
-msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
-msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
+#~ msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
+#~ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
+
+#: src/app/[lang]/fusion/Fusion.tsx:168
+msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more >"
+msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more >"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/OPBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:168
@@ -1788,7 +1810,6 @@ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP ex
 #~ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more&Hat;"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:200
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
@@ -2062,7 +2083,7 @@ msgid "You"
 msgstr "You"
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:46
-#: src/app/[lang]/fusion/Fusion.tsx:127
+#: src/app/[lang]/fusion/Fusion.tsx:130
 msgid "You are one of the top 100 Spice holders in BOB Fusion"
 msgstr "You are one of the top 100 Spice holders in BOB Fusion"
 

@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 import x from '@public/assets/x.png';
 
 import { Banner } from './Banner';
-import { StyledBannerContent, StyledXImg } from './BannerCarousel.style';
+import { StyledBannerContent, StyledImg } from './BannerCarousel.style';
 import { BannerTitle } from './BannerTitle';
 
 type XBannerProps = {
@@ -22,7 +22,7 @@ const XBanner = ({ onPress }: XBannerProps) => (
         <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
       </P>
     </StyledBannerContent>
-    <StyledXImg alt='x' height='123' placeholder='blur' src={x} width='336' />
+    <StyledImg alt='x' height='134' placeholder='blur' src={x} width='365' />
   </Banner>
 );
 
