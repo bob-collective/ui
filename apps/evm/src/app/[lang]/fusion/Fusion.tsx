@@ -1,15 +1,13 @@
 'use client';
 
-import { Card, Flex, H1, H2, Link, P, useMediaQuery } from '@gobob/ui';
+import { Card, Flex, H1, Link, P } from '@gobob/ui';
 import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import x from '@public/assets/x.png';
+import babylon from '@public/assets/babylon.png';
 import { useEffect, useId, useState } from 'react';
 import { useAccount } from 'wagmi';
 import superchainEco from '@public/assets/partners/superchain-eco.png';
-import Image from 'next/image';
-import { useTheme } from 'styled-components';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -27,7 +25,9 @@ import {
 } from './components';
 import {
   StyledBackground,
+  StyledBannerContent,
   StyledBannerImg,
+  StyledBannerTitle,
   StyledBgDots,
   StyledContent,
   StyledHeroSection,
@@ -51,8 +51,6 @@ const Fusion = () => {
   const { mutate: dismissTopUserModal } = useDismissTopUserModal();
   const { mutate: dismissOPSuperuserModal } = useDismissOPSuperuserModal();
   const isClient = useIsClient();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
   const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
 
@@ -96,7 +94,12 @@ const Fusion = () => {
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
-  const onPressXBanner = () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
+  const onPressBabylonBanner = () =>
+    window.open(
+      'https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2',
+      '_blank',
+      'noreferrer'
+    );
   const onPressOPBanner = () =>
     window.open('https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin', '_blank', 'noreferrer');
 
@@ -149,57 +152,66 @@ const Fusion = () => {
               <Flex direction='column' marginTop='lg'>
                 <Card
                   isPressable
+                  direction='column'
                   justifyContent='center'
                   paddingX='xl'
                   paddingY='6xl'
                   style={{ position: 'relative', maxHeight: '8.5rem' }}
                   onPress={onPressOPBanner}
                 >
-                  <Flex alignItems='center' justifyContent='center'>
+                  <StyledBannerContent>
                     <Flex direction='column'>
-                      <H2 size='2xl' weight='bold'>
+                      <StyledBannerTitle size='2xl' weight='bold'>
                         <Trans>Bringing Bitcoin DeFi to the Superchain</Trans>
-                      </H2>
+                      </StyledBannerTitle>
                       <P color='grey-50'>
                         <Trans>
                           To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on
-                          all Spice harvested between 9 December 2024 and 12 January 2025.{' '}
-                          <Link href='https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin'>Learn more</Link>
+                          all Spice harvested between 9 December 2024 and 12 January 2025. Learn more &gt;
                         </Trans>
                       </P>
                     </Flex>
-                    <Image
-                      alt={t(i18n)`Superchain Eco`}
-                      height='123'
-                      placeholder='blur'
-                      src={superchainEco}
-                      style={{
-                        position: isMobile ? 'absolute' : undefined,
-                        opacity: isMobile ? 0.2 : undefined,
-                        height: 'auto'
-                      }}
-                      width='336'
-                    />
-                  </Flex>
+                  </StyledBannerContent>
+                  <StyledBannerImg
+                    alt={t(i18n)`Superchain Eco`}
+                    height='134'
+                    placeholder='blur'
+                    src={superchainEco}
+                    width='312'
+                  />
                 </Card>
               </Flex>
             ) : (
               <Flex direction='column' marginTop='lg'>
                 <Card
                   isPressable
+                  direction='column'
                   justifyContent='center'
                   paddingX='xl'
                   paddingY='6xl'
                   style={{ position: 'relative', maxHeight: '8.5rem' }}
-                  onPress={onPressXBanner}
+                  onPress={onPressBabylonBanner}
                 >
-                  <H2 size='2xl' weight='bold'>
-                    <Trans>Follow us on X</Trans>
-                  </H2>
-                  <P color='grey-50'>
-                    <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
-                  </P>
-                  <StyledBannerImg alt='x' height='123' placeholder='blur' src={x} width='336' />
+                  <StyledBannerContent>
+                    <Flex direction='column'>
+                      <StyledBannerTitle size='2xl' weight='bold'>
+                        <Trans>Collect Babylon Points on BOB</Trans>
+                      </StyledBannerTitle>
+                      <P color='grey-50'>
+                        <Trans>
+                          To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using
+                          Babylon LSTs in DeFi. Read more &gt;
+                        </Trans>
+                      </P>
+                    </Flex>
+                  </StyledBannerContent>
+                  <StyledBannerImg
+                    alt={t(i18n)`Babylon campaign`}
+                    height='134'
+                    placeholder='blur'
+                    src={babylon}
+                    width='312'
+                  />
                 </Card>
               </Flex>
             )}

@@ -213,7 +213,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                         </Trans>
                       </P>
                       <P size='s'>
-                        <Trans>The campaign will run until TIME & DATE.</Trans>
+                        <Trans>The campaign will run until 1st February.</Trans>
                       </P>
                     </PopoverBody>
                   </PopoverContent>
