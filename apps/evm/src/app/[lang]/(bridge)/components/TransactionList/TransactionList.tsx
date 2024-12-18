@@ -11,7 +11,10 @@ import {
   StyledSpan,
   StyledSpinnerWrapper,
   StyledTransactionList,
-  StyledTransactionListWrapper
+  StyledTransactionListParent,
+  StyledTransactionListWrapper,
+  StyledVirtualizer,
+  StyledVirtualizerItem
 } from './TransactionList.style';
 
 import { chainL2 } from '@/constants';
@@ -95,31 +98,13 @@ const TransactionList = ({
           ) : (
             <>
               {hasData ? (
-                <div
-                  ref={parentRef}
-                  style={{
-                    height: `610px`,
-                    overflow: 'auto'
-                  }}
-                >
-                  <div
-                    style={{
-                      height: `${rowVirtualizer.getTotalSize()}px`,
-                      width: '100%',
-                      position: 'relative'
-                    }}
-                  >
+                <StyledTransactionListParent ref={parentRef}>
+                  <StyledVirtualizer $height={rowVirtualizer.getTotalSize()}>
                     {rowVirtualizer.getVirtualItems().map((virtualItem) => (
-                      <div
+                      <StyledVirtualizerItem
                         key={virtualItem.key}
-                        style={{
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          width: '100%',
-                          height: `${virtualItem.size}px`,
-                          transform: `translateY(${virtualItem.start}px)`
-                        }}
+                        $height={virtualItem.size}
+                        $translateY={virtualItem.start}
                       >
                         <TransactionItem
                           data={data[virtualItem.index]!}
@@ -127,10 +112,10 @@ const TransactionList = ({
                           onRelaySuccess={onRelaySuccess}
                         />
                         {virtualItem.index < data.length - 1 && <Divider style={dividerStyle} />}
-                      </div>
+                      </StyledVirtualizerItem>
                     ))}
-                  </div>
-                </div>
+                  </StyledVirtualizer>
+                </StyledTransactionListParent>
               ) : (
                 <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
                   <P align='center' size='xs'>
