@@ -224,7 +224,8 @@ const BridgeForm = ({
           <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
             <Trans>
               Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
-              bridge.
+              bridge where possible. ETH, WBTC, USDT and USDC are widely supported but other tokens may be supported by
+              individual bridges.
             </Trans>
           </Alert>
         )}

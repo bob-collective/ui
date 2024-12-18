@@ -87,7 +87,7 @@ msgstr "<0>Stake your BTC with 1-click</0> and receive BTC LSTs on BOB."
 msgid "2 hours"
 msgstr "2 hours"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:218
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:220
 msgid "3rd Party"
 msgstr "3rd Party"
 
@@ -134,7 +134,7 @@ msgstr "All Spice you harvest between 9 December 2024 and 12 January 2025 will r
 msgid "Already harvesting?"
 msgstr "Already harvesting?"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:475
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:473
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 msgid "Amount"
 msgstr "Amount"
@@ -155,7 +155,7 @@ msgstr "and that you have read and understood our"
 msgid "Apply"
 msgstr "Apply"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:459
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:457
 msgid "Approve"
 msgstr "Approve"
 
@@ -241,7 +241,7 @@ msgstr "Below is the Spice you've harvested from apps. Keep participating to inc
 msgid "BOB"
 msgstr "BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:215
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:217
 msgid "BOB Bridge"
 msgstr "BOB Bridge"
 
@@ -310,8 +310,8 @@ msgstr "Book a call with the founders"
 msgid "Bridge"
 msgstr "Bridge"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:460
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:148
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:458
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:143
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
 
@@ -324,11 +324,11 @@ msgstr "Bridge Assets"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "Bridge BTC LSTs to BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:455
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:453
 msgid "Bridge Disabled"
 msgstr "Bridge Disabled"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:208
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:210
 msgid "bridge network"
 msgstr "bridge network"
 
@@ -377,7 +377,7 @@ msgstr "Cannot stake into {assetName} due to insufficient liquidity."
 #~ msgid "Category"
 #~ msgstr "Category"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:457
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:455
 msgid "Checking Allowance"
 msgstr "Checking Allowance"
 
@@ -503,7 +503,7 @@ msgstr "Current TVL:"
 msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
 msgstr "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:128
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:136
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 msgid "Deposit"
 msgstr "Deposit"
@@ -587,8 +587,8 @@ msgstr "enable ETH top-up for transaction fees on BOB network"
 #~ msgid "Enter Address"
 #~ msgstr "Enter Address"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:486
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:131
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:87
 msgid "Enter destination address"
 msgstr "Enter destination address"
@@ -1163,7 +1163,7 @@ msgstr "Points"
 msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:148
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:143
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:97
 msgid "Preparing..."
 msgstr "Preparing..."
@@ -1215,7 +1215,7 @@ msgstr "Read more here"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:113
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:108
 msgid "Receive"
 msgstr "Receive"
 
@@ -1227,8 +1227,8 @@ msgstr "Receive"
 #~ msgid "Receive {ticker}"
 #~ msgstr "Receive {ticker}"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:485
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:483
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:131
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:86
 msgid "Recipient"
 msgstr "Recipient"
@@ -1318,11 +1318,11 @@ msgstr "select gas token"
 msgid "Select Network"
 msgstr "Select Network"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:172
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:174
 msgid "select network to bridge from"
 msgstr "select network to bridge from"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:182
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:184
 msgid "select network to bridge to"
 msgstr "select network to bridge to"
 
@@ -1376,7 +1376,7 @@ msgstr "Solv XP"
 #~ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 #~ msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:135
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:133
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/hooks/useLogin.ts:50
 #: src/hooks/useSignUp.ts:53
@@ -1722,7 +1722,7 @@ msgstr "This is often done to comply with local laws and regulations. Website ho
 msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
 msgstr "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:141
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 msgstr "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 
@@ -1875,7 +1875,7 @@ msgstr "Use your bridged assets in apps to maximise your Spice harvest.<0/>TIP: 
 msgid "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 msgstr "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:133
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:131
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:134
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:51
@@ -1886,9 +1886,13 @@ msgstr "User rejected the request"
 msgid "Username"
 msgstr "Username"
 
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:225
+msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge where possible. ETH, WBTC, USDT and USDC are widely supported but other tokens may be supported by individual bridges."
+msgstr "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge where possible. ETH, WBTC, USDT and USDC are widely supported but other tokens may be supported by individual bridges."
+
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:223
-msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge."
-msgstr "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge."
+#~ msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge."
+#~ msgstr "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge."
 
 #: src/app/[lang]/wallet/Wallet.tsx:29
 #~ msgid "View a summary of your wallet on the BOB network. DeFi positions may not be tracked."
@@ -1982,7 +1986,7 @@ msgstr "When you vote for a project, your Spice total is added to their vote tot
 msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 msgstr "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:131
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:139
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 msgid "Withdraw"
 msgstr "Withdraw"
@@ -2046,7 +2050,7 @@ msgstr "You still have assets locked in Season One. Please redeem your funds"
 msgid "You will need to actively monitor your position, especially if it has a small range."
 msgstr "You will need to actively monitor your position, especially if it has a small range."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:139
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:134
 #: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:71
 msgid "You will receive"
