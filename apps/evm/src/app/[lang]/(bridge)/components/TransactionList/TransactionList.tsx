@@ -1,9 +1,8 @@
 import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { useMemo, useRef } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useIsClient } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
-import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { TransactionItem } from './TransactionItem';
 import {
@@ -11,10 +10,7 @@ import {
   StyledSpan,
   StyledSpinnerWrapper,
   StyledTransactionList,
-  StyledTransactionListParent,
-  StyledTransactionListWrapper,
-  StyledVirtualizer,
-  StyledVirtualizerItem
+  StyledTransactionListWrapper
 } from './TransactionList.style';
 
 import { chainL2 } from '@/constants';
@@ -40,19 +36,6 @@ const TransactionList = ({
   txPendingUserAction,
   ...props
 }: TransactionListProps): JSX.Element => {
-  // The scrollable element for your list
-  const parentRef = useRef(null);
-
-  // The virtualizer
-  const rowVirtualizer = useVirtualizer({
-    count: data?.length || 0,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 102,
-    paddingStart: 16,
-    paddingEnd: 16,
-    gap: 16
-  });
-
   const { address, chain } = useAccount();
   const isClient = useIsClient();
 
@@ -75,8 +58,6 @@ const TransactionList = ({
   const txsUrl = address ? `${explorerUrl}/address/${address}` : `${explorerUrl}`;
   const hasData = !!data?.length;
 
-  const dividerStyle = { marginTop: '1rem' };
-
   return (
     <StyledSection gap='xl' paddingX='4xl' paddingY='3xl' {...props}>
       <H2 size='md'>{title}</H2>
@@ -87,6 +68,7 @@ const TransactionList = ({
           flex={1}
           gap='xl'
           justifyContent={isInitialLoading || !hasData ? 'center' : undefined}
+          paddingY='xl'
         >
           {!isClient || isInitialLoading ? (
             <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
@@ -98,24 +80,16 @@ const TransactionList = ({
           ) : (
             <>
               {hasData ? (
-                <StyledTransactionListParent ref={parentRef}>
-                  <StyledVirtualizer $height={rowVirtualizer.getTotalSize()}>
-                    {rowVirtualizer.getVirtualItems().map((virtualItem) => (
-                      <StyledVirtualizerItem
-                        key={virtualItem.key}
-                        $height={virtualItem.size}
-                        $translateY={virtualItem.start}
-                      >
-                        <TransactionItem
-                          data={data[virtualItem.index]!}
-                          onProveSuccess={onProveSuccess}
-                          onRelaySuccess={onRelaySuccess}
-                        />
-                        {virtualItem.index < data.length - 1 && <Divider style={dividerStyle} />}
-                      </StyledVirtualizerItem>
-                    ))}
-                  </StyledVirtualizer>
-                </StyledTransactionListParent>
+                data.map((transaction, idx) => (
+                  <Fragment key={idx}>
+                    <TransactionItem
+                      data={transaction}
+                      onProveSuccess={onProveSuccess}
+                      onRelaySuccess={onRelaySuccess}
+                    />
+                    {idx < data.length - 1 && <Divider />}
+                  </Fragment>
+                ))
               ) : (
                 <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
                   <P align='center' size='xs'>
