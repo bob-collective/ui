@@ -40,9 +40,9 @@ type GatewayTransactionModalState = {
 type BridgeFormProps = {
   chain: ChainId | 'BTC';
   direction: TransactionDirection;
-  ticker?: string;
+  symbol?: string;
   bridgeOrigin?: BridgeOrigin;
-  onChangeNetwork?: (network: Key) => void;
+  onChangeSymbol: (symbol: string) => void;
   onChangeOrigin?: (origin: BridgeOrigin) => void;
   onChangeChain?: (chain: ChainId | 'BTC') => void;
 };
@@ -65,9 +65,9 @@ const allNetworks = [
 const BridgeForm = ({
   direction = TransactionDirection.L1_TO_L2,
   bridgeOrigin,
-  ticker,
   chain,
-  onChangeNetwork,
+  symbol,
+  onChangeSymbol,
   onChangeOrigin,
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
@@ -142,15 +142,13 @@ const BridgeForm = ({
     setGatewayModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleChangeNetwork = useCallback(
+  const handleChangeChain = useCallback(
     (network: Key) => {
       const parsedNetwork = network === 'BTC' ? network : (Number(network) as ChainId);
 
       onChangeChain?.(parsedNetwork);
-
-      onChangeNetwork?.(parsedNetwork);
     },
-    [onChangeNetwork, onChangeChain]
+    [onChangeChain]
   );
 
   const availableNetworks = useMemo(() => {
@@ -168,7 +166,7 @@ const BridgeForm = ({
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
-          onSelectionChange: handleChangeNetwork,
+          onSelectionChange: handleChangeChain,
           ['aria-label']: t(i18n)`select network to bridge from`
         }
       : undefined;
@@ -178,7 +176,7 @@ const BridgeForm = ({
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
-          onSelectionChange: handleChangeNetwork,
+          onSelectionChange: handleChangeChain,
           ['aria-label']: t(i18n)`select network to bridge to`
         }
       : undefined;
@@ -221,8 +219,8 @@ const BridgeForm = ({
         {direction === TransactionDirection.L2_TO_L1 && bridgeOrigin === BridgeOrigin.Internal && (
           <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
             <Trans>
-              Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
-              bridge.
+              Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party
+              bridge for supported tokens (ETH, WBTC, USDT, USDC).
             </Trans>
           </Alert>
         )}
@@ -231,6 +229,8 @@ const BridgeForm = ({
             <BtcBridgeForm
               key={btcTokens?.length}
               availableTokens={btcTokens}
+              symbol={symbol}
+              onChangeSymbol={onChangeSymbol}
               onError={handleCloseGatewayModal}
               onStart={handleStartGateway}
               onSuccess={handleGatewaySuccess}
@@ -238,8 +238,9 @@ const BridgeForm = ({
           ) : (
             <BobBridgeForm
               direction={direction}
-              ticker={ticker}
+              symbol={symbol}
               onBridgeSuccess={handleBridgeSuccess}
+              onChangeSymbol={onChangeSymbol}
               onFailBridge={handleCloseBridgeModal}
               onStartApproval={handleStartApproval}
               onStartBridge={handleStartBridge}

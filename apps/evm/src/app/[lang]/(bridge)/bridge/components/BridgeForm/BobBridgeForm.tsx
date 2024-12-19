@@ -10,7 +10,7 @@ import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 import { useAccount, usePublicClient } from 'wagmi';
@@ -30,6 +30,7 @@ import {
   useIsContract,
   usePublicClientL1,
   usePublicClientL2,
+  useSubscribeBalances,
   useWalletClientL1,
   useWalletClientL2
 } from '@/hooks';
@@ -53,14 +54,14 @@ import {
   TransactionType
 } from '@/types';
 import { calculateAmountUSD } from '@/utils';
-import { useSubscribeBalances } from '@/hooks';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
 
 type BobBridgeFormProps = {
   direction: TransactionDirection;
-  ticker?: string;
+  symbol?: string;
+  onChangeSymbol: (symbol: string) => void;
   onStartBridge?: (data: InitBridgeTransaction) => void;
   onBridgeSuccess?: (data: BridgeTransaction) => void;
   onStartApproval?: (data: InitBridgeTransaction) => void;
@@ -70,11 +71,12 @@ type BobBridgeFormProps = {
 // TODO: erc20 gas estimate (currently is failing)
 const BobBridgeForm = ({
   direction = TransactionDirection.L1_TO_L2,
-  ticker: tickerProp,
+  symbol: symbolProp,
   onBridgeSuccess,
   onStartBridge,
   onFailBridge,
-  onStartApproval
+  onStartApproval,
+  onChangeSymbol
 }: BobBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
   const bridgeChainId = direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN;
@@ -97,13 +99,9 @@ const BobBridgeForm = ({
 
   const { isContract: isSmartAccount } = useIsContract({ address, chainId: bridgeChainId });
 
-  const nativeToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
+  const initialToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
 
-  const initialSymbol = tickerProp || nativeToken.symbol;
-
-  const [symbol, setSymbol] = useState(initialSymbol);
-
-  const [prevDirection, setPrevDirection] = useState<TransactionDirection>();
+  const symbol = symbolProp || initialToken.symbol;
 
   const [amount, setAmount] = useDebounceValue('', 300);
 
@@ -414,18 +412,18 @@ const BobBridgeForm = ({
   const handleReset = () => {
     form.resetForm();
 
-    setSymbol(initialSymbol);
+    onChangeSymbol?.(initialValues[BRIDGE_ASSET]);
     setAmount('');
   };
 
-  if (prevDirection !== direction) {
+  useEffect(() => {
     handleReset();
 
-    setPrevDirection(direction);
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [direction]);
 
   const handleChangeSymbol = (currency: Currency) => {
-    setSymbol(currency.symbol as string);
+    onChangeSymbol?.(currency.symbol as string);
   };
 
   const valueUSD = currencyAmount ? calculateAmountUSD(currencyAmount, getPrice(symbol)) : 0;
