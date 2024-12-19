@@ -30,7 +30,7 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
             }
           }
 
-          return signUp(address);
+          return signUp({ address });
         }
       });
     }
@@ -39,7 +39,7 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
       await switchChainAsync({ chainId: L2_CHAIN });
     }
 
-    return signUp(address);
+    return signUp({ address });
   };
 
   return <Button loading={isSigningUp} {...mergeProps(props, { onPress: handlePress })} />;
