@@ -34,7 +34,7 @@ const getStatus = (data: GatewayTransaction, step: GatewaySteps) => {
           return 'failed';
       }
     case 'l2-incomplete':
-      return data.status === 'l2-incomplete' ? 'failed' : 'idle';
+      return data.status === 'l2-incomplete' ? 'complete' : 'idle';
     case 'l2-confirmation':
       return data.status === 'l2-confirmation' ? 'complete' : 'idle';
   }
