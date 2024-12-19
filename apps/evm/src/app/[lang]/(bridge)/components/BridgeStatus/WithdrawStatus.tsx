@@ -33,6 +33,22 @@ const WithdrawStatus = ({ data, isExpanded, onProveSuccess, onRelaySuccess }: Wi
 
   const { address } = useAccount();
 
+  const handleError = (e: Error) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (((e as unknown as any).shortMessage as string).includes('User rejected the request')) {
+      toast.error(<Trans>User rejected the request.</Trans>);
+    } else {
+      Sentry.captureException(e);
+
+      toast.error(
+        <Trans>
+          Submission failed. Please disable any wallets other than the one connected to this dApp. If the issue
+          persists, please contact us.
+        </Trans>
+      );
+    }
+  };
+
   const proveMutation = useMutation({
     mutationKey: bridgeKeys.proveTransaction(address, data.transactionHash),
     mutationFn: async () => {
@@ -62,12 +78,7 @@ const WithdrawStatus = ({ data, isExpanded, onProveSuccess, onRelaySuccess }: Wi
       toast.success(<Trans>Successfully submitted ${data?.hash} proof</Trans>);
       onProveSuccess?.();
     },
-    onError: (e) => {
-      Sentry.captureException(e);
-      // eslint-disable-next-line no-console
-      console.log('Prove: ', e);
-      toast.error(<Trans>Failed to submit proof.</Trans>);
-    }
+    onError: handleError
   });
 
   const relayMutation = useMutation({
@@ -100,12 +111,7 @@ const WithdrawStatus = ({ data, isExpanded, onProveSuccess, onRelaySuccess }: Wi
       toast.success(<Trans>Successfully finalized transaction</Trans>);
       onRelaySuccess?.();
     },
-    onError: (e) => {
-      Sentry.captureException(e);
-      // eslint-disable-next-line no-console
-      console.log('Finalize: ', e);
-      toast.error(<Trans>Failed to finalize.</Trans>);
-    }
+    onError: handleError
   });
 
   const currentStep = useMemo(

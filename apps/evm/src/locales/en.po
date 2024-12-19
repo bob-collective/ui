@@ -657,8 +657,8 @@ msgid "Failed to connect to {0}"
 msgstr "Failed to connect to {0}"
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:107
-msgid "Failed to finalize."
-msgstr "Failed to finalize."
+#~ msgid "Failed to finalize."
+#~ msgstr "Failed to finalize."
 
 #: src/app/[lang]/(bridge)/hooks/useGateway.ts:241
 msgid "Failed to get estimated fee"
@@ -669,8 +669,8 @@ msgstr "Failed to get estimated fee"
 #~ msgstr "Failed to send {amount} {0}"
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:69
-msgid "Failed to submit proof."
-msgstr "Failed to submit proof."
+#~ msgid "Failed to submit proof."
+#~ msgstr "Failed to submit proof."
 
 #: src/components/WithdrawModal/WithdrawForm.tsx:87
 #: src/components/WithdrawModal/WithdrawForm.tsx:113
@@ -1592,7 +1592,11 @@ msgstr "Steps"
 msgid "Strategy"
 msgstr "Strategy"
 
-#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:100
+#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:44
+msgid "Submission failed. Please disable any wallets other than the one connected to this dApp. If the issue persists, please contact us."
+msgstr "Submission failed. Please disable any wallets other than the one connected to this dApp. If the issue persists, please contact us."
+
+#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:111
 msgid "Successfully finalized transaction"
 msgstr "Successfully finalized transaction"
 
@@ -1600,7 +1604,7 @@ msgstr "Successfully finalized transaction"
 #~ msgid "Successfully sent {amount} {0}"
 #~ msgstr "Successfully sent {amount} {0}"
 
-#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:62
+#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:78
 msgid "Successfully submitted ${0} proof"
 msgstr "Successfully submitted ${0} proof"
 
@@ -1946,6 +1950,10 @@ msgstr "Use your Spice total to support your favourite BOB builders. Winners wil
 #: src/hooks/useSignUp.ts:51
 msgid "User rejected the request"
 msgstr "User rejected the request"
+
+#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:39
+msgid "User rejected the request."
+msgstr "User rejected the request."
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:163
 #~ msgid "user_babylon_points ="

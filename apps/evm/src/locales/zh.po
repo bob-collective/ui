@@ -657,8 +657,8 @@ msgid "Failed to connect to {0}"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:107
-msgid "Failed to finalize."
-msgstr ""
+#~ msgid "Failed to finalize."
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/hooks/useGateway.ts:241
 msgid "Failed to get estimated fee"
@@ -669,8 +669,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:69
-msgid "Failed to submit proof."
-msgstr ""
+#~ msgid "Failed to submit proof."
+#~ msgstr ""
 
 #: src/components/WithdrawModal/WithdrawForm.tsx:87
 #: src/components/WithdrawModal/WithdrawForm.tsx:113
@@ -1588,7 +1588,11 @@ msgstr ""
 msgid "Strategy"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:100
+#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:44
+msgid "Submission failed. Please disable any wallets other than the one connected to this dApp. If the issue persists, please contact us."
+msgstr ""
+
+#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:111
 msgid "Successfully finalized transaction"
 msgstr ""
 
@@ -1596,7 +1600,7 @@ msgstr ""
 #~ msgid "Successfully sent {amount} {0}"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:62
+#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:78
 msgid "Successfully submitted ${0} proof"
 msgstr ""
 
@@ -1932,6 +1936,10 @@ msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将�
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:51
 msgid "User rejected the request"
+msgstr ""
+
+#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:39
+msgid "User rejected the request."
 msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:163
