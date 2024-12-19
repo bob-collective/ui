@@ -11,6 +11,7 @@ type Props = {
   hideIcon?: boolean;
   gap?: FlexProps['gap'];
   showAnimation?: boolean;
+  shouldRoundDown?: boolean;
 };
 
 type InheritAttrs = Omit<SpanProps, keyof Props>;
@@ -24,6 +25,7 @@ const AnimantedAmount = ({
   hideIcon,
   gap = 'xs',
   showAnimation,
+  shouldRoundDown,
   ...props
 }: AnimantedAmountProps) => {
   const [start, setStart] = useState(0);
@@ -31,8 +33,13 @@ const AnimantedAmount = ({
 
   const formatter = useCallback(
     (value: number) =>
-      Intl.NumberFormat(locale, { notation: compact ? 'compact' : undefined, maximumFractionDigits: 0 }).format(value),
-    [compact, locale]
+      Intl.NumberFormat(locale, {
+        notation: compact ? 'compact' : undefined,
+        roundingMode: shouldRoundDown ? 'floor' : undefined,
+        maximumFractionDigits: 0
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any).format(value),
+    [compact, shouldRoundDown, locale]
   );
 
   const { value, reset } = useCountUp({
