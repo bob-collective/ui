@@ -8,8 +8,10 @@ import {
   Dt,
   Flex,
   InformationCircle,
+  Item,
   List,
   ListItem,
+  Select,
   Span,
   Table,
   Tabs,
@@ -99,7 +101,8 @@ const AllCategory = 'all';
 
 const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   const [category, setCategory] = useState(AllCategory);
   const [strategy, setStrategy] = useState<StrategyData>();
@@ -189,7 +192,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   );
 
   return (
-    <Flex direction='column'>
+    <Flex direction='column' gap='md'>
       {/* <Flex alignItems='center' gap='md' justifyContent='space-between'>
         <H1 size='2xl'>
           <Trans>Stake Bitcoin</Trans>
@@ -214,23 +217,55 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
           }
         </Select>
       </Flex> */}
-      <Card alignSelf='self-start' padding='xs'>
-        <Tabs size='s' variant='solid'>
-          <TabsItem key='all' title={<Trans>All Categories</Trans>}>
-            <></>
-          </TabsItem>
-          <TabsItem key='deposits' title={<Trans>My Deposits</Trans>}>
-            <></>
-          </TabsItem>
-          <TabsItem key='lending' title={<Trans>Lending</Trans>}>
-            <></>
-          </TabsItem>
-          <TabsItem key='staking' title={<Trans>Staking</Trans>}>
-            <></>
-          </TabsItem>
-        </Tabs>
-      </Card>
-      {isMobile ? (
+      <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'flex-start', s: 'space-between' }}>
+        <Card alignSelf='self-start' padding='xs'>
+          {isMobile ? (
+            <Select
+              modalProps={{ title: <Trans>Select filter</Trans> }}
+              type='modal'
+              value={category}
+              onSelectionChange={(key) => setCategory(key.toString())}
+            >
+              <Item key={AllCategory} textValue={category}>
+                <Trans>All Strategies</Trans>
+              </Item>
+              <Item key={AllCategory} textValue={category}>
+                <Trans>Your Strategies</Trans>
+              </Item>
+            </Select>
+          ) : (
+            <Tabs size='s' variant='solid'>
+              <TabsItem key='all' title={<Trans>All Strategies</Trans>}>
+                <></>
+              </TabsItem>
+              <TabsItem key='deposits' title={<Trans>Your Strategies</Trans>}>
+                <></>
+              </TabsItem>
+            </Tabs>
+          )}
+        </Card>
+        <Card alignSelf='self-start' padding='xs'>
+          <Select
+            modalProps={{ title: <Trans>Select Category</Trans> }}
+            type='modal'
+            value={category}
+            onSelectionChange={(key) => setCategory(key.toString())}
+          >
+            <Item key={AllCategory} textValue={category}>
+              <Trans>All Categories</Trans>
+            </Item>
+            {
+              [...Array.from(categories)].map((category) => (
+                <Item key={category} textValue={category}>
+                  {getCategoryLabel(category)}
+                </Item>
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              )) as unknown as any
+            }
+          </Select>
+        </Card>
+      </Flex>
+      {isTablet ? (
         <List>
           {rows.map((row) => (
             <ListItem key={row.id} padding='none'>
