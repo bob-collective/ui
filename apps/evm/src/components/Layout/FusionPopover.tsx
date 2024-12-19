@@ -15,7 +15,7 @@ import {
 import { Trans } from '@lingui/macro';
 import { useFocusRing } from '@react-aria/focus';
 
-import { BabyPoints } from '../BabyPoints/BabyPoints';
+import { BabyPoints } from '../BabyPoints';
 import { SpiceAmount } from '../SpiceAmount';
 import { WithdrawAlert } from '../WithdrawAlert';
 import { WithdrawModal } from '../WithdrawModal';
