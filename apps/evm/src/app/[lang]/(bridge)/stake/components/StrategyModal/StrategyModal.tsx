@@ -16,7 +16,6 @@ import {
 } from '@gobob/ui';
 import { truncateUrl } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
-import { ValueOf } from 'viem';
 
 import { StrategyData } from '../../hooks';
 import { StakingForm } from '../StakeForm';
@@ -30,7 +29,7 @@ import { chainL2 } from '@/constants';
 interface Props {
   onStakeSuccess: () => void;
   strategy: StrategyData;
-  stakingInfo: ValueOf<StakingInfo>;
+  stakingInfo: StakingInfo;
   onCloseModal: () => void;
 }
 
@@ -60,7 +59,7 @@ const StrategyModal = ({ strategy, stakingInfo, onStakeSuccess, onCloseModal }: 
         </ModalHeader>
         <ModalBody>
           <StyledFlex direction={{ base: 'column', md: 'row' }} gap='xl'>
-            <StakingForm strategy={strategy} onStakeSuccess={onStakeSuccess} />
+            <StakingForm stakingInfo={stakingInfo} strategy={strategy} onStakeSuccess={onStakeSuccess} />
             <StyledFlex direction='column' flex={1} gap='xl'>
               <Dl direction='column' gap='lg'>
                 <DlGroup alignItems='center' justifyContent='space-between'>

@@ -1,6 +1,5 @@
 import { Alert, Flex, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { ValueOf } from 'viem';
 
 enum Incentive {
   spice,
@@ -12,9 +11,20 @@ enum Incentive {
   supply
 }
 
-type StakingInfo = Record<string, ValueOf<typeof stakingInfo> | undefined>;
+type StakingInfo = {
+  strategy: string;
+  protocol: string;
+  incentives: Incentive[];
+  tvl: string;
+  about: JSX.Element;
+  inputToken: string;
+  outputToken: string;
+  securityReview: string;
+  website: string;
+  isDisabled?: boolean;
+};
 
-const stakingInfo = {
+const stakingInfo: Record<string, StakingInfo> = {
   'bedrock-unibtc': {
     strategy: 'Liquid Staking Bedrock-Babylon',
     protocol: 'Bedrock',
@@ -48,7 +58,8 @@ const stakingInfo = {
     inputToken: 'BTC',
     outputToken: 'SolvBTC.BBN',
     securityReview: 'https://www.bitcoinlayers.org/infrastructure/solvlst',
-    website: 'https://app.solv.finance/babylon?network=bob'
+    website: 'https://app.solv.finance/babylon?network=bob',
+    isDisabled: true
   },
   'pell-solvbtcbbn': {
     strategy: 'Restaking Pell-SolvBTC-Babylon',
@@ -65,7 +76,8 @@ const stakingInfo = {
     inputToken: 'BTC',
     outputToken: 'SolvBTC.BBN',
     securityReview: '',
-    website: 'https://app.pell.network/restake'
+    website: 'https://app.pell.network/restake',
+    isDisabled: true
   },
   'pell-unibtc': {
     strategy: 'Restaking Pell-uniBTC-Babylon',
@@ -129,7 +141,8 @@ const stakingInfo = {
     inputToken: 'BTC',
     outputToken: 'seSOLVBTCBBN',
     securityReview: '',
-    website: 'https://app.segment.finance'
+    website: 'https://app.segment.finance',
+    isDisabled: true
   },
   'segment-seunibtc': {
     strategy: 'Staked Lending Segment-uniBTC-Babylon',
@@ -146,7 +159,7 @@ const stakingInfo = {
     securityReview: '',
     website: 'https://app.segment.finance'
   }
-};
+} as const;
 
 export { stakingInfo, Incentive };
 export type { StakingInfo };
