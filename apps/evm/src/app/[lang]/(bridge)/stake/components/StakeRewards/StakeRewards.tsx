@@ -88,7 +88,7 @@ type InheritAttrs = Omit<FlexProps, keyof Props>;
 type StakeRewardsProps = Props & InheritAttrs;
 
 const StakeRewards = ({ slug, ...props }: StakeRewardsProps) => (
-  <Flex gap='xs' {...props}>
+  <Flex wrap gap='xs' {...props}>
     <SpiceRewards />
     {stakingInfoAny[slug]?.incentives.map((incentive, key) => {
       const Comp = incentivesMap[incentive];
