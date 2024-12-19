@@ -154,6 +154,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
         ?.filter((item) =>
           yieldAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
         )
+        .reverse()
         .map(getRow)
     : Array(2)
         .fill(undefined)
