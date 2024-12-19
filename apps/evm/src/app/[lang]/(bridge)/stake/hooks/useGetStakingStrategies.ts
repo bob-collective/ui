@@ -3,8 +3,9 @@ import { ChainId } from '@gobob/chains';
 import { ERC20Token, Token } from '@gobob/currency';
 import { useCallback, useMemo } from 'react';
 
-import { useGetStrategies } from '@/hooks';
 import { useStrategiesContractData } from './useStrategiesContractData';
+
+import { useGetStrategies } from '@/hooks';
 
 type StrategyData = {
   tvl?: number | null;
@@ -30,11 +31,17 @@ const useGetStakingStrategies = () => {
     []
   );
 
-  const { data: strategies, isSuccess: isStrategiesSucess } = useGetStrategies({
+  const {
+    data: strategies,
+    isSuccess: isStrategiesSucess,
+    isPending: isStrategiesPending
+  } = useGetStrategies({
     select: selectStrategyData
   });
 
-  const { data: strategiesContractData } = useStrategiesContractData(strategies, { enabled: isStrategiesSucess });
+  const { data: strategiesContractData, isPending: isStatsPending } = useStrategiesContractData(strategies, {
+    enabled: isStrategiesSucess
+  });
 
   const strategiesData = useMemo(
     () =>
@@ -48,10 +55,10 @@ const useGetStakingStrategies = () => {
           userStaked
         };
       }),
-    [strategiesContractData]
+    [strategies, strategiesContractData]
   );
 
-  return { data: strategiesData };
+  return { data: strategiesData, isPending: isStrategiesPending || isStatsPending };
 };
 
 export { useGetStakingStrategies };

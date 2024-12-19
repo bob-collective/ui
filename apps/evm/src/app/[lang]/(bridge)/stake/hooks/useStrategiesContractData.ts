@@ -87,7 +87,7 @@ const useStrategiesContractData = (
     [strategies]
   );
 
-  const { data: seTokensContractData } = useReadContracts({
+  const { data: seTokensContractData, isPending: isSeTokensContractPending } = useReadContracts({
     query: {
       enabled,
       select: seTokenContractDataSelector,
@@ -148,7 +148,7 @@ const useStrategiesContractData = (
     [strategies]
   );
 
-  const { data: seTokensUnderlyingContractData } = useReadContracts({
+  const { data: seTokensUnderlyingContractData, isPending: isSeTokensUnderlyingContractPending } = useReadContracts({
     query: {
       enabled,
       select: seTokenUnderlyingContractDataSelector,
@@ -193,7 +193,7 @@ const useStrategiesContractData = (
     [strategies]
   );
 
-  const { data: tokensContractData } = useReadContracts({
+  const { data: tokensContractData, isPending: isTokensContractDataPending } = useReadContracts({
     query: {
       enabled,
       select: tokensContractDataSelector,
@@ -249,7 +249,7 @@ const useStrategiesContractData = (
     [strategies]
   );
 
-  const { data: noOuputTokenContractData } = useReadContracts({
+  const { data: noOuputTokenContractData, isPending: isNoOuputTokenContractDataPending } = useReadContracts({
     query: {
       enabled,
       select: noOuputTokenContractDataSelector,
@@ -299,7 +299,10 @@ const useStrategiesContractData = (
     [strategies]
   );
 
-  const { data: noOuputTokenContractSharesToUnderlyingData } = useReadContracts({
+  const {
+    data: noOuputTokenContractSharesToUnderlyingData,
+    isPending: isNoOuputTokenContractSharesToUnderlyingDataPending
+  } = useReadContracts({
     query: {
       enabled,
       select: noOuputTokenContractSharesToUnderlyingDataSelector,
@@ -400,7 +403,15 @@ const useStrategiesContractData = (
     ]
   );
 
-  return { data: strategiesData };
+  return {
+    data: strategiesData,
+    isPending:
+      isSeTokensContractPending ||
+      isNoOuputTokenContractDataPending ||
+      isTokensContractDataPending ||
+      isNoOuputTokenContractSharesToUnderlyingDataPending ||
+      isSeTokensUnderlyingContractPending
+  };
 };
 
 export { useStrategiesContractData };

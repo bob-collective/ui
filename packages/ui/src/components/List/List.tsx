@@ -61,7 +61,7 @@ const List = forwardRef<HTMLDivElement, ListProps>(
     return (
       <StyledList {...mergeProps(gridProps, props)} ref={listRef} $maxHeight={maxHeight} direction={direction}>
         {[...state.collection].map((item) => (
-          <ListItem key={item.key} item={item} state={state} />
+          <ListItem key={item.key} item={item} state={state} {...item.props} />
         ))}
       </StyledList>
     );
