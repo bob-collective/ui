@@ -1,13 +1,50 @@
-import { PellNetwork } from '@gobob/icons';
-import { Avatar, Button, Flex, Span, Table, useCurrencyFormatter } from '@gobob/ui';
+import {
+  Avatar,
+  Card,
+  ChevronRight,
+  Dd,
+  Dl,
+  DlGroup,
+  Dt,
+  Flex,
+  InformationCircle,
+  Item,
+  List,
+  ListItem,
+  Select,
+  Span,
+  Table,
+  Tabs,
+  TabsItem,
+  Tooltip,
+  useLocale,
+  useMediaQuery
+} from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { useTheme } from 'styled-components';
 
 import { stakingInfo, StakingInfo } from '../../../utils/stakeData';
 import { StrategyData, useGetStakingStrategies } from '../../hooks';
 import { StakeRewards } from '../StakeRewards';
 import { StrategyModal } from '../StrategyModal';
+
+import { RoutesPath } from '@/constants';
+
+const getCategoryLabel = (type: 'bridge' | 'dex' | 'staking' | 'lending') => {
+  switch (type) {
+    case 'bridge':
+      return <Trans>Bridge</Trans>;
+    case 'staking':
+      return <Trans>Staking</Trans>;
+    case 'dex':
+      return 'DEX';
+    case 'lending':
+      return <Trans>Lending</Trans>;
+  }
+};
 
 const StrategyCell = ({ name, protocol }: { protocol: string; name: string }) => (
   <Flex alignItems='flex-start' direction='column'>
@@ -38,7 +75,18 @@ type StakeTableRow = {
 const columns = [
   { name: <Trans>Strategy</Trans>, id: StakeTableColumns.STRATEGY, minWidth: 240 },
   { name: <Trans>Rewards</Trans>, id: StakeTableColumns.REWARDS },
-  { name: <Trans>TVL (on BOB)</Trans>, id: StakeTableColumns.TVL, minWidth: 96 },
+  {
+    name: (
+      <Flex alignItems='center' gap='s'>
+        <Trans>TVL</Trans>
+        <Tooltip color='primary' label={<Trans>TVL on BOB</Trans>}>
+          <InformationCircle color='grey-50' size='xs' />
+        </Tooltip>
+      </Flex>
+    ),
+    id: StakeTableColumns.TVL,
+    minWidth: 96
+  },
   { name: '', id: StakeTableColumns.ACTIONS }
 ];
 
@@ -49,16 +97,33 @@ interface Props {
   onStakeSuccess: () => void;
 }
 
+const AllCategory = 'all';
+
 const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+
+  const [category, setCategory] = useState(AllCategory);
   const [strategy, setStrategy] = useState<StrategyData>();
 
+  const router = useRouter();
+
+  const { locale } = useLocale();
+
   const { i18n } = useLingui();
-  const format = useCurrencyFormatter();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const { data: strategies = [] } = useGetStakingStrategies();
 
-  const sortedStrategies = useMemo(() => [...strategies].sort((a, b) => (b?.tvl || 0) - (a?.tvl || 0)), [strategies]);
+  const categories = new Set(strategies.map((strategy) => strategy.raw.integration.type));
+
+  const filteredStrategies =
+    category === AllCategory
+      ? [...strategies]
+      : [...strategies].filter((strategy) => strategy.raw.integration.type === category);
+
+  const sortedStrategies = filteredStrategies.sort((a, b) => (b?.tvl || 0) - (a?.tvl || 0));
 
   useEffect(() => {
     if (!strategies || !urlSearchParams) return;
@@ -71,43 +136,55 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
 
   const rows: StakeTableRow[] = useMemo(
     () =>
-      sortedStrategies.map((strategy, idx) => {
+      sortedStrategies.map((strategy) => {
         return {
-          id: `${strategy.raw.id}${idx}`,
+          id: strategy.raw.integration.slug,
           [StakeTableColumns.STRATEGY]: (
             <Flex alignItems='center' gap='lg'>
-              {strategy.raw.integration.logo ? (
-                <Avatar size={'2xl'} src={strategy.raw.integration.logo} />
-              ) : (
-                <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
-              )}
+              <Avatar
+                size='5xl'
+                src={
+                  strategy.raw.integration.logo ||
+                  'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true'
+                }
+              />
               <StrategyCell
                 name={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.strategy as string}
                 protocol={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.protocol as string}
               />
             </Flex>
           ),
-          [StakeTableColumns.REWARDS]: (
-            <StakeRewards direction={{ base: 'column', md: 'row' }} slug={strategy?.raw.integration.slug ?? ''} />
-          ),
-          [StakeTableColumns.TVL]: strategy?.tvl ? format(strategy.tvl) : '-',
-          [StakeTableColumns.ACTIONS]: (
-            <Flex direction='row' gap='md'>
-              <Button color='primary' onPress={() => setStrategy(strategy)}>
-                <Trans>Stake</Trans>
-              </Button>
-              {Number(strategy?.userStaked) > 0 && (
-                <Button
-                  variant='outline'
-                  onPress={() =>
-                    window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
-                  }
-                >
-                  <Trans>Manage</Trans>
-                </Button>
-              )}
-            </Flex>
-          )
+          // [StakeTableColumns.ACTIONS]: (
+          //   <Flex direction='row' gap='md'>
+          //     <Button
+          //       color='primary'
+          //       elementType={Link}
+          //       {...{ href: `${RoutesPath.STAKE}/${strategy.raw.integration.slug}` }}
+          //     >
+          //       <Trans>Stake</Trans>
+          //     </Button>
+          //     {Number(strategy?.userStaked) > 0 && (
+          //       <Button
+          //         variant='outline'
+          //         onPress={() =>
+          //           window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
+          //         }
+          //       >
+          //         <Trans>Manage</Trans>
+          //       </Button>
+          //     )}
+          //   </Flex>
+          // )
+          [StakeTableColumns.REWARDS]: <StakeRewards direction='row' slug={strategy?.raw.integration.slug ?? ''} />,
+          [StakeTableColumns.TVL]: strategy?.tvl
+            ? Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0,
+                notation: 'compact'
+              }).format(strategy.tvl)
+            : '-',
+          [StakeTableColumns.ACTIONS]: <ChevronRight color='grey-50' size='s' />
         };
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,8 +192,107 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   );
 
   return (
-    <>
-      <Table aria-label={t(i18n)`Staking table`} columns={columns} rows={rows} />
+    <Flex direction='column' gap='md'>
+      {/* <Flex alignItems='center' gap='md' justifyContent='space-between'>
+        <H1 size='2xl'>
+          <Trans>Stake Bitcoin</Trans>
+        </H1>
+        <Select
+          modalProps={{ title: <Trans>Select Category</Trans> }}
+          style={{ width: '100%', maxWidth: '14rem' }}
+          type='modal'
+          value={category}
+          onSelectionChange={(key) => setCategory(key.toString())}
+        >
+          <Item key={AllCategory} textValue={category}>
+            <Trans>All Categories</Trans>
+          </Item>
+          {
+            [...Array.from(categories)].map((category) => (
+              <Item key={category} textValue={category}>
+                {getCategoryLabel(category)}
+              </Item>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            )) as unknown as any
+          }
+        </Select>
+      </Flex> */}
+      <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'flex-start', s: 'space-between' }}>
+        <Card alignSelf='self-start' padding='xs'>
+          {isMobile ? (
+            <Select
+              modalProps={{ title: <Trans>Select filter</Trans> }}
+              type='modal'
+              value={category}
+              onSelectionChange={(key) => setCategory(key.toString())}
+            >
+              <Item key={AllCategory} textValue={category}>
+                <Trans>All Strategies</Trans>
+              </Item>
+              <Item key={AllCategory} textValue={category}>
+                <Trans>Your Strategies</Trans>
+              </Item>
+            </Select>
+          ) : (
+            <Tabs size='s' variant='solid'>
+              <TabsItem key='all' title={<Trans>All Strategies</Trans>}>
+                <></>
+              </TabsItem>
+              <TabsItem key='deposits' title={<Trans>Your Strategies</Trans>}>
+                <></>
+              </TabsItem>
+            </Tabs>
+          )}
+        </Card>
+        <Card alignSelf='self-start' padding='xs'>
+          <Select
+            modalProps={{ title: <Trans>Select Category</Trans> }}
+            type='modal'
+            value={category}
+            onSelectionChange={(key) => setCategory(key.toString())}
+          >
+            <Item key={AllCategory} textValue={category}>
+              <Trans>All Categories</Trans>
+            </Item>
+            {
+              [...Array.from(categories)].map((category) => (
+                <Item key={category} textValue={category}>
+                  {getCategoryLabel(category)}
+                </Item>
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              )) as unknown as any
+            }
+          </Select>
+        </Card>
+      </Flex>
+      {isTablet ? (
+        <List>
+          {rows.map((row) => (
+            <ListItem key={row.id} padding='none'>
+              <Card direction='column' flex={1} gap='2xl' padding='2xl'>
+                {row[StakeTableColumns.STRATEGY]}
+                <Dl direction='column' flex={1} gap='s' justifyContent='space-between'>
+                  <DlGroup justifyContent='space-between'>
+                    <Dt size='s'>{columns.find((column) => column.id === StakeTableColumns.TVL)?.name}</Dt>
+                    <Dd>{row[StakeTableColumns.TVL]}</Dd>
+                  </DlGroup>
+                  <DlGroup justifyContent='space-between'>
+                    <Dt size='s'>{columns.find((column) => column.id === StakeTableColumns.REWARDS)?.name}</Dt>
+                    <Dd>{row[StakeTableColumns.REWARDS]}</Dd>
+                  </DlGroup>
+                </Dl>
+              </Card>
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <Table
+          aria-label={t(i18n)`Staking table`}
+          columns={columns}
+          rows={rows}
+          onRowAction={(id) => router.push(`${RoutesPath.STAKE}/${id}`)}
+        />
+      )}
       {strategy && (
         <StrategyModal
           stakingInfo={stakingInfoAny[strategy?.raw.integration.slug]}
@@ -125,7 +301,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
           onStakeSuccess={onStakeSuccess}
         />
       )}
-    </>
+    </Flex>
   );
 };
 
