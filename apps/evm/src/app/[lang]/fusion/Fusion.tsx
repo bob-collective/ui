@@ -111,9 +111,7 @@ const Fusion = () => {
   }, [questsSectionId, scrollQuests, setScrollQuests]);
 
   const isAuthenticated = Boolean(user && address);
-  const hasPastHarvest =
-    user?.leaderboardRank &&
-    (user.leaderboardRank.total_points > 0 || user.season3Data.s3LeaderboardData[0]!.total_points > 0);
+  const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
   const shouldDisplayOPSuperuserModal = isOPSuperusersEnabled && showOPSuperuserModal && user?.notices.showIsOpUser;
   const shouldDisplayTopUserModal = isTop100SpiceUsersEnabled && showTopUserModal && user?.notices.showIsFusionTopUser;
   const isOpSuperuser = isOPSuperusersEnabled && user?.notices.isOpUser;
