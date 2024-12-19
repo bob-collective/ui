@@ -14,7 +14,7 @@ const getLabel = (status: GatewaySteps, confirmations: number, totalConfirmation
     case 'l2-confirmation':
       return 'L2 confirmation';
     case 'l2-incomplete':
-      return 'L2 incomplete';
+      return 'L2 partial success';
   }
 };
 

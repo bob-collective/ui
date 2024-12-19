@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 
-import { stakingInfo, StakingInfo } from '../../../utils/stakeData';
+import { stakingInfo } from '../../../utils/stakeData';
 import { StrategyData, useGetStakingStrategies } from '../../hooks';
 import { StakeRewards } from '../StakeRewards';
 import { StrategyModal } from '../StrategyModal';
@@ -41,8 +41,6 @@ const columns = [
   { name: <Trans>TVL (on BOB)</Trans>, id: StakeTableColumns.TVL, minWidth: 96 },
   { name: '', id: StakeTableColumns.ACTIONS }
 ];
-
-const stakingInfoAny = stakingInfo as StakingInfo;
 
 interface Props {
   searchParams?: { receive: string };
@@ -82,8 +80,8 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
                 <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
               )}
               <StrategyCell
-                name={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.strategy as string}
-                protocol={stakingInfoAny[strategy?.raw.integration.slug ?? '']?.protocol as string}
+                name={stakingInfo[strategy?.raw.integration.slug ?? '']?.strategy as string}
+                protocol={stakingInfo[strategy?.raw.integration.slug ?? '']?.protocol as string}
               />
             </Flex>
           ),
@@ -100,7 +98,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
                 <Button
                   variant='outline'
                   onPress={() =>
-                    window.open(stakingInfoAny[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
+                    window.open(stakingInfo[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
                   }
                 >
                   <Trans>Manage</Trans>
@@ -119,7 +117,8 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
       <Table aria-label={t(i18n)`Staking table`} columns={columns} rows={rows} />
       {strategy && (
         <StrategyModal
-          stakingInfo={stakingInfoAny[strategy?.raw.integration.slug]}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          stakingInfo={stakingInfo[strategy?.raw.integration.slug] as any}
           strategy={strategy}
           onCloseModal={() => setStrategy(undefined)}
           onStakeSuccess={onStakeSuccess}

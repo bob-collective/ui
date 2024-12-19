@@ -123,6 +123,7 @@ type BridgeParams = {
 
 type UseGatewayLiquidityProps = {
   params: BridgeParams | StakeParams;
+  isDisabled?: boolean;
   onMutate?: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
   onSuccess?: (data: InitGatewayTransaction) => void;
   onError?: () => void;
@@ -157,7 +158,13 @@ type UseGatewayReturnType = {
   isTapRootAddress: boolean;
 };
 
-const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidityProps): UseGatewayReturnType => {
+const useGateway = ({
+  params,
+  isDisabled: isDisabledProp,
+  onError,
+  onMutate,
+  onSuccess
+}: UseGatewayLiquidityProps): UseGatewayReturnType => {
   const { i18n } = useLingui();
   const queryClient = useQueryClient();
 
@@ -309,6 +316,10 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const mutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
     mutationFn: async ({ evmAddress }: { evmAddress: Address | string }): Promise<InitGatewayTransaction> => {
+      if (isDisabledProp) {
+        throw new Error('Operation disabled');
+      }
+
       if (!satsConnector) {
         throw new Error('Connector missing');
       }
