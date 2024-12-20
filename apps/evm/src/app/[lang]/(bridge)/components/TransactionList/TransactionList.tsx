@@ -40,6 +40,7 @@ const TransactionList = ({
   txPendingUserAction,
   ...props
 }: TransactionListProps): JSX.Element => {
+  const isClient = useIsClient();
   // The scrollable element for your list
   const parentRef = useRef(null);
 
@@ -50,11 +51,19 @@ const TransactionList = ({
     estimateSize: () => 102,
     paddingStart: 16,
     paddingEnd: 16,
-    gap: 16
+    gap: 16,
+    // https://github.com/TanStack/table/blob/main/examples/react/virtualized-rows/src/main.tsx#L88
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    measureElement: (element) => {
+      return isClient && navigator.userAgent.indexOf('Firefox') === -1
+        ? element?.getBoundingClientRect().height
+        : undefined;
+    },
+    overscan: 5
   });
 
   const { address, chain } = useAccount();
-  const isClient = useIsClient();
 
   const title = (
     <Flex alignItems='center' elementType='span' gap='s'>
@@ -103,8 +112,9 @@ const TransactionList = ({
                     {rowVirtualizer.getVirtualItems().map((virtualItem) => (
                       <StyledVirtualizerItem
                         key={virtualItem.key}
-                        $height={virtualItem.size}
+                        ref={(node) => rowVirtualizer.measureElement(node)} //measure dynamic row height
                         $translateY={virtualItem.start}
+                        data-index={virtualItem.index} //needed for dynamic row height measurement
                       >
                         <TransactionItem
                           data={data[virtualItem.index]!}

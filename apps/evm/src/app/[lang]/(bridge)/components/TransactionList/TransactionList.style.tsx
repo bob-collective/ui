@@ -10,7 +10,6 @@ type StyledVirtualizerProps = {
 };
 
 type StyledVirtualizerItemProps = {
-  $height: number;
   $translateY: number;
 };
 
@@ -60,10 +59,7 @@ const StyledVirtualizer = styled.div<StyledVirtualizerProps>`
 
 const StyledVirtualizerItem = styled.div<StyledVirtualizerItemProps>`
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: ${({ $height }) => `${$height}px`};
   transform: ${({ $translateY }) => `translateY(${$translateY}px)`};
 `;
 
