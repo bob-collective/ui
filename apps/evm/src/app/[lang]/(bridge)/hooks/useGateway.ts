@@ -108,7 +108,7 @@ type UseGatewayQueryDataReturnType = {
   liquidity: UseQueryResult<UseLiquidityDataReturnType | undefined>;
   quote: UseQueryResult<UseQuoteDataReturnType | undefined>;
   minAmount: CurrencyAmount<Bitcoin>;
-  balance: CurrencyAmount<Bitcoin>;
+  balance: { data: CurrencyAmount<Bitcoin>; isPending: boolean };
 };
 
 type StakeParams = {
@@ -171,7 +171,7 @@ const useGateway = ({
   const { address: evmAddress } = useAccount();
 
   const { address: btcAddress, connector: satsConnector, addressType: btcAddressType } = useSatsAccount();
-  const { data: satsBalance } = useSatsBalance();
+  const { data: satsBalance, isPending: isSatsBalancePending } = useSatsBalance();
 
   const [isTopUpEnabled, setTopUpEnabled] = useState(true);
   const [selectedFee, setSelectedFee] = useState<GatewayTransactionFee>({ speed: GatewayTransactionSpeed.SLOW });
@@ -227,11 +227,13 @@ const useGateway = ({
   const feeRate =
     selectedFee.speed === 'custom' ? selectedFee.networkRate : feeRatesQueryResult.data?.[selectedFee.speed];
 
+  const feeEstimateQueryEnabled = Boolean(satsBalance && satsBalance.total > 0n && evmAddress);
+
   const feeEstimateQueryResult = useSatsFeeEstimate({
     opReturnData: evmAddress,
     feeRate: feeRate,
     query: {
-      enabled: Boolean(satsBalance && satsBalance.total > 0n && evmAddress),
+      enabled: feeEstimateQueryEnabled,
       select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount)
     }
   });
@@ -413,7 +415,13 @@ const useGateway = ({
       liquidity: liquidityQueryResult,
       quote: quoteQueryResult,
       minAmount,
-      balance
+      balance: {
+        data: balance,
+        isPending:
+          isSatsBalancePending ||
+          liquidityQueryResult.isPending ||
+          (feeEstimateQueryEnabled ? feeEstimateQueryResult.isPending : false)
+      }
     },
     type: params.type,
     mutation,

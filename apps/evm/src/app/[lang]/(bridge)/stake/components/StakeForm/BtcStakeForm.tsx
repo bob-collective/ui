@@ -80,7 +80,7 @@ const BtcStakeForm = ({ strategy, stakingInfo, onStart, onSuccess, onError }: Bt
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
       <BtcTokenInput
         amount={gateway.amount}
-        balance={gateway.query.balance}
+        balance={gateway.query.balance.data}
         {...mergeProps(fields.amount, {
           onValueChange: gateway.setAmount
         })}

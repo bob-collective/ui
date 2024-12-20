@@ -38,7 +38,7 @@ vi.mock(import('@gobob/sats-wagmi'), async (importOriginal) => {
 describe('useGatewayForm', () => {
   const mockQuery = {
     minAmount: { toExact: () => '0.01' },
-    balance: { toExact: () => '1.0' },
+    balance: { data: { toExact: () => '1.0' } },
     fee: {
       estimate: { data: {} },
       rates: { data: {} }
