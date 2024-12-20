@@ -44,7 +44,7 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
       minAmount: new Big(query.minAmount.toExact()),
-      maxAmount: new Big(query.balance.toExact())
+      maxAmount: new Big(query.balance.data.toExact())
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount,
     [BRIDGE_BTC_WALLET]: btcAddress,

@@ -336,7 +336,7 @@ msgid "Bridge"
 msgstr "桥"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:458
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:143
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:170
 msgid "Bridge Asset"
 msgstr ""
 
@@ -618,7 +618,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:131
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:158
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:95
 msgid "Enter destination address"
 msgstr ""
@@ -660,7 +660,7 @@ msgstr ""
 #~ msgid "Failed to finalize."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/hooks/useGateway.ts:241
+#: src/app/[lang]/(bridge)/hooks/useGateway.ts:243
 msgid "Failed to get estimated fee"
 msgstr ""
 
@@ -693,7 +693,7 @@ msgstr ""
 msgid "Feeling lucky? Try your luck with the daily lottery!<0/>Participate in Fusion voting to receive 3 lottery tickets each day."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:95
+#: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:102
 msgid "Fetching bridging operations..."
 msgstr ""
 
@@ -805,6 +805,10 @@ msgstr ""
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关注特别活动"
 
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
+msgid "Heads up!"
+msgstr ""
+
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:57
 msgid "Here are your active referrals and the Spice they're currently earning for you. The more they earn, the more you benefit!"
 msgstr "这里展示了你推荐的活跃用户及他们为你赚取的Spice。他们赚得越多，你获益越多！"
@@ -840,6 +844,14 @@ msgstr ""
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:157
 msgid "If you already own BTC LSTs on other chains, you can bridge them over to BOB and start harvesting Spice."
 msgstr "如果你已经在其他链上拥有BTC LSTs，你可以将它们跨链到BOB并开始收获Spice。"
+
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
+#~ msgid "If your BTC balance here shows as 0 or is very different from your wallet balance, it might be due to a transaction in progress, such as this one: <0>View Transaction</0>. Please wait for it to confirm before checking again."
+#~ msgstr ""
+
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:111
+msgid "If your BTC balance shows as 0, it might be due to a transaction in progress, such as this one: <0>View Transaction</0>. Please wait for it to confirm before checking again."
+msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:38
 #~ msgid "Incentives"
@@ -886,11 +898,11 @@ msgstr "了解更多"
 #~ msgid "Learn more about {0}"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:106
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:104
 msgid "Lend out tBTC on Segment."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:121
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:119
 msgid "Lend out wBTC on Segment."
 msgstr ""
 
@@ -1084,7 +1096,7 @@ msgstr ""
 #~ msgid "No assets shown"
 #~ msgstr "未显示的资产"
 
-#: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:122
+#: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:130
 msgid "No bridging operations found"
 msgstr ""
 
@@ -1192,7 +1204,7 @@ msgstr ""
 msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:143
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:170
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:112
 msgid "Preparing..."
 msgstr ""
@@ -1244,7 +1256,7 @@ msgstr "点此了解更多"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:108
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
 msgid "Receive"
 msgstr "接收"
 
@@ -1257,7 +1269,7 @@ msgstr "接收"
 #~ msgstr "接收 {ticker}"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:483
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:131
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:158
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:94
 msgid "Recipient"
 msgstr ""
@@ -1509,11 +1521,11 @@ msgstr "質押"
 msgid "Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:89
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:87
 msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:154
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:151
 msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment."
 msgstr ""
 
@@ -1529,7 +1541,7 @@ msgstr ""
 #~ msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:71
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:70
 msgid "Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and deposit into Pell."
 msgstr ""
 
@@ -1537,7 +1549,7 @@ msgstr ""
 #~ msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/utils/stakeData.tsx:136
+#: src/app/[lang]/(bridge)/utils/stakeData.tsx:134
 msgid "Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and lend it out on Segment."
 msgstr ""
 
@@ -1771,7 +1783,7 @@ msgstr ""
 msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:163
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 msgstr ""
 
@@ -1966,7 +1978,7 @@ msgstr ""
 #~ msgid "View a summary of your wallet on the BOB network. DeFi positions may not be tracked."
 #~ msgstr "查看您在 BOB 网络上的钱包概况。"
 
-#: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:132
+#: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:140
 msgid "View All Transactions"
 msgstr ""
 
@@ -2126,7 +2138,7 @@ msgstr ""
 msgid "You will need to actively monitor your position, especially if it has a small range."
 msgstr "请密切关注你的仓位，尤其是当设定的价格范围较窄时。"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:134
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:161
 #: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:71
 msgid "You will receive"

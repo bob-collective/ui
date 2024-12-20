@@ -1,7 +1,7 @@
 'use client';
 
 import { CurrencyAmount, ERC20Token } from '@gobob/currency';
-import { Avatar, Flex, Input, Item, P, Select, Skeleton } from '@gobob/ui';
+import { Alert, Avatar, Flex, Input, Item, P, Select, Skeleton, Link } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
@@ -10,10 +10,10 @@ import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
-import { useGateway, useGatewayForm } from '../../../hooks';
+import { useGateway, useGatewayForm, useGetGatewayTransactions } from '../../../hooks';
 
 import { AuthButton } from '@/connect-ui';
-import { isProd } from '@/constants';
+import { isProd, mempoolUrl } from '@/constants';
 import { TokenData } from '@/hooks';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
@@ -38,6 +38,12 @@ const BtcBridgeForm = ({
   onChangeSymbol
 }: BtcBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
+
+  const { data: gatewayTransactions } = useGetGatewayTransactions();
+
+  const latestPendingTransaction = gatewayTransactions
+    ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    ?.find((transaction) => transaction.status === 'btc-confirmation');
 
   const { address: evmAddress } = useAccount();
 
@@ -93,12 +99,33 @@ const BtcBridgeForm = ({
     [btcToken]
   );
 
+  const showBalanceAlert =
+    !!latestPendingTransaction && !gateway.query.balance.isPending && !gateway.query.balance.data.greaterThan(0);
+
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
+      {showBalanceAlert && (
+        <Alert status='info' title={<Trans>Heads up!</Trans>}>
+          <P size='s'>
+            <Trans>
+              If your BTC balance shows as 0, it might be due to a transaction in progress, such as this one:{' '}
+              <Link
+                external
+                href={`${mempoolUrl}/tx/${latestPendingTransaction.btcTxId}`}
+                size='inherit'
+                underlined='always'
+              >
+                View Transaction
+              </Link>
+              . Please wait for it to confirm before checking again.
+            </Trans>
+          </P>
+        </Alert>
+      )}
       <BtcTokenInput
         amount={gateway.amount}
-        balance={gateway.query.balance}
+        balance={gateway.query.balance.data}
         {...mergeProps(fields.amount, {
           onValueChange: gateway.setAmount
         })}
