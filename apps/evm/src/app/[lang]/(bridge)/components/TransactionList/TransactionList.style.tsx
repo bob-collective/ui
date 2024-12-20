@@ -5,6 +5,14 @@ type StyledExpandIconProps = {
   $isExpanded?: boolean;
 };
 
+type StyledVirtualizerProps = {
+  $height: number;
+};
+
+type StyledVirtualizerItemProps = {
+  $translateY: number;
+};
+
 const StyledSection = styled(Card)`
   width: 100%;
   overflow: hidden;
@@ -38,6 +46,23 @@ const StyledTransactionListWrapper = styled(Flex)`
   overflow: hidden;
 `;
 
+const StyledTransactionListParent = styled.div`
+  height: 610px;
+  overflow: auto;
+`;
+
+const StyledVirtualizer = styled.div<StyledVirtualizerProps>`
+  width: 100%;
+  position: relative;
+  height: ${({ $height }) => `${$height}px`};
+`;
+
+const StyledVirtualizerItem = styled.div<StyledVirtualizerItemProps>`
+  position: absolute;
+  width: 100%;
+  transform: ${({ $translateY }) => `translateY(${$translateY}px)`};
+`;
+
 const StyledDetailsButton = styled(Flex)`
   font: inherit;
   display: flex;
@@ -59,5 +84,8 @@ export {
   StyledSpan,
   StyledSpinnerWrapper,
   StyledTransactionList,
-  StyledTransactionListWrapper
+  StyledTransactionListWrapper,
+  StyledTransactionListParent,
+  StyledVirtualizer,
+  StyledVirtualizerItem
 };
