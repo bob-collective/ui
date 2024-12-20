@@ -29,8 +29,9 @@ function StakeStrategy({ params }: Props) {
     return null;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const stakingInfo = (stakingData as any)[strategy?.raw.integration.slug];
+  const stakingInfo = stakingData[strategy?.raw.integration.slug];
+
+  if (!stakingInfo) return null;
 
   const isLending = strategy.raw.integration.type === 'lending';
 
@@ -64,7 +65,7 @@ function StakeStrategy({ params }: Props) {
           <Card flex={1}>
             <Tabs fullWidth size='lg'>
               <TabsItem key='deposit' title={isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>}>
-                <StakingForm strategy={strategy} onStakeSuccess={refetchTransactions} />
+                <StakingForm stakingInfo={stakingInfo} strategy={strategy} onStakeSuccess={refetchTransactions} />
               </TabsItem>
               <TabsItem key='withdraw' title={isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>}>
                 <P>Follow these step to unstake your asset:</P>

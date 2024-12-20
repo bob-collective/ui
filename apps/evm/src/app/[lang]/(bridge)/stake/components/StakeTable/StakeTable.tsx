@@ -26,7 +26,7 @@ import { useRouter } from 'next/navigation';
 import { Key, ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'styled-components';
 
-import { StakingInfo } from '../../../utils/stakeData';
+import { stakingInfo } from '../../../utils/stakeData';
 import { StrategyData, useGetStakingStrategies } from '../../hooks';
 import { StakeRewards } from '../StakeRewards';
 import { StrategyModal } from '../StrategyModal';
@@ -116,12 +116,11 @@ enum StakeTableFilter {
 interface Props {
   searchParams?: { receive: string };
   onStakeSuccess: () => void;
-  stakingInfo: StakingInfo;
 }
 
 const AllCategory = 'all-categories';
 
-const StakeTable = ({ searchParams, stakingInfo, onStakeSuccess }: Props) => {
+const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -179,8 +178,10 @@ const StakeTable = ({ searchParams, stakingInfo, onStakeSuccess }: Props) => {
                 strategy.raw.integration.logo ||
                 'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true'
               }
-              name={stakingInfo.strategy as string}
-              protocol={stakingInfo.protocol as string}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              name={(stakingInfo as any)[strategy?.raw.integration.slug ?? '']?.strategy as string}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              protocol={(stakingInfo as any)[strategy?.raw.integration.slug ?? '']?.protocol as string}
             />
           ),
           [StakeTableColumns.REWARDS]: <StakeRewards slug={strategy?.raw.integration.slug ?? ''} />,
@@ -292,7 +293,8 @@ const StakeTable = ({ searchParams, stakingInfo, onStakeSuccess }: Props) => {
       )}
       {strategy && (
         <StrategyModal
-          stakingInfo={stakingInfo}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          stakingInfo={(stakingInfo as any)[strategy?.raw.integration.slug] as any}
           strategy={strategy}
           onCloseModal={() => setStrategy(undefined)}
           onStakeSuccess={onStakeSuccess}
