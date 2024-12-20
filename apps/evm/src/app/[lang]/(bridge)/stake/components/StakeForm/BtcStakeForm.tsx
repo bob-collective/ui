@@ -77,7 +77,7 @@ const BtcStakeForm = ({ strategy, stakingInfo, onStart, onSuccess, onError }: Bt
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
+    <Flex direction='column' elementType='form' flex={1} gap='xl' marginTop='xl' onSubmit={form.handleSubmit as any}>
       <BtcTokenInput
         amount={gateway.amount}
         balance={gateway.query.balance}
