@@ -58,8 +58,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     inputToken: 'BTC',
     outputToken: 'SolvBTC.BBN',
     securityReview: 'https://www.bitcoinlayers.org/infrastructure/solvlst',
-    website: 'https://app.solv.finance/babylon?network=bob',
-    isDisabled: true
+    website: 'https://app.solv.finance/babylon?network=bob'
   },
   'pell-solvbtcbbn': {
     strategy: 'Restaking Pell-SolvBTC-Babylon',
@@ -76,8 +75,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     inputToken: 'BTC',
     outputToken: 'SolvBTC.BBN',
     securityReview: '',
-    website: 'https://app.pell.network/restake',
-    isDisabled: true
+    website: 'https://app.pell.network/restake'
   },
   'pell-unibtc': {
     strategy: 'Restaking Pell-uniBTC-Babylon',
@@ -141,8 +139,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     inputToken: 'BTC',
     outputToken: 'seSOLVBTCBBN',
     securityReview: '',
-    website: 'https://app.segment.finance',
-    isDisabled: true
+    website: 'https://app.segment.finance'
   },
   'segment-seunibtc': {
     strategy: 'Staked Lending Segment-uniBTC-Babylon',
