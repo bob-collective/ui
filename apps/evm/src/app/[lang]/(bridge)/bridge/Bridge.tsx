@@ -81,6 +81,8 @@ const Bridge = ({ searchParams }: Props) => {
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(getOrigin(type, chain, symbol));
 
   const handleChangeTab = (key: Key) => {
+    if (type === key.toString()) return;
+
     const newChain = L1_CHAIN;
 
     setChain(newChain);
@@ -117,9 +119,7 @@ const Bridge = ({ searchParams }: Props) => {
     router.replace('?' + urlSearchParams);
   }, [type, chain, router, symbol, urlSearchParams]);
 
-  const isBobBridgeDisabled =
-    (direction === TransactionDirection.L1_TO_L2 && chain !== L1_CHAIN && chain !== 'BTC') ||
-    (direction === TransactionDirection.L2_TO_L1 && chain !== L1_CHAIN);
+  const isBobBridgeDisabled = !(chain === L1_CHAIN || chain === L2_CHAIN || chain === 'BTC');
 
   const isExternalBridgeDisabled = chain === 'BTC' || !!(symbol && externalUnsupportedTokens.includes(symbol));
 
@@ -146,7 +146,7 @@ const Bridge = ({ searchParams }: Props) => {
               title={<Trans>Withdraw</Trans>}
               tooltipProps={{
                 isDisabled: !isWithdrawTabDisabled,
-                label: <Trans>Withdraws back to BTC are currently not supported</Trans>
+                label: <Trans>Withdrawals back to BTC are currently not supported</Trans>
               }}
             >
               <></>

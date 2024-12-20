@@ -2091,8 +2091,12 @@ msgid "Withdraw to L1 failed. Please try again."
 msgstr "Withdraw to L1 failed. Please try again."
 
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:149
-msgid "Withdraws back to BTC are currently not supported"
-msgstr "Withdraws back to BTC are currently not supported"
+msgid "Withdrawals back to BTC are currently not supported"
+msgstr "Withdrawals back to BTC are currently not supported"
+
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:149
+#~ msgid "Withdraws back to BTC are currently not supported"
+#~ msgstr "Withdraws back to BTC are currently not supported"
 
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:209
 msgid "Yield Assets"

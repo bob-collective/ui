@@ -137,7 +137,7 @@ const BobBridgeForm = ({
   const handleSuccess = (data: BridgeTransaction) => {
     onBridgeSuccess?.(data);
 
-    // Reseting form and defaulting ETH
+    // Resetting form and defaulting ETH
     form.resetForm({ values: { ...initialValues, [BRIDGE_ASSET]: initialToken.symbol } });
 
     onChangeSymbol?.(initialToken.symbol);
