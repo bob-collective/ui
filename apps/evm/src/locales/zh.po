@@ -95,7 +95,7 @@ msgstr "<0>一键质押你的BTC</0> 并在BOB上接收BTC LSTs。"
 msgid "2 hours"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:216
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:214
 msgid "3rd Party"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Already harvesting?"
 msgstr "已经在收获？"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:473
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:471
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 msgid "Amount"
 msgstr ""
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:457
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:455
 msgid "Approve"
 msgstr "通过"
 
@@ -262,7 +262,7 @@ msgstr "以下是你从各个应用中收获的Spice。继续参与以增加你�
 msgid "BOB"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:213
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:211
 msgid "BOB Bridge"
 msgstr ""
 
@@ -335,7 +335,7 @@ msgstr ""
 msgid "Bridge"
 msgstr "桥"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:458
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:456
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:170
 msgid "Bridge Asset"
 msgstr ""
@@ -349,11 +349,11 @@ msgstr "跨链资产"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "将BTC LSTs跨链到BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:453
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:451
 msgid "Bridge Disabled"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:206
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:204
 msgid "bridge network"
 msgstr ""
 
@@ -402,7 +402,7 @@ msgstr ""
 #~ msgid "Category"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:455
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:453
 msgid "Checking Allowance"
 msgstr ""
 
@@ -533,7 +533,7 @@ msgstr ""
 msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
 msgstr "将高优先级资产部署到高优先级DeFi协议中，以最大化你的Spice收获。"
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:125
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:141
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 msgid "Deposit"
 msgstr ""
@@ -617,7 +617,7 @@ msgstr ""
 #~ msgid "Enter Address"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:482
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:158
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:95
 msgid "Enter destination address"
@@ -1276,7 +1276,7 @@ msgstr "接收"
 #~ msgid "Receive {ticker}"
 #~ msgstr "接收 {ticker}"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:483
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:481
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:158
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:94
 msgid "Recipient"
@@ -1371,11 +1371,11 @@ msgstr ""
 msgid "Select Network"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:170
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:174
 msgid "select network to bridge from"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:180
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:184
 msgid "select network to bridge to"
 msgstr ""
 
@@ -1970,7 +1970,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:221
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:219
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr ""
 
@@ -2078,7 +2078,7 @@ msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计�
 #~ msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:128
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:146
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 msgid "Withdraw"
 msgstr ""
@@ -2096,6 +2096,14 @@ msgstr "提取锁定资产"
 #: src/components/WithdrawModal/WithdrawForm.tsx:138
 msgid "Withdraw to L1 failed. Please try again."
 msgstr ""
+
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:149
+msgid "Withdrawals back to BTC are currently not supported"
+msgstr ""
+
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:149
+#~ msgid "Withdraws back to BTC are currently not supported"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:209
 msgid "Yield Assets"
