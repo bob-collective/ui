@@ -854,12 +854,16 @@ msgstr "如果你已经在其他链上拥有BTC LSTs，你可以将它们跨链�
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:110
-msgid "If your BTC balance shows smaller number or 0, it might be due to a transaction in progress, such as this one: <0>View Transaction</0>. Please wait for it to confirm before checking again."
-msgstr ""
+#~ msgid "If your BTC balance shows smaller number or 0, it might be due to a transaction in progress, such as this one: <0>View Transaction</0>. Please wait for it to confirm before checking again."
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:110
 #~ msgid "If your BTC balance shows smaller number, it might be due to a transaction in progress, such as this one: <0>View Transaction</0>. Please wait for it to confirm before checking again."
 #~ msgstr ""
+
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:110
+msgid "If your BTC balance shows smaller value or 0, it might be due to a transaction in progress, such as this one: <0>View Transaction</0>. Please wait for it to confirm before checking again."
+msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:38
 #~ msgid "Incentives"

@@ -108,7 +108,7 @@ const BtcBridgeForm = ({
         <Alert status='info' title={<Trans>Heads up!</Trans>}>
           <P size='s'>
             <Trans>
-              If your BTC balance shows smaller number or 0, it might be due to a transaction in progress, such as this
+              If your BTC balance shows smaller value or 0, it might be due to a transaction in progress, such as this
               one:{' '}
               <Link
                 external
