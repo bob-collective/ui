@@ -42,6 +42,8 @@ type BridgeFormProps = {
   direction: TransactionDirection;
   symbol?: string;
   bridgeOrigin?: BridgeOrigin;
+  isBobBridgeDisabled?: boolean;
+  isExternalBridgeDisabled?: boolean;
   onChangeSymbol: (symbol: string) => void;
   onChangeOrigin?: (origin: BridgeOrigin) => void;
   onChangeChain?: (chain: ChainId | 'BTC') => void;
@@ -65,6 +67,8 @@ const allNetworks = [
 const BridgeForm = ({
   direction = TransactionDirection.L1_TO_L2,
   bridgeOrigin,
+  isBobBridgeDisabled,
+  isExternalBridgeDisabled,
   chain,
   symbol,
   onChangeSymbol,
@@ -180,12 +184,6 @@ const BridgeForm = ({
           ['aria-label']: t(i18n)`select network to bridge to`
         }
       : undefined;
-
-  const isBobBridgeDisabled =
-    (direction === TransactionDirection.L1_TO_L2 && chain !== L1_CHAIN && chain !== 'BTC') ||
-    (direction === TransactionDirection.L2_TO_L1 && chain !== L1_CHAIN);
-
-  const isExternalBridgeDisabled = chain === 'BTC';
 
   return (
     <>
