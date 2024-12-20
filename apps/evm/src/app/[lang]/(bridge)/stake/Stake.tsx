@@ -4,7 +4,8 @@ import { useStore } from '@tanstack/react-store';
 import { watchAccount } from '@wagmi/core';
 import { useEffect, useRef } from 'react';
 import { useConfig } from 'wagmi';
-import { Flex } from '@gobob/ui';
+import { Flex, H1, P } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 
 import { Layout, TransactionList } from '../components';
 import { GetGatewayTransactionsReturnType, useGetGatewayTransactions } from '../hooks';
@@ -64,7 +65,15 @@ function Stake({ searchParams }: Props) {
 
   return (
     <Layout>
-      <Flex direction='column' gap='xl' marginTop='xl'>
+      <Flex direction='column' marginTop='6xl'>
+        <H1 align='center' fontFamily='Chakra Petch' size='5xl' weight='semibold'>
+          <Trans>BTC Strategies</Trans>
+        </H1>
+        <P align='center' color='grey-50'>
+          <Trans>Deposit and earn yield on your BTC by using the market&apos;s most sophisticated strategies</Trans>
+        </P>
+      </Flex>
+      <Flex direction='column' gap='xl' marginTop='6xl'>
         <StakeTable searchParams={searchParams} onStakeSuccess={refetchTransactions} />
         <TransactionList data={transactions} isInitialLoading={isInitialLoading} />
       </Flex>

@@ -110,7 +110,7 @@ const columns = [
 
 enum StakeTableFilter {
   AllStrategies = 'all-strategies',
-  YourStrategies = 'your-strategies'
+  MyStrategies = 'my-strategies'
 }
 
 interface Props {
@@ -217,8 +217,8 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
               <Item key={StakeTableFilter.AllStrategies} textValue={StakeTableFilter.AllStrategies}>
                 <Trans>All Strategies</Trans>
               </Item>
-              <Item key={StakeTableFilter.YourStrategies} textValue={StakeTableFilter.YourStrategies}>
-                <Trans>Your Strategies</Trans>
+              <Item key={StakeTableFilter.MyStrategies} textValue={StakeTableFilter.MyStrategies}>
+                <Trans>My Strategies</Trans>
               </Item>
             </Select>
           ) : (
@@ -226,7 +226,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
               <TabsItem key={StakeTableFilter.AllStrategies} title={<Trans>All Strategies</Trans>}>
                 <></>
               </TabsItem>
-              <TabsItem key={StakeTableFilter.YourStrategies} title={<Trans>Your Strategies</Trans>}>
+              <TabsItem key={StakeTableFilter.MyStrategies} title={<Trans>My Strategies</Trans>}>
                 <></>
               </TabsItem>
             </Tabs>

@@ -324,7 +324,7 @@ const useStrategiesContractData = (
   });
 
   // get prices
-  const { getPrice } = usePrices();
+  const { getPrice, isPending: isPricesPending } = usePrices();
 
   const strategiesData = useMemo(
     () =>
@@ -410,7 +410,8 @@ const useStrategiesContractData = (
       isNoOuputTokenContractDataPending ||
       isTokensContractDataPending ||
       isNoOuputTokenContractSharesToUnderlyingDataPending ||
-      isSeTokensUnderlyingContractPending
+      isSeTokensUnderlyingContractPending ||
+      isPricesPending
   };
 };
 
