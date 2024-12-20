@@ -84,8 +84,6 @@ const TransactionList = ({
   const txsUrl = address ? `${explorerUrl}/address/${address}` : `${explorerUrl}`;
   const hasData = !!data?.length;
 
-  const dividerStyle = { marginTop: '1rem' };
-
   return (
     <StyledSection gap='xl' paddingX='4xl' paddingY='3xl' {...props}>
       <H2 size='md'>{title}</H2>
@@ -121,7 +119,7 @@ const TransactionList = ({
                           onProveSuccess={onProveSuccess}
                           onRelaySuccess={onRelaySuccess}
                         />
-                        {virtualItem.index < data.length - 1 && <Divider style={dividerStyle} />}
+                        {virtualItem.index < data.length - 1 && <Divider style={{ marginTop: '1rem' }} />}
                       </StyledVirtualizerItem>
                     ))}
                   </StyledVirtualizer>
