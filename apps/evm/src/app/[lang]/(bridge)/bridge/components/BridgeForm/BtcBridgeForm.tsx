@@ -99,8 +99,7 @@ const BtcBridgeForm = ({
     [btcToken]
   );
 
-  const showBalanceAlert =
-    !!latestPendingTransaction && !gateway.query.balance.isPending && !gateway.query.balance.data.greaterThan(0);
+  const showBalanceAlert = !!latestPendingTransaction && !gateway.query.balance.isPending;
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -109,7 +108,7 @@ const BtcBridgeForm = ({
         <Alert status='info' title={<Trans>Heads up!</Trans>}>
           <P size='s'>
             <Trans>
-              If your BTC balance shows as 0, it might be due to a transaction in progress, such as this one:{' '}
+              If your BTC balance shows smaller number, it might be due to a transaction in progress, such as this one:{' '}
               <Link
                 external
                 href={`${mempoolUrl}/tx/${latestPendingTransaction.btcTxId}`}
