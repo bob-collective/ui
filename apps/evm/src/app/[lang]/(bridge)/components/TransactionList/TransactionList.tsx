@@ -1,8 +1,9 @@
 import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { Fragment, useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useIsClient } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
+import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { TransactionItem } from './TransactionItem';
 import {
@@ -10,7 +11,10 @@ import {
   StyledSpan,
   StyledSpinnerWrapper,
   StyledTransactionList,
-  StyledTransactionListWrapper
+  StyledTransactionListParent,
+  StyledTransactionListWrapper,
+  StyledVirtualizer,
+  StyledVirtualizerItem
 } from './TransactionList.style';
 
 import { chainL2 } from '@/constants';
@@ -36,8 +40,30 @@ const TransactionList = ({
   txPendingUserAction,
   ...props
 }: TransactionListProps): JSX.Element => {
-  const { address, chain } = useAccount();
   const isClient = useIsClient();
+  // The scrollable element for your list
+  const parentRef = useRef(null);
+
+  // The virtualizer
+  const rowVirtualizer = useVirtualizer({
+    count: data?.length || 0,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 102,
+    paddingStart: 16,
+    paddingEnd: 16,
+    gap: 16,
+    // https://github.com/TanStack/table/blob/main/examples/react/virtualized-rows/src/main.tsx#L88
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    measureElement: (element) => {
+      return isClient && navigator.userAgent.indexOf('Firefox') === -1
+        ? element?.getBoundingClientRect().height
+        : undefined;
+    },
+    overscan: 5
+  });
+
+  const { address, chain } = useAccount();
 
   const title = (
     <Flex alignItems='center' elementType='span' gap='s'>
@@ -68,7 +94,6 @@ const TransactionList = ({
           flex={1}
           gap='xl'
           justifyContent={isInitialLoading || !hasData ? 'center' : undefined}
-          paddingY='xl'
         >
           {!isClient || isInitialLoading ? (
             <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
@@ -80,16 +105,25 @@ const TransactionList = ({
           ) : (
             <>
               {hasData ? (
-                data.map((transaction, idx) => (
-                  <Fragment key={idx}>
-                    <TransactionItem
-                      data={transaction}
-                      onProveSuccess={onProveSuccess}
-                      onRelaySuccess={onRelaySuccess}
-                    />
-                    {idx < data.length - 1 && <Divider />}
-                  </Fragment>
-                ))
+                <StyledTransactionListParent ref={parentRef}>
+                  <StyledVirtualizer $height={rowVirtualizer.getTotalSize()}>
+                    {rowVirtualizer.getVirtualItems().map((virtualItem) => (
+                      <StyledVirtualizerItem
+                        key={virtualItem.key}
+                        ref={(node) => rowVirtualizer.measureElement(node)} //measure dynamic row height
+                        $translateY={virtualItem.start}
+                        data-index={virtualItem.index} //needed for dynamic row height measurement
+                      >
+                        <TransactionItem
+                          data={data[virtualItem.index]!}
+                          onProveSuccess={onProveSuccess}
+                          onRelaySuccess={onRelaySuccess}
+                        />
+                        {virtualItem.index < data.length - 1 && <Divider style={{ marginTop: '1rem' }} />}
+                      </StyledVirtualizerItem>
+                    ))}
+                  </StyledVirtualizer>
+                </StyledTransactionListParent>
               ) : (
                 <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
                   <P align='center' size='xs'>

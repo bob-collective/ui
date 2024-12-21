@@ -1,6 +1,5 @@
 import { Alert, Flex, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { ValueOf } from 'viem';
 
 enum Incentive {
   spice,
@@ -12,9 +11,20 @@ enum Incentive {
   supply
 }
 
-type StakingInfo = Record<string, ValueOf<typeof stakingInfo> | undefined>;
+type StakingInfo = {
+  strategy: string;
+  protocol: string;
+  incentives: Incentive[];
+  tvl: string;
+  about: JSX.Element;
+  inputToken: string;
+  outputToken: string;
+  securityReview: string;
+  website: string;
+  isDisabled?: boolean;
+};
 
-const stakingInfo = {
+const stakingInfo: Record<string, StakingInfo> = {
   'bedrock-unibtc': {
     strategy: 'Liquid Staking Bedrock-Babylon',
     protocol: 'Bedrock',
@@ -26,7 +36,7 @@ const stakingInfo = {
           <Trans>Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC.</Trans>
         </P>
         <Alert status='warning'>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
+          <Trans>Bedrock does not yet support withdrawals.</Trans>
         </Alert>
       </Flex>
     ),
@@ -41,14 +51,9 @@ const stakingInfo = {
     incentives: [Incentive.solv, Incentive.babylon],
     tvl: '-',
     about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.</Trans>
-        </P>
-        <Alert status='warning'>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </Alert>
-      </Flex>
+      <P>
+        <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token SolvBTC.BBN.</Trans>
+      </P>
     ),
     inputToken: 'BTC',
     outputToken: 'SolvBTC.BBN',
@@ -61,16 +66,11 @@ const stakingInfo = {
     incentives: [Incentive.pell, Incentive.solv, Incentive.babylon],
     tvl: '-',
     about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>
-            Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell.
-          </Trans>
-        </P>
-        <Alert status='warning'>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </Alert>
-      </Flex>
+      <P>
+        <Trans>
+          Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and deposit into Pell.
+        </Trans>
+      </P>
     ),
     inputToken: 'BTC',
     outputToken: 'SolvBTC.BBN',
@@ -83,16 +83,11 @@ const stakingInfo = {
     incentives: [Incentive.pell, Incentive.bedrock, Incentive.babylon],
     tvl: '-',
     about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>
-            Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking.
-          </Trans>
-        </P>
-        <Alert status='warning'>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </Alert>
-      </Flex>
+      <P>
+        <Trans>
+          Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking.
+        </Trans>
+      </P>
     ),
     inputToken: 'BTC',
     outputToken: 'uniBTC',
@@ -135,19 +130,14 @@ const stakingInfo = {
     incentives: [Incentive.segment, Incentive.solv, Incentive.babylon, Incentive.supply],
     tvl: '-',
     about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>
-            Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment.
-          </Trans>
-        </P>
-        <Alert status='warning'>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </Alert>
-      </Flex>
+      <P>
+        <Trans>
+          Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and lend it out on Segment.
+        </Trans>
+      </P>
     ),
     inputToken: 'BTC',
-    outputToken: 'seUNIBTC',
+    outputToken: 'seSOLVBTCBBN',
     securityReview: '',
     website: 'https://app.segment.finance'
   },
@@ -157,23 +147,16 @@ const stakingInfo = {
     incentives: [Incentive.segment, Incentive.bedrock, Incentive.babylon, Incentive.supply],
     tvl: '-',
     about: (
-      <Flex direction='column' gap='md'>
-        <P>
-          <Trans>
-            Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment.
-          </Trans>
-        </P>
-        <Alert status='warning'>
-          <Trans>Attention: Babylon does not yet support withdrawals.</Trans>
-        </Alert>
-      </Flex>
+      <P>
+        <Trans>Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment.</Trans>
+      </P>
     ),
     inputToken: 'BTC',
     outputToken: 'seUNIBTC',
     securityReview: '',
     website: 'https://app.segment.finance'
   }
-};
+} as const;
 
 export { stakingInfo, Incentive };
 export type { StakingInfo };

@@ -1,0 +1,1 @@
+export { BabylonLogo } from './BabylonLogo';

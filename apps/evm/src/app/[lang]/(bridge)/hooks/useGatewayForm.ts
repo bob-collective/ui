@@ -3,7 +3,7 @@
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { useForm } from '@gobob/ui';
 import Big from 'big.js';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 import { UseGatewayQueryDataReturnType } from './useGateway';
@@ -37,7 +37,7 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
       minAmount: new Big(query.minAmount.toExact()),
-      maxAmount: new Big(query.balance.toExact())
+      maxAmount: new Big(query.balance.data.toExact())
     },
     [BRIDGE_RECIPIENT]: !!isSmartAccount,
     [BRIDGE_BTC_WALLET]: btcAddress,
@@ -57,15 +57,10 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
     hideErrors: 'untouched'
   });
 
-  const [prevData, setPrevData] = useState(query.fee.rates.data);
-
-  if (prevData !== query.fee.rates.data) {
-    setPrevData(query.fee.rates.data);
-
-    if (query.fee.estimate.data && form.values[BRIDGE_AMOUNT]) {
-      form.validateField(BRIDGE_AMOUNT);
-    }
-  }
+  useEffect(() => {
+    form.setFieldValue(BRIDGE_ASSET, defaultAsset);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultAsset]);
 
   return {
     isDisabled: isFormDisabled(form),

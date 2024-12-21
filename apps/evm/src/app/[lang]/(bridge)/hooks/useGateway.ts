@@ -108,7 +108,7 @@ type UseGatewayQueryDataReturnType = {
   liquidity: UseQueryResult<UseLiquidityDataReturnType | undefined>;
   quote: UseQueryResult<UseQuoteDataReturnType | undefined>;
   minAmount: CurrencyAmount<Bitcoin>;
-  balance: CurrencyAmount<Bitcoin>;
+  balance: { data: CurrencyAmount<Bitcoin>; isPending: boolean };
 };
 
 type StakeParams = {
@@ -123,6 +123,7 @@ type BridgeParams = {
 
 type UseGatewayLiquidityProps = {
   params: BridgeParams | StakeParams;
+  isDisabled?: boolean;
   onMutate?: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
   onSuccess?: (data: InitGatewayTransaction) => void;
   onError?: () => void;
@@ -157,14 +158,20 @@ type UseGatewayReturnType = {
   isTapRootAddress: boolean;
 };
 
-const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidityProps): UseGatewayReturnType => {
+const useGateway = ({
+  params,
+  isDisabled: isDisabledProp,
+  onError,
+  onMutate,
+  onSuccess
+}: UseGatewayLiquidityProps): UseGatewayReturnType => {
   const { i18n } = useLingui();
   const queryClient = useQueryClient();
 
   const { address: evmAddress } = useAccount();
 
   const { address: btcAddress, connector: satsConnector, addressType: btcAddressType } = useSatsAccount();
-  const { data: satsBalance } = useSatsBalance();
+  const { data: satsBalance, isPending: isSatsBalancePending } = useSatsBalance();
 
   const [isTopUpEnabled, setTopUpEnabled] = useState(true);
   const [selectedFee, setSelectedFee] = useState<GatewayTransactionFee>({ speed: GatewayTransactionSpeed.SLOW });
@@ -227,11 +234,13 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const feeRate =
     selectedFee.speed === 'custom' ? selectedFee.networkRate : feeRatesQueryResult.data?.[selectedFee.speed];
 
+  const feeEstimateQueryEnabled = Boolean(satsBalance && satsBalance.total > 0n && evmAddress);
+
   const feeEstimateQueryResult = useSatsFeeEstimate({
     opReturnData: evmAddress,
     feeRate: feeRate,
     query: {
-      enabled: Boolean(satsBalance && satsBalance.total > 0n && evmAddress),
+      enabled: feeEstimateQueryEnabled,
       select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount),
       meta: {
         onError() {
@@ -314,6 +323,10 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const mutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
     mutationFn: async ({ evmAddress }: { evmAddress: Address | string }): Promise<InitGatewayTransaction> => {
+      if (isDisabledProp) {
+        throw new Error('Operation disabled');
+      }
+
       if (!satsConnector) {
         throw new Error('Connector missing');
       }
@@ -407,7 +420,13 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
       liquidity: liquidityQueryResult,
       quote: quoteQueryResult,
       minAmount,
-      balance
+      balance: {
+        data: balance,
+        isPending:
+          isSatsBalancePending ||
+          liquidityQueryResult.isPending ||
+          (feeEstimateQueryEnabled ? feeEstimateQueryResult.isPending : false)
+      }
     },
     type: params.type,
     mutation,

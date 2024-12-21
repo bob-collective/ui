@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
 import { Address } from 'viem';
 import { useAccount, useSignMessage } from 'wagmi';
-import { sendGTMEvent } from '@next/third-parties/google';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { useGetUser } from './useGetUser';
 
@@ -22,7 +22,7 @@ const useSignUp = () => {
 
   return useMutation({
     mutationKey: fusionKeys.signUp(),
-    mutationFn: async (address: Address) => {
+    mutationFn: async ({ address }: { address: Address; referralCode?: string }) => {
       const nonce = await apiClient.getNonce();
 
       const message = new SiweMessage({
@@ -41,8 +41,8 @@ const useSignUp = () => {
 
       await apiClient.signUp(message, signature);
     },
-    onSuccess: (_, address) => {
-      sendGTMEvent({ event: 'signup', walletAddress: address });
+    onSuccess: (_, { address, referralCode }) => {
+      sendGAEvent('event', 'signup', { payload: { address, referralCode } });
       setTimeout(() => refetchUser(), 100);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,46 +1,13 @@
 'use client';
 
-import { Flex, FlexProps, Span, SpanProps, useLocale } from '@gobob/ui';
 import { Spice } from '@gobob/icons';
-import { useCountUp } from 'use-count-up';
-import { useCallback, useState } from 'react';
 
-type Props = {
-  amount: number;
-  compact?: boolean;
-  hideIcon?: boolean;
-  gap?: FlexProps['gap'];
-  showAnimation?: boolean;
-};
+import { AnimantedAmount, AnimantedAmountProps } from '../AnimantedAmount';
 
-type InheritAttrs = Omit<SpanProps, keyof Props>;
+type SpiceAmountProps = Omit<AnimantedAmountProps, 'icon'>;
 
-type SpiceAmountProps = Props & InheritAttrs;
-
-const SpiceAmount = ({ amount, compact, hideIcon, gap = 'xs', showAnimation, ...props }: SpiceAmountProps) => {
-  const [start, setStart] = useState(0);
-  const { locale } = useLocale();
-
-  const formatter = useCallback(
-    (value: number) =>
-      Intl.NumberFormat(locale, { notation: compact ? 'compact' : undefined, maximumFractionDigits: 0 }).format(value),
-    [compact, locale]
-  );
-
-  const { value } = useCountUp({
-    isCounting: showAnimation,
-    start,
-    end: amount,
-    formatter,
-    onComplete: () => setStart(amount)
-  });
-
-  return (
-    <Flex alignItems='center' elementType={Span} gap={gap} {...props}>
-      {!hideIcon && <Spice style={{ width: '1em', height: '1em' }} />}
-      {showAnimation ? value : formatter(amount)}
-    </Flex>
-  );
-};
+const SpiceAmount = (props: SpiceAmountProps) => (
+  <AnimantedAmount icon={<Spice style={{ width: '1em', height: '1em' }} />} {...props} />
+);
 
 export { SpiceAmount };

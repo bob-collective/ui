@@ -11,6 +11,7 @@ import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
 import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
 import { HybridL2Banner } from './HybridL2Banner';
+import { BabylonBanner } from './BabylonBanner';
 
 const BannerCarousel = () => {
   const { i18n } = useLingui();
@@ -36,6 +37,17 @@ const BannerCarousel = () => {
       }
     }),
     [theme.breakpoints]
+  );
+
+  const onPressBabylonBanner = useCallback(
+    () =>
+      window.open(
+        'https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2',
+        '_blank',
+        'noreferrer'
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   const onPressFusionBanner = useCallback(
@@ -74,6 +86,7 @@ const BannerCarousel = () => {
         swipeable={false}
         transitionDuration={500}
       >
+        <BabylonBanner onPress={onPressBabylonBanner} />
         <HybridL2Banner onPress={onPressHybridL2Banner} />
         <XBanner onPress={onPressXBanner} />
         <FusionBanner onPress={onPressFusionBanner} />
