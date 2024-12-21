@@ -60,6 +60,7 @@ const StyledTriggerValue = styled(Span)<StyledTriggerValueProps>`
   font-size: inherit;
   line-height: inherit;
   font-weight: inherit;
+  cursor: pointer;
 `;
 
 const StyledList: any = styled(List)`
