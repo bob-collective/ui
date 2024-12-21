@@ -3,8 +3,8 @@ import { Currency, CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { Flex, Span, useCurrencyFormatter, useLocale } from '@gobob/ui';
 import { Item } from '@react-stately/collections';
+import { useMemo, useState } from 'react';
 import Big from 'big.js';
-import { useEffect, useMemo, useState } from 'react';
 
 import { ButtonGroup } from '../ButtonGroup';
 
@@ -25,12 +25,15 @@ const TokenButtonGroup = ({ isSelected, currency, balance, onSelectionChange }: 
   const { getPrice, data: pricesData } = usePrices();
 
   const [key, setKey] = useState<string>();
+  const [prevIsSelected, setPrevIsSelected] = useState(false);
 
-  useEffect(() => {
+  if (prevIsSelected !== isSelected) {
+    setPrevIsSelected(isSelected);
+
     if (!isSelected) {
       setKey(undefined);
     }
-  }, [isSelected]);
+  }
 
   const amounts = useMemo(() => {
     if (currency.symbol === 'WBTC') {
