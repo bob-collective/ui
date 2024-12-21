@@ -35,7 +35,7 @@ const SocialsGroup = ({
       <Button asChild isIconOnly size='s' variant={variant}>
         <a
           aria-label={t(i18n)`navigate to X social`}
-          href='https://twitter.com/build_on_bob'
+          href='https://x.com/build_on_bob'
           rel='noreferrer'
           target='_blank'
         >
