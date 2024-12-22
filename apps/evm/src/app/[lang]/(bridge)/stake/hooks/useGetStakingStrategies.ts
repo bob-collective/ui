@@ -3,8 +3,9 @@ import { ChainId } from '@gobob/chains';
 import { ERC20Token, Token } from '@gobob/currency';
 import { useCallback, useMemo } from 'react';
 
-import { useGetStrategies } from '@/hooks';
 import { useStrategiesContractData } from './useStrategiesContractData';
+
+import { useGetStrategies } from '@/hooks';
 
 type StrategyData = {
   tvl?: number | null;
@@ -48,7 +49,7 @@ const useGetStakingStrategies = () => {
           userStaked
         };
       }),
-    [strategiesContractData]
+    [strategies, strategiesContractData]
   );
 
   return { data: strategiesData };

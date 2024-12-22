@@ -67,21 +67,27 @@ const useStrategiesContractData = (
 
   // se tokens contract data
   const seTokenContractDataSelector = useCallback(
-    (data: (bigint | `0x${string}`)[]) => {
+    (data: (bigint | number | Address)[]) => {
       if (!strategies) return null;
 
       return strategies.reduce(
         (acc, strategy) => {
           if (hasUnderlying(strategy.raw.outputToken?.symbol) && data) {
-            const idx = Object.keys(acc).length * 4;
+            const idx = Object.keys(acc).length * 5;
 
-            // for each se* token we need tulpes of 3 call results
-            acc[strategy.raw.outputToken?.symbol] = data.slice(idx, idx + 4) as [bigint, bigint, bigint, Address];
+            // for each se* token we need tulpes of 5 call results
+            acc[strategy.raw.outputToken?.symbol] = data.slice(idx, idx + 5) as [
+              bigint,
+              bigint,
+              bigint,
+              number,
+              Address
+            ];
           }
 
           return acc;
         },
-        {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, bigint, Address]>
+        {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
       );
     },
     [strategies]
@@ -116,6 +122,11 @@ const useStrategiesContractData = (
               abi: seTokenAbi,
               functionName: 'balanceOf',
               args: address ? [address] : [zeroAddress]
+            },
+            {
+              address: strategy.raw.outputToken.address as Address,
+              abi: seTokenAbi,
+              functionName: 'decimals'
             },
             {
               address: strategy.raw.outputToken.address as Address,
@@ -163,7 +174,7 @@ const useStrategiesContractData = (
       hasUnderlying(strategy.raw.outputToken?.symbol)
         ? ([
             {
-              address: seTokensContractData?.[strategy.raw.outputToken?.symbol]?.[3] as Address,
+              address: seTokensContractData?.[strategy.raw.outputToken?.symbol]?.[4] as Address,
               abi: erc20Abi,
               functionName: 'decimals'
             }
@@ -332,7 +343,7 @@ const useStrategiesContractData = (
           if (hasUnderlying(symbol) && seTokensContractData?.[symbol] && seTokensUnderlyingContractData?.[symbol]) {
             // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
             // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-            const [exchangeRateStored, totalSupply, userStaked] = seTokensContractData[symbol]!;
+            const [exchangeRateStored, totalSupply, userStaked, decimals] = seTokensContractData[symbol]!;
             const underlyingDecimals = seTokensUnderlyingContractData[symbol]!;
 
             const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
@@ -345,7 +356,7 @@ const useStrategiesContractData = (
                 .div(1e18)
                 .div(10 ** underlyingDecimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).toNumber()
+              userStaked: new Big(userStaked.toString()).div(10 ** decimals).toNumber()
             };
           }
 
@@ -359,7 +370,7 @@ const useStrategiesContractData = (
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).toNumber()
+              userStaked: new Big(userStaked.toString()).div(10 ** decimals).toNumber()
             };
           }
 
@@ -381,7 +392,7 @@ const useStrategiesContractData = (
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).toNumber()
+              userStaked: new Big(userStaked.toString()).div(10 ** decimals).toNumber()
             };
           }
 
