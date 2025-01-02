@@ -39,7 +39,7 @@ function hasCGId(symbol: string | undefined): symbol is keyof typeof tokenToIdMa
 }
 
 // strategy contract -> StrategyBaseTVLLimits contract
-const strategyToLimitsMapping: Record<string, Address> = {
+export const strategyToLimitsMapping: Record<string, Address> = {
   // PellSolvLSTStrategy
   // "Pell (SolvBTC.BBN) -> pellStrategy (0x046DaeB4a46d83FC655a905aB352afbe981Cbd29) -> pellStrategy (0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef) -> totalShares
   '0xdf3aa56f2626e253b5db7703ac7241e835140566': '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef',
@@ -50,7 +50,7 @@ const strategyToLimitsMapping: Record<string, Address> = {
 
 type UnderlyingTicker = string;
 type UnderlyingDecimals = number;
-const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, Address, UnderlyingDecimals]> = {
+export const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, Address, UnderlyingDecimals]> = {
   '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [
     CurrencyTickers['SolvBTC.BBN'],
     '0xCC0966D8418d412c599A6421b760a847eB169A8c',
@@ -385,7 +385,7 @@ const useStrategiesContractData = (
                 .div(10 ** decimals)
                 .toNumber(),
               userStaked: CurrencyAmount.fromRawAmount(
-                new Token(ChainId.BOB, address as Address, decimals, ticker, ticker),
+                new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
                 userStaked
               )
             };
@@ -410,6 +410,7 @@ const useStrategiesContractData = (
                 .div(10 ** decimals)
                 .toNumber(),
               userStaked: CurrencyAmount.fromRawAmount(
+                // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
                 new Token(ChainId.BOB, address, decimals, ticker, ticker),
                 userStaked
               )
