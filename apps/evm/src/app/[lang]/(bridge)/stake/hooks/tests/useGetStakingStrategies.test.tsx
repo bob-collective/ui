@@ -149,10 +149,10 @@ const mockPellUniBTCStrategy: GatewayStrategyContract = {
 } as const;
 
 const seTokensContractDataMock = {
-  seSOLVBTCBBN: [200420547971521033526791436n, 90941658309n, 10000n, '0xCC0966D8418d412c599A6421b760a847eB169A8c'],
-  seTBTC: [207537267655402594884495418n, 8255486068n, 10000n, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2'],
-  seUNIBTC: [20020877878162857n, 8875128907n, 10000n, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894'],
-  seWBTC: [20083839753286961n, 63216624241n, 10000n, '0x03C7054BCB39f7b2e5B2c7AcB37583e32D70Cfa3']
+  seSOLVBTCBBN: [200420547971521033526791436n, 90941658309n, 10000n, 8, '0xCC0966D8418d412c599A6421b760a847eB169A8c'],
+  seTBTC: [207537267655402594884495418n, 8255486068n, 10000n, 8, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2'],
+  seUNIBTC: [20020877878162857n, 8875128907n, 10000n, 8, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894'],
+  seWBTC: [20083839753286961n, 63216624241n, 10000n, 8, '0x03C7054BCB39f7b2e5B2c7AcB37583e32D70Cfa3']
 } as const;
 
 const seTokensUnderlyingContractDataMock = {
@@ -246,7 +246,7 @@ describe('useGetStakingStrategies', () => {
             mockStrategy.outputToken.symbol
           )
         : undefined,
-      userStaked: 10000,
+      userStaked: 0.0001,
       tvl: new Big(
         tokensContractDataMock[mockStrategy.outputToken?.symbol as keyof typeof tokensContractDataMock][0].toString()
       )
@@ -297,7 +297,7 @@ describe('useGetStakingStrategies', () => {
             mockSegmentStrategy.outputToken.symbol
           )
         : undefined,
-      userStaked: 10000,
+      userStaked: 0.0001,
       tvl: new Big(
         (
           seTokensContractDataMock[
@@ -345,7 +345,7 @@ describe('useGetStakingStrategies', () => {
     const expectedData = {
       raw: mockPellUniBTCStrategy,
       currency: undefined,
-      userStaked: 10000,
+      userStaked: 0.0001,
       tvl: new Big(
         noOuputTokenContractSharesToUnderlyingDataMock[
           mockPellUniBTCStrategy.address as keyof typeof noOuputTokenContractSharesToUnderlyingDataMock
