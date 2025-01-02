@@ -87,7 +87,8 @@ const BtcBridgeForm = ({
   } = useGatewayForm({
     query: gateway.query,
     defaultAsset: symbol,
-    onSubmit: handleSubmit
+    onSubmit: handleSubmit,
+    type: GatewayTransactionType.BRIDGE
   });
 
   const isDisabled = isSubmitDisabled || gateway.isDisabled || !gateway.isReady || gateway.query.quote.isPending;
