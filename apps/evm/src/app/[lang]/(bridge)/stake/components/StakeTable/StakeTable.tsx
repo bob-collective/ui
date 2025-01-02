@@ -94,7 +94,7 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
               <Button color='primary' onPress={() => setStrategy(strategy)}>
                 <Trans>Stake</Trans>
               </Button>
-              {Number(strategy?.userStaked) > 0 && (
+              {strategy?.userStaked?.greaterThan(0) && (
                 <Button
                   variant='outline'
                   onPress={() =>
