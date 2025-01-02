@@ -64,13 +64,12 @@ const StyledBannerTitle = styled(H1)`
   text-overflow: ellipsis;
 `;
 
-const StyledFusionImg = styled(Image)`
+const StyledImg = styled(Image)`
   ${({ theme }) => {
     return css`
       position: absolute;
       top: 50%;
       right: 0;
-      width: 21rem;
       transform: translateY(-50%);
       @media ${theme.breakpoints.down('md')} {
         opacity: 0.2;
@@ -79,48 +78,4 @@ const StyledFusionImg = styled(Image)`
   }}
 `;
 
-const StyledHybridL2Img = styled(Image)`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      top: 50%;
-      right: 3rem;
-      width: 21rem;
-      transform: translateY(-50%);
-      right: ${theme.spacing('xl')};
-
-      @media ${theme.breakpoints.down('md')} {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
-const StyledXImg = styled(Image)`
-  ${({ theme }) => {
-    return css`
-      position: absolute;
-      top: 46%;
-      right: 1.5rem;
-      width: 21rem;
-      transform: translateY(-50%);
-      @media ${theme.breakpoints.down('md')} {
-        opacity: 0.2;
-      }
-    `;
-  }}
-`;
-
-export {
-  StyledBanner,
-  StyledBannerContent,
-  StyledBannerTitle,
-  StyledCarousel,
-  StyledCarouselWrapper,
-  StyledFusionImg,
-  StyledXImg,
-  StyledHybridL2Img
-};
+export { StyledBanner, StyledBannerContent, StyledBannerTitle, StyledCarousel, StyledCarouselWrapper, StyledImg };

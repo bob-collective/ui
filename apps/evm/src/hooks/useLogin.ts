@@ -4,7 +4,7 @@ import { useLingui } from '@lingui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
 import { useChainId, useSignMessage } from 'wagmi';
-import { sendGTMEvent } from '@next/third-parties/google';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
@@ -39,7 +39,7 @@ const useLogin = () => {
       await apiClient.verify(message, signature);
     },
     onSuccess: async (_, address) => {
-      sendGTMEvent({ event: 'login', address });
+      sendGAEvent('event', 'login', { payload: { address } });
       setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import { PellNetwork, Spice } from '@gobob/icons';
 
-import { stakingInfo, StakingInfo, Incentive } from '../../../utils/stakeData';
+import { stakingInfo, Incentive } from '../../../utils/stakeData';
 
 const SpiceRewards = () => (
   <Chip background='primary-500' size='s' startAdornment={<Spice size='xs' />}>
@@ -77,8 +77,6 @@ const incentivesMap: Record<Incentive, () => ReactNode> = {
   [Incentive.supply]: SupplyApr
 };
 
-const stakingInfoAny = stakingInfo as StakingInfo;
-
 type Props = {
   slug: string;
 };
@@ -90,7 +88,7 @@ type StakeRewardsProps = Props & InheritAttrs;
 const StakeRewards = ({ slug, ...props }: StakeRewardsProps) => (
   <Flex gap='xs' {...props}>
     <SpiceRewards />
-    {stakingInfoAny[slug]?.incentives.map((incentive, key) => {
+    {stakingInfo[slug]?.incentives.map((incentive, key) => {
       const Comp = incentivesMap[incentive];
 
       return <Comp key={key} />;

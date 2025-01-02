@@ -1,17 +1,17 @@
 import { Flex, P } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import fusionSeasonThree from '@public/assets/fusion-season-three.png';
+import babylon from '@public/assets/babylon.png';
 
 import { Banner } from './Banner';
-import { StyledBannerContent, StyledImg } from './BannerCarousel.style';
+import { StyledImg, StyledBannerContent } from './BannerCarousel.style';
 import { BannerTitle } from './BannerTitle';
 
 type FusionBannerProps = {
   onPress?: () => void;
 };
 
-const FusionBanner = ({ onPress }: FusionBannerProps) => {
+const BabylonBanner = ({ onPress }: FusionBannerProps) => {
   const { i18n } = useLingui();
 
   return (
@@ -19,22 +19,19 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => {
       <StyledBannerContent direction='column'>
         <Flex alignItems='center'>
           <BannerTitle>
-            <Trans>BOB Fusion: The Final Season</Trans>
+            <Trans>Collect Babylon Points on BOB</Trans>
           </BannerTitle>
         </Flex>
         <P color='grey-50'>
-          <Trans>Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now.</Trans>
+          <Trans>
+            To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in
+            DeFi. Read more &gt;
+          </Trans>
         </P>
       </StyledBannerContent>
-      <StyledImg
-        alt={t(i18n)`Fusion season three`}
-        height='134'
-        placeholder='blur'
-        src={fusionSeasonThree}
-        width='313'
-      />
+      <StyledImg alt={t(i18n)`Babylon campaign`} height='134' placeholder='blur' src={babylon} width='312' />
     </Banner>
   );
 };
 
-export { FusionBanner };
+export { BabylonBanner };

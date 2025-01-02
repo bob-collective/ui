@@ -140,6 +140,10 @@ export type UserResponse = {
     showIsOpUser: boolean; // will be set to false once dismissed
     isOpUser: boolean; // stable
   };
+  baby: {
+    total: number;
+    daily: number;
+  };
 };
 
 type LeaderboardResponse = {

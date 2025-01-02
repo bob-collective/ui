@@ -149,10 +149,10 @@ const mockPellUniBTCStrategy: GatewayStrategyContract = {
 } as const;
 
 const seTokensContractDataMock = {
-  seSOLVBTCBBN: [200420547971521033526791436n, 90941658309n, '0xCC0966D8418d412c599A6421b760a847eB169A8c'],
-  seTBTC: [207537267655402594884495418n, 8255486068n, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2'],
-  seUNIBTC: [20020877878162857n, 8875128907n, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894'],
-  seWBTC: [20083839753286961n, 63216624241n, '0x03C7054BCB39f7b2e5B2c7AcB37583e32D70Cfa3']
+  seSOLVBTCBBN: [200420547971521033526791436n, 90941658309n, 10000n, '0xCC0966D8418d412c599A6421b760a847eB169A8c'],
+  seTBTC: [207537267655402594884495418n, 8255486068n, 10000n, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2'],
+  seUNIBTC: [20020877878162857n, 8875128907n, 10000n, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894'],
+  seWBTC: [20083839753286961n, 63216624241n, 10000n, '0x03C7054BCB39f7b2e5B2c7AcB37583e32D70Cfa3']
 } as const;
 
 const seTokensUnderlyingContractDataMock = {
@@ -163,13 +163,13 @@ const seTokensUnderlyingContractDataMock = {
 } as const;
 
 const tokensContractDataMock = {
-  'SolvBTC.BBN': [1669199681543807681873n, 18],
-  uniBTC: [42320720383n, 8]
+  'SolvBTC.BBN': [1669199681543807681873n, 18, 10000n],
+  uniBTC: [42320720383n, 8, 10000n]
 } as const;
 
 const noOuputTokenContractDataMock = {
-  '0xdf3aa56f2626e253b5db7703ac7241e835140566': 8587056375410955041n,
-  '0xf5f2f90d3edc557b7ff0a285169a0b194df7b6f2': 20351418531n
+  '0xdf3aa56f2626e253b5db7703ac7241e835140566': [8587056375410955041n, 10000n],
+  '0xf5f2f90d3edc557b7ff0a285169a0b194df7b6f2': [20351418531n, 10000n]
 } as const;
 
 const noOuputTokenContractSharesToUnderlyingDataMock = {
@@ -246,6 +246,7 @@ describe('useGetStakingStrategies', () => {
             mockStrategy.outputToken.symbol
           )
         : undefined,
+      userStaked: 10000,
       tvl: new Big(
         tokensContractDataMock[mockStrategy.outputToken?.symbol as keyof typeof tokensContractDataMock][0].toString()
       )
@@ -296,6 +297,7 @@ describe('useGetStakingStrategies', () => {
             mockSegmentStrategy.outputToken.symbol
           )
         : undefined,
+      userStaked: 10000,
       tvl: new Big(
         (
           seTokensContractDataMock[
@@ -343,6 +345,7 @@ describe('useGetStakingStrategies', () => {
     const expectedData = {
       raw: mockPellUniBTCStrategy,
       currency: undefined,
+      userStaked: 10000,
       tvl: new Big(
         noOuputTokenContractSharesToUnderlyingDataMock[
           mockPellUniBTCStrategy.address as keyof typeof noOuputTokenContractSharesToUnderlyingDataMock

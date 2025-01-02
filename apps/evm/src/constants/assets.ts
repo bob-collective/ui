@@ -142,37 +142,13 @@ const ethereumAssets: RawToken[] = [
   ETH[ChainId.ETHEREUM],
   {
     chainId: ChainId.ETHEREUM,
-    address: '0xe7c3755482d0dA522678Af05945062d4427e0923',
-    name: 'ALEX',
-    symbol: 'ALEX',
-    decimals: 18,
-    logoUrl:
-      'https://images.ctfassets.net/frwmwlognk87/66AVnxb2drR9ofypuV3y2r/1f223e16a7236dfa0ea4b8e0259c35c8/alex.svg',
-    apiId: 'alexgo',
-    bridgeDisabled: true
+    address: '0x8236a87084f8b84306f72007f36f2618a5634494',
+    name: 'LBTC',
+    symbol: 'LBTC',
+    decimals: 8,
+    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
+    apiId: 'lombard-staked-btc'
   },
-  {
-    chainId: ChainId.ETHEREUM,
-    address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-    name: 'Dai Stablecoin',
-    symbol: 'DAI',
-    decimals: 18,
-    logoUrl: 'https://ethereum-optimism.github.io/data/DAI/logo.svg',
-    apiId: 'dai'
-  },
-  ...(USDT?.[ChainId.ETHEREUM]
-    ? [
-        {
-          chainId: ChainId.ETHEREUM,
-          address: USDT[ChainId.ETHEREUM].address,
-          name: USDT[ChainId.ETHEREUM].name!,
-          symbol: USDT[ChainId.ETHEREUM].symbol,
-          decimals: USDT[ChainId.ETHEREUM].decimals,
-          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
-          apiId: 'tether'
-        }
-      ]
-    : []),
   ...(WBTC?.[ChainId.ETHEREUM]
     ? [
         {
@@ -187,15 +163,6 @@ const ethereumAssets: RawToken[] = [
         }
       ]
     : []),
-  {
-    chainId: ChainId.ETHEREUM,
-    address: '0xae78736Cd615f374D3085123A210448E74Fc6393',
-    name: 'Rocket Pool ETH',
-    symbol: 'rETH',
-    decimals: 18,
-    logoUrl: 'https://ethereum-optimism.github.io/data/rETH/logo.svg',
-    apiId: 'rocket-pool-eth'
-  },
   ...(TBTC?.[ChainId.ETHEREUM]
     ? [
         {
@@ -209,6 +176,49 @@ const ethereumAssets: RawToken[] = [
         }
       ]
     : []),
+  ...(USDT?.[ChainId.ETHEREUM]
+    ? [
+        {
+          chainId: ChainId.ETHEREUM,
+          address: USDT[ChainId.ETHEREUM].address,
+          name: USDT[ChainId.ETHEREUM].name!,
+          symbol: USDT[ChainId.ETHEREUM].symbol,
+          decimals: USDT[ChainId.ETHEREUM].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
+          apiId: 'tether'
+        }
+      ]
+    : []),
+  ...(usdc[ChainId.ETHEREUM] ? [usdc[ChainId.ETHEREUM]] : []),
+  {
+    chainId: ChainId.ETHEREUM,
+    address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+    name: 'Dai Stablecoin',
+    symbol: 'DAI',
+    decimals: 18,
+    logoUrl: 'https://ethereum-optimism.github.io/data/DAI/logo.svg',
+    apiId: 'dai'
+  },
+  {
+    chainId: ChainId.ETHEREUM,
+    address: '0xe7c3755482d0dA522678Af05945062d4427e0923',
+    name: 'ALEX',
+    symbol: 'ALEX',
+    decimals: 18,
+    logoUrl:
+      'https://images.ctfassets.net/frwmwlognk87/66AVnxb2drR9ofypuV3y2r/1f223e16a7236dfa0ea4b8e0259c35c8/alex.svg',
+    apiId: 'alexgo',
+    bridgeDisabled: true
+  },
+  {
+    chainId: ChainId.ETHEREUM,
+    address: '0xbdBb63F938c8961AF31eaD3deBa5C96e6A323DD1',
+    name: 'Sovryn Dollar',
+    symbol: 'DLLR',
+    decimals: 18,
+    logoUrl: 'https://assets.coingecko.com/coins/images/30947/standard/sovryn_dllr.jpg',
+    apiId: 'sovryn-dollar'
+  },
   {
     chainId: ChainId.ETHEREUM,
     address: '0xbdab72602e9AD40FC6a6852CAf43258113B8F7a5',
@@ -258,21 +268,30 @@ const ethereumAssets: RawToken[] = [
   },
   {
     chainId: ChainId.ETHEREUM,
-    address: '0xA663B02CF0a4b149d2aD41910CB81e23e1c41c32',
-    name: 'Staked FRAX',
-    symbol: 'sFRAX',
-    decimals: 18,
-    logoUrl: 'https://assets.coingecko.com/coins/images/35383/standard/sfrax.png',
-    apiId: 'staked-frax'
-  },
-  {
-    chainId: ChainId.ETHEREUM,
     address: '0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0',
     name: 'Frax Share',
     symbol: 'FXS',
     decimals: 18,
     logoUrl: 'https://assets.coingecko.com/coins/images/13423/standard/Frax_Shares_icon.png',
     apiId: 'frax-share'
+  },
+  {
+    chainId: ChainId.ETHEREUM,
+    address: '0xae78736Cd615f374D3085123A210448E74Fc6393',
+    name: 'Rocket Pool ETH',
+    symbol: 'rETH',
+    decimals: 18,
+    logoUrl: 'https://ethereum-optimism.github.io/data/rETH/logo.svg',
+    apiId: 'rocket-pool-eth'
+  },
+  {
+    chainId: ChainId.ETHEREUM,
+    address: '0xA663B02CF0a4b149d2aD41910CB81e23e1c41c32',
+    name: 'Staked FRAX',
+    symbol: 'sFRAX',
+    decimals: 18,
+    logoUrl: 'https://assets.coingecko.com/coins/images/35383/standard/sfrax.png',
+    apiId: 'staked-frax'
   },
   {
     chainId: ChainId.ETHEREUM,
@@ -285,12 +304,12 @@ const ethereumAssets: RawToken[] = [
   },
   {
     chainId: ChainId.ETHEREUM,
-    address: '0x88dF592F8eb5D7Bd38bFeF7dEb0fBc02cf3778a0',
-    name: 'Tellor Tributes',
-    symbol: 'TRB',
+    address: '0x7122985656e38BDC0302Db86685bb972b145bD3C',
+    name: 'StakeStone Ether',
+    symbol: 'STONE',
     decimals: 18,
-    logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
-    apiId: 'tellor-tributes'
+    logoUrl: 'https://storage.googleapis.com/ks-setting-1d682dca/dee351e5-ff61-4a8f-994d-82f3078119661696785945490.png',
+    apiId: 'stakestone-ether'
   },
   {
     chainId: ChainId.ETHEREUM,
@@ -300,7 +319,17 @@ const ethereumAssets: RawToken[] = [
     decimals: 18,
     logoUrl: 'https://assets.coingecko.com/coins/images/22228/standard/nFPNiSbL_400x400.jpg',
     apiId: 'threshold-network-token'
-  }
+  },
+  {
+    chainId: ChainId.ETHEREUM,
+    address: '0x88dF592F8eb5D7Bd38bFeF7dEb0fBc02cf3778a0',
+    name: 'Tellor Tributes',
+    symbol: 'TRB',
+    decimals: 18,
+    logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
+    apiId: 'tellor-tributes'
+  },
+  wstETH[ChainId.ETHEREUM]
 ];
 
 const sepoliaAssets: RawToken[] = [
@@ -339,37 +368,13 @@ const bobAssets: RawToken[] = [
   ETH[ChainId.BOB],
   {
     chainId: ChainId.BOB,
-    address: '0xa669e059fDcbDFC532A2edd658eb2922799EEDb8',
-    name: 'ALEX',
-    symbol: 'ALEX',
-    decimals: 18,
-    logoUrl:
-      'https://images.ctfassets.net/frwmwlognk87/66AVnxb2drR9ofypuV3y2r/1f223e16a7236dfa0ea4b8e0259c35c8/alex.svg',
-    apiId: 'alexgo',
-    bridgeDisabled: true
+    address: '0xa45d4121b3d47719ff57a947a9d961539ba33204',
+    name: 'LBTC',
+    symbol: 'LBTC',
+    decimals: 8,
+    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
+    apiId: 'lombard-staked-btc'
   },
-  {
-    chainId: ChainId.BOB,
-    address: '0x6c851F501a3F24E29A8E39a29591cddf09369080',
-    name: 'Dai Stablecoin',
-    symbol: 'DAI',
-    decimals: 18,
-    logoUrl: 'https://ethereum-optimism.github.io/data/DAI/logo.svg',
-    apiId: 'dai'
-  },
-  ...(USDT?.[ChainId.BOB]
-    ? [
-        {
-          chainId: ChainId.BOB,
-          address: USDT[ChainId.BOB].address,
-          name: USDT[ChainId.BOB].name!,
-          symbol: USDT[ChainId.BOB].symbol,
-          decimals: USDT[ChainId.BOB].decimals,
-          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
-          apiId: 'tether'
-        }
-      ]
-    : []),
   ...(WBTC?.[ChainId.BOB]
     ? [
         {
@@ -384,15 +389,6 @@ const bobAssets: RawToken[] = [
         }
       ]
     : []),
-  {
-    chainId: ChainId.BOB,
-    address: '0xB5686c4f60904Ec2BDA6277d6FE1F7cAa8D1b41a',
-    name: 'Rocket Pool ETH',
-    symbol: 'rETH',
-    decimals: 18,
-    logoUrl: 'https://ethereum-optimism.github.io/data/rETH/logo.svg',
-    apiId: 'rocket-pool-eth'
-  },
   ...(TBTC?.[ChainId.BOB]
     ? [
         {
@@ -406,6 +402,49 @@ const bobAssets: RawToken[] = [
         }
       ]
     : []),
+  ...(usdc?.[ChainId.BOB] ? [usdc?.[ChainId.BOB]] : []),
+  ...(USDT?.[ChainId.BOB]
+    ? [
+        {
+          chainId: ChainId.BOB,
+          address: USDT[ChainId.BOB].address,
+          name: USDT[ChainId.BOB].name!,
+          symbol: USDT[ChainId.BOB].symbol,
+          decimals: USDT[ChainId.BOB].decimals,
+          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
+          apiId: 'tether'
+        }
+      ]
+    : []),
+  {
+    chainId: ChainId.BOB,
+    address: '0x6c851F501a3F24E29A8E39a29591cddf09369080',
+    name: 'Dai Stablecoin',
+    symbol: 'DAI',
+    decimals: 18,
+    logoUrl: 'https://ethereum-optimism.github.io/data/DAI/logo.svg',
+    apiId: 'dai'
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0xa669e059fDcbDFC532A2edd658eb2922799EEDb8',
+    name: 'ALEX',
+    symbol: 'ALEX',
+    decimals: 18,
+    logoUrl:
+      'https://images.ctfassets.net/frwmwlognk87/66AVnxb2drR9ofypuV3y2r/1f223e16a7236dfa0ea4b8e0259c35c8/alex.svg',
+    apiId: 'alexgo',
+    bridgeDisabled: true
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0xf3107eEC1e6F067552C035FD87199e1A5169CB20',
+    name: 'Sovryn Dollar',
+    symbol: 'DLLR',
+    decimals: 18,
+    logoUrl: 'https://assets.coingecko.com/coins/images/30947/standard/sovryn_dllr.jpg?1696529786',
+    apiId: 'sovryn-dollar'
+  },
   {
     chainId: ChainId.BOB,
     address: '0xba20a5e63eeEFfFA6fD365E7e540628F8fC61474',
@@ -455,21 +494,30 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0xb7eae04B995B3b365040dEE99795112ADD43afa0',
-    name: 'Staked FRAX',
-    symbol: 'sFRAX',
-    decimals: 18,
-    logoUrl: 'https://assets.coingecko.com/coins/images/35383/standard/sfrax.png',
-    apiId: 'staked-frax'
-  },
-  {
-    chainId: ChainId.BOB,
     address: '0x15e35B19AD29C512103EaABb55154Ef0Ee6ca661',
     name: 'Frax Share',
     symbol: 'FXS',
     decimals: 18,
     logoUrl: 'https://assets.coingecko.com/coins/images/13423/standard/Frax_Shares_icon.png',
     apiId: 'frax-share'
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0xB5686c4f60904Ec2BDA6277d6FE1F7cAa8D1b41a',
+    name: 'Rocket Pool ETH',
+    symbol: 'rETH',
+    decimals: 18,
+    logoUrl: 'https://ethereum-optimism.github.io/data/rETH/logo.svg',
+    apiId: 'rocket-pool-eth'
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0xb7eae04B995B3b365040dEE99795112ADD43afa0',
+    name: 'Staked FRAX',
+    symbol: 'sFRAX',
+    decimals: 18,
+    logoUrl: 'https://assets.coingecko.com/coins/images/35383/standard/sfrax.png',
+    apiId: 'staked-frax'
   },
   {
     chainId: ChainId.BOB,
@@ -482,12 +530,12 @@ const bobAssets: RawToken[] = [
   },
   {
     chainId: ChainId.BOB,
-    address: '0x665060707c3Ea3c31b3eaBaD7F409072446E1D50',
-    name: 'Tellor Tributes',
-    symbol: 'TRB',
+    address: '0x96147A9Ae9a42d7Da551fD2322ca15B71032F342',
+    name: 'StakeStone Ether',
+    symbol: 'STONE',
     decimals: 18,
-    logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
-    apiId: 'tellor-tributes'
+    logoUrl: 'https://storage.googleapis.com/ks-setting-1d682dca/dee351e5-ff61-4a8f-994d-82f3078119661696785945490.png',
+    apiId: 'stakestone-ether'
   },
   {
     chainId: ChainId.BOB,
@@ -497,7 +545,17 @@ const bobAssets: RawToken[] = [
     decimals: 18,
     logoUrl: 'https://assets.coingecko.com/coins/images/22228/standard/nFPNiSbL_400x400.jpg',
     apiId: 'threshold-network-token'
-  }
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0x665060707c3Ea3c31b3eaBaD7F409072446E1D50',
+    name: 'Tellor Tributes',
+    symbol: 'TRB',
+    decimals: 18,
+    logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
+    apiId: 'tellor-tributes'
+  },
+  wstETH[ChainId.BOB]
 ];
 
 const bobSepoliaAssets: RawToken[] = [

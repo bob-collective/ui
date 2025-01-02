@@ -1,6 +1,5 @@
 import { Alert, Flex, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { ValueOf } from 'viem';
 
 enum Incentive {
   spice,
@@ -12,9 +11,20 @@ enum Incentive {
   supply
 }
 
-type StakingInfo = Record<string, ValueOf<typeof stakingInfo> | undefined>;
+type StakingInfo = {
+  strategy: string;
+  protocol: string;
+  incentives: Incentive[];
+  tvl: string;
+  about: JSX.Element;
+  inputToken: string;
+  outputToken: string;
+  securityReview: string;
+  website: string;
+  isDisabled?: boolean;
+};
 
-const stakingInfo = {
+const stakingInfo: Record<string, StakingInfo> = {
   'bedrock-unibtc': {
     strategy: 'Liquid Staking Bedrock-Babylon',
     protocol: 'Bedrock',
@@ -161,7 +171,7 @@ const stakingInfo = {
     securityReview: '',
     website: 'https://lombard.finance/app/stake'
   }
-};
+} as const;
 
 export { stakingInfo, Incentive };
 export type { StakingInfo };

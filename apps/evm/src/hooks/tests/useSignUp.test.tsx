@@ -69,7 +69,7 @@ describe('useSignUp', () => {
       wrapper
     });
 
-    await act(() => result.current.mutate(mockAddress));
+    await act(() => result.current.mutate({ address: mockAddress }));
 
     vi.runAllTimers();
 
@@ -91,7 +91,7 @@ describe('useSignUp', () => {
       wrapper
     });
 
-    await act(() => result.current.mutate(mockAddress));
+    await act(() => result.current.mutate({ address: mockAddress }));
 
     expect(toast.error).toHaveBeenCalledWith('User rejected the request');
   });
@@ -108,7 +108,7 @@ describe('useSignUp', () => {
       wrapper
     });
 
-    await act(() => result.current.mutate(mockAddress));
+    await act(() => result.current.mutate({ address: mockAddress }));
 
     expect(toast.error).toHaveBeenCalledWith('Network error');
   });

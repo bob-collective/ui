@@ -48,7 +48,7 @@ const bridges: Record<
     disabled: false
   },
   meson: {
-    href: 'https://meson.fi/bob',
+    href: 'https://meson.fi',
     icon: Meson,
     name: 'Meson',
     disabled: false
