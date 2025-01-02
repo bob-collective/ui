@@ -7,6 +7,7 @@ import { useGatewayForm } from '../useGatewayForm';
 
 import { useIsContract } from '@/hooks';
 import { BRIDGE_AMOUNT, BRIDGE_ASSET, BRIDGE_RECIPIENT } from '@/lib/form/bridge';
+import { GatewayTransactionType } from '@/types';
 
 vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
@@ -54,6 +55,7 @@ describe('useGatewayForm', () => {
   it('should initialize with correct default values', () => {
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -68,6 +70,7 @@ describe('useGatewayForm', () => {
   it('should validate BRIDGE_AMOUNT field when min and max amounts are defined', async () => {
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -86,6 +89,7 @@ describe('useGatewayForm', () => {
   it('should disable the form when required fields are not filled', () => {
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -106,6 +110,7 @@ describe('useGatewayForm', () => {
 
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -120,6 +125,7 @@ describe('useGatewayForm', () => {
 
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -133,6 +139,7 @@ describe('useGatewayForm', () => {
     const onSubmit = vi.fn();
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit
