@@ -4,6 +4,8 @@ import { useCallback, useMemo } from 'react';
 import { useAccount, useReadContracts } from 'wagmi';
 import { bob } from 'viem/chains';
 import Big from 'big.js';
+import { Currency, CurrencyAmount, Token } from '@gobob/currency';
+import { ChainId } from '@gobob/chains';
 
 import { StrategyData } from './useGetStakingStrategies';
 
@@ -37,7 +39,7 @@ function hasCGId(symbol: string | undefined): symbol is keyof typeof tokenToIdMa
 }
 
 // strategy contract -> StrategyBaseTVLLimits contract
-const strategyToLimitsMapping: Record<string, Address> = {
+export const strategyToLimitsMapping: Record<string, Address> = {
   // PellSolvLSTStrategy
   // "Pell (SolvBTC.BBN) -> pellStrategy (0x046DaeB4a46d83FC655a905aB352afbe981Cbd29) -> pellStrategy (0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef) -> totalShares
   '0xdf3aa56f2626e253b5db7703ac7241e835140566': '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef',
@@ -48,9 +50,13 @@ const strategyToLimitsMapping: Record<string, Address> = {
 
 type UnderlyingTicker = string;
 type UnderlyingDecimals = number;
-const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, UnderlyingDecimals]> = {
-  '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [CurrencyTicker['SolvBTC.BBN'], 18],
-  '0x631ae97e24f9F30150d31d958d37915975F12ed8': [CurrencyTicker.UNIBTC, 8]
+export const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, Address, UnderlyingDecimals]> = {
+  '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [
+    CurrencyTicker['SolvBTC.BBN'],
+    '0xCC0966D8418d412c599A6421b760a847eB169A8c',
+    18
+  ],
+  '0x631ae97e24f9F30150d31d958d37915975F12ed8': [CurrencyTicker.UNIBTC, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894', 8]
 };
 
 function hasNoOutputToken(strategyAddress: string): strategyAddress is keyof typeof strategyToLimitsMapping {
@@ -67,21 +73,27 @@ const useStrategiesContractData = (
 
   // se tokens contract data
   const seTokenContractDataSelector = useCallback(
-    (data: (bigint | `0x${string}`)[]) => {
+    (data: (bigint | number | Address)[]) => {
       if (!strategies) return null;
 
       return strategies.reduce(
         (acc, strategy) => {
           if (hasUnderlying(strategy.raw.outputToken?.symbol) && data) {
-            const idx = Object.keys(acc).length * 4;
+            const idx = Object.keys(acc).length * 5;
 
-            // for each se* token we need tulpes of 3 call results
-            acc[strategy.raw.outputToken?.symbol] = data.slice(idx, idx + 4) as [bigint, bigint, bigint, Address];
+            // for each se* token we need tulpes of 5 call results
+            acc[strategy.raw.outputToken?.symbol] = data.slice(idx, idx + 5) as [
+              bigint,
+              bigint,
+              bigint,
+              number,
+              Address
+            ];
           }
 
           return acc;
         },
-        {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, bigint, Address]>
+        {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
       );
     },
     [strategies]
@@ -116,6 +128,11 @@ const useStrategiesContractData = (
               abi: seTokenAbi,
               functionName: 'balanceOf',
               args: address ? [address] : [zeroAddress]
+            },
+            {
+              address: strategy.raw.outputToken.address as Address,
+              abi: seTokenAbi,
+              functionName: 'decimals'
             },
             {
               address: strategy.raw.outputToken.address as Address,
@@ -163,7 +180,7 @@ const useStrategiesContractData = (
       hasUnderlying(strategy.raw.outputToken?.symbol)
         ? ([
             {
-              address: seTokensContractData?.[strategy.raw.outputToken?.symbol]?.[3] as Address,
+              address: seTokensContractData?.[strategy.raw.outputToken?.symbol]?.[4] as Address,
               abi: erc20Abi,
               functionName: 'decimals'
             }
@@ -328,11 +345,12 @@ const useStrategiesContractData = (
       strategies?.reduce(
         (acc, strategy) => {
           const symbol = strategy.raw.outputToken?.symbol;
+          const address = strategy.raw.outputToken?.address;
 
           if (hasUnderlying(symbol) && seTokensContractData?.[symbol] && seTokensUnderlyingContractData?.[symbol]) {
             // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
             // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-            const [exchangeRateStored, totalSupply, userStaked] = seTokensContractData[symbol]!;
+            const [exchangeRateStored, totalSupply, userStaked, decimals] = seTokensContractData[symbol]!;
             const underlyingDecimals = seTokensUnderlyingContractData[symbol]!;
 
             const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
@@ -345,13 +363,16 @@ const useStrategiesContractData = (
                 .div(1e18)
                 .div(10 ** underlyingDecimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).toNumber()
+              userStaked: CurrencyAmount.fromRawAmount(
+                new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+                userStaked
+              )
             };
           }
 
           if (hasCGId(symbol) && tokensContractData?.[symbol]) {
             const [totalSupply, decimals, userStaked] = tokensContractData[symbol]!;
-            const ticker = tokenToIdMapping[symbol];
+            const ticker = tokenToIdMapping[symbol]!;
             const price = getPrice(ticker!);
 
             acc[strategy.raw.id] = {
@@ -359,7 +380,10 @@ const useStrategiesContractData = (
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).toNumber()
+              userStaked: CurrencyAmount.fromRawAmount(
+                new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+                userStaked
+              )
             };
           }
 
@@ -372,7 +396,7 @@ const useStrategiesContractData = (
           ) {
             const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingData[strategyAddress]!;
             const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
-            const [ticker, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
+            const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
             const [, userStaked] = noOuputTokenContractData[strategyAddress]!;
             const price = getPrice(ticker!);
 
@@ -381,13 +405,17 @@ const useStrategiesContractData = (
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).toNumber()
+              userStaked: CurrencyAmount.fromRawAmount(
+                // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
+                new Token(ChainId.BOB, address, decimals, ticker, ticker),
+                userStaked
+              )
             };
           }
 
           return acc;
         },
-        {} as Record<string, { tvl: number; userStaked: number }>
+        {} as Record<string, { tvl: number; userStaked: CurrencyAmount<Currency> }>
       ),
     [
       strategies,

@@ -61,6 +61,7 @@ const BtcStakeForm = ({ strategy, stakingInfo, onStart, onSuccess, onError }: Bt
     fields,
     form
   } = useGatewayForm({
+    type: GatewayTransactionType.STAKE,
     query: gateway.query,
     defaultAsset: strategy?.raw.integration.slug,
     onSubmit: handleSubmit
