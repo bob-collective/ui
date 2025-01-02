@@ -36,6 +36,7 @@ const StyledRadioGroup = styled(Flex)<StyledRadioGroupProps>`
 `;
 
 const StyledLabel = styled(Label)<StyledLabelProps>`
+  cursor: pointer;
   padding: 0;
   display: flex;
   gap: ${({ theme }) => theme.spacing('md')};

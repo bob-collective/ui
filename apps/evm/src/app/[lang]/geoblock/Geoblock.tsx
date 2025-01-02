@@ -35,7 +35,7 @@ export function Geoblock(): JSX.Element {
         </P>
         <Flex direction='column' gap='lg'>
           <Button asChild color='primary' variant='ghost'>
-            <a href='https://twitter.com/build_on_bob' rel='noreferrer' target='_blank'>
+            <a href='https://x.com/build_on_bob' rel='noreferrer' target='_blank'>
               <Flex alignItems='center' elementType='span' gap='md'>
                 <Twitter color='light' /> <Trans>Follow us on X for updates</Trans>
               </Flex>
