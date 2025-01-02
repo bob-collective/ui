@@ -4,6 +4,8 @@ import { useCallback, useMemo } from 'react';
 import { useAccount, useReadContracts } from 'wagmi';
 import { bob } from 'viem/chains';
 import Big from 'big.js';
+import { Currency, CurrencyAmount, Token } from '@gobob/currency';
+import { ChainId } from '@gobob/chains';
 
 import { StrategyData } from './useGetStakingStrategies';
 
@@ -48,9 +50,17 @@ const strategyToLimitsMapping: Record<string, Address> = {
 
 type UnderlyingTicker = string;
 type UnderlyingDecimals = number;
-const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, UnderlyingDecimals]> = {
-  '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [CurrencyTickers['SolvBTC.BBN'], 18],
-  '0x631ae97e24f9F30150d31d958d37915975F12ed8': [CurrencyTickers.UNIBTC, 8]
+const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, Address, UnderlyingDecimals]> = {
+  '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [
+    CurrencyTickers['SolvBTC.BBN'],
+    '0xCC0966D8418d412c599A6421b760a847eB169A8c',
+    18
+  ],
+  '0x631ae97e24f9F30150d31d958d37915975F12ed8': [
+    CurrencyTickers.UNIBTC,
+    '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894',
+    8
+  ]
 };
 
 function hasNoOutputToken(strategyAddress: string): strategyAddress is keyof typeof strategyToLimitsMapping {
@@ -339,6 +349,7 @@ const useStrategiesContractData = (
       strategies?.reduce(
         (acc, strategy) => {
           const symbol = strategy.raw.outputToken?.symbol;
+          const address = strategy.raw.outputToken?.address;
 
           if (hasUnderlying(symbol) && seTokensContractData?.[symbol] && seTokensUnderlyingContractData?.[symbol]) {
             // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
@@ -356,13 +367,16 @@ const useStrategiesContractData = (
                 .div(1e18)
                 .div(10 ** underlyingDecimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).div(10 ** decimals).toNumber()
+              userStaked: CurrencyAmount.fromRawAmount(
+                new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+                userStaked
+              )
             };
           }
 
           if (hasCGId(symbol) && tokensContractData?.[symbol]) {
             const [totalSupply, decimals, userStaked] = tokensContractData[symbol]!;
-            const ticker = tokenToIdMapping[symbol];
+            const ticker = tokenToIdMapping[symbol]!;
             const price = getPrice(ticker!);
 
             acc[strategy.raw.id] = {
@@ -370,7 +384,10 @@ const useStrategiesContractData = (
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).div(10 ** decimals).toNumber()
+              userStaked: CurrencyAmount.fromRawAmount(
+                new Token(ChainId.BOB, address as Address, decimals, ticker, ticker),
+                userStaked
+              )
             };
           }
 
@@ -383,7 +400,7 @@ const useStrategiesContractData = (
           ) {
             const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingData[strategyAddress]!;
             const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
-            const [ticker, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
+            const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
             const [, userStaked] = noOuputTokenContractData[strategyAddress]!;
             const price = getPrice(ticker!);
 
@@ -392,13 +409,16 @@ const useStrategiesContractData = (
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: new Big(userStaked.toString()).div(10 ** decimals).toNumber()
+              userStaked: CurrencyAmount.fromRawAmount(
+                new Token(ChainId.BOB, address, decimals, ticker, ticker),
+                userStaked
+              )
             };
           }
 
           return acc;
         },
-        {} as Record<string, { tvl: number; userStaked: number }>
+        {} as Record<string, { tvl: number; userStaked: CurrencyAmount<Currency> }>
       ),
     [
       strategies,
