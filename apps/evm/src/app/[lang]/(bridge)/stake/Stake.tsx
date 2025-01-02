@@ -66,7 +66,7 @@ function Stake({ searchParams }: Props) {
     <Layout>
       <Flex direction='column' gap='xl' marginTop='xl'>
         <StakeTable searchParams={searchParams} onStakeSuccess={refetchTransactions} />
-        <TransactionList data={transactions} isInitialLoading={isInitialLoading} />
+        <TransactionList data={transactions} isInitialLoading={isInitialLoading} type='stake' />
       </Flex>
     </Layout>
   );
