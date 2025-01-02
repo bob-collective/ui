@@ -1,11 +1,10 @@
-import { Metadata } from 'next';
 import { t } from '@lingui/macro';
+import { Metadata } from 'next';
 
-import { StakeStrategy } from './StakeStrategy';
+import { Strategy } from './Strategy';
 
-import { withLinguiPage } from '@/i18n/withLigui';
 import { getI18nInstance } from '@/i18n/appRouterI18n';
-import { PageLangParam } from '@/i18n/withLigui';
+import { PageLangParam, withLinguiPage } from '@/i18n/withLigui';
 
 export function generateMetadata({ params }: PageLangParam): Metadata {
   const i18n = getI18nInstance(params.lang);
@@ -16,4 +15,4 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default withLinguiPage(StakeStrategy as any);
+export default withLinguiPage(Strategy as any);

@@ -28,12 +28,16 @@ const StyledIcon = styled.svg<StyledIconProps>`
   overflow: hidden;
   ${({ theme, $size, $color, $width, $height }) => css`
     ${getResponsiveCSS(theme, $size, $color)}
-    width: ${$width && typeof $width === 'string' && ($width.includes('em') || $width.includes('rem'))
-      ? $width
-      : `${$width}px`};
-    height: ${$height && typeof $height === 'string' && ($height.includes('em') || $height.includes('rem'))
-      ? $height
-      : `${$height}px`};
+    width: ${$width
+      ? typeof $width === 'string' && ($width.includes('em') || $width.includes('rem'))
+        ? $width
+        : `${$width}px`
+      : undefined};
+    height: ${$height
+      ? typeof $height === 'string' && ($height.includes('em') || $height.includes('rem'))
+        ? $height
+        : `${$height}px`
+      : undefined};
   `}
 `;
 

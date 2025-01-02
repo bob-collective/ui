@@ -1,24 +1,24 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
-import { ERC20Token, Token } from '@gobob/currency';
+import { Currency, CurrencyAmount, ERC20Token, Token } from '@gobob/currency';
 import { useCallback, useMemo } from 'react';
 
 import { strategiesInfo, StrategyInfo } from '../constants';
 
 import { useStrategiesContractData } from './useStrategiesContractData';
 
-import { useGetStrategies } from '@/hooks';
+import { useGetStrategies as useGetSdkStrategies } from '@/hooks';
 
 type StrategyData = {
   tvl?: number | null;
-  data: {
-    contract: GatewayStrategyContract;
-    info: StrategyInfo;
-  };
+  meta: GatewayStrategyContract['integration'];
+  contract: GatewayStrategyContract;
+  info: StrategyInfo;
   currency?: ERC20Token;
+  userDepositAmount?: CurrencyAmount<Currency>;
 };
 
-const useGetStakingStrategies = () => {
+const useGetStrategies = () => {
   const selectStrategyData = useCallback(
     (strategies: GatewayStrategyContract[]) =>
       strategies
@@ -28,10 +28,9 @@ const useGetStakingStrategies = () => {
           if (!info) return undefined;
 
           return {
-            data: {
-              contract: strategy,
-              info: info
-            },
+            meta: strategy.integration,
+            contract: strategy,
+            info: info,
             currency: strategy.outputToken
               ? new Token(
                   ChainId.BOB,
@@ -51,7 +50,7 @@ const useGetStakingStrategies = () => {
     data: strategies,
     isSuccess: isStrategiesSucess,
     isPending: isStrategiesPending
-  } = useGetStrategies({
+  } = useGetSdkStrategies({
     select: selectStrategyData
   });
 
@@ -59,16 +58,16 @@ const useGetStakingStrategies = () => {
     enabled: isStrategiesSucess
   });
 
-  const strategiesData = useMemo(
+  const strategiesData: StrategyData[] | undefined = useMemo(
     () =>
       strategies?.map((strategy) => {
-        const tvl = strategiesContractData?.[strategy.data.contract.id]?.tvl;
-        const userStaked = strategiesContractData?.[strategy.data.contract.id]?.userStaked;
+        const tvl = strategiesContractData?.[strategy.contract.id]?.tvl;
+        const userDepositAmount = strategiesContractData?.[strategy.contract.id]?.userDepositAmount;
 
         return {
           ...strategy,
           tvl,
-          userStaked
+          userDepositAmount
         };
       }),
     [strategies, strategiesContractData]
@@ -77,5 +76,5 @@ const useGetStakingStrategies = () => {
   return { data: strategiesData, isPending: isStrategiesPending || isStatsPending };
 };
 
-export { useGetStakingStrategies };
+export { useGetStrategies };
 export type { StrategyData };

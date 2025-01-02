@@ -1,14 +1,11 @@
 'use client';
 
-import { PellNetwork } from '@gobob/icons';
 import { Alert, ArrowLeft, Avatar, Card, Flex, H1, H2, Link, P, Span, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 
 import { useGetGatewayTransactions } from '../../hooks';
-import { stakingInfo as stakingData } from '../../utils/stakeData';
-import { StakingForm } from '../components';
-import { StakeDetails } from '../components/StakeDetails';
-import { useGetStakingStrategies } from '../hooks';
+import { StrategyDetails, StrategyForm } from '../components';
+import { useGetStrategies } from '../hooks';
 
 import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
@@ -18,22 +15,18 @@ type Props = PageLangParam & {
   params: { slug: string };
 };
 
-function StakeStrategy({ params }: Props) {
+function Strategy({ params }: Props) {
   const { refetch: refetchTransactions } = useGetGatewayTransactions({});
 
-  const { data: strategies = [] } = useGetStakingStrategies();
+  const { data: strategies = [] } = useGetStrategies();
 
-  const strategy = strategies.find((strategy) => strategy.raw.integration.slug === params.slug);
+  const strategy = strategies.find((strategy) => strategy.meta.slug === params.slug);
 
   if (!strategy) {
     return null;
   }
 
-  const stakingInfo = stakingData[strategy?.raw.integration.slug];
-
-  if (!stakingInfo) return null;
-
-  const isLending = strategy.raw.integration.type === 'lending';
+  const isLending = strategy.meta.type === 'lending';
 
   return (
     <Layout>
@@ -44,28 +37,31 @@ function StakeStrategy({ params }: Props) {
           </Flex>
         </Link>
         <Flex alignItems='center' gap='lg' marginTop='4xl'>
-          {strategy.raw.integration.logo ? (
-            <Avatar size={'4xl'} src={strategy.raw.integration.logo} />
-          ) : (
-            <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
-          )}
+          <Avatar
+            size='4xl'
+            src={
+              strategy.meta.logo ||
+              'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true'
+            }
+          />
+
           <Flex alignItems='flex-start' direction='column'>
-            <H1 size='lg'>{stakingInfo.strategy}</H1>
+            <H1 size='lg'>{strategy.info.name}</H1>
             <H2 color='grey-50' size='md' weight='medium'>
-              {stakingInfo.protocol}
+              {strategy.info.protocol}
             </H2>
           </Flex>
         </Flex>
-        {stakingInfo?.warningMessage && (
+        {strategy.info?.warningMessage && (
           <Alert status='warning' style={{ marginTop: '1rem' }} variant='outlined'>
-            {stakingInfo.warningMessage}
+            {strategy.info.warningMessage}
           </Alert>
         )}
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
           <Card flex={1}>
             <Tabs fullWidth size='lg'>
               <TabsItem key='deposit' title={isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>}>
-                <StakingForm stakingInfo={stakingInfo} strategy={strategy} onStakeSuccess={refetchTransactions} />
+                <StrategyForm isLending={isLending} strategy={strategy} onSuccess={refetchTransactions} />
               </TabsItem>
               <TabsItem key='withdraw' title={isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>}>
                 <P>Follow these step to unstake your asset:</P>
@@ -79,7 +75,7 @@ function StakeStrategy({ params }: Props) {
                 >
                   <li>
                     <Span>
-                      Go to <Link>{stakingInfo.protocol} website</Link>
+                      Go to <Link>{strategy.info.protocol} website</Link>
                     </Span>
                   </li>
                   <li>
@@ -100,11 +96,11 @@ function StakeStrategy({ params }: Props) {
               </TabsItem>
             </Tabs>
           </Card>
-          <StakeDetails isLending={isLending} strategy={strategy} />
+          <StrategyDetails isLending={isLending} strategy={strategy} />
         </Flex>
       </Main>
     </Layout>
   );
 }
 
-export { StakeStrategy };
+export { Strategy };

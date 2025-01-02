@@ -1,16 +1,16 @@
 'use client';
 
+import { Flex, H1, P } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
 import { watchAccount } from '@wagmi/core';
 import { useEffect, useRef } from 'react';
 import { useConfig } from 'wagmi';
-import { Flex, H1, P } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
 
 import { Layout, TransactionList } from '../components';
 import { GetGatewayTransactionsReturnType, useGetGatewayTransactions } from '../hooks';
 
-import { StakeTable } from './components';
+import { StrategiesTable } from './components';
 
 import { PageLangParam } from '@/i18n/withLigui';
 import { store } from '@/lib/store';
@@ -23,7 +23,7 @@ type Props = PageLangParam & {
 const select = (data: GetGatewayTransactionsReturnType) =>
   data.filter((item) => item.subType === GatewayTransactionType.STAKE);
 
-function Stake({ searchParams }: Props) {
+function Strategies({ searchParams }: Props) {
   const config = useConfig();
 
   const { data: transactions, isLoading: isLoadingTransactions } = useGetGatewayTransactions({
@@ -70,11 +70,11 @@ function Stake({ searchParams }: Props) {
         </P>
       </Flex>
       <Flex direction='column' gap='xl' marginTop='6xl'>
-        <StakeTable searchParams={searchParams} />
+        <StrategiesTable searchParams={searchParams} />
         <TransactionList data={transactions} isInitialLoading={isInitialLoading} type='stake' />
       </Flex>
     </Layout>
   );
 }
 
-export { Stake };
+export { Strategies };

@@ -1,9 +1,9 @@
-import { Flex, Avatar, Chip, FlexProps } from '@gobob/ui';
+import { PellNetwork, Spice } from '@gobob/icons';
+import { Avatar, Chip, Flex, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
-import { PellNetwork, Spice } from '@gobob/icons';
 
-import { stakingInfo, Incentive } from '../../../utils/stakeData';
+import { Incentive } from '../../constants';
 
 const SpiceRewards = () => (
   <Chip background='primary-500' size='s' startAdornment={<Spice size='xs' />}>
@@ -78,17 +78,17 @@ const incentivesMap: Record<Incentive, () => ReactNode> = {
 };
 
 type Props = {
-  slug: string;
+  incentives: Incentive[];
 };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
-type StakeRewardsProps = Props & InheritAttrs;
+type StrategyRewardsProps = Props & InheritAttrs;
 
-const StakeRewards = ({ slug, ...props }: StakeRewardsProps) => (
+const StrategyRewards = ({ incentives, ...props }: StrategyRewardsProps) => (
   <Flex wrap gap='xs' {...props}>
     <SpiceRewards />
-    {stakingInfo[slug]?.incentives.map((incentive, key) => {
+    {incentives.map((incentive, key) => {
       const Comp = incentivesMap[incentive];
 
       return <Comp key={key} />;
@@ -96,4 +96,4 @@ const StakeRewards = ({ slug, ...props }: StakeRewardsProps) => (
   </Flex>
 );
 
-export { StakeRewards };
+export { StrategyRewards };

@@ -4,40 +4,40 @@ import { Avatar, Card, Dd, Divider, Dl, DlGroup, Dt, Flex, Link, Span, useCurren
 import { truncateEthAddress } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
 
-import { stakingInfo as stakingData } from '../../../utils/stakeData';
 import { StrategyData } from '../../hooks';
-import { StakeRewards } from '../StakeRewards';
+import { StrategyRewards } from '../StrategyRewards';
 
-import { StyledArrowLongRight } from './StakeDetails.style';
+import { StyledArrowLongRight } from './StrategyDetails.style';
 
 import { chainL2, L2_CHAIN } from '@/constants';
-import { ChainAsset } from '@/components';
+import { AmountLabel, ChainAsset } from '@/components';
 
-type StakeDetailsProps = {
+type StrategyDetailsProps = {
   strategy: StrategyData;
   isLending?: boolean;
 };
 
-const StakeDetails = ({ strategy, isLending }: StakeDetailsProps) => {
+const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
   const format = useCurrencyFormatter();
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const stakingInfo = (stakingData as any)[strategy?.raw.integration.slug];
 
   return (
     <Dl direction='column' flex={1} gap='xl'>
-      <Card alignItems='flex-start' direction='column'>
-        <Dt color='grey-50' size='s'>
-          {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
-        </Dt>
-        <Dd>0</Dd>
-      </Card>
+      {strategy.userDepositAmount && (
+        <Card alignItems='flex-start' direction='column'>
+          <Dt color='grey-50' size='s'>
+            {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
+          </Dt>
+          <Dd color='light' size='lg' weight='semibold'>
+            <AmountLabel hidePrice amount={strategy.userDepositAmount} />
+          </Dd>
+        </Card>
+      )}
       <Flex direction={{ base: 'column', s: 'row' }} gap='xl' style={{ width: '100%' }}>
         <Card alignItems='flex-start' direction='column' flex={0.7} gap='md'>
           <Dt color='grey-50' size='s'>
             <Trans>Rewards</Trans>
           </Dt>
-          <StakeRewards wrap elementType='dd' slug={strategy?.raw.integration.slug ?? ''} />
+          <StrategyRewards wrap elementType='dd' incentives={strategy.info.incentives} />
         </Card>
         <Card alignItems='flex-start' direction='column' flex={0.3} gap='md'>
           <Dt color='grey-50' size='s'>
@@ -53,7 +53,7 @@ const StakeDetails = ({ strategy, isLending }: StakeDetailsProps) => {
           <Dt color='grey-50' size='s'>
             <Trans>Description</Trans>
           </Dt>
-          <Dd size='s'>{stakingInfo.about}</Dd>
+          <Dd size='s'>{strategy.info.about}</Dd>
         </DlGroup>
         <Divider />
         <Flex gap='md'>
@@ -70,12 +70,16 @@ const StakeDetails = ({ strategy, isLending }: StakeDetailsProps) => {
               style={{ width: '100%' }}
             >
               <Flex alignItems='center' gap='md'>
-                <Avatar alt={stakingInfo?.inputToken} size='5xl' src={stakingInfo?.inputTokenLogoUrl} />
+                <Avatar
+                  alt='BTC'
+                  size='5xl'
+                  src='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
+                />
                 <Flex direction='column'>
                   <Span color='grey-50' size='xs'>
                     Input
                   </Span>
-                  <Span lineHeight='1.2'>{stakingInfo?.inputToken}</Span>
+                  <Span lineHeight='1.2'>BTC</Span>
                   <Span color='grey-50' size='s'>
                     Bitcoin
                   </Span>
@@ -84,7 +88,7 @@ const StakeDetails = ({ strategy, isLending }: StakeDetailsProps) => {
               <StyledArrowLongRight />
               <Flex alignItems='center' gap='md'>
                 <ChainAsset
-                  asset={<Avatar alt={stakingInfo?.outputToken} size='5xl' src={strategy.raw.integration.logo} />}
+                  asset={<Avatar alt={strategy.info.outputToken} size='5xl' src={strategy.meta.logo} />}
                   chainId={L2_CHAIN}
                   chainProps={{ size: 'xs' }}
                 />
@@ -93,18 +97,18 @@ const StakeDetails = ({ strategy, isLending }: StakeDetailsProps) => {
                   <Span color='grey-50' size='xs'>
                     Output
                   </Span>
-                  <Span lineHeight='1.2'>{stakingInfo?.outputToken}</Span>
+                  <Span lineHeight='1.2'>{strategy.info.outputToken}</Span>
                   <Link
                     external
                     icon
                     color='grey-50'
                     href={new URL(
-                      `/address/${strategy?.raw.outputToken?.address}`,
+                      `/address/${strategy?.contract.outputToken?.address}`,
                       chainL2.blockExplorers?.default.url
                     ).toString()}
                     size='s'
                   >
-                    {truncateEthAddress(strategy?.raw.outputToken?.address || '')}
+                    {truncateEthAddress(strategy?.contract.outputToken?.address || '')}
                   </Link>
                 </Flex>
               </Flex>
@@ -117,12 +121,12 @@ const StakeDetails = ({ strategy, isLending }: StakeDetailsProps) => {
             <Trans>Additional Information</Trans>
           </Dt>
           <Flex wrap elementType='dd' gap={{ base: 'md', s: 'xl' }}>
-            <Link external icon href={stakingInfo?.website}>
+            <Link external icon href={strategy.info.website}>
               <Trans>Website</Trans>
             </Link>
-            {stakingInfo?.securityReview && (
+            {strategy.info.securityReview && (
               <>
-                <Link external icon href={stakingInfo?.securityReview}>
+                <Link external icon href={strategy.info.securityReview}>
                   <Trans>Security Review by Bitcoin Layers</Trans>
                 </Link>
               </>
@@ -134,4 +138,4 @@ const StakeDetails = ({ strategy, isLending }: StakeDetailsProps) => {
   );
 };
 
-export { StakeDetails };
+export { StrategyDetails };

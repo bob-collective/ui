@@ -9,7 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import { usePrices } from '@gobob/hooks';
 import Big from 'big.js';
 
-import { useGetStakingStrategies } from '../useGetStakingStrategies';
+import { useGetStrategies } from '../useGetStrategies';
 import { limitsToUnderlyingMapping, strategyToLimitsMapping } from '../useStrategiesContractData';
 
 import { gatewaySDK } from '@/lib/bob-sdk';
@@ -178,7 +178,7 @@ const noOuputTokenContractSharesToUnderlyingDataMock = {
   '0xf5f2f90d3edc557b7ff0a285169a0b194df7b6f2': 20351418531n
 } as const;
 
-describe('useGetStakingStrategies', () => {
+describe('useGetStrategies', () => {
   afterEach(vi.clearAllMocks);
 
   const underlyingDecimals = 18;
@@ -229,15 +229,16 @@ describe('useGetStakingStrategies', () => {
 
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockStrategy]);
 
-    const { result, waitForValueToChange } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
-      () => useGetStakingStrategies(),
+    const { result, waitForValueToChange } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
+      () => useGetStrategies(),
       { wrapper }
     );
 
     await waitForValueToChange(() => result.current.data);
 
     const expectedData = {
-      raw: mockStrategy,
+      meta: mockStrategy.integration,
+      contract: mockStrategy,
       currency: mockStrategy.outputToken
         ? new Token(
             ChainId.BOB,
@@ -289,15 +290,16 @@ describe('useGetStakingStrategies', () => {
 
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockSegmentStrategy]);
 
-    const { result, waitForValueToChange } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
-      () => useGetStakingStrategies(),
+    const { result, waitForValueToChange } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
+      () => useGetStrategies(),
       { wrapper }
     );
 
     await waitForValueToChange(() => result.current.data);
 
     const expectedData = {
-      raw: mockSegmentStrategy,
+      meta: mockStrategy.integration,
+      contract: mockSegmentStrategy,
       currency: mockSegmentStrategy.outputToken
         ? new Token(
             ChainId.BOB,
@@ -354,8 +356,8 @@ describe('useGetStakingStrategies', () => {
 
     (gatewaySDK.getStrategies as Mock).mockReturnValue([mockPellUniBTCStrategy]);
 
-    const { result, waitForValueToChange } = renderHook<PropsWithChildren, ReturnType<typeof useGetStakingStrategies>>(
-      () => useGetStakingStrategies(),
+    const { result, waitForValueToChange } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
+      () => useGetStrategies(),
       { wrapper }
     );
 
@@ -364,7 +366,7 @@ describe('useGetStakingStrategies', () => {
     const limitsContractAddress = strategyToLimitsMapping[mockPellUniBTCStrategy.address]!;
     const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
     const expectedData = {
-      raw: mockPellUniBTCStrategy,
+      contract: mockPellUniBTCStrategy,
       currency: undefined,
       userStaked: CurrencyAmount.fromRawAmount(new Token(ChainId.BOB, address, decimals, ticker, ticker), 10000),
       tvl: new Big(
