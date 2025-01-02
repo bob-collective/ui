@@ -1,6 +1,6 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
-import { Token } from '@gobob/currency';
+import { CurrencyAmount, Token } from '@gobob/currency';
 import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { Address } from 'viem';
@@ -10,6 +10,7 @@ import { usePrices } from '@gobob/hooks';
 import Big from 'big.js';
 
 import { useGetStakingStrategies } from '../useGetStakingStrategies';
+import { limitsToUnderlyingMapping, strategyToLimitsMapping } from '../useStrategiesContractData';
 
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { wrapper } from '@/test-utils';
@@ -149,10 +150,10 @@ const mockPellUniBTCStrategy: GatewayStrategyContract = {
 } as const;
 
 const seTokensContractDataMock = {
-  seSOLVBTCBBN: [200420547971521033526791436n, 90941658309n, 10000n, '0xCC0966D8418d412c599A6421b760a847eB169A8c'],
-  seTBTC: [207537267655402594884495418n, 8255486068n, 10000n, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2'],
-  seUNIBTC: [20020877878162857n, 8875128907n, 10000n, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894'],
-  seWBTC: [20083839753286961n, 63216624241n, 10000n, '0x03C7054BCB39f7b2e5B2c7AcB37583e32D70Cfa3']
+  seSOLVBTCBBN: [200420547971521033526791436n, 90941658309n, 10000n, 8, '0xCC0966D8418d412c599A6421b760a847eB169A8c'],
+  seTBTC: [207537267655402594884495418n, 8255486068n, 10000n, 8, '0xBBa2eF945D523C4e2608C9E1214C2Cc64D4fc2e2'],
+  seUNIBTC: [20020877878162857n, 8875128907n, 10000n, 8, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894'],
+  seWBTC: [20083839753286961n, 63216624241n, 10000n, 8, '0x03C7054BCB39f7b2e5B2c7AcB37583e32D70Cfa3']
 } as const;
 
 const seTokensUnderlyingContractDataMock = {
@@ -240,13 +241,22 @@ describe('useGetStakingStrategies', () => {
       currency: mockStrategy.outputToken
         ? new Token(
             ChainId.BOB,
-            mockStrategy.outputToken.address as Address,
-            mockStrategy.outputToken.decimals,
-            mockStrategy.outputToken.symbol,
-            mockStrategy.outputToken.symbol
+            mockStrategy.outputToken?.address as Address,
+            mockStrategy.outputToken?.decimals as number,
+            mockStrategy.outputToken?.symbol as string,
+            mockStrategy.outputToken?.symbol as string
           )
         : undefined,
-      userStaked: 10000,
+      userStaked: CurrencyAmount.fromRawAmount(
+        new Token(
+          ChainId.BOB,
+          mockStrategy.outputToken?.address as Address,
+          mockStrategy.outputToken?.decimals as number,
+          mockStrategy.outputToken?.symbol as string,
+          mockStrategy.outputToken?.symbol as string
+        ),
+        10000
+      ),
       tvl: new Big(
         tokensContractDataMock[mockStrategy.outputToken?.symbol as keyof typeof tokensContractDataMock][0].toString()
       )
@@ -291,13 +301,22 @@ describe('useGetStakingStrategies', () => {
       currency: mockSegmentStrategy.outputToken
         ? new Token(
             ChainId.BOB,
-            mockSegmentStrategy.outputToken.address as Address,
-            mockSegmentStrategy.outputToken.decimals,
-            mockSegmentStrategy.outputToken.symbol,
-            mockSegmentStrategy.outputToken.symbol
+            mockSegmentStrategy.outputToken?.address as Address,
+            mockSegmentStrategy.outputToken?.decimals as number,
+            mockSegmentStrategy.outputToken?.symbol as string,
+            mockSegmentStrategy.outputToken?.symbol as string
           )
         : undefined,
-      userStaked: 10000,
+      userStaked: CurrencyAmount.fromRawAmount(
+        new Token(
+          ChainId.BOB,
+          mockSegmentStrategy.outputToken?.address as Address,
+          mockSegmentStrategy.outputToken?.decimals as number,
+          mockSegmentStrategy.outputToken?.symbol as string,
+          mockSegmentStrategy.outputToken?.symbol as string
+        ),
+        10000
+      ),
       tvl: new Big(
         (
           seTokensContractDataMock[
@@ -342,10 +361,12 @@ describe('useGetStakingStrategies', () => {
 
     await waitForValueToChange(() => result.current.data);
 
+    const limitsContractAddress = strategyToLimitsMapping[mockPellUniBTCStrategy.address]!;
+    const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
     const expectedData = {
       raw: mockPellUniBTCStrategy,
       currency: undefined,
-      userStaked: 10000,
+      userStaked: CurrencyAmount.fromRawAmount(new Token(ChainId.BOB, address, decimals, ticker, ticker), 10000),
       tvl: new Big(
         noOuputTokenContractSharesToUnderlyingDataMock[
           mockPellUniBTCStrategy.address as keyof typeof noOuputTokenContractSharesToUnderlyingDataMock
