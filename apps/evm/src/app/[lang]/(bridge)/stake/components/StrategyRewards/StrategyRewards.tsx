@@ -3,7 +3,7 @@ import { Avatar, Chip, Flex, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 
-import { Incentive } from '../../constants';
+import { StrategyIncentive } from '../../constants';
 
 const SpiceRewards = () => (
   <Chip background='primary-500' size='s' startAdornment={<Spice size='xs' />}>
@@ -67,18 +67,18 @@ const SupplyApr = () => (
   </Chip>
 );
 
-const incentivesMap: Record<Incentive, () => ReactNode> = {
-  [Incentive.babylon]: BabylonPoints,
-  [Incentive.bedrock]: BedrockDiamond,
-  [Incentive.pell]: PellPoints,
-  [Incentive.segment]: SegmentPoints,
-  [Incentive.solv]: SolvXP,
-  [Incentive.spice]: SpiceRewards,
-  [Incentive.supply]: SupplyApr
+const incentivesMap: Record<StrategyIncentive, () => ReactNode> = {
+  [StrategyIncentive.babylon]: BabylonPoints,
+  [StrategyIncentive.bedrock]: BedrockDiamond,
+  [StrategyIncentive.pell]: PellPoints,
+  [StrategyIncentive.segment]: SegmentPoints,
+  [StrategyIncentive.solv]: SolvXP,
+  [StrategyIncentive.spice]: SpiceRewards,
+  [StrategyIncentive.supply]: SupplyApr
 };
 
 type Props = {
-  incentives: Incentive[];
+  incentives: StrategyIncentive[];
 };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;

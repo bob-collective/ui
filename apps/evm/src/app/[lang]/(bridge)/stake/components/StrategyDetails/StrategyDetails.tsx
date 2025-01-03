@@ -53,7 +53,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
           <Dt color='grey-50' size='s'>
             <Trans>Description</Trans>
           </Dt>
-          <Dd size='s'>{strategy.info.about}</Dd>
+          <Dd size='s'>{strategy.info.description}</Dd>
         </DlGroup>
         <Divider />
         <Flex gap='md'>
@@ -86,32 +86,70 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
                 </Flex>
               </Flex>
               <StyledArrowLongRight />
-              <Flex alignItems='center' gap='md'>
-                <ChainAsset
-                  asset={<Avatar alt={strategy.info.outputToken} size='5xl' src={strategy.meta.logo} />}
-                  chainId={L2_CHAIN}
-                  chainProps={{ size: 'xs' }}
-                />
-
-                <Flex direction='column'>
-                  <Span color='grey-50' size='xs'>
-                    Output
-                  </Span>
-                  <Span lineHeight='1.2'>{strategy.info.outputToken}</Span>
-                  <Link
-                    external
-                    icon
-                    color='grey-50'
-                    href={new URL(
-                      `/address/${strategy?.contract.outputToken?.address}`,
-                      chainL2.blockExplorers?.default.url
-                    ).toString()}
-                    size='s'
-                  >
-                    {truncateEthAddress(strategy?.contract.outputToken?.address || '')}
-                  </Link>
+              {strategy.contract.inputToken && (
+                <Flex alignItems='center' gap='md'>
+                  <ChainAsset
+                    asset={
+                      <Avatar
+                        alt={strategy.contract.inputToken.symbol}
+                        size='5xl'
+                        src={strategy.contract.inputToken.logo}
+                      />
+                    }
+                    chainId={L2_CHAIN}
+                    chainProps={{ size: 'xs' }}
+                  />
+                  <Flex direction='column'>
+                    <Span lineHeight='1.2'>{strategy.contract.inputToken.symbol}</Span>
+                    <Link
+                      external
+                      icon
+                      color='grey-50'
+                      href={new URL(
+                        `/address/${strategy.contract.inputToken?.address}`,
+                        chainL2.blockExplorers?.default.url
+                      ).toString()}
+                      size='s'
+                    >
+                      {truncateEthAddress(strategy?.contract.inputToken?.address || '')}
+                    </Link>
+                  </Flex>
                 </Flex>
-              </Flex>
+              )}
+              <StyledArrowLongRight />
+              {strategy.contract.outputToken && (
+                <Flex alignItems='center' gap='md'>
+                  <ChainAsset
+                    asset={
+                      <Avatar
+                        alt={strategy.contract.outputToken.symbol}
+                        size='5xl'
+                        src={strategy.contract.outputToken.logo}
+                      />
+                    }
+                    chainId={L2_CHAIN}
+                    chainProps={{ size: 'xs' }}
+                  />
+                  <Flex direction='column'>
+                    <Span color='grey-50' size='xs'>
+                      Output
+                    </Span>
+                    <Span lineHeight='1.2'>{strategy.contract.outputToken.symbol}</Span>
+                    <Link
+                      external
+                      icon
+                      color='grey-50'
+                      href={new URL(
+                        `/address/${strategy.contract.outputToken?.address}`,
+                        chainL2.blockExplorers?.default.url
+                      ).toString()}
+                      size='s'
+                    >
+                      {truncateEthAddress(strategy?.contract.outputToken?.address || '')}
+                    </Link>
+                  </Flex>
+                </Flex>
+              )}
             </Flex>
           </DlGroup>
         </Flex>
@@ -121,12 +159,12 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
             <Trans>Additional Information</Trans>
           </Dt>
           <Flex wrap elementType='dd' gap={{ base: 'md', s: 'xl' }}>
-            <Link external icon href={strategy.info.website}>
+            <Link external icon href={strategy.info.links.landingPage}>
               <Trans>Website</Trans>
             </Link>
-            {strategy.info.securityReview && (
+            {strategy.info.links.securityReview && (
               <>
-                <Link external icon href={strategy.info.securityReview}>
+                <Link external icon href={strategy.info.links.securityReview}>
                   <Trans>Security Review by Bitcoin Layers</Trans>
                 </Link>
               </>

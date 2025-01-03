@@ -23,7 +23,7 @@ type StrategyInfo = {
   description: ReactNode;
   protocol: StrategyProtocol;
   incentives: StrategyIncentive[];
-  outputToken: string;
+  outputToken?: string;
   isDisabled?: boolean;
   warningMessage?: ReactNode;
   links: {
@@ -54,11 +54,10 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     description: <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.</Trans>,
     protocol: StrategyProtocol.Solv,
     incentives: [StrategyIncentive.solv, StrategyIncentive.babylon],
-    outputToken: 'SolvBTC.BBN',
     links: {
       securityReview: 'https://www.bitcoinlayers.org/infrastructure/solv-solvbtcbbn',
-      landingPage: 'https://app.solv.finance/babylon?network=bob',
-      manage: 'https://solv.finance/'
+      landingPage: 'https://solv.finance/',
+      manage: 'https://app.solv.finance/babylon?network=bob'
     },
     warningMessage: babylonWithdrawWarning
   },
@@ -105,7 +104,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     links: {
       securityReview: 'https://www.bitcoinlayers.org/infrastructure/threshold-tbtc',
       landingPage: 'https://app.segment.finance',
-      manage: 'https://app.segment.finance'
+      manage: 'https://app.segment.finance/#//market/0xD30288EA9873f376016A0250433b7eA375676077'
     }
   },
   'segment-wbtc': {

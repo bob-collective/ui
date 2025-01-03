@@ -21,7 +21,7 @@ type Props = PageLangParam & {
 };
 
 const select = (data: GetGatewayTransactionsReturnType) =>
-  data.filter((item) => item.subType === GatewayTransactionType.STAKE);
+  data.filter((item) => item.subType === GatewayTransactionType.STRATEGY);
 
 function Strategies({ searchParams }: Props) {
   const config = useConfig();
@@ -40,7 +40,7 @@ function Strategies({ searchParams }: Props) {
         if (account.address) {
           store.setState((state) => ({
             ...state,
-            stake: { ...state.stake, transactions: { ...state.stake.transactions, isInitialLoading: true } }
+            stake: { ...state.strategies, transactions: { ...state.strategies.transactions, isInitialLoading: true } }
           }));
         }
       }
@@ -71,7 +71,7 @@ function Strategies({ searchParams }: Props) {
       </Flex>
       <Flex direction='column' gap='xl' marginTop='6xl'>
         <StrategiesTable searchParams={searchParams} />
-        <TransactionList data={transactions} isInitialLoading={isInitialLoading} type='stake' />
+        <TransactionList data={transactions} isInitialLoading={isInitialLoading} />
       </Flex>
     </Layout>
   );

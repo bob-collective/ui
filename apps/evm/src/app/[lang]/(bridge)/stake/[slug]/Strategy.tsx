@@ -1,6 +1,6 @@
 'use client';
 
-import { Alert, ArrowLeft, Avatar, Card, Flex, H1, H2, Link, P, Span, Tabs, TabsItem } from '@gobob/ui';
+import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 
 import { useGetGatewayTransactions } from '../../hooks';
@@ -31,7 +31,7 @@ function Strategy({ params }: Props) {
   return (
     <Layout>
       <Main maxWidth='5xl' padding='lg'>
-        <Link href={RoutesPath.STAKE}>
+        <Link href={RoutesPath.STRATEGIES}>
           <Flex alignItems='center' gap='s'>
             <ArrowLeft size='xs' /> Back
           </Flex>
@@ -59,39 +59,30 @@ function Strategy({ params }: Props) {
         )}
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
           <Card flex={1}>
-            <Tabs fullWidth size='lg'>
+            <Tabs fullHeight fullWidth size='lg'>
               <TabsItem key='deposit' title={isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>}>
                 <StrategyForm isLending={isLending} strategy={strategy} onSuccess={refetchTransactions} />
               </TabsItem>
               <TabsItem key='withdraw' title={isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>}>
-                <P>Follow these step to unstake your asset:</P>
                 <Flex
-                  aria-label='how to unstake'
+                  alignItems='center'
                   direction='column'
-                  elementType='ol'
-                  gap='s'
-                  marginLeft='3xl'
-                  style={{ listStyleType: 'decimal' }}
+                  flex={1}
+                  gap='xl'
+                  justifyContent='center'
+                  marginTop='md'
+                  paddingX='md'
+                  style={{ height: '100%' }}
                 >
-                  <li>
-                    <Span>
-                      Go to <Link>{strategy.info.protocol} website</Link>
-                    </Span>
-                  </li>
-                  <li>
-                    <Span>Connect your wallet</Span>
-                  </li>
-                  <li>
-                    <Span>
-                      Navigate to the <Link>Account Page</Link>
-                    </Span>
-                  </li>
-                  <li>
-                    <Span>Click in the tBTC item under Supplied assets</Span>
-                  </li>
-                  <li>
-                    <Span>Click on the Withdraw tab</Span>
-                  </li>
+                  <P align='center' color='grey-50' size='s'>
+                    Complete your {isLending ? <Trans>withdraw</Trans> : <Trans>unstake</Trans>} by accessing{' '}
+                    {strategy.info.protocol} Dapp using the button bellow
+                  </P>
+                  <Button asChild color='primary'>
+                    <Link external href={strategy.info.links.manage}>
+                      Go to {strategy.info.protocol} Dapp
+                    </Link>
+                  </Button>
                 </Flex>
               </TabsItem>
             </Tabs>

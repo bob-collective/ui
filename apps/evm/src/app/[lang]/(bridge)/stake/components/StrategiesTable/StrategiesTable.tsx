@@ -29,8 +29,8 @@ import { useTheme } from 'styled-components';
 import { useGetStrategies } from '../../hooks';
 import { StrategyRewards } from '../StrategyRewards';
 
-import { RoutesPath } from '@/constants';
 import { AmountLabel } from '@/components';
+import { RoutesPath } from '@/constants';
 
 const getSkeletons = () =>
   Array(8)
@@ -210,7 +210,7 @@ const StrategiesTable = ({ searchParams }: Props) => {
 
   const handleFilterChange = (key: Key) => setFilter(key.toString() as StrategiesTableFilter);
 
-  const handleStrategyNavigate = (slug: string) => router.push(`${RoutesPath.STAKE}/${slug}`);
+  const handleStrategyNavigate = (slug: string) => router.push(`${RoutesPath.STRATEGIES}/${slug}`);
 
   const columns =
     filter === StrategiesTableFilter.MyStrategies
@@ -277,6 +277,8 @@ const StrategiesTable = ({ searchParams }: Props) => {
           gap='md'
           selectionMode='single'
           onSelectionChange={(keys) => {
+            if (isStrategiesPending) return;
+
             const [slug] = keys;
 
             if (!slug) return;
@@ -322,7 +324,7 @@ const StrategiesTable = ({ searchParams }: Props) => {
           aria-label={t(i18n)`Staking table`}
           columns={columns}
           rows={isStrategiesPending ? getSkeletons() : rows}
-          onRowAction={(id) => router.push(`${RoutesPath.STAKE}/${id}`)}
+          onRowAction={isStrategiesPending ? undefined : (id) => router.push(`${RoutesPath.STRATEGIES}/${id}`)}
         />
       )}
     </Flex>

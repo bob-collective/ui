@@ -60,7 +60,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   const gateway = useGateway({
     isDisabled: !!strategy.info.isDisabled,
     params: {
-      type: GatewayTransactionType.STAKE,
+      type: GatewayTransactionType.STRATEGY,
       toChain: strategy?.contract.chain.chainId,
       toToken: strategy?.contract.inputToken.address,
       strategyAddress: strategy?.contract.address,
@@ -84,7 +84,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
     fields,
     form
   } = useGatewayForm({
-    type: GatewayTransactionType.STAKE,
+    type: GatewayTransactionType.STRATEGY,
     query: gateway.query,
     defaultAsset: strategy?.contract.integration.slug,
     onSubmit: handleSubmit
@@ -121,7 +121,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
         />
       )}
       <GatewayTransactionDetails
-        amountLabel={<Trans>You will stake</Trans>}
+        amountLabel={isLending ? <Trans>You will supply</Trans> : <Trans>You will stake</Trans>}
         assetName={strategy.contract.integration.name}
         gateway={gateway}
       />
