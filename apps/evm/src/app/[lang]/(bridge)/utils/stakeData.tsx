@@ -121,7 +121,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     ),
     inputToken: 'BTC',
     outputToken: 'wBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bitgo-wbtcc',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bitgo-wbtc',
     website: 'https://app.segment.finance'
   },
   'segment-sesolvbtcbbn': {
