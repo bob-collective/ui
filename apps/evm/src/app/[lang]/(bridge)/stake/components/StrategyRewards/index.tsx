@@ -1,0 +1,1 @@
+export { StrategyRewards } from './StrategyRewards';

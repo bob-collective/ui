@@ -50,7 +50,7 @@ enum TransactionType {
 
 enum GatewayTransactionType {
   BRIDGE = 'bridge',
-  STAKE = 'stake'
+  STRATEGY = 'strategy'
 }
 
 type GatewayTransaction = {

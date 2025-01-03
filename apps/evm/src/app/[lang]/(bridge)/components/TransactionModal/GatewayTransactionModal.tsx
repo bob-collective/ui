@@ -55,7 +55,8 @@ const GatewayTransactionModal = ({ data, onClose, ...props }: GatewayTransaction
               <Trans>
                 Your assets will be delivered once your BTC transactions receive at least 3 confirmations and the
                 processing finishes on our L2 chain. We will provide you with updates accordingly. You can monitor the
-                progress on your bridge page. It will be marked as complete once the process has concluded.
+                progress on the &quot;Activity&quot; section. It will be marked as complete once the process has
+                concluded.
               </Trans>
             </P>
           </Flex>
