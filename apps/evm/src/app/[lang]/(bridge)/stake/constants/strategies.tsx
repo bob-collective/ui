@@ -34,7 +34,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     tvl: '-',
     about: <Trans>Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC.</Trans>,
     outputToken: 'uniBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bedrock',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bedrock-unibtc',
     website: 'https://app.bedrock.technology/unibtc',
     warningMessage: babylonWithdrawWarning
   },
@@ -45,7 +45,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     tvl: '-',
     about: <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.</Trans>,
     outputToken: 'SolvBTC.BBN',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/solvlst',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/solv-solvbtcbbn',
     website: 'https://app.solv.finance/babylon?network=bob',
     warningMessage: babylonWithdrawWarning
   },
@@ -60,7 +60,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       </Trans>
     ),
     outputToken: 'SolvBTC.BBN',
-    securityReview: '',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/solv-solvbtcbbn',
     website: 'https://app.pell.network/restake',
     warningMessage: babylonWithdrawWarning
   },
@@ -75,7 +75,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       </Trans>
     ),
     outputToken: 'uniBTC',
-    securityReview: '',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bedrock-unibtc',
     website: 'https://app.pell.network/restake',
     warningMessage: babylonWithdrawWarning
   },
@@ -86,7 +86,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     tvl: '-',
     about: <Trans>Lend out tBTC on Segment.</Trans>,
     outputToken: 'tBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/tbtc',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/threshold-tbtc',
     website: 'https://app.segment.finance'
   },
   'segment-wbtc': {
@@ -96,7 +96,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     tvl: '-',
     about: <Trans>Lend out wBTC on Segment. </Trans>,
     outputToken: 'wBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/wbtc',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bitgo-wbtc',
     website: 'https://app.segment.finance'
   },
   'segment-sesolvbtcbbn': {
