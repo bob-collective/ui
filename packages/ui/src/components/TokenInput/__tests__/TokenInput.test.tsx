@@ -416,7 +416,7 @@ describe('TokenInput', () => {
       await userEvent.click(dialog.getByRole('row', { name: 'BTC' }));
 
       await waitFor(() => {
-        expect(screen.getByRole('textbox', { name: /label/i })).toHaveValue('0.000000');
+        expect(screen.getByRole('textbox', { name: /label/i })).toHaveValue('0.0000000000001');
       });
     });
 
