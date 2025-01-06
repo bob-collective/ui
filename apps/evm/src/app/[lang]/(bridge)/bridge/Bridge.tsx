@@ -4,7 +4,7 @@ import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
 import { Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
-import { Key, useEffect, useMemo, useState } from 'react';
+import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Layout, TransactionList } from '../components';
 
@@ -63,7 +63,9 @@ const Bridge = ({ searchParams }: Props) => {
   const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
   const direction = type === Type.Deposit ? TransactionDirection.L1_TO_L2 : TransactionDirection.L2_TO_L1;
 
-  const initialChain = useMemo(() => {
+  const symbol = urlSearchParams?.get('receive')?.toString();
+
+  const getChain = useCallback(() => {
     const network = urlSearchParams.get('network');
 
     if (!network || network === 'bitcoin') {
@@ -71,24 +73,23 @@ const Bridge = ({ searchParams }: Props) => {
     }
 
     return getChainIdByChainName(network) || L1_CHAIN;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [urlSearchParams]);
 
-  const [chain, setChain] = useState<ChainId | 'BTC'>(initialChain);
-
-  const [symbol, setSymbol] = useState<string | undefined>(urlSearchParams?.get('receive')?.toString());
+  const [chain, setChain] = useState<ChainId | 'BTC'>(getChain());
 
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(getOrigin(type, chain, symbol));
 
   const handleChangeTab = (key: Key) => {
     if (type === key.toString()) return;
 
+    urlSearchParams.set('type', key as string);
+
     const newChain = L1_CHAIN;
 
     setChain(newChain);
+    handleNetworkChange(chain);
     handleChangeOrigin(getOrigin(key as Type, newChain, symbol));
 
-    urlSearchParams.set('type', key as string);
     router.replace('?' + urlSearchParams);
   };
 
@@ -96,20 +97,16 @@ const Bridge = ({ searchParams }: Props) => {
 
   const handleChangeChain = (chain: ChainId | 'BTC') => {
     setChain(chain);
-    setSymbol(undefined);
+    handleNetworkChange(chain);
+
+    urlSearchParams.delete('receive');
+
     handleChangeOrigin(getOrigin(type, chain));
+
+    router.replace('?' + urlSearchParams);
   };
 
   const handleChangeSymbol = (symbol?: string) => {
-    setSymbol(symbol);
-  };
-
-  useEffect(() => {
-    const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
-
-    urlSearchParams.set('type', type);
-    urlSearchParams.set('network', network);
-
     if (symbol) {
       urlSearchParams.set('receive', symbol);
     } else {
@@ -117,7 +114,22 @@ const Bridge = ({ searchParams }: Props) => {
     }
 
     router.replace('?' + urlSearchParams);
-  }, [type, chain, router, symbol, urlSearchParams]);
+  };
+
+  const handleNetworkChange = (chain: ChainId | 'BTC') => {
+    const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
+
+    urlSearchParams.set('network', network);
+  };
+
+  useEffect(() => {
+    const chain = getChain();
+
+    setChain(chain);
+
+    handleChangeOrigin(getOrigin(type, chain, symbol));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlSearchParams]);
 
   const isBobBridgeDisabled = !(chain === L1_CHAIN || chain === L2_CHAIN || chain === 'BTC');
 

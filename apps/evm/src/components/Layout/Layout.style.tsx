@@ -1,5 +1,4 @@
-import { MaxWidth, ResponsiveProp, Spacing, Span } from '@gobob/ui';
-import { Drawer, Flex } from '@gobob/ui';
+import { Flex, MaxWidth, ResponsiveProp, Spacing, Span } from '@gobob/ui';
 import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
@@ -16,7 +15,6 @@ const StyledLayout = styled(Flex)`
 const StyledHeader = styled(Flex)`
   width: 100%;
   padding-right: ${({ theme }) => theme.spacing('3xl')};
-  overflow-x: hidden;
   z-index: 20;
   margin: 0 auto;
 `;
@@ -24,11 +22,6 @@ const StyledHeader = styled(Flex)`
 const StyledLogoWrapper = styled(Flex)`
   height: 76px;
   padding-left: ${({ theme }) => theme.spacing('3xl')};
-`;
-
-const StyledDrawer = styled(Drawer)`
-  height: 100%;
-  overflow-y: scroll;
 `;
 
 const StyledMain = styled.main<StyledMainProps>`
@@ -73,13 +66,4 @@ const StyledAnchor = styled.a`
   color: inherit;
 `;
 
-export {
-  StyledDrawer,
-  StyledHeader,
-  StyledNativeNavLink,
-  StyledNavLink,
-  StyledAnchor,
-  StyledLogoWrapper,
-  StyledLayout,
-  StyledMain
-};
+export { StyledAnchor, StyledHeader, StyledLayout, StyledLogoWrapper, StyledMain, StyledNativeNavLink, StyledNavLink };

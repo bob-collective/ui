@@ -423,6 +423,11 @@ const BobBridgeForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [direction]);
 
+  useEffect(() => {
+    form.resetForm({ values: { ...initialValues, [BRIDGE_ASSET]: symbol } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [symbol]);
+
   const handleChangeSymbol = (currency: Currency) => {
     onChangeSymbol?.(currency.symbol as string);
   };

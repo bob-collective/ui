@@ -3,7 +3,7 @@ import { Discord, Twitter } from '@gobob/icons';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 
-import { DocsLinks } from '@/constants';
+import { ExternalLinks } from '@/constants';
 
 type Props = {
   showDocs?: boolean;
@@ -27,23 +27,18 @@ const SocialsGroup = ({
     <Flex gap={gap} justifyContent={justifyContent} {...props}>
       {showDocs && (
         <Button asChild isIconOnly size='s' variant={variant}>
-          <a href={DocsLinks.HOME} rel='noreferrer' target='_blank'>
+          <a href={ExternalLinks.DOCS} rel='noreferrer' target='_blank'>
             <Trans>Docs</Trans>
           </a>
         </Button>
       )}
       <Button asChild isIconOnly size='s' variant={variant}>
-        <a
-          aria-label={t(i18n)`navigate to X social`}
-          href='https://twitter.com/build_on_bob'
-          rel='noreferrer'
-          target='_blank'
-        >
+        <a aria-label={t(i18n)`navigate to X social`} href={ExternalLinks.X} rel='noreferrer' target='_blank'>
           <Twitter size='s' />
         </a>
       </Button>
       <Button asChild isIconOnly size='s' variant={variant}>
-        <a aria-label={t(i18n)`navigate to discord`} href='https://discord.gg/gobob' rel='noreferrer' target='_blank'>
+        <a aria-label={t(i18n)`navigate to discord`} href={ExternalLinks.DISCORD} rel='noreferrer' target='_blank'>
           <Discord size='s' />
         </a>
       </Button>
