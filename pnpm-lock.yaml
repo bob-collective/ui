@@ -686,8 +686,8 @@ importers:
   packages/sats-wagmi:
     dependencies:
       '@gobob/sats-wagmi':
-        specifier: ^0.3.17
-        version: 0.3.17(@tanstack/react-query@5.44.0(react@18.3.1))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^0.3.18
+        version: 0.3.18(@tanstack/react-query@5.44.0(react@18.3.1))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
 
   packages/test-utils:
     dependencies:
@@ -2470,8 +2470,8 @@ packages:
   '@gobob/bob-sdk@3.1.0':
     resolution: {integrity: sha512-pFuUSBROw5IcAxcgVyk7gdUTW1XomXorNxeIjC4m328ChtZ9cZqK0DKVVT7xVkwcC67+hkzFKVqGsFvTwFqQDw==}
 
-  '@gobob/sats-wagmi@0.3.17':
-    resolution: {integrity: sha512-XegzclOjrF9a8ipZuzuqkxF++RwnT/vU7kAoWEKc4aIBpRfqHw23vk6zvAIMhHhesi4i/IHMa/vKcOj5W0Z4+g==}
+  '@gobob/sats-wagmi@0.3.18':
+    resolution: {integrity: sha512-j0IBVvtuls6zT4fwEk2JijQXfDyGrT5dHpaZyLuYhEDx87GDMPIvoBNQSoWSok3VUL0HSnaBvKgar2YsJFRijw==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
       react: ^18.2.0
@@ -15087,7 +15087,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@gobob/sats-wagmi@0.3.17(@tanstack/react-query@5.44.0(react@18.3.1))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@gobob/sats-wagmi@0.3.18(@tanstack/react-query@5.44.0(react@18.3.1))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
       '@gobob/bob-sdk': 3.1.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
