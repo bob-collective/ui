@@ -1,6 +1,6 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, DefinedInitialDataOptions } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
 import { Address, erc20Abi } from 'viem';
 import { usePublicClient } from 'wagmi';
@@ -12,7 +12,7 @@ import { INTERVAL } from '@/constants';
 
 type Balances = Record<Address, CurrencyAmount<ERC20Token | Ether>>;
 
-const useBalances = (chainId: ChainId) => {
+const useBalances = (chainId: ChainId, query?: Pick<DefinedInitialDataOptions, 'meta'>) => {
   const publicClient = usePublicClient({ chainId });
   const address = useDynamicAddress();
 
@@ -22,6 +22,7 @@ const useBalances = (chainId: ChainId) => {
   const native = useMemo(() => tokens.find((token) => token.currency.isNative), [tokens]);
 
   const { data: balances, ...queryResult } = useQuery({
+    ...query,
     queryKey: ['balances', chainId, address],
     enabled: Boolean(address && publicClient && tokens),
     queryFn: async () => {

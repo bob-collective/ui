@@ -36,13 +36,6 @@ const useGatewayForm = ({ type, query, defaultAsset, onSubmit }: UseGatewayFormP
 
   const { address: btcAddress } = useSatsAccount();
 
-  useEffect(() => {
-    if (!query.fee.estimate.data || !form.values[BRIDGE_AMOUNT]) return;
-
-    form.validateField(BRIDGE_AMOUNT);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.fee.rates.data]);
-
   const params: BridgeFormValidationParams = {
     [BRIDGE_AMOUNT]: {
       minAmount: new Big(query.minAmount.toExact()),

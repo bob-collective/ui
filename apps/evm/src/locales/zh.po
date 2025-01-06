@@ -631,7 +631,7 @@ msgstr ""
 msgid "Enter referral code (optional)"
 msgstr ""
 
-#: src/app/[lang]/sign-up/components/ReferralInput/ReferralInput.tsx:28
+#: src/app/[lang]/sign-up/components/ReferralInput/ReferralInput.tsx:29
 msgid "Enter your access code (optional):"
 msgstr ""
 
@@ -664,7 +664,7 @@ msgstr ""
 #~ msgid "Failed to finalize."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/hooks/useGateway.ts:243
+#: src/app/[lang]/(bridge)/hooks/useGateway.ts:221
 msgid "Failed to get estimated fee"
 msgstr ""
 

@@ -40,10 +40,11 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
 
   const inputRef = useDOMRef<HTMLInputElement>(ref);
 
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue?.toString());
 
   const defaultCurrency = useMemo(() => getDefaultCurrency(props), [props]);
   const [currency, setCurrency] = useState<Currency | undefined>(defaultCurrency);
+  const [prevCurrency, setPrevCurrency] = useState(currency);
 
   const inputId = useId();
 
@@ -61,13 +62,9 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
     props.type === 'selectable' ? [props.items, props.selectProps?.value, props.selectProps?.defaultValue] : []
   );
 
-  useEffect(() => {
-    if (valueProp === undefined) return;
+  if (prevCurrency !== currency) {
+    setPrevCurrency(currency);
 
-    setValue(valueProp);
-  }, [valueProp]);
-
-  useEffect(() => {
     if (value && currency) {
       const trimmedValue = trimDecimals(value, currency.decimals);
 
@@ -76,8 +73,11 @@ const TokenInput = forwardRef<HTMLInputElement, TokenInputProps>((props, ref): J
         onValueChange?.(trimmedValue);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currency]);
+  }
+
+  if (value !== valueProp?.toString()) {
+    if (valueProp !== undefined) setValue(valueProp);
+  }
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
