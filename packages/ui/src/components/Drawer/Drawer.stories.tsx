@@ -1,31 +1,39 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
 
-import { Button } from '..';
-
-import { Drawer, DrawerProps } from '.';
+import {
+  DrawerRoot,
+  DrawerContentProps,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerTitle,
+  DrawerButton
+} from '.';
 
 export default {
   title: 'Overlays/Drawer',
-  component: Drawer,
+  component: DrawerRoot,
   parameters: {
     layout: 'centered'
   }
-} as Meta<typeof Drawer>;
+} as Meta;
 
 const Render = () => {
-  const [isOpen, setOpen] = useState(false);
-
   return (
-    <>
-      <Button onClick={() => setOpen(true)}>Open</Button>
-      <Drawer isOpen={isOpen} onClose={() => setOpen(false)}>
-        Drawer
-      </Drawer>
-    </>
+    <DrawerRoot>
+      <DrawerButton isIconOnly variant='ghost'>
+        Open
+      </DrawerButton>
+      <DrawerPortal>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerTitle>Drawer</DrawerTitle>
+        </DrawerContent>
+      </DrawerPortal>
+    </DrawerRoot>
   );
 };
 
-export const Default: StoryObj<DrawerProps> = {
+export const Default: StoryObj<DrawerContentProps> = {
   render: Render
 };

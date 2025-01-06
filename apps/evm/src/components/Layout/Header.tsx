@@ -1,11 +1,9 @@
 'use client';
 
 import {
-  Bars3,
   Button,
   EllipsisHorizontal,
   Flex,
-  FlexProps,
   Popover,
   PopoverBody,
   PopoverContent,
@@ -17,28 +15,22 @@ import { useLingui } from '@lingui/react';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
 
+import { ConnectButton } from '../ConnectButton';
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
 
 import { FusionPopover } from './FusionPopover';
 import { StyledHeader, StyledLogoWrapper } from './Layout.style';
-import { useLayoutContext } from './LayoutContext';
 import { Nav } from './Nav';
 import { NavItem } from './NavItem';
+import { Sidebar } from './Sidebar';
 
-import { ConnectWallet } from '@/connect-ui';
-import { DocsLinks, RoutesPath } from '@/constants';
+import { ExternalLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
 
-type Props = { isTestnet?: boolean; isFusion?: boolean };
-
-type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
-
-type HeaderProps = Props & InheritAttrs;
-
-const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => {
+const Header = (): JSX.Element => {
   const { i18n } = useLingui();
-  const { setSidebarOpen } = useLayoutContext();
+
   const [isOpen, setOpen] = useState(false);
 
   const theme = useTheme();
@@ -48,18 +40,10 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
   const isMobile = isMobileViewport || isMobileUserAgent;
 
   return (
-    <StyledHeader alignItems='center' elementType='header' justifyContent='space-between' {...props}>
+    <StyledHeader alignItems='center' elementType='header' justifyContent='space-between'>
       <StyledLogoWrapper alignItems='center' gap='md'>
-        <Button
-          isIconOnly
-          aria-label={t(i18n)`open drawer`}
-          hidden={!isMobile}
-          variant='ghost'
-          onPress={() => setSidebarOpen(true)}
-        >
-          <Bars3 size='lg' />
-        </Button>
-        <Logo hidden={isMobile} href={RoutesPath.HOME} isFusion={isFusion} isTestnet={isTestnet} />
+        <Sidebar isMobile={isMobile} />
+        <Logo hidden={isMobile} href={RoutesPath.HOME} />
       </StyledLogoWrapper>
       <Flex alignItems='center' elementType='header' gap='xl' justifyContent='flex-end'>
         <Nav hidden={isMobile}>
@@ -91,28 +75,17 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
           <PopoverContent hidden={isMobile}>
             <PopoverBody onClick={() => setOpen(false)}>
               <Nav direction='column'>
-                <NavItem
-                  isExternal
-                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
-                  size='s'
-                >
+                <NavItem isExternal href={ExternalLinks.TERMS_OF_SERVICE} size='s'>
                   <Trans>T&Cs</Trans>
                 </NavItem>
-                <NavItem isExternal href={DocsLinks.HOME} size='s'>
+                <NavItem isExternal href={ExternalLinks.DOCS} size='s'>
                   <Trans>Dev</Trans>
                 </NavItem>
-                <NavItem isExternal href='https://gobob.xyz/' size='s'>
+                <NavItem isExternal href={ExternalLinks.HOMEPAGE} size='s'>
                   <Trans>About</Trans>
                 </NavItem>
-                <NavItem isExternal href='https://safe.gobob.xyz/welcome' size='s'>
+                <NavItem isExternal href={ExternalLinks.SAFE} size='s'>
                   <Trans>Multisig</Trans>
-                </NavItem>
-                <NavItem
-                  isExternal
-                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/675872861db67a29ec01d237_BOB%20Foundation%20-%20Privacy%20Policy.pdf'
-                  size='s'
-                >
-                  <Trans>Privacy policy</Trans>
                 </NavItem>
               </Nav>
             </PopoverBody>
@@ -120,7 +93,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
         </Popover>
         <SocialsGroup hidden={isMobile} variant='ghost' />
         <FusionPopover />
-        <ConnectWallet variant='ghost' />
+        <ConnectButton />
       </Flex>
     </StyledHeader>
   );

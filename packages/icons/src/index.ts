@@ -3,6 +3,7 @@ export { Babylon } from './Babylon';
 export { Base } from './Base';
 export { BinanceWeb3Wallet } from './BinanceWeb3Wallet';
 export { Bitlayer } from './Bitlayer';
+export { Blockscout } from './Blockscout';
 export { BLogo } from './BLogo';
 export { BNB } from './BNB';
 export { BOBLogo } from './BOBLogo';

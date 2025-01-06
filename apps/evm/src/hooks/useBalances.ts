@@ -58,7 +58,8 @@ const useBalances = (chainId: ChainId) => {
         abi: erc20Abi,
         address: token.raw.address,
         functionName: 'balanceOf',
-        args: [address]
+        args: [address],
+        chainId
       }))
   });
 

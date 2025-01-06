@@ -1,3 +1,4 @@
-export type WalletType = 'evm' | 'btc';
-
-export type ConnectType = WalletType | 'both';
+export enum WalletType {
+  EVM = 'EVM',
+  BTC = 'BTC'
+}
