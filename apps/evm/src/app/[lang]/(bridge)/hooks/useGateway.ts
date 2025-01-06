@@ -40,7 +40,7 @@ import {
   TransactionType
 } from '@/types';
 
-const DUST_THRESHOLD = 1000;
+const DUST_THRESHOLD = 100_000;
 
 const GAS_REFILL = 2000;
 

@@ -42,7 +42,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     ),
     inputToken: 'BTC',
     outputToken: 'uniBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bedrock',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bedrock-unibtc',
     website: 'https://app.bedrock.technology/unibtc'
   },
   'solv-solvbtcbbn': {
@@ -57,7 +57,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     ),
     inputToken: 'BTC',
     outputToken: 'SolvBTC.BBN',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/solvlst',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/solv-solvbtcbbn',
     website: 'https://app.solv.finance/babylon?network=bob'
   },
   'pell-solvbtcbbn': {
@@ -74,7 +74,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     ),
     inputToken: 'BTC',
     outputToken: 'SolvBTC.BBN',
-    securityReview: '',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/solv-solvbtcbbn',
     website: 'https://app.pell.network/restake'
   },
   'pell-unibtc': {
@@ -91,7 +91,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     ),
     inputToken: 'BTC',
     outputToken: 'uniBTC',
-    securityReview: '',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bedrock-unibtc',
     website: 'https://app.pell.network/restake'
   },
   'segment-tbtc': {
@@ -106,7 +106,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     ),
     inputToken: 'BTC',
     outputToken: 'tBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/tbtc',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/threshold-tbtc',
     website: 'https://app.segment.finance'
   },
   'segment-wbtc': {
@@ -121,7 +121,7 @@ const stakingInfo: Record<string, StakingInfo> = {
     ),
     inputToken: 'BTC',
     outputToken: 'wBTC',
-    securityReview: 'https://www.bitcoinlayers.org/infrastructure/wbtc',
+    securityReview: 'https://www.bitcoinlayers.org/infrastructure/bitgo-wbtc',
     website: 'https://app.segment.finance'
   },
   'segment-sesolvbtcbbn': {

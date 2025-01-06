@@ -20,14 +20,16 @@ import {
   bridgeSchema
 } from '@/lib/form/bridge';
 import { isFormDisabled } from '@/lib/form/utils';
+import { GatewayTransactionType } from '@/types';
 
 type UseGatewayFormProps = {
+  type: GatewayTransactionType;
   query: UseGatewayQueryDataReturnType;
   defaultAsset?: string;
   onSubmit: (data: BridgeFormValues) => void;
 };
 
-const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) => {
+const useGatewayForm = ({ type, query, defaultAsset, onSubmit }: UseGatewayFormProps) => {
   const { address: evmAddress } = useAccount();
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
@@ -52,7 +54,7 @@ const useGatewayForm = ({ query, defaultAsset, onSubmit }: UseGatewayFormProps) 
 
   const form = useForm<BridgeFormValues>({
     initialValues,
-    validationSchema: bridgeSchema('stake', params),
+    validationSchema: bridgeSchema(type, params),
     onSubmit,
     hideErrors: 'untouched'
   });
