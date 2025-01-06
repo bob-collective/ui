@@ -93,8 +93,9 @@ const usePrices = ({ baseUrl = '/api/prices', allCurrencies }: UsePricesProps = 
   const query = useQuery<PricesData>({
     queryFn: () => getPrices(baseUrl, allCurrencies),
     queryKey: ['prices'],
-    staleTime: 15000,
-    gcTime: 60000,
+    staleTime: 30000,
+    gcTime: 300000,
+    refetchInterval: 30000,
     refetchOnWindowFocus: false,
     refetchOnMount: false
   });
