@@ -1,5 +1,5 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BOBUIProvider } from '@gobob/ui';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PropsWithChildren } from 'react';
 import { WagmiProvider } from 'wagmi';
 
