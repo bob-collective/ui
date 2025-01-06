@@ -10,11 +10,12 @@ import { useLocalStorage } from 'usehooks-ts';
 import { isAddressEqual } from 'viem';
 import { useAccount, useAccountEffect, useChainId, useConfig, useSwitchChain } from 'wagmi';
 
-import { Header, Layout, Sidebar } from '@/components';
+import { Header, Layout } from '@/components';
 import { ConnectProvider } from '@/connect-ui';
 import { isClient, L2_CHAIN, LocalStorageKey } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
+import { ReceiveModal } from '@/components/ReceiveModal';
 
 const AuthCheck = () => {
   const [isOpen, setOpen] = useState(false);
@@ -142,8 +143,8 @@ export function NestedProviders({ children }: PropsWithChildren) {
           <Suspense>
             <AuthCheck />
           </Suspense>
+          <ReceiveModal />
           <Layout>
-            <Sidebar />
             <Header />
             {children}
           </Layout>
