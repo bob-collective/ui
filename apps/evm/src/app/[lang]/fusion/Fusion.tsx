@@ -240,7 +240,7 @@ const Fusion = () => {
               />
             ) : (
               <WelcomeModal
-                isOpen={isFusionWelcomeModalOpen && isAuthenticated}
+                isOpen={isFusionWelcomeModalOpen && !isHideFusionWelcomeModal && isAuthenticated}
                 user={user}
                 onClose={(hideAlways) => {
                   if (hideAlways) {
