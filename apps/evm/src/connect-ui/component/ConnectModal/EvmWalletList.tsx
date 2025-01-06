@@ -75,7 +75,7 @@ const EvmWalletList = ({
       {...props}
       aria-label={t(i18n)`choose available wallets`}
       disabledKeys={disabledKeys}
-      gap='s'
+      marginTop='md'
       selectedKeys={connector ? [connector.id] : []}
       selectionMode='single'
       onSelectionChange={handleSelectionChange}
@@ -88,6 +88,7 @@ const EvmWalletList = ({
           justifyContent='space-between'
           paddingX='s'
           paddingY='xs'
+          rounded='none'
           textValue={connector.id}
         >
           <Flex alignItems='center' gap='lg'>
