@@ -20,6 +20,7 @@ type ProfileDrawerProps = {
   onClose: () => void;
 };
 
+// TODO: loading state missing on some parts (eth amount)
 const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
   const { chainId = L1_CHAIN } = useAccount();
 
