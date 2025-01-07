@@ -137,7 +137,7 @@ export function NestedProviders({ children }: PropsWithChildren) {
   return (
     <StyledComponentsRegistry>
       <BOBUIProvider navigate={router.push}>
-        <ConnectProvider type='both'>
+        <ConnectProvider>
           <CSSReset />
           <ScrollToTop />
           <Suspense>

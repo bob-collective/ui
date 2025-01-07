@@ -39,7 +39,9 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }): JSX.Element | null => {
         <DrawerPortal>
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerTitle hidden>Navigation</DrawerTitle>
+            <DrawerTitle hidden>
+              <Trans>Navigation</Trans>
+            </DrawerTitle>
             <Flex direction='column' elementType='nav' style={{ height: '100%' }}>
               <Flex direction='column' flex={1} gap='4xl'>
                 <Flex alignItems='center' justifyContent='space-between'>

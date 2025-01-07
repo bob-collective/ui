@@ -50,7 +50,6 @@
     "react": "catalog:",
     "react-calendly": "^4.3.1",
     "react-dom": "catalog:",
-    "react-jazzicon": "^1.0.4",
     "react-multi-carousel": "^2.8.5",
     "react-otp-input": "^3.1.1",
     "react-qr-code": "^2.0.12",

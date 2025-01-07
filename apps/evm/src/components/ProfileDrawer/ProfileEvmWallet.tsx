@@ -13,9 +13,9 @@ import { ChainAsset } from '../ChainAsset';
 
 import { ProfileWallet, ProfileWalletProps } from './ProfileWallet';
 
+import { WalletIcon } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { useBalances } from '@/hooks';
-import { WalletIcon } from '@/connect-ui';
 
 type ProfileEvmWalletProps = Pick<ProfileWalletProps, 'onPressConnect' | 'onUnlink'> & {
   chainId: number;
@@ -69,7 +69,6 @@ const ProfileEvmWallet = ({ chainId, onPressConnect }: ProfileEvmWalletProps): J
       }
       balanceLabel={`${getBalance('ETH')?.toSignificant()} ETH`}
       connectLabel={<Trans>Connect EVM Wallet</Trans>}
-      // isRemovable={!!btcWallet}
       truncatedAddress={truncateEthAddress(address || '')}
       walletAvatar={connector && <WalletIcon name={connector.name} style={{ height: '1rem', width: '1rem' }} />}
       walletId={connector?.id}

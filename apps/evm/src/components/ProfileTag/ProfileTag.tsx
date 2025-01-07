@@ -36,17 +36,6 @@ const ProfileTag = ({
   const { chain, address: evmAddress } = useAccount();
   const { address: btcAddress } = useSatsAccount();
 
-  // const isLoading = !sdkHasLoaded || (isLoggedIn && !(evmWallet?.address || btcAddress));
-
-  // if (isLoading) {
-  //   return (
-  //     <Flex alignItems='center' elementType='span' gap='md'>
-  //       <Skeleton height='1.5rem' rounded='full' width='1.5rem' />
-  //       {!hideAddress && <Skeleton width='6.25rem' />}
-  //     </Flex>
-  //   );
-  // }
-
   const address = evmAddress || btcAddress;
 
   const truncatedAddress = evmAddress

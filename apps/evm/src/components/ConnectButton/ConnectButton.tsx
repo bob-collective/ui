@@ -9,8 +9,8 @@ import { useTheme } from 'styled-components';
 import { useMediaQuery } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
-import { ProfileTag } from '../ProfileTag';
 import { ProfileDrawer } from '../ProfileDrawer';
+import { ProfileTag } from '../ProfileTag';
 
 import { useConnectModal } from '@/connect-ui';
 import { store } from '@/lib/store';
@@ -57,7 +57,9 @@ const ConnectButton = (): JSX.Element => {
       <DrawerPortal>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerTitle hidden>Profile</DrawerTitle>
+          <DrawerTitle hidden>
+            <Trans>Profile</Trans>
+          </DrawerTitle>
           <ProfileDrawer onClose={handleClose} />
         </DrawerContent>
       </DrawerPortal>
