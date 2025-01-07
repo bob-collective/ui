@@ -75,7 +75,7 @@ const EvmWalletList = ({
       {...props}
       aria-label={t(i18n)`choose available wallets`}
       disabledKeys={disabledKeys}
-      gap='s'
+      marginTop='md'
       selectedKeys={connector ? [connector.id] : []}
       selectionMode='single'
       onSelectionChange={handleSelectionChange}

@@ -14,7 +14,7 @@ import { chakraPetch } from '@/app/fonts';
 import { ExternalLinks, L1_CHAIN } from '@/constants';
 import { useTotalBalance } from '@/hooks';
 import { store } from '@/lib/store';
-import { useConnectModal } from '@/connect-ui';
+import { useConnectModal, WalletType } from '@/connect-ui';
 
 type ProfileDrawerProps = {
   onClose: () => void;
@@ -24,12 +24,14 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
   const { chainId = L1_CHAIN } = useAccount();
 
   const { formatted, isPending: isBalancePending } = useTotalBalance(chainId);
-  const { disconnect } = useDisconnect();
+  const { disconnect: evmWalletDisconnect } = useDisconnect();
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
   const { open } = useConnectModal();
 
   const handleLogout = () => {
     onClose();
+    evmWalletDisconnect();
+    btcWalletDisconnect();
   };
 
   const handleConnectEvmWallet = () => {
@@ -38,9 +40,7 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
   };
 
   const handleConnectBtcWallet = () => {
-    open();
-
-    onClose();
+    open({ type: WalletType.BTC });
   };
 
   const handlePressBuy = () => {

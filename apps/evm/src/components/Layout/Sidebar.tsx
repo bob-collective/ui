@@ -8,6 +8,7 @@ import {
   DrawerOverlay,
   DrawerPortal,
   DrawerRoot,
+  DrawerTitle,
   Flex,
   XMark
 } from '@gobob/ui';
@@ -32,18 +33,13 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }): JSX.Element | null => {
 
     return (
       <DrawerRoot open={isSidebarOpen} onClose={handleClose} onOpenChange={setSidebarOpen}>
-        <DrawerButton
-          isIconOnly
-          aria-label={t(i18n)`open drawer`}
-          hidden={!isMobile}
-          variant='ghost'
-          onPress={() => setSidebarOpen(true)}
-        >
+        <DrawerButton isIconOnly aria-label={t(i18n)`open drawer`} hidden={!isMobile} variant='ghost'>
           <Bars3 size='lg' />
         </DrawerButton>
         <DrawerPortal>
           <DrawerOverlay />
           <DrawerContent>
+            <DrawerTitle hidden>Navigation</DrawerTitle>
             <Flex direction='column' elementType='nav' style={{ height: '100%' }}>
               <Flex direction='column' flex={1} gap='4xl'>
                 <Flex alignItems='center' justifyContent='space-between'>

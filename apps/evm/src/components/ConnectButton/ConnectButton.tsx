@@ -1,7 +1,7 @@
 'use client';
 
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { Button, DrawerContent, DrawerOverlay, DrawerPortal, DrawerRoot, DrawerTitle, DrawerTrigger } from '@gobob/ui';
+import { Button, DrawerButton, DrawerContent, DrawerOverlay, DrawerPortal, DrawerRoot, DrawerTitle } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
 import { useState } from 'react';
@@ -23,6 +23,7 @@ const ConnectButton = (): JSX.Element => {
   const { address: btcAddress } = useSatsAccount();
 
   const isReceiveModalOpen = useStore(store, (state) => state.shared.isReceiveModalOpen);
+  const { isOpen: isConnectModalOpen } = useConnectModal();
 
   const [isOpen, setOpen] = useState(false);
   const { open } = useConnectModal();
@@ -46,13 +47,13 @@ const ConnectButton = (): JSX.Element => {
   return (
     <DrawerRoot
       direction={isMobile ? 'bottom' : 'right'}
-      dismissible={!isReceiveModalOpen}
+      dismissible={!(isReceiveModalOpen || isConnectModalOpen)}
       open={isOpen}
       onOpenChange={setOpen}
     >
-      <DrawerTrigger>
+      <DrawerButton variant='ghost'>
         <ProfileTag hideAddress={isMobile} size='s' />
-      </DrawerTrigger>
+      </DrawerButton>
       <DrawerPortal>
         <DrawerOverlay />
         <DrawerContent>

@@ -49,7 +49,8 @@ const ProfileEvmWallet = ({ chainId, onPressConnect }: ProfileEvmWalletProps): J
                         style={{
                           inset: 0,
                           position: 'absolute',
-                          backgroundColor: 'rgba(0, 0, 0, 0.6)'
+                          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                          borderRadius: 99999
                         }}
                       >
                         <ArrowPath size='s' />

@@ -54,7 +54,7 @@ const StyledContent = styled(Drawer.Content)`
     top: 0.5rem;
     right: 0.5rem;
     bottom: 0.5rem;
-    height: 100%;
+    height: calc(100% - 1rem);
     margin-top: 0;
     width: 310px;
     --initial-transform: calc(100% + 8px);
