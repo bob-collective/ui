@@ -56,14 +56,7 @@ const TransactionList = ({
     paddingStart: 16,
     paddingEnd: 16,
     gap: 16,
-    // https://github.com/TanStack/table/blob/main/examples/react/virtualized-rows/src/main.tsx#L88
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    measureElement: (element) => {
-      return isClient && navigator.userAgent.indexOf('Firefox') === -1
-        ? element?.getBoundingClientRect().height
-        : undefined;
-    },
+    measureElement: (element) => element?.getBoundingClientRect().height,
     overscan: 5
   });
 
