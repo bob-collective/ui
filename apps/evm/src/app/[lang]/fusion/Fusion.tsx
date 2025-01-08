@@ -16,7 +16,7 @@ import {
   Leaderboard,
   LotterySection,
   OpSuperuserModal,
-  Quest,
+  Quests,
   Strategies,
   UserInfo,
   WelcomeBackModal,
@@ -219,12 +219,12 @@ const Fusion = () => {
           </StyledHeroSection>
         </StyledHeroSectionWrapper>
         <StyledStrategiesWrapper direction='column' paddingBottom='7xl' paddingTop='6xl' paddingX='lg'>
-          <StyledContent>
+          <StyledContent direction='column' gap='5xl'>
             <Strategies />
+            <Quests id={questsSectionId} />
           </StyledContent>
         </StyledStrategiesWrapper>
         <StyledContent direction='column' paddingBottom='2xl' paddingX='lg'>
-          <Quest id={questsSectionId} quests={quests} />
           <CommunityVoting />
           <Leaderboard />
           {user ? (
