@@ -394,6 +394,10 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
+#: src/components/Profile/Profile.tsx:111
+msgid "Buy"
+msgstr ""
+
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:181
 msgid "By clicking ‘Connect’ you acknowledge and agree to the"
 msgstr ""
@@ -437,6 +441,10 @@ msgstr "点击 <0/> 你喜爱应用旁边的图标"
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:85
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:194
 msgid "Close"
+msgstr ""
+
+#: src/components/Profile/Profile.tsx:86
+msgid "close drawer"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:22
@@ -590,6 +598,10 @@ msgstr "为DEX提供流动性"
 
 #: src/app/[lang]/(bridge)/stake/components/StakeRewards/StakeRewards.tsx:28
 msgid "Diamond"
+msgstr ""
+
+#: src/components/Profile/Profile.tsx:77
+msgid "disconnect wallet(s)"
 msgstr ""
 
 #: src/app/[lang]/nested-providers.tsx:61
@@ -1328,6 +1340,7 @@ msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting S
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
+#: src/components/Profile/Profile.tsx:125
 msgid "Receive"
 msgstr "接收"
 
@@ -1655,7 +1668,7 @@ msgstr "开始收获"
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:55
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:394
-#: src/app/[lang]/sign-up/SignUp.tsx:127
+#: src/app/[lang]/sign-up/SignUp.tsx:128
 msgid "Start Harvesting Spice"
 msgstr "开始收获Spice"
 

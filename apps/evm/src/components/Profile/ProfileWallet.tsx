@@ -7,7 +7,7 @@ import { Currency, CurrencyAmount } from '@gobob/currency';
 
 import { CopyAddress } from '../CopyAddress';
 
-import { StyledWalletCard } from './ProfileDrawer.style';
+import { StyledWalletCard } from './Profile.style';
 
 type ProfileWalletProps = {
   onPressConnect: () => void;

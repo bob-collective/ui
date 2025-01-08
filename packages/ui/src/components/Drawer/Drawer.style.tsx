@@ -30,6 +30,14 @@ const StyledInnerContent = styled.div`
   flex: 1 1 0%;
 `;
 
+const StyledDragIndicator = styled.div`
+  margin: 0 auto ${({ theme }) => theme.spacing('lg')} auto;
+  border-radius: 9999px;
+  width: ${({ theme }) => theme.spacing('6xl')};
+  height: ${({ theme }) => theme.spacing('s')};
+  background-color: ${({ theme }) => theme.color('grey-200')};
+`;
+
 const StyledContent = styled(Drawer.Content)`
   display: flex;
   position: fixed;
@@ -61,8 +69,12 @@ const StyledContent = styled(Drawer.Content)`
 
     ${StyledInnerContent} {
       border-radius: ${({ theme }) => theme.rounded('xl')};
+
+      ${StyledDragIndicator} {
+        display: none;
+      }
     }
   }
 `;
 
-export { StyledOverlay, StyledButton, StyledContent, StyledInnerContent, StyledTrigger };
+export { StyledOverlay, StyledButton, StyledContent, StyledInnerContent, StyledTrigger, StyledDragIndicator };

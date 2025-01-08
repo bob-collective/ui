@@ -5,7 +5,14 @@ import { forwardRef } from 'react';
 
 import { ButtonProps } from '../Button';
 
-import { StyledContent, StyledInnerContent, StyledOverlay, StyledButton, StyledTrigger } from './Drawer.style';
+import {
+  StyledContent,
+  StyledInnerContent,
+  StyledOverlay,
+  StyledButton,
+  StyledTrigger,
+  StyledDragIndicator
+} from './Drawer.style';
 
 const DrawerOverlay = StyledOverlay;
 
@@ -21,7 +28,10 @@ const DrawerPortal = Drawer.Portal;
 
 const DrawerContent = forwardRef<HTMLDivElement, ContentProps>(({ children, ...props }, ref) => (
   <StyledContent ref={ref} {...props}>
-    <StyledInnerContent>{children}</StyledInnerContent>
+    <StyledInnerContent>
+      <StyledDragIndicator aria-hidden />
+      {children}
+    </StyledInnerContent>
   </StyledContent>
 ));
 

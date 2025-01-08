@@ -60,7 +60,7 @@ const ConnectButton = (): JSX.Element => {
           <DrawerTitle hidden>
             <Trans>Profile</Trans>
           </DrawerTitle>
-          <Profile onClose={handleClose} />
+          <Profile isMobile={isMobile} onClose={handleClose} />
         </DrawerContent>
       </DrawerPortal>
     </DrawerRoot>

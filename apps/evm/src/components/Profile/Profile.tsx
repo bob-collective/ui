@@ -1,8 +1,10 @@
 'use client';
 
-import { Button, Card, Flex, P, Power, QrCode, Skeleton, SolidCreditCard, Tooltip } from '@gobob/ui';
+import { Button, Card, Flex, P, Power, QrCode, Skeleton, SolidCreditCard, Tooltip, XMark } from '@gobob/ui';
 import { useAccount, useDisconnect } from 'wagmi';
 import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
+import { useLingui } from '@lingui/react';
+import { t, Trans } from '@lingui/macro';
 
 import { ProfileTag } from '../ProfileTag';
 
@@ -18,9 +20,11 @@ import { useConnectModal, WalletType } from '@/connect-ui';
 
 type ProfileProps = {
   onClose: () => void;
+  isMobile: boolean;
 };
 
-const Profile = ({ onClose }: ProfileProps): JSX.Element => {
+const Profile = ({ onClose, isMobile }: ProfileProps): JSX.Element => {
+  const { i18n } = useLingui();
   const { chainId = L1_CHAIN } = useAccount();
 
   const { formatted, isPending: isBalancePending } = useTotalBalance(chainId);
@@ -66,11 +70,24 @@ const Profile = ({ onClose }: ProfileProps): JSX.Element => {
     <Flex direction='column' flex={1} gap='xl'>
       <Flex alignItems='center' justifyContent='space-between'>
         <ProfileTag isCopyEnabled labelProps={{ weight: 'semibold' }} size='md' />
-        <Tooltip label='Disconnect'>
-          <Button isIconOnly aria-label='disconnect wallet(s)' size='s' variant='ghost' onPress={handleLogout}>
-            <Power size='s' />
-          </Button>
-        </Tooltip>
+        <Flex gap='s'>
+          <Tooltip label='Disconnect'>
+            <Button
+              isIconOnly
+              aria-label={t(i18n)`disconnect wallet(s)`}
+              size='s'
+              variant='ghost'
+              onPress={handleLogout}
+            >
+              <Power size='s' />
+            </Button>
+          </Tooltip>
+          {!isMobile && (
+            <Button isIconOnly aria-label={t(i18n)`close drawer`} size='s' variant='ghost' onPress={onClose}>
+              <XMark size='s' />
+            </Button>
+          )}
+        </Flex>
       </Flex>
       {isBalancePending ? (
         <Skeleton height='4xl' width='10rem' />
@@ -91,7 +108,7 @@ const Profile = ({ onClose }: ProfileProps): JSX.Element => {
         >
           <SolidCreditCard color='primary-500' />
           <P color='primary-500' weight='bold'>
-            Buy
+            <Trans>Buy</Trans>
           </P>
         </Card>
         <Card
@@ -105,7 +122,7 @@ const Profile = ({ onClose }: ProfileProps): JSX.Element => {
         >
           <QrCode color='primary-500' />
           <P color='primary-500' weight='bold'>
-            Receive
+            <Trans>Receive</Trans>
           </P>
         </Card>
       </Flex>
