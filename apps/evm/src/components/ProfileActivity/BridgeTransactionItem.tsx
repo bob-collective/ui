@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from '@gobob/ui';
+import { Card, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
 import { BridgeStatus } from '../BridgeStatus';
@@ -26,13 +26,14 @@ const BridgeTransactionItem = ({
   const toChaindId = data.direction === TransactionDirection.L1_TO_L2 ? L2_CHAIN : L1_CHAIN;
 
   return (
-    <Flex direction='column' {...props}>
+    <Card background='grey-600' direction='column' gap='md' padding='lg' rounded='md' {...props}>
       <TransactionDetails
         amount={data.amount}
         date={data.date}
         direction={data.direction}
         fromChainId={fromChaindId}
         isExpanded={isExpanded}
+        logoUrl={data.logoUrl}
         toChainId={toChaindId}
         onExpand={() => setExpanded((isExpanded) => !isExpanded)}
       />
@@ -42,7 +43,7 @@ const BridgeTransactionItem = ({
         onProveSuccess={onProveSuccess}
         onRelaySuccess={onRelaySuccess}
       />
-    </Flex>
+    </Card>
   );
 };
 

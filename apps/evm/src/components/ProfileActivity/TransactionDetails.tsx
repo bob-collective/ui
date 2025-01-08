@@ -1,83 +1,68 @@
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { ArrowLongRight, Flex, FlexProps, P, UnstyledButton } from '@gobob/ui';
+import { Avatar, Card, Flex, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
 import { useParams } from 'next/navigation';
 
-import { StyledDetailsButton, StyledExpandIcon } from './TransactionList.style';
-
-import { Chain } from '@/components';
+import { AmountLabel, ChainAsset, ChainLogo } from '@/components';
 import { TransactionDirection } from '@/types';
 import { getLocale } from '@/utils';
 
-type Props = {
+type TransactionDetailsProps = {
   direction: TransactionDirection;
   date: Date;
   fromChainId: ChainId | 'BTC';
   toChainId: ChainId | 'BTC';
   amount?: CurrencyAmount<Currency>;
+  logoUrl?: string;
   isPending?: boolean;
   isExpanded?: boolean;
-  onExpand?: () => void;
 };
 
-type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
-
-type TransactionDetailsProps = Props & InheritAttrs;
-
 const TransactionDetails = ({
-  direction,
   date,
   fromChainId,
   toChainId,
   amount,
-  isPending,
-  isExpanded,
-  onExpand,
-  ...props
+  logoUrl,
+  isPending
 }: TransactionDetailsProps): JSX.Element => {
   const { lang } = useParams();
-  const directionLabel = direction === TransactionDirection.L1_TO_L2 ? <Trans>Deposit</Trans> : <Trans>Withdraw</Trans>;
-
-  const isExpandable = !!onExpand;
 
   return (
-    <Flex direction='column' {...props}>
-      <Flex justifyContent='space-between'>
-        <P color='grey-50' size='xs' weight='semibold'>
-          {directionLabel}
-        </P>
-        <P color='grey-50' size='xs' weight='semibold'>
-          <Trans>{formatDistanceToNow(date, { locale: getLocale(lang as Parameters<typeof getLocale>[0]) })} ago</Trans>
-        </P>
-      </Flex>
-      <StyledDetailsButton elementType={onExpand ? UnstyledButton : undefined} {...{ onPress: onExpand }}>
-        <Flex wrap gap='s' justifyContent='space-between' style={{ width: '100%' }}>
-          <Flex alignItems='center' gap='md'>
-            <Chain chainId={fromChainId} iconProps={{ size: 'xs' }} labelProps={{ size: 's', weight: 'medium' }} />
-            <ArrowLongRight color='grey-50' size='s' />
-            <Chain chainId={toChainId} iconProps={{ size: 'xs' }} labelProps={{ size: 's', weight: 'medium' }} />
-          </Flex>
-          <Flex gap='md'>
-            {(isPending && (
-              <P size='s' weight='medium'>
-                <Trans>Pending</Trans>
-              </P>
-            )) ||
-              (amount && (
-                <P size='s' weight='medium'>
-                  {amount.toExact()} {amount.currency.symbol}
-                </P>
-              )) || (
-                <P size='s' weight='medium'>
-                  <Trans>Unknown</Trans>
-                </P>
-              )}
-            {isExpandable && <StyledExpandIcon $isExpanded={isExpanded} color='grey-50' size='s' />}
+    <Flex alignItems='center' gap='lg'>
+      {amount ? (
+        <ChainAsset
+          asset={<Avatar alt={amount.currency.symbol} size='5xl' src={logoUrl} />}
+          chainId={toChainId}
+          chainProps={{ size: 'xs' }}
+        />
+      ) : (
+        <Card background='grey-700' padding='2xl' rounded='full' />
+      )}
+      <Flex direction='column' flex={1}>
+        <Flex alignItems='center' justifyContent='space-between'>
+          <P color='grey-50' size='xs' weight='semibold'>
+            <Trans>
+              {formatDistanceToNow(date, { locale: getLocale(lang as Parameters<typeof getLocale>[0]) })} ago
+            </Trans>
+          </P>
+          <Flex alignItems='center'>
+            <ChainLogo chainId={fromChainId} size='xs' />
+            <ChainLogo chainId={toChainId} size='xs' style={{ marginLeft: '-4px' }} />
           </Flex>
         </Flex>
-      </StyledDetailsButton>
+        <P lineHeight='1.35' weight='medium'>
+          {isPending ? (
+            <Trans>Pending</Trans>
+          ) : amount ? (
+            <AmountLabel hidePrice amount={amount} />
+          ) : (
+            <Trans>Unknown</Trans>
+          )}
+        </P>
+      </Flex>
     </Flex>
   );
 };

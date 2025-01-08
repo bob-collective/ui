@@ -43,10 +43,9 @@ const ProfileActivity = (): JSX.Element => {
     <StyledTransactionList
       direction='column'
       flex={1}
-      gap='xl'
+      gap='md'
       justifyContent={isInitialLoading || !hasData ? 'center' : undefined}
       marginTop='md'
-      paddingX='xs'
     >
       {!isClient || isInitialLoading ? (
         <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>

@@ -357,6 +357,7 @@ const useGetBridgeTransactions = () => {
       return {
         ...depositData,
         amount,
+        logoUrl: token.l1Token.logoUrl,
         status,
         l1Receipt,
         l2Receipt,
@@ -385,6 +386,7 @@ const useGetBridgeTransactions = () => {
       return {
         ...withdrawData,
         amount,
+        logoUrl: token.l1Token.logoUrl,
         status,
         l2Receipt,
         l1Token: ETH[L1_CHAIN as ChainId.ETHEREUM].address,
@@ -411,6 +413,7 @@ const useGetBridgeTransactions = () => {
       return {
         ...depositData,
         amount,
+        logoUrl: token.l1Token.logoUrl,
         status,
         l1Receipt,
         l2Receipt,
@@ -437,6 +440,7 @@ const useGetBridgeTransactions = () => {
       return {
         ...withdrawData,
         amount,
+        logoUrl: token.l2Token.logoUrl,
         status,
         l2Receipt,
         l1Token: token.l1Token.address,

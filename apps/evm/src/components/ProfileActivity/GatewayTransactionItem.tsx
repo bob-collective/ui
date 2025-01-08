@@ -1,13 +1,12 @@
-import { Flex, FlexProps } from '@gobob/ui';
+import { Card, FlexProps } from '@gobob/ui';
 import { useState } from 'react';
 
-import { GatewayTransaction } from '../../hooks';
 import { GatewayStatus } from '../GatewayStatus';
 
 import { TransactionDetails } from './TransactionDetails';
 
 import { L2_CHAIN } from '@/constants';
-import { TransactionDirection } from '@/types';
+import { GatewayTransaction, TransactionDirection } from '@/types';
 
 type Props = { data: GatewayTransaction };
 
@@ -22,18 +21,19 @@ const GatewayTransactionItem = ({ data, ...props }: GatewayTransactionItemProps)
   const toChaindId = L2_CHAIN;
 
   return (
-    <Flex direction='column' gap='md' {...props}>
+    <Card background='grey-600' direction='column' gap='md' padding='lg' rounded='md' {...props}>
       <TransactionDetails
         amount={data.amount}
         date={data.date}
         direction={TransactionDirection.L1_TO_L2}
         fromChainId={fromChaindId}
         isPending={data.isPending}
+        logoUrl={data.logoUrl}
         toChainId={toChaindId}
         onExpand={() => setExpanded((isExpanded) => !isExpanded)}
       />
       <GatewayStatus data={data} isExpanded={isExpanded} />
-    </Flex>
+    </Card>
   );
 };
 
