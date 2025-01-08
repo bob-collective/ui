@@ -1,11 +1,12 @@
 'use client';
 
 import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
-import { Card, Flex, P, Skeleton, SolidArrowDownCircle, SolidCreditCard } from '@gobob/ui';
+import { Card, Flex, P, Skeleton, SolidArrowDownCircle, SolidCreditCard, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { Chain } from 'viem';
 import { useDisconnect } from 'wagmi';
 
+import { ProfileActivity } from '../ProfileActivity';
 import { ProfileTag } from '../ProfileTag';
 import { AnimatedAmount } from '../AnimatedAmount';
 
@@ -19,6 +20,11 @@ import { useConnectModal, WalletType } from '@/connect-ui';
 import { ExternalLinks } from '@/constants';
 import { useTotalBalance } from '@/hooks';
 import { store } from '@/lib/store';
+
+enum ProfileDrawerTab {
+  WALLET,
+  ACTIVITY
+}
 
 type ProfileProps = {
   onClose: () => void;
@@ -67,7 +73,7 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
   };
 
   return (
-    <Flex direction='column' flex={1} gap='xl'>
+    <Flex direction='column' flex={1} gap='xl' style={{ height: '100%' }}>
       <Flex alignItems='center' justifyContent='space-between'>
         <ProfileTag isCopyEnabled chain={currentChain} labelProps={{ weight: 'semibold' }} size='md' />
         <DisconnectButton onConfirmPress={handleLogout} />
@@ -119,9 +125,14 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
         <ProfileEvmWallet currentChain={currentChain} otherChain={otherChain} onPressConnect={handleConnectEvmWallet} />
         <ProfileBtcWallet onPressConnect={handleConnectBtcWallet} onUnlink={handleUnlinkBtc} />
       </Flex>
-      <Flex direction='column' gap='md'>
-        <ProfileTokens currentChain={currentChain} otherChain={otherChain} onPressNavigate={onClose} />
-      </Flex>
+      <Tabs fullHeight fullWidth size='s'>
+        <TabsItem key={ProfileDrawerTab.WALLET} title={<Trans>Wallet</Trans>}>
+          <ProfileTokens currentChain={currentChain} otherChain={otherChain} onPressNavigate={onClose} />
+        </TabsItem>
+        <TabsItem key={ProfileDrawerTab.ACTIVITY} title={<Trans>Activity</Trans>}>
+          <ProfileActivity />
+        </TabsItem>
+      </Tabs>
     </Flex>
   );
 };
