@@ -9,7 +9,7 @@ import { useTheme } from 'styled-components';
 import { useMediaQuery } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
-import { ProfileDrawer } from '../ProfileDrawer';
+import { Profile } from '../Profile';
 import { ProfileTag } from '../ProfileTag';
 
 import { useConnectModal } from '@/connect-ui';
@@ -60,7 +60,7 @@ const ConnectButton = (): JSX.Element => {
           <DrawerTitle hidden>
             <Trans>Profile</Trans>
           </DrawerTitle>
-          <ProfileDrawer onClose={handleClose} />
+          <Profile onClose={handleClose} />
         </DrawerContent>
       </DrawerPortal>
     </DrawerRoot>

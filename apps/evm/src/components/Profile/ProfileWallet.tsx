@@ -1,8 +1,9 @@
 'use client';
 
-import { Button, Card, ChevronRight, Flex, LinkSlash, Span, Spinner, Tooltip } from '@gobob/ui';
+import { Button, Card, ChevronRight, Flex, LinkSlash, Skeleton, Span, Spinner, Tooltip } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { ReactNode, useState } from 'react';
+import { Currency, CurrencyAmount } from '@gobob/currency';
 
 import { CopyAddress } from '../CopyAddress';
 
@@ -12,7 +13,7 @@ type ProfileWalletProps = {
   onPressConnect: () => void;
   onUnlink?: (id: string) => void;
   avatar: ReactNode;
-  balanceLabel: ReactNode;
+  balance?: CurrencyAmount<Currency>;
   walletAvatar?: ReactNode;
   address?: string;
   truncatedAddress?: string;
@@ -25,7 +26,7 @@ const ProfileWallet = ({
   onPressConnect,
   onUnlink,
   avatar,
-  balanceLabel,
+  balance,
   walletAvatar,
   address,
   truncatedAddress,
@@ -83,9 +84,13 @@ const ProfileWallet = ({
       <Flex alignItems='center' gap='md'>
         {avatar}
         <Flex direction='column'>
-          <Span size='s' weight='semibold'>
-            {balanceLabel}
-          </Span>
+          {balance ? (
+            <Span size='s' weight='semibold'>
+              {balance.toSignificant()} {balance.currency.symbol}
+            </Span>
+          ) : (
+            <Skeleton />
+          )}
           <Flex alignItems='center' gap='s'>
             {walletAvatar}
             <CopyAddress

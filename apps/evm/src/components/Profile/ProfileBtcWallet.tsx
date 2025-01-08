@@ -26,7 +26,7 @@ const ProfileBtcWallet = ({ onPressConnect, onUnlink }: ProfileBtcWalletProps): 
     <ProfileWallet
       address={btcAddress}
       avatar={<BTC size='xl' />}
-      balanceLabel={`${CurrencyAmount.fromRawAmount(BITCOIN, btcBalance?.total || 0).toSignificant()} BTC`}
+      balance={CurrencyAmount.fromRawAmount(BITCOIN, btcBalance?.total || 0)}
       connectLabel={<Trans>Connect BTC Wallet</Trans>}
       isRemovable={!!address}
       truncatedAddress={truncateBtcAddress(btcAddress || '')}

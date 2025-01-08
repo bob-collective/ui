@@ -67,7 +67,7 @@ const ProfileEvmWallet = ({ chainId, onPressConnect }: ProfileEvmWalletProps): J
           <ETH size='xl' />
         )
       }
-      balanceLabel={`${getBalance('ETH')?.toSignificant()} ETH`}
+      balance={getBalance('ETH')}
       connectLabel={<Trans>Connect EVM Wallet</Trans>}
       truncatedAddress={truncateEthAddress(address || '')}
       walletAvatar={connector && <WalletIcon name={connector.name} style={{ height: '1rem', width: '1rem' }} />}

@@ -108,8 +108,8 @@ msgstr "404 错误"
 msgid "7 days"
 msgstr ""
 
-#: src/components/Layout/Header.tsx:105
-#: src/components/Layout/Sidebar.tsx:66
+#: src/components/Layout/Header.tsx:85
+#: src/components/Layout/Sidebar.tsx:77
 msgid "About"
 msgstr "关于"
 
@@ -159,7 +159,7 @@ msgstr ""
 #~ msgid "An exclusive quest campaign."
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:265
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:185
 msgid "and that you have read and understood our"
 msgstr ""
 
@@ -172,8 +172,8 @@ msgid "Approve"
 msgstr "通过"
 
 #: src/app/[lang]/apps/page.tsx:14
-#: src/components/Layout/Header.tsx:70
-#: src/components/Layout/Sidebar.tsx:45
+#: src/components/Layout/Header.tsx:54
+#: src/components/Layout/Sidebar.tsx:59
 msgid "Apps"
 msgstr ""
 
@@ -215,8 +215,8 @@ msgid "Audited by"
 msgstr "审计"
 
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:37
-msgid "Authorize Wallet"
-msgstr ""
+#~ msgid "Authorize Wallet"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:32
 #: src/app/[lang]/fusion/Fusion.tsx:209
@@ -233,6 +233,10 @@ msgstr ""
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:181
 msgid "Babylon points"
 msgstr "Babylon积分"
+
+#: src/components/ReceiveModal/ReceiveModal.tsx:76
+msgid "Back"
+msgstr ""
 
 #: src/app/[lang]/wallet/components/TokenTable/TokenTable.tsx:111
 #~ msgid "Balance"
@@ -291,8 +295,8 @@ msgstr ""
 #~ msgid "BOB Gateway is live!"
 #~ msgstr ""
 
-#: src/app/[lang]/layout.tsx:35
-#: src/app/[lang]/layout.tsx:54
+#: src/app/[lang]/layout.tsx:32
+#: src/app/[lang]/layout.tsx:51
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr ""
 
@@ -335,8 +339,8 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/page.tsx:14
 #: src/app/[lang]/page.tsx:15
-#: src/components/Layout/Header.tsx:67
-#: src/components/Layout/Sidebar.tsx:42
+#: src/components/Layout/Header.tsx:51
+#: src/components/Layout/Sidebar.tsx:56
 msgid "Bridge"
 msgstr "桥"
 
@@ -390,7 +394,7 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:257
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:181
 msgid "By clicking ‘Connect’ you acknowledge and agree to the"
 msgstr ""
 
@@ -440,7 +444,7 @@ msgstr ""
 msgid "Collect Babylon Points on BOB"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:106
+#: src/app/[lang]/sign-up/SignUp.tsx:107
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
@@ -474,8 +478,8 @@ msgstr "社区投票信息"
 msgid "Congratulations you won!<0/>Take a screenshot to share with your friends!"
 msgstr ""
 
+#: src/components/Profile/ProfileBtcWallet.tsx:30
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:94
-#: src/connect-ui/component/AuthButton/AuthButton.tsx:107
 msgid "Connect BTC Wallet"
 msgstr "连接比特币钱包"
 
@@ -483,26 +487,35 @@ msgstr "连接比特币钱包"
 msgid "Connect BTC wallet to access fee rate settings."
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:138
+#: src/components/Profile/ProfileEvmWallet.tsx:71
+msgid "Connect EVM Wallet"
+msgstr ""
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:97
 msgid "Connect request is already pending"
 msgstr ""
 
-#: src/connect-ui/component/AuthButton/AuthButton.tsx:63
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:219
-#: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:35
+#: src/components/ConnectButton/ConnectButton.tsx:40
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:62
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:171
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:301
-msgid "Connect your Bitcoin Wallet (Optional)"
-msgstr ""
+#~ msgid "Connect your Bitcoin Wallet (Optional)"
+#~ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:286
-msgid "Connect your EVM Wallet (Mandatory)"
-msgstr ""
+#~ msgid "Connect your EVM Wallet (Mandatory)"
+#~ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectedWalletSection.tsx:37
-msgid "Connected with <0>{wallet}</0>"
+#~ msgid "Connected with <0>{wallet}</0>"
+#~ msgstr ""
+
+#: src/components/CopyAddress/CopyAddress.tsx:37
+#: src/components/CopyButton/CopyButton.tsx:30
+msgid "Copied"
 msgstr ""
 
 #: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:89
@@ -562,8 +575,8 @@ msgstr "将你的BTC LSTs存入 <0>将你的BTC LSTs存入</0> 以铸造satUSD�
 msgid "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD."
 msgstr "将你的BTC LSTs存入 <0>Satoshi协议</0> 以铸造satUSD。"
 
-#: src/components/Layout/Header.tsx:102
-#: src/components/Layout/Sidebar.tsx:63
+#: src/components/Layout/Header.tsx:82
+#: src/components/Layout/Sidebar.tsx:74
 msgid "Dev"
 msgstr "开发者"
 
@@ -579,7 +592,7 @@ msgstr "为DEX提供流动性"
 msgid "Diamond"
 msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:60
+#: src/app/[lang]/nested-providers.tsx:61
 msgid "Disconnected"
 msgstr ""
 
@@ -663,8 +676,8 @@ msgstr ""
 msgid "Exclusive Spice Bonus For Superchain Users"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:141
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:179
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:138
 msgid "Failed to connect to {0}"
 msgstr ""
 
@@ -737,13 +750,17 @@ msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 msgid "Follow us on X"
 msgstr ""
 
-#: src/app/[lang]/geoblock/Geoblock.tsx:40
+#: src/app/[lang]/geoblock/Geoblock.tsx:41
 msgid "Follow us on X for updates"
 msgstr ""
 
+#: src/components/ReceiveModal/ReceiveModal.tsx:86
+msgid "Fund your wallet(s) by transferring crypto from another wallet or account."
+msgstr ""
+
 #: src/app/[lang]/fusion/page.tsx:16
-#: src/components/Layout/Header.tsx:76
-#: src/components/Layout/Sidebar.tsx:51
+#: src/components/Layout/Header.tsx:60
+#: src/components/Layout/Sidebar.tsx:65
 msgid "Fusion"
 msgstr "Fusion"
 
@@ -786,14 +803,14 @@ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:194
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:208
-msgid "go back"
-msgstr ""
+#~ msgid "go back"
+#~ msgstr ""
 
 #: src/app/[lang]/404/NotFound.tsx:30
 msgid "Go Back"
 msgstr "返回"
 
-#: src/app/[lang]/nested-providers.tsx:75
+#: src/app/[lang]/nested-providers.tsx:76
 msgid "Got it!"
 msgstr ""
 
@@ -893,7 +910,7 @@ msgstr ""
 msgid "Input Token"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:115
+#: src/app/[lang]/sign-up/SignUp.tsx:116
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr ""
 
@@ -1045,8 +1062,8 @@ msgstr "铸造satUSD并将其供应到BOB上的借贷市场"
 msgid "Multipliers"
 msgstr "收益倍数"
 
-#: src/components/Layout/Header.tsx:108
-#: src/components/Layout/Sidebar.tsx:54
+#: src/components/Layout/Header.tsx:88
+#: src/components/Layout/Sidebar.tsx:68
 msgid "Multisig"
 msgstr "多签"
 
@@ -1078,7 +1095,7 @@ msgstr ""
 msgid "navigate to Common Prefix audit"
 msgstr ""
 
-#: src/components/SocialsGroup/SocialsGroup.tsx:46
+#: src/components/SocialsGroup/SocialsGroup.tsx:41
 msgid "navigate to discord"
 msgstr ""
 
@@ -1098,11 +1115,15 @@ msgstr ""
 msgid "navigate to Trails of Bits audit"
 msgstr ""
 
-#: src/components/SocialsGroup/SocialsGroup.tsx:37
+#: src/components/SocialsGroup/SocialsGroup.tsx:36
 msgid "navigate to X social"
 msgstr ""
 
-#: src/app/[lang]/geoblock/Geoblock.tsx:47
+#: src/components/Layout/Sidebar.tsx:43
+msgid "Navigation"
+msgstr ""
+
+#: src/app/[lang]/geoblock/Geoblock.tsx:48
 msgid "Need support? Enter our Discord."
 msgstr ""
 
@@ -1176,7 +1197,7 @@ msgstr ""
 #~ msgid "OKX Cryptopedia"
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:251
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:175
 msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
 msgstr ""
 
@@ -1184,7 +1205,7 @@ msgstr ""
 msgid "Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest."
 msgstr "第3季结束后，你的得分将与第1季和第2季的得分合并，用于计算你的最终Spice收获。"
 
-#: src/components/Layout/Header.tsx:55
+#: src/components/Layout/Sidebar.tsx:36
 msgid "open drawer"
 msgstr ""
 
@@ -1248,7 +1269,7 @@ msgstr "请注意："
 msgid "Points"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:102
+#: src/app/[lang]/sign-up/SignUp.tsx:103
 msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
@@ -1257,11 +1278,13 @@ msgstr "比特币 + 以太坊共同驱动"
 msgid "Preparing..."
 msgstr ""
 
-#: src/components/Layout/Header.tsx:115
-#: src/components/Layout/Sidebar.tsx:73
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:271
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:187
 msgid "Privacy policy"
 msgstr "隐私政策"
+
+#: src/components/ConnectButton/ConnectButton.tsx:61
+msgid "Profile"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayTransactionDetails.tsx:121
 msgid "Protocol Fee"
@@ -1315,6 +1338,10 @@ msgstr "接收"
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:93
 #~ msgid "Receive {ticker}"
 #~ msgstr "接收 {ticker}"
+
+#: src/components/ReceiveModal/ReceiveModal.tsx:70
+msgid "Receive crypto"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:481
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:159
@@ -1396,12 +1423,12 @@ msgid "Security Review by Bitcoin Layers"
 msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:216
-msgid "Select Bitcoin Wallet"
-msgstr ""
+#~ msgid "Select Bitcoin Wallet"
+#~ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:202
-msgid "Select EVM Wallet"
-msgstr ""
+#~ msgid "Select EVM Wallet"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:119
 msgid "select gas token"
@@ -1453,7 +1480,7 @@ msgstr ""
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "与朋友分享此链接，当他们注册时，你将获得他们Spice收获的15%作为奖励，以及他们推荐的任何人的Spice收获的7%"
 
-#: src/components/Layout/Header.tsx:83
+#: src/components/Layout/Header.tsx:67
 msgid "Show secondary navigation"
 msgstr ""
 
@@ -1476,7 +1503,7 @@ msgstr ""
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:72
+#: src/app/[lang]/sign-up/SignUp.tsx:73
 #: src/components/LoginButton/LoginButton.tsx:29
 #: src/components/SignUpButton/SignUpButton.tsx:29
 msgid "Something went wrong. Please try connecting your wallet again."
@@ -1560,8 +1587,8 @@ msgstr ""
 #: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:113
 #: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:95
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
-#: src/components/Layout/Header.tsx:73
-#: src/components/Layout/Sidebar.tsx:48
+#: src/components/Layout/Header.tsx:57
+#: src/components/Layout/Sidebar.tsx:62
 msgid "Stake"
 msgstr "質押"
 
@@ -1712,12 +1739,16 @@ msgstr "将新铸造的satUSD供应到 <0>BOB上的借贷协议</0> 。"
 msgid "Support your favourite BOB apps"
 msgstr "支持你喜爱的BOB应用"
 
-#: src/connect-ui/component/AuthButton/AuthButton.tsx:84
+#: src/components/Profile/ProfileEvmWallet.tsx:39
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:83
 msgid "Switch to {capitalizedName}"
 msgstr ""
 
-#: src/components/Layout/Header.tsx:99
-#: src/components/Layout/Sidebar.tsx:60
+#: src/components/Layout/Header.tsx:79
+#: src/components/Layout/Sidebar.tsx:71
 msgid "T&Cs"
 msgstr "条款与条件"
 
@@ -1725,7 +1756,7 @@ msgstr "条款与条件"
 msgid "Take em home"
 msgstr "回到主页"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:263
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:183
 msgid "Terms of Service"
 msgstr ""
 
@@ -1733,7 +1764,7 @@ msgstr ""
 msgid "Testnet"
 msgstr ""
 
-#: src/app/[lang]/geoblock/Geoblock.tsx:31
+#: src/app/[lang]/geoblock/Geoblock.tsx:32
 msgid "Thank you for your understanding and we hope to be able to serve you in a more decentralized future. The BOB L2 network itself is fully decentralized, cannot be censored and all code is open source."
 msgstr ""
 
@@ -1758,7 +1789,7 @@ msgstr ""
 msgid "The final season"
 msgstr "最终季 - 不容错过！"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:99
+#: src/app/[lang]/sign-up/SignUp.tsx:100
 msgid "THE FIRST HYBRID L2"
 msgstr "首个混合型二层"
 
@@ -1827,7 +1858,7 @@ msgstr "暂无可显示的应用"
 msgid "There is currently no available liquidity to onramp BTC into {assetName}."
 msgstr ""
 
-#: src/app/[lang]/geoblock/Geoblock.tsx:23
+#: src/app/[lang]/geoblock/Geoblock.tsx:24
 msgid "This is often done to comply with local laws and regulations. Website hosters must comply with regulations and may be forced to block certain countries. It seems your country is unfortunately on the list of restricted countries according to the Terms and Conditions of the hoster of this website. We are constantly working to expand our reach and provide our services to more regions."
 msgstr ""
 
@@ -1847,7 +1878,7 @@ msgstr ""
 #~ msgid "This is the final amount you will stake after deducting the Protocol fees from your input amount."
 #~ msgstr ""
 
-#: src/app/[lang]/geoblock/Geoblock.tsx:17
+#: src/app/[lang]/geoblock/Geoblock.tsx:18
 msgid "This website is not available in your location due to geoblocking. Geoblocking is a practice used by content providers to restrict access to their content based on the geographical location of the user."
 msgstr ""
 
@@ -1954,6 +1985,10 @@ msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力
 msgid "Unknown"
 msgstr ""
 
+#: src/components/Profile/ProfileWallet.tsx:107
+msgid "Unlink wallet"
+msgstr ""
+
 #: src/app/[lang]/(bridge)/stake/Stake.tsx:106
 #~ msgid "Unstake"
 #~ msgstr ""
@@ -2004,7 +2039,7 @@ msgid "Use your Spice total to support your favourite BOB builders. Winners will
 msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将每周公布。"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:131
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:134
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:93
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:51
 msgid "User rejected the request"
@@ -2084,7 +2119,7 @@ msgstr ""
 msgid "Waiting for confirmation"
 msgstr ""
 
-#: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:60
+#: src/components/Profile/ProfileTokenList.tsx:38
 msgid "Wallet"
 msgstr "钱包"
 
@@ -2096,7 +2131,7 @@ msgstr ""
 msgid "We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi."
 msgstr ""
 
-#: src/app/[lang]/geoblock/Geoblock.tsx:14
+#: src/app/[lang]/geoblock/Geoblock.tsx:15
 msgid "We're Sorry"
 msgstr ""
 
@@ -2181,11 +2216,15 @@ msgstr ""
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "你可以在每周投票期结束前随时更改你的投票"
 
+#: src/components/ReceiveModal/ReceiveModal.tsx:192
+msgid "You can receive tokens on our supported networks"
+msgstr ""
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:103
 msgid "You Have 0 Tickets"
 msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:67
+#: src/app/[lang]/nested-providers.tsx:68
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 msgstr ""
 
@@ -2251,7 +2290,7 @@ msgstr ""
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:64
+#: src/app/[lang]/nested-providers.tsx:65
 msgid "Your funds are safe!"
 msgstr ""
 

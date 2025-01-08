@@ -16,12 +16,11 @@ import { useTotalBalance } from '@/hooks';
 import { store } from '@/lib/store';
 import { useConnectModal, WalletType } from '@/connect-ui';
 
-type ProfileDrawerProps = {
+type ProfileProps = {
   onClose: () => void;
 };
 
-// TODO: loading state missing on some parts (eth amount)
-const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
+const Profile = ({ onClose }: ProfileProps): JSX.Element => {
   const { chainId = L1_CHAIN } = useAccount();
 
   const { formatted, isPending: isBalancePending } = useTotalBalance(chainId);
@@ -121,4 +120,4 @@ const ProfileDrawer = ({ onClose }: ProfileDrawerProps): JSX.Element => {
   );
 };
 
-export { ProfileDrawer };
+export { Profile };
