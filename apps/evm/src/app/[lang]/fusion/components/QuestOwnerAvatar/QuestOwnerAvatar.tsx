@@ -1,11 +1,12 @@
-import { Galxe, Intract } from '@gobob/icons';
+import { Galxe, Intract, Layer3 } from '@gobob/icons';
 import { Icon, IconProps } from '@gobob/ui';
 
-type QuestOwner = 'galxe' | 'intract';
+type QuestOwner = 'galxe' | 'intract' | 'layer3';
 
 const icons: Record<QuestOwner, typeof Icon> = {
   galxe: Galxe,
-  intract: Intract
+  intract: Intract,
+  layer3: Layer3
 };
 
 type Props = {
@@ -23,3 +24,4 @@ const QuestOwnerIcon = ({ name, ...props }: QuestOwnerIconProps): JSX.Element =>
 };
 
 export { QuestOwnerIcon };
+export type { QuestOwner };
