@@ -8,6 +8,7 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { Key, useCallback, useMemo, useState } from 'react';
 import { useChainId } from 'wagmi';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -140,6 +141,12 @@ const BridgeForm = ({
     refetchTransactions.gateway();
 
     setGatewayModalState({ isOpen: true, data });
+
+    sendGAEvent('event', 'btc-bridge', {
+      asset: data.assetName,
+      amount: data.amount?.toExact(),
+      tx_id: data.txId
+    });
   };
 
   const handleCloseGatewayModal = () => {
