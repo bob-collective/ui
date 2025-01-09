@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { GatewayTransactionModal } from '../../../components';
 import { StrategyData } from '../../hooks';
@@ -34,6 +35,11 @@ const StakingForm = ({ strategy, stakingInfo, onStakeSuccess }: BridgeFormProps)
   const handleGatewaySuccess = (data: InitGatewayTransaction) => {
     onStakeSuccess?.();
     setGatewayModalState({ isOpen: true, data });
+    sendGAEvent('event', 'btc-stake', {
+      asset: data.assetName,
+      amount: data.amount?.toExact(),
+      tx_id: data.txId
+    });
   };
 
   const handleCloseGatewayModal = () => {
