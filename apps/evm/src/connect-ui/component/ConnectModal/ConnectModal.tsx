@@ -178,11 +178,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             </Trans>
           </P>
           <P size='s'>
-            <Trans>By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the </Trans>
+            <Trans>By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the</Trans>{' '}
             <Link external href={ExternalLinks.TERMS_OF_SERVICE} size='inherit' underlined='always'>
               <Trans>Terms of Service</Trans>
             </Link>{' '}
-            <Trans>and that you have read and understood our </Trans>
+            <Trans>and that you have read and understood our</Trans>{' '}
             <Link external href={ExternalLinks.PRIVACY_POLICY} size='inherit' underlined='always'>
               <Trans>Privacy policy</Trans>
             </Link>
