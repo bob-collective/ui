@@ -125,7 +125,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector
           });
 
-          sendGTMEvent({ event: 'evm-connect', address: connectData.accounts });
+          sendGTMEvent({ event: 'evm_connect', address: connectData.accounts, wallet: connector.name });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);
