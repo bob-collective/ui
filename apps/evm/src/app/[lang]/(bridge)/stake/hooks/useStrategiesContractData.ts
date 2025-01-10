@@ -11,25 +11,32 @@ import { StrategyData } from './useGetStakingStrategies';
 
 import { getConfig } from '@/lib/wagmi';
 import { INTERVAL, isProd } from '@/constants';
-import { seTokenAbi } from '@/abis/seToken.abi';
+import { erc20WithUnderlying } from '@/abis/erc20WithUnderlying.abi';
 import { strategyBaseTVLLimitAbi } from '@/abis/StrategyBaseTVL.abi';
 
-const seTokenToUnderlyingMapping: Record<string, CurrencyTickers> = {
+// NOTE: function selectors are matching for segment and ionic tokens so it's fine (for now) to mix them
+const tokenToUnderlyingMapping: Record<string, CurrencyTickers> = {
   seSOLVBTCBBN: CurrencyTickers['SolvBTC.BBN'],
   seUNIBTC: CurrencyTickers.UNIBTC,
   seTBTC: CurrencyTickers.TBTC,
-  seWBTC: CurrencyTickers.WBTC
+  seWBTC: CurrencyTickers.WBTC,
+  iontBTC: CurrencyTickers.TBTC,
+  ionWBTC: CurrencyTickers.WBTC
 };
 
-function hasUnderlying(symbol: string | undefined): symbol is keyof typeof seTokenToUnderlyingMapping {
+function hasUnderlying(symbol: string | undefined): symbol is keyof typeof tokenToUnderlyingMapping {
   if (typeof symbol === 'undefined') return false;
 
-  return Boolean(seTokenToUnderlyingMapping[symbol]);
+  return Boolean(tokenToUnderlyingMapping[symbol]);
 }
 
 const tokenToIdMapping: Record<string, CurrencyTickers> = {
   uniBTC: CurrencyTickers.UNIBTC,
-  'SolvBTC.BBN': CurrencyTickers['SolvBTC.BBN']
+  'SolvBTC.BBN': CurrencyTickers['SolvBTC.BBN'],
+
+  aBOBTBTC: CurrencyTickers.TBTC,
+  aBOBWBTC: CurrencyTickers.WBTC,
+  aBOBSOLVBTCBBN: CurrencyTickers['SolvBTC.BBN']
 };
 
 function hasCGId(symbol: string | undefined): symbol is keyof typeof tokenToIdMapping {
@@ -97,7 +104,7 @@ const useStrategiesContractData = (
 
           return acc;
         },
-        {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
+        {} as Record<keyof typeof tokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
       );
     },
     [strategies]
@@ -119,28 +126,28 @@ const useStrategiesContractData = (
         ? ([
             {
               address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              abi: erc20WithUnderlying,
               functionName: 'exchangeRateStored'
             },
             {
               address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              abi: erc20WithUnderlying,
               functionName: 'totalSupply'
             },
             {
               address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              abi: erc20WithUnderlying,
               functionName: 'balanceOf',
               args: address ? [address] : [zeroAddress]
             },
             {
               address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              abi: erc20WithUnderlying,
               functionName: 'decimals'
             },
             {
               address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              abi: erc20WithUnderlying,
               functionName: 'underlying'
             }
           ] as const)
@@ -163,7 +170,7 @@ const useStrategiesContractData = (
 
           return acc;
         },
-        {} as Record<keyof typeof seTokenToUnderlyingMapping, number>
+        {} as Record<keyof typeof tokenToUnderlyingMapping, number>
       );
     },
     [strategies]
@@ -358,7 +365,7 @@ const useStrategiesContractData = (
             const underlyingDecimals = seTokensUnderlyingContractData[symbol]!;
 
             const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
-            const underlyingTicker = seTokenToUnderlyingMapping[symbol];
+            const underlyingTicker = tokenToUnderlyingMapping[symbol];
             const underlyingPrice = getPrice(underlyingTicker!);
 
             acc[strategy.raw.id] = {
