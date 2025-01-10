@@ -225,4 +225,4 @@ const strategiesInfo: Record<string, StrategyInfo> = {
 } as const;
 
 export { strategiesInfo, StrategyIncentive };
-export type { StrategyInfo, StrategyCurrency };
+export type { StrategyInfo };

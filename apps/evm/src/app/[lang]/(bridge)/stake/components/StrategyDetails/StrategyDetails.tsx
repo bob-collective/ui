@@ -115,14 +115,19 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   return (
     <Dl direction='column' flex='1.2 0 0%' gap='xl'>
-      {strategy.userDepositAmount && (
+      {strategy.deposit && (
         <Card alignItems='flex-start' direction='column'>
           <Dt color='grey-50' size='s'>
             {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
           </Dt>
-          <Dd color='light' size='lg' weight='semibold'>
-            <AmountLabel hidePrice amount={strategy.userDepositAmount} />
-          </Dd>
+          <Flex wrap elementType='dd' gap='s'>
+            <Span color='light' size='lg' weight='semibold'>
+              <AmountLabel hidePrice amount={strategy.deposit.amount} />
+            </Span>
+            <Span color='grey-50' size='lg' weight='semibold'>
+              ({format(strategy.deposit.usd)})
+            </Span>
+          </Flex>
         </Card>
       )}
       <Flex direction={{ base: 'column', s: 'row' }} gap='xl' style={{ width: '100%' }}>

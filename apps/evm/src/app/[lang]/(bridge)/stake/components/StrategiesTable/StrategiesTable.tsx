@@ -18,6 +18,7 @@ import {
   Tabs,
   TabsItem,
   Tooltip,
+  useCurrencyFormatter,
   useLocale,
   useMediaQuery
 } from '@gobob/ui';
@@ -146,6 +147,8 @@ const StrategiesTable = ({ searchParams }: Props) => {
   const [filter, setFilter] = useState(StrategiesTableFilter.AllStrategies);
   const [category, setCategory] = useState(AllCategory);
 
+  const format = useCurrencyFormatter();
+
   const { data: strategies = [], isPending: isStrategiesPending } = useGetStrategies();
 
   const categories = useMemo(() => {
@@ -154,9 +157,7 @@ const StrategiesTable = ({ searchParams }: Props) => {
 
   const filteredStrategies = useMemo(() => {
     const base =
-      filter === StrategiesTableFilter.AllStrategies
-        ? strategies
-        : strategies.filter((strategy) => !!strategy.userDepositAmount);
+      filter === StrategiesTableFilter.AllStrategies ? strategies : strategies.filter((strategy) => !!strategy.deposit);
 
     return category === AllCategory ? base : base.filter((strategy) => strategy.meta.type === category);
   }, [filter, category, strategies]);
@@ -193,7 +194,16 @@ const StrategiesTable = ({ searchParams }: Props) => {
               protocol={strategy.info.protocol}
             />
           ),
-          [StrategiesTableColumns.AMOUNT]: <AmountLabel hidePrice amount={strategy.userDepositAmount} />,
+          [StrategiesTableColumns.AMOUNT]: (
+            <Flex direction='column'>
+              <AmountLabel hidePrice amount={strategy.deposit?.amount} />
+              {strategy.deposit?.usd && (
+                <P color='grey-50' size='s'>
+                  {format(strategy.deposit.usd)}
+                </P>
+              )}
+            </Flex>
+          ),
           [StrategiesTableColumns.REWARDS]: <StrategyRewards incentives={strategy.info.incentives} />,
           [StrategiesTableColumns.TVL]: strategy?.tvl
             ? Intl.NumberFormat(locale, {
