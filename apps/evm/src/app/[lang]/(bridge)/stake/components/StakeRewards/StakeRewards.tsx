@@ -1,7 +1,7 @@
 import { Flex, Avatar, Chip, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
-import { PellNetwork, Spice } from '@gobob/icons';
+import { Babylon, PellNetwork, Spice } from '@gobob/icons';
 
 import { stakingInfo, Incentive } from '../../../utils/stakeData';
 
@@ -42,11 +42,7 @@ const SegmentPoints = () => (
 );
 
 const BabylonPoints = () => (
-  <Chip
-    background='dark'
-    size='s'
-    startAdornment={<Avatar size='xl' src='https://avatars.githubusercontent.com/u/106378782?s=200&v=4' />}
-  >
+  <Chip background='dark' size='s' startAdornment={<Babylon size='xs' />}>
     <Trans>Points</Trans>
   </Chip>
 );
