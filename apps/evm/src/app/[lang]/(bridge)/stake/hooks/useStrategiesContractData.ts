@@ -367,6 +367,10 @@ const useStrategiesContractData = (
             const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
             const underlyingTicker = tokenToUnderlyingMapping[symbol];
             const underlyingPrice = getPrice(underlyingTicker!);
+            const userStakedToken = CurrencyAmount.fromRawAmount(
+              new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+              userStaked
+            );
 
             acc[strategy.raw.id] = {
               tvl: new Big(totalSupplyInUnderlyingAsset.toString())
@@ -374,10 +378,14 @@ const useStrategiesContractData = (
                 .div(1e18)
                 .div(10 ** underlyingDecimals)
                 .toNumber(),
-              userStaked: CurrencyAmount.fromRawAmount(
-                new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-                userStaked
-              )
+              userStaked: {
+                token: userStakedToken,
+                usd: new Big(userStakedToken.toExact())
+                  .mul(underlyingPrice)
+                  .div(1e18)
+                  .div(10 ** underlyingDecimals)
+                  .toNumber()
+              }
             };
           }
 
@@ -385,16 +393,23 @@ const useStrategiesContractData = (
             const [totalSupply, decimals, userStaked] = tokensContractData[symbol]!;
             const ticker = tokenToIdMapping[symbol]!;
             const price = getPrice(ticker!);
+            const userStakedToken = CurrencyAmount.fromRawAmount(
+              new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+              userStaked
+            );
 
             acc[strategy.raw.id] = {
               tvl: new Big(totalSupply.toString())
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: CurrencyAmount.fromRawAmount(
-                new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-                userStaked
-              )
+              userStaked: {
+                token: userStakedToken,
+                usd: new Big(userStakedToken.toExact())
+                  .mul(price)
+                  .div(10 ** decimals)
+                  .toNumber()
+              }
             };
           }
 
@@ -410,23 +425,30 @@ const useStrategiesContractData = (
             const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
             const [, userStaked] = noOuputTokenContractData[strategyAddress]!;
             const price = getPrice(ticker!);
+            const userStakedToken = CurrencyAmount.fromRawAmount(
+              // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
+              new Token(ChainId.BOB, address, decimals, ticker, ticker),
+              userStaked
+            );
 
             acc[strategy.raw.id] = {
               tvl: new Big(totalSharesToUnderlying.toString())
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: CurrencyAmount.fromRawAmount(
-                // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
-                new Token(ChainId.BOB, address, decimals, ticker, ticker),
-                userStaked
-              )
+              userStaked: {
+                token: userStakedToken,
+                usd: new Big(userStakedToken.toExact())
+                  .mul(price)
+                  .div(10 ** decimals)
+                  .toNumber()
+              }
             };
           }
 
           return acc;
         },
-        {} as Record<string, { tvl: number; userStaked: CurrencyAmount<Currency> }>
+        {} as Record<string, { tvl: number; userStaked: { token: CurrencyAmount<Currency>; usd: number } }>
       ),
     [
       strategies,
