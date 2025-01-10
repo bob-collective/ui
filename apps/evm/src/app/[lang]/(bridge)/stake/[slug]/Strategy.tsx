@@ -33,7 +33,8 @@ function Strategy({ params }: Props) {
       <Main maxWidth='5xl' padding='lg'>
         <Link href={RoutesPath.STRATEGIES}>
           <Flex alignItems='center' gap='s'>
-            <ArrowLeft size='xs' /> Back
+            <ArrowLeft size='xs' />
+            <Trans>Back</Trans>
           </Flex>
         </Link>
         <Flex alignItems='center' gap='lg' marginTop='4xl'>
@@ -58,8 +59,8 @@ function Strategy({ params }: Props) {
           </Alert>
         )}
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
-          <Card flex='1 0 0%'>
-            <Tabs fullHeight fullWidth size='lg'>
+          <Card flex='1 0 0%' style={{ height: 'max-content' }}>
+            <Tabs fullWidth size='lg'>
               <TabsItem key='deposit' title={isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>}>
                 <StrategyForm isLending={isLending} strategy={strategy} onSuccess={refetchTransactions} />
               </TabsItem>
@@ -72,11 +73,13 @@ function Strategy({ params }: Props) {
                   justifyContent='center'
                   marginTop='md'
                   paddingX='md'
-                  style={{ height: '100%' }}
+                  style={{ height: '100%', minHeight: '25rem' }}
                 >
                   <P align='center' color='grey-50' size='s'>
-                    Complete your {isLending ? <Trans>withdraw</Trans> : <Trans>unstake</Trans>} by accessing{' '}
-                    {strategy.info.protocol} Dapp using the button bellow
+                    <Trans>
+                      Complete your {isLending ? 'withdraw' : 'unstake'} by accessing {strategy.info.protocol} Dapp
+                      using the button bellow
+                    </Trans>
                   </P>
                   <Button asChild color='primary'>
                     <Link external href={strategy.info.links.manage}>

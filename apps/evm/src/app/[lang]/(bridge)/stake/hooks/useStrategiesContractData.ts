@@ -14,6 +14,8 @@ import { INTERVAL, isProd } from '@/constants';
 import { erc20WithUnderlying } from '@/abis/erc20WithUnderlying.abi';
 import { strategyBaseTVLLimitAbi } from '@/abis/StrategyBaseTVL.abi';
 
+type StrategyDepositData = { amount: CurrencyAmount<Currency>; usd: number };
+
 // NOTE: function selectors are matching for segment and ionic tokens so it's fine (for now) to mix them
 const tokenToUnderlyingMapping: Record<string, CurrencyTickers> = {
   seSOLVBTCBBN: CurrencyTickers['SolvBTC.BBN'],
@@ -364,12 +366,16 @@ const useStrategiesContractData = (
           if (hasUnderlying(symbol) && seTokensContractData?.[symbol] && seTokensUnderlyingContractData?.[symbol]) {
             // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
             // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-            const [exchangeRateStored, totalSupply, userDepositAmount, decimals] = seTokensContractData[symbol]!;
+            const [exchangeRateStored, totalSupply, depositAtomicAmount, decimals] = seTokensContractData[symbol]!;
             const underlyingDecimals = seTokensUnderlyingContractData[symbol]!;
 
             const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
             const underlyingTicker = tokenToUnderlyingMapping[symbol];
             const underlyingPrice = getPrice(underlyingTicker!);
+            const depositAmount = CurrencyAmount.fromRawAmount(
+              new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+              depositAtomicAmount
+            );
 
             acc[strategy.contract.id] = {
               tvl: new Big(totalSupplyInUnderlyingAsset.toString())
@@ -377,32 +383,36 @@ const useStrategiesContractData = (
                 .div(1e18)
                 .div(10 ** underlyingDecimals)
                 .toNumber(),
-              userDepositAmount:
-                userDepositAmount > 0n
-                  ? CurrencyAmount.fromRawAmount(
-                      new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-                      userDepositAmount
-                    )
+              deposit:
+                depositAtomicAmount > 0n
+                  ? {
+                      amount: depositAmount,
+                      usd: new Big(depositAmount.toExact()).mul(underlyingPrice).toNumber()
+                    }
                   : undefined
             };
           }
 
           if (hasCGId(symbol) && tokensContractData?.[symbol]) {
-            const [totalSupply, decimals, userDepositAmount] = tokensContractData[symbol]!;
+            const [totalSupply, decimals, depositAtomicAmount] = tokensContractData[symbol]!;
             const ticker = tokenToIdMapping[symbol]!;
             const price = getPrice(ticker!);
+            const depositAmount = CurrencyAmount.fromRawAmount(
+              new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+              depositAtomicAmount
+            );
 
             acc[strategy.contract.id] = {
               tvl: new Big(totalSupply.toString())
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userDepositAmount:
-                userDepositAmount > 0n
-                  ? CurrencyAmount.fromRawAmount(
-                      new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-                      userDepositAmount
-                    )
+              deposit:
+                depositAtomicAmount > 0n
+                  ? {
+                      amount: depositAmount,
+                      usd: new Big(depositAmount.toExact()).mul(price).toNumber()
+                    }
                   : undefined
             };
           }
@@ -417,28 +427,32 @@ const useStrategiesContractData = (
             const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingData[strategyAddress]!;
             const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
             const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
-            const [, userDepositAmount] = noOuputTokenContractData[strategyAddress]!;
+            const [, depositAtomicAmount] = noOuputTokenContractData[strategyAddress]!;
             const price = getPrice(ticker!);
+            const depositAmount = CurrencyAmount.fromRawAmount(
+              // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
+              new Token(ChainId.BOB, address, decimals, ticker, ticker),
+              depositAtomicAmount
+            );
 
             acc[strategy.contract.id] = {
               tvl: new Big(totalSharesToUnderlying.toString())
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userDepositAmount:
-                userDepositAmount > 0n
-                  ? CurrencyAmount.fromRawAmount(
-                      // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
-                      new Token(ChainId.BOB, address, decimals, ticker, ticker),
-                      userDepositAmount
-                    )
+              deposit:
+                depositAtomicAmount > 0n
+                  ? {
+                      amount: depositAmount,
+                      usd: new Big(depositAmount.toExact()).mul(price).toNumber()
+                    }
                   : undefined
             };
           }
 
           return acc;
         },
-        {} as Record<string, { tvl: number; userDepositAmount?: CurrencyAmount<Currency> }>
+        {} as Record<string, { tvl?: number; deposit?: StrategyDepositData }>
       ),
     [
       strategies,
@@ -464,3 +478,4 @@ const useStrategiesContractData = (
 };
 
 export { useStrategiesContractData };
+export type { StrategyDepositData };
