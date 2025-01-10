@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { GatewayTransactionModal } from '../../../components';
 import { StrategyData } from '../../hooks';
@@ -24,6 +25,7 @@ type BridgeFormProps = {
 };
 
 const StakingForm = ({ strategy, stakingInfo, onStakeSuccess }: BridgeFormProps): JSX.Element => {
+  const { connector } = useSatsAccount();
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false
   });
@@ -35,10 +37,11 @@ const StakingForm = ({ strategy, stakingInfo, onStakeSuccess }: BridgeFormProps)
   const handleGatewaySuccess = (data: InitGatewayTransaction) => {
     onStakeSuccess?.();
     setGatewayModalState({ isOpen: true, data });
-    sendGAEvent('event', 'btc-stake', {
+    sendGAEvent('event', 'btc_stake', {
       asset: data.assetName,
       amount: data.amount?.toExact(),
-      tx_id: data.txId
+      tx_id: data.txId,
+      wallet: connector?.name
     });
   };
 
