@@ -1,4 +1,5 @@
 export { ArbitrumOne } from './ArbitrumOne';
+export { Babylon } from './Babylon';
 export { Base } from './Base';
 export { BinanceWeb3Wallet } from './BinanceWeb3Wallet';
 export { Bitlayer } from './Bitlayer';
