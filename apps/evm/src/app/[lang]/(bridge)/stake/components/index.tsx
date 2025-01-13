@@ -1,2 +1,3 @@
-export * from './StakeForm';
-export * from './StakeTable';
+export * from './StrategyForm';
+export * from './StrategiesTable';
+export * from './StrategyDetails';

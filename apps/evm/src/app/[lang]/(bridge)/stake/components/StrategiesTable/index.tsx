@@ -1,0 +1,1 @@
+export { StrategiesTable } from './StrategiesTable';

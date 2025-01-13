@@ -7,29 +7,37 @@ import Big from 'big.js';
 import { Currency, CurrencyAmount, Token } from '@gobob/currency';
 import { ChainId } from '@gobob/chains';
 
-import { StrategyData } from './useGetStakingStrategies';
+import { StrategyData } from './useGetStrategies';
 
 import { getConfig } from '@/lib/wagmi';
 import { INTERVAL, isProd } from '@/constants';
-import { seTokenAbi } from '@/abis/seToken.abi';
+import { erc20WithUnderlying } from '@/abis/erc20WithUnderlying.abi';
 import { strategyBaseTVLLimitAbi } from '@/abis/StrategyBaseTVL.abi';
 
-const seTokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
+type StrategyDepositData = { amount: CurrencyAmount<Currency>; usd: number };
+
+// NOTE: function selectors are matching for segment and ionic tokens so it's fine (for now) to mix them
+const tokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
   seSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN'],
   seUNIBTC: CurrencyTicker.UNIBTC,
   seTBTC: CurrencyTicker.TBTC,
-  seWBTC: CurrencyTicker.WBTC
+  seWBTC: CurrencyTicker.WBTC,
+  iontBTC: CurrencyTicker.TBTC,
+  ionWBTC: CurrencyTicker.WBTC
 };
 
-function hasUnderlying(symbol: string | undefined): symbol is keyof typeof seTokenToUnderlyingMapping {
+function hasUnderlying(symbol: string | undefined): symbol is keyof typeof tokenToUnderlyingMapping {
   if (typeof symbol === 'undefined') return false;
 
-  return Boolean(seTokenToUnderlyingMapping[symbol]);
+  return Boolean(tokenToUnderlyingMapping[symbol]);
 }
 
 const tokenToIdMapping: Record<string, CurrencyTicker> = {
   uniBTC: CurrencyTicker.UNIBTC,
-  'SolvBTC.BBN': CurrencyTicker['SolvBTC.BBN']
+  'SolvBTC.BBN': CurrencyTicker['SolvBTC.BBN'],
+  aBOBTBTC: CurrencyTicker.TBTC,
+  aBOBWBTC: CurrencyTicker.WBTC,
+  aBOBSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN']
 };
 
 function hasCGId(symbol: string | undefined): symbol is keyof typeof tokenToIdMapping {
@@ -78,11 +86,11 @@ const useStrategiesContractData = (
 
       return strategies.reduce(
         (acc, strategy) => {
-          if (hasUnderlying(strategy.raw.outputToken?.symbol) && data) {
+          if (hasUnderlying(strategy.contract.outputToken?.symbol) && data) {
             const idx = Object.keys(acc).length * 5;
 
             // for each se* token we need tulpes of 5 call results
-            acc[strategy.raw.outputToken?.symbol] = data.slice(idx, idx + 5) as [
+            acc[strategy.contract.outputToken?.symbol] = data.slice(idx, idx + 5) as [
               bigint,
               bigint,
               bigint,
@@ -93,13 +101,13 @@ const useStrategiesContractData = (
 
           return acc;
         },
-        {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
+        {} as Record<keyof typeof tokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
       );
     },
     [strategies]
   );
 
-  const { data: seTokensContractData } = useReadContracts({
+  const { data: seTokensContractData, isPending: isSeTokensContractPending } = useReadContracts({
     query: {
       enabled,
       select: seTokenContractDataSelector,
@@ -111,32 +119,32 @@ const useStrategiesContractData = (
       chains: [bob]
     },
     contracts: strategies?.flatMap((strategy) =>
-      hasUnderlying(strategy.raw.outputToken?.symbol)
+      hasUnderlying(strategy.contract.outputToken?.symbol)
         ? ([
             {
-              address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              address: strategy.contract.outputToken.address as Address,
+              abi: erc20WithUnderlying,
               functionName: 'exchangeRateStored'
             },
             {
-              address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              address: strategy.contract.outputToken.address as Address,
+              abi: erc20WithUnderlying,
               functionName: 'totalSupply'
             },
             {
-              address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              address: strategy.contract.outputToken.address as Address,
+              abi: erc20WithUnderlying,
               functionName: 'balanceOf',
               args: address ? [address] : [zeroAddress]
             },
             {
-              address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              address: strategy.contract.outputToken.address as Address,
+              abi: erc20WithUnderlying,
               functionName: 'decimals'
             },
             {
-              address: strategy.raw.outputToken.address as Address,
-              abi: seTokenAbi,
+              address: strategy.contract.outputToken.address as Address,
+              abi: erc20WithUnderlying,
               functionName: 'underlying'
             }
           ] as const)
@@ -151,21 +159,21 @@ const useStrategiesContractData = (
 
       return strategies.reduce(
         (acc, strategy) => {
-          if (hasUnderlying(strategy.raw.outputToken?.symbol) && data) {
+          if (hasUnderlying(strategy.contract.outputToken?.symbol) && data) {
             const idx = Object.keys(acc).length;
 
-            acc[strategy.raw.outputToken?.symbol] = data[idx] as number;
+            acc[strategy.contract.outputToken?.symbol] = data[idx] as number;
           }
 
           return acc;
         },
-        {} as Record<keyof typeof seTokenToUnderlyingMapping, number>
+        {} as Record<keyof typeof tokenToUnderlyingMapping, number>
       );
     },
     [strategies]
   );
 
-  const { data: seTokensUnderlyingContractData } = useReadContracts({
+  const { data: seTokensUnderlyingContractData, isPending: isSeTokensUnderlyingContractPending } = useReadContracts({
     query: {
       enabled,
       select: seTokenUnderlyingContractDataSelector,
@@ -177,10 +185,10 @@ const useStrategiesContractData = (
       chains: [bob]
     },
     contracts: strategies?.flatMap((strategy) =>
-      hasUnderlying(strategy.raw.outputToken?.symbol)
+      hasUnderlying(strategy.contract.outputToken?.symbol)
         ? ([
             {
-              address: seTokensContractData?.[strategy.raw.outputToken?.symbol]?.[4] as Address,
+              address: seTokensContractData?.[strategy.contract.outputToken?.symbol]?.[4] as Address,
               abi: erc20Abi,
               functionName: 'decimals'
             }
@@ -196,10 +204,10 @@ const useStrategiesContractData = (
 
       return strategies.reduce(
         (acc, strategy) => {
-          if (hasCGId(strategy.raw.outputToken?.symbol) && data) {
+          if (hasCGId(strategy.contract.outputToken?.symbol) && data) {
             const idx = Object.keys(acc).length * 3;
 
-            acc[strategy.raw.outputToken?.symbol] = data.slice(idx, idx + 3) as [bigint, number, bigint];
+            acc[strategy.contract.outputToken?.symbol] = data.slice(idx, idx + 3) as [bigint, number, bigint];
           }
 
           return acc;
@@ -210,7 +218,7 @@ const useStrategiesContractData = (
     [strategies]
   );
 
-  const { data: tokensContractData } = useReadContracts({
+  const { data: tokensContractData, isPending: isTokensContractDataPending } = useReadContracts({
     query: {
       enabled,
       select: tokensContractDataSelector,
@@ -222,20 +230,20 @@ const useStrategiesContractData = (
       chains: [bob]
     },
     contracts: strategies?.flatMap((strategy) =>
-      hasCGId(strategy.raw.outputToken?.symbol)
+      hasCGId(strategy.contract.outputToken?.symbol)
         ? ([
             {
-              address: strategy.raw.outputToken.address as Address,
+              address: strategy.contract.outputToken.address as Address,
               abi: erc20Abi,
               functionName: 'totalSupply'
             },
             {
-              address: strategy.raw.outputToken.address as Address,
+              address: strategy.contract.outputToken.address as Address,
               abi: erc20Abi,
               functionName: 'decimals'
             },
             {
-              address: strategy.raw.outputToken.address as Address,
+              address: strategy.contract.outputToken.address as Address,
               abi: erc20Abi,
               functionName: 'balanceOf',
               args: address ? [address] : [zeroAddress]
@@ -252,10 +260,10 @@ const useStrategiesContractData = (
 
       return strategies.reduce(
         (acc, strategy) => {
-          if (hasNoOutputToken(strategy.raw.address) && data) {
+          if (hasNoOutputToken(strategy.contract.address) && data) {
             const idx = Object.keys(acc).length * 2;
 
-            acc[strategy.raw.address] = data.slice(idx, idx + 2) as [bigint, bigint];
+            acc[strategy.contract.address] = data.slice(idx, idx + 2) as [bigint, bigint];
           }
 
           return acc;
@@ -266,7 +274,7 @@ const useStrategiesContractData = (
     [strategies]
   );
 
-  const { data: noOuputTokenContractData } = useReadContracts({
+  const { data: noOuputTokenContractData, isPending: isNoOuputTokenContractDataPending } = useReadContracts({
     query: {
       enabled,
       select: noOuputTokenContractDataSelector,
@@ -278,15 +286,15 @@ const useStrategiesContractData = (
       chains: [bob]
     },
     contracts: strategies?.flatMap((strategy) =>
-      hasNoOutputToken(strategy.raw.address)
+      hasNoOutputToken(strategy.contract.address)
         ? ([
             {
-              address: strategyToLimitsMapping[strategy.raw.address] as Address,
+              address: strategyToLimitsMapping[strategy.contract.address] as Address,
               abi: strategyBaseTVLLimitAbi,
               functionName: 'totalShares'
             },
             {
-              address: strategyToLimitsMapping[strategy.raw.address] as Address,
+              address: strategyToLimitsMapping[strategy.contract.address] as Address,
               abi: strategyBaseTVLLimitAbi,
               functionName: 'shares',
               args: address ? [address] : [zeroAddress]
@@ -302,10 +310,10 @@ const useStrategiesContractData = (
 
       return strategies.reduce(
         (acc, strategy) => {
-          if (hasNoOutputToken(strategy.raw.address) && data) {
+          if (hasNoOutputToken(strategy.contract.address) && data) {
             const idx = Object.keys(acc).length;
 
-            acc[strategy.raw.address] = data[idx] as bigint;
+            acc[strategy.contract.address] = data[idx] as bigint;
           }
 
           return acc;
@@ -316,7 +324,10 @@ const useStrategiesContractData = (
     [strategies]
   );
 
-  const { data: noOuputTokenContractSharesToUnderlyingData } = useReadContracts({
+  const {
+    data: noOuputTokenContractSharesToUnderlyingData,
+    isPending: isNoOuputTokenContractSharesToUnderlyingDataPending
+  } = useReadContracts({
     query: {
       enabled,
       select: noOuputTokenContractSharesToUnderlyingDataSelector,
@@ -324,13 +335,13 @@ const useStrategiesContractData = (
     },
     allowFailure: false,
     contracts: strategies?.flatMap((strategy) =>
-      hasNoOutputToken(strategy.raw.address) && noOuputTokenContractData?.[strategy.raw.address]
+      hasNoOutputToken(strategy.contract.address) && noOuputTokenContractData?.[strategy.contract.address]
         ? ([
             {
-              address: strategyToLimitsMapping[strategy.raw.address] as Address,
+              address: strategyToLimitsMapping[strategy.contract.address] as Address,
               abi: strategyBaseTVLLimitAbi,
               functionName: 'sharesToUnderlyingView',
-              args: [noOuputTokenContractData[strategy.raw.address]?.[0]]
+              args: [noOuputTokenContractData[strategy.contract.address]?.[0]]
             }
           ] as const)
         : ([] as const)
@@ -338,56 +349,70 @@ const useStrategiesContractData = (
   });
 
   // get prices
-  const { getPrice } = usePrices();
+  const { getPrice, isPending: isPricesPending } = usePrices();
 
   const strategiesData = useMemo(
     () =>
       strategies?.reduce(
         (acc, strategy) => {
-          const symbol = strategy.raw.outputToken?.symbol;
-          const address = strategy.raw.outputToken?.address;
+          const symbol = strategy.contract.outputToken?.symbol;
+          const address = strategy.contract.outputToken?.address;
 
           if (hasUnderlying(symbol) && seTokensContractData?.[symbol] && seTokensUnderlyingContractData?.[symbol]) {
             // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
             // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-            const [exchangeRateStored, totalSupply, userStaked, decimals] = seTokensContractData[symbol]!;
+            const [exchangeRateStored, totalSupply, depositAtomicAmount, decimals] = seTokensContractData[symbol]!;
             const underlyingDecimals = seTokensUnderlyingContractData[symbol]!;
 
             const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
-            const underlyingTicker = seTokenToUnderlyingMapping[symbol];
+            const underlyingTicker = tokenToUnderlyingMapping[symbol];
             const underlyingPrice = getPrice(underlyingTicker!);
+            const depositAmount = CurrencyAmount.fromRawAmount(
+              new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+              depositAtomicAmount
+            );
 
-            acc[strategy.raw.id] = {
+            acc[strategy.contract.id] = {
               tvl: new Big(totalSupplyInUnderlyingAsset.toString())
                 .mul(underlyingPrice)
                 .div(1e18)
                 .div(10 ** underlyingDecimals)
                 .toNumber(),
-              userStaked: CurrencyAmount.fromRawAmount(
-                new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-                userStaked
-              )
+              deposit:
+                depositAtomicAmount > 0n
+                  ? {
+                      amount: depositAmount,
+                      usd: new Big(depositAmount.toExact()).mul(underlyingPrice).toNumber()
+                    }
+                  : undefined
             };
           }
 
           if (hasCGId(symbol) && tokensContractData?.[symbol]) {
-            const [totalSupply, decimals, userStaked] = tokensContractData[symbol]!;
+            const [totalSupply, decimals, depositAtomicAmount] = tokensContractData[symbol]!;
             const ticker = tokenToIdMapping[symbol]!;
             const price = getPrice(ticker!);
+            const depositAmount = CurrencyAmount.fromRawAmount(
+              new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+              depositAtomicAmount
+            );
 
-            acc[strategy.raw.id] = {
+            acc[strategy.contract.id] = {
               tvl: new Big(totalSupply.toString())
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: CurrencyAmount.fromRawAmount(
-                new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-                userStaked
-              )
+              deposit:
+                depositAtomicAmount > 0n
+                  ? {
+                      amount: depositAmount,
+                      usd: new Big(depositAmount.toExact()).mul(price).toNumber()
+                    }
+                  : undefined
             };
           }
 
-          const strategyAddress = strategy.raw.address;
+          const strategyAddress = strategy.contract.address;
 
           if (
             hasNoOutputToken(strategyAddress) &&
@@ -397,25 +422,32 @@ const useStrategiesContractData = (
             const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingData[strategyAddress]!;
             const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
             const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
-            const [, userStaked] = noOuputTokenContractData[strategyAddress]!;
+            const [, depositAtomicAmount] = noOuputTokenContractData[strategyAddress]!;
             const price = getPrice(ticker!);
+            const depositAmount = CurrencyAmount.fromRawAmount(
+              // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
+              new Token(ChainId.BOB, address, decimals, ticker, ticker),
+              depositAtomicAmount
+            );
 
-            acc[strategy.raw.id] = {
+            acc[strategy.contract.id] = {
               tvl: new Big(totalSharesToUnderlying.toString())
                 .mul(price)
                 .div(10 ** decimals)
                 .toNumber(),
-              userStaked: CurrencyAmount.fromRawAmount(
-                // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
-                new Token(ChainId.BOB, address, decimals, ticker, ticker),
-                userStaked
-              )
+              deposit:
+                depositAtomicAmount > 0n
+                  ? {
+                      amount: depositAmount,
+                      usd: new Big(depositAmount.toExact()).mul(price).toNumber()
+                    }
+                  : undefined
             };
           }
 
           return acc;
         },
-        {} as Record<string, { tvl: number; userStaked: CurrencyAmount<Currency> }>
+        {} as Record<string, { tvl?: number; deposit?: StrategyDepositData }>
       ),
     [
       strategies,
@@ -428,7 +460,17 @@ const useStrategiesContractData = (
     ]
   );
 
-  return { data: strategiesData };
+  return {
+    data: strategiesData,
+    isPending:
+      isSeTokensContractPending ||
+      isNoOuputTokenContractDataPending ||
+      isTokensContractDataPending ||
+      isNoOuputTokenContractSharesToUnderlyingDataPending ||
+      isSeTokensUnderlyingContractPending ||
+      isPricesPending
+  };
 };
 
 export { useStrategiesContractData };
+export type { StrategyDepositData };

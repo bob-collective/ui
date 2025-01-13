@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { t } from '@lingui/macro';
 
-import { Stake } from './Stake';
+import { Strategies } from './Strategies';
 
 import { withLinguiPage } from '@/i18n/withLigui';
 import { getI18nInstance } from '@/i18n/appRouterI18n';
@@ -15,4 +15,4 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
   };
 }
 
-export default withLinguiPage(Stake);
+export default withLinguiPage(Strategies);

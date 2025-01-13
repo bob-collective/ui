@@ -28,7 +28,6 @@ import {
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 
@@ -67,8 +66,6 @@ type UserInfoProps = {
 const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const { locale } = useLocale();
 
-  const router = useRouter();
-  const params = useParams();
   const { i18n } = useLingui();
   const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
     initializeWithValue: isClient
@@ -308,15 +305,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           title={t(i18n)`Quests Completed`}
           tooltipLabel={t(i18n)`The number of Intract and Galxe quests that you have completed`}
         >
-          <Button
-            fullWidth
-            disabled={!isAuthenticated}
-            variant='outline'
-            onPress={() => {
-              setScrollQuests(true);
-              router.push(`/${params.lang}${RoutesPath.FUSION}`);
-            }}
-          >
+          <Button fullWidth disabled={!isAuthenticated} variant='outline' onPress={() => setScrollQuests(true)}>
             <Trans>View Quests</Trans>
           </Button>
         </UserInfoCard>

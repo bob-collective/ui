@@ -1,10 +1,9 @@
 import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
-import { Trans, t } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
+import { Trans } from '@lingui/macro';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { useMemo, useRef } from 'react';
 import { useIsClient } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
-import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { TransactionItem } from './TransactionItem';
 import {
@@ -22,7 +21,6 @@ import { chainL2 } from '@/constants';
 import { Transaction } from '@/types';
 
 type Props = {
-  type: 'bridge' | 'stake';
   isInitialLoading?: boolean;
   data?: Transaction[];
   onProveSuccess?: () => void;
@@ -35,7 +33,6 @@ type InheritAttrs = Omit<CardProps, keyof Props>;
 type TransactionListProps = Props & InheritAttrs;
 
 const TransactionList = ({
-  type,
   isInitialLoading,
   data,
   onProveSuccess,
@@ -43,7 +40,6 @@ const TransactionList = ({
   txPendingUserAction,
   ...props
 }: TransactionListProps): JSX.Element => {
-  const { i18n } = useLingui();
   const isClient = useIsClient();
   // The scrollable element for your list
   const parentRef = useRef(null);
@@ -56,14 +52,7 @@ const TransactionList = ({
     paddingStart: 16,
     paddingEnd: 16,
     gap: 16,
-    // https://github.com/TanStack/table/blob/main/examples/react/virtualized-rows/src/main.tsx#L88
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    measureElement: (element) => {
-      return isClient && navigator.userAgent.indexOf('Firefox') === -1
-        ? element?.getBoundingClientRect().height
-        : undefined;
-    },
+    measureElement: (element) => element?.getBoundingClientRect().height,
     overscan: 5
   });
 
@@ -87,7 +76,6 @@ const TransactionList = ({
 
   const txsUrl = address ? `${explorerUrl}/address/${address}` : `${explorerUrl}`;
   const hasData = !!data?.length;
-  const txType = type === 'bridge' ? t(i18n)`bridging` : t(i18n)`staking`;
 
   return (
     <StyledSection gap='xl' paddingX='4xl' paddingY='3xl' {...props}>
@@ -104,7 +92,7 @@ const TransactionList = ({
             <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
               <Spinner size='16' thickness={2} />
               <P align='center' size='xs'>
-                <Trans>Fetching {txType} operations...</Trans>
+                <Trans>Fetching operations...</Trans>
               </P>
             </Flex>
           ) : (
@@ -132,7 +120,7 @@ const TransactionList = ({
               ) : (
                 <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
                   <P align='center' size='xs'>
-                    <Trans>No {txType} operations found</Trans>
+                    <Trans>No operations found</Trans>
                   </P>
                 </Flex>
               )}

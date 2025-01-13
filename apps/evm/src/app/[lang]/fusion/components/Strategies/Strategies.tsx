@@ -19,7 +19,7 @@ const getBTCLstLendingStrat = (i18n: I18n): StrategyCardProps => ({
     {
       description: (
         <Trans>
-          <Link href={RoutesPath.STAKE} underlined='always'>
+          <Link href={RoutesPath.STRATEGIES} underlined='always'>
             Stake your BTC with 1-click
           </Link>{' '}
           and receive BTC LSTs on BOB.
@@ -58,7 +58,7 @@ const getMintAndLendSatUsd = (i18n: I18n): StrategyCardProps => ({
     {
       description: (
         <Trans>
-          <Link href={RoutesPath.STAKE} underlined='always'>
+          <Link href={RoutesPath.STRATEGIES} underlined='always'>
             Stake your BTC with 1-click
           </Link>{' '}
           and receive BTC LSTs on BOB.
@@ -165,7 +165,7 @@ const getBridgeBtcLstToBob = (i18n: I18n): StrategyCardProps => ({
           <Link
             external
             color='inherit'
-            href={`${RoutesPath.STAKE}?type=stake&stake-with=solv-solvbtcbbn`}
+            href={`${RoutesPath.STRATEGIES}?type=stake&stake-with=solv-solvbtcbbn`}
             size='inherit'
             underlined='always'
           >
@@ -197,7 +197,7 @@ const Strategies = ({}: StrategiesProps) => {
 
   return (
     <Flex direction='column' gap='3xl' style={{ width: '100%' }}>
-      <H2 size='3xl'>
+      <H2 align='center' size='3xl'>
         <Trans>Hot Strategies</Trans>
       </H2>
       <StyledWrapper>

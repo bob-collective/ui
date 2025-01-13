@@ -24,7 +24,10 @@ const TopUserModal = ({ onClose, isOpen, ...props }: TopUserModalProps): JSX.Ele
   useCalendlyEventListener({
     onEventScheduled: (event) => {
       onClose(true);
-      sendGAEvent('event', event.data.event, { payload: event.data.payload });
+      sendGAEvent('event', event.data.event, {
+        event_uri: event.data.payload.event.uri,
+        invitee_uri: event.data.payload.invitee.uri
+      });
     }
   });
 
