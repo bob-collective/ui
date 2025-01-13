@@ -19,7 +19,8 @@ enum StrategyProtocol {
   Bedrock = 'Bedrock',
   Solv = 'Solv',
   Pell = 'Pell',
-  Segment = 'Segment'
+  Segment = 'Segment',
+  Lombard = 'Lombard'
 }
 
 type StrategyCurrency =
@@ -219,6 +220,24 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       {
         currency: { symbol: 'seUNIBTC', address: '0x7848F0775EebaBbF55cB74490ce6D3673E68773A' },
         logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/segment.svg'
+      }
+    ]
+  },
+  'lombard-lbtc': {
+    name: 'Liquid Staking Lombard BTC',
+    incentives: [StrategyIncentive.supply],
+    protocol: StrategyProtocol.Lombard,
+    description: <Trans>Stake BTC into Lombard and receive liquid staking token LBTC</Trans>,
+    links: {
+      securityReview: 'https://www.bitcoinlayers.org/infrastructure/lombard-lbtc',
+      manage: 'https://www.lombard.finance/app/unstake',
+      landingPage: 'https://www.lombard.finance/'
+    },
+    breakdown: [
+      // TODO: replace with LBTC constant
+      {
+        currency: { symbol: 'LBTC', address: '0x1010101010101010101010101010101010101010' },
+        logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png'
       }
     ]
   }
