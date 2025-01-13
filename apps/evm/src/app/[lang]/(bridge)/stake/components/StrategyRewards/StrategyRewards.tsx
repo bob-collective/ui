@@ -63,6 +63,16 @@ const SupplyApr = () => (
   </Chip>
 );
 
+const AvalonPoints = () => (
+  <Chip
+    background='dark'
+    size='s'
+    startAdornment={<Avatar size='xl' src='https://app.avalonfinance.xyz/icons/tokens/avalon.svg' />}
+  >
+    <Trans>Points</Trans>
+  </Chip>
+);
+
 const incentivesMap: Record<StrategyIncentive, () => ReactNode> = {
   [StrategyIncentive.babylon]: BabylonPoints,
   [StrategyIncentive.bedrock]: BedrockDiamond,
@@ -70,7 +80,8 @@ const incentivesMap: Record<StrategyIncentive, () => ReactNode> = {
   [StrategyIncentive.segment]: SegmentPoints,
   [StrategyIncentive.solv]: SolvXP,
   [StrategyIncentive.spice]: SpiceRewards,
-  [StrategyIncentive.supply]: SupplyApr
+  [StrategyIncentive.supply]: SupplyApr,
+  [StrategyIncentive.avalon]: AvalonPoints
 };
 
 type Props = {
