@@ -1,4 +1,4 @@
-import { CurrencyTickers, usePrices } from '@gobob/hooks';
+import { CurrencyTicker, usePrices } from '@gobob/hooks';
 import { Address, erc20Abi, zeroAddress } from 'viem';
 import { useCallback, useMemo } from 'react';
 import { useAccount, useReadContracts } from 'wagmi';
@@ -17,13 +17,13 @@ import { strategyBaseTVLLimitAbi } from '@/abis/StrategyBaseTVL.abi';
 type StrategyDepositData = { amount: CurrencyAmount<Currency>; usd: number };
 
 // NOTE: function selectors are matching for segment and ionic tokens so it's fine (for now) to mix them
-const tokenToUnderlyingMapping: Record<string, CurrencyTickers> = {
-  seSOLVBTCBBN: CurrencyTickers['SolvBTC.BBN'],
-  seUNIBTC: CurrencyTickers.UNIBTC,
-  seTBTC: CurrencyTickers.TBTC,
-  seWBTC: CurrencyTickers.WBTC,
-  iontBTC: CurrencyTickers.TBTC,
-  ionWBTC: CurrencyTickers.WBTC
+const tokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
+  seSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN'],
+  seUNIBTC: CurrencyTicker.UNIBTC,
+  seTBTC: CurrencyTicker.TBTC,
+  seWBTC: CurrencyTicker.WBTC,
+  iontBTC: CurrencyTicker.TBTC,
+  ionWBTC: CurrencyTicker.WBTC
 };
 
 function hasUnderlying(symbol: string | undefined): symbol is keyof typeof tokenToUnderlyingMapping {
@@ -32,13 +32,12 @@ function hasUnderlying(symbol: string | undefined): symbol is keyof typeof token
   return Boolean(tokenToUnderlyingMapping[symbol]);
 }
 
-const tokenToIdMapping: Record<string, CurrencyTickers> = {
-  uniBTC: CurrencyTickers.UNIBTC,
-  'SolvBTC.BBN': CurrencyTickers['SolvBTC.BBN'],
-
-  aBOBTBTC: CurrencyTickers.TBTC,
-  aBOBWBTC: CurrencyTickers.WBTC,
-  aBOBSOLVBTCBBN: CurrencyTickers['SolvBTC.BBN']
+const tokenToIdMapping: Record<string, CurrencyTicker> = {
+  uniBTC: CurrencyTicker.UNIBTC,
+  'SolvBTC.BBN': CurrencyTicker['SolvBTC.BBN'],
+  aBOBTBTC: CurrencyTicker.TBTC,
+  aBOBWBTC: CurrencyTicker.WBTC,
+  aBOBSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN']
 };
 
 function hasCGId(symbol: string | undefined): symbol is keyof typeof tokenToIdMapping {
@@ -61,15 +60,11 @@ type UnderlyingTicker = string;
 type UnderlyingDecimals = number;
 export const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, Address, UnderlyingDecimals]> = {
   '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [
-    CurrencyTickers['SolvBTC.BBN'],
+    CurrencyTicker['SolvBTC.BBN'],
     '0xCC0966D8418d412c599A6421b760a847eB169A8c',
     18
   ],
-  '0x631ae97e24f9F30150d31d958d37915975F12ed8': [
-    CurrencyTickers.UNIBTC,
-    '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894',
-    8
-  ]
+  '0x631ae97e24f9F30150d31d958d37915975F12ed8': [CurrencyTicker.UNIBTC, '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894', 8]
 };
 
 function hasNoOutputToken(strategyAddress: string): strategyAddress is keyof typeof strategyToLimitsMapping {
