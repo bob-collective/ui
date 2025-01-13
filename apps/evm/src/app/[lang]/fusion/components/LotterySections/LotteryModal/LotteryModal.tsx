@@ -18,9 +18,10 @@ import {
 } from '@gobob/ui';
 import { Plural, Trans } from '@lingui/macro';
 import { useParams } from 'next/navigation';
+import Lottie from 'lottie-react';
 
-import { Ticket } from '../icons';
-import confettiAnimationData from '../lotties/confettie.json';
+import foreworksAnimationData from '../lotties/fireworks.json';
+import envelopeAnimationData from '../lotties/envelope.json';
 import { useTimeToNextDraw } from '../hooks';
 
 import { StyledButton, StyledLottie, StyledPoints } from './LotteryModal.style';
@@ -75,7 +76,7 @@ const LotteryModal = ({
               </Trans>
             </H3>
             <P align='center' color='grey-50' size='s'>
-              <Trans>Harvest {pointsMissing} more Spice to play</Trans>
+              <Trans>Harvest {pointsMissing.toFixed(2)} more Spice to play</Trans>
             </P>
           </Flex>
         </ModalBody>
@@ -154,7 +155,7 @@ const LotteryModal = ({
       <StyledLottie
         key={lotteryRollData?.rollsRemaining}
         autoplay
-        animationData={confettiAnimationData}
+        animationData={foreworksAnimationData}
         hidden={!isWinner}
       />
       <ModalBody padding='2xl'>
@@ -166,7 +167,7 @@ const LotteryModal = ({
             {getHeaderText()}
           </H3>
           {rollsNotUsed || votesNotUsed || notPlayed ? (
-            <Ticket size='3xl' />
+            <Lottie key={lotteryRollData?.rollsRemaining} autoplay animationData={envelopeAnimationData} loop={false} />
           ) : (
             <StyledPoints>
               <Spice size='3xl' /> {Intl.NumberFormat(locale).format(lotteryRollData?.prize || 0)}
