@@ -7,7 +7,12 @@ import { AnimantedAmount, AnimantedAmountProps } from '../AnimantedAmount';
 type BabyPointsProps = Omit<AnimantedAmountProps, 'icon'>;
 
 const BabyPoints = (props: BabyPointsProps) => (
-  <AnimantedAmount shouldRoundDown icon={<Babylon style={{ width: '1em', height: '1em' }} />} {...props} />
+  <AnimantedAmount
+    shouldRoundDown
+    icon={<Babylon style={{ width: '1em', height: '1em' }} />}
+    maximumFractionDigits={2}
+    {...props}
+  />
 );
 
 export { BabyPoints };
