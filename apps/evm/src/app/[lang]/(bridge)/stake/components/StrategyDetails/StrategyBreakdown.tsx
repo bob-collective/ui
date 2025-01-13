@@ -10,7 +10,6 @@ import {
   StyledLastNodeConnector,
   StyledMiddleNodes,
   StyledMiddleNodesConnector
-  // StyledSimpleGrid
 } from './StrategyBreakdown.style';
 
 type StrategyBreakdownProps = {
@@ -19,23 +18,35 @@ type StrategyBreakdownProps = {
   lastNode: ReactNode;
 };
 
-const StrategyBreakdown = ({ firstNode, lastNode, middleNodes }: StrategyBreakdownProps) => (
-  <StyledGrid>
-    <StyledFirstNode>{firstNode}</StyledFirstNode>
-    <StyledFirstNodeConnector />
-    <StyledMiddleNodes>
-      <StyledMiddleNodesConnector $showArrow />
-      {middleNodes.map((node, idx) => (
-        <Fragment key={idx}>
-          <div>{node}</div>
-          {middleNodes.length - 1 !== idx && <StyledMiddleNodesConnector $showArrow />}
-        </Fragment>
-      ))}
-      <StyledMiddleNodesConnector />
-    </StyledMiddleNodes>
-    <StyledLastNodeConnector />
-    <StyledLastNode>{lastNode}</StyledLastNode>
-  </StyledGrid>
-);
+const StrategyBreakdown = ({ firstNode, lastNode, middleNodes }: StrategyBreakdownProps) => {
+  if (middleNodes.length === 0) {
+    return (
+      <StyledMiddleNodes>
+        {firstNode}
+        <StyledMiddleNodesConnector $showArrow />
+        {lastNode}
+      </StyledMiddleNodes>
+    );
+  }
+
+  return (
+    <StyledGrid>
+      <StyledFirstNode>{firstNode}</StyledFirstNode>
+      <StyledFirstNodeConnector />
+      <StyledMiddleNodes>
+        <StyledMiddleNodesConnector $showArrow />
+        {middleNodes.map((node, idx) => (
+          <Fragment key={idx}>
+            <div>{node}</div>
+            {middleNodes.length - 1 !== idx && <StyledMiddleNodesConnector $showArrow />}
+          </Fragment>
+        ))}
+        <StyledMiddleNodesConnector />
+      </StyledMiddleNodes>
+      <StyledLastNodeConnector />
+      <StyledLastNode>{lastNode}</StyledLastNode>
+    </StyledGrid>
+  );
+};
 
 export { StrategyBreakdown };

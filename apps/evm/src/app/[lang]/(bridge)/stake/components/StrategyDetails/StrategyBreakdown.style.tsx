@@ -79,6 +79,7 @@ type StyledMiddleNodesConnectorProps = {
 const StyledMiddleNodesConnector = styled.div<StyledMiddleNodesConnectorProps>`
   position: relative;
   flex: 1 1 0%;
+  min-width: 20px;
 
   ${({ $showArrow }) =>
     $showArrow &&

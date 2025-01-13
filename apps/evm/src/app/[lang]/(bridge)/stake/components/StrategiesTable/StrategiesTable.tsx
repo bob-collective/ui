@@ -12,6 +12,7 @@ import {
   ListItem,
   P,
   Select,
+  Selection,
   Skeleton,
   Span,
   Table,
@@ -223,6 +224,16 @@ const StrategiesTable = ({ searchParams }: Props) => {
 
   const handleStrategyNavigate = (slug: string) => router.push(`${RoutesPath.STRATEGIES}/${slug}`);
 
+  const handleListSelectionChange = (keys: Selection) => {
+    if (isStrategiesPending) return;
+
+    const [slug] = keys;
+
+    if (!slug) return;
+
+    handleStrategyNavigate(slug as string);
+  };
+
   const columns =
     filter === StrategiesTableFilter.MyDeposits
       ? [
@@ -285,17 +296,10 @@ const StrategiesTable = ({ searchParams }: Props) => {
       </Flex>
       {isTablet ? (
         <List
+          aria-label={t(i18n)`Staking list`}
           gap='md'
           selectionMode='single'
-          onSelectionChange={(keys) => {
-            if (isStrategiesPending) return;
-
-            const [slug] = keys;
-
-            if (!slug) return;
-
-            handleStrategyNavigate(slug as string);
-          }}
+          onSelectionChange={handleListSelectionChange}
         >
           {(isStrategiesPending ? getSkeletons() : rows).map((row) => (
             <ListItem key={row.id} backgroundColor='grey-400' padding='md'>

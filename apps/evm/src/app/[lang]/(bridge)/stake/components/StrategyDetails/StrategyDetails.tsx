@@ -15,8 +15,8 @@ import {
   useCurrencyFormatter,
   useMediaQuery
 } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
 import { truncateEthAddress } from '@gobob/utils';
+import { Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 import { Address } from 'viem';
 
@@ -39,9 +39,9 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   const format = useCurrencyFormatter();
 
-  const middleNodes = strategy.info.breakdown.slice(0, -1); // All nodes except the last
+  const middleNodes = strategy.info.breakdown.length > 2 ? strategy.info.breakdown.slice(0, -1) : [];
 
-  const hasManyMiddleNodes = middleNodes.length >= 3;
+  const hasTooManyMiddleNodes = middleNodes.length >= 3;
 
   const lastNode = strategy.info.breakdown[strategy.info.breakdown.length - 1];
 
@@ -57,7 +57,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
     >
       <Avatar
         alt='BTC'
-        size='5xl'
+        size={{ base: '4xl', s: '5xl' }}
         src='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
       />
 
@@ -92,7 +92,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
       onPress={() => handleContractNavigate(lastNode.currency.address)}
     >
       <ChainAsset
-        asset={<Avatar alt={lastNode.currency.symbol} size='5xl' src={lastNode.logoUrl} />}
+        asset={<Avatar alt={lastNode.currency.symbol} size={{ base: '4xl', s: '5xl' }} src={lastNode.logoUrl} />}
         chainId={L2_CHAIN}
         chainProps={{ size: 'xs' }}
       />
@@ -180,7 +180,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
                     chainId={L2_CHAIN}
                     chainProps={{ size: 'xs' }}
                   />
-                  {!isMobile && !hasManyMiddleNodes && (
+                  {!isMobile && !hasTooManyMiddleNodes && (
                     <Span lineHeight='1.2' rows={1} size='s'>
                       {node.currency.symbol}
                     </Span>

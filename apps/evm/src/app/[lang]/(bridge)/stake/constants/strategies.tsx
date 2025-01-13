@@ -241,7 +241,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
   },
   'lombard-lbtc': {
     name: 'Liquid Staking Lombard BTC',
-    description: <Trans>Stake BTC into Lombard and receive liquid staking token LBTC</Trans>,
+    description: <Trans>Stake BTC into Lombard and receive liquid staking token LBTC.</Trans>,
     protocol: StrategyProtocol.Lombard,
     incentives: [StrategyIncentive.supply],
     links: {
@@ -250,7 +250,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       landingPage: 'https://www.lombard.finance/'
     },
     breakdown: [
-      // TODO: replace with LBTC constant
       {
         currency: { symbol: 'LBTC', address: '0x1010101010101010101010101010101010101010' },
         logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png'
