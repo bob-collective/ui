@@ -9,37 +9,14 @@ import { useTokens } from './useTokens';
 import { useBlockscoutBalances } from './useBlockscoutBalances';
 
 import { INTERVAL } from '@/constants';
-import { BlockscoutTokenInfo } from '@/utils/blockscout-client';
 
-type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
+export type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
 const useBalances = (chainId: ChainId) => {
   const publicClient = usePublicClient({ chainId });
   const { address } = useAccount();
 
-  const blockscoutBalanceSelector = useCallback(
-    (data: BlockscoutTokenInfo[]) => {
-      return data.reduce<Balances>((result, tokenInfo) => {
-        result[tokenInfo.token.symbol] = CurrencyAmount.fromRawAmount(
-          new ERC20Token(
-            chainId,
-            tokenInfo.token.address,
-            Number.parseInt(tokenInfo.token.decimals),
-            tokenInfo.token.symbol,
-            tokenInfo.token.name
-          ),
-          tokenInfo.value
-        );
-
-        return result;
-      }, {} as Balances);
-    },
-    [chainId]
-  );
-
-  const { data: blockscoutBalances, refetch: refetchBlockscoutBalances } = useBlockscoutBalances({
-    select: blockscoutBalanceSelector
-  });
+  const { data: blockscoutBalances, refetch: refetchBlockscoutBalances } = useBlockscoutBalances(chainId);
 
   const { data: ethBalance, refetch } = useBalance({
     address,
