@@ -7,17 +7,13 @@ import {
   Dt,
   Flex,
   InformationCircle,
-  Item,
   List,
   ListItem,
   P,
-  Select,
   Selection,
   Skeleton,
   Span,
   Table,
-  Tabs,
-  TabsItem,
   Tooltip,
   useCurrencyFormatter,
   useLocale,
@@ -26,11 +22,14 @@ import {
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useRouter } from 'next/navigation';
-import { Key, ReactNode, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import { useGetStrategies } from '../../hooks';
 import { StrategyRewards } from '../StrategyRewards';
+
+import { StrategiesFilter, StrategiesFilterOption } from './StrategiesFilter';
+import { StrategiesCategories } from './StrategiesCategories';
 
 import { AmountLabel } from '@/components';
 import { RoutesPath } from '@/constants';
@@ -53,19 +52,6 @@ const getSkeletons = () =>
       [StrategiesTableColumns.AMOUNT]: <Skeleton height='2xl' width='7xl' />,
       [StrategiesTableColumns.TVL]: <Skeleton height='2xl' width='7xl' />
     }));
-
-const getCategoryLabel = (type: 'bridge' | 'dex' | 'staking' | 'lending') => {
-  switch (type) {
-    case 'bridge':
-      return <Trans>Bridge</Trans>;
-    case 'staking':
-      return <Trans>Staking</Trans>;
-    case 'dex':
-      return 'DEX';
-    case 'lending':
-      return <Trans>Lending</Trans>;
-  }
-};
 
 const StrategyCell = ({ logo, name, protocol }: { logo: string; protocol: string; name: string }) => (
   <Flex alignItems='center' gap='lg'>
@@ -101,6 +87,7 @@ const StrategyColumn = {
   id: StrategiesTableColumns.STRATEGY,
   width: '40%' as `${number}%`
 };
+
 const TvlColumn = {
   name: (
     <Flex alignItems='center' gap='s' justifyContent='flex-end'>
@@ -121,32 +108,23 @@ const RewardsColumn = {
 
 const cardColumnOrder = [StrategiesTableColumns.AMOUNT, StrategiesTableColumns.TVL, StrategiesTableColumns.REWARDS];
 
-enum StrategiesTableFilter {
-  AllStrategies = 'all-strategies',
-  MyDeposits = 'my-deposits'
-}
-
-interface Props {
+type StrategiesTableProps = {
   searchParams?: { receive: string };
-}
+};
 
-const AllCategory = 'all-categories';
-
-const StrategiesTable = ({ searchParams }: Props) => {
+const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   const router = useRouter();
 
   const { locale } = useLocale();
-
   const { i18n } = useLingui();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
 
-  const [filter, setFilter] = useState(StrategiesTableFilter.AllStrategies);
-  const [category, setCategory] = useState(AllCategory);
+  const [filter, setFilter] = useState<StrategiesFilterOption>(StrategiesFilterOption.AllStrategies);
+  const [category, setCategory] = useState<string>();
 
   const format = useCurrencyFormatter();
 
@@ -158,9 +136,11 @@ const StrategiesTable = ({ searchParams }: Props) => {
 
   const filteredStrategies = useMemo(() => {
     const base =
-      filter === StrategiesTableFilter.AllStrategies ? strategies : strategies.filter((strategy) => !!strategy.deposit);
+      filter === StrategiesFilterOption.AllStrategies
+        ? strategies
+        : strategies.filter((strategy) => !!strategy.deposit);
 
-    return category === AllCategory ? base : base.filter((strategy) => strategy.meta.type === category);
+    return category ? base.filter((strategy) => strategy.meta.type === category) : base;
   }, [filter, category, strategies]);
 
   const sortedStrategies = useMemo(() => {
@@ -217,7 +197,9 @@ const StrategiesTable = ({ searchParams }: Props) => {
     [sortedStrategies]
   );
 
-  const handleFilterChange = (key: Key) => setFilter(key.toString() as StrategiesTableFilter);
+  const handleFilterChange = (key: StrategiesFilterOption) => setFilter(key);
+
+  const handleCategoryChange = (key?: string) => setCategory(key);
 
   const handleStrategyNavigate = (slug: string) => router.push(`${RoutesPath.STRATEGIES}/${slug}`);
 
@@ -231,65 +213,38 @@ const StrategiesTable = ({ searchParams }: Props) => {
     handleStrategyNavigate(slug as string);
   };
 
-  const columns =
-    filter === StrategiesTableFilter.MyDeposits
-      ? [
-          { ...StrategyColumn },
-          { ...RewardsColumn, width: '30%' as `${number}%` },
-          { name: <Trans>Amount</Trans>, id: StrategiesTableColumns.AMOUNT, width: '20%' as `${number}%` },
-          TvlColumn
-        ]
-      : [StrategyColumn, RewardsColumn, TvlColumn];
+  const columns = useMemo(
+    () =>
+      filter === StrategiesFilterOption.MyDeposits
+        ? [
+            { ...StrategyColumn },
+            { ...RewardsColumn, width: '30%' as `${number}%` },
+            { name: <Trans>Amount</Trans>, id: StrategiesTableColumns.AMOUNT, width: '20%' as `${number}%` },
+            TvlColumn
+          ]
+        : [StrategyColumn, RewardsColumn, TvlColumn],
+    [filter]
+  );
+
+  const mobileColumns = useMemo(
+    () =>
+      isTablet
+        ? columns
+            .filter((column) => column.id !== StrategiesTableColumns.STRATEGY)
+            .sort(
+              (a, b) =>
+                cardColumnOrder.indexOf(a.id as StrategiesTableColumns) -
+                cardColumnOrder.indexOf(b.id as StrategiesTableColumns)
+            )
+        : [],
+    [columns, isTablet]
+  );
 
   return (
     <Flex direction='column' gap='md'>
       <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'flex-start', s: 'space-between' }}>
-        <Card alignSelf='self-start' padding='xs'>
-          {isMobile ? (
-            <Select
-              modalProps={{ title: <Trans>Select Filter</Trans> }}
-              type='modal'
-              value={filter}
-              onSelectionChange={handleFilterChange}
-            >
-              <Item key={StrategiesTableFilter.AllStrategies} textValue={StrategiesTableFilter.AllStrategies}>
-                <Trans>All Strategies</Trans>
-              </Item>
-              <Item key={StrategiesTableFilter.MyDeposits} textValue={StrategiesTableFilter.MyDeposits}>
-                <Trans>My Deposits</Trans>
-              </Item>
-            </Select>
-          ) : (
-            <Tabs selectedKey={filter} size='s' variant='solid' onSelectionChange={handleFilterChange}>
-              <TabsItem key={StrategiesTableFilter.AllStrategies} title={<Trans>All Strategies</Trans>}>
-                <></>
-              </TabsItem>
-              <TabsItem key={StrategiesTableFilter.MyDeposits} title={<Trans>My Deposits</Trans>}>
-                <></>
-              </TabsItem>
-            </Tabs>
-          )}
-        </Card>
-        <Card alignSelf='self-start' padding='xs'>
-          <Select
-            modalProps={{ title: <Trans>Select Category</Trans> }}
-            type='modal'
-            value={category}
-            onSelectionChange={(key) => setCategory(key.toString())}
-          >
-            <Item key={AllCategory} textValue={category}>
-              <Trans>All Categories</Trans>
-            </Item>
-            {
-              Array.from(categories, (category) => (
-                <Item key={category} textValue={category}>
-                  {getCategoryLabel(category)}
-                </Item>
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              )) as any
-            }
-          </Select>
-        </Card>
+        <StrategiesFilter value={filter} onSelectionChange={handleFilterChange} />
+        <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
       </Flex>
       {isTablet ? (
         <List
@@ -308,24 +263,17 @@ const StrategiesTable = ({ searchParams }: Props) => {
               >
                 {row[StrategiesTableColumns.STRATEGY]}
                 <Dl direction='column' flex={1} gap='s' justifyContent='space-between'>
-                  {columns
-                    .filter((column) => column.id !== StrategiesTableColumns.STRATEGY)
-                    .sort(
-                      (a, b) =>
-                        cardColumnOrder.indexOf(a.id as StrategiesTableColumns) -
-                        cardColumnOrder.indexOf(b.id as StrategiesTableColumns)
-                    )
-                    .map((column) => (
-                      <DlGroup
-                        key={column.id}
-                        alignItems='flex-start'
-                        direction={column.id === StrategiesTableColumns.REWARDS ? 'column' : 'row'}
-                        justifyContent='space-between'
-                      >
-                        <Dt size='s'>{column.name}</Dt>
-                        <Dd size='s'>{row[column.id]}</Dd>
-                      </DlGroup>
-                    ))}
+                  {mobileColumns.map((column) => (
+                    <DlGroup
+                      key={column.id}
+                      alignItems='flex-start'
+                      direction={column.id === StrategiesTableColumns.REWARDS ? 'column' : 'row'}
+                      justifyContent='space-between'
+                    >
+                      <Dt size='s'>{column.name}</Dt>
+                      <Dd size='s'>{row[column.id]}</Dd>
+                    </DlGroup>
+                  ))}
                 </Dl>
               </Flex>
             </ListItem>

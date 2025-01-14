@@ -8,7 +8,9 @@ import { Strategy } from './Strategy';
 import { getI18nInstance } from '@/i18n/appRouterI18n';
 import { PageLangParam, withLinguiPage } from '@/i18n/withLigui';
 
-export function generateMetadata({ params }: PageLangParam & { params: { slug: string } }): Metadata {
+type PageProps = PageLangParam & { params: { slug: string } };
+
+export function generateMetadata({ params }: PageProps): Metadata {
   const i18n = getI18nInstance(params.lang);
 
   const strategyInfo = strategiesInfo[params.slug];
@@ -24,5 +26,4 @@ export function generateMetadata({ params }: PageLangParam & { params: { slug: s
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default withLinguiPage(Strategy as any);
+export default withLinguiPage<PageProps>(Strategy);

@@ -70,7 +70,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
             <Trans>Apps</Trans>
           </NavItem>
           <NavItem href={RoutesPath.STRATEGIES} size='s'>
-            Stake
+            <Trans>Stake</Trans>
           </NavItem>
           <NavItem href={RoutesPath.FUSION} size='s'>
             <Trans>Fusion</Trans>
