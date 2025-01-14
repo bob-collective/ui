@@ -34,6 +34,7 @@ type StrategyInfo = {
   name: string;
   description: ReactNode;
   protocol: StrategyProtocol;
+  logoUrl?: string;
   incentives: StrategyIncentive[];
   isDisabled?: boolean;
   isHidden?: boolean;
@@ -123,6 +124,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ),
     protocol: StrategyProtocol.Pell,
     incentives: [StrategyIncentive.pell, StrategyIncentive.solv, StrategyIncentive.babylon],
+    logoUrl: 'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true',
     links: {
       securityReview: solvBTCSecurityReview,
       landingPage: 'https://app.pell.network/',
@@ -140,6 +142,8 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ),
     protocol: StrategyProtocol.Pell,
     incentives: [StrategyIncentive.pell, StrategyIncentive.bedrock, StrategyIncentive.babylon],
+    logoUrl: 'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true',
+
     links: {
       securityReview: uniBTC.securityReview,
       landingPage: 'https://app.pell.network/',
@@ -259,11 +263,12 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'ionic-wbtc': {
-    isHidden: true,
     name: 'Lending Ionic-wBTC',
     description: <Trans>Lend out wBTC on Ionic.</Trans>,
     protocol: StrategyProtocol.Ionic,
-    incentives: [StrategyIncentive.spice, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.supply],
+    logoUrl:
+      'https://doc.ionic.money/~gitbook/image?url=https://1954749119-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%252F4L4EczL4rCp3jyJhAxHG%252Fuploads%252FPy57T6N8vDpy1jGqxElR%252FTwitter%2520Avatar%2520green.png?alt%3Dmedia%26token%3D1808baa5-0996-41d1-ad6d-fe09c7188cdc&width=768&dpr=4&quality=100&sign=14802451&sv=2',
     links: {
       securityReview: wBTC.securityReview,
       manage:
@@ -279,11 +284,12 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'ionic-tbtc': {
-    isHidden: true,
     name: 'Lending Ionic-tBTC',
     description: <Trans>Lend out tBTC on Ionic.</Trans>,
     protocol: StrategyProtocol.Ionic,
-    incentives: [StrategyIncentive.spice, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.supply],
+    logoUrl:
+      'https://doc.ionic.money/~gitbook/image?url=https://1954749119-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%252F4L4EczL4rCp3jyJhAxHG%252Fuploads%252FPy57T6N8vDpy1jGqxElR%252FTwitter%2520Avatar%2520green.png?alt%3Dmedia%26token%3D1808baa5-0996-41d1-ad6d-fe09c7188cdc&width=768&dpr=4&quality=100&sign=14802451&sv=2',
     links: {
       securityReview: tBTC.securityReview,
       manage:
@@ -299,11 +305,11 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'avalon-wbtc': {
-    isHidden: true,
     name: 'Lending Avalon-wBTC',
     description: <Trans>Lend out wBTC on Avalon.</Trans>,
     protocol: StrategyProtocol.Avalon,
-    incentives: [StrategyIncentive.spice, StrategyIncentive.avalon, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.avalon, StrategyIncentive.supply],
+    logoUrl: 'https://app.avalonfinance.xyz/icons/tokens/avalon.svg',
     links: {
       securityReview: wBTC.securityReview,
       manage:
@@ -319,27 +325,27 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'avalon-tbtc': {
-    isHidden: true,
     name: 'Lending Avalon-tBTC',
     description: <Trans>Lend out tBTC on Avalon.</Trans>,
     protocol: StrategyProtocol.Avalon,
-    incentives: [StrategyIncentive.spice, StrategyIncentive.avalon, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.avalon, StrategyIncentive.supply],
     links: {
       securityReview: tBTC.securityReview,
       manage:
         'https://app.avalonfinance.xyz/reserve-overview/?underlyingAsset=0xbba2ef945d523c4e2608c9e1214c2cc64d4fc2e2&marketName=proto_bob_v3',
       landingPage: 'https://www.avalonfinance.xyz/'
     },
+    logoUrl: 'https://app.avalonfinance.xyz/icons/tokens/avalon.svg',
+
     breakdown: [
-      wBTC.asset,
+      tBTC.asset,
       {
         currency: { symbol: 'aBOBTBTC', address: '0x1c7ab34f5f24e6947F6e4cABd37a50febA37bdE4' },
         logoUrl: tBTC.asset.logoUrl
       }
     ]
   },
-  'avalon-solvbtcbbn': {
-    isHidden: true,
+  'avalon-abobsolvbtcbbn': {
     name: 'Lending Avalon-SolvBTC-Babylon',
     description: (
       <Trans>
@@ -347,13 +353,9 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       </Trans>
     ),
     protocol: StrategyProtocol.Avalon,
-    incentives: [
-      StrategyIncentive.spice,
-      StrategyIncentive.babylon,
-      StrategyIncentive.solv,
-      StrategyIncentive.avalon,
-      StrategyIncentive.supply
-    ],
+    incentives: [StrategyIncentive.babylon, StrategyIncentive.solv, StrategyIncentive.avalon, StrategyIncentive.supply],
+    logoUrl: 'https://app.avalonfinance.xyz/icons/tokens/avalon.svg',
+
     links: {
       securityReview: solvBTCSecurityReview,
       manage:

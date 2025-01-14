@@ -187,10 +187,7 @@ const StrategiesTable = ({ searchParams }: Props) => {
           id: strategy.meta.slug,
           [StrategiesTableColumns.STRATEGY]: (
             <StrategyCell
-              logo={
-                strategy.meta.logo ||
-                'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true'
-              }
+              logo={strategy.meta.logo || strategy.info.logoUrl || ''}
               name={strategy.info.name}
               protocol={strategy.info.protocol}
             />
@@ -284,12 +281,12 @@ const StrategiesTable = ({ searchParams }: Props) => {
               <Trans>All Categories</Trans>
             </Item>
             {
-              [...Array.from(categories)].map((category) => (
+              Array.from(categories, (category) => (
                 <Item key={category} textValue={category}>
                   {getCategoryLabel(category)}
                 </Item>
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              )) as unknown as any
+              )) as any
             }
           </Select>
         </Card>
@@ -345,7 +342,9 @@ const StrategiesTable = ({ searchParams }: Props) => {
           />
           {!isStrategiesPending && rows.length === 0 && (
             <Flex alignItems='center' direction='column' gap='md' justifyContent='center' marginY='10xl'>
-              <P align='center'>No strategies to display</P>
+              <P align='center'>
+                <Trans>No strategies to display</Trans>
+              </P>
             </Flex>
           )}
         </Card>

@@ -38,13 +38,7 @@ function Strategy({ params }: Props) {
           </Flex>
         </Link>
         <Flex alignItems='center' gap='lg' marginTop='4xl'>
-          <Avatar
-            size='4xl'
-            src={
-              strategy.meta.logo ||
-              'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true'
-            }
-          />
+          <Avatar size='4xl' src={strategy.meta.logo || strategy.info.logoUrl} />
 
           <Flex alignItems='flex-start' direction='column'>
             <H1 size='lg'>{strategy.info.name}</H1>

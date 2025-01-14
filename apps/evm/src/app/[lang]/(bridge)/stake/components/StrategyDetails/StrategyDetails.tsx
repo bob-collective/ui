@@ -39,7 +39,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   const format = useCurrencyFormatter();
 
-  const middleNodes = strategy.info.breakdown.length > 2 ? strategy.info.breakdown.slice(0, -1) : [];
+  const middleNodes = strategy.info.breakdown.length > 1 ? strategy.info.breakdown.slice(0, -1) : [];
 
   const hasTooManyMiddleNodes = middleNodes.length >= 3;
 

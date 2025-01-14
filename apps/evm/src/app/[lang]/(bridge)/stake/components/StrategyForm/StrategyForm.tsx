@@ -1,11 +1,13 @@
 'use client';
 
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { Alert, Flex, Input, P } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { sendGAEvent } from '@next/third-parties/google';
 import { chain, mergeProps } from '@react-aria/utils';
-import { useAccount } from 'wagmi';
 import { useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import {
   BtcTokenInput,
@@ -32,6 +34,7 @@ type BtcBridgeFormProps = {
 };
 
 const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): JSX.Element => {
+  const { connector } = useSatsAccount();
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false
   });
@@ -43,6 +46,12 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   const handleGatewaySuccess = (data: InitGatewayTransaction) => {
     onSuccess?.();
     setGatewayModalState({ isOpen: true, data });
+    sendGAEvent('event', 'btc_stake', {
+      asset: data.assetName,
+      amount: data.amount?.toExact(),
+      tx_id: data.txId,
+      wallet: connector?.name
+    });
   };
 
   const handleCloseGatewayModal = () => {
