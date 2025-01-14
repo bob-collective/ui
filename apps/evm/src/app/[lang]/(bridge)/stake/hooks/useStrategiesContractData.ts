@@ -11,25 +11,23 @@ import { StrategyData } from './useGetStrategies';
 
 import { getConfig } from '@/lib/wagmi';
 import { INTERVAL, isProd } from '@/constants';
-import { erc20WithUnderlying } from '@/abis/erc20WithUnderlying.abi';
+import { seTokenAbi } from '@/abis/SeToken.abi';
 import { strategyBaseTVLLimitAbi } from '@/abis/StrategyBaseTVL.abi';
 
 type StrategyDepositData = { amount: CurrencyAmount<Currency>; usd: number };
 
 // NOTE: function selectors are matching for segment and ionic tokens so it's fine (for now) to mix them
-const tokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
+const seTokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
   seSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN'],
   seUNIBTC: CurrencyTicker.UNIBTC,
   seTBTC: CurrencyTicker.TBTC,
-  seWBTC: CurrencyTicker.WBTC,
-  iontBTC: CurrencyTicker.TBTC,
-  ionWBTC: CurrencyTicker.WBTC
+  seWBTC: CurrencyTicker.WBTC
 };
 
-function hasUnderlying(symbol: string | undefined): symbol is keyof typeof tokenToUnderlyingMapping {
+function hasSegmentUnderlying(symbol: string | undefined): symbol is keyof typeof seTokenToUnderlyingMapping {
   if (typeof symbol === 'undefined') return false;
 
-  return Boolean(tokenToUnderlyingMapping[symbol]);
+  return Boolean(seTokenToUnderlyingMapping[symbol]);
 }
 
 const tokenToIdMapping: Record<string, CurrencyTicker> = {
@@ -37,7 +35,9 @@ const tokenToIdMapping: Record<string, CurrencyTicker> = {
   'SolvBTC.BBN': CurrencyTicker['SolvBTC.BBN'],
   aBOBTBTC: CurrencyTicker.TBTC,
   aBOBWBTC: CurrencyTicker.WBTC,
-  aBOBSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN']
+  aBOBSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN'],
+  iontBTC: CurrencyTicker.TBTC,
+  ionWBTC: CurrencyTicker.WBTC
 };
 
 function hasCGId(symbol: string | undefined): symbol is keyof typeof tokenToIdMapping {
@@ -80,13 +80,13 @@ const useStrategiesContractData = (
   const { address } = useAccount();
 
   // se tokens contract data
-  const seTokenContractDataSelector = useCallback(
+  const segmentTokensWithUnderlyingContractDataSelector = useCallback(
     (data: (bigint | number | Address)[]) => {
       if (!strategies) return null;
 
       return strategies.reduce(
         (acc, strategy) => {
-          if (hasUnderlying(strategy.contract.outputToken?.symbol) && data) {
+          if (hasSegmentUnderlying(strategy.contract.outputToken?.symbol) && data) {
             const idx = Object.keys(acc).length * 5;
 
             // for each se* token we need tulpes of 5 call results
@@ -101,65 +101,68 @@ const useStrategiesContractData = (
 
           return acc;
         },
-        {} as Record<keyof typeof tokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
+        {} as Record<keyof typeof seTokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
       );
     },
     [strategies]
   );
 
-  const { data: seTokensContractData, isPending: isSeTokensContractPending } = useReadContracts({
-    query: {
-      enabled,
-      select: seTokenContractDataSelector,
-      refetchInterval: INTERVAL.HOUR
-    },
-    allowFailure: false,
-    config: {
-      ...getConfig({ isProd: isProd }),
-      chains: [bob]
-    },
-    contracts: strategies?.flatMap((strategy) =>
-      hasUnderlying(strategy.contract.outputToken?.symbol)
-        ? ([
-            {
-              address: strategy.contract.outputToken.address as Address,
-              abi: erc20WithUnderlying,
-              functionName: 'exchangeRateStored'
-            },
-            {
-              address: strategy.contract.outputToken.address as Address,
-              abi: erc20WithUnderlying,
-              functionName: 'totalSupply'
-            },
-            {
-              address: strategy.contract.outputToken.address as Address,
-              abi: erc20WithUnderlying,
-              functionName: 'balanceOf',
-              args: address ? [address] : [zeroAddress]
-            },
-            {
-              address: strategy.contract.outputToken.address as Address,
-              abi: erc20WithUnderlying,
-              functionName: 'decimals'
-            },
-            {
-              address: strategy.contract.outputToken.address as Address,
-              abi: erc20WithUnderlying,
-              functionName: 'underlying'
-            }
-          ] as const)
-        : ([] as const)
-    )
-  });
+  const { data: segmentTokensWithUnderlyingContractData, isPending: isSegmentTokensWithUnderlyingContractPending } =
+    useReadContracts({
+      query: {
+        enabled,
+        select: segmentTokensWithUnderlyingContractDataSelector,
+        refetchInterval: INTERVAL.HOUR
+      },
+      allowFailure: false,
+      config: {
+        ...getConfig({ isProd: isProd }),
+        chains: [bob]
+      },
+      contracts: strategies?.flatMap((strategy) =>
+        hasSegmentUnderlying(strategy.contract.outputToken?.symbol)
+          ? ([
+              {
+                address: strategy.contract.outputToken.address as Address,
+                abi: seTokenAbi,
+                functionName: 'exchangeRateStored'
+              },
+              {
+                address: strategy.contract.outputToken.address as Address,
+                abi: seTokenAbi,
+                functionName: 'totalSupply'
+              },
+              {
+                address: strategy.contract.outputToken.address as Address,
+                abi: seTokenAbi,
+                functionName: 'balanceOf',
+                args: address ? [address] : [zeroAddress]
+              },
+              {
+                address: strategy.contract.outputToken.address as Address,
+                abi: seTokenAbi,
+                functionName: 'decimals'
+              },
+              {
+                address: strategy.contract.outputToken.address as Address,
+                abi: seTokenAbi,
+                functionName: 'underlying'
+              }
+            ] as const)
+          : ([] as const)
+      )
+    });
+
+  // console.log('tokensWithUnderlyingContractData', tokensWithUnderlyingContractData);
 
   // se tokens underlying contract data
-  const seTokenUnderlyingContractDataSelector = useCallback(
+  const segmentTokenUnderlyingContractDataSelector = useCallback(
     (data: number[]) => {
       if (!strategies) return null;
 
       return strategies.reduce(
         (acc, strategy) => {
-          if (hasUnderlying(strategy.contract.outputToken?.symbol) && data) {
+          if (hasSegmentUnderlying(strategy.contract.outputToken?.symbol) && data) {
             const idx = Object.keys(acc).length;
 
             acc[strategy.contract.outputToken?.symbol] = data[idx] as number;
@@ -167,35 +170,38 @@ const useStrategiesContractData = (
 
           return acc;
         },
-        {} as Record<keyof typeof tokenToUnderlyingMapping, number>
+        {} as Record<keyof typeof seTokenToUnderlyingMapping, number>
       );
     },
     [strategies]
   );
 
-  const { data: seTokensUnderlyingContractData, isPending: isSeTokensUnderlyingContractPending } = useReadContracts({
-    query: {
-      enabled,
-      select: seTokenUnderlyingContractDataSelector,
-      refetchInterval: INTERVAL.HOUR
-    },
-    allowFailure: false,
-    config: {
-      ...getConfig({ isProd }),
-      chains: [bob]
-    },
-    contracts: strategies?.flatMap((strategy) =>
-      hasUnderlying(strategy.contract.outputToken?.symbol)
-        ? ([
-            {
-              address: seTokensContractData?.[strategy.contract.outputToken?.symbol]?.[4] as Address,
-              abi: erc20Abi,
-              functionName: 'decimals'
-            }
-          ] as const)
-        : ([] as const)
-    )
-  });
+  const { data: segmentTokenUnderlyingContractData, isPending: isSegmentTokenUnderlyingContractPending } =
+    useReadContracts({
+      query: {
+        enabled,
+        select: segmentTokenUnderlyingContractDataSelector,
+        refetchInterval: INTERVAL.HOUR
+      },
+      allowFailure: false,
+      config: {
+        ...getConfig({ isProd }),
+        chains: [bob]
+      },
+      contracts: strategies?.flatMap((strategy) =>
+        hasSegmentUnderlying(strategy.contract.outputToken?.symbol)
+          ? ([
+              {
+                address: segmentTokensWithUnderlyingContractData?.[
+                  strategy.contract.outputToken?.symbol
+                ]?.[4] as Address,
+                abi: erc20Abi,
+                functionName: 'decimals'
+              }
+            ] as const)
+          : ([] as const)
+      )
+    });
 
   // erc20 tokens contract data
   const tokensContractDataSelector = useCallback(
@@ -358,14 +364,19 @@ const useStrategiesContractData = (
           const symbol = strategy.contract.outputToken?.symbol;
           const address = strategy.contract.outputToken?.address;
 
-          if (hasUnderlying(symbol) && seTokensContractData?.[symbol] && seTokensUnderlyingContractData?.[symbol]) {
+          if (
+            hasSegmentUnderlying(symbol) &&
+            segmentTokensWithUnderlyingContractData?.[symbol] &&
+            segmentTokenUnderlyingContractData?.[symbol]
+          ) {
             // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
             // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-            const [exchangeRateStored, totalSupply, depositAtomicAmount, decimals] = seTokensContractData[symbol]!;
-            const underlyingDecimals = seTokensUnderlyingContractData[symbol]!;
+            const [exchangeRateStored, totalSupply, depositAtomicAmount, decimals] =
+              segmentTokensWithUnderlyingContractData[symbol]!;
+            const underlyingDecimals = segmentTokenUnderlyingContractData[symbol]!;
 
             const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
-            const underlyingTicker = tokenToUnderlyingMapping[symbol];
+            const underlyingTicker = seTokenToUnderlyingMapping[symbol];
             const underlyingPrice = getPrice(underlyingTicker!);
             const depositAmount = CurrencyAmount.fromRawAmount(
               new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
@@ -452,8 +463,8 @@ const useStrategiesContractData = (
     [
       strategies,
       noOuputTokenContractData,
-      seTokensContractData,
-      seTokensUnderlyingContractData,
+      segmentTokensWithUnderlyingContractData,
+      segmentTokenUnderlyingContractData,
       tokensContractData,
       noOuputTokenContractSharesToUnderlyingData,
       getPrice
@@ -463,11 +474,11 @@ const useStrategiesContractData = (
   return {
     data: strategiesData,
     isPending:
-      isSeTokensContractPending ||
+      isSegmentTokensWithUnderlyingContractPending ||
       isNoOuputTokenContractDataPending ||
       isTokensContractDataPending ||
       isNoOuputTokenContractSharesToUnderlyingDataPending ||
-      isSeTokensUnderlyingContractPending ||
+      isSegmentTokenUnderlyingContractPending ||
       isPricesPending
   };
 };
