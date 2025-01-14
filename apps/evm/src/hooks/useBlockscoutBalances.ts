@@ -14,6 +14,7 @@ const useBlockscoutBalances = <T>(
   const { address } = useAccount();
 
   return useQuery({
+    enabled: Boolean(address),
     queryKey: ['blockscout-balances', address!],
     queryFn: () => blockscoutClient.getTokens(address!, ['ERC-20']),
     refetchInterval: INTERVAL.SECONDS_30,
