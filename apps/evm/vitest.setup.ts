@@ -8,3 +8,18 @@ vi.mock(import('viem'), async (importOriginal) => {
     getAddress: vi.fn((address) => address)
   };
 });
+
+vi.mock('next/font/google', () => ({
+  Inter: () => ({
+    className: 'string',
+    style: {
+      fontFamily: 'string'
+    }
+  }),
+  Chakra_Petch: () => ({
+    className: 'string',
+    style: {
+      fontFamily: 'string'
+    }
+  })
+}));

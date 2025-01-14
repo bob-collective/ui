@@ -38,7 +38,7 @@ const BtcWalletList = ({
       {...props}
       aria-label={t(i18n)`choose available wallets`}
       disabledKeys={disabledKeys}
-      gap='s'
+      marginTop='md'
       selectedKeys={connector ? [connector.id] : []}
       selectionMode='single'
       onSelectionChange={onSelectionChange}
@@ -47,7 +47,7 @@ const BtcWalletList = ({
         <ListItem
           key={connector.id}
           alignItems='center'
-          gap='lg'
+          gap='xs'
           justifyContent='space-between'
           paddingX='s'
           paddingY='xs'
