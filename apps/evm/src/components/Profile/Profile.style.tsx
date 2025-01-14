@@ -5,4 +5,12 @@ const StyledWalletCard = styled(Card)`
   min-height: 3.375rem;
 `;
 
-export { StyledWalletCard };
+const StyledTokenListItem = styled(Card)`
+  cursor: pointer;
+
+  &:hover {
+    ${({ theme }) => theme.list.item.hover}
+  }
+`;
+
+export { StyledTokenListItem, StyledWalletCard };
