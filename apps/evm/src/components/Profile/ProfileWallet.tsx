@@ -52,7 +52,8 @@ const ProfileWallet = ({
         direction='row'
         gap='md'
         justifyContent='space-between'
-        padding='md'
+        paddingX='lg'
+        paddingY='md'
         onPress={onPressConnect}
       >
         <Flex alignItems='center' gap='md'>
@@ -79,7 +80,8 @@ const ProfileWallet = ({
       direction='row'
       gap='md'
       justifyContent='space-between'
-      padding='md'
+      paddingX='lg'
+      paddingY='md'
     >
       <Flex alignItems='center' gap='md'>
         {avatar}

@@ -1,4 +1,4 @@
-import { Avatar, Flex, P, Skeleton, useCurrencyFormatter } from '@gobob/ui';
+import { Avatar, Flex, P, Skeleton, useLocale } from '@gobob/ui';
 
 import { ChainAsset } from '@/components';
 
@@ -12,7 +12,7 @@ type ProfileTokenListItemProps = {
 };
 
 const ProfileTokenListItem = ({ chainId, amountUSD, balance, logoUrl, name, symbol }: ProfileTokenListItemProps) => {
-  const format = useCurrencyFormatter();
+  const { locale } = useLocale();
 
   return (
     <Flex alignItems='center' gap='lg'>
@@ -26,10 +26,16 @@ const ProfileTokenListItem = ({ chainId, amountUSD, balance, logoUrl, name, symb
         <Avatar alt={name} size='5xl' src={logoUrl} />
       )}
       <Flex direction='column' flex={1}>
-        <P rows={1}>{name}</P>
+        <P rows={1} style={{ whiteSpace: 'normal' }}>
+          {name}
+        </P>
         {balance !== undefined && amountUSD !== undefined ? (
-          <P color='grey-50' rows={1} size='s'>
-            {balance} {symbol} ({format(amountUSD)})
+          <P color='grey-50' rows={1} size='s' style={{ whiteSpace: 'normal' }}>
+            {balance} {symbol} (
+            {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(
+              amountUSD
+            )}
+            )
           </P>
         ) : (
           <Skeleton height='1rem' />

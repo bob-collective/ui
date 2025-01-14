@@ -9,11 +9,12 @@ import { ListState } from '@react-stately/list';
 import { Node } from '@react-types/shared';
 import { useMemo, useRef } from 'react';
 
+import { Rounded } from '../../theme';
 import { Flex, FlexProps } from '../Flex';
 
 import { StyledListItem } from './List.style';
 
-type Props = {};
+type Props = { rounded?: Rounded };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
@@ -30,7 +31,7 @@ const ListItem = <T extends object>({ item, state }: InternalProps<T>): JSX.Elem
   const { isHovered, hoverProps } = useHover({ isDisabled: !isInteractable });
   const { focusProps, isFocusVisible } = useFocusRing();
 
-  const props = useMemo(
+  const { rounded, ...props } = useMemo(
     () => Object.assign({}, item.props, { title: undefined, textValue: undefined, 'aria-label': undefined }),
     [item.props]
   );
@@ -43,6 +44,7 @@ const ListItem = <T extends object>({ item, state }: InternalProps<T>): JSX.Elem
       $isFocusVisible={isFocusVisible}
       $isHovered={isHovered}
       $isInteractable={isInteractable}
+      $rounded={rounded}
     >
       <Flex {...mergeProps(gridCellProps, props)}>{item.rendered}</Flex>
     </StyledListItem>
