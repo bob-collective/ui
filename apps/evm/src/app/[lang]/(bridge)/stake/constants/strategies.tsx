@@ -36,6 +36,7 @@ type StrategyInfo = {
   protocol: StrategyProtocol;
   incentives: StrategyIncentive[];
   isDisabled?: boolean;
+  isHidden?: boolean;
   warningMessage?: ReactNode;
   links: {
     securityReview?: string;
@@ -240,6 +241,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'lombard-lbtc': {
+    isHidden: true,
     name: 'Liquid Staking Lombard BTC',
     description: <Trans>Stake BTC into Lombard and receive liquid staking token LBTC.</Trans>,
     protocol: StrategyProtocol.Lombard,
@@ -257,6 +259,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'ionic-wbtc': {
+    isHidden: true,
     name: 'Lending Ionic-wBTC',
     description: <Trans>Lend out wBTC on Ionic.</Trans>,
     protocol: StrategyProtocol.Ionic,
@@ -276,6 +279,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'ionic-tbtc': {
+    isHidden: true,
     name: 'Lending Ionic-tBTC',
     description: <Trans>Lend out tBTC on Ionic.</Trans>,
     protocol: StrategyProtocol.Ionic,
@@ -295,6 +299,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'avalon-wbtc': {
+    isHidden: true,
     name: 'Lending Avalon-wBTC',
     description: <Trans>Lend out wBTC on Avalon.</Trans>,
     protocol: StrategyProtocol.Avalon,
@@ -314,6 +319,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'avalon-tbtc': {
+    isHidden: true,
     name: 'Lending Avalon-tBTC',
     description: <Trans>Lend out tBTC on Avalon.</Trans>,
     protocol: StrategyProtocol.Avalon,
@@ -333,6 +339,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ]
   },
   'avalon-solvbtcbbn': {
+    isHidden: true,
     name: 'Lending Avalon-SolvBTC-Babylon',
     description: (
       <Trans>

@@ -25,7 +25,7 @@ const useGetStrategies = () => {
         .map((strategy) => {
           const info = strategiesInfo[strategy.integration.slug];
 
-          if (!info) return undefined;
+          if (!info || info.isHidden) return undefined;
 
           return {
             meta: strategy.integration,
