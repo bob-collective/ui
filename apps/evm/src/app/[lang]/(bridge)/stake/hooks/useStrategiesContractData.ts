@@ -47,7 +47,7 @@ function hasCGId(symbol: string | undefined): symbol is keyof typeof tokenToIdMa
 }
 
 // strategy contract -> StrategyBaseTVLLimits contract
-export const strategyToLimitsMapping: Record<string, Address> = {
+const strategyToLimitsMapping: Record<string, Address> = {
   // PellSolvLSTStrategy
   // "Pell (SolvBTC.BBN) -> pellStrategy (0x046DaeB4a46d83FC655a905aB352afbe981Cbd29) -> pellStrategy (0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef) -> totalShares
   '0xdf3aa56f2626e253b5db7703ac7241e835140566': '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef',
@@ -58,7 +58,7 @@ export const strategyToLimitsMapping: Record<string, Address> = {
 
 type UnderlyingTicker = string;
 type UnderlyingDecimals = number;
-export const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, Address, UnderlyingDecimals]> = {
+const limitsToUnderlyingMapping: Record<string, [UnderlyingTicker, Address, UnderlyingDecimals]> = {
   '0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef': [
     CurrencyTicker['SolvBTC.BBN'],
     '0xCC0966D8418d412c599A6421b760a847eB169A8c',
