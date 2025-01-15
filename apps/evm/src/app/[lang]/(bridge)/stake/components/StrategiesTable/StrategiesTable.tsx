@@ -88,17 +88,19 @@ const StrategyColumn = {
   width: '40%' as `${number}%`
 };
 
-const TvlColumn = {
+const TvlColumn = (hideTooltip: boolean) => ({
   name: (
     <Flex alignItems='center' gap='s' justifyContent='flex-end'>
       <Trans>TVL</Trans>
-      <Tooltip color='primary' label={<Trans>TVL on BOB</Trans>}>
-        <InformationCircle color='grey-50' size='xs' />
-      </Tooltip>
+      {!hideTooltip && (
+        <Tooltip color='primary' label={<Trans>TVL on BOB</Trans>}>
+          <InformationCircle color='grey-50' size='xs' />
+        </Tooltip>
+      )}
     </Flex>
   ),
   id: StrategiesTableColumns.TVL
-};
+});
 
 const RewardsColumn = {
   name: <Trans>Rewards</Trans>,
@@ -220,10 +222,10 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
             { ...StrategyColumn },
             { ...RewardsColumn, width: '30%' as `${number}%` },
             { name: <Trans>Amount</Trans>, id: StrategiesTableColumns.AMOUNT, width: '20%' as `${number}%` },
-            TvlColumn
+            TvlColumn(isTablet)
           ]
-        : [StrategyColumn, RewardsColumn, TvlColumn],
-    [filter]
+        : [StrategyColumn, RewardsColumn, TvlColumn(isTablet)],
+    [filter, isTablet]
   );
 
   const mobileColumns = useMemo(
