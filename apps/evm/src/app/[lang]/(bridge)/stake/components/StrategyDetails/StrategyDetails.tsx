@@ -35,6 +35,7 @@ import { StyledAddressButton } from './StrategyDetails.style';
 
 import { AmountLabel, ChainAsset } from '@/components';
 import { chainL2, L2_CHAIN } from '@/constants';
+import { useUserAgent } from '@/user-agent';
 
 const MiddleNodeCard = ({
   node,
@@ -117,7 +118,10 @@ type StrategyDetailsProps = {
 
 const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+  const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
+  const { isMobile: isMobileUserAgent } = useUserAgent();
+
+  const isMobile = isMobileViewport || isMobileUserAgent;
 
   const format = useCurrencyFormatter();
 

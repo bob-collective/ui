@@ -2,6 +2,8 @@ import { Card, Item, Select, Tabs, TabsItem, useMediaQuery } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 
+import { useUserAgent } from '@/user-agent';
+
 enum StrategiesFilterOption {
   AllStrategies = 'all-strategies',
   MyDeposits = 'my-deposits'
@@ -14,7 +16,10 @@ type StrategiesFilterProps = {
 
 const StrategiesFilter = ({ value, onSelectionChange }: StrategiesFilterProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+  const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
+  const { isMobile: isMobileUserAgent } = useUserAgent();
+
+  const isMobile = isMobileViewport || isMobileUserAgent;
 
   return (
     <Card padding='xs'>
