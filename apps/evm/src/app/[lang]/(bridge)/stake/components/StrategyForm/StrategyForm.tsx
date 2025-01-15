@@ -1,7 +1,7 @@
 'use client';
 
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { Alert, Flex, Input, P } from '@gobob/ui';
+import { Alert, Flex, Input, P, Skeleton } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { sendGAEvent } from '@next/third-parties/google';
@@ -109,6 +109,8 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
 
   const isLoading = gateway.mutation.isPending || gateway.query.quote.isLoading;
 
+  const action = isLending ? <Trans>supply</Trans> : <Trans>stake</Trans>;
+
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Flex direction='column' elementType='form' flex={1} gap='xl' marginTop='xl' onSubmit={form.handleSubmit as any}>
@@ -131,7 +133,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
         />
       )}
       <GatewayTransactionDetails
-        amountLabel={isLending ? <Trans>You will supply</Trans> : <Trans>You will stake</Trans>}
+        amountLabel={strategy ? <Trans>You will {action}</Trans> : <Skeleton width='6xl' />}
         assetName={strategy?.contract.integration.name}
         gateway={gateway}
       />

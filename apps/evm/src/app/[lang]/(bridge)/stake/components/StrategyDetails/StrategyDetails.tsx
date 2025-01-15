@@ -241,7 +241,9 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
           <Dt color='grey-50' size='s'>
             <Trans>Description</Trans>
           </Dt>
-          <Dd size='s'>{strategy ? strategy.info.description : <Skeleton count={2} flex={1} />}</Dd>
+          <Dd size='s' style={{ width: '100%' }}>
+            {strategy ? strategy.info.description : <Skeleton count={2} />}
+          </Dd>
         </DlGroup>
         <Divider />
         <Flex gap='md'>
@@ -249,18 +251,22 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
             <Dt color='grey-50' size='s'>
               <Trans>Strategy Breakdown</Trans>
             </Dt>
-            <StrategyBreakdown
-              firstNode={btcNode}
-              lastNode={outputNode}
-              middleNodes={middleNodes.map((node, idx) => (
-                <MiddleNodeCard
-                  key={idx}
-                  hideSymbol={isMobile || hasTooManyMiddleNodes}
-                  node={node}
-                  onPress={() => handleContractNavigate(node.currency.address)}
-                />
-              ))}
-            />
+            {strategy ? (
+              <StrategyBreakdown
+                firstNode={btcNode}
+                lastNode={outputNode}
+                middleNodes={middleNodes.map((node, idx) => (
+                  <MiddleNodeCard
+                    key={idx}
+                    hideSymbol={isMobile || hasTooManyMiddleNodes}
+                    node={node}
+                    onPress={() => handleContractNavigate(node.currency.address)}
+                  />
+                ))}
+              />
+            ) : (
+              <Skeleton height='10xl' style={{ width: '100%' }} />
+            )}
           </DlGroup>
         </Flex>
         <Divider />
