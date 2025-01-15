@@ -67,7 +67,12 @@ const AvalonPoints = () => (
   <Chip
     background='dark'
     size='s'
-    startAdornment={<Avatar size='xl' src='https://app.avalonfinance.xyz/icons/tokens/avalon.svg' />}
+    startAdornment={
+      <Avatar
+        size='xl'
+        src='https://raw.githubusercontent.com/avalonfinancexyz/marketing_kit/refs/heads/main/token/sUSDa.png'
+      />
+    }
   >
     <Trans>Points</Trans>
   </Chip>

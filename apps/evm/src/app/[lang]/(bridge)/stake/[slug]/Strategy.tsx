@@ -46,7 +46,7 @@ function Strategy({ params }: Props) {
         </Link>
         <Flex alignItems='center' gap='lg' marginTop='4xl'>
           {strategy ? (
-            <Avatar size='4xl' src={strategy.meta.logo || strategy.info.logoUrl} />
+            <Avatar size='4xl' src={strategy.info.logoUrl || strategy.meta.logo} />
           ) : (
             <Skeleton height='4xl' rounded='full' width='4xl' />
           )}

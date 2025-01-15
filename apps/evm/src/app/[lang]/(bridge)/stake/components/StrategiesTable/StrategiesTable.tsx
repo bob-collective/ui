@@ -173,7 +173,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
           id: strategy.meta.slug,
           [StrategiesTableColumns.STRATEGY]: (
             <StrategyCell
-              logo={strategy.meta.logo || strategy.info.logoUrl || ''}
+              logo={strategy.info.logoUrl || strategy.meta.logo}
               name={strategy.info.name}
               protocol={strategy.info.protocol}
             />
