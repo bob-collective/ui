@@ -16,7 +16,7 @@ const prodChains = [bob, mainnet];
 const allChains = [...testnetChains, ...prodChains];
 
 const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
-  const isDev = process.env.NODE_ENV === 'development';
+  // const isDev = process.env.NODE_ENV === 'development';
 
   const coinbase = coinbaseWallet({
     appName: 'BOB',
@@ -32,7 +32,7 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
         ]
       : []),
 
-    ...(isDev
+    ...(true
       ? [coinbase]
       : [
           walletConnect({
