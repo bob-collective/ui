@@ -25,7 +25,7 @@ function Strategy({ params }: Props) {
   const { refetch: refetchTransactions } = useGetGatewayTransactions({});
   const [tab, setTab] = useState<Tab>(Tab.Deposit);
 
-  const { data: strategies = [], isPending } = useGetStrategies();
+  const { data: strategies = [] } = useGetStrategies();
 
   const strategy = strategies.find((strategy) => strategy.meta.slug === params.slug);
 
@@ -45,16 +45,16 @@ function Strategy({ params }: Props) {
           </Flex>
         </Link>
         <Flex alignItems='center' gap='lg' marginTop='4xl'>
-          {isPending ? (
-            <Skeleton height='4xl' rounded='full' width='4xl' />
+          {strategy ? (
+            <Avatar size='4xl' src={strategy.meta.logo || strategy.info.logoUrl} />
           ) : (
-            <Avatar size='4xl' src={strategy?.meta.logo || strategy?.info.logoUrl} />
+            <Skeleton height='4xl' rounded='full' width='4xl' />
           )}
 
           <Flex alignItems='flex-start' direction='column'>
             <H1 size='lg'>{strategy ? strategy.info.name : <Skeleton height='xl' width='12rem' />}</H1>
             <H2 color='grey-50' size='md' weight='medium'>
-              {isPending ? <Skeleton height='xl' width='8rem' /> : strategy?.info.protocol}
+              {strategy ? strategy.info.protocol : <Skeleton height='xl' width='8rem' />}
             </H2>
           </Flex>
         </Flex>
