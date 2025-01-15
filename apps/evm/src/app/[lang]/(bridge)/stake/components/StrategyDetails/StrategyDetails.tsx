@@ -3,7 +3,6 @@
 import {
   ArrowTopRightOnSquare,
   Avatar,
-  Button,
   Card,
   Dd,
   Divider,
@@ -21,15 +20,17 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 import { Address } from 'viem';
+import { useLingui } from '@lingui/react';
 
 import { StrategyCurrency } from '../../constants';
 import { StrategyData } from '../../hooks';
 import { StrategyRewards } from '../StrategyRewards';
 
 import { StrategyBreakdown } from './StrategyBreakdown';
+import { StyledAddressButton } from './StrategyDetails.style';
 
 import { AmountLabel, ChainAsset } from '@/components';
 import { chainL2, L2_CHAIN } from '@/constants';
@@ -43,14 +44,30 @@ const MiddleNodeCard = ({
   hideSymbol: boolean;
   onPress: () => void;
 }) => {
+  const { i18n } = useLingui();
+
+  const addressEl = (
+    <Span noWrap color='grey-50' rows={1} size={hideSymbol ? 's' : 'xs'}>
+      {truncateEthAddress(node.currency.address)}
+    </Span>
+  );
+
   const infoEl = (
     <Flex direction='column' style={{ overflow: 'hidden' }}>
-      <Span lineHeight='1.2' rows={1} size='s'>
+      <Span lineHeight='1.2' rows={1} size={hideSymbol ? 'md' : 's'}>
         {node.currency.symbol}
       </Span>
-      <Span noWrap color='grey-50' rows={1} size='xs'>
-        {truncateEthAddress(node.currency.address)}
-      </Span>
+      {hideSymbol ? (
+        <StyledAddressButton
+          aria-label={t(i18n)`navigate to ${node.currency.symbol} contract on explorer`}
+          onPress={onPress}
+        >
+          {addressEl}
+          <ArrowTopRightOnSquare size='xs' />
+        </StyledAddressButton>
+      ) : (
+        addressEl
+      )}
     </Flex>
   );
 
@@ -86,9 +103,6 @@ const MiddleNodeCard = ({
       <PopoverContent>
         <PopoverBody gap='md' padding='lg'>
           {infoEl}
-          <Button color='primary' size='s' onPress={onPress}>
-            <Trans>Go to explorer</Trans>
-          </Button>
         </PopoverBody>
       </PopoverContent>
     </Popover>
