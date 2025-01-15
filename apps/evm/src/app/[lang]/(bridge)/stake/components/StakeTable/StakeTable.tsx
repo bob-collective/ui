@@ -69,45 +69,51 @@ const StakeTable = ({ searchParams, onStakeSuccess }: Props) => {
 
   const rows: StakeTableRow[] = useMemo(
     () =>
-      sortedStrategies.map((strategy, idx) => {
-        return {
-          id: `${strategy.raw.id}${idx}`,
-          [StakeTableColumns.STRATEGY]: (
-            <Flex alignItems='center' gap='lg'>
-              {strategy.raw.integration.logo ? (
-                <Avatar size={'2xl'} src={strategy.raw.integration.logo} />
-              ) : (
-                <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
-              )}
-              <StrategyCell
-                name={stakingInfo[strategy?.raw.integration.slug ?? '']?.strategy as string}
-                protocol={stakingInfo[strategy?.raw.integration.slug ?? '']?.protocol as string}
-              />
-            </Flex>
-          ),
-          [StakeTableColumns.REWARDS]: (
-            <StakeRewards direction={{ base: 'column', md: 'row' }} slug={strategy?.raw.integration.slug ?? ''} />
-          ),
-          [StakeTableColumns.TVL]: strategy?.tvl ? format(strategy.tvl) : '-',
-          [StakeTableColumns.ACTIONS]: (
-            <Flex direction='row' gap='md'>
-              <Button color='primary' onPress={() => setStrategy(strategy)}>
-                <Trans>Stake</Trans>
-              </Button>
-              {strategy?.userStaked?.greaterThan(0) && (
-                <Button
-                  variant='outline'
-                  onPress={() =>
-                    window.open(stakingInfo[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
-                  }
-                >
-                  <Trans>Manage</Trans>
+      sortedStrategies
+        .map((strategy, idx) => {
+          const info = stakingInfo[strategy?.raw.integration.slug ?? ''];
+
+          if (!info) return null;
+
+          return {
+            id: `${strategy.raw.id}${idx}`,
+            [StakeTableColumns.STRATEGY]: (
+              <Flex alignItems='center' gap='lg'>
+                {strategy.raw.integration.logo ? (
+                  <Avatar size={'2xl'} src={strategy.raw.integration.logo} />
+                ) : (
+                  <PellNetwork style={{ height: '1.3rem', width: '1.3rem' }} />
+                )}
+                <StrategyCell
+                  name={stakingInfo[strategy?.raw.integration.slug ?? '']?.strategy as string}
+                  protocol={stakingInfo[strategy?.raw.integration.slug ?? '']?.protocol as string}
+                />
+              </Flex>
+            ),
+            [StakeTableColumns.REWARDS]: (
+              <StakeRewards direction={{ base: 'column', md: 'row' }} slug={strategy?.raw.integration.slug ?? ''} />
+            ),
+            [StakeTableColumns.TVL]: strategy?.tvl ? format(strategy.tvl) : '-',
+            [StakeTableColumns.ACTIONS]: (
+              <Flex direction='row' gap='md'>
+                <Button color='primary' onPress={() => setStrategy(strategy)}>
+                  <Trans>Stake</Trans>
                 </Button>
-              )}
-            </Flex>
-          )
-        };
-      }),
+                {strategy?.userStaked?.greaterThan(0) && (
+                  <Button
+                    variant='outline'
+                    onPress={() =>
+                      window.open(stakingInfo[strategy?.raw.integration.slug ?? '']?.website, '_blank', 'noreferrer')
+                    }
+                  >
+                    <Trans>Manage</Trans>
+                  </Button>
+                )}
+              </Flex>
+            )
+          };
+        })
+        .filter(Boolean) as StakeTableRow[],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [sortedStrategies]
   );
