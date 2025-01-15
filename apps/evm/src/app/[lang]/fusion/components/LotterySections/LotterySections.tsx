@@ -2,7 +2,8 @@ import { Chip, Flex, H2, P, Skeleton, SolidClock, Span } from '@gobob/ui';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useParams } from 'next/navigation';
-import lottery from '@public/assets/lottery.png';
+import lunarLotteryEN from '@public/assets/lunar_lottery_en.webp';
+import lunarLotteryCN from '@public/assets/lunar_lottery_cn.webp';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useIsClient } from 'usehooks-ts';
@@ -13,6 +14,11 @@ import { StyledButton, StyledCard } from './LotterySections.style';
 import { useTimeToNextDraw } from './hooks';
 
 import { useGetUser, useLotteryStats } from '@/hooks';
+
+const lotteryBannerMapping = {
+  en: lunarLotteryEN,
+  zh: lunarLotteryCN
+};
 
 const LotterySection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,10 +41,10 @@ const LotterySection = () => {
           padding='none'
         >
           <Image
-            alt={t(i18n)`Lottery`}
+            alt={t(i18n)`Lunar lottery`}
             placeholder='blur'
             sizes='100vw'
-            src={lottery}
+            src={lotteryBannerMapping[lang as keyof typeof lotteryBannerMapping]! || lunarLotteryEN}
             style={{
               width: '100%',
               height: 'auto'
