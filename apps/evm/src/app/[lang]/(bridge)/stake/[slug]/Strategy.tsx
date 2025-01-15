@@ -1,6 +1,6 @@
 'use client';
 
-import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Tabs, TabsItem } from '@gobob/ui';
+import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 
 import { useGetGatewayTransactions } from '../../hooks';
@@ -18,15 +18,15 @@ type Props = PageLangParam & {
 function Strategy({ params }: Props) {
   const { refetch: refetchTransactions } = useGetGatewayTransactions({});
 
-  const { data: strategies = [] } = useGetStrategies();
+  const { data: strategies = [], isPending } = useGetStrategies();
 
   const strategy = strategies.find((strategy) => strategy.meta.slug === params.slug);
 
-  if (!strategy) {
-    return null;
-  }
+  const isLending = strategy?.meta.type === 'lending';
 
-  const isLending = strategy.meta.type === 'lending';
+  const action = isLending ? <Trans>withdraw</Trans> : <Trans>unstake</Trans>;
+  const depositTitle = isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>;
+  const withdrawTitle = isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>;
 
   return (
     <Layout>
@@ -38,27 +38,31 @@ function Strategy({ params }: Props) {
           </Flex>
         </Link>
         <Flex alignItems='center' gap='lg' marginTop='4xl'>
-          <Avatar size='4xl' src={strategy.meta.logo || strategy.info.logoUrl} />
+          {isPending ? (
+            <Skeleton height='4xl' rounded='full' width='4xl' />
+          ) : (
+            <Avatar size='4xl' src={strategy?.meta.logo || strategy?.info.logoUrl} />
+          )}
 
           <Flex alignItems='flex-start' direction='column'>
-            <H1 size='lg'>{strategy.info.name}</H1>
+            <H1 size='lg'>{strategy ? strategy.info.name : <Skeleton height='xl' width='12rem' />}</H1>
             <H2 color='grey-50' size='md' weight='medium'>
-              {strategy.info.protocol}
+              {isPending ? <Skeleton height='xl' width='8rem' /> : strategy?.info.protocol}
             </H2>
           </Flex>
         </Flex>
-        {strategy.info?.warningMessage && (
+        {strategy?.info?.warningMessage && (
           <Alert status='warning' style={{ marginTop: '1rem' }} variant='outlined'>
-            {strategy.info.warningMessage}
+            {strategy?.info.warningMessage}
           </Alert>
         )}
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
           <Card flex='1 0 0%' style={{ height: 'max-content' }}>
             <Tabs fullWidth size='lg'>
-              <TabsItem key='deposit' title={isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>}>
+              <TabsItem key='deposit' title={strategy ? depositTitle : <Skeleton height='xl' width='6rem' />}>
                 <StrategyForm isLending={isLending} strategy={strategy} onSuccess={refetchTransactions} />
               </TabsItem>
-              <TabsItem key='withdraw' title={isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>}>
+              <TabsItem key='withdraw' title={strategy ? withdrawTitle : <Skeleton height='xl' width='6rem' />}>
                 <Flex
                   alignItems='center'
                   direction='column'
@@ -71,13 +75,12 @@ function Strategy({ params }: Props) {
                 >
                   <P align='center' color='grey-50' size='s'>
                     <Trans>
-                      Complete your {isLending ? 'withdraw' : 'unstake'} by accessing {strategy.info.protocol} Dapp
-                      using the button bellow
+                      Complete your {action} by accessing {strategy?.info.protocol} Dapp using the button bellow
                     </Trans>
                   </P>
                   <Button asChild color='primary'>
-                    <Link external href={strategy.info.links.manage}>
-                      Go to {strategy.info.protocol} Dapp
+                    <Link external href={strategy?.info.links.manage}>
+                      Go to {strategy?.info.protocol} Dapp
                     </Link>
                   </Button>
                 </Flex>

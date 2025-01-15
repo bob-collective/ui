@@ -48,7 +48,7 @@ const getSkeletons = () =>
           </Flex>
         </Flex>
       ),
-      [StrategiesTableColumns.REWARDS]: <Skeleton height='2xl' width='7xl' />,
+      [StrategiesTableColumns.REWARDS]: <Skeleton height='2xl' rounded='full' width='7xl' />,
       [StrategiesTableColumns.AMOUNT]: <Skeleton height='2xl' width='7xl' />,
       [StrategiesTableColumns.TVL]: <Skeleton height='2xl' width='7xl' />
     }));

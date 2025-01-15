@@ -15,6 +15,7 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
+  Skeleton,
   Span,
   useCurrencyFormatter,
   useMediaQuery
@@ -110,7 +111,7 @@ const MiddleNodeCard = ({
 };
 
 type StrategyDetailsProps = {
-  strategy: StrategyData;
+  strategy?: StrategyData;
   isLending?: boolean;
 };
 
@@ -120,11 +121,11 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   const format = useCurrencyFormatter();
 
-  const middleNodes = strategy.info.breakdown.length > 1 ? strategy.info.breakdown.slice(0, -1) : [];
+  const middleNodes = Boolean(strategy?.info.breakdown.length) ? strategy!.info.breakdown.slice(0, -1) : [];
 
   const hasTooManyMiddleNodes = middleNodes.length >= 3;
 
-  const lastNode = strategy.info.breakdown[strategy.info.breakdown.length - 1];
+  const lastNode = strategy?.info.breakdown[strategy?.info.breakdown.length - 1];
 
   const btcNode = (
     <Card
@@ -196,14 +197,18 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   return (
     <Dl direction='column' flex='1.2 0 0%' gap='xl'>
-      {strategy.deposit && (
+      {strategy?.deposit && (
         <Card alignItems='flex-start' direction='column'>
           <Dt color='grey-50' size='s'>
             {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
           </Dt>
           <Flex wrap elementType='dd' gap='s'>
             <Span color='light' size='lg' weight='semibold'>
-              <AmountLabel hidePrice amount={strategy.deposit.amount} />
+              {strategy ? (
+                <AmountLabel hidePrice amount={strategy.deposit.amount} />
+              ) : (
+                <Skeleton height='4xl' rounded='full' width='4xl' />
+              )}
             </Span>
             <Span color='grey-50' size='lg' weight='semibold'>
               ({format(strategy.deposit.usd)})
@@ -216,7 +221,11 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
           <Dt color='grey-50' size='s'>
             <Trans>Rewards</Trans>
           </Dt>
-          <StrategyRewards wrap elementType='dd' incentives={strategy.info.incentives} />
+          {strategy ? (
+            <StrategyRewards wrap elementType='dd' incentives={strategy.info.incentives} />
+          ) : (
+            <Skeleton height='2xl' rounded='full' width='7xl' />
+          )}
         </Card>
         <Card alignItems='flex-start' direction='column' flex={0.3} gap='md'>
           <Dt color='grey-50' size='s'>
@@ -232,7 +241,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
           <Dt color='grey-50' size='s'>
             <Trans>Description</Trans>
           </Dt>
-          <Dd size='s'>{strategy.info.description}</Dd>
+          <Dd size='s'>{strategy ? strategy.info.description : <Skeleton count={2} flex={1} />}</Dd>
         </DlGroup>
         <Divider />
         <Flex gap='md'>
@@ -260,10 +269,10 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
             <Trans>Additional Information</Trans>
           </Dt>
           <Flex wrap elementType='dd' gap={{ base: 'md', s: 'xl' }}>
-            <Link external icon href={strategy.info.links.landingPage}>
+            <Link external icon href={strategy?.info.links.landingPage}>
               <Trans>Website</Trans>
             </Link>
-            {strategy.info.links.securityReview && (
+            {strategy?.info.links.securityReview && (
               <>
                 <Link external icon href={strategy.info.links.securityReview}>
                   <Trans>Security Review by Bitcoin Layers</Trans>

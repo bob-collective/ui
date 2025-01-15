@@ -29,7 +29,7 @@ type GatewayTransactionModalState = {
 
 type BtcBridgeFormProps = {
   isLending: boolean;
-  strategy: StrategyData;
+  strategy?: StrategyData;
   onSuccess: () => void;
 };
 
@@ -67,7 +67,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   };
 
   const gateway = useGateway({
-    isDisabled: !!strategy.info.isDisabled,
+    isDisabled: !strategy || strategy.info.isDisabled,
     params: {
       type: GatewayTransactionType.STRATEGY,
       toChain: strategy?.contract.chain.chainId,
@@ -104,6 +104,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
     gateway.isDisabled ||
     !gateway.isReady ||
     gateway.query.quote.isPending ||
+    !strategy ||
     strategy.info.isDisabled;
 
   const isLoading = gateway.mutation.isPending || gateway.query.quote.isLoading;
@@ -131,13 +132,13 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       )}
       <GatewayTransactionDetails
         amountLabel={isLending ? <Trans>You will supply</Trans> : <Trans>You will stake</Trans>}
-        assetName={strategy.contract.integration.name}
+        assetName={strategy?.contract.integration.name}
         gateway={gateway}
       />
-      {strategy.info.isDisabled && (
+      {strategy?.info.isDisabled && (
         <Alert status='warning' variant='outlined'>
           <P size='s'>
-            <Trans>Staking to {strategy.info.name} is temporarily unavailable.</Trans>
+            <Trans>Staking to {strategy?.info.name} is temporarily unavailable.</Trans>
           </P>
         </Alert>
       )}
