@@ -2,6 +2,7 @@
 
 import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
+import { useState } from 'react';
 
 import { useGetGatewayTransactions } from '../../hooks';
 import { StrategyDetails, StrategyForm } from '../components';
@@ -15,8 +16,14 @@ type Props = PageLangParam & {
   params: { slug: string };
 };
 
+enum Tab {
+  Deposit = 'deposit',
+  Withdraw = 'withdraw'
+}
+
 function Strategy({ params }: Props) {
   const { refetch: refetchTransactions } = useGetGatewayTransactions({});
+  const [tab, setTab] = useState<Tab>(Tab.Deposit);
 
   const { data: strategies = [], isPending } = useGetStrategies();
 
@@ -58,11 +65,11 @@ function Strategy({ params }: Props) {
         )}
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
           <Card flex='1 0 0%' style={{ height: 'max-content' }}>
-            <Tabs fullWidth size='lg'>
-              <TabsItem key='deposit' title={strategy ? depositTitle : <Skeleton height='xl' width='6rem' />}>
+            <Tabs fullWidth selectedKey={tab} size='lg' onSelectionChange={(key) => setTab(key as Tab)}>
+              <TabsItem key={Tab.Deposit} title={strategy ? depositTitle : <Skeleton height='xl' width='6rem' />}>
                 <StrategyForm isLending={isLending} strategy={strategy} onSuccess={refetchTransactions} />
               </TabsItem>
-              <TabsItem key='withdraw' title={strategy ? withdrawTitle : <Skeleton height='xl' width='6rem' />}>
+              <TabsItem key={Tab.Withdraw} title={strategy ? withdrawTitle : <Skeleton height='xl' width='6rem' />}>
                 <Flex
                   alignItems='center'
                   direction='column'
