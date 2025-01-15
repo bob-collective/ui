@@ -63,7 +63,7 @@ const MiddleNodeCard = ({
           onPress={onPress}
         >
           {addressEl}
-          <ArrowTopRightOnSquare size='xs' />
+          <ArrowTopRightOnSquare color='grey-50' size='xs' />
         </StyledAddressButton>
       ) : (
         addressEl
