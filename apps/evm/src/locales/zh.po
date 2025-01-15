@@ -122,7 +122,7 @@ msgstr ""
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:196
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:246
 msgid "Additional Information"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgstr "已经在收获？"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:471
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:222
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:224
 msgid "Amount"
 msgstr ""
 
@@ -605,7 +605,7 @@ msgstr "将你的BTC LSTs存入 <0>将你的BTC LSTs存入</0> 以铸造satUSD�
 msgid "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD."
 msgstr "将你的BTC LSTs存入 <0>Satoshi协议</0> 以铸造satUSD。"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:152
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:219
 msgid "Description"
 msgstr ""
 
@@ -844,6 +844,10 @@ msgstr ""
 msgid "Go Back"
 msgstr "返回"
 
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:90
+msgid "Go to explorer"
+msgstr ""
+
 #: src/app/[lang]/nested-providers.tsx:75
 msgid "Got it!"
 msgstr ""
@@ -940,7 +944,7 @@ msgstr ""
 #~ msgid "Incentives"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:66
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:133
 msgid "Input"
 msgstr ""
 
@@ -1034,7 +1038,7 @@ msgstr "satUSD的借贷利率"
 msgid "Lending, Restaking, CDP *"
 msgstr "借贷、再质押、抵押债仓（CDP） *"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:121
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:188
 msgid "Lent Amount"
 msgstr ""
 
@@ -1235,7 +1239,7 @@ msgstr "目前暂无新目标。请保持关注更新！"
 msgid "No operations found"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:294
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:296
 msgid "No strategies to display"
 msgstr ""
 
@@ -1296,7 +1300,7 @@ msgstr "或"
 msgid "OtterSec auditor"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:102
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:169
 msgid "Output"
 msgstr ""
 
@@ -1443,8 +1447,8 @@ msgstr ""
 #~ msgid "Restaking"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:104
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:136
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:106
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:203
 #: src/app/[lang]/apps/components/AppsList/AppCard.tsx:131
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:107
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:88
@@ -1483,7 +1487,7 @@ msgstr ""
 msgid "Season Three"
 msgstr "第三季"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:205
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:255
 msgid "Security Review by Bitcoin Layers"
 msgstr ""
 
@@ -1714,7 +1718,7 @@ msgstr ""
 #~ msgid "Stake with"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:121
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:188
 msgid "Staked Amount"
 msgstr ""
 
@@ -1726,11 +1730,11 @@ msgstr ""
 msgid "Staking"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:251
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:253
 msgid "Staking list"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:286
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:288
 msgid "Staking table"
 msgstr ""
 
@@ -1773,7 +1777,7 @@ msgstr ""
 msgid "Strategy"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:160
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:227
 msgid "Strategy Breakdown"
 msgstr ""
 
@@ -2058,7 +2062,7 @@ msgid "Transfer time"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:94
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:142
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:209
 #: src/app/[lang]/fusion/components/UserInfo/Barometer.tsx:67
 msgid "TVL"
 msgstr "总锁仓价值（TVL）"
@@ -2067,7 +2071,7 @@ msgstr "总锁仓价值（TVL）"
 #~ msgid "TVL (on BOB)"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:95
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:96
 msgid "TVL on BOB"
 msgstr ""
 
@@ -2238,7 +2242,7 @@ msgstr ""
 msgid "We're Sorry"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:200
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:250
 msgid "Website"
 msgstr ""
 

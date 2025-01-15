@@ -3,6 +3,7 @@
 import {
   ArrowTopRightOnSquare,
   Avatar,
+  Button,
   Card,
   Dd,
   Divider,
@@ -11,6 +12,10 @@ import {
   Dt,
   Flex,
   Link,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
   Span,
   useCurrencyFormatter,
   useMediaQuery
@@ -20,6 +25,7 @@ import { Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 import { Address } from 'viem';
 
+import { StrategyCurrency } from '../../constants';
 import { StrategyData } from '../../hooks';
 import { StrategyRewards } from '../StrategyRewards';
 
@@ -27,6 +33,67 @@ import { StrategyBreakdown } from './StrategyBreakdown';
 
 import { AmountLabel, ChainAsset } from '@/components';
 import { chainL2, L2_CHAIN } from '@/constants';
+
+const MiddleNodeCard = ({
+  node,
+  hideSymbol,
+  onPress
+}: {
+  node: StrategyCurrency;
+  hideSymbol: boolean;
+  onPress: () => void;
+}) => {
+  const infoEl = (
+    <Flex direction='column' style={{ overflow: 'hidden' }}>
+      <Span lineHeight='1.2' rows={1} size='s'>
+        {node.currency.symbol}
+      </Span>
+      <Span noWrap color='grey-50' rows={1} size='xs'>
+        {truncateEthAddress(node.currency.address)}
+      </Span>
+    </Flex>
+  );
+
+  const cardEl = (
+    <Card
+      isHoverable
+      isPressable
+      alignItems='center'
+      background='grey-600'
+      direction='row'
+      gap='s'
+      justifyContent='center'
+      padding='md'
+      onPress={hideSymbol ? undefined : onPress}
+    >
+      <ChainAsset
+        asset={<Avatar alt={node.currency.symbol} size='4xl' src={node.logoUrl} />}
+        chainId={L2_CHAIN}
+        chainProps={{ size: 'xs' }}
+      />
+
+      {!hideSymbol && infoEl}
+    </Card>
+  );
+
+  if (!hideSymbol) {
+    return cardEl;
+  }
+
+  return (
+    <Popover>
+      <PopoverTrigger>{cardEl}</PopoverTrigger>
+      <PopoverContent>
+        <PopoverBody gap='md' padding='lg'>
+          {infoEl}
+          <Button color='primary' size='s' onPress={onPress}>
+            <Trans>Go to explorer</Trans>
+          </Button>
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
+};
 
 type StrategyDetailsProps = {
   strategy: StrategyData;
@@ -163,29 +230,12 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
               firstNode={btcNode}
               lastNode={outputNode}
               middleNodes={middleNodes.map((node, idx) => (
-                <Card
+                <MiddleNodeCard
                   key={idx}
-                  isHoverable
-                  isPressable
-                  alignItems='center'
-                  background='grey-600'
-                  direction='row'
-                  gap='s'
-                  justifyContent='center'
-                  padding='md'
+                  hideSymbol={isMobile || hasTooManyMiddleNodes}
+                  node={node}
                   onPress={() => handleContractNavigate(node.currency.address)}
-                >
-                  <ChainAsset
-                    asset={<Avatar alt={node.currency.symbol} size='4xl' src={node.logoUrl} />}
-                    chainId={L2_CHAIN}
-                    chainProps={{ size: 'xs' }}
-                  />
-                  {!isMobile && !hasTooManyMiddleNodes && (
-                    <Span lineHeight='1.2' rows={1} size='s'>
-                      {node.currency.symbol}
-                    </Span>
-                  )}
-                </Card>
+                />
               ))}
             />
           </DlGroup>

@@ -122,7 +122,7 @@ msgstr "About Babylon Campaign"
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:196
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:246
 msgid "Additional Information"
 msgstr "Additional Information"
 
@@ -161,7 +161,7 @@ msgstr "Already harvesting?"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:471
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:222
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:224
 msgid "Amount"
 msgstr "Amount"
 
@@ -605,7 +605,7 @@ msgstr "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD and de
 msgid "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD."
 msgstr "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD."
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:152
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:219
 msgid "Description"
 msgstr "Description"
 
@@ -844,6 +844,10 @@ msgstr "go back"
 msgid "Go Back"
 msgstr "Go Back"
 
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:90
+msgid "Go to explorer"
+msgstr "Go to explorer"
+
 #: src/app/[lang]/nested-providers.tsx:75
 msgid "Got it!"
 msgstr "Got it!"
@@ -940,7 +944,7 @@ msgstr "If your BTC balance shows smaller value or 0, it might be due to a trans
 #~ msgid "Incentives"
 #~ msgstr "Incentives"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:66
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:133
 msgid "Input"
 msgstr "Input"
 
@@ -1034,7 +1038,7 @@ msgstr "Lending rate of satUSD"
 msgid "Lending, Restaking, CDP *"
 msgstr "Lending, Restaking, CDP *"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:121
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:188
 msgid "Lent Amount"
 msgstr "Lent Amount"
 
@@ -1235,7 +1239,7 @@ msgstr "No new goal at the moment. Stay tuned for updates!"
 msgid "No operations found"
 msgstr "No operations found"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:294
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:296
 msgid "No strategies to display"
 msgstr "No strategies to display"
 
@@ -1296,7 +1300,7 @@ msgstr "or"
 msgid "OtterSec auditor"
 msgstr "OtterSec auditor"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:102
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:169
 msgid "Output"
 msgstr "Output"
 
@@ -1447,8 +1451,8 @@ msgstr "Remove vote"
 #~ msgid "Restaking"
 #~ msgstr "Restaking"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:104
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:136
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:106
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:203
 #: src/app/[lang]/apps/components/AppsList/AppCard.tsx:131
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:107
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:88
@@ -1487,7 +1491,7 @@ msgstr "Season 3 Harvested"
 msgid "Season Three"
 msgstr "Season Three"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:205
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:255
 msgid "Security Review by Bitcoin Layers"
 msgstr "Security Review by Bitcoin Layers"
 
@@ -1718,7 +1722,7 @@ msgstr "Stake BTC into Lombard and receive liquid staking token LBTC."
 #~ msgid "Stake with"
 #~ msgstr "Stake with"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:121
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:188
 msgid "Staked Amount"
 msgstr "Staked Amount"
 
@@ -1730,11 +1734,11 @@ msgstr "Staked Amount"
 msgid "Staking"
 msgstr "Staking"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:251
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:253
 msgid "Staking list"
 msgstr "Staking list"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:286
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:288
 msgid "Staking table"
 msgstr "Staking table"
 
@@ -1781,7 +1785,7 @@ msgstr "Steps"
 msgid "Strategy"
 msgstr "Strategy"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:160
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:227
 msgid "Strategy Breakdown"
 msgstr "Strategy Breakdown"
 
@@ -2075,7 +2079,7 @@ msgid "Transfer time"
 msgstr "Transfer time"
 
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:94
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:142
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:209
 #: src/app/[lang]/fusion/components/UserInfo/Barometer.tsx:67
 msgid "TVL"
 msgstr "TVL"
@@ -2084,7 +2088,7 @@ msgstr "TVL"
 #~ msgid "TVL (on BOB)"
 #~ msgstr "TVL (on BOB)"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:95
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:96
 msgid "TVL on BOB"
 msgstr "TVL on BOB"
 
@@ -2255,7 +2259,7 @@ msgstr "We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeF
 msgid "We're Sorry"
 msgstr "We're Sorry"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:200
+#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:250
 msgid "Website"
 msgstr "Website"
 
