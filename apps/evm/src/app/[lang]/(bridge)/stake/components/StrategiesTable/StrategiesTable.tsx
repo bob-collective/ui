@@ -33,6 +33,7 @@ import { StrategiesCategories } from './StrategiesCategories';
 
 import { AmountLabel } from '@/components';
 import { RoutesPath } from '@/constants';
+import { useUserAgent } from '@/user-agent';
 
 const getSkeletons = () =>
   Array(8)
@@ -116,7 +117,10 @@ type StrategiesTableProps = {
 
 const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
   const theme = useTheme();
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
+  const { isMobile: isMobileUserAgent } = useUserAgent();
+
+  const isMobile = isMobileViewport || isMobileUserAgent;
 
   const router = useRouter();
 
@@ -222,15 +226,15 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
             { ...StrategyColumn },
             { ...RewardsColumn, width: '30%' as `${number}%` },
             { name: <Trans>Amount</Trans>, id: StrategiesTableColumns.AMOUNT, width: '20%' as `${number}%` },
-            TvlColumn(isTablet)
+            TvlColumn(isMobile)
           ]
-        : [StrategyColumn, RewardsColumn, TvlColumn(isTablet)],
-    [filter, isTablet]
+        : [StrategyColumn, RewardsColumn, TvlColumn(isMobile)],
+    [filter, isMobile]
   );
 
   const mobileColumns = useMemo(
     () =>
-      isTablet
+      isMobile
         ? columns
             .filter((column) => column.id !== StrategiesTableColumns.STRATEGY)
             .sort(
@@ -239,7 +243,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
                 cardColumnOrder.indexOf(b.id as StrategiesTableColumns)
             )
         : [],
-    [columns, isTablet]
+    [columns, isMobile]
   );
 
   return (
@@ -248,7 +252,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
         <StrategiesFilter value={filter} onSelectionChange={handleFilterChange} />
         <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
       </Flex>
-      {isTablet ? (
+      {isMobile ? (
         <List
           aria-label={t(i18n)`Staking list`}
           gap='md'
