@@ -1,15 +1,18 @@
-import { CurrencyAmount, ERC20Token } from '@gobob/currency';
+import { CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { Card, Flex, H3, Wallet } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useRouter } from 'next/navigation';
+import { useAccount } from 'wagmi';
 
 import { ProfileTokenListItem } from './ProfileTokenListItem';
 
 import { useBalances, useTokens } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
+import { RoutesPath } from '@/constants';
 
 type ProfileTokenListProps = {
   chainId: number;
@@ -17,10 +20,11 @@ type ProfileTokenListProps = {
 
 const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
   const { i18n } = useLingui();
+  const router = useRouter();
 
   const { data: tokens } = useTokens(chainId);
   const { getBalance } = useBalances(chainId);
-
+  const { chain } = useAccount();
   const { address: btcAddress } = useSatsAccount();
 
   const { data: btcBalance } = useSatsBalance();
@@ -53,9 +57,11 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
               balance={
                 btcAddress ? btcBalance && CurrencyAmount.fromRawAmount(BITCOIN, btcBalance.total).toSignificant() : 0
               }
+              currency={BITCOIN}
               logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
               name='Bitcoin'
-              symbol='BTC'
+              onPressBridge={() => router.push(`${RoutesPath.BRIDGE}?type=deposit&network=bitcoin`)}
+              onPressStake={() => router.push(RoutesPath.STRATEGIES)}
             /> // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ) as any
         }
@@ -64,9 +70,10 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
             amountUSD={ethBalance ? calculateAmountUSD(ethBalance, getPrice(ethBalance.currency.symbol)) : 0}
             balance={ethBalance?.toSignificant() || 0}
             chainId={chainId}
+            currency={ethData.currency}
             logoUrl={ethData.raw.logoUrl}
             name='Ethereum'
-            symbol={ethData.currency.symbol}
+            onPressBridge={() => router.push(`${RoutesPath.BRIDGE}?type=deposit&network=${chain?.name}`)}
           />
         )}
         {list?.map(
@@ -77,10 +84,14 @@ const ProfileTokenList = ({ chainId }: ProfileTokenListProps): JSX.Element => {
                 amountUSD={item.balance && calculateAmountUSD(item.balance, getPrice(item.balance!.currency.symbol))}
                 balance={item.balance && item.balance.toSignificant()}
                 chainId={chainId}
-                currency={item.token.currency as ERC20Token}
+                currency={item.token.currency}
                 logoUrl={item.token.raw.logoUrl}
                 name={item.token.raw.name}
-                symbol={item.token.currency.symbol}
+                onPressBridge={() =>
+                  router.push(
+                    `${RoutesPath.BRIDGE}?type=deposit&network=${chain?.name}&receive=${item.token.currency.symbol}`
+                  )
+                }
               />
             )
         )}

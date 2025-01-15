@@ -16,7 +16,7 @@ import {
 import { Blockscout } from '@gobob/icons';
 import { ReactNode } from 'react';
 import { useAccount, useWatchAsset } from 'wagmi';
-import { ERC20Token } from '@gobob/currency';
+import { Currency } from '@gobob/currency';
 
 import { StyledTokenListItem } from './Profile.style';
 
@@ -43,9 +43,10 @@ type ProfileTokenListItemProps = {
   name: string;
   logoUrl: string;
   balance?: string | number;
-  symbol: string;
   amountUSD?: number;
-  currency?: ERC20Token;
+  currency: Currency;
+  onPressBridge?: () => void;
+  onPressStake?: () => void;
 };
 
 const ProfileTokenListItem = ({
@@ -54,8 +55,9 @@ const ProfileTokenListItem = ({
   balance,
   logoUrl,
   name,
-  symbol,
-  currency
+  currency,
+  onPressBridge,
+  onPressStake
 }: ProfileTokenListItemProps) => {
   const { locale } = useLocale();
   const { chain } = useAccount();
@@ -80,7 +82,7 @@ const ProfileTokenListItem = ({
             </P>
             {balance !== undefined && amountUSD !== undefined ? (
               <P color='grey-50' rows={1} size='s' style={{ whiteSpace: 'normal' }}>
-                {balance} {symbol} (
+                {balance} {currency.symbol} (
                 {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(
                   amountUSD
                 )}
@@ -94,7 +96,7 @@ const ProfileTokenListItem = ({
       </PopoverTrigger>
       <PopoverContent>
         <PopoverBody gap='s' padding='md'>
-          {chain && currency && (
+          {chain && currency?.isToken && (
             <PopoverOptions
               onPress={() =>
                 window.open(`${chain?.blockExplorers?.default.url}/address/${currency.address}`, '_blank', 'noreferrer')
@@ -104,7 +106,7 @@ const ProfileTokenListItem = ({
               <P>Go to Explorer</P>
             </PopoverOptions>
           )}
-          {currency && (
+          {currency?.isToken && (
             <PopoverOptions
               onPress={() =>
                 watchAsset({
@@ -117,14 +119,18 @@ const ProfileTokenListItem = ({
               <P>Add to wallet</P>
             </PopoverOptions>
           )}
-          <PopoverOptions onPress={console.log}>
-            <ArrowRightLeft />
-            <P>Bridge</P>
-          </PopoverOptions>
-          <PopoverOptions onPress={console.log}>
-            <ArrowDownOnSquare />
-            <P>Bridge</P>
-          </PopoverOptions>
+          {onPressBridge && (
+            <PopoverOptions onPress={onPressBridge}>
+              <ArrowRightLeft />
+              <P>Bridge</P>
+            </PopoverOptions>
+          )}
+          {onPressStake && (
+            <PopoverOptions onPress={onPressStake}>
+              <ArrowDownOnSquare />
+              <P>Stake</P>
+            </PopoverOptions>
+          )}
         </PopoverBody>
       </PopoverContent>
     </Popover>
