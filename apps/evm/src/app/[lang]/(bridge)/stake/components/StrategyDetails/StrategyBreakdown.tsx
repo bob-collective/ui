@@ -38,7 +38,7 @@ const StrategyBreakdown = ({ firstNode, lastNode, middleNodes }: StrategyBreakdo
         {middleNodes.map((node, idx) => (
           <Fragment key={idx}>
             <div>{node}</div>
-            {middleNodes.length - 1 !== idx && <StyledMiddleNodesConnector $showArrow />}
+            {middleNodes.length - 1 !== idx && <StyledMiddleNodesConnector $showArrow style={{ minWidth: 20 }} />}
           </Fragment>
         ))}
         <StyledMiddleNodesConnector />

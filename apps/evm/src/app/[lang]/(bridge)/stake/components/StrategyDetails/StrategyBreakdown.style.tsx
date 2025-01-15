@@ -27,8 +27,8 @@ const StyledFirstNodeConnector = styled.div`
     left: 50%;
     width: 50%;
     height: calc(50% + 0.75rem);
-    border-left: 1px solid ${({ theme }) => theme.color('grey-200')};
-    border-bottom: 1px solid ${({ theme }) => theme.color('grey-200')};
+    border-left: 1px solid ${({ theme }) => theme.color('grey-100')};
+    border-bottom: 1px solid ${({ theme }) => theme.color('grey-100')};
   }
 `;
 
@@ -45,9 +45,9 @@ const StyledLastNodeConnector = styled.div`
   &::after {
     content: '';
     position: absolute;
-    border: solid ${({ theme }) => theme.color('grey-200')};
-    border-width: 0 5px 5px 5px;
-    border-color: transparent transparent ${({ theme }) => theme.color('grey-200')} transparent;
+    border: solid ${({ theme }) => theme.color('grey-100')};
+    border-width: 0 6px 6px 6px;
+    border-color: transparent transparent ${({ theme }) => theme.color('grey-100')} transparent;
     transform: translateX(50%);
     top: 0;
     right: 50%;
@@ -61,8 +61,8 @@ const StyledLastNodeConnector = styled.div`
     width: 50%;
     height: calc(50% + 0.75rem);
 
-    border-right: 1px solid ${({ theme }) => theme.color('grey-200')};
-    border-bottom: 1px solid ${({ theme }) => theme.color('grey-200')};
+    border-right: 1px solid ${({ theme }) => theme.color('grey-100')};
+    border-bottom: 1px solid ${({ theme }) => theme.color('grey-100')};
   }
 `;
 
@@ -79,7 +79,6 @@ type StyledMiddleNodesConnectorProps = {
 const StyledMiddleNodesConnector = styled.div<StyledMiddleNodesConnectorProps>`
   position: relative;
   flex: 1 1 0%;
-  min-width: 20px;
 
   ${({ $showArrow }) =>
     $showArrow &&
@@ -88,9 +87,9 @@ const StyledMiddleNodesConnector = styled.div<StyledMiddleNodesConnectorProps>`
         content: '';
         position: absolute;
 
-        border: solid ${({ theme }) => theme.color('grey-200')};
-        border-width: 5px 0 5px 5px;
-        border-color: transparent transparent transparent ${({ theme }) => theme.color('grey-200')};
+        border: solid ${({ theme }) => theme.color('grey-100')};
+        border-width: 6px 0 6px 6px;
+        border-color: transparent transparent transparent ${({ theme }) => theme.color('grey-100')};
         transform: translateY(-50%);
         top: calc(50%);
         right: 0;
@@ -105,7 +104,7 @@ const StyledMiddleNodesConnector = styled.div<StyledMiddleNodesConnectorProps>`
     width: 100%;
     height: 50%;
 
-    border-bottom: 1px solid ${({ theme }) => theme.color('grey-200')};
+    border-bottom: 1px solid ${({ theme }) => theme.color('grey-100')};
   }
 `;
 
