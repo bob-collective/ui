@@ -63,7 +63,7 @@ const LotterySection = () => {
                 <Trans>
                   <Span color='primary-500' size='unset'>
                     {lotteryStatsData?.rollsRemaining ?? 0}{' '}
-                    <Plural one='Ticket' other='Tickets' value={lotteryStatsData?.rollsRemaining || 0} />{' '}
+                    <Plural one='Envelope' other='Envelopes' value={lotteryStatsData?.rollsRemaining || 0} />{' '}
                   </Span>
                   Remaining
                 </Trans>
@@ -71,9 +71,9 @@ const LotterySection = () => {
             </H2>
             <P color='grey-50'>
               <Trans>
-                Feeling lucky? Try your luck with the daily lottery!
+                Claim your Red envelope to get Spice and celebrate the Lunar New Year with BOB
                 <br />
-                Participate in Fusion voting to receive 3 lottery tickets each day.
+                Participate in Fusion voting to receive 3 envelopes each day.
               </Trans>
             </P>
           </Flex>

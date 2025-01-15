@@ -68,7 +68,7 @@ const LotteryModal = ({
         <ModalBody padding='2xl'>
           <Flex alignItems='center' direction='column' gap='5xl'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-              <Trans>new tickets drop in {timeToNextDraw}</Trans>
+              <Trans>new envelope drop in {timeToNextDraw}</Trans>
             </Chip>
             <H3 align='center' size='2xl'>
               <Trans>
@@ -101,7 +101,7 @@ const LotteryModal = ({
   const isNotWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId === null;
 
   const getHeaderText = () => {
-    if (allRollsUsed && !lotteryRollData) return <Trans>You Have 0 Tickets</Trans>;
+    if (allRollsUsed && !lotteryRollData) return <Trans>You Have 0 Envelopes</Trans>;
 
     return (
       <>
@@ -119,7 +119,7 @@ const LotteryModal = ({
           <Span color='primary-500' size='unset'>
             {rollsRemaining}/3
           </Span>{' '}
-          <Plural one='Ticket' other='Tickets' value={rollsRemaining || 0} /> Remaining
+          <Plural one='Envelope' other='Envelopes' value={rollsRemaining || 0} /> Remaining
         </Trans>
       </>
     );
@@ -129,23 +129,23 @@ const LotteryModal = ({
     if (votesNotUsed)
       return (
         <Trans>
-          Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost
-          your chances.
+          Each envelope is your chance to win big! Vote for your favourite app to receive 3 new envelopes daily and
+          boost your chances.
         </Trans>
       );
 
     if (allTicketsUsed)
       return (
         <Trans>
-          You&apos;ve used all your tickets for today, new tickets will be available once the timer resets! Remember to
-          participate in Weekly Fusion Voting to be eligible for daily tickets.
+          You&apos;ve used all your envelopes for today, new envelope will be available once the timer resets! Remember
+          to participate in Weekly Fusion Voting to be eligible for daily envelopes.
         </Trans>
       );
 
     return (
       <Trans>
-        Maximize your chances by using all your tickets before the countdown resets. Don&apos;t forget to participate in
-        Weekly Fusion Voting to claim your 3 Lottery tickets daily.
+        Maximize your chances by using all your envelopes before the countdown resets. Don&apos;t forget to participate
+        in Weekly Fusion Voting to claim your 3 Lottery envelopes daily.
       </Trans>
     );
   };
@@ -161,7 +161,7 @@ const LotteryModal = ({
       <ModalBody padding='2xl'>
         <Flex alignItems='center' direction='column' gap='5xl'>
           <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-            <Trans>new tickets drop in {timeToNextDraw}</Trans>
+            <Trans>new envelopes drop in {timeToNextDraw}</Trans>
           </Chip>
           <H3 align='center' size='2xl'>
             {getHeaderText()}
@@ -187,7 +187,7 @@ const LotteryModal = ({
         <Flex alignItems='stretch' gap='xl' justifyContent='space-between'>
           {!allVotesUsed && (
             <StyledButton elementType={Link} variant='outline' {...{ href: `/${lang}${RoutesPath.APPS}` }}>
-              <Trans>Get tickets</Trans>
+              <Trans>Get envelopes</Trans>
             </StyledButton>
           )}
           {allRollsUsed && (
