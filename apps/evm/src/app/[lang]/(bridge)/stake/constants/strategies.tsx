@@ -6,14 +6,14 @@ import { ReactNode } from 'react';
 import { Address } from 'viem';
 
 enum StrategyIncentive {
-  spice,
-  pell,
-  bedrock,
-  segment,
-  babylon,
-  solv,
-  supply,
-  avalon
+  Spice,
+  Pell,
+  Bedrock,
+  Segment,
+  Babylon,
+  Solv,
+  Supply,
+  Avalon
 }
 
 enum StrategyProtocol {
@@ -93,7 +93,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Liquid Staking Bedrock-Babylon',
     description: <Trans>Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC.</Trans>,
     protocol: StrategyProtocol.Bedrock,
-    incentives: [StrategyIncentive.bedrock, StrategyIncentive.babylon],
+    incentives: [StrategyIncentive.Bedrock, StrategyIncentive.Babylon],
     links: {
       securityReview: uniBTC.securityReview,
       landingPage: 'https://app.bedrock.technology',
@@ -106,7 +106,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Liquid Staking Solv-Babylon',
     description: <Trans>Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN.</Trans>,
     protocol: StrategyProtocol.Solv,
-    incentives: [StrategyIncentive.solv, StrategyIncentive.babylon],
+    incentives: [StrategyIncentive.Solv, StrategyIncentive.Babylon],
     links: {
       securityReview: solvBTCSecurityReview,
       landingPage: 'https://solv.finance/',
@@ -123,7 +123,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       </Trans>
     ),
     protocol: StrategyProtocol.Pell,
-    incentives: [StrategyIncentive.pell, StrategyIncentive.solv, StrategyIncentive.babylon],
+    incentives: [StrategyIncentive.Pell, StrategyIncentive.Solv, StrategyIncentive.Babylon],
     logoUrl: 'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true',
     links: {
       securityReview: solvBTCSecurityReview,
@@ -141,7 +141,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       </Trans>
     ),
     protocol: StrategyProtocol.Pell,
-    incentives: [StrategyIncentive.pell, StrategyIncentive.bedrock, StrategyIncentive.babylon],
+    incentives: [StrategyIncentive.Pell, StrategyIncentive.Bedrock, StrategyIncentive.Babylon],
     logoUrl: 'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true',
 
     links: {
@@ -156,7 +156,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Lending Segment-tBTC',
     description: <Trans>Lend out tBTC on Segment.</Trans>,
     protocol: StrategyProtocol.Segment,
-    incentives: [StrategyIncentive.segment, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.Segment, StrategyIncentive.Supply],
     links: {
       securityReview: tBTC.securityReview,
       landingPage: 'https://app.segment.finance',
@@ -174,7 +174,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Lending Segment-wBTC',
     description: <Trans>Lend out wBTC on Segment. </Trans>,
     protocol: StrategyProtocol.Segment,
-    incentives: [StrategyIncentive.segment, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.Segment, StrategyIncentive.Supply],
     links: {
       securityReview: wBTC.securityReview,
       landingPage: 'https://app.segment.finance',
@@ -197,10 +197,10 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ),
     protocol: StrategyProtocol.Segment,
     incentives: [
-      StrategyIncentive.segment,
-      StrategyIncentive.solv,
-      StrategyIncentive.babylon,
-      StrategyIncentive.supply
+      StrategyIncentive.Segment,
+      StrategyIncentive.Solv,
+      StrategyIncentive.Babylon,
+      StrategyIncentive.Supply
     ],
     links: {
       securityReview: solvBTCSecurityReview,
@@ -224,10 +224,10 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ),
     protocol: StrategyProtocol.Segment,
     incentives: [
-      StrategyIncentive.segment,
-      StrategyIncentive.bedrock,
-      StrategyIncentive.babylon,
-      StrategyIncentive.supply
+      StrategyIncentive.Segment,
+      StrategyIncentive.Bedrock,
+      StrategyIncentive.Babylon,
+      StrategyIncentive.Supply
     ],
     links: {
       securityReview: uniBTC.securityReview,
@@ -249,7 +249,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Liquid Staking Lombard BTC',
     description: <Trans>Stake BTC into Lombard and receive liquid staking token LBTC.</Trans>,
     protocol: StrategyProtocol.Lombard,
-    incentives: [StrategyIncentive.supply],
+    incentives: [StrategyIncentive.Supply],
     links: {
       securityReview: 'https://www.bitcoinlayers.org/infrastructure/lombard-lbtc',
       manage: 'https://www.lombard.finance/app/unstake',
@@ -266,7 +266,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Lending Ionic-wBTC',
     description: <Trans>Lend out wBTC on Ionic.</Trans>,
     protocol: StrategyProtocol.Ionic,
-    incentives: [StrategyIncentive.supply],
+    incentives: [StrategyIncentive.Supply],
     links: {
       securityReview: wBTC.securityReview,
       manage:
@@ -285,7 +285,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Lending Ionic-tBTC',
     description: <Trans>Lend out tBTC on Ionic.</Trans>,
     protocol: StrategyProtocol.Ionic,
-    incentives: [StrategyIncentive.supply],
+    incentives: [StrategyIncentive.Supply],
     links: {
       securityReview: tBTC.securityReview,
       manage:
@@ -304,7 +304,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Lending Avalon-wBTC',
     description: <Trans>Lend out wBTC on Avalon.</Trans>,
     protocol: StrategyProtocol.Avalon,
-    incentives: [StrategyIncentive.avalon, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.Avalon, StrategyIncentive.Supply],
     logoUrl: 'https://static.gobob.xyz/logos/Untitled.png',
     links: {
       securityReview: wBTC.securityReview,
@@ -324,7 +324,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     name: 'Lending Avalon-tBTC',
     description: <Trans>Lend out tBTC on Avalon.</Trans>,
     protocol: StrategyProtocol.Avalon,
-    incentives: [StrategyIncentive.avalon, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.Avalon, StrategyIncentive.Supply],
     links: {
       securityReview: tBTC.securityReview,
       manage:
@@ -349,7 +349,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       </Trans>
     ),
     protocol: StrategyProtocol.Avalon,
-    incentives: [StrategyIncentive.babylon, StrategyIncentive.solv, StrategyIncentive.avalon, StrategyIncentive.supply],
+    incentives: [StrategyIncentive.Babylon, StrategyIncentive.Solv, StrategyIncentive.Avalon, StrategyIncentive.Supply],
     logoUrl: 'https://static.gobob.xyz/logos/Untitled.png',
 
     links: {
