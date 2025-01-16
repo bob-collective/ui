@@ -164,7 +164,13 @@ const LotteryModal = ({
             {getHeaderText()}
           </H3>
           {rollsNotUsed || votesNotUsed || notPlayed ? (
-            <Lottie key={lotteryRollData?.rollsRemaining} autoplay animationData={envelopeAnimationData} loop={false} />
+            <Lottie
+              key={lotteryRollData?.rollsRemaining}
+              autoplay
+              animationData={envelopeAnimationData}
+              loop={false}
+              style={{ position: 'relative', left: 10 }}
+            />
           ) : (
             <StyledPoints>
               <Spice size='3xl' /> {Intl.NumberFormat(locale).format(lotteryRollData?.prize || 0)}
