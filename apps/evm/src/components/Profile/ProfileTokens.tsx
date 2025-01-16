@@ -7,6 +7,9 @@ import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
 import { useId } from 'react';
 import { Chain } from 'viem';
+import { BTC } from '@gobob/icons';
+
+import { ChainAsset } from '../ChainAsset';
 
 import { ProfileTokenList } from './ProfileTokenList';
 import { ProfileTokenListItem, ProfileTokensListItemSkeleton } from './ProfileTokenListItem';
@@ -14,6 +17,7 @@ import { ProfileTokenListItem, ProfileTokensListItemSkeleton } from './ProfileTo
 import { L1_CHAIN, L2_CHAIN, RoutesPath } from '@/constants';
 import { useTokens } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
+import { WalletIcon } from '@/connect-ui';
 
 type ProfileTokensProps = {
   currentChain: Chain;
@@ -26,7 +30,7 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
 
   const headerId = useId();
 
-  const { address: btcAddress } = useSatsAccount();
+  const { address: btcAddress, connector: btcConnector } = useSatsAccount();
 
   const { isPending: isl1TokensPending, data: l1Tokens } = useTokens(L1_CHAIN);
   const { isPending: isl2TokensPending, data: l2Tokens } = useTokens(L2_CHAIN);
@@ -34,7 +38,7 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
   const { data: btcBalance } = useSatsBalance();
   const { getPrice } = usePrices();
 
-  const isTokensPending = isl1TokensPending && isl2TokensPending;
+  const isTokensPending = isl1TokensPending || isl2TokensPending;
 
   return (
     <Flex direction='column' flex={1}>
@@ -62,7 +66,14 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
                 btcAddress ? btcBalance && CurrencyAmount.fromRawAmount(BITCOIN, btcBalance.total).toSignificant() : 0
               }
               currency={BITCOIN}
-              logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
+              logo={
+                <ChainAsset
+                  asset={<BTC size='2xl' />}
+                  chainLogo={
+                    btcConnector && <WalletIcon name={btcConnector.name} style={{ height: '1rem', width: '1rem' }} />
+                  }
+                />
+              }
               name='Bitcoin'
               onPressBridge={() => {
                 router.push(`${RoutesPath.BRIDGE}?type=deposit&network=bitcoin`);
@@ -81,7 +92,7 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
             />
             <ProfileTokenList
               currentChain={otherChain}
-              items={currentChain.id === L2_CHAIN ? l2Tokens : l1Tokens}
+              items={currentChain.id === L1_CHAIN ? l2Tokens : l1Tokens}
               otherChain={currentChain}
               onPressNavigate={onPressNavigate}
             />
