@@ -68,7 +68,7 @@ const LotteryModal = ({
         <ModalBody padding='2xl'>
           <Flex alignItems='center' direction='column' gap='5xl'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-              <Trans>new envelope drop in {timeToNextDraw}</Trans>
+              <Trans>new envelopes drop in {timeToNextDraw}</Trans>
             </Chip>
             <H3 align='center' size='2xl'>
               <Trans>
@@ -137,7 +137,7 @@ const LotteryModal = ({
     if (allTicketsUsed)
       return (
         <Trans>
-          You&apos;ve used all your envelopes for today, new envelope will be available once the timer resets! Remember
+          You&apos;ve used all your envelopes for today, new envelopes will be available once the timer resets! Remember
           to participate in Weekly Fusion Voting to be eligible for daily envelopes.
         </Trans>
       );
