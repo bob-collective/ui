@@ -230,15 +230,6 @@ const ethereumAssets: RawToken[] = [
   },
   {
     chainId: ChainId.ETHEREUM,
-    address: '0x8236a87084f8b84306f72007f36f2618a5634494',
-    name: 'LBTC',
-    symbol: 'LBTC',
-    decimals: 8,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
-    apiId: 'lombard-staked-btc'
-  },
-  {
-    chainId: ChainId.ETHEREUM,
     address: '0x853d955aCEf822Db058eb8505911ED77F175b99e',
     name: 'Frax',
     symbol: 'FRAX',
@@ -433,15 +424,6 @@ const bobAssets: RawToken[] = [
     decimals: 18,
     logoUrl: 'https://s2.coinmarketcap.com/static/img/exchanges/64x64/1407.png',
     apiId: 'sovryn'
-  },
-  {
-    chainId: ChainId.BOB,
-    address: '0x1010101010101010101010101010101010101010',
-    name: 'LBTC',
-    symbol: 'LBTC',
-    decimals: 8,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
-    apiId: 'lombard-staked-btc'
   },
   {
     chainId: ChainId.BOB,
