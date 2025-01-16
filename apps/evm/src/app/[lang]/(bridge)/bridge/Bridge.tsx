@@ -180,7 +180,6 @@ const Bridge = ({ searchParams }: Props) => {
           data={transactions}
           isInitialLoading={isTransactionsInitialLoading}
           txPendingUserAction={txPendingUserAction}
-          type='bridge'
           onProveSuccess={refetch.bridge}
           onRelaySuccess={refetch.bridge}
         />

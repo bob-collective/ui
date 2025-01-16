@@ -1,5 +1,6 @@
 import styled, { CSSProperties, css } from 'styled-components';
 
+import { Color } from '../../theme';
 import { Flex } from '../Flex';
 import { Rounded } from '../../theme';
 
@@ -17,6 +18,7 @@ type StyledListItemProps = {
   $isInteractable: boolean;
   $isFocusVisible: boolean;
   $rounded?: Rounded;
+  $backgroundColor?: Color;
 };
 
 const StyledListItem = styled.div<StyledListItemProps>`
@@ -26,6 +28,7 @@ const StyledListItem = styled.div<StyledListItemProps>`
   outline: ${({ $isFocusVisible }) => !$isFocusVisible && 'none'};
   opacity: ${({ $isDisabled }) => $isDisabled && 0.5};
   white-space: nowrap;
+  background-color: ${({ $backgroundColor, theme }) => $backgroundColor && theme.color($backgroundColor)};
 
   ${({ theme, $rounded, $isHovered }) => {
     return css`

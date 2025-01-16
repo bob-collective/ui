@@ -19,7 +19,7 @@ type BridgeFormValidationParams = {
   [BRIDGE_EVM_WALLET]: string | undefined | null;
 };
 
-const bridgeSchema = (form: 'bridge' | 'stake', params: BridgeFormValidationParams) => {
+const bridgeSchema = (form: 'bridge' | 'strategy', params: BridgeFormValidationParams) => {
   return yup.object().shape({
     [BRIDGE_AMOUNT]: yup
       .string()

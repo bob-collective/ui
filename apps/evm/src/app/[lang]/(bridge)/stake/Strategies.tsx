@@ -1,15 +1,15 @@
 'use client';
 
+import { Flex } from '@gobob/ui';
 import { useStore } from '@tanstack/react-store';
 import { watchAccount } from '@wagmi/core';
 import { useEffect, useRef } from 'react';
 import { useConfig } from 'wagmi';
-import { Flex } from '@gobob/ui';
 
 import { Layout, TransactionList } from '../components';
 import { GetGatewayTransactionsReturnType, useGetGatewayTransactions } from '../hooks';
 
-import { StakeTable } from './components';
+import { StrategiesTable } from './components';
 
 import { PageLangParam } from '@/i18n/withLigui';
 import { store } from '@/lib/store';
@@ -20,16 +20,12 @@ type Props = PageLangParam & {
 };
 
 const select = (data: GetGatewayTransactionsReturnType) =>
-  data.filter((item) => item.subType === GatewayTransactionType.STAKE);
+  data.filter((item) => item.subType === GatewayTransactionType.STRATEGY);
 
-function Stake({ searchParams }: Props) {
+function Strategies({ searchParams }: Props) {
   const config = useConfig();
 
-  const {
-    data: transactions,
-    isLoading: isLoadingTransactions,
-    refetch: refetchTransactions
-  } = useGetGatewayTransactions({
+  const { data: transactions, isLoading: isLoadingTransactions } = useGetGatewayTransactions({
     query: { select }
   });
 
@@ -43,7 +39,7 @@ function Stake({ searchParams }: Props) {
         if (account.address) {
           store.setState((state) => ({
             ...state,
-            stake: { ...state.stake, transactions: { ...state.stake.transactions, isInitialLoading: true } }
+            stake: { ...state.strategies, transactions: { ...state.strategies.transactions, isInitialLoading: true } }
           }));
         }
       }
@@ -64,12 +60,12 @@ function Stake({ searchParams }: Props) {
 
   return (
     <Layout>
-      <Flex direction='column' gap='xl' marginTop='xl'>
-        <StakeTable searchParams={searchParams} onStakeSuccess={refetchTransactions} />
-        <TransactionList data={transactions} isInitialLoading={isInitialLoading} type='stake' />
+      <Flex direction='column' gap='xl' marginTop='2xl'>
+        <StrategiesTable searchParams={searchParams} />
+        <TransactionList data={transactions} isInitialLoading={isInitialLoading} />
       </Flex>
     </Layout>
   );
 }
 
-export { Stake };
+export { Strategies };

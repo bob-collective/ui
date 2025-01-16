@@ -58,7 +58,7 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }): JSX.Element | null => {
                     <NavItem href={RoutesPath.APPS} onPress={handleClose}>
                       <Trans>Apps</Trans>
                     </NavItem>
-                    <NavItem href={RoutesPath.STAKE} onPress={handleClose}>
+                    <NavItem href={RoutesPath.STRATEGIES} onPress={handleClose}>
                       <Trans>Stake</Trans>
                     </NavItem>
                     <NavItem href={RoutesPath.FUSION} onPress={handleClose}>

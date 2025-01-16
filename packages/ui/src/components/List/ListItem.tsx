@@ -11,10 +11,11 @@ import { useMemo, useRef } from 'react';
 
 import { Rounded } from '../../theme';
 import { Flex, FlexProps } from '../Flex';
+import { Color } from '../../theme';
 
 import { StyledListItem } from './List.style';
 
-type Props = { rounded?: Rounded };
+type Props = { rounded?: Rounded; backgroundColor?: Color };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
@@ -31,7 +32,7 @@ const ListItem = <T extends object>({ item, state }: InternalProps<T>): JSX.Elem
   const { isHovered, hoverProps } = useHover({ isDisabled: !isInteractable });
   const { focusProps, isFocusVisible } = useFocusRing();
 
-  const { rounded, ...props } = useMemo(
+  const { rounded, backgroundColor, ...props } = useMemo(
     () => Object.assign({}, item.props, { title: undefined, textValue: undefined, 'aria-label': undefined }),
     [item.props]
   );
@@ -40,6 +41,7 @@ const ListItem = <T extends object>({ item, state }: InternalProps<T>): JSX.Elem
     <StyledListItem
       {...mergeProps(rowProps, hoverProps, focusProps)}
       ref={ref}
+      $backgroundColor={backgroundColor}
       $isDisabled={isDisabled}
       $isFocusVisible={isFocusVisible}
       $isHovered={isHovered}

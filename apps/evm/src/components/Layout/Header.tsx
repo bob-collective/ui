@@ -53,7 +53,7 @@ const Header = (): JSX.Element => {
           <NavItem href={RoutesPath.APPS} size='s'>
             <Trans>Apps</Trans>
           </NavItem>
-          <NavItem href={RoutesPath.STAKE} size='s'>
+          <NavItem href={RoutesPath.STRATEGIES} size='s'>
             <Trans>Stake</Trans>
           </NavItem>
           <NavItem href={RoutesPath.FUSION} size='s'>
