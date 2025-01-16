@@ -1,0 +1,23 @@
+node_modules/
+
+### Playwright
+
+test-results
+playwright-report
+playwright/.cache
+
+### Cypress
+**/downloads
+
+### Synpress
+
+.cache-synpress
+
+### Vercel
+
+.vercel
+
+### Cypress
+
+**/ethereum-wallet-mock/cypress
+**/metamask/cypress
