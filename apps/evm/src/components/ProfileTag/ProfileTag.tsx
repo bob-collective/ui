@@ -10,6 +10,8 @@ import { Chain } from 'viem';
 import { ChainAsset } from '../ChainAsset';
 import { CopyAddress } from '../CopyAddress';
 
+import { WalletIcon } from '@/connect-ui';
+
 const sizeMap = {
   s: {
     icon: '1.5rem',
@@ -27,8 +29,7 @@ const ProfileTag = ({
   size = 's',
   hideAddress,
   labelProps,
-  isCopyEnabled,
-  chain
+  isCopyEnabled
 }: {
   size?: 's' | 'md';
   hideAddress?: boolean;
@@ -36,8 +37,8 @@ const ProfileTag = ({
   isCopyEnabled?: boolean;
   chain: Chain;
 }) => {
-  const { address: evmAddress } = useAccount();
-  const { address: btcAddress } = useSatsAccount();
+  const { address: evmAddress, connector: evmConnector } = useAccount();
+  const { address: btcAddress, connector: btcConnector } = useSatsAccount();
 
   const address = evmAddress || btcAddress;
 
@@ -52,9 +53,13 @@ const ProfileTag = ({
       {address ? (
         <ChainAsset
           asset={<ProfileAvatar name={address} size={sizeMap[size].icon} />}
-          chainId={chain.id}
-          chainProps={{ size: sizeMap[size].chain }}
-          style={{ pointerEvents: 'none' }}
+          chainLogo={
+            evmConnector ? (
+              <WalletIcon name={evmConnector.name} size={sizeMap[size].chain} />
+            ) : btcConnector ? (
+              <WalletIcon name={btcConnector.name} size={sizeMap[size].chain} />
+            ) : undefined
+          }
         />
       ) : undefined}
       {hideAddress ? undefined : isCopyEnabled ? (

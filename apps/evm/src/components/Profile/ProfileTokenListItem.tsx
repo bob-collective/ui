@@ -2,7 +2,6 @@ import { Currency, ERC20Token } from '@gobob/currency';
 import { Blockscout, BOBLogo } from '@gobob/icons';
 import {
   ArrowDownOnSquare,
-  Avatar,
   Card,
   Flex,
   P,
@@ -22,7 +21,7 @@ import { useAccount } from 'wagmi';
 
 import { StyledTokenListItem } from './Profile.style';
 
-import { ChainAsset, ChainLogo } from '@/components';
+import { ChainLogo } from '@/components';
 import { chainL2 } from '@/constants';
 
 const ProfileTokensListItemSkeleton = () => (
@@ -52,12 +51,11 @@ const PopoverOptions = ({ children, onPress }: { children: ReactNode; onPress: (
 );
 
 type ProfileTokenListItemProps = {
-  chainId?: number;
   otherChainName?: string;
   otherChainId?: number;
   connectorName?: string;
   name: string;
-  logoUrl: string;
+  logo: ReactNode;
   balance?: string | number;
   amountUSD?: number;
   currency: Currency;
@@ -68,13 +66,12 @@ type ProfileTokenListItemProps = {
 };
 
 const ProfileTokenListItem = ({
-  chainId,
   otherChainId,
   otherChainName,
   connectorName,
   amountUSD,
   balance,
-  logoUrl,
+  logo,
   name,
   currency,
   onPressBridge,
@@ -102,15 +99,7 @@ const ProfileTokenListItem = ({
           paddingX='md'
           paddingY='s'
         >
-          {chainId ? (
-            <ChainAsset
-              asset={<Avatar alt={name} size='5xl' src={logoUrl} />}
-              chainId={chainId}
-              chainProps={{ size: 'xs' }}
-            />
-          ) : (
-            <Avatar alt={name} size='5xl' src={logoUrl} />
-          )}
+          {logo}
           <Flex direction='column' flex={1}>
             <P rows={1} style={{ whiteSpace: 'normal' }}>
               {name}
