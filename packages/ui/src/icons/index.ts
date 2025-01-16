@@ -40,6 +40,7 @@ export { PresentationChartBar } from './PresentationChartBar';
 export { PuzzlePiece } from './PuzzlePiece';
 export { QrCode } from './QrCode';
 export { QuestionMarkCircle } from './QuestionMarkCircle';
+export { SolidArrowDownCircle } from './SolidArrowDownCircle';
 export { SolidClock } from './SolidClock';
 export { SolidCreditCard } from './SolidCreditCard';
 export { SolidDocumentDuplicate } from './SolidDocumentDuplicate';
