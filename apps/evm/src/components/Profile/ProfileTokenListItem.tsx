@@ -1,8 +1,7 @@
 import { Currency, ERC20Token } from '@gobob/currency';
-import { Blockscout } from '@gobob/icons';
+import { Blockscout, BOBLogo } from '@gobob/icons';
 import {
   ArrowDownOnSquare,
-  ArrowRightLeft,
   Avatar,
   Card,
   Flex,
@@ -23,7 +22,18 @@ import { useAccount } from 'wagmi';
 
 import { StyledTokenListItem } from './Profile.style';
 
-import { ChainAsset } from '@/components';
+import { ChainAsset, ChainLogo } from '@/components';
+import { chainL2 } from '@/constants';
+
+const ProfileTokensListItemSkeleton = () => (
+  <Flex alignItems='center' elementType='li' gap='lg' paddingX='md' paddingY='s'>
+    <Skeleton height='5xl' rounded='full' width='5xl' />
+    <Flex alignItems='flex-start' direction='column'>
+      <Skeleton height='xl' width='12rem' />
+      <Skeleton height='xl' width='8rem' />
+    </Flex>
+  </Flex>
+);
 
 const PopoverOptions = ({ children, onPress }: { children: ReactNode; onPress: () => void }) => (
   <Card
@@ -43,6 +53,9 @@ const PopoverOptions = ({ children, onPress }: { children: ReactNode; onPress: (
 
 type ProfileTokenListItemProps = {
   chainId?: number;
+  otherChainName?: string;
+  otherChainId?: number;
+  connectorName?: string;
   name: string;
   logoUrl: string;
   balance?: string | number;
@@ -56,6 +69,9 @@ type ProfileTokenListItemProps = {
 
 const ProfileTokenListItem = ({
   chainId,
+  otherChainId,
+  otherChainName,
+  connectorName,
   amountUSD,
   balance,
   logoUrl,
@@ -81,6 +97,7 @@ const ProfileTokenListItem = ({
           $isFocused={isOpen}
           alignItems='center'
           direction='row'
+          elementType='li'
           gap='lg'
           paddingX='md'
           paddingY='s'
@@ -107,13 +124,21 @@ const ProfileTokenListItem = ({
                 )
               </P>
             ) : (
-              <Skeleton height='1rem' />
+              <Skeleton height='1rem' width='80%' />
             )}
           </Flex>
         </StyledTokenListItem>
       </PopoverTrigger>
       <PopoverContent>
         <PopoverBody gap='s' padding='md'>
+          {onPressStake && (
+            <PopoverOptions onPress={chainFn(onPressStake, () => handleClose())}>
+              <ArrowDownOnSquare />
+              <P>
+                <Trans>Stake</Trans>
+              </P>
+            </PopoverOptions>
+          )}
           {chain && currency?.isToken && (
             <PopoverOptions
               onPress={() => {
@@ -135,19 +160,17 @@ const ProfileTokenListItem = ({
               }}
             >
               <Wallet />
-              <P>Add to wallet</P>
+              <P>
+                <Trans>Add to {connectorName || 'wallet'}</Trans>
+              </P>
             </PopoverOptions>
           )}
           {onPressBridge && (
             <PopoverOptions onPress={chainFn(onPressBridge, () => handleClose())}>
-              <ArrowRightLeft />
-              <P>Bridge</P>
-            </PopoverOptions>
-          )}
-          {onPressStake && (
-            <PopoverOptions onPress={chainFn(onPressStake, () => handleClose())}>
-              <ArrowDownOnSquare />
-              <P>Stake</P>
+              {otherChainId ? <ChainLogo chainId={otherChainId} /> : <BOBLogo />}
+              <P>
+                {otherChainName ? <Trans>Bridge to {otherChainName}</Trans> : <Trans>Bridge to {chainL2.name}</Trans>}
+              </P>
             </PopoverOptions>
           )}
         </PopoverBody>
@@ -156,4 +179,4 @@ const ProfileTokenListItem = ({
   );
 };
 
-export { ProfileTokenListItem };
+export { ProfileTokenListItem, ProfileTokensListItemSkeleton };

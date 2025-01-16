@@ -47,7 +47,6 @@ export { SolidGift } from './SolidGift';
 export { SolidInformationCircle } from './SolidInformationCircle';
 export { SolidShieldCheck } from './SolidShieldCheck';
 export { StickyNote } from './StickyNote';
-export { ArrowPath } from './ArrowPath';
 export { Wallet } from './Wallet';
 export { Warning } from './Warning';
 export { XCircle } from './XCircle';

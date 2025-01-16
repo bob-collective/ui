@@ -122,6 +122,10 @@ msgstr "About Babylon Campaign"
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 
+#: src/components/Profile/ProfileTokenListItem.tsx:164
+msgid "Add to {0}"
+msgstr "Add to {0}"
+
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:279
 msgid "Additional Information"
 msgstr "Additional Information"
@@ -386,6 +390,14 @@ msgstr "Bridge Disabled"
 msgid "bridge network"
 msgstr "bridge network"
 
+#: src/components/Profile/ProfileTokenListItem.tsx:172
+msgid "Bridge to {0}"
+msgstr "Bridge to {0}"
+
+#: src/components/Profile/ProfileTokenListItem.tsx:172
+msgid "Bridge to {otherChainName}"
+msgstr "Bridge to {otherChainName}"
+
 #: src/components/WithdrawModal/WithdrawForm.tsx:192
 msgid "Bridge to BOB"
 msgstr "Bridge to BOB"
@@ -419,7 +431,7 @@ msgstr "BTC LST Lending<<<<<<< HEAD"
 #~ msgid "BTC Strategies"
 #~ msgstr "BTC Strategies"
 
-#: src/components/Profile/Profile.tsx:112
+#: src/components/Profile/Profile.tsx:113
 msgid "Buy"
 msgstr "Buy"
 
@@ -468,7 +480,7 @@ msgstr "Click the <0/> icon next to your favourite apps"
 msgid "Close"
 msgstr "Close"
 
-#: src/components/Profile/Profile.tsx:87
+#: src/components/Profile/Profile.tsx:88
 msgid "close drawer"
 msgstr "close drawer"
 
@@ -528,7 +540,7 @@ msgstr "Connect BTC Wallet"
 msgid "Connect BTC wallet to access fee rate settings."
 msgstr "Connect BTC wallet to access fee rate settings."
 
-#: src/components/Profile/ProfileEvmWallet.tsx:71
+#: src/components/Profile/ProfileEvmWallet.tsx:70
 msgid "Connect EVM Wallet"
 msgstr "Connect EVM Wallet"
 
@@ -536,7 +548,7 @@ msgstr "Connect EVM Wallet"
 msgid "Connect request is already pending"
 msgstr "Connect request is already pending"
 
-#: src/components/ConnectButton/ConnectButton.tsx:43
+#: src/components/ConnectButton/ConnectButton.tsx:44
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:171
 msgid "Connect Wallet"
@@ -649,7 +661,7 @@ msgstr "DEX Liquidity Provisioning"
 msgid "Diamond"
 msgstr "Diamond"
 
-#: src/components/Profile/Profile.tsx:78
+#: src/components/Profile/Profile.tsx:79
 msgid "disconnect wallet(s)"
 msgstr "disconnect wallet(s)"
 
@@ -884,7 +896,7 @@ msgstr "Go Back<<<<<<< HEAD"
 #~ msgid "Go to explorer"
 #~ msgstr "Go to explorer"
 
-#: src/components/Profile/ProfileTokenListItem.tsx:126
+#: src/components/Profile/ProfileTokenListItem.tsx:151
 msgid "Go to Explorer"
 msgstr "Go to Explorer"
 
@@ -1409,7 +1421,7 @@ msgstr "Preparing..."
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: src/components/ConnectButton/ConnectButton.tsx:64
+#: src/components/ConnectButton/ConnectButton.tsx:65
 msgid "Profile"
 msgstr "Profile"
 
@@ -1455,7 +1467,7 @@ msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting S
 msgstr "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
-#: src/components/Profile/Profile.tsx:126
+#: src/components/Profile/Profile.tsx:127
 msgid "Receive"
 msgstr "Receive"
 
@@ -1730,6 +1742,7 @@ msgstr "stake"
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:57
 #: src/components/Layout/Sidebar.tsx:62
+#: src/components/Profile/ProfileTokenListItem.tsx:138
 msgid "Stake"
 msgstr "Stake"
 
@@ -1916,7 +1929,7 @@ msgstr "Supply the newly minted satUSD into a <0>lending protocol on BOB</0>."
 msgid "Support your favourite BOB apps"
 msgstr "Support your favourite BOB apps"
 
-#: src/components/Profile/ProfileEvmWallet.tsx:39
+#: src/components/Profile/ProfileEvmWallet.tsx:38
 msgid "Switch to {0}"
 msgstr "Switch to {0}"
 
@@ -2097,6 +2110,10 @@ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP ex
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
+#: src/components/Profile/ProfileTokens.tsx:44
+msgid "Tokens"
+msgstr "Tokens"
+
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:38
 msgid "Top 100 spice user"
 msgstr "Top 100 spice user"
@@ -2175,6 +2192,10 @@ msgstr "Unfortunately, is not possible to bridge to BOB using smart accounts. We
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:74
 msgid "Unknown"
 msgstr "Unknown<<<<<<< HEAD"
+
+#: src/components/Profile/ProfileWallet.tsx:109
+msgid "Unlink wallet"
+msgstr "Unlink wallet"
 
 #: src/components/Profile/ProfileWallet.tsx:109
 msgid "Unlink wallet"

@@ -4,14 +4,14 @@ import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
 import { Button, Card, Flex, P, Power, QrCode, Skeleton, SolidCreditCard, Tooltip, XMark } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { useDisconnect } from 'wagmi';
 import { Chain } from 'viem';
+import { useDisconnect } from 'wagmi';
 
 import { ProfileTag } from '../ProfileTag';
 
 import { ProfileBtcWallet } from './ProfileBtcWallet';
 import { ProfileEvmWallet } from './ProfileEvmWallet';
-import { ProfileTokenList } from './ProfileTokenList';
+import { ProfileTokens } from './ProfileTokens';
 
 import { chakraPetch } from '@/app/fonts';
 import { useConnectModal, WalletType } from '@/connect-ui';
@@ -22,13 +22,14 @@ import { store } from '@/lib/store';
 type ProfileProps = {
   onClose: () => void;
   isMobile: boolean;
-  chain: Chain;
+  currentChain: Chain;
+  otherChain: Chain;
 };
 
-const Profile = ({ chain, onClose, isMobile }: ProfileProps): JSX.Element => {
+const Profile = ({ currentChain, otherChain, onClose, isMobile }: ProfileProps): JSX.Element => {
   const { i18n } = useLingui();
 
-  const { formatted, isPending: isBalancePending } = useTotalBalance(chain.id);
+  const { formatted, isPending: isBalancePending } = useTotalBalance(currentChain.id);
   const { disconnect: evmWalletDisconnect } = useDisconnect();
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
   const { open } = useConnectModal();
@@ -70,7 +71,7 @@ const Profile = ({ chain, onClose, isMobile }: ProfileProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} gap='xl'>
       <Flex alignItems='center' justifyContent='space-between'>
-        <ProfileTag isCopyEnabled chain={chain} labelProps={{ weight: 'semibold' }} size='md' />
+        <ProfileTag isCopyEnabled chain={currentChain} labelProps={{ weight: 'semibold' }} size='md' />
         <Flex gap='s'>
           <Tooltip label='Disconnect'>
             <Button
@@ -128,11 +129,11 @@ const Profile = ({ chain, onClose, isMobile }: ProfileProps): JSX.Element => {
         </Card>
       </Flex>
       <Flex direction='column' gap='md'>
-        <ProfileEvmWallet chainId={chain.id} onPressConnect={handleConnectEvmWallet} />
+        <ProfileEvmWallet currentChain={currentChain} otherChain={otherChain} onPressConnect={handleConnectEvmWallet} />
         <ProfileBtcWallet onPressConnect={handleConnectBtcWallet} onUnlink={handleUnlinkBtc} />
       </Flex>
       <Flex direction='column' gap='md'>
-        <ProfileTokenList chainId={chain.id} onPressNavigate={onClose} />
+        <ProfileTokens currentChain={currentChain} otherChain={otherChain} onPressNavigate={onClose} />
       </Flex>
     </Flex>
   );

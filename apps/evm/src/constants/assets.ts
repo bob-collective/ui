@@ -230,35 +230,6 @@ const ethereumAssets: RawToken[] = [
   },
   {
     chainId: ChainId.ETHEREUM,
-    address: '0x8236a87084f8b84306f72007f36f2618a5634494',
-    name: 'LBTC',
-    symbol: 'LBTC',
-    decimals: 8,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
-    apiId: 'lombard-staked-btc'
-  },
-  {
-    chainId: ChainId.ETHEREUM,
-    address: '0x7122985656e38BDC0302Db86685bb972b145bD3C',
-    name: 'StakeStone Ether',
-    symbol: 'STONE',
-    decimals: 18,
-    logoUrl: 'https://storage.googleapis.com/ks-setting-1d682dca/dee351e5-ff61-4a8f-994d-82f3078119661696785945490.png',
-    apiId: 'stakestone-ether'
-  },
-  {
-    chainId: ChainId.ETHEREUM,
-    address: '0xbdBb63F938c8961AF31eaD3deBa5C96e6A323DD1',
-    name: 'Sovryn Dollar',
-    symbol: 'DLLR',
-    decimals: 18,
-    logoUrl: 'https://assets.coingecko.com/coins/images/30947/standard/sovryn_dllr.jpg',
-    apiId: 'sovryn-dollar'
-  },
-  ...(usdc[ChainId.ETHEREUM] ? [usdc[ChainId.ETHEREUM]] : []),
-  wstETH[ChainId.ETHEREUM],
-  {
-    chainId: ChainId.ETHEREUM,
     address: '0x853d955aCEf822Db058eb8505911ED77F175b99e',
     name: 'Frax',
     symbol: 'FRAX',
@@ -454,35 +425,6 @@ const bobAssets: RawToken[] = [
     logoUrl: 'https://s2.coinmarketcap.com/static/img/exchanges/64x64/1407.png',
     apiId: 'sovryn'
   },
-  {
-    chainId: ChainId.BOB,
-    address: '0x1010101010101010101010101010101010101010',
-    name: 'LBTC',
-    symbol: 'LBTC',
-    decimals: 8,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
-    apiId: 'lombard-staked-btc'
-  },
-  {
-    chainId: ChainId.BOB,
-    address: '0x96147A9Ae9a42d7Da551fD2322ca15B71032F342',
-    name: 'StakeStone Ether',
-    symbol: 'STONE',
-    decimals: 18,
-    logoUrl: 'https://storage.googleapis.com/ks-setting-1d682dca/dee351e5-ff61-4a8f-994d-82f3078119661696785945490.png',
-    apiId: 'stakestone-ether'
-  },
-  {
-    chainId: ChainId.BOB,
-    address: '0xf3107eEC1e6F067552C035FD87199e1A5169CB20',
-    name: 'Sovryn Dollar',
-    symbol: 'DLLR',
-    decimals: 18,
-    logoUrl: 'https://assets.coingecko.com/coins/images/30947/standard/sovryn_dllr.jpg?1696529786',
-    apiId: 'sovryn-dollar'
-  },
-  wstETH[ChainId.BOB],
-  ...(usdc?.[ChainId.BOB] ? [usdc?.[ChainId.BOB]] : []),
   {
     chainId: ChainId.BOB,
     address: '0xc4a20a608616F18aA631316eEDa9Fb62d089361e',

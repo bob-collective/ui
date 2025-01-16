@@ -7,6 +7,7 @@ import { truncateEthAddress } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
 import { useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
+import { Chain } from 'viem';
 import { useAccount, useSwitchChain } from 'wagmi';
 
 import { ChainAsset } from '../ChainAsset';
@@ -14,20 +15,18 @@ import { ChainAsset } from '../ChainAsset';
 import { ProfileWallet, ProfileWalletProps } from './ProfileWallet';
 
 import { WalletIcon } from '@/connect-ui';
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { useBalances } from '@/hooks';
 
-type ProfileEvmWalletProps = Pick<ProfileWalletProps, 'onPressConnect' | 'onUnlink'> & {
-  chainId: number;
+type ProfileEvmWalletProps = Pick<ProfileWalletProps, 'onPressConnect'> & {
+  currentChain: Chain;
+  otherChain: Chain;
 };
 
-const ProfileEvmWallet = ({ chainId, onPressConnect }: ProfileEvmWalletProps): JSX.Element | null => {
-  const { getBalance } = useBalances(chainId);
+const ProfileEvmWallet = ({ currentChain, otherChain, onPressConnect }: ProfileEvmWalletProps): JSX.Element | null => {
+  const { getBalance } = useBalances(currentChain.id);
   const { address, connector } = useAccount();
 
   const { switchChain } = useSwitchChain();
-
-  const otherChain = chainId === L1_CHAIN ? L2_CHAIN : L1_CHAIN;
 
   const { hoverProps, isHovered } = useHover({ isDisabled: !address });
 
@@ -36,8 +35,8 @@ const ProfileEvmWallet = ({ chainId, onPressConnect }: ProfileEvmWalletProps): J
       address={address}
       avatar={
         address ? (
-          <Tooltip label={<Trans>Switch to {getCapitalizedChainName(otherChain)}</Trans>}>
-            <UnstyledButton {...mergeProps(hoverProps, { onPress: () => switchChain({ chainId: otherChain }) })}>
+          <Tooltip label={<Trans>Switch to {getCapitalizedChainName(otherChain.id)}</Trans>}>
+            <UnstyledButton {...mergeProps(hoverProps, { onPress: () => switchChain({ chainId: otherChain.id }) })}>
               <ChainAsset
                 asset={
                   <div style={{ position: 'relative' }}>
@@ -58,7 +57,7 @@ const ProfileEvmWallet = ({ chainId, onPressConnect }: ProfileEvmWalletProps): J
                     )}
                   </div>
                 }
-                chainId={isHovered ? otherChain : chainId}
+                chainId={isHovered ? otherChain.id : currentChain.id}
                 chainProps={{ size: 'xs' }}
               />
             </UnstyledButton>

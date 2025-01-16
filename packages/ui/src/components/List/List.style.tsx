@@ -1,6 +1,6 @@
 import styled, { CSSProperties, css } from 'styled-components';
 
-import { Color } from '../../theme';
+import { Color, Rounded } from '../../theme';
 import { Flex } from '../Flex';
 import { Rounded } from '../../theme';
 
@@ -19,6 +19,7 @@ type StyledListItemProps = {
   $isFocusVisible: boolean;
   $rounded?: Rounded;
   $backgroundColor?: Color;
+  $rounded?: Rounded;
 };
 
 const StyledListItem = styled.div<StyledListItemProps>`
