@@ -1,10 +1,11 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { getAppLogo } from '../utils';
 
-import { apiClient, Project, ProjectCategory, ProjectVotingInfo } from '@/utils';
-import { appsKeys } from '@/lib/react-query';
+import { INTERVAL } from '@/constants';
 import { useGetUser } from '@/hooks';
+import { appsKeys } from '@/lib/react-query';
+import { apiClient, Project, ProjectCategory, ProjectVotingInfo } from '@/utils';
 
 type VotingAppData = Project & {
   logoSrc: string;
@@ -42,4 +43,4 @@ const useGetVotingApps = () => {
 };
 
 export { useGetVotingApps };
-export type { VotingAppsData, VotingAppData };
+export type { VotingAppData, VotingAppsData };

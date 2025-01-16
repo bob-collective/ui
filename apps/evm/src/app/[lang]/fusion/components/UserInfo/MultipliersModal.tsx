@@ -20,10 +20,13 @@ import { useGetTokensInfo } from '../../hooks';
 
 import { TokenInfo } from '@/utils';
 
+const excludedAssets = ['0xd6890176e8d912142AC489e8B5D8D93F8dE74D60', '0x81392304A5bE58e1eb72053A47798b9285Eb948E'];
+
 const yieldAssetsAddresses = [
   '0x236f8c0a61da474db21b693fb2ea7aab0c803894',
   '0xcc0966d8418d412c599a6421b760a847eb169a8c',
-  '0x1fcca65fb6ae3b2758b9b2b394cb227eae404e1e'
+  '0x1fcca65fb6ae3b2758b9b2b394cb227eae404e1e',
+  '0xA45d4121b3D47719FF57a947A9d961539Ba33204'
 ];
 
 const featuredAssetsAddresses = ['0xc96de26018a54d51c097160568752c4e3bd6c364'];
@@ -129,10 +132,10 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
     ? sortedData
         ?.filter(
           (item) =>
-            !yieldAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
+            ![...yieldAssetsAddresses, ...featuredAssetsAddresses, ...excludedAssets].find((address) =>
+              isAddressEqual(item.l2_address as Address, address as Address)
+            )
         )
-        // TODO: remove when FBTC is added
-        .filter((item) => item.symbol !== 'FBTC')
         .filter((item) => Number(item.multiplier) > 0)
         .map(getRow)
     : Array(10)
@@ -151,6 +154,7 @@ const MultipliersModal = (props: MultipliersModalProps): JSX.Element => {
         ?.filter((item) =>
           yieldAssetsAddresses.find((address) => isAddressEqual(item.l2_address as Address, address as Address))
         )
+        .reverse()
         .map(getRow)
     : Array(2)
         .fill(undefined)

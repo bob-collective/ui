@@ -3,11 +3,13 @@ import { Currency, CurrencyAmount } from '@gobob/currency';
 import { ArrowLongRight, Flex, FlexProps, P, UnstyledButton } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
+import { useParams } from 'next/navigation';
 
 import { StyledDetailsButton, StyledExpandIcon } from './TransactionList.style';
 
 import { Chain } from '@/components';
 import { TransactionDirection } from '@/types';
+import { getLocale } from '@/utils';
 
 type Props = {
   direction: TransactionDirection;
@@ -35,6 +37,7 @@ const TransactionDetails = ({
   onExpand,
   ...props
 }: TransactionDetailsProps): JSX.Element => {
+  const { lang } = useParams();
   const directionLabel = direction === TransactionDirection.L1_TO_L2 ? <Trans>Deposit</Trans> : <Trans>Withdraw</Trans>;
 
   const isExpandable = !!onExpand;
@@ -46,7 +49,7 @@ const TransactionDetails = ({
           {directionLabel}
         </P>
         <P color='grey-50' size='xs' weight='semibold'>
-          <Trans>{formatDistanceToNow(date)} ago</Trans>
+          <Trans>{formatDistanceToNow(date, { locale: getLocale(lang as Parameters<typeof getLocale>[0]) })} ago</Trans>
         </P>
       </Flex>
       <StyledDetailsButton elementType={onExpand ? UnstyledButton : undefined} {...{ onPress: onExpand }}>

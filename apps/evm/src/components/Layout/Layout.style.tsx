@@ -1,6 +1,5 @@
 import { MaxWidth, ResponsiveProp, Spacing, Span } from '@gobob/ui';
 import { Drawer, Flex } from '@gobob/ui';
-import Image from 'next/image';
 import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
@@ -38,6 +37,7 @@ const StyledMain = styled.main<StyledMainProps>`
   padding: ${({ theme, $padding }) => theme.spacing($padding)};
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 
   ${({ $maxWidth, theme }) =>
     typeof $maxWidth === 'object'
@@ -50,24 +50,6 @@ const StyledMain = styled.main<StyledMainProps>`
         `
       : $maxWidth && `max-width:${theme.maxWidth($maxWidth)};`}
   min-height: calc(100vh - 4.75rem);
-`;
-
-// TODO: to be removed
-const StyledBackground = styled(Image)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: calc(100vh - 0px);
-  user-select: none;
-  pointer-events: none;
-  width: 100%;
-  max-height: 70rem;
-  object-fit: cover;
-`;
-
-// TODO: to be removed
-const StyledContent = styled.div`
-  position: relative;
 `;
 
 const StyledNativeNavLink = styled(Link)`
@@ -97,8 +79,6 @@ export {
   StyledNativeNavLink,
   StyledNavLink,
   StyledAnchor,
-  StyledBackground,
-  StyledContent,
   StyledLogoWrapper,
   StyledLayout,
   StyledMain

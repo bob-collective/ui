@@ -13,9 +13,9 @@ type ExternalBridgeFormProps = {
 const defaultBridges: ExternalBridges[] = [
   'meson',
   'orbiter-finance',
+  'free',
   'owlto-finance',
   'gas',
-  'free',
   'fbtc',
   'relay',
   'superbridge'

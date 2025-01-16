@@ -1,18 +1,28 @@
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { useAccount, useIsContract } from '@gobob/wagmi';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { Mock, vi } from 'vitest';
+import { useAccount } from 'wagmi';
 
 import { useGatewayForm } from '../useGatewayForm';
 
+import { useIsContract } from '@/hooks';
 import { BRIDGE_AMOUNT, BRIDGE_ASSET, BRIDGE_RECIPIENT } from '@/lib/form/bridge';
+import { GatewayTransactionType } from '@/types';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {
     ...actual,
-    useAccount: vi.fn(),
+    useAccount: vi.fn()
+  };
+});
+
+vi.mock(import('@/hooks'), async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
     useIsContract: vi.fn()
   };
 });
@@ -29,7 +39,7 @@ vi.mock(import('@gobob/sats-wagmi'), async (importOriginal) => {
 describe('useGatewayForm', () => {
   const mockQuery = {
     minAmount: { toExact: () => '0.01' },
-    balance: { toExact: () => '1.0' },
+    balance: { data: { toExact: () => '1.0' } },
     fee: {
       estimate: { data: {} },
       rates: { data: {} }
@@ -45,6 +55,7 @@ describe('useGatewayForm', () => {
   it('should initialize with correct default values', () => {
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -59,6 +70,7 @@ describe('useGatewayForm', () => {
   it('should validate BRIDGE_AMOUNT field when min and max amounts are defined', async () => {
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -77,6 +89,7 @@ describe('useGatewayForm', () => {
   it('should disable the form when required fields are not filled', () => {
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -97,6 +110,7 @@ describe('useGatewayForm', () => {
 
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -111,6 +125,7 @@ describe('useGatewayForm', () => {
 
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit: vi.fn()
@@ -124,6 +139,7 @@ describe('useGatewayForm', () => {
     const onSubmit = vi.fn();
     const { result } = renderHook(() =>
       useGatewayForm({
+        type: GatewayTransactionType.BRIDGE,
         query: mockQuery,
         defaultAsset: 'BTC',
         onSubmit

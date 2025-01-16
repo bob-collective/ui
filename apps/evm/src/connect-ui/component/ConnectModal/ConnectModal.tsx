@@ -1,28 +1,30 @@
 'use client';
 
 import {
+  SatsConnector,
+  useAccount as useSatsAccount,
+  useConnect as useSatsConnect,
+  useDisconnect as useSatsDisconnect
+} from '@gobob/sats-wagmi';
+import {
+  ArrowLeft,
   Button,
   Flex,
+  Link,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalProps,
   P,
-  toast,
-  ArrowLeft,
-  Link
+  toast
 } from '@gobob/ui';
-import { Address, Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from '@gobob/wagmi';
-import {
-  useAccount as useSatsAccount,
-  useDisconnect as useSatsDisconnect,
-  useConnect as useSatsConnect,
-  SatsConnector
-} from '@gobob/sats-wagmi';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from 'wagmi';
+import { Address } from 'viem';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 import { ConnectType, WalletType } from '../../types';
 
@@ -119,9 +121,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         setPendingConnector(connector);
 
         try {
-          await connectAsync({
+          const connectData = await connectAsync({
             connector
           });
+
+          sendGTMEvent({ event: 'evm_connect', address: connectData.accounts, wallet: connector.name });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);
@@ -159,9 +163,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         setPendingSatsConnector(satsConnector);
 
         try {
-          await satsConnectAsync({
+          const btcAddress = await satsConnectAsync({
             connector: satsConnector
           });
+
+          sendGTMEvent({ event: 'btc_connect', address: btcAddress.address, wallet: btcWalletConnector?.name });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingSatsConnector(undefined);
@@ -177,7 +183,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 
         return handleClose();
       },
-      [satsConnectors, handleClose, satsConnectAsync]
+      [satsConnectors, handleClose, satsConnectAsync, btcWalletConnector?.name]
     );
 
     const modalHeader =
@@ -259,7 +265,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
                 <Trans>and that you have read and understood our </Trans>
                 <Link
                   external
-                  href='https://uploads-ssl.webflow.com/6620e8932695794632789d89/66aa4eac1074934d060d127c_20240731%20-%20BOB%20Foundation%20-%20Privacy%20Policy.pdf'
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/675872861db67a29ec01d237_BOB%20Foundation%20-%20Privacy%20Policy.pdf'
                   size='inherit'
                 >
                   <Trans>Privacy policy</Trans>
@@ -333,4 +339,4 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 ConnectModal.displayName = 'ConnectModal';
 
 export { ConnectModal };
-export type { ConnectModalProps, ConnectEvmHandler, ConnectBtcHandler };
+export type { ConnectBtcHandler, ConnectEvmHandler, ConnectModalProps };

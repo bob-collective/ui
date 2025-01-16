@@ -1,11 +1,14 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
 import { ERC20Token, Token } from '@gobob/currency';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
+
+import { useStrategiesContractData } from './useStrategiesContractData';
 
 import { useGetStrategies } from '@/hooks';
 
 type StrategyData = {
+  tvl?: number | null;
   raw: GatewayStrategyContract;
   currency?: ERC20Token;
 };
@@ -28,9 +31,28 @@ const useGetStakingStrategies = () => {
     []
   );
 
-  return useGetStrategies({
+  const { data: strategies, isSuccess: isStrategiesSucess } = useGetStrategies({
     select: selectStrategyData
   });
+
+  const { data: strategiesContractData } = useStrategiesContractData(strategies, { enabled: isStrategiesSucess });
+
+  const strategiesData = useMemo(
+    () =>
+      strategies?.map((strategy) => {
+        const tvl = strategiesContractData?.[strategy.raw.id]?.tvl;
+        const userStaked = strategiesContractData?.[strategy.raw.id]?.userStaked;
+
+        return {
+          ...strategy,
+          tvl,
+          userStaked
+        };
+      }),
+    [strategies, strategiesContractData]
+  );
+
+  return { data: strategiesData };
 };
 
 export { useGetStakingStrategies };

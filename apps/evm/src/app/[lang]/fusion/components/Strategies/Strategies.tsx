@@ -197,7 +197,7 @@ const Strategies = ({}: StrategiesProps) => {
 
   return (
     <Flex direction='column' gap='3xl' style={{ width: '100%' }}>
-      <H2 size='3xl'>
+      <H2 align='center' size='3xl'>
         <Trans>Hot Strategies</Trans>
       </H2>
       <StyledWrapper>

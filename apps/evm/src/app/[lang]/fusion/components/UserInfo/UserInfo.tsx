@@ -1,8 +1,8 @@
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import {
   Bars3,
   Button,
   Card,
+  Chip,
   Dd,
   Divider,
   Dl,
@@ -10,20 +10,26 @@ import {
   Dt,
   Flex,
   H3,
-  InformationCircle,
   Link,
   P,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Skeleton,
   SolidInformationCircle,
   Span,
   Tooltip,
+  UnstyledButton,
   useLocale
 } from '@gobob/ui';
-import { useCopyToClipboard, useSessionStorage } from 'usehooks-ts';
-import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import { Babylon } from '@gobob/icons';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -42,12 +48,13 @@ import {
 import { UserInfoCard } from './UserInfoCard';
 import { UserReferralModal } from './UserReferralModal';
 
-import { LoginSection, SignUpButton, SpiceAmount } from '@/components';
-import { isClient, RoutesPath } from '@/constants';
-import { fusionKeys } from '@/lib/react-query';
-import { apiClient, QuestS3Response, UserResponse } from '@/utils';
-import { SessionStorageKey } from '@/types';
 import { AppData } from '@/app/[lang]/apps/hooks';
+import { BabyPoints, LoginSection, SignUpButton, SpiceAmount } from '@/components';
+import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
+import { FeatureFlags, useFeatureFlag } from '@/hooks';
+import { fusionKeys } from '@/lib/react-query';
+import { SessionStorageKey } from '@/types';
+import { apiClient, QuestS3Response, UserResponse } from '@/utils';
 
 type UserInfoProps = {
   user?: UserResponse;
@@ -59,10 +66,11 @@ type UserInfoProps = {
 const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const { locale } = useLocale();
 
-  const router = useRouter();
-  const params = useParams();
   const { i18n } = useLingui();
   const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
+    initializeWithValue: isClient
+  });
+  const [, setShowTopUserModal] = useLocalStorage(LocalStorageKey.SHOW_TOP_USER_MODAL, true, {
     initializeWithValue: isClient
   });
   const [, copy] = useCopyToClipboard();
@@ -75,9 +83,9 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
     refetchOnMount: false
   });
 
-  const { data: leaderboard } = useQuery({
-    queryKey: fusionKeys.leaderboardOverview(),
-    queryFn: async () => apiClient.getLeaderboard(0, 0),
+  const { data: totalHarvesters } = useQuery({
+    queryKey: fusionKeys.totalHarvesters(),
+    queryFn: async () => apiClient.getTotalHarvesters(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR
@@ -104,9 +112,27 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       ? Number(tvlLevel.tvlGoal)
       : currentTvl + currentTvl * 0.2;
 
+  const isTop100SpiceUsersEnabled = useFeatureFlag(FeatureFlags.TOP_100_SPICE_USERS);
+  const isOPSuperusersEnabled = useFeatureFlag(FeatureFlags.OP_SUPERUSER);
+
+  const isOpSuperuser = isOPSuperusersEnabled && user?.notices.isOpUser;
+  const showFusionTopUser = isTop100SpiceUsersEnabled && user?.notices.showIsFusionTopUser;
+
   return (
     <StyledUserInfoWrapper direction='column' gap='lg' marginTop='4xl'>
-      <Flex direction='row' justifyContent='flex-end'>
+      {showFusionTopUser && (
+        <P color='grey-50'>
+          <Trans>We would love to hear your thoughts on the BOB ecosystem and Bitcoin DeFi.</Trans>
+        </P>
+      )}
+      <Flex alignItems='center' direction='row' justifyContent='flex-end'>
+        {showFusionTopUser && (
+          <Flex flex='1'>
+            <Button color='primary' size='s' variant='outline' onPress={() => setShowTopUserModal(true)}>
+              <Trans>Book a call with the founders</Trans>
+            </Button>
+          </Flex>
+        )}
         <Card padding='md'>
           <Dl direction='row' gap='xxs' justifyContent='space-between'>
             <DlGroup>
@@ -114,7 +140,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                 <Trans>Fusion Users:</Trans>
               </Dd>
               <Dt color='light' size='s' weight='semibold'>
-                {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+                {totalHarvesters?.count ? Intl.NumberFormat(locale).format(Number(totalHarvesters.count)) : '-'}
               </Dt>
             </DlGroup>
           </Dl>
@@ -122,26 +148,103 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
       </Flex>
       <StyledDl aria-hidden={!isAuthenticated && 'true'} gap='lg'>
         <StyledMainInfo direction={{ base: 'column', s: 'row' }} flex={1}>
-          <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
+          <Flex direction='column' flex={{ base: 1 }} gap='lg' justifyContent='space-between'>
             <DlGroup alignItems='flex-start' direction='column'>
-              <Dt>
-                <Trans>Season 3 Harvested Spice</Trans>
-              </Dt>
-              <Flex alignItems='flex-start' direction={{ base: 'column' }} elementType='dd'>
+              <Flex alignItems='center' elementType='dt' gap='s'>
+                <Span color='grey-50' size='s'>
+                  <Trans>Season 3 Harvested</Trans>
+                </Span>
+                <Span color='grey-50' size='s'>
+                  <Trans>+</Trans>
+                </Span>
+                <Popover>
+                  <PopoverTrigger>
+                    <UnstyledButton>
+                      <Chip
+                        background='dark'
+                        endAdornment={<SolidInformationCircle size='xs' />}
+                        size='s'
+                        startAdornment={<Babylon style={{ width: '1.5em', height: '1.5em' }} />}
+                      >
+                        <Trans>Babylon Campaign</Trans>
+                      </Chip>
+                    </UnstyledButton>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverHeader>
+                      <Trans>About Babylon Campaign</Trans>
+                    </PopoverHeader>
+                    <PopoverBody gap='md' padding='even'>
+                      <P size='s'>
+                        <Trans>
+                          BOB will distribute 100,000 Babylon Points per day to eligible users for 45 days. The points
+                          are allocated pro rata based on the percentage of the eligible daily Spice you have harvested.
+                          The more Spice you harvest the more Babylon points you will receive.
+                        </Trans>
+                      </P>
+                      <P size='s'>
+                        <Trans>
+                          To be eligible, you must be registered for Fusion and hold or have held a Babylon LST in your
+                          wallet. You must also not reside in one of the jurisdictions which are excluded in Babylon’s{' '}
+                          <Link external href='https://babylonlabs.io/terms-of-use' size='inherit' underlined='always'>
+                            terms of use
+                          </Link>
+                          , e.g. the USA. For full details see the{' '}
+                          <Link
+                            external
+                            href='https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2'
+                            size='inherit'
+                            underlined='always'
+                          >
+                            BOB blog
+                          </Link>
+                          .
+                        </Trans>
+                      </P>
+                      <P size='s'>
+                        <Trans>
+                          The Babylon Points total displayed here only includes points earned during the BOB campaign.
+                          The figure does not include points collected by other means.
+                        </Trans>
+                      </P>
+                      <P size='s'>
+                        <Trans>The campaign will run until 1st February.</Trans>
+                      </P>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
+              </Flex>
+              <Flex wrap alignItems='center' elementType='dd' gap='s'>
                 <SpiceAmount showAnimation amount={totalPoints} gap='md' size='4xl' />
-                <Flex alignItems='center' gap='xs'>
-                  <Flex alignItems='center' color='grey-50' elementType={Span} {...{ size: 's' }}>
-                    (+{<SpiceAmount hideIcon amount={spicePerDay || 0} color='grey-50' size='inherit' />}/
-                    <Trans>Last 24 hours</Trans>)
+                <Flex alignItems='center' gap='s'>
+                  <Span size='2xl' style={{ lineHeight: 1.3 }}>
+                    +
+                  </Span>
+                  <BabyPoints showAnimation amount={user?.baby.total || 0} size='2xl' />
+                </Flex>
+              </Flex>
+            </DlGroup>
+            <DlGroup alignItems='flex-start' direction='column'>
+              <Flex alignItems='center' elementType='dt' gap='s'>
+                <Span color='grey-50' size='s'>
+                  <Trans>Last 24 hours</Trans>
+                </Span>
+                <Tooltip
+                  color='primary'
+                  label={t(
+                    i18n
+                  )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours.`}
+                >
+                  <SolidInformationCircle color='grey-50' size='xs' />
+                </Tooltip>
+              </Flex>
+              <Flex alignItems='center' elementType='dd' gap='xs'>
+                <Flex wrap alignItems='center' elementType='span' gap='s'>
+                  <SpiceAmount showAnimation amount={spicePerDay || 0} />
+                  <Flex gap='s'>
+                    <Span style={{ lineHeight: 1.2 }}>+</Span>
+                    <BabyPoints showAnimation amount={user?.baby.daily || 0} />
                   </Flex>
-                  <Tooltip
-                    color='primary'
-                    label={t(
-                      i18n
-                    )`This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes.`}
-                  >
-                    <InformationCircle color='grey-50' size='xs' />
-                  </Tooltip>
                 </Flex>
               </Flex>
             </DlGroup>
@@ -154,13 +257,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               </Dd>
             </DlGroup>
           </Flex>
-          <Flex
-            alignItems='center'
-            flex={1}
-            gap='md'
-            justifyContent={{ base: 'center', s: 'flex-end' }}
-            marginTop='2xl'
-          >
+          <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'center' }} marginTop='2xl'>
             <Button variant='outline' onPress={() => setMultipliersModalOpen(true)}>
               <Trans>View Multipliers</Trans>
             </Button>
@@ -206,24 +303,22 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
           title={t(i18n)`Quests Completed`}
           tooltipLabel={t(i18n)`The number of Intract and Galxe quests that you have completed`}
         >
-          <Button
-            fullWidth
-            disabled={!isAuthenticated}
-            variant='outline'
-            onPress={() => {
-              setScrollQuests(true);
-              router.push(`/${params.lang}${RoutesPath.FUSION}`);
-            }}
-          >
+          <Button fullWidth disabled={!isAuthenticated} variant='outline' onPress={() => setScrollQuests(true)}>
             <Trans>View Quests</Trans>
           </Button>
         </UserInfoCard>
         <UserInfoCard
           description={user?.referral_code}
           title={t(i18n)`Your Referral Code`}
-          tooltipLabel={t(
-            i18n
-          )`Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer`}
+          tooltipLabel={
+            isOpSuperuser
+              ? t(
+                  i18n
+                )`Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign.`
+              : t(
+                  i18n
+                )`Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer`
+          }
         >
           <Flex gap='md' marginTop='xl'>
             {hasReferrals && (
@@ -248,7 +343,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
             />
           )}
         </UserInfoCard>
-        <StyledMeterCard gap='s' justifyContent='space-between'>
+        <StyledMeterCard gap='s' justifyContent='space-between' style={{ position: 'relative' }}>
           <Flex direction='column' gap='md'>
             {isLoadingTvlLevel ? (
               <Flex direction='column'>
@@ -304,7 +399,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                     <Trans>Fusion Users:</Trans>
                   </Dd>
                   <Dt color='light' weight='semibold'>
-                    {leaderboard?.total ? Intl.NumberFormat(locale).format(Number(leaderboard.total)) : '-'}
+                    {totalHarvesters?.count ? Intl.NumberFormat(locale).format(Number(totalHarvesters.count)) : '-'}
                   </Dt>
                 </DlGroup>
                 <DlGroup justifyContent='space-between'>

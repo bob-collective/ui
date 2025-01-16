@@ -1,14 +1,14 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { Mock, vi } from 'vitest';
-import { useAccount } from '@gobob/wagmi';
+import { useAccount } from 'wagmi';
 
 import { useGetGatewayTransactions } from '../useGetGatewayTransactions';
 
-import { wrapper } from '@/test-utils';
 import { gatewaySDK } from '@/lib/bob-sdk';
+import { wrapper } from '@/test-utils';
 import { esploraClient } from '@/utils';
 
-vi.mock(import('@gobob/wagmi'), async (importOriginal) => {
+vi.mock(import('wagmi'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {

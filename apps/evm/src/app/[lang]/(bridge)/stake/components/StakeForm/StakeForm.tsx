@@ -1,15 +1,17 @@
 'use client';
 
-import { Flex } from '@gobob/ui';
 import { useState } from 'react';
+import { sendGAEvent } from '@next/third-parties/google';
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { GatewayTransactionModal } from '../../../components';
 import { StrategyData } from '../../hooks';
-import { Unstake } from '../Unstake';
+import { StakingInfo } from '../../../utils/stakeData';
 
+import { StyledFlex } from './StakeForm.style';
 import { BtcStakeForm } from './BtcStakeForm';
 
-import { InitGatewayTransaction, TransactionDirection } from '@/types';
+import { InitGatewayTransaction } from '@/types';
 
 type GatewayTransactionModalState = {
   isOpen: boolean;
@@ -17,12 +19,13 @@ type GatewayTransactionModalState = {
 };
 
 type BridgeFormProps = {
-  direction: TransactionDirection;
-  strategies: StrategyData[] | undefined;
+  strategy: StrategyData;
+  stakingInfo: StakingInfo;
   onStakeSuccess?: () => void;
 };
 
-const StakingForm = ({ direction, strategies = [], onStakeSuccess }: BridgeFormProps): JSX.Element => {
+const StakingForm = ({ strategy, stakingInfo, onStakeSuccess }: BridgeFormProps): JSX.Element => {
+  const { connector } = useSatsAccount();
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false
   });
@@ -34,6 +37,12 @@ const StakingForm = ({ direction, strategies = [], onStakeSuccess }: BridgeFormP
   const handleGatewaySuccess = (data: InitGatewayTransaction) => {
     onStakeSuccess?.();
     setGatewayModalState({ isOpen: true, data });
+    sendGAEvent('event', 'btc_stake', {
+      asset: data.assetName,
+      amount: data.amount?.toExact(),
+      tx_id: data.txId,
+      wallet: connector?.name
+    });
   };
 
   const handleCloseGatewayModal = () => {
@@ -42,18 +51,15 @@ const StakingForm = ({ direction, strategies = [], onStakeSuccess }: BridgeFormP
 
   return (
     <>
-      <Flex direction='column' marginTop='2xl'>
-        {direction === TransactionDirection.L1_TO_L2 ? (
-          <BtcStakeForm
-            strategies={strategies}
-            onError={handleCloseGatewayModal}
-            onStart={handleStartGateway}
-            onSuccess={handleGatewaySuccess}
-          />
-        ) : (
-          <Unstake />
-        )}
-      </Flex>
+      <StyledFlex direction='column' flex={1}>
+        <BtcStakeForm
+          stakingInfo={stakingInfo}
+          strategy={strategy}
+          onError={handleCloseGatewayModal}
+          onStart={handleStartGateway}
+          onSuccess={handleGatewaySuccess}
+        />
+      </StyledFlex>
       {gatewayModalState.data && (
         <GatewayTransactionModal
           data={gatewayModalState.data}

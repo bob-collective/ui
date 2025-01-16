@@ -1,8 +1,10 @@
 import { CardProps, Divider, Flex, H2, Link, P, Spinner } from '@gobob/ui';
-import { useAccount } from '@gobob/wagmi';
-import { Trans } from '@lingui/macro';
-import { Fragment, useMemo } from 'react';
+import { Trans, t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+import { useMemo, useRef } from 'react';
 import { useIsClient } from 'usehooks-ts';
+import { useAccount } from 'wagmi';
+import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { TransactionItem } from './TransactionItem';
 import {
@@ -10,13 +12,17 @@ import {
   StyledSpan,
   StyledSpinnerWrapper,
   StyledTransactionList,
-  StyledTransactionListWrapper
+  StyledTransactionListParent,
+  StyledTransactionListWrapper,
+  StyledVirtualizer,
+  StyledVirtualizerItem
 } from './TransactionList.style';
 
 import { chainL2 } from '@/constants';
 import { Transaction } from '@/types';
 
 type Props = {
+  type: 'bridge' | 'stake';
   isInitialLoading?: boolean;
   data?: Transaction[];
   onProveSuccess?: () => void;
@@ -29,6 +35,7 @@ type InheritAttrs = Omit<CardProps, keyof Props>;
 type TransactionListProps = Props & InheritAttrs;
 
 const TransactionList = ({
+  type,
   isInitialLoading,
   data,
   onProveSuccess,
@@ -36,8 +43,24 @@ const TransactionList = ({
   txPendingUserAction,
   ...props
 }: TransactionListProps): JSX.Element => {
-  const { address, chain } = useAccount();
+  const { i18n } = useLingui();
   const isClient = useIsClient();
+  // The scrollable element for your list
+  const parentRef = useRef(null);
+
+  // The virtualizer
+  const rowVirtualizer = useVirtualizer({
+    count: data?.length || 0,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 102,
+    paddingStart: 16,
+    paddingEnd: 16,
+    gap: 16,
+    measureElement: (element) => element?.getBoundingClientRect().height,
+    overscan: 5
+  });
+
+  const { address, chain } = useAccount();
 
   const title = (
     <Flex alignItems='center' elementType='span' gap='s'>
@@ -57,6 +80,7 @@ const TransactionList = ({
 
   const txsUrl = address ? `${explorerUrl}/address/${address}` : `${explorerUrl}`;
   const hasData = !!data?.length;
+  const txType = type === 'bridge' ? t(i18n)`bridging` : t(i18n)`staking`;
 
   return (
     <StyledSection gap='xl' paddingX='4xl' paddingY='3xl' {...props}>
@@ -68,32 +92,40 @@ const TransactionList = ({
           flex={1}
           gap='xl'
           justifyContent={isInitialLoading || !hasData ? 'center' : undefined}
-          paddingY='xl'
         >
           {!isClient || isInitialLoading ? (
             <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
               <Spinner size='16' thickness={2} />
               <P align='center' size='xs'>
-                <Trans>Fetching bridging operations...</Trans>
+                <Trans>Fetching {txType} operations...</Trans>
               </P>
             </Flex>
           ) : (
             <>
               {hasData ? (
-                data.map((transaction, idx) => (
-                  <Fragment key={idx}>
-                    <TransactionItem
-                      data={transaction}
-                      onProveSuccess={onProveSuccess}
-                      onRelaySuccess={onRelaySuccess}
-                    />
-                    {idx < data.length - 1 && <Divider />}
-                  </Fragment>
-                ))
+                <StyledTransactionListParent ref={parentRef}>
+                  <StyledVirtualizer $height={rowVirtualizer.getTotalSize()}>
+                    {rowVirtualizer.getVirtualItems().map((virtualItem) => (
+                      <StyledVirtualizerItem
+                        key={virtualItem.key}
+                        ref={(node) => rowVirtualizer.measureElement(node)} //measure dynamic row height
+                        $translateY={virtualItem.start}
+                        data-index={virtualItem.index} //needed for dynamic row height measurement
+                      >
+                        <TransactionItem
+                          data={data[virtualItem.index]!}
+                          onProveSuccess={onProveSuccess}
+                          onRelaySuccess={onRelaySuccess}
+                        />
+                        {virtualItem.index < data.length - 1 && <Divider style={{ marginTop: '1rem' }} />}
+                      </StyledVirtualizerItem>
+                    ))}
+                  </StyledVirtualizer>
+                </StyledTransactionListParent>
               ) : (
                 <Flex alignItems='center' gap='md' justifyContent='center' style={{ height: '100%' }}>
                   <P align='center' size='xs'>
-                    <Trans>No bridging operations found</Trans>
+                    <Trans>No {txType} operations found</Trans>
                   </P>
                 </Flex>
               )}

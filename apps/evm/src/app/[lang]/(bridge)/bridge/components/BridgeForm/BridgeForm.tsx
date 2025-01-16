@@ -2,12 +2,14 @@
 
 import { ChainId } from '@gobob/chains';
 import { Token } from '@gobob/currency';
-import { INTERVAL, useQuery } from '@gobob/react-query';
 import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
-import { useChainId } from '@gobob/wagmi';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { useQuery } from '@tanstack/react-query';
 import { Key, useCallback, useMemo, useState } from 'react';
+import { useChainId } from 'wagmi';
+import { sendGAEvent } from '@next/third-parties/google';
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -19,7 +21,7 @@ import { BobBridgeForm } from './BobBridgeForm';
 import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { INTERVAL, L1_CHAIN, L2_CHAIN } from '@/constants';
 import { TokenData } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
@@ -40,9 +42,11 @@ type GatewayTransactionModalState = {
 type BridgeFormProps = {
   chain: ChainId | 'BTC';
   direction: TransactionDirection;
-  ticker?: string;
+  symbol?: string;
   bridgeOrigin?: BridgeOrigin;
-  onChangeNetwork?: (network: Key) => void;
+  isBobBridgeDisabled?: boolean;
+  isExternalBridgeDisabled?: boolean;
+  onChangeSymbol: (symbol: string) => void;
   onChangeOrigin?: (origin: BridgeOrigin) => void;
   onChangeChain?: (chain: ChainId | 'BTC') => void;
 };
@@ -65,13 +69,16 @@ const allNetworks = [
 const BridgeForm = ({
   direction = TransactionDirection.L1_TO_L2,
   bridgeOrigin,
-  ticker,
+  isBobBridgeDisabled,
+  isExternalBridgeDisabled,
   chain,
-  onChangeNetwork,
+  symbol,
+  onChangeSymbol,
   onChangeOrigin,
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
+  const { connector } = useSatsAccount();
 
   const { refetch: refetchTransactions, addPlaceholderTransaction } = useGetTransactions();
 
@@ -136,39 +143,44 @@ const BridgeForm = ({
     refetchTransactions.gateway();
 
     setGatewayModalState({ isOpen: true, data });
+
+    sendGAEvent('event', 'btc_bridge', {
+      asset: data.assetName,
+      amount: data.amount?.toExact(),
+      tx_id: data.txId,
+      wallet: connector?.name
+    });
   };
 
   const handleCloseGatewayModal = () => {
     setGatewayModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleChangeNetwork = useCallback(
+  const handleChangeChain = useCallback(
     (network: Key) => {
       const parsedNetwork = network === 'BTC' ? network : (Number(network) as ChainId);
 
       onChangeChain?.(parsedNetwork);
-
-      onChangeNetwork?.(parsedNetwork);
     },
-    [onChangeNetwork, onChangeChain]
+    [onChangeChain]
   );
 
   const availableNetworks = useMemo(() => {
-    const isBtcNetworkAvailable = direction === TransactionDirection.L1_TO_L2 && !!btcTokens?.length;
+    const isBtcNetworkAvailable = direction === TransactionDirection.L1_TO_L2;
 
     if (!isBtcNetworkAvailable) {
       return allNetworks.filter((network) => network !== 'BTC');
     }
 
     return allNetworks;
-  }, [btcTokens?.length, direction]);
+  }, [direction]);
 
   const fromChainSelectProps =
     direction === TransactionDirection.L1_TO_L2
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
-          onSelectionChange: handleChangeNetwork,
+          onSelectionChange: handleChangeChain,
           ['aria-label']: t(i18n)`select network to bridge from`
         }
       : undefined;
@@ -178,16 +190,10 @@ const BridgeForm = ({
       ? {
           value: chain.toString(),
           items: availableNetworks.map((chainId) => ({ id: chainId })),
-          onSelectionChange: handleChangeNetwork,
+          onSelectionChange: handleChangeChain,
           ['aria-label']: t(i18n)`select network to bridge to`
         }
       : undefined;
-
-  const isBobBridgeDisabled =
-    (direction === TransactionDirection.L1_TO_L2 && chain !== L1_CHAIN && chain !== 'BTC') ||
-    (direction === TransactionDirection.L2_TO_L1 && chain !== L1_CHAIN);
-
-  const isExternalBridgeDisabled = chain === 'BTC';
 
   return (
     <>
@@ -221,16 +227,18 @@ const BridgeForm = ({
         {direction === TransactionDirection.L2_TO_L1 && bridgeOrigin === BridgeOrigin.Internal && (
           <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
             <Trans>
-              Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party
-              bridge.
+              Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party
+              bridge for supported tokens (ETH, WBTC, USDT, USDC).
             </Trans>
           </Alert>
         )}
         {bridgeOrigin === BridgeOrigin.Internal ? (
-          chain === 'BTC' && btcTokens?.length ? (
+          chain === 'BTC' ? (
             <BtcBridgeForm
-              key={btcTokens.length}
+              key={btcTokens?.length}
               availableTokens={btcTokens}
+              symbol={symbol}
+              onChangeSymbol={onChangeSymbol}
               onError={handleCloseGatewayModal}
               onStart={handleStartGateway}
               onSuccess={handleGatewaySuccess}
@@ -238,8 +246,9 @@ const BridgeForm = ({
           ) : (
             <BobBridgeForm
               direction={direction}
-              ticker={ticker}
+              symbol={symbol}
               onBridgeSuccess={handleBridgeSuccess}
+              onChangeSymbol={onChangeSymbol}
               onFailBridge={handleCloseBridgeModal}
               onStartApproval={handleStartApproval}
               onStartBridge={handleStartBridge}

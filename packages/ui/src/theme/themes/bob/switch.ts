@@ -12,7 +12,7 @@ const getSizeStyles = (width: string, height: string, percentage: string): Switc
     width: `calc(${height} * ${percentage})`,
     height: `calc(${height} * ${percentage})`,
     transform: `translateX(calc(${width} / 15))`,
-    top: `calc(50% - (${height} * 0.35))`,
+    top: `calc(50% - (${height} * 0.375))`,
     left: 0
   },
   checked: {
@@ -35,7 +35,7 @@ const _switch: SwitchTheme = {
   },
   focusVisible: `2px solid ${color('primary-500')}`,
   size: {
-    s: getSizeStyles(spacing('4xl'), spacing('2xl'), '0.7'),
+    s: getSizeStyles(spacing('4xl'), spacing('2xl'), '0.75'),
     md: getSizeStyles(spacing('5xl'), spacing('3xl'), '0.75'),
     lg: getSizeStyles(spacing('7xl'), spacing('4xl'), '0.75')
   }

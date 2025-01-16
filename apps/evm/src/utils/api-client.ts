@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Address } from 'viem';
 import { SiweMessage } from 'siwe';
+import { Address } from 'viem';
+
+import { FetchError } from '@/types/fetch';
 
 export enum QuestRefCodes {
   GALXE = 'itxc9y',
   INTRACT = '6y2pac'
+}
+
+interface PostResponse {
+  ok: boolean;
 }
 
 type Logos = { default?: string };
@@ -111,6 +117,7 @@ export type UserResponse = {
   data: any;
   created_at: Date;
   updated_at: Date;
+  is_fusion_top_user: boolean;
   leaderboardRank?: {
     user_address: string;
     total_points: number;
@@ -128,6 +135,15 @@ export type UserResponse = {
   quests_breakdown: Record<string, number>;
   total_quest_points: string;
   season3Data: Season3Data;
+  notices: {
+    showIsFusionTopUser: boolean;
+    showIsOpUser: boolean; // will be set to false once dismissed
+    isOpUser: boolean; // stable
+  };
+  baby: {
+    total: number;
+    daily: number;
+  };
 };
 
 type LeaderboardResponse = {
@@ -367,6 +383,10 @@ export interface TokenInfo {
   incentives: string[];
 }
 
+interface TotalHarvesters {
+  count: number;
+}
+
 export interface QuestS3Response {
   questBreakdown: QuestBreakdown[];
 }
@@ -412,6 +432,16 @@ class ApiClient {
     this.baseUrl = baseUrl;
   }
 
+  private async handleResponse<T>(response: Response): Promise<T> {
+    if (!response.ok) {
+      const responseText = await response.text();
+
+      throw new FetchError(`Error ${response.status}: ${response.statusText}`, response.status, responseText);
+    }
+
+    return response.json();
+  }
+
   async getNonce() {
     const response = await fetch(`${this.baseUrl}/nonce`, {
       credentials: 'include',
@@ -421,7 +451,9 @@ class ApiClient {
       }
     });
 
-    return (await response.json()).nonce;
+    const data = await this.handleResponse<{ nonce: string }>(response);
+
+    return data.nonce;
   }
 
   async verify(message: SiweMessage, signature: Address) {
@@ -431,7 +463,7 @@ class ApiClient {
       body: JSON.stringify({ message, signature })
     });
 
-    return response.json();
+    return this.handleResponse(response);
   }
 
   async signUp(message: SiweMessage, signature: Address) {
@@ -444,7 +476,7 @@ class ApiClient {
       body: JSON.stringify({ message, signature })
     });
 
-    return response.json();
+    return this.handleResponse(response);
   }
 
   async getMe(): Promise<UserResponse> {
@@ -455,7 +487,9 @@ class ApiClient {
       }
     });
 
-    return (await response.json()).data || null;
+    const res = await this.handleResponse<UserResponse>(response);
+
+    return res.data || null;
   }
 
   async getPartners(): Promise<PartnersResponse> {
@@ -465,7 +499,7 @@ class ApiClient {
       }
     });
 
-    return response.json();
+    return this.handleResponse<PartnersResponse>(response);
   }
 
   async getOnboarding() {
@@ -473,7 +507,7 @@ class ApiClient {
       credentials: 'include'
     });
 
-    return response.json();
+    return this.handleResponse(response);
   }
 
   async logout() {
@@ -501,19 +535,19 @@ class ApiClient {
   async getLeaderboard(limit: number, offset: number): Promise<LeaderboardResponse> {
     const response = await fetch(`${this.baseUrl}/leaderboard?limit=${limit}&offset=${offset}`);
 
-    return response.json();
+    return this.handleResponse<LeaderboardResponse>(response);
   }
 
   async getQuestLeaderboard(limit: number, offset: number): Promise<LeaderboardResponse> {
     const response = await fetch(`${this.baseUrl}/quest-leaderboard?limit=${limit}&offset=${offset}`);
 
-    return response.json();
+    return this.handleResponse<LeaderboardResponse>(response);
   }
 
   async getTvlStats(): Promise<TVLStats> {
     const response = await fetch(`${this.baseUrl}/tvlStats`);
 
-    return response.json();
+    return this.handleResponse<TVLStats>(response);
   }
 
   async isFusionUser(address: string): Promise<boolean> {
@@ -527,13 +561,13 @@ class ApiClient {
   async getVotes(): Promise<ProjectVotingInfo> {
     const response = await fetch(`${this.baseUrl}/votes`);
 
-    return response.json();
+    return this.handleResponse<ProjectVotingInfo>(response);
   }
 
   async getSeason3Partners(): Promise<PartnersS3Response> {
     const response = await fetch(`${this.baseUrl}/partners-s3`);
 
-    return response.json();
+    return this.handleResponse<PartnersS3Response>(response);
   }
 
   async vote(refCode: string): Promise<ProjectVotingInfo> {
@@ -545,7 +579,7 @@ class ApiClient {
       }
     });
 
-    return response.json();
+    return this.handleResponse<ProjectVotingInfo>(response);
   }
 
   async retractVote(refCode: string): Promise<ProjectVotingInfo> {
@@ -557,51 +591,75 @@ class ApiClient {
       }
     });
 
-    return response.json();
+    return this.handleResponse<ProjectVotingInfo>(response);
+  }
+
+  async dismissTopUserModal(): Promise<PostResponse> {
+    const response = await fetch(`${this.baseUrl}/me/dismiss-fusion-top-user-notice`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    return this.handleResponse<PostResponse>(response);
+  }
+
+  async dismissOPUserModal(): Promise<PostResponse> {
+    const response = await fetch(`${this.baseUrl}/me/dismiss-op-user-notice`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    return this.handleResponse<PostResponse>(response);
   }
 
   async getLastVotingResults(): Promise<ResultProjectVotingInfo> {
     const response = await fetch(`${this.baseUrl}/finalized-voting-round/latest/results`);
 
-    return response.json();
+    return this.handleResponse<ResultProjectVotingInfo>(response);
   }
 
   async getLeaderboardSeason3(limit: number, offset: number): Promise<LeaderboardS3Response> {
     const response = await fetch(`${this.baseUrl}/leaderboards-s3?limit=${limit}&offset=${offset}`);
 
-    return response.json();
+    return this.handleResponse<LeaderboardS3Response>(response);
   }
 
   async getQuestsS3(): Promise<QuestS3Response> {
     const response = await fetch(`${this.baseUrl}/get-quests-s3`);
 
-    return response.json();
+    return this.handleResponse<QuestS3Response>(response);
+  }
+
+  async getTotalHarvesters(): Promise<TotalHarvesters> {
+    const response = await fetch(`${this.baseUrl}/get-spice-harvesters-count`);
+
+    return this.handleResponse<TotalHarvesters>(response);
   }
 
   async getTokenInfo(): Promise<TokenInfo[]> {
     const response = await fetch(`${this.baseUrl}/get-token-info`);
 
-    return response.json();
+    return this.handleResponse<TokenInfo[]>(response);
   }
 
-  async getLevelData(): Promise<{
-    currentTvl: string;
-    tvlGoal: string;
-    multiplier: string;
-    levelNumber: string;
-    levelName: string;
-    levelDescription: string;
-    levelHelperText: string;
-  }> {
+  async getLevelData() {
     const response = await fetch(`${this.baseUrl}/get-leveldata`);
 
-    return response.json();
+    return this.handleResponse<{
+      currentTvl: string;
+      tvlGoal: string;
+      multiplier: string;
+      levelNumber: string;
+      levelName: string;
+      levelDescription: string;
+      levelHelperText: string;
+    }>(response);
   }
 
   async getLotteryStats(): Promise<LotteryStats> {
     const response = await fetch(`${this.baseUrl}/lottery/stats`);
 
-    return response.json();
+    return this.handleResponse<LotteryStats>(response);
   }
 
   async lotteryRoll(): Promise<LotteryRoll> {
@@ -609,7 +667,7 @@ class ApiClient {
       method: 'POST'
     });
 
-    return response.json();
+    return this.handleResponse<LotteryRoll>(response);
   }
 }
 

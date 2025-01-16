@@ -104,6 +104,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
               listRef={tabsListRef}
               size={size}
               state={state}
+              tooltipProps={item.props.tooltipProps}
               {...(item.key === state.selectedKey ? hoverProps : undefined)}
             />
           ))}

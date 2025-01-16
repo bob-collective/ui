@@ -1,22 +1,8 @@
 import { Card, Flex, P, UnstyledButton } from '@gobob/ui';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
   position: relative;
-
-  background-image: url(/assets/apps-leaderboard-hero.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  ${({ theme }) => {
-    return css`
-      background-position: 55% 50%;
-
-      @media ${theme.breakpoints.up('md')} {
-        background-position: 50% 70%;
-      }
-    `;
-  }}
 `;
 
 const StyledOpacityOverlay = styled.div`

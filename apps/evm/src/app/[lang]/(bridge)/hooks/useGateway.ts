@@ -3,15 +3,6 @@
 import { GatewayQuoteParams } from '@gobob/bob-sdk';
 import { Bitcoin, CurrencyAmount, ERC20Token } from '@gobob/currency';
 import {
-  INTERVAL,
-  Optional,
-  useMutation,
-  UseMutationResult,
-  useQuery,
-  useQueryClient,
-  UseQueryResult
-} from '@gobob/react-query';
-import {
   BtcAddressType,
   FeeRateReturnType,
   useAccount as useSatsAccount,
@@ -21,14 +12,23 @@ import {
 } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { toast } from '@gobob/ui';
-import { Address, useAccount } from '@gobob/wagmi';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import * as Sentry from '@sentry/nextjs';
+import {
+  Optional,
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+  UseQueryResult
+} from '@tanstack/react-query';
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
-import { isAddress } from 'viem';
+import { Address, isAddress } from 'viem';
+import { useAccount } from 'wagmi';
 
+import { INTERVAL } from '@/constants';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import {
@@ -40,7 +40,7 @@ import {
   TransactionType
 } from '@/types';
 
-const DUST_THRESHOLD = 1000;
+const DUST_THRESHOLD = 100_000;
 
 const GAS_REFILL = 2000;
 
@@ -108,7 +108,7 @@ type UseGatewayQueryDataReturnType = {
   liquidity: UseQueryResult<UseLiquidityDataReturnType | undefined>;
   quote: UseQueryResult<UseQuoteDataReturnType | undefined>;
   minAmount: CurrencyAmount<Bitcoin>;
-  balance: CurrencyAmount<Bitcoin>;
+  balance: { data: CurrencyAmount<Bitcoin>; isPending: boolean };
 };
 
 type StakeParams = {
@@ -123,6 +123,7 @@ type BridgeParams = {
 
 type UseGatewayLiquidityProps = {
   params: BridgeParams | StakeParams;
+  isDisabled?: boolean;
   onMutate?: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
   onSuccess?: (data: InitGatewayTransaction) => void;
   onError?: () => void;
@@ -157,14 +158,20 @@ type UseGatewayReturnType = {
   isTapRootAddress: boolean;
 };
 
-const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidityProps): UseGatewayReturnType => {
+const useGateway = ({
+  params,
+  isDisabled: isDisabledProp,
+  onError,
+  onMutate,
+  onSuccess
+}: UseGatewayLiquidityProps): UseGatewayReturnType => {
   const { i18n } = useLingui();
   const queryClient = useQueryClient();
 
   const { address: evmAddress } = useAccount();
 
   const { address: btcAddress, connector: satsConnector, addressType: btcAddressType } = useSatsAccount();
-  const { data: satsBalance } = useSatsBalance();
+  const { data: satsBalance, isPending: isSatsBalancePending } = useSatsBalance();
 
   const [isTopUpEnabled, setTopUpEnabled] = useState(true);
   const [selectedFee, setSelectedFee] = useState<GatewayTransactionFee>({ speed: GatewayTransactionSpeed.SLOW });
@@ -176,9 +183,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
   const liquidityQueryEnabled = Boolean(
-    params.toChain && params.toToken && params.type === GatewayTransactionType.STAKE
-      ? params.strategyAddress
-      : true && !isTapRootAddress
+    params.toChain && params.toToken && params.type === GatewayTransactionType.STAKE ? params.strategyAddress : true
   );
 
   const liquidityQueryKey = bridgeKeys.btcQuote(
@@ -222,11 +227,13 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const feeRate =
     selectedFee.speed === 'custom' ? selectedFee.networkRate : feeRatesQueryResult.data?.[selectedFee.speed];
 
+  const feeEstimateQueryEnabled = Boolean(satsBalance && satsBalance.total > 0n && evmAddress);
+
   const feeEstimateQueryResult = useSatsFeeEstimate({
     opReturnData: evmAddress,
     feeRate: feeRate,
     query: {
-      enabled: Boolean(satsBalance && satsBalance.total > 0n && evmAddress),
+      enabled: feeEstimateQueryEnabled,
       select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount)
     }
   });
@@ -255,12 +262,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   }, [rawAmount, minAmount, balance]);
 
   const quoteEnabled = Boolean(
-    !isTapRootAddress &&
-      btcAddress &&
-      evmAddress &&
-      liquidityQueryResult.data?.hasLiquidity &&
-      rawAmount &&
-      isValidAmount()
+    btcAddress && evmAddress && liquidityQueryResult.data?.hasLiquidity && rawAmount && isValidAmount()
   );
 
   const quoteQueryKey = bridgeKeys.btcQuote(
@@ -316,6 +318,10 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
   const mutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
     mutationFn: async ({ evmAddress }: { evmAddress: Address | string }): Promise<InitGatewayTransaction> => {
+      if (isDisabledProp) {
+        throw new Error('Operation disabled');
+      }
+
       if (!satsConnector) {
         throw new Error('Connector missing');
       }
@@ -393,7 +399,7 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
 
   const isReady = !hasError && !isPreparing;
 
-  const isDisabled = isTapRootAddress || !liquidityQueryResult.data?.hasLiquidity || hasError;
+  const isDisabled = !liquidityQueryResult.data?.hasLiquidity || hasError;
 
   return {
     amount: rawAmount,
@@ -409,7 +415,13 @@ const useGateway = ({ params, onError, onMutate, onSuccess }: UseGatewayLiquidit
       liquidity: liquidityQueryResult,
       quote: quoteQueryResult,
       minAmount,
-      balance
+      balance: {
+        data: balance,
+        isPending:
+          isSatsBalancePending ||
+          liquidityQueryResult.isPending ||
+          (feeEstimateQueryEnabled ? feeEstimateQueryResult.isPending : false)
+      }
     },
     type: params.type,
     mutation,

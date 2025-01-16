@@ -3,20 +3,20 @@ import yup, { MaxAmountValidationParams, MinAmountValidationParams } from './yup
 const BRIDGE_AMOUNT = 'bridge-amount';
 const BRIDGE_ASSET = 'bridge-asset';
 const BRIDGE_RECIPIENT = 'bridge-recipient';
-const BRIDGE_GAS_TOKEN = 'bridge-gas-token';
 const BRIDGE_BTC_WALLET = 'bridge-btc-wallet';
+const BRIDGE_EVM_WALLET = 'bridge-evm-wallet';
 
 type BridgeFormValues = {
   [BRIDGE_AMOUNT]?: string;
   [BRIDGE_ASSET]?: string;
   [BRIDGE_RECIPIENT]?: string;
-  [BRIDGE_GAS_TOKEN]?: string;
 };
 
 type BridgeFormValidationParams = {
   [BRIDGE_AMOUNT]: MaxAmountValidationParams & MinAmountValidationParams;
   [BRIDGE_RECIPIENT]: boolean;
   [BRIDGE_BTC_WALLET]: string | undefined | null;
+  [BRIDGE_EVM_WALLET]: string | undefined | null;
 };
 
 const bridgeSchema = (form: 'bridge' | 'stake', params: BridgeFormValidationParams) => {
@@ -24,10 +24,11 @@ const bridgeSchema = (form: 'bridge' | 'stake', params: BridgeFormValidationPara
     [BRIDGE_AMOUNT]: yup
       .string()
       .requiredAmount(form)
+      .evmWalletConnected(params[BRIDGE_EVM_WALLET])
+      .btcWalletConnected(params[BRIDGE_BTC_WALLET])
       .maxAmount(params[BRIDGE_AMOUNT], form)
       .minAmount(params[BRIDGE_AMOUNT], form),
     [BRIDGE_ASSET]: yup.string().required(),
-    [BRIDGE_GAS_TOKEN]: yup.string(),
     [BRIDGE_RECIPIENT]: params[BRIDGE_RECIPIENT]
       ? yup.string().required('Recipient is a required field').evmAddress()
       : yup.string()
@@ -66,10 +67,10 @@ const bridgeGatewayFeeRateSchema = (params: BridgeGatewayFeeRateFormValidationPa
 
 export {
   BRIDGE_AMOUNT,
-  BRIDGE_GAS_TOKEN,
   BRIDGE_ASSET,
   BRIDGE_RECIPIENT,
   BRIDGE_BTC_WALLET,
+  BRIDGE_EVM_WALLET,
   BRIDGE_GATEWAY_FEE_RATE_PROVIDER,
   BRIDGE_GATEWAY_FEE_RATE_AMOUNT,
   bridgeSchema,

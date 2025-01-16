@@ -27,7 +27,6 @@ import { Nav } from './Nav';
 import { NavItem } from './NavItem';
 
 import { ConnectWallet } from '@/connect-ui';
-import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { DocsLinks, RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
 
@@ -45,7 +44,6 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
   const theme = useTheme();
   const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
   const { isMobile: isMobileUserAgent } = useUserAgent();
-  const isWalletEnabled = useFeatureFlag(FeatureFlags.WALLET);
 
   const isMobile = isMobileViewport || isMobileUserAgent;
 
@@ -71,11 +69,6 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
           <NavItem href={RoutesPath.APPS} size='s'>
             <Trans>Apps</Trans>
           </NavItem>
-          {isWalletEnabled && (
-            <NavItem href={RoutesPath.WALLET} size='s'>
-              <Trans>Wallet</Trans>
-            </NavItem>
-          )}
           <NavItem href={RoutesPath.STAKE} size='s'>
             <Trans>Stake</Trans>
           </NavItem>
@@ -113,6 +106,13 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
                 </NavItem>
                 <NavItem isExternal href='https://safe.gobob.xyz/welcome' size='s'>
                   <Trans>Multisig</Trans>
+                </NavItem>
+                <NavItem
+                  isExternal
+                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/675872861db67a29ec01d237_BOB%20Foundation%20-%20Privacy%20Policy.pdf'
+                  size='s'
+                >
+                  <Trans>Privacy policy</Trans>
                 </NavItem>
               </Nav>
             </PopoverBody>

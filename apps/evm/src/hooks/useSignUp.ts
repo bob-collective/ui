@@ -1,27 +1,28 @@
-import { useMutation, UseMutationOptions } from '@gobob/react-query';
 import { toast } from '@gobob/ui';
-import { useAccount, useSignMessage } from '@gobob/wagmi';
-import { chain as chainFn } from '@react-aria/utils';
+import { t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+import { useMutation } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
-
-import { signUpKeys } from '../lib/react-query';
-import { apiClient } from '../utils';
+import { Address } from 'viem';
+import { useAccount, useSignMessage } from 'wagmi';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { useGetUser } from './useGetUser';
 
-const useSignUp = ({
-  onSuccess,
-  onError
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}: Pick<UseMutationOptions<void, any, any, unknown>, 'onSuccess' | 'onError'> = {}) => {
+import { fusionKeys } from '@/lib/react-query';
+import { apiClient } from '@/utils';
+
+const useSignUp = () => {
   const { signMessageAsync } = useSignMessage();
-  const { address, chain } = useAccount();
+  const { chain } = useAccount();
 
   const { refetch: refetchUser } = useGetUser();
 
+  const { i18n } = useLingui();
+
   return useMutation({
-    mutationKey: signUpKeys.signUp(),
-    mutationFn: async () => {
+    mutationKey: fusionKeys.signUp(),
+    mutationFn: async ({ address }: { address: Address; referralCode?: string }) => {
       const nonce = await apiClient.getNonce();
 
       const message = new SiweMessage({
@@ -38,19 +39,20 @@ const useSignUp = ({
         message: message.prepareMessage()
       });
 
-      const res = await apiClient.signUp(message, signature);
-
-      if (!res.ok) throw new Error(res?.message || 'Error verifying message');
+      await apiClient.signUp(message, signature);
     },
-    onSuccess: chainFn(onSuccess, refetchUser),
+    onSuccess: (_, { address, referralCode }) => {
+      sendGAEvent('event', 'signup', { address: JSON.stringify(address), referral_code: referralCode });
+      setTimeout(() => refetchUser(), 100);
+    },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: chainFn(onError, (e: any) => {
+    onError: (e: any) => {
       if (e.code === 4001) {
-        toast.error('User rejected the request');
+        toast.error(t(i18n)`User rejected the request`);
       } else {
-        toast.error(e?.message || 'Something went wrong. Please try again later.');
+        toast.error(e.message || t(i18n)`Something went wrong. Please try again later.`);
       }
-    })
+    }
   });
 };
 

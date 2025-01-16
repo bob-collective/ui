@@ -1,8 +1,8 @@
 import { ChainId } from '@gobob/chains';
-import { usePrices } from '@gobob/react-query';
-import { useMemo } from 'react';
+import { usePrices } from '@gobob/hooks';
 import { useCurrencyFormatter, useLocale } from '@gobob/ui';
 import Big from 'big.js';
+import { useMemo } from 'react';
 
 import { useBalances } from './useBalances';
 

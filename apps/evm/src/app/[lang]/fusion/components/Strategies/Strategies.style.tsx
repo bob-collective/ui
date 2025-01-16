@@ -15,10 +15,6 @@ const StyledBannerWrapper = styled(Flex)`
 const StyledBanner = styled(Flex)`
   position: absolute;
   inset: 0;
-  background-image: url(/assets/spice-shape-background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 50%;
 `;
 
 const StyledCard = styled(Card)<StyledCardProps>`

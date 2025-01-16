@@ -4,7 +4,7 @@ import { useLingui } from '@lingui/react';
 import fusionSeasonThree from '@public/assets/fusion-season-three.png';
 
 import { Banner } from './Banner';
-import { StyledBannerContent, StyledFusionImg } from './BannerCarousel.style';
+import { StyledBannerContent, StyledImg } from './BannerCarousel.style';
 import { BannerTitle } from './BannerTitle';
 
 type FusionBannerProps = {
@@ -26,12 +26,12 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => {
           <Trans>Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now.</Trans>
         </P>
       </StyledBannerContent>
-      <StyledFusionImg
+      <StyledImg
         alt={t(i18n)`Fusion season three`}
-        height='144'
+        height='134'
         placeholder='blur'
         src={fusionSeasonThree}
-        width='336'
+        width='313'
       />
     </Banner>
   );
