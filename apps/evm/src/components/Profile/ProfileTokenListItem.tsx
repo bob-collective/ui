@@ -1,3 +1,5 @@
+import { Currency, ERC20Token } from '@gobob/currency';
+import { Blockscout } from '@gobob/icons';
 import {
   ArrowDownOnSquare,
   ArrowRightLeft,
@@ -13,10 +15,11 @@ import {
   useLocale,
   Wallet
 } from '@gobob/ui';
-import { Blockscout } from '@gobob/icons';
-import { ReactNode } from 'react';
-import { useAccount, useWatchAsset } from 'wagmi';
-import { Currency } from '@gobob/currency';
+import { Trans } from '@lingui/macro';
+import { chain as chainFn } from '@react-aria/utils';
+import { ReactNode, useState } from 'react';
+import { Address } from 'viem';
+import { useAccount } from 'wagmi';
 
 import { StyledTokenListItem } from './Profile.style';
 
@@ -47,6 +50,8 @@ type ProfileTokenListItemProps = {
   currency: Currency;
   onPressBridge?: () => void;
   onPressStake?: () => void;
+  onPressExplorer?: (address: Address) => void;
+  onPressAddErc20?: (currency: ERC20Token) => void;
 };
 
 const ProfileTokenListItem = ({
@@ -57,16 +62,29 @@ const ProfileTokenListItem = ({
   name,
   currency,
   onPressBridge,
-  onPressStake
+  onPressStake,
+  onPressExplorer,
+  onPressAddErc20
 }: ProfileTokenListItemProps) => {
   const { locale } = useLocale();
   const { chain } = useAccount();
-  const { watchAsset } = useWatchAsset();
+  const [isOpen, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <Popover>
+    <Popover isOpen={isOpen} onOpenChange={(open) => setOpen(open)}>
       <PopoverTrigger>
-        <StyledTokenListItem alignItems='center' direction='row' gap='lg' paddingX='md' paddingY='s'>
+        <StyledTokenListItem
+          $isFocused={isOpen}
+          alignItems='center'
+          direction='row'
+          gap='lg'
+          paddingX='md'
+          paddingY='s'
+        >
           {chainId ? (
             <ChainAsset
               asset={<Avatar alt={name} size='5xl' src={logoUrl} />}
@@ -98,35 +116,36 @@ const ProfileTokenListItem = ({
         <PopoverBody gap='s' padding='md'>
           {chain && currency?.isToken && (
             <PopoverOptions
-              onPress={() =>
-                window.open(`${chain?.blockExplorers?.default.url}/address/${currency.address}`, '_blank', 'noreferrer')
-              }
+              onPress={() => {
+                onPressExplorer?.(currency.address);
+                handleClose();
+              }}
             >
               <Blockscout />
-              <P>Go to Explorer</P>
+              <P>
+                <Trans>Go to Explorer</Trans>
+              </P>
             </PopoverOptions>
           )}
           {currency?.isToken && (
             <PopoverOptions
-              onPress={() =>
-                watchAsset({
-                  type: 'ERC20',
-                  options: { address: currency.address, decimals: currency.decimals, symbol: currency.symbol }
-                })
-              }
+              onPress={() => {
+                onPressAddErc20?.(currency);
+                handleClose();
+              }}
             >
               <Wallet />
               <P>Add to wallet</P>
             </PopoverOptions>
           )}
           {onPressBridge && (
-            <PopoverOptions onPress={onPressBridge}>
+            <PopoverOptions onPress={chainFn(onPressBridge, () => handleClose())}>
               <ArrowRightLeft />
               <P>Bridge</P>
             </PopoverOptions>
           )}
           {onPressStake && (
-            <PopoverOptions onPress={onPressStake}>
+            <PopoverOptions onPress={chainFn(onPressStake, () => handleClose())}>
               <ArrowDownOnSquare />
               <P>Stake</P>
             </PopoverOptions>

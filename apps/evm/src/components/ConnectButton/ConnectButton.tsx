@@ -13,14 +13,17 @@ import { Profile } from '../Profile';
 import { ProfileTag } from '../ProfileTag';
 
 import { useConnectModal } from '@/connect-ui';
+import { chainL2, isValidChain } from '@/constants';
 import { store } from '@/lib/store';
 
 const ConnectButton = (): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
-  const { address: evmAddress } = useAccount();
+  const { address: evmAddress, chain: currentChain } = useAccount();
   const { address: btcAddress } = useSatsAccount();
+
+  const chain = currentChain && isValidChain(currentChain.id) ? currentChain : chainL2;
 
   const isReceiveModalOpen = useStore(store, (state) => state.shared.isReceiveModalOpen);
   const { isOpen: isConnectModalOpen } = useConnectModal();
@@ -52,7 +55,7 @@ const ConnectButton = (): JSX.Element => {
       onOpenChange={setOpen}
     >
       <DrawerButton variant='ghost'>
-        <ProfileTag hideAddress={isMobile} size='s' />
+        <ProfileTag chain={chain} hideAddress={isMobile} size='s' />
       </DrawerButton>
       <DrawerPortal>
         <DrawerOverlay />
@@ -60,7 +63,7 @@ const ConnectButton = (): JSX.Element => {
           <DrawerTitle hidden>
             <Trans>Profile</Trans>
           </DrawerTitle>
-          <Profile isMobile={isMobile} onClose={handleClose} />
+          <Profile chain={chain} isMobile={isMobile} onClose={handleClose} />
         </DrawerContent>
       </DrawerPortal>
     </DrawerRoot>

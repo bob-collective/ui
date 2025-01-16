@@ -5,6 +5,7 @@ import { truncateBtcAddress, truncateEthAddress } from '@gobob/utils';
 import ProfileAvatar from 'boring-avatars';
 import { useAccount } from 'wagmi';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { Chain } from 'viem';
 
 import { ChainAsset } from '../ChainAsset';
 import { CopyAddress } from '../CopyAddress';
@@ -26,14 +27,16 @@ const ProfileTag = ({
   size = 's',
   hideAddress,
   labelProps,
-  isCopyEnabled
+  isCopyEnabled,
+  chain
 }: {
   size?: 's' | 'md';
   hideAddress?: boolean;
   labelProps?: SpanProps;
   isCopyEnabled?: boolean;
+  chain: Chain;
 }) => {
-  const { chain, address: evmAddress } = useAccount();
+  const { address: evmAddress } = useAccount();
   const { address: btcAddress } = useSatsAccount();
 
   const address = evmAddress || btcAddress;
@@ -49,7 +52,7 @@ const ProfileTag = ({
       {address ? (
         <ChainAsset
           asset={<ProfileAvatar name={address} size={sizeMap[size].icon} />}
-          chainId={chain?.id}
+          chainId={chain.id}
           chainProps={{ size: sizeMap[size].chain }}
           style={{ pointerEvents: 'none' }}
         />
