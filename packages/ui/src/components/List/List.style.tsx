@@ -1,7 +1,7 @@
 import styled, { CSSProperties, css } from 'styled-components';
-import { Rounded } from 'src/theme';
 
 import { Flex } from '../Flex';
+import { Rounded } from '../../theme';
 
 type StyledListProps = {
   $maxHeight?: CSSProperties['maxHeight'];

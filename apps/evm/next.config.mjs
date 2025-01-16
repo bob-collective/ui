@@ -3,7 +3,7 @@ import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['raw.githubusercontent.com'] // Add the allowed hostname here
+    remotePatterns: ['raw.githubusercontent.com'] // Add the allowed hostname here
   },
   compiler: {
     styledComponents: true
