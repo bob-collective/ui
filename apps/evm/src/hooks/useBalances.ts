@@ -6,17 +6,40 @@ import { erc20Abi } from 'viem';
 import { useAccount, useBalance, usePublicClient, useReadContracts } from 'wagmi';
 
 import { useTokens } from './useTokens';
-import { useBlockscoutBalances } from './useBlockscoutBalances';
+import { useBlockscoutAddressTokens } from './useBlockscoutAddressTokens';
 
 import { INTERVAL } from '@/constants';
+import { BlockscoutTokenInfo } from '@/utils';
 
-export type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
+type TokensMapping = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
 const useBalances = (chainId: ChainId) => {
   const publicClient = usePublicClient({ chainId });
   const { address } = useAccount();
 
-  const { data: blockscoutBalances, refetch: refetchBlockscoutBalances } = useBlockscoutBalances(chainId);
+  const blockscoutBalanceSelector = useCallback(
+    (data: BlockscoutTokenInfo[]) => {
+      return data.reduce<TokensMapping>((result, tokenInfo) => {
+        result[tokenInfo.token.symbol] = CurrencyAmount.fromRawAmount(
+          new ERC20Token(
+            chainId,
+            tokenInfo.token.address,
+            Number.parseInt(tokenInfo.token.decimals),
+            tokenInfo.token.symbol,
+            tokenInfo.token.name
+          ),
+          tokenInfo.value
+        );
+
+        return result;
+      }, {} as TokensMapping);
+    },
+    [chainId]
+  );
+
+  const { data: blockscoutAddressTokens, refetch: refetchBlockscoutAddressTokens } = useBlockscoutAddressTokens({
+    select: blockscoutBalanceSelector
+  });
 
   const { data: ethBalance, refetch } = useBalance({
     address,
@@ -29,10 +52,10 @@ const useBalances = (chainId: ChainId) => {
   const { data: tokens } = useTokens(chainId);
 
   const balanceSelector = useCallback(
-    (data: (string | number | bigint)[]): Balances => {
-      if (!tokens) return {} as Balances;
+    (data: (string | number | bigint)[]): TokensMapping => {
+      if (!tokens) return {} as TokensMapping;
 
-      return tokens.reduce<Balances>((result, token) => {
+      return tokens.reduce<TokensMapping>((result, token) => {
         if (token.currency.isToken) {
           const idx = Object.keys(result).length;
 
@@ -40,7 +63,7 @@ const useBalances = (chainId: ChainId) => {
         }
 
         return result;
-      }, {} as Balances);
+      }, {} as TokensMapping);
     },
     [tokens]
   );
@@ -72,18 +95,18 @@ const useBalances = (chainId: ChainId) => {
     const ether = Ether.onChain(chainId);
 
     return {
-      ...blockscoutBalances,
+      ...blockscoutAddressTokens,
       ...erc20Balances,
       ...(ethBalance && {
         [ether.symbol]: CurrencyAmount.fromRawAmount(ether, ethBalance.value)
       })
     };
-  }, [chainId, blockscoutBalances, erc20Balances, ethBalance]);
+  }, [chainId, blockscoutAddressTokens, erc20Balances, ethBalance]);
 
   const getBalance = useCallback((symbol: string) => balances?.[symbol], [balances]);
   const refetchBalance = useCallback(
-    () => chain(refetch, refetchErc20, refetchBlockscoutBalances),
-    [refetch, refetchErc20, refetchBlockscoutBalances]
+    () => chain(refetch, refetchErc20, refetchBlockscoutAddressTokens),
+    [refetch, refetchErc20, refetchBlockscoutAddressTokens]
   );
 
   return { ...queryResult, balances, getBalance, refetch: refetchBalance };

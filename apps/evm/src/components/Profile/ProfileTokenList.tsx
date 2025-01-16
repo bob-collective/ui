@@ -40,27 +40,27 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
 
   const otherChainName = getCapitalizedChainName(otherChain.id);
 
+  const handlePressAddErc20 = (currency: ERC20Token) => {
+    watchAsset({
+      type: 'ERC20',
+      options: { address: currency.address, decimals: currency.decimals, symbol: currency.symbol }
+    });
+  };
+
+  const handlePressBridge = (currency: ERC20Token) => {
+    if (currentChain.id === L2_CHAIN) {
+      router.push(`${RoutesPath.BRIDGE}?type=withdraw&network=ethereum&receive=${currency.symbol}`);
+    } else {
+      router.push(`${RoutesPath.BRIDGE}?type=deposit&network=ethereum&receive=${currency.symbol}`);
+    }
+
+    onPressNavigate?.();
+  };
+
   return list?.map((item) => {
     if (!item.balance?.greaterThan(0)) {
       return undefined;
     }
-
-    const handlePressBridge = () => {
-      if (currentChain.id === L2_CHAIN) {
-        router.push(`${RoutesPath.BRIDGE}?type=withdraw&network=ethereum&receive=${item.token.currency.symbol}`);
-      } else {
-        router.push(`${RoutesPath.BRIDGE}?type=deposit&network=ethereum&receive=${item.token.currency.symbol}`);
-      }
-
-      onPressNavigate?.();
-    };
-
-    const handlePressAddErc20 = (currency: ERC20Token) => {
-      watchAsset({
-        type: 'ERC20',
-        options: { address: currency.address, decimals: currency.decimals, symbol: currency.symbol }
-      });
-    };
 
     return (
       <ProfileTokenListItem
