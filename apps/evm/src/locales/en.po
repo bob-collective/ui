@@ -394,11 +394,11 @@ msgstr "Bridge Disabled"
 msgid "bridge network"
 msgstr "bridge network"
 
-#: src/components/Profile/ProfileTokenListItem.tsx:172
+#: src/components/Profile/ProfileTokenListItem.tsx:161
 msgid "Bridge to {0}"
 msgstr "Bridge to {0}"
 
-#: src/components/Profile/ProfileTokenListItem.tsx:172
+#: src/components/Profile/ProfileTokenListItem.tsx:161
 msgid "Bridge to {otherChainName}"
 msgstr "Bridge to {otherChainName}"
 
@@ -487,7 +487,7 @@ msgstr "Click the <0/> icon next to your favourite apps"
 msgid "Close"
 msgstr "Close"
 
-#: src/components/Profile/Profile.tsx:88
+#: src/components/Profile/Profile.tsx:99
 msgid "close drawer"
 msgstr "close drawer"
 
@@ -673,7 +673,7 @@ msgstr "DEX Liquidity Provisioning"
 msgid "Diamond"
 msgstr "Diamond"
 
-#: src/components/Profile/Profile.tsx:79
+#: src/components/Profile/Profile.tsx:90
 msgid "disconnect wallet(s)"
 msgstr "disconnect wallet(s)"
 
@@ -915,7 +915,7 @@ msgstr "Go Back"
 #~ msgid "Go to explorer"
 #~ msgstr "Go to explorer"
 
-#: src/components/Profile/ProfileTokenListItem.tsx:151
+#: src/components/Profile/ProfileTokenListItem.tsx:140
 msgid "Go to Explorer"
 msgstr "Go to Explorer"
 
@@ -1787,7 +1787,7 @@ msgstr "stake"
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:57
 #: src/components/Layout/Sidebar.tsx:62
-#: src/components/Profile/ProfileTokenListItem.tsx:138
+#: src/components/Profile/ProfileTokenListItem.tsx:127
 msgid "Stake"
 msgstr "Stake"
 
@@ -2156,7 +2156,7 @@ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP ex
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
-#: src/components/Profile/ProfileTokens.tsx:44
+#: src/components/Profile/ProfileTokens.tsx:48
 msgid "Tokens"
 msgstr "Tokens"
 
