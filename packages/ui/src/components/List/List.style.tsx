@@ -2,7 +2,6 @@ import styled, { CSSProperties, css } from 'styled-components';
 
 import { Color, Rounded } from '../../theme';
 import { Flex } from '../Flex';
-import { Rounded } from '../../theme';
 
 type StyledListProps = {
   $maxHeight?: CSSProperties['maxHeight'];
@@ -19,7 +18,6 @@ type StyledListItemProps = {
   $isFocusVisible: boolean;
   $rounded?: Rounded;
   $backgroundColor?: Color;
-  $rounded?: Rounded;
 };
 
 const StyledListItem = styled.div<StyledListItemProps>`
