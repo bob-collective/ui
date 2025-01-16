@@ -42,7 +42,7 @@ const useTokens = (chainId: ChainId) => {
   });
 
   return useQuery<TokenData[]>({
-    queryKey: ['tokens', chainId],
+    queryKey: ['tokens', chainId, blockscoutAddressTokens],
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR,

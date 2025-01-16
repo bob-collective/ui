@@ -28,7 +28,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
 
   const { connector } = useAccount();
 
-  const { getBalance: getBalance } = useBalances(currentChain.id);
+  const { getBalance } = useBalances(currentChain.id);
 
   const { getPrice } = usePrices();
 
