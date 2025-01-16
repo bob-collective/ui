@@ -1,0 +1,1 @@
+export { ChainAsset } from './ChainAsset';

@@ -1,11 +1,11 @@
+import { getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
 import { cookieStorage, createConfig, createStorage, http } from 'wagmi';
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
-import { getWagmiConnectorV2 } from '@binance/w3w-wagmi-connector-v2';
 
-import { Config } from './types';
 import { bob, bobSepolia } from './bob';
 import { mainnet } from './mainnet';
 import { sepolia } from './sepolia';
+import { Config } from './types';
 
 const binanceConnector = getWagmiConnectorV2();
 
@@ -16,7 +16,7 @@ const prodChains = [bob, mainnet];
 const allChains = [...testnetChains, ...prodChains];
 
 const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
-  const isDev = process.env.NODE_ENV === 'development';
+  // const isDev = process.env.NODE_ENV === 'development';
 
   const coinbase = coinbaseWallet({
     appName: 'BOB',
@@ -32,7 +32,7 @@ const getConfig = ({ isProd, multiInjectedProviderDiscovery }: Config) => {
         ]
       : []),
 
-    ...(isDev
+    ...(true
       ? [coinbase]
       : [
           walletConnect({

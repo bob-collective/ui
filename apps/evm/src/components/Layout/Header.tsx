@@ -13,9 +13,9 @@ import {
   useMediaQuery
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { useState } from 'react';
 import { useTheme } from 'styled-components';
-import { useLingui } from '@lingui/react';
 
 import { Logo } from '../Logo';
 import { SocialsGroup } from '../SocialsGroup';
@@ -69,7 +69,7 @@ const Header = ({ isTestnet, isFusion, ...props }: HeaderProps): JSX.Element => 
           <NavItem href={RoutesPath.APPS} size='s'>
             <Trans>Apps</Trans>
           </NavItem>
-          <NavItem href={RoutesPath.STAKE} size='s'>
+          <NavItem href={RoutesPath.STRATEGIES} size='s'>
             <Trans>Stake</Trans>
           </NavItem>
           <NavItem href={RoutesPath.FUSION} size='s'>

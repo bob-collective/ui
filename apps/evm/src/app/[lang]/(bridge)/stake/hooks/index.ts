@@ -1,1 +1,1 @@
-export * from './useGetStakingStrategies';
+export * from './useGetStrategies';
