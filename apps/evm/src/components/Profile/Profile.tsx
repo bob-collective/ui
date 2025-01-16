@@ -1,7 +1,18 @@
 'use client';
 
 import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
-import { Button, Card, Flex, P, Power, QrCode, Skeleton, SolidCreditCard, Tooltip, XMark } from '@gobob/ui';
+import {
+  Button,
+  Card,
+  Flex,
+  P,
+  Power,
+  Skeleton,
+  SolidArrowDownCircle,
+  SolidCreditCard,
+  Tooltip,
+  XMark
+} from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { Chain } from 'viem';
@@ -122,7 +133,7 @@ const Profile = ({ currentChain, otherChain, onClose, isMobile }: ProfileProps):
           style={{ backgroundColor: '#3A1F12' }}
           onPress={handlePressReceive}
         >
-          <QrCode color='primary-500' />
+          <SolidArrowDownCircle color='primary-500' />
           <P color='primary-500' weight='bold'>
             <Trans>Receive</Trans>
           </P>
