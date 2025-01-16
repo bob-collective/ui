@@ -16,8 +16,8 @@ type StyledListItemProps = {
   $isHovered: boolean;
   $isInteractable: boolean;
   $isFocusVisible: boolean;
-  $rounded?: Rounded;
   $backgroundColor?: Color;
+  $rounded?: Rounded;
 };
 
 const StyledListItem = styled.div<StyledListItemProps>`
