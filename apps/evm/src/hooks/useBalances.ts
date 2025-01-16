@@ -51,6 +51,7 @@ const useBalances = (chainId: ChainId) => {
     ...queryResult
   } = useReadContracts({
     allowFailure: false,
+
     query: {
       enabled: Boolean(address && publicClient && tokens),
       select: balanceSelector,
