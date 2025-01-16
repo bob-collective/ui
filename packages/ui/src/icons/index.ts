@@ -1,5 +1,6 @@
 export { ArrowDown } from './ArrowDown';
 export { ArrowDownCircle } from './ArrowDownCircle';
+export { ArrowDownOnSquare } from './ArrowDownOnSquare';
 export { ArrowLeft } from './ArrowLeft';
 export { ArrowLongRight } from './ArrowLongRight';
 export { ArrowPath } from './ArrowPath';

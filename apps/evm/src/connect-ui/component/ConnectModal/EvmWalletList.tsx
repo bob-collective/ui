@@ -88,6 +88,7 @@ const EvmWalletList = ({
           justifyContent='space-between'
           paddingX='s'
           paddingY='xs'
+          rounded='none'
           textValue={connector.id}
         >
           <Flex alignItems='center' gap='lg'>

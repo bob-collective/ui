@@ -1,4 +1,5 @@
 import styled, { CSSProperties, css } from 'styled-components';
+import { Rounded } from 'src/theme';
 
 import { Flex } from '../Flex';
 
@@ -15,6 +16,7 @@ type StyledListItemProps = {
   $isHovered: boolean;
   $isInteractable: boolean;
   $isFocusVisible: boolean;
+  $rounded?: Rounded;
 };
 
 const StyledListItem = styled.div<StyledListItemProps>`
@@ -25,9 +27,10 @@ const StyledListItem = styled.div<StyledListItemProps>`
   opacity: ${({ $isDisabled }) => $isDisabled && 0.5};
   white-space: nowrap;
 
-  ${({ theme, $isHovered }) => {
+  ${({ theme, $rounded, $isHovered }) => {
     return css`
       ${theme.list.item.base}
+      border-radius: ${$rounded && theme.rounded($rounded)};
       ${$isHovered && theme.list.item.hover}
 
       &[aria-selected='true'] {

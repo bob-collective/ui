@@ -1,10 +1,11 @@
 'use client';
 
-import { Button, Card, Flex, P, Power, QrCode, Skeleton, SolidCreditCard, Tooltip, XMark } from '@gobob/ui';
-import { useAccount, useDisconnect } from 'wagmi';
 import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
-import { useLingui } from '@lingui/react';
+import { Button, Card, Flex, P, Power, QrCode, Skeleton, SolidCreditCard, Tooltip, XMark } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+import { useDisconnect } from 'wagmi';
+import { Chain } from 'viem';
 
 import { ProfileTag } from '../ProfileTag';
 
@@ -13,21 +14,21 @@ import { ProfileEvmWallet } from './ProfileEvmWallet';
 import { ProfileTokenList } from './ProfileTokenList';
 
 import { chakraPetch } from '@/app/fonts';
-import { ExternalLinks, L1_CHAIN } from '@/constants';
+import { useConnectModal, WalletType } from '@/connect-ui';
+import { ExternalLinks } from '@/constants';
 import { useTotalBalance } from '@/hooks';
 import { store } from '@/lib/store';
-import { useConnectModal, WalletType } from '@/connect-ui';
 
 type ProfileProps = {
   onClose: () => void;
   isMobile: boolean;
+  chain: Chain;
 };
 
-const Profile = ({ onClose, isMobile }: ProfileProps): JSX.Element => {
+const Profile = ({ chain, onClose, isMobile }: ProfileProps): JSX.Element => {
   const { i18n } = useLingui();
-  const { chainId = L1_CHAIN } = useAccount();
 
-  const { formatted, isPending: isBalancePending } = useTotalBalance(chainId);
+  const { formatted, isPending: isBalancePending } = useTotalBalance(chain.id);
   const { disconnect: evmWalletDisconnect } = useDisconnect();
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
   const { open } = useConnectModal();
@@ -69,7 +70,7 @@ const Profile = ({ onClose, isMobile }: ProfileProps): JSX.Element => {
   return (
     <Flex direction='column' flex={1} gap='xl'>
       <Flex alignItems='center' justifyContent='space-between'>
-        <ProfileTag isCopyEnabled labelProps={{ weight: 'semibold' }} size='md' />
+        <ProfileTag isCopyEnabled chain={chain} labelProps={{ weight: 'semibold' }} size='md' />
         <Flex gap='s'>
           <Tooltip label='Disconnect'>
             <Button
@@ -127,11 +128,11 @@ const Profile = ({ onClose, isMobile }: ProfileProps): JSX.Element => {
         </Card>
       </Flex>
       <Flex direction='column' gap='md'>
-        <ProfileEvmWallet chainId={chainId} onPressConnect={handleConnectEvmWallet} />
+        <ProfileEvmWallet chainId={chain.id} onPressConnect={handleConnectEvmWallet} />
         <ProfileBtcWallet onPressConnect={handleConnectBtcWallet} onUnlink={handleUnlinkBtc} />
       </Flex>
       <Flex direction='column' gap='md'>
-        <ProfileTokenList chainId={chainId} />
+        <ProfileTokenList chainId={chain.id} onPressNavigate={onClose} />
       </Flex>
     </Flex>
   );
