@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation';
 import { Address, Chain } from 'viem';
 import { useAccount, useWatchAsset } from 'wagmi';
 import { getCapitalizedChainName } from '@gobob/chains';
+import { Avatar } from '@gobob/ui';
+
+import { ChainAsset } from '../ChainAsset';
 
 import { ProfileTokenListItem } from './ProfileTokenListItem';
 
@@ -61,13 +64,18 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
 
     return (
       <ProfileTokenListItem
-        key={item.token.raw.address}
+        key={`${item.token.raw.address}${item.token.currency.chainId}`}
         amountUSD={item.balance && calculateAmountUSD(item.balance, getPrice(item.balance!.currency.symbol))}
         balance={item.balance && item.balance.toSignificant()}
-        chainId={item.token.raw.chainId}
         connectorName={connector?.name}
         currency={item.token.currency}
-        logoUrl={item.token.raw.logoUrl}
+        logo={
+          <ChainAsset
+            asset={<Avatar alt={item.token.raw.name} size='5xl' src={item.token.raw.logoUrl} />}
+            chainId={item.token.raw.chainId}
+            chainProps={{ size: 'xs' }}
+          />
+        }
         name={item.token.raw.name}
         otherChainId={otherChain.id}
         otherChainName={otherChainName}
