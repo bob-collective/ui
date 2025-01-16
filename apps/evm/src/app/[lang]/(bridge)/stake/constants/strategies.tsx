@@ -305,7 +305,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     description: <Trans>Lend out wBTC on Avalon.</Trans>,
     protocol: StrategyProtocol.Avalon,
     incentives: [StrategyIncentive.avalon, StrategyIncentive.supply],
-    logoUrl: 'https://raw.githubusercontent.com/avalonfinancexyz/marketing_kit/refs/heads/main/token/sUSDa.png',
+    logoUrl: 'https://static.gobob.xyz/logos/Untitled.png',
     links: {
       securityReview: wBTC.securityReview,
       manage:
@@ -331,7 +331,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
         'https://app.avalonfinance.xyz/reserve-overview/?underlyingAsset=0xbba2ef945d523c4e2608c9e1214c2cc64d4fc2e2&marketName=proto_bob_v3',
       landingPage: 'https://www.avalonfinance.xyz/'
     },
-    logoUrl: 'https://raw.githubusercontent.com/avalonfinancexyz/marketing_kit/refs/heads/main/token/sUSDa.png',
+    logoUrl: 'https://static.gobob.xyz/logos/Untitled.png',
 
     breakdown: [
       tBTC.asset,
@@ -350,7 +350,7 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ),
     protocol: StrategyProtocol.Avalon,
     incentives: [StrategyIncentive.babylon, StrategyIncentive.solv, StrategyIncentive.avalon, StrategyIncentive.supply],
-    logoUrl: 'https://raw.githubusercontent.com/avalonfinancexyz/marketing_kit/refs/heads/main/token/sUSDa.png',
+    logoUrl: 'https://static.gobob.xyz/logos/Untitled.png',
 
     links: {
       securityReview: solvBTCSecurityReview,
