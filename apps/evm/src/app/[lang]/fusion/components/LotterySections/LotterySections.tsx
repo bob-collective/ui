@@ -71,9 +71,12 @@ const LotterySection = () => {
             </H2>
             <P color='grey-50'>
               <Trans>
-                Claim your Red envelope to get Spice and celebrate the Lunar New Year with BOB
+                Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.
                 <br />
-                Participate in Fusion voting to receive 3 envelopes each day.
+                Participate in Fusion voting to receive 3 envelopes daily until January 29th.
+                <br />
+                Win 100, 500 or 1,000 Spice with every envelope. Then share your winnings on X for a chance to win an
+                extra 50,000 Spice.
               </Trans>
             </P>
           </Flex>

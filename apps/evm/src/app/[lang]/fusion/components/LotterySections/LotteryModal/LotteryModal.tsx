@@ -68,11 +68,12 @@ const LotteryModal = ({
         <ModalBody padding='2xl'>
           <Flex alignItems='center' direction='column' gap='5xl'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-              <Trans>new envelopes drop in {timeToNextDraw}</Trans>
+              <Trans>New envelopes drop in {timeToNextDraw}</Trans>
             </Chip>
             <H3 align='center' size='2xl'>
               <Trans>
-                You need at least {Intl.NumberFormat(locale).format(minPointsToRoll)} Spice to participate in Lottery.
+                You need at least {Intl.NumberFormat(locale).format(minPointsToRoll)} Spice to participate in Lunar New
+                Year Lottery.
               </Trans>
             </H3>
             <P align='center' color='grey-50' size='s'>
@@ -158,7 +159,7 @@ const LotteryModal = ({
       <ModalBody padding='2xl'>
         <Flex alignItems='center' direction='column' gap='5xl'>
           <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-            <Trans>new envelopes drop in {timeToNextDraw}</Trans>
+            <Trans>New envelopes drop in {timeToNextDraw}</Trans>
           </Chip>
           <H3 align='center' size='2xl'>
             {getHeaderText()}
@@ -178,7 +179,7 @@ const LotteryModal = ({
           )}
           {isWinner && (
             <H4 align='center' size='lg'>
-              Share it on X with your referral link!
+              Share it on X with your referral link.
             </H4>
           )}
           <P align='center' color='grey-50' size='s'>
