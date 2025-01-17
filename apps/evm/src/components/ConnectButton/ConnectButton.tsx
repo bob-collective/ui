@@ -13,10 +13,10 @@ import {
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
+import { useState } from 'react';
 import { useTheme } from 'styled-components';
 import { useMediaQuery } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
-import { useState } from 'react';
 
 import { Profile } from '../Profile';
 import { ProfileTag } from '../ProfileTag';
@@ -64,6 +64,7 @@ const ConnectButton = (): JSX.Element => {
     <DrawerRoot
       direction={isMobile ? 'bottom' : 'right'}
       dismissible={!(isReceiveModalOpen || isConnectModalOpen)}
+      modal={isMobile}
       open={isProfileDrawerOpen}
       onOpenChange={setProfileDrawerOpen}
     >
@@ -71,7 +72,7 @@ const ConnectButton = (): JSX.Element => {
         <ProfileTag chain={currentChain} hideAddress={isMobile} size='s' />
       </DrawerButton>
       <DrawerPortal>
-        <DrawerOverlay />
+        {isMobile && <DrawerOverlay />}
         <DrawerContent>
           <StyledCloseButton $isOpen={isProfileDrawerOpen}>
             <ChevronDoubleRight color='grey-50' size='s' />
