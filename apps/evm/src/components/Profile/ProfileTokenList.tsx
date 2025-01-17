@@ -13,6 +13,8 @@ import { ProfileTokenListItem } from './ProfileTokenListItem';
 import { L2_CHAIN, RoutesPath } from '@/constants';
 import { TokenData, useBalances } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
+import { useBlockscoutTokens } from '@/hooks/useBlockscoutTokens';
+import { useBlockscoutBalances } from '@/hooks/useBlockscoutBalances';
 
 type ProfileTokenListProps = {
   items?: TokenData[];
@@ -30,9 +32,15 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
 
   const { getBalance } = useBalances(currentChain.id);
 
+  const { data: blockscoutTokens = [] } = useBlockscoutTokens();
+  const { data: blockscoutBalances = {} } = useBlockscoutBalances();
   const { getPrice } = usePrices();
 
-  const list = items?.map((token) => ({ token, balance: getBalance(token.currency.symbol) }));
+  const list = items?.map((token) => ({ token, balance: getBalance(token.currency.symbol) })) || [];
+  const blockscoutTokensList = blockscoutTokens.map((blockscoutToken) => ({
+    token: blockscoutToken,
+    balance: blockscoutBalances[blockscoutToken.currency.symbol]
+  }));
 
   const handlePressExplorer = (address: Address) => {
     window.open(`${currentChain?.blockExplorers?.default.url}/address/${address}`, '_blank', 'noreferrer');
@@ -57,7 +65,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
     onPressNavigate?.();
   };
 
-  return list?.map((item) => {
+  return [...list, ...blockscoutTokensList]?.map((item) => {
     if (!item.balance?.greaterThan(0)) {
       return undefined;
     }

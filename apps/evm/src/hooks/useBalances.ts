@@ -6,40 +6,14 @@ import { erc20Abi } from 'viem';
 import { useAccount, useBalance, usePublicClient, useReadContracts } from 'wagmi';
 
 import { useTokens } from './useTokens';
-import { useBlockscoutAddressTokens } from './useBlockscoutAddressTokens';
 
 import { INTERVAL } from '@/constants';
-import { BlockscoutTokenInfo } from '@/utils';
 
 type TokensMapping = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
 const useBalances = (chainId: ChainId) => {
   const publicClient = usePublicClient({ chainId });
   const { address } = useAccount();
-
-  const blockscoutBalanceSelector = useCallback(
-    (data: BlockscoutTokenInfo[]) => {
-      return data.reduce<TokensMapping>((result, tokenInfo) => {
-        result[tokenInfo.token.symbol] = CurrencyAmount.fromRawAmount(
-          new ERC20Token(
-            chainId,
-            tokenInfo.token.address,
-            Number.parseInt(tokenInfo.token.decimals),
-            tokenInfo.token.symbol,
-            tokenInfo.token.name
-          ),
-          tokenInfo.value
-        );
-
-        return result;
-      }, {} as TokensMapping);
-    },
-    [chainId]
-  );
-
-  const { data: blockscoutAddressTokens, refetch: refetchBlockscoutAddressTokens } = useBlockscoutAddressTokens({
-    select: blockscoutBalanceSelector
-  });
 
   const { data: ethBalance, refetch } = useBalance({
     address,
@@ -77,8 +51,7 @@ const useBalances = (chainId: ChainId) => {
 
     query: {
       enabled: Boolean(address && publicClient && tokens),
-      select: balanceSelector,
-      refetchInterval: INTERVAL.SECONDS_30
+      select: balanceSelector
     },
     contracts: tokens
       ?.filter((token) => token.currency.isToken)
@@ -95,19 +68,15 @@ const useBalances = (chainId: ChainId) => {
     const ether = Ether.onChain(chainId);
 
     return {
-      ...blockscoutAddressTokens,
       ...erc20Balances,
       ...(ethBalance && {
         [ether.symbol]: CurrencyAmount.fromRawAmount(ether, ethBalance.value)
       })
     };
-  }, [chainId, blockscoutAddressTokens, erc20Balances, ethBalance]);
+  }, [erc20Balances, ethBalance, chainId]);
 
   const getBalance = useCallback((symbol: string) => balances?.[symbol], [balances]);
-  const refetchBalance = useCallback(
-    () => chain(refetch, refetchErc20, refetchBlockscoutAddressTokens),
-    [refetch, refetchErc20, refetchBlockscoutAddressTokens]
-  );
+  const refetchBalance = useCallback(() => chain(refetch, refetchErc20), [refetch, refetchErc20]);
 
   return { ...queryResult, balances, getBalance, refetch: refetchBalance };
 };
