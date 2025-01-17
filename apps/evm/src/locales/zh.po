@@ -443,7 +443,7 @@ msgstr "点击 <0/> 你喜爱应用旁边的图标"
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:108
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:93
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:86
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:192
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:198
 msgid "Close"
 msgstr ""
 
@@ -796,7 +796,7 @@ msgstr ""
 #~ msgid "Get"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:187
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:193
 msgid "Get envelopes"
 msgstr ""
 
@@ -1030,8 +1030,8 @@ msgid "Login with wallet"
 msgstr "使用钱包登录"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:61
-msgid "Lottery"
-msgstr ""
+#~ msgid "Lottery"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:33
 #~ msgid "Lottery ticket"
@@ -1046,6 +1046,10 @@ msgstr "LST 项目方积分"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:44
 msgid "Lunar lottery"
+msgstr ""
+
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:61
+msgid "Lunar New Year Lottery"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:109
@@ -1261,7 +1265,7 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:206
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:212
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:85
 msgid "Play"
 msgstr ""
@@ -1489,7 +1493,7 @@ msgstr ""
 #~ msgid "Send {ticker}"
 #~ msgstr "发送 {ticker}"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:201
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:207
 msgid "Share on X"
 msgstr ""
 

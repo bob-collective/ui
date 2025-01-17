@@ -58,7 +58,7 @@ const LotterySection = () => {
             </Chip>
             <H2 size='4xl'>
               {!isClient || (!address && isClient) || !user || isError || isLoading ? (
-                <Trans>Lottery</Trans>
+                <Trans>Lunar New Year Lottery</Trans>
               ) : (
                 <Trans>
                   <Span color='primary-500' size='unset'>
