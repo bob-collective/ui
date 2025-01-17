@@ -3,6 +3,7 @@ import { ChainId } from '@gobob/chains';
 import { ERC20Token, Ether } from '@gobob/currency';
 import { NATIVE } from '@gobob/tokens';
 import { useQuery } from '@tanstack/react-query';
+import { Address } from 'viem';
 
 import { useBlockscoutAddressTokens } from './useBlockscoutAddressTokens';
 
@@ -15,7 +16,7 @@ type TokenData = {
 };
 
 const useTokens = (chainId: ChainId) => {
-  const blockscouttokensSelector = useCallback(
+  const blockscoutTokensSelector = useCallback(
     (data: BlockscoutTokenInfo[]) => {
       return data.map((blockscoutToken) => ({
         raw: {
@@ -38,7 +39,7 @@ const useTokens = (chainId: ChainId) => {
   );
 
   const { data: blockscoutAddressTokens } = useBlockscoutAddressTokens({
-    select: blockscouttokensSelector
+    select: blockscoutTokensSelector
   });
 
   return useQuery<TokenData[]>({
@@ -46,18 +47,29 @@ const useTokens = (chainId: ChainId) => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR,
-    queryFn: async () => [
-      ...(chainId === ChainId.BOB && blockscoutAddressTokens ? blockscoutAddressTokens : []),
-      ...tokens
-        .filter((token) => token.chainId === chainId)
-        .map((token) => ({
-          raw: token,
-          currency:
-            token.symbol === NATIVE[chainId].symbol
-              ? Ether.onChain(chainId)
-              : new ERC20Token(chainId, token.address, token.decimals, token.symbol, token.name)
-        }))
-    ]
+    queryFn: async () => {
+      const mapping = [
+        ...(chainId === ChainId.BOB && blockscoutAddressTokens ? blockscoutAddressTokens : []),
+        ...tokens
+          .filter((token) => token.chainId === chainId)
+          .map((token) => ({
+            raw: token,
+            currency:
+              token.symbol === NATIVE[chainId].symbol
+                ? Ether.onChain(chainId)
+                : new ERC20Token(chainId, token.address, token.decimals, token.symbol, token.name)
+          }))
+      ].reduce(
+        (acc, cur) => {
+          acc[cur.raw.address] = cur;
+
+          return acc;
+        },
+        {} as Record<Address, TokenData>
+      );
+
+      return Object.values(mapping);
+    }
   });
 };
 
