@@ -116,7 +116,7 @@ msgstr "404 Error"
 msgid "7 days"
 msgstr "7 days"
 
-#: src/components/Layout/Header.tsx:85
+#: src/components/Layout/Header.tsx:86
 #: src/components/Layout/Sidebar.tsx:77
 msgid "About"
 msgstr "About"
@@ -194,7 +194,7 @@ msgid "Approve"
 msgstr "Approve"
 
 #: src/app/[lang]/apps/page.tsx:14
-#: src/components/Layout/Header.tsx:54
+#: src/components/Layout/Header.tsx:55
 #: src/components/Layout/Sidebar.tsx:59
 msgid "Apps"
 msgstr "Apps"
@@ -367,7 +367,7 @@ msgstr "Book a call with the founders"
 #: src/app/[lang]/(bridge)/bridge/page.tsx:14
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesCategories.tsx:7
 #: src/app/[lang]/page.tsx:15
-#: src/components/Layout/Header.tsx:51
+#: src/components/Layout/Header.tsx:52
 #: src/components/Layout/Sidebar.tsx:56
 msgid "Bridge"
 msgstr "Bridge"
@@ -488,8 +488,8 @@ msgid "Close"
 msgstr "Close"
 
 #: src/components/Profile/Profile.tsx:99
-msgid "close drawer"
-msgstr "close drawer"
+#~ msgid "close drawer"
+#~ msgstr "close drawer"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:198
@@ -656,7 +656,7 @@ msgstr "Deposit your BTC LSTs into <0>Satoshi Protocol</0> to mint satUSD."
 msgid "Description"
 msgstr "Description"
 
-#: src/components/Layout/Header.tsx:82
+#: src/components/Layout/Header.tsx:83
 #: src/components/Layout/Sidebar.tsx:74
 msgid "Dev"
 msgstr "Dev"
@@ -673,9 +673,13 @@ msgstr "DEX Liquidity Provisioning"
 msgid "Diamond"
 msgstr "Diamond"
 
+#: src/components/Profile/DisconnectButton.tsx:67
+msgid "Disconnect"
+msgstr "Disconnect"
+
 #: src/components/Profile/Profile.tsx:90
-msgid "disconnect wallet(s)"
-msgstr "disconnect wallet(s)"
+#~ msgid "disconnect wallet(s)"
+#~ msgstr "disconnect wallet(s)"
 
 #: src/app/[lang]/nested-providers.tsx:61
 msgid "Disconnected"
@@ -856,7 +860,7 @@ msgid "Fund your wallet(s) by transferring crypto from another wallet or account
 msgstr "Fund your wallet(s) by transferring crypto from another wallet or account."
 
 #: src/app/[lang]/fusion/page.tsx:16
-#: src/components/Layout/Header.tsx:60
+#: src/components/Layout/Header.tsx:61
 #: src/components/Layout/Sidebar.tsx:65
 msgid "Fusion"
 msgstr "Fusion"
@@ -1209,7 +1213,7 @@ msgstr "Mint satUSD and supply it into a lending market on BOB"
 msgid "Multipliers"
 msgstr "Multipliers"
 
-#: src/components/Layout/Header.tsx:88
+#: src/components/Layout/Header.tsx:89
 #: src/components/Layout/Sidebar.tsx:68
 msgid "Multisig"
 msgstr "Multisig"
@@ -1471,7 +1475,7 @@ msgstr "Preparing..."
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: src/components/ConnectButton/ConnectButton.tsx:65
+#: src/components/ConnectButton/ConnectButton.tsx:81
 msgid "Profile"
 msgstr "Profile"
 
@@ -1673,7 +1677,7 @@ msgstr "Share on X"
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 
-#: src/components/Layout/Header.tsx:67
+#: src/components/Layout/Header.tsx:68
 msgid "Show secondary navigation"
 msgstr "Show secondary navigation"
 
@@ -1785,7 +1789,7 @@ msgstr "stake"
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:35
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
-#: src/components/Layout/Header.tsx:57
+#: src/components/Layout/Header.tsx:58
 #: src/components/Layout/Sidebar.tsx:62
 #: src/components/Profile/ProfileTokenListItem.tsx:127
 msgid "Stake"
@@ -1983,7 +1987,7 @@ msgstr "Switch to {0}"
 msgid "Switch to {capitalizedName}"
 msgstr "Switch to {capitalizedName}"
 
-#: src/components/Layout/Header.tsx:79
+#: src/components/Layout/Header.tsx:80
 #: src/components/Layout/Sidebar.tsx:71
 msgid "T&Cs"
 msgstr "T&Cs"
