@@ -36,8 +36,14 @@ type LotteryModalProps = LotteryStats & {
 };
 
 const MAX_TICKETS = 3;
-const getPrefilledXText = (refCode: string | undefined) =>
-  `I just got a Red Envelope 🧧 from @build_on_bob's fusion lottery.%0A%0AWelcome the Year of Snake 🐍%0A%0AGet yours https://app.gobob.xyz/?refCode=${refCode || ''}`;
+
+const prefilledTextsMapping = {
+  en: "I just got a Red Envelope 🧧 from @build_on_bob's fusion lottery.%0A%0AWelcome the Year of Snake 🐍%0A%0AGet yours",
+  zh: '我剛從 @build_on_bob 那裡領取了一個紅包 🧧%0A%0A喜迎蛇年 🐍%0A%0A快來領取你的紅包吧'
+};
+
+const getPrefilledXText = (lang: 'en' | 'zh', refCode: string | undefined) =>
+  `${prefilledTextsMapping[lang]} https://app.gobob.xyz/?refCode=${refCode || ''}`;
 
 const LotteryModal = ({
   isOpen,
@@ -203,7 +209,9 @@ const LotteryModal = ({
             <StyledButton
               elementType={Link}
               variant='outline'
-              {...{ href: `https://x.com/intent/tweet?text=${getPrefilledXText(user?.referral_code)}` }}
+              {...{
+                href: `https://x.com/intent/tweet?text=${getPrefilledXText(lang as Parameters<typeof getPrefilledXText>[0], user?.referral_code)}`
+              }}
             >
               <Trans>Share on X</Trans>
             </StyledButton>
