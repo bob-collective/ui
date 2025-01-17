@@ -108,7 +108,7 @@ msgstr "404 错误"
 msgid "7 days"
 msgstr ""
 
-#: src/components/Layout/Header.tsx:85
+#: src/components/Layout/Header.tsx:86
 #: src/components/Layout/Sidebar.tsx:77
 msgid "About"
 msgstr "关于"
@@ -190,7 +190,7 @@ msgid "Approve"
 msgstr "通过"
 
 #: src/app/[lang]/apps/page.tsx:14
-#: src/components/Layout/Header.tsx:54
+#: src/components/Layout/Header.tsx:55
 #: src/components/Layout/Sidebar.tsx:59
 msgid "Apps"
 msgstr ""
@@ -363,7 +363,7 @@ msgstr ""
 #: src/app/[lang]/(bridge)/bridge/page.tsx:14
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesCategories.tsx:7
 #: src/app/[lang]/page.tsx:15
-#: src/components/Layout/Header.tsx:51
+#: src/components/Layout/Header.tsx:52
 #: src/components/Layout/Sidebar.tsx:56
 msgid "Bridge"
 msgstr "桥"
@@ -430,7 +430,7 @@ msgstr "BTC LST借贷<<<<<<< HEAD"
 #~ msgid "BTC Strategies"
 #~ msgstr ""
 
-#: src/components/Profile/Profile.tsx:124
+#: src/components/Profile/Profile.tsx:93
 msgid "Buy"
 msgstr ""
 
@@ -480,8 +480,8 @@ msgid "Close"
 msgstr ""
 
 #: src/components/Profile/Profile.tsx:99
-msgid "close drawer"
-msgstr ""
+#~ msgid "close drawer"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:198
@@ -547,7 +547,7 @@ msgstr ""
 msgid "Connect request is already pending"
 msgstr ""
 
-#: src/components/ConnectButton/ConnectButton.tsx:44
+#: src/components/ConnectButton/ConnectButton.tsx:56
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:171
 msgid "Connect Wallet"
@@ -643,7 +643,7 @@ msgstr "将你的BTC LSTs存入 <0>Satoshi协议</0> 以铸造satUSD。"
 msgid "Description"
 msgstr ""
 
-#: src/components/Layout/Header.tsx:82
+#: src/components/Layout/Header.tsx:83
 #: src/components/Layout/Sidebar.tsx:74
 msgid "Dev"
 msgstr "开发者"
@@ -660,9 +660,13 @@ msgstr "为DEX提供流动性"
 msgid "Diamond"
 msgstr ""
 
-#: src/components/Profile/Profile.tsx:90
-msgid "disconnect wallet(s)"
+#: src/components/Profile/DisconnectButton.tsx:67
+msgid "Disconnect"
 msgstr ""
+
+#: src/components/Profile/Profile.tsx:90
+#~ msgid "disconnect wallet(s)"
+#~ msgstr ""
 
 #: src/app/[lang]/nested-providers.tsx:61
 msgid "Disconnected"
@@ -835,7 +839,7 @@ msgid "Fund your wallet(s) by transferring crypto from another wallet or account
 msgstr ""
 
 #: src/app/[lang]/fusion/page.tsx:16
-#: src/components/Layout/Header.tsx:60
+#: src/components/Layout/Header.tsx:61
 #: src/components/Layout/Sidebar.tsx:65
 msgid "Fusion"
 msgstr "Fusion"
@@ -1169,7 +1173,7 @@ msgstr "铸造satUSD并将其供应到BOB上的借贷市场"
 msgid "Multipliers"
 msgstr "收益倍数"
 
-#: src/components/Layout/Header.tsx:88
+#: src/components/Layout/Header.tsx:89
 #: src/components/Layout/Sidebar.tsx:68
 msgid "Multisig"
 msgstr "多签"
@@ -1411,7 +1415,7 @@ msgstr ""
 msgid "Privacy policy"
 msgstr "隐私政策"
 
-#: src/components/ConnectButton/ConnectButton.tsx:65
+#: src/components/ConnectButton/ConnectButton.tsx:81
 msgid "Profile"
 msgstr ""
 
@@ -1457,7 +1461,7 @@ msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting S
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
-#: src/components/Profile/Profile.tsx:138
+#: src/components/Profile/Profile.tsx:107
 msgid "Receive"
 msgstr "接收"
 
@@ -1618,7 +1622,7 @@ msgstr ""
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "与朋友分享此链接，当他们注册时，你将获得他们Spice收获的15%作为奖励，以及他们推荐的任何人的Spice收获的7%"
 
-#: src/components/Layout/Header.tsx:67
+#: src/components/Layout/Header.tsx:68
 msgid "Show secondary navigation"
 msgstr ""
 
@@ -1730,7 +1734,7 @@ msgstr ""
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:35
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
-#: src/components/Layout/Header.tsx:57
+#: src/components/Layout/Header.tsx:58
 #: src/components/Layout/Sidebar.tsx:62
 #: src/components/Profile/ProfileTokenListItem.tsx:127
 msgid "Stake"
@@ -1923,7 +1927,7 @@ msgstr ""
 msgid "Switch to {capitalizedName}"
 msgstr ""
 
-#: src/components/Layout/Header.tsx:79
+#: src/components/Layout/Header.tsx:80
 #: src/components/Layout/Sidebar.tsx:71
 msgid "T&Cs"
 msgstr "条款与条件"
