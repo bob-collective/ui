@@ -510,7 +510,12 @@ const useStrategiesContractData = (
                 balanceOf > 0n
                   ? {
                       amount: depositAmount,
-                      usd: new Big(depositAmount.toExact()).mul(underlyingPrice).toNumber()
+                      usd: new Big(depositAmount.toExact())
+                        .mul(underlyingPrice)
+                        .mul(exchangeRateStored.toString())
+                        .div(10 ** underlyingDecimals)
+                        .div(1e10)
+                        .toNumber()
                     }
                   : undefined
             };
