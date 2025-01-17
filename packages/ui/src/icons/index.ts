@@ -19,6 +19,7 @@ export { Bolt } from './Bolt';
 export { ChatBubbleLeftRight } from './ChatBubbleLeftRight';
 export { Check } from './Check';
 export { CheckCircle } from './CheckCircle';
+export { ChevronDoubleRight } from './ChevronDoubleRight';
 export { ChevronDown } from './ChevronDown';
 export { ChevronLeft } from './ChevronLeft';
 export { ChevronRight } from './ChevronRight';

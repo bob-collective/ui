@@ -12,7 +12,8 @@ const StyledWalletCard = styled(Card)`
 const StyledTokenListItem = styled(Card)<StyledTokenListItemProps>`
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     ${({ theme }) => theme.list.item.hover}
   }
 
