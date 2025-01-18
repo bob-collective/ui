@@ -33,13 +33,13 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
   const { getBalance } = useBalances(currentChain.id);
 
   const { data: blockscoutTokens = [] } = useBlockscoutTokens();
-  const { data: blockscoutBalances = {} } = useBlockscoutBalances();
+  const { getBlockscoutBalance } = useBlockscoutBalances();
   const { getPrice } = usePrices();
 
   const list = items?.map((token) => ({ token, balance: getBalance(token.currency.symbol) })) || [];
   const blockscoutTokensList = blockscoutTokens.map((blockscoutToken) => ({
     token: blockscoutToken,
-    balance: blockscoutBalances[blockscoutToken.currency.symbol]
+    balance: getBlockscoutBalance(blockscoutToken.currency.symbol)
   }));
 
   const handlePressExplorer = (address: Address) => {

@@ -9,7 +9,7 @@ import { useTokens } from './useTokens';
 
 import { INTERVAL } from '@/constants';
 
-type TokensMapping = Record<string, CurrencyAmount<ERC20Token | Ether>>;
+type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
 const useBalances = (chainId: ChainId) => {
   const publicClient = usePublicClient({ chainId });
@@ -26,10 +26,10 @@ const useBalances = (chainId: ChainId) => {
   const { data: tokens } = useTokens(chainId);
 
   const balanceSelector = useCallback(
-    (data: (string | number | bigint)[]): TokensMapping => {
-      if (!tokens) return {} as TokensMapping;
+    (data: (string | number | bigint)[]): Balances => {
+      if (!tokens) return {} as Balances;
 
-      return tokens.reduce<TokensMapping>((result, token) => {
+      return tokens.reduce<Balances>((result, token) => {
         if (token.currency.isToken) {
           const idx = Object.keys(result).length;
 
@@ -37,7 +37,7 @@ const useBalances = (chainId: ChainId) => {
         }
 
         return result;
-      }, {} as TokensMapping);
+      }, {} as Balances);
     },
     [tokens]
   );

@@ -6,11 +6,11 @@ import { useBlockscoutAddressTokens } from './useBlockscoutAddressTokens';
 
 import { BlockscoutTokenInfo } from '@/utils';
 
-type TokensMapping = Record<string, CurrencyAmount<ERC20Token | Ether>>;
+type Balances = Record<string, CurrencyAmount<ERC20Token | Ether>>;
 
 const useBlockscoutBalances = () => {
   const blockscoutBalanceSelector = useCallback((data: BlockscoutTokenInfo[]) => {
-    return data.reduce<TokensMapping>((result, tokenInfo) => {
+    return data.reduce<Balances>((result, tokenInfo) => {
       result[tokenInfo.token.symbol] = CurrencyAmount.fromRawAmount(
         new ERC20Token(
           ChainId.BOB,
@@ -23,12 +23,24 @@ const useBlockscoutBalances = () => {
       );
 
       return result;
-    }, {} as TokensMapping);
+    }, {} as Balances);
   }, []);
 
-  return useBlockscoutAddressTokens({
+  const result = useBlockscoutAddressTokens({
     select: blockscoutBalanceSelector
   });
+
+  const getBlockscoutBalance = useCallback(
+    (symbol: string) => {
+      return result.data?.[symbol];
+    },
+    [result.data]
+  );
+
+  return {
+    ...result,
+    getBlockscoutBalance
+  };
 };
 
 export { useBlockscoutBalances };
