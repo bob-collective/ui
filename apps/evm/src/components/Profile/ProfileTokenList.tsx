@@ -9,6 +9,7 @@ import { Avatar } from '@gobob/ui';
 import { ChainAsset } from '../ChainAsset';
 
 import { ProfileTokenListItem } from './ProfileTokenListItem';
+import { StyledMissingImageLogo } from './Profile.style';
 
 import { L2_CHAIN, RoutesPath } from '@/constants';
 import { TokenData, useBalances } from '@/hooks';
@@ -79,7 +80,13 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
         currency={item.token.currency}
         logo={
           <ChainAsset
-            asset={<Avatar alt={item.token.raw.name} size='5xl' src={item.token.raw.logoUrl} />}
+            asset={
+              item.token.raw.logoUrl ? (
+                <Avatar alt={item.token.raw.name} size='5xl' src={item.token.raw.logoUrl} />
+              ) : (
+                <StyledMissingImageLogo>{item.token.raw.name.toUpperCase().slice(0, 3)}</StyledMissingImageLogo>
+              )
+            }
             chainId={item.token.raw.chainId}
             chainProps={{ size: 'xs' }}
           />
