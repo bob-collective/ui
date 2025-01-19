@@ -3,7 +3,7 @@ import { usePrices } from '@gobob/hooks';
 import { useRouter } from 'next/navigation';
 import { Address, Chain } from 'viem';
 import { useAccount, useWatchAsset } from 'wagmi';
-import { getCapitalizedChainName } from '@gobob/chains';
+import { ChainId, getCapitalizedChainName } from '@gobob/chains';
 import { Avatar } from '@gobob/ui';
 
 import { ChainAsset } from '../ChainAsset';
@@ -66,7 +66,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
     onPressNavigate?.();
   };
 
-  return [...list, ...blockscoutTokensList]?.map((item) => {
+  return [...list, ...(currentChain.id === ChainId.BOB ? blockscoutTokensList : [])]?.map((item) => {
     if (!item.balance?.greaterThan(0)) {
       return undefined;
     }
