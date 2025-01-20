@@ -177,30 +177,15 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
           <Trans>Connect Wallet</Trans>
         </ModalHeader>
         <ModalBody gap='xl' padding='even'>
-          <P size='s'>
-            <Trans>
-              On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it&apos;s
-              advised to connect wallets from both networks.
-            </Trans>
-          </P>
-          <P size='s'>
-            <Trans>By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the</Trans>{' '}
-            <Link external href={ExternalLinks.TERMS_OF_SERVICE} size='inherit' underlined='always'>
-              <Trans>Terms of Service</Trans>
-            </Link>{' '}
-            <Trans>and that you have read and understood our</Trans>{' '}
-            <Link external href={ExternalLinks.PRIVACY_POLICY} size='inherit' underlined='always'>
-              <Trans>Privacy policy</Trans>
-            </Link>
-            .
-          </P>
           <Tabs fullWidth defaultSelectedKey={type}>
             <TabsItem
               key={WalletType.EVM}
               title={
                 <Flex alignItems='center' gap='md'>
-                  <ETH size='s' />
-                  <Span>ETH</Span>
+                  <ETH />
+                  <Span size='lg' weight='semibold'>
+                    ETH
+                  </Span>
                 </Flex>
               }
             >
@@ -216,8 +201,10 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               key={WalletType.BTC}
               title={
                 <Flex alignItems='center' gap='md'>
-                  <BTC size='s' />
-                  <Span>BTC</Span>
+                  <BTC />
+                  <Span size='lg' weight='semibold'>
+                    BTC
+                  </Span>
                 </Flex>
               }
             >
@@ -230,6 +217,17 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
               />{' '}
             </TabsItem>
           </Tabs>
+          <P align='center' color='grey-50' size='xs'>
+            <Trans>By connecting your wallet, you confirm that you&apos;ve read and agree to our</Trans>{' '}
+            <Link external href={ExternalLinks.TERMS_OF_SERVICE} size='inherit' underlined='always'>
+              <Trans>Terms of Service</Trans>
+            </Link>{' '}
+            <Trans>and</Trans>{' '}
+            <Link external href={ExternalLinks.PRIVACY_POLICY} size='inherit' underlined='always'>
+              <Trans>Privacy policy</Trans>
+            </Link>
+            .
+          </P>
         </ModalBody>
       </Modal>
     );
