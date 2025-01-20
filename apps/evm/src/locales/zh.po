@@ -438,7 +438,7 @@ msgstr "选择任何现有的流动性质押提供商来铸造你的BTC LST。"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:73
 msgid "Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.<0/>Participate in Fusion voting to receive 3 envelopes daily until January 29th.<1/>Win 888, 168 or 88 Spice with every envelope. Then share your winnings on X and follow the campaign rules for a chance to win an extra 100,000 Spice."
-msgstr "BOB蛇年大礼包等你来领!一键获得 Spice积分奖励, 与BOB一起喜迎蛇年🐍<0/>參加Fushion投票，每天可獲得3個紅包，活動舉行至1月29日。<1/>每個紅包可分別獲得888、168或88香料。只要你在推特上分享你的獲獎喜訊，便有機會贏取額外的50,000香料。"
+msgstr "BOB蛇年大礼包等你来领!一键获得 Spice积分奖励, 与BOB一起喜迎蛇年🐍<0/>參加Fushion投票，每天可獲得3個紅包，活動舉行至1月29日。<1/>每個紅包可分別獲得888、168或88香料。只要你在推特上分享你的獲獎喜訊，便有機會贏取額外的100,000香料。"
 
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:34
 msgid "Click the <0/> icon next to your favourite apps"
