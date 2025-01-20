@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { ERC20Token } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { useRouter } from 'next/navigation';
@@ -37,11 +38,15 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
   const { getBlockscoutBalance } = useBlockscoutBalances();
   const { getPrice } = usePrices();
 
-  const list = items?.map((token) => ({ token, balance: getBalance(token.currency.symbol) })) || [];
-  const blockscoutTokensList = blockscoutTokens.map((blockscoutToken) => ({
-    token: blockscoutToken,
-    balance: getBlockscoutBalance(blockscoutToken.currency.symbol)
-  }));
+  const tokens = useMemo(() => {
+    const trackedTokenList = items?.map((token) => ({ token, balance: getBalance(token.currency.symbol) })) || [];
+    const blockscoutTokensList = blockscoutTokens.map((blockscoutToken) => ({
+      token: blockscoutToken,
+      balance: getBlockscoutBalance(blockscoutToken.currency.symbol)
+    }));
+
+    return [...trackedTokenList, ...(currentChain.id === ChainId.BOB ? blockscoutTokensList : [])];
+  }, [blockscoutTokens, currentChain.id, getBalance, getBlockscoutBalance, items]);
 
   const handlePressExplorer = (address: Address) => {
     window.open(`${currentChain?.blockExplorers?.default.url}/address/${address}`, '_blank', 'noreferrer');
@@ -66,7 +71,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
     onPressNavigate?.();
   };
 
-  return [...list, ...(currentChain.id === ChainId.BOB ? blockscoutTokensList : [])]?.map((item) => {
+  return tokens?.map((item) => {
     if (!item.balance?.greaterThan(0)) {
       return undefined;
     }

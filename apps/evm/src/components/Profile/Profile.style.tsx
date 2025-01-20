@@ -20,9 +20,9 @@ const StyledTokenListItem = styled(Card)<StyledTokenListItemProps>`
 `;
 
 const StyledMissingImageLogo = styled.div`
-  border-radius: 50%;
-  width: 2.5rem;
-  height: 2.5rem;
+  border-radius: ${({ theme }) => theme.rounded('full')};
+  width: ${({ theme }) => theme.spacing('5xl')};
+  height: ${({ theme }) => theme.spacing('5xl')};
   background-color: ${({ theme }) => theme.color('primary-800')};
   display: flex;
   align-items: center;
