@@ -43,7 +43,7 @@ const AnimatedAmount = ({
             notation: compact ? 'compact' : undefined,
             roundingMode: shouldRoundDown ? 'floor' : undefined,
             maximumFractionDigits
-          }).format(value),
+          } as unknown as Intl.NumberFormatOptions).format(value),
     [format, locale, compact, shouldRoundDown, maximumFractionDigits]
   );
 
