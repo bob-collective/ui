@@ -19,6 +19,7 @@ import { Chain } from 'viem';
 import { useDisconnect } from 'wagmi';
 
 import { ProfileTag } from '../ProfileTag';
+import { AnimatedAmount } from '../AnimatedAmount';
 
 import { ProfileBtcWallet } from './ProfileBtcWallet';
 import { ProfileEvmWallet } from './ProfileEvmWallet';
@@ -40,7 +41,7 @@ type ProfileProps = {
 const Profile = ({ currentChain, otherChain, onClose, isMobile }: ProfileProps): JSX.Element => {
   const { i18n } = useLingui();
 
-  const { formatted, isPending: isBalancePending } = useTotalBalance(currentChain.id);
+  const { format, amount, isPending: isBalancePending } = useTotalBalance(currentChain.id);
   const { disconnect: evmWalletDisconnect } = useDisconnect();
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
   const { open } = useConnectModal();
@@ -105,9 +106,14 @@ const Profile = ({ currentChain, otherChain, onClose, isMobile }: ProfileProps):
       {isBalancePending ? (
         <Skeleton height='4xl' width='10rem' />
       ) : (
-        <P className={chakraPetch.className} size='3xl' weight='bold'>
-          {formatted}
-        </P>
+        <AnimatedAmount
+          showAnimation
+          amount={amount.toNumber()}
+          className={chakraPetch.className}
+          format={format}
+          size='3xl'
+          weight='bold'
+        />
       )}
       <Flex gap='md'>
         <Card

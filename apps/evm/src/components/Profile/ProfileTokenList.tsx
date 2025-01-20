@@ -89,7 +89,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
               item.token.raw.logoUrl ? (
                 <Avatar alt={item.token.raw.name} size='5xl' src={item.token.raw.logoUrl} />
               ) : (
-                <StyledMissingImageLogo>{item.token.raw.name.toUpperCase().slice(0, 3)}</StyledMissingImageLogo>
+                <StyledMissingImageLogo>{item.token.raw.symbol.toUpperCase().slice(0, 3)}</StyledMissingImageLogo>
               )
             }
             chainId={item.token.raw.chainId}

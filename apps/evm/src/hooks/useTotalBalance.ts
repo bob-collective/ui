@@ -32,13 +32,15 @@ const useTotalBalance = (chainId: ChainId) => {
     )
   );
 
+  const intlFormat = (balance: number) =>
+    Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(balance);
+
   return {
     isPending: (evmAddress ? isEvmBalancePending : false) || (btcAddress ? isBtcBalancePending : false),
     formatted: format(total.toNumber()),
-    compact: Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
-      total.toNumber()
-    ),
-    amount: total
+    compact: intlFormat(total.toNumber()),
+    amount: total,
+    format
   };
 };
 
