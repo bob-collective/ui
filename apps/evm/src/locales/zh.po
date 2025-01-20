@@ -424,7 +424,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:13
 msgid "BTC LST Lending"
-msgstr "BTC LST借贷<<<<<<< HEAD"
+msgstr "BTC LST借贷"
 
 #: src/components/Profile/Profile.tsx:99
 msgid "Buy"
