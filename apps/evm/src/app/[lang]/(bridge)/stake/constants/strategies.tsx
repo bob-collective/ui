@@ -85,8 +85,6 @@ const solvBTCPath = [
   } satisfies StrategyCurrency
 ] as const;
 
-const babylonWithdrawWarning = <Trans>Babylon does not yet support withdrawals.</Trans>;
-
 // TODO: separate protocol audits from asset audits
 const strategiesInfo: Record<string, StrategyInfo> = {
   'bedrock-unibtc': {
@@ -99,7 +97,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       landingPage: 'https://app.bedrock.technology',
       manage: 'https://app.bedrock.technology/unibtc?network=bob'
     },
-    warningMessage: babylonWithdrawWarning,
     breakdown: [wBTC.asset, uniBTC.asset]
   },
   'solv-solvbtcbbn': {
@@ -112,7 +109,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       landingPage: 'https://solv.finance/',
       manage: 'https://app.solv.finance/babylon?network=bob'
     },
-    warningMessage: babylonWithdrawWarning,
     breakdown: [wBTC.asset, ...solvBTCPath]
   },
   'pell-solvbtcbbn': {
@@ -130,7 +126,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       landingPage: 'https://app.pell.network/',
       manage: 'https://app.pell.network/restake/detail?chainid=60808&address=0x6f0AfADE16BFD2E7f5515634f2D0E3cd03C845Ef'
     },
-    warningMessage: babylonWithdrawWarning,
     breakdown: [wBTC.asset, ...solvBTCPath]
   },
   'pell-unibtc': {
@@ -149,7 +144,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       landingPage: 'https://app.pell.network/',
       manage: 'https://app.pell.network/restake/detail?chainid=60808&address=0x631ae97e24f9F30150d31d958d37915975F12ed8'
     },
-    warningMessage: babylonWithdrawWarning,
     breakdown: [wBTC.asset, uniBTC.asset]
   },
   'segment-tbtc': {
@@ -207,7 +201,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       landingPage: 'https://app.segment.finance',
       manage: 'https://app.segment.finance/#//market/0x5EF2B8fbCc8aea2A9Dbe2729F0acf33E073Fa43e'
     },
-    warningMessage: babylonWithdrawWarning,
     breakdown: [
       wBTC.asset,
       ...solvBTCPath,
@@ -234,7 +227,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       landingPage: 'https://app.segment.finance',
       manage: 'https://app.segment.finance/#//market/0x7848F0775EebaBbF55cB74490ce6D3673E68773A'
     },
-    warningMessage: babylonWithdrawWarning,
     breakdown: [
       wBTC.asset,
       uniBTC.asset,
