@@ -1,7 +1,7 @@
 'use client';
 
 import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
-import { Card, Flex, P, Skeleton, SolidArrowDownCircle, SolidCreditCard, Tabs, TabsItem } from '@gobob/ui';
+import { Card, Flex, P, Skeleton, SolidArrowDownCircle, SolidCreditCard, Spinner, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { Chain } from 'viem';
 import { useDisconnect } from 'wagmi';
@@ -20,6 +20,7 @@ import { useConnectModal, WalletType } from '@/connect-ui';
 import { ExternalLinks } from '@/constants';
 import { useTotalBalance } from '@/hooks';
 import { store } from '@/lib/store';
+import { useGetTransactions } from '@/app/[lang]/(bridge)/bridge/hooks';
 
 enum ProfileDrawerTab {
   WALLET,
@@ -38,6 +39,8 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
   const { disconnect: evmWalletDisconnect } = useDisconnect();
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
   const { open } = useConnectModal();
+
+  const { txPendingUserAction } = useGetTransactions();
 
   const handleLogout = () => {
     onClose();
@@ -129,7 +132,15 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
         <TabsItem key={ProfileDrawerTab.WALLET} title={<Trans>Wallet</Trans>}>
           <ProfileTokens currentChain={currentChain} otherChain={otherChain} onPressNavigate={onClose} />
         </TabsItem>
-        <TabsItem key={ProfileDrawerTab.ACTIVITY} title={<Trans>Activity</Trans>}>
+        <TabsItem
+          key={ProfileDrawerTab.ACTIVITY}
+          title={
+            <Flex alignItems='center' elementType='span' gap='s'>
+              <Trans>Activity</Trans>
+              <Spinner color='default' size='16' thickness={2} />
+            </Flex>
+          }
+        >
           <ProfileActivity />
         </TabsItem>
       </Tabs>

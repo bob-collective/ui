@@ -1,49 +1,51 @@
-import { Card, FlexProps } from '@gobob/ui';
-import { useState } from 'react';
+import { Flex } from '@gobob/ui';
 
 import { BridgeStatus } from '../BridgeStatus';
 
 import { TransactionDetails } from './TransactionDetails';
+import { TransactionItemCard } from './TransactionItemCard';
 
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { BridgeTransaction, TransactionDirection } from '@/types';
 
-type Props = { data: BridgeTransaction; onProveSuccess?: () => void; onRelaySuccess?: () => void };
-
-type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
-
-type BridgeTransactionItemProps = Props & InheritAttrs;
+type BridgeTransactionItemProps = {
+  data: BridgeTransaction;
+  onProveSuccess?: () => void;
+  onRelaySuccess?: () => void;
+  isExpanded: boolean;
+  onExpandChange: () => void;
+};
 
 const BridgeTransactionItem = ({
   data,
   onProveSuccess,
   onRelaySuccess,
-  ...props
+  isExpanded,
+  onExpandChange
 }: BridgeTransactionItemProps): JSX.Element => {
-  const [isExpanded, setExpanded] = useState(false);
-
   const fromChaindId = data.direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN;
   const toChaindId = data.direction === TransactionDirection.L1_TO_L2 ? L2_CHAIN : L1_CHAIN;
 
   return (
-    <Card background='grey-600' direction='column' gap='md' padding='lg' rounded='md' {...props}>
-      <TransactionDetails
-        amount={data.amount}
-        date={data.date}
-        direction={data.direction}
-        fromChainId={fromChaindId}
-        isExpanded={isExpanded}
-        logoUrl={data.logoUrl}
-        toChainId={toChaindId}
-        onExpand={() => setExpanded((isExpanded) => !isExpanded)}
-      />
-      <BridgeStatus
-        data={data}
-        isExpanded={isExpanded}
-        onProveSuccess={onProveSuccess}
-        onRelaySuccess={onRelaySuccess}
-      />
-    </Card>
+    <TransactionItemCard isExpanded={isExpanded} onExpandChange={onExpandChange}>
+      <Flex direction='column' gap='s'>
+        <TransactionDetails
+          amount={data.amount}
+          date={data.date}
+          direction={data.direction}
+          fromChainId={fromChaindId}
+          isExpanded={isExpanded}
+          logoUrl={data.logoUrl}
+          toChainId={toChaindId}
+        />
+        <BridgeStatus
+          data={data}
+          isExpanded={isExpanded}
+          onProveSuccess={onProveSuccess}
+          onRelaySuccess={onRelaySuccess}
+        />
+      </Flex>
+    </TransactionItemCard>
   );
 };
 

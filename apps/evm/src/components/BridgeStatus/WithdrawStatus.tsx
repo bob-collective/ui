@@ -150,7 +150,7 @@ const WithdrawStatus = ({ data, isExpanded, onProveSuccess, onRelaySuccess }: Wi
   }
 
   return (
-    <Flex direction='column' flex={1} gap='s'>
+    <Flex direction='column' flex={1} gap='xs'>
       <BridgeStep data={data} step='withdraw' />
       <TimeStep currentStep={currentStep} data={data} step='state-root-published' />
       <ProveStep
