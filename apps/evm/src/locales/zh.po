@@ -68,7 +68,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:63
 msgid "<0>{0} {1, plural, one {Envelope} other {Envelopes}} </0>Remaining"
-msgstr "<0>{0} {1, plural, one {紅包} other {紅包}} </0>剩餘"
+msgstr "<0>{1, plural, one {紅包} other {紅包}} {0}</0>剩餘"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:63
 #~ msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
@@ -80,7 +80,7 @@ msgstr "<0>{0} {1, plural, one {紅包} other {紅包}} </0>剩餘"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:119
 msgid "<0>{rollsRemaining}/3</0> {0, plural, one {Envelope} other {Envelopes}} Remaining"
-msgstr ""
+msgstr "{0, plural, one {紅包} other {紅包}} <0>{rollsRemaining}/3</0>剩餘"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:118
 #~ msgid "<0>{rollsRemaining}/3</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
