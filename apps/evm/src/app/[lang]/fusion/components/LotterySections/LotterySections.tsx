@@ -75,8 +75,8 @@ const LotterySection = () => {
                 <br />
                 Participate in Fusion voting to receive 3 envelopes daily until January 29th.
                 <br />
-                Win 100, 500 or 1,000 Spice with every envelope. Then share your winnings on X for a chance to win an
-                extra 50,000 Spice.
+                Win 888, 168 or 88 Spice with every envelope. Then share your winnings on X and follow the campaign
+                rules for a chance to win an extra 100,000 Spice.
               </Trans>
             </P>
           </Flex>

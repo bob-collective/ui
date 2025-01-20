@@ -78,7 +78,7 @@ msgstr "<0>{0} {1, plural, one {Envelope} other {Envelopes}} </0>Remaining"
 #~ msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 #~ msgstr "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:119
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:125
 msgid "<0>{rollsRemaining}/3</0> {0, plural, one {Envelope} other {Envelopes}} Remaining"
 msgstr "<0>{rollsRemaining}/3</0> {0, plural, one {Envelope} other {Envelopes}} Remaining"
 
@@ -437,8 +437,8 @@ msgstr "Chose any of the existing liquid staking provider to mint your BTC LST."
 #~ msgstr "Claim your Red envelope to get Spice and celebrate the Lunar New Year with BOB<0/>Participate in Fusion voting to receive 3 envelopes each day."
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:73
-msgid "Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.<0/>Participate in Fusion voting to receive 3 envelopes daily until January 29th.<1/>Win 100, 500 or 1,000 Spice with every envelope. Then share your winnings on X for a chance to win an extra 50,000 Spice."
-msgstr "Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.<0/>Participate in Fusion voting to receive 3 envelopes daily until January 29th.<1/>Win 100, 500 or 1,000 Spice with every envelope. Then share your winnings on X for a chance to win an extra 50,000 Spice."
+msgid "Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.<0/>Participate in Fusion voting to receive 3 envelopes daily until January 29th.<1/>Win 888, 168 or 88 Spice with every envelope. Then share your winnings on X and follow the campaign rules for a chance to win an extra 100,000 Spice."
+msgstr "Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.<0/>Participate in Fusion voting to receive 3 envelopes daily until January 29th.<1/>Win 888, 168 or 88 Spice with every envelope. Then share your winnings on X and follow the campaign rules for a chance to win an extra 100,000 Spice."
 
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:34
 msgid "Click the <0/> icon next to your favourite apps"
@@ -446,8 +446,8 @@ msgstr "Click the <0/> icon next to your favourite apps"
 
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:108
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:93
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:87
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:199
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:93
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:205
 msgid "Close"
 msgstr "Close"
 
@@ -486,7 +486,7 @@ msgstr "Community Voting Information"
 #~ msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 #~ msgstr "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:112
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:118
 msgid "Congratulations you won!<0/>Take a screenshot to share with your friends!"
 msgstr "Congratulations you won!<0/>Take a screenshot to share with your friends!"
 
@@ -621,7 +621,7 @@ msgstr "Don't believe in the Bitcoin Renaissance? You can withdraw your funds fr
 msgid "Don't show this message again"
 msgstr "Don't show this message again"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:132
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:138
 msgid "Each envelope is your chance to win big! Vote for your favourite app to receive 3 new envelopes daily and boost your chances."
 msgstr "Each envelope is your chance to win big! Vote for your favourite app to receive 3 new envelopes daily and boost your chances."
 
@@ -800,7 +800,7 @@ msgstr "Geoblock"
 #~ msgid "Get"
 #~ msgstr "Get"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:194
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:200
 msgid "Get envelopes"
 msgstr "Get envelopes"
 
@@ -829,7 +829,7 @@ msgstr "Got it!"
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:80
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:86
 msgid "Harvest {0} more Spice to play"
 msgstr "Harvest {0} more Spice to play"
 
@@ -1060,7 +1060,7 @@ msgstr "Lunar New Year Lottery"
 msgid "Manage"
 msgstr "Manage"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:147
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:153
 msgid "Maximize your chances by using all your envelopes before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery envelopes daily."
 msgstr "Maximize your chances by using all your envelopes before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery envelopes daily."
 
@@ -1166,8 +1166,8 @@ msgstr "Network Fee Rate"
 #~ msgid "new envelopes drop in {timeToNextDraw}"
 #~ msgstr "new envelopes drop in {timeToNextDraw}"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:71
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:162
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:77
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:168
 msgid "New envelopes drop in {timeToNextDraw}"
 msgstr "New envelopes drop in {timeToNextDraw}"
 
@@ -1225,7 +1225,7 @@ msgstr "No new goal at the moment. Stay tuned for updates!"
 #~ msgid "Not found"
 #~ msgstr "Not found"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:110
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:116
 msgid "Not your lucky day... yet!"
 msgstr "Not your lucky day... yet!"
 
@@ -1274,7 +1274,7 @@ msgstr "Participate in the event, learn, and get up to 10,000 Spice Points at th
 msgid "Pending"
 msgstr "Pending"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:213
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:221
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:88
 msgid "Play"
 msgstr "Play"
@@ -1502,7 +1502,7 @@ msgstr "Select Token"
 #~ msgid "Send {ticker}"
 #~ msgstr "Send {ticker}"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:208
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:216
 msgid "Share on X"
 msgstr "Share on X"
 
@@ -1527,7 +1527,7 @@ msgstr "Solv XP"
 #~ msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:133
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:61
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:67
 #: src/hooks/useLogin.ts:50
 #: src/hooks/useSignUp.ts:53
 msgid "Something went wrong. Please try again later."
@@ -2251,7 +2251,7 @@ msgstr "You are one of the top 100 Spice holders in BOB Fusion"
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "You can change your votes at any time before the end of the weekly voting period"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:105
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:111
 msgid "You Have 0 Envelopes"
 msgstr "You Have 0 Envelopes"
 
@@ -2271,7 +2271,7 @@ msgstr "You have switched your account mid session. Simply switch back the origi
 #~ msgid "You need at least {0} Spice to participate in Lottery."
 #~ msgstr "You need at least {0} Spice to participate in Lottery."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:74
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:80
 msgid "You need at least {0} Spice to participate in Lunar New Year Lottery."
 msgstr "You need at least {0} Spice to participate in Lunar New Year Lottery."
 
@@ -2293,7 +2293,7 @@ msgstr "You will receive"
 msgid "You will stake"
 msgstr "You will stake"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:109
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
 msgid "You're Ready to Play!"
 msgstr "You're Ready to Play!"
 
@@ -2301,7 +2301,7 @@ msgstr "You're Ready to Play!"
 #~ msgid "You've used all your envelopes for today, new envelope will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily envelopes."
 #~ msgstr "You've used all your envelopes for today, new envelope will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily envelopes."
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:140
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:146
 msgid "You've used all your envelopes for today, new envelopes will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily envelopes."
 msgstr "You've used all your envelopes for today, new envelopes will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily envelopes."
 
