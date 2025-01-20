@@ -159,7 +159,7 @@ const LotteryModal = ({
 
   return (
     <Modal isDismissable isOpen={isOpen} size='s' onClose={onClose}>
-      {isWinner && <StyledLottie autoplay animationData={foreworksAnimationData} loop={false} />}
+      {isWinner && <StyledLottie autoplay animationData={structuredClone(foreworksAnimationData)} />}
       <ModalBody padding='2xl'>
         <Flex alignItems='center' direction='column' gap='5xl'>
           <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
