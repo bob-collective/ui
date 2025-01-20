@@ -11,7 +11,7 @@ type BridgeStore = {
   };
 };
 
-type StakeStore = {
+type StrategiesStore = {
   transactions: {
     isInitialLoading: boolean;
   };
@@ -19,7 +19,7 @@ type StakeStore = {
 
 type Store = {
   bridge: BridgeStore;
-  stake: StakeStore;
+  strategies: StrategiesStore;
 };
 
 const store = new StoreLib<Store>({
@@ -31,7 +31,7 @@ const store = new StoreLib<Store>({
       }
     }
   },
-  stake: {
+  strategies: {
     transactions: {
       isInitialLoading: true
     }

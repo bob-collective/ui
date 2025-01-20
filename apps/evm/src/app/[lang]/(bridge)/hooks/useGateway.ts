@@ -111,8 +111,8 @@ type UseGatewayQueryDataReturnType = {
   balance: { data: CurrencyAmount<Bitcoin>; isPending: boolean };
 };
 
-type StakeParams = {
-  type: GatewayTransactionType.STAKE;
+type StrategyParams = {
+  type: GatewayTransactionType.STRATEGY;
   assetName?: string;
 } & Partial<Pick<GatewayQuoteParams, 'toChain' | 'toToken' | 'strategyAddress'>>;
 
@@ -122,7 +122,7 @@ type BridgeParams = {
 } & Partial<Pick<GatewayQuoteParams, 'toChain' | 'toToken'>>;
 
 type UseGatewayLiquidityProps = {
-  params: BridgeParams | StakeParams;
+  params: BridgeParams | StrategyParams;
   isDisabled?: boolean;
   onMutate?: (data: Optional<InitGatewayTransaction, 'amount'>) => void;
   onSuccess?: (data: InitGatewayTransaction) => void;
@@ -183,13 +183,13 @@ const useGateway = ({
   const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
 
   const liquidityQueryEnabled = Boolean(
-    params.toChain && params.toToken && params.type === GatewayTransactionType.STAKE ? params.strategyAddress : true
+    params.toChain && params.toToken && params.type === GatewayTransactionType.STRATEGY ? params.strategyAddress : true
   );
 
   const liquidityQueryKey = bridgeKeys.btcQuote(
     params.toToken,
     params.toChain,
-    (params as StakeParams)?.strategyAddress,
+    (params as StrategyParams)?.strategyAddress,
     'liquidity-check'
   );
 
@@ -208,7 +208,7 @@ const useGateway = ({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
         toChain,
         toToken,
-        strategyAddress: params.type === GatewayTransactionType.STAKE ? params.strategyAddress : undefined,
+        strategyAddress: params.type === GatewayTransactionType.STRATEGY ? params.strategyAddress : undefined,
         amount: undefined
       });
 
@@ -268,7 +268,7 @@ const useGateway = ({
   const quoteQueryKey = bridgeKeys.btcQuote(
     params.toToken,
     params.toChain,
-    (params as StakeParams)?.strategyAddress,
+    (params as StrategyParams)?.strategyAddress,
     rawAmount,
     isTopUpEnabled
   );
@@ -292,7 +292,7 @@ const useGateway = ({
         gasRefill: isTopUpEnabled ? GAS_REFILL : 0,
         toChain,
         toToken,
-        strategyAddress: params.type === GatewayTransactionType.STAKE ? params.strategyAddress : undefined
+        strategyAddress: params.type === GatewayTransactionType.STRATEGY ? params.strategyAddress : undefined
       });
 
       return {
