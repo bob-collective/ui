@@ -5,7 +5,6 @@ import Big from 'big.js';
 import { Mock, vi } from 'vitest';
 import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { useAccount } from 'wagmi';
-import { ChainId } from '@gobob/chains';
 
 import { useBalances } from '../useBalances';
 import { useTotalBalance } from '../useTotalBalance';
@@ -102,7 +101,7 @@ describe('useTotalBalance', () => {
       isPending: false
     });
 
-    const { result } = renderHook(() => useTotalBalance(ChainId.BOB), { wrapper });
+    const { result } = renderHook(() => useTotalBalance(), { wrapper });
 
     expect(result.current.amount).toEqual(new Big(5500.0003));
     expect(result.current.formatted).toBe('$5500.00');
@@ -122,7 +121,7 @@ describe('useTotalBalance', () => {
     mockUseCurrencyFormatter.mockReturnValue(() => '$0.00');
     mockUseLocale.mockReturnValue({ locale: 'en-US' });
 
-    const { result } = renderHook(() => useTotalBalance(ChainId.BOB), { wrapper });
+    const { result } = renderHook(() => useTotalBalance(), { wrapper });
 
     expect(result.current.amount.toNumber()).toBe(0);
     expect(result.current.formatted).toBe('$0.00');
@@ -162,7 +161,7 @@ describe('useTotalBalance', () => {
     mockUseCurrencyFormatter.mockReturnValue((amount: number) => `$${amount.toFixed(2)}`);
     mockUseLocale.mockReturnValue({ locale: 'en-US' });
 
-    const { result } = renderHook(() => useTotalBalance(ChainId.BOB), { wrapper });
+    const { result } = renderHook(() => useTotalBalance(), { wrapper });
 
     expect(result.current.isPending).toBe(true);
   });
@@ -192,7 +191,7 @@ describe('useTotalBalance', () => {
     mockUseCurrencyFormatter.mockReturnValue((amount: number) => `$${amount.toFixed(2)}`);
     mockUseLocale.mockReturnValue({ locale: 'en-US' });
 
-    const { result } = renderHook(() => useTotalBalance(ChainId.BOB), { wrapper });
+    const { result } = renderHook(() => useTotalBalance(), { wrapper });
 
     const ethBalance = new Big(1).mul(2000);
 
