@@ -51,7 +51,7 @@ const NavItem = ({ children, size, isExternal, href, onPress, ...props }: NavIte
   const localizedHref = `/${params.lang}${href}`;
 
   return (
-    <li>
+    <li style={{ lineHeight: 1 }}>
       <StyledNativeNavLink {...props} ref={ref} href={localizedHref} onClick={onPress} onKeyDown={onPress}>
         <StyledNavLink
           as={Span}

@@ -1,26 +1,15 @@
 'use client';
 
 import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
-import {
-  Button,
-  Card,
-  Flex,
-  P,
-  Power,
-  Skeleton,
-  SolidArrowDownCircle,
-  SolidCreditCard,
-  Tooltip,
-  XMark
-} from '@gobob/ui';
-import { t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
+import { Card, Flex, P, Skeleton, SolidArrowDownCircle, SolidCreditCard } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 import { Chain } from 'viem';
 import { useDisconnect } from 'wagmi';
 
 import { ProfileTag } from '../ProfileTag';
 import { AnimatedAmount } from '../AnimatedAmount';
 
+import { DisconnectButton } from './DisconnectButton';
 import { ProfileBtcWallet } from './ProfileBtcWallet';
 import { ProfileEvmWallet } from './ProfileEvmWallet';
 import { ProfileTokens } from './ProfileTokens';
@@ -33,15 +22,12 @@ import { store } from '@/lib/store';
 
 type ProfileProps = {
   onClose: () => void;
-  isMobile: boolean;
   currentChain: Chain;
   otherChain: Chain;
 };
 
-const Profile = ({ currentChain, otherChain, onClose, isMobile }: ProfileProps): JSX.Element => {
-  const { i18n } = useLingui();
-
-  const { format, amount, isPending: isBalancePending } = useTotalBalance(currentChain.id);
+const Profile = ({ currentChain, otherChain, onClose }: ProfileProps): JSX.Element => {
+  const { amount, format, isPending: isBalancePending } = useTotalBalance(currentChain.id);
   const { disconnect: evmWalletDisconnect } = useDisconnect();
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
   const { open } = useConnectModal();
@@ -84,24 +70,7 @@ const Profile = ({ currentChain, otherChain, onClose, isMobile }: ProfileProps):
     <Flex direction='column' flex={1} gap='xl'>
       <Flex alignItems='center' justifyContent='space-between'>
         <ProfileTag isCopyEnabled chain={currentChain} labelProps={{ weight: 'semibold' }} size='md' />
-        <Flex gap='s'>
-          <Tooltip label='Disconnect'>
-            <Button
-              isIconOnly
-              aria-label={t(i18n)`disconnect wallet(s)`}
-              size='s'
-              variant='ghost'
-              onPress={handleLogout}
-            >
-              <Power size='s' />
-            </Button>
-          </Tooltip>
-          {!isMobile && (
-            <Button isIconOnly aria-label={t(i18n)`close drawer`} size='s' variant='ghost' onPress={onClose}>
-              <XMark size='s' />
-            </Button>
-          )}
-        </Flex>
+        <DisconnectButton onConfirmPress={handleLogout} />
       </Flex>
       {isBalancePending ? (
         <Skeleton height='4xl' width='10rem' />

@@ -1,7 +1,16 @@
 'use client';
 
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { Button, DrawerButton, DrawerContent, DrawerOverlay, DrawerPortal, DrawerRoot, DrawerTitle } from '@gobob/ui';
+import {
+  Button,
+  ChevronDoubleRight,
+  DrawerButton,
+  DrawerContent,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerRoot,
+  DrawerTitle
+} from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
 import { useState } from 'react';
@@ -12,6 +21,8 @@ import { useAccount } from 'wagmi';
 import { Profile } from '../Profile';
 import { ProfileTag } from '../ProfileTag';
 
+import { StyledCloseButton } from './ConnectButton.style';
+
 import { useConnectModal } from '@/connect-ui';
 import { chainL1, chainL2, isValidChain } from '@/constants';
 import { store } from '@/lib/store';
@@ -19,6 +30,8 @@ import { store } from '@/lib/store';
 const ConnectButton = (): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+
+  const [isProfileDrawerOpen, setProfileDrawerOpen] = useState(false);
 
   const { address: evmAddress, chain } = useAccount();
   const { address: btcAddress } = useSatsAccount();
@@ -29,7 +42,6 @@ const ConnectButton = (): JSX.Element => {
   const isReceiveModalOpen = useStore(store, (state) => state.shared.isReceiveModalOpen);
   const { isOpen: isConnectModalOpen } = useConnectModal();
 
-  const [isOpen, setOpen] = useState(false);
   const { open } = useConnectModal();
 
   const isLoggedIn = !!(evmAddress || btcAddress);
@@ -40,31 +52,35 @@ const ConnectButton = (): JSX.Element => {
     };
 
     return (
-      <Button variant='ghost' onPress={handleConnect}>
+      <Button style={{ marginLeft: 30 }} variant='ghost' onPress={handleConnect}>
         <Trans>Connect Wallet</Trans>
       </Button>
     );
   }
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => setProfileDrawerOpen(false);
 
   return (
     <DrawerRoot
       direction={isMobile ? 'bottom' : 'right'}
       dismissible={!(isReceiveModalOpen || isConnectModalOpen)}
-      open={isOpen}
-      onOpenChange={setOpen}
+      modal={isMobile}
+      open={isProfileDrawerOpen}
+      onOpenChange={setProfileDrawerOpen}
     >
       <DrawerButton variant='ghost'>
         <ProfileTag chain={currentChain} hideAddress={isMobile} size='s' />
       </DrawerButton>
       <DrawerPortal>
-        <DrawerOverlay />
+        {isMobile && <DrawerOverlay />}
         <DrawerContent>
+          <StyledCloseButton $isOpen={isProfileDrawerOpen}>
+            <ChevronDoubleRight color='grey-50' size='s' />
+          </StyledCloseButton>
           <DrawerTitle hidden>
             <Trans>Profile</Trans>
           </DrawerTitle>
-          <Profile currentChain={currentChain} isMobile={isMobile} otherChain={otherChain} onClose={handleClose} />
+          <Profile currentChain={currentChain} otherChain={otherChain} onClose={handleClose} />
         </DrawerContent>
       </DrawerPortal>
     </DrawerRoot>
