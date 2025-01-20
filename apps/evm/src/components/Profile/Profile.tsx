@@ -27,7 +27,7 @@ type ProfileProps = {
 };
 
 const Profile = ({ currentChain, otherChain, onClose }: ProfileProps): JSX.Element => {
-  const { amount, format, isPending: isBalancePending } = useTotalBalance(currentChain.id);
+  const { amount, format, isPending: isBalancePending } = useTotalBalance();
   const { disconnect: evmWalletDisconnect } = useDisconnect();
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
   const { open } = useConnectModal();
