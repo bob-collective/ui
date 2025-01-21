@@ -52,7 +52,7 @@ msgstr "距离投票轮结束还有{0}"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:51
 msgid "{timeToNextDraw} until next draw"
-msgstr ""
+msgstr "{timeToNextDraw} 直到下一次抽獎"
 
 #: src/app/[lang]/fusion/components/UserInfo/MultipliersModal.tsx:230
 msgid "* The multipliers displayed are subject to change based on the payout structure of the respective projects."
@@ -1077,7 +1077,7 @@ msgstr "登录查看仪表板"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:79
 msgid "Login to play"
-msgstr ""
+msgstr "登錄以參加遊戲"
 
 #: src/components/LoginSection/LoginSection.tsx:14
 msgid "Login with wallet"
@@ -1323,7 +1323,7 @@ msgstr ""
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:208
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:79
 msgid "Play"
-msgstr ""
+msgstr "開始遊戲"
 
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:93
 msgid "Please confirm allowance approval for {0} in your wallet"
@@ -2388,7 +2388,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:107
 msgid "You're Ready to Play!"
-msgstr ""
+msgstr "你已準備好參與！"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:138
 msgid "You've used all your tickets for today, new tickets will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily tickets."
