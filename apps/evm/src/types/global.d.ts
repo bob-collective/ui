@@ -4,7 +4,6 @@ declare global {
       // client
       NEXT_PUBLIC_FUSION_API_URL: string;
       NEXT_PUBLIC_GATEWAY_API_URL: string;
-      NEXT_PUBLIC_BLOCKSCOUT_API_URL: string;
       NEXT_PUBLIC_BTC_API_URL: string;
       NEXT_PUBLIC_L1_CHAIN: `${number}`;
       NEXT_PUBLIC_L2_CHAIN: `${number}`;

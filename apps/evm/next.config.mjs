@@ -1,5 +1,7 @@
 import { withSentryConfig } from '@sentry/nextjs';
 
+import { chainL2 } from './src/constants';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -41,7 +43,7 @@ const nextConfig = {
       },
       {
         source: '/blockscout-api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_BLOCKSCOUT_API_URL}/api/v2/:path*`
+        destination: `${chainL2.blockExplorers.default.url}/api/v2/:path*`
       }
     ];
   },
