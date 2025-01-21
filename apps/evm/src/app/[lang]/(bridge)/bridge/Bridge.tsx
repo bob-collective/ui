@@ -1,19 +1,23 @@
 'use client';
 
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
-import { Tabs, TabsItem } from '@gobob/ui';
+import { Card, Flex, Spinner, Tabs, TabsItem, Span, SolidClock, Button } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
+import { useAccount } from 'wagmi';
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
-import { Layout, TransactionList } from '../components';
+import { Layout } from '../components';
 
-import { StyledCard, StyledFlex } from './Bridge.style';
+import { StyledCard } from './Bridge.style';
 import { BridgeForm } from './components';
-import { useGetTransactions } from './hooks';
 
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { TransactionDirection } from '@/types';
+import { useConnectModal } from '@/connect-ui';
+import { store } from '@/lib/store';
+import { useGetBridgeTransactions } from '@/hooks';
 
 const externalUnsupportedTokens = ['LBTC'];
 
@@ -50,14 +54,15 @@ interface Props {
 }
 
 const Bridge = ({ searchParams }: Props) => {
-  const {
-    data: transactions,
-    isInitialLoading: isTransactionsInitialLoading,
-    refetch,
-    txPendingUserAction
-  } = useGetTransactions();
-
   const router = useRouter();
+
+  const { txPendingUserAction } = useGetBridgeTransactions();
+  const { open } = useConnectModal();
+
+  const { address: evmAddress } = useAccount();
+  const { address: btcAddress } = useSatsAccount();
+
+  const isLoggedIn = !!(evmAddress || btcAddress);
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
@@ -122,6 +127,21 @@ const Bridge = ({ searchParams }: Props) => {
     urlSearchParams.set('network', network);
   };
 
+  const handleOpenProfile = () => {
+    store.setState((state) => ({
+      ...state,
+      shared: { ...state.shared, profile: { isOpen: true, selectedTab: 'activity' } }
+    }));
+  };
+
+  const handleActivity = () => {
+    if (!isLoggedIn) {
+      return open({ onConnectBtc: handleOpenProfile, onConnectEvm: handleOpenProfile });
+    }
+
+    handleOpenProfile();
+  };
+
   useEffect(() => {
     const chain = getChain();
 
@@ -141,49 +161,67 @@ const Bridge = ({ searchParams }: Props) => {
 
   return (
     <Layout>
-      <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
-        <StyledCard>
-          <Tabs
-            fullWidth
-            disabledKeys={tabsDisabledKeys}
-            selectedKey={type}
-            size='lg'
-            onSelectionChange={handleChangeTab}
-          >
-            <TabsItem key={Type.Deposit} title={<Trans>Deposit</Trans>}>
-              <></>
-            </TabsItem>
-            <TabsItem
-              key={Type.Withdraw}
-              title={<Trans>Withdraw</Trans>}
-              tooltipProps={{
-                isDisabled: !isWithdrawTabDisabled,
-                label: <Trans>Withdrawals back to BTC are currently not supported</Trans>
-              }}
+      <Flex justifyContent='center' marginTop='4xl'>
+        <Flex direction='column' gap='md'>
+          <Flex justifyContent='flex-end'>
+            <Button size='s' style={{ gap: 4, alignItems: 'center' }} onPress={handleActivity}>
+              <SolidClock />
+              {txPendingUserAction && txPendingUserAction > 0 ? (
+                <Card
+                  alignItems='center'
+                  background='primary-500'
+                  direction='row'
+                  gap='s'
+                  paddingX='md'
+                  paddingY='xs'
+                  rounded='s'
+                >
+                  <Span size='xs'>
+                    <Trans>Action needed</Trans>
+                  </Span>
+                  <Spinner color='default' size='12' thickness={2} />
+                </Card>
+              ) : (
+                <Trans>Activity</Trans>
+              )}
+            </Button>
+          </Flex>
+          <StyledCard>
+            <Tabs
+              fullWidth
+              disabledKeys={tabsDisabledKeys}
+              selectedKey={type}
+              size='lg'
+              onSelectionChange={handleChangeTab}
             >
-              <></>
-            </TabsItem>
-          </Tabs>
-          <BridgeForm
-            bridgeOrigin={bridgeOrigin}
-            chain={chain}
-            direction={direction}
-            isBobBridgeDisabled={isBobBridgeDisabled}
-            isExternalBridgeDisabled={isExternalBridgeDisabled}
-            symbol={symbol}
-            onChangeChain={handleChangeChain}
-            onChangeOrigin={handleChangeOrigin}
-            onChangeSymbol={handleChangeSymbol}
-          />
-        </StyledCard>
-        <TransactionList
-          data={transactions}
-          isInitialLoading={isTransactionsInitialLoading}
-          txPendingUserAction={txPendingUserAction}
-          onProveSuccess={refetch.bridge}
-          onRelaySuccess={refetch.bridge}
-        />
-      </StyledFlex>
+              <TabsItem key={Type.Deposit} title={<Trans>Deposit</Trans>}>
+                <></>
+              </TabsItem>
+              <TabsItem
+                key={Type.Withdraw}
+                title={<Trans>Withdraw</Trans>}
+                tooltipProps={{
+                  isDisabled: !isWithdrawTabDisabled,
+                  label: <Trans>Withdrawals back to BTC are currently not supported</Trans>
+                }}
+              >
+                <></>
+              </TabsItem>
+            </Tabs>
+            <BridgeForm
+              bridgeOrigin={bridgeOrigin}
+              chain={chain}
+              direction={direction}
+              isBobBridgeDisabled={isBobBridgeDisabled}
+              isExternalBridgeDisabled={isExternalBridgeDisabled}
+              symbol={symbol}
+              onChangeChain={handleChangeChain}
+              onChangeOrigin={handleChangeOrigin}
+              onChangeSymbol={handleChangeSymbol}
+            />
+          </StyledCard>
+        </Flex>
+      </Flex>
     </Layout>
   );
 };

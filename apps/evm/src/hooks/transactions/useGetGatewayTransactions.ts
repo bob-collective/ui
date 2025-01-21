@@ -21,13 +21,6 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
         let amount: CurrencyAmount<ERC20Token> | undefined;
 
         if (gatewayToken && gatewayAmount) {
-          const currency = new Token(
-            ChainId.BOB,
-            gatewayToken.address as `0x${string}`,
-            gatewayToken.decimals,
-            gatewayToken.symbol,
-            gatewayToken.name
-          );
           const token = {
             raw: {
               chainId: gatewayToken.chainId,

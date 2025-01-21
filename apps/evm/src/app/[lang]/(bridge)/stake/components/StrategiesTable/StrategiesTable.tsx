@@ -247,7 +247,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
   );
 
   return (
-    <Flex direction='column' gap='md'>
+    <Flex direction='column' gap='md' marginTop='2xl'>
       <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'flex-start', s: 'space-between' }}>
         <StrategiesFilter value={filter} onSelectionChange={handleFilterChange} />
         <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />

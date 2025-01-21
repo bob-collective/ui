@@ -13,7 +13,7 @@ import {
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTheme } from 'styled-components';
 import { useMediaQuery } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
@@ -31,7 +31,7 @@ const ConnectButton = (): JSX.Element => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('s'));
 
-  const [isProfileDrawerOpen, setProfileDrawerOpen] = useState(false);
+  const isProfileDrawerOpen = useStore(store, (state) => state.shared.profile.isOpen);
 
   const { address: evmAddress, chain } = useAccount();
   const { address: btcAddress } = useSatsAccount();
@@ -76,7 +76,11 @@ const ConnectButton = (): JSX.Element => {
     );
   }
 
-  const handleClose = () => setProfileDrawerOpen(false);
+  const handleOpenChange = (open: boolean) =>
+    store.setState((state) => ({
+      ...state,
+      shared: { ...state.shared, profile: { ...state.shared.profile, isOpen: open } }
+    }));
 
   return (
     <DrawerRoot
@@ -84,7 +88,7 @@ const ConnectButton = (): JSX.Element => {
       dismissible={!(isReceiveModalOpen || isConnectModalOpen)}
       modal={isMobile}
       open={isProfileDrawerOpen}
-      onOpenChange={setProfileDrawerOpen}
+      onOpenChange={handleOpenChange}
     >
       <DrawerButton variant='ghost'>
         <ProfileTag chain={currentChain} hideAddress={isMobile} size='s' />
@@ -98,7 +102,12 @@ const ConnectButton = (): JSX.Element => {
           <DrawerTitle hidden>
             <Trans>Profile</Trans>
           </DrawerTitle>
-          <Profile currentChain={currentChain} hasOpenned={hasOpenned} otherChain={otherChain} onClose={handleClose} />
+          <Profile
+            currentChain={currentChain}
+            hasOpenned={hasOpenned}
+            otherChain={otherChain}
+            onClose={() => handleOpenChange(false)}
+          />
         </DrawerContent>
       </DrawerPortal>
     </DrawerRoot>

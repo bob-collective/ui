@@ -3,6 +3,7 @@
 import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
 import { Card, Flex, P, Skeleton, SolidArrowDownCircle, SolidCreditCard, Spinner, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
+import { useStore } from '@tanstack/react-store';
 import { Chain } from 'viem';
 import { useDisconnect } from 'wagmi';
 
@@ -18,14 +19,8 @@ import { ProfileTokens } from './ProfileTokens';
 import { chakraPetch } from '@/app/fonts';
 import { useConnectModal, WalletType } from '@/connect-ui';
 import { ExternalLinks } from '@/constants';
-import { useTotalBalance } from '@/hooks';
-import { store } from '@/lib/store';
-import { useGetTransactions } from '@/app/[lang]/(bridge)/bridge/hooks';
-
-enum ProfileDrawerTab {
-  WALLET,
-  ACTIVITY
-}
+import { useGetBridgeTransactions, useTotalBalance } from '@/hooks';
+import { SharedStore, store } from '@/lib/store';
 
 type ProfileProps = {
   onClose: () => void;
@@ -40,7 +35,9 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
   const { open } = useConnectModal();
 
-  const { txPendingUserAction } = useGetTransactions();
+  const { selectedTab } = useStore(store, (state) => state.shared.profile);
+
+  const { txPendingUserAction } = useGetBridgeTransactions();
 
   const handleLogout = () => {
     onClose();
@@ -128,17 +125,35 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
         <ProfileEvmWallet currentChain={currentChain} otherChain={otherChain} onPressConnect={handleConnectEvmWallet} />
         <ProfileBtcWallet onPressConnect={handleConnectBtcWallet} onUnlink={handleUnlinkBtc} />
       </Flex>
-      <Tabs fullHeight fullWidth size='s'>
-        <TabsItem key={ProfileDrawerTab.WALLET} title={<Trans>Wallet</Trans>}>
+      <Tabs
+        fullHeight
+        fullWidth
+        selectedKey={selectedTab}
+        size='s'
+        onSelectionChange={(key) =>
+          store.setState((state) => ({
+            ...state,
+            shared: {
+              ...state.shared,
+              profile: { ...state.shared.profile, selectedTab: key as SharedStore['profile']['selectedTab'] }
+            }
+          }))
+        }
+      >
+        <TabsItem key='wallet' title={<Trans>Wallet</Trans>}>
           <ProfileTokens currentChain={currentChain} otherChain={otherChain} onPressNavigate={onClose} />
         </TabsItem>
         <TabsItem
-          key={ProfileDrawerTab.ACTIVITY}
+          key='activity'
           title={
-            <Flex alignItems='center' elementType='span' gap='s'>
+            txPendingUserAction && txPendingUserAction > 0 ? (
+              <Flex alignItems='center' elementType='span' gap='s'>
+                <Trans>Activity</Trans>
+                <Spinner color='default' size='16' thickness={2} />
+              </Flex>
+            ) : (
               <Trans>Activity</Trans>
-              <Spinner color='default' size='16' thickness={2} />
-            </Flex>
+            )
           }
         >
           <ProfileActivity />

@@ -1,4 +1,4 @@
-import { Flex, Span, ArrowDownCircle, Card, UnstyledButton, hexToRgba } from '@gobob/ui';
+import { ArrowDownCircle, Button, Card, Flex, Span, UnstyledButton, hexToRgba } from '@gobob/ui';
 import styled from 'styled-components';
 
 type StyledExpandIconProps = {
@@ -103,16 +103,21 @@ const StyledTransactionItemCard = styled(Card)<StyledTransactionItemCardProps>`
     `linear-gradient(${theme.color('grey-400')} 70%, ${theme.color($isShowMoreHovered ? 'grey-700' : 'grey-500')} 100%)`};
 `;
 
+const StyledFilterButton = styled(Button)`
+  gap: ${({ theme }) => theme.spacing('s')};
+`;
+
 export {
   StyledDetailsButton,
-  StyledTransactionItemCard,
   StyledExpandIcon,
+  StyledFilterButton,
+  StyledShowMore,
   StyledSpan,
   StyledSpinnerWrapper,
+  StyledTransactionItemCard,
   StyledTransactionList,
-  StyledShowMore,
-  StyledTransactionListWrapper,
   StyledTransactionListParent,
+  StyledTransactionListWrapper,
   StyledVirtualizer,
   StyledVirtualizerItem
 };

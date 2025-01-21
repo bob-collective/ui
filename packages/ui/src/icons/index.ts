@@ -39,7 +39,7 @@ export { PlusCircle } from './PlusCircle';
 export { Power } from './Power';
 export { PresentationChartBar } from './PresentationChartBar';
 export { PuzzlePiece } from './PuzzlePiece';
-export { Funnel } from './Funnel';
+export { SolidFunnel } from './SolidFunnel';
 export { QrCode } from './QrCode';
 export { QuestionMarkCircle } from './QuestionMarkCircle';
 export { SolidArrowDownCircle } from './SolidArrowDownCircle';

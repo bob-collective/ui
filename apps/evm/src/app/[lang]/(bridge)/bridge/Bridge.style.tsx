@@ -1,12 +1,14 @@
-import { Card, Flex } from '@gobob/ui';
+import { Card } from '@gobob/ui';
 import styled from 'styled-components';
-
-const StyledFlex = styled(Flex)`
-  width: 100%;
-`;
 
 const StyledCard = styled(Card)`
   width: 100%;
+
+  max-width: ${({ theme }) => theme.maxWidth('xl')};
+
+  @media ${({ theme }) => theme.breakpoints.up('md')} {
+    min-width: ${({ theme }) => theme.maxWidth('xl')};
+  }
 `;
 
-export { StyledCard, StyledFlex };
+export { StyledCard };

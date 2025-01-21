@@ -5,7 +5,13 @@ import { BridgeTransaction } from '../types';
 type SharedStore = {
   isReceiveModalOpen: boolean;
   profile: {
+    isOpen: boolean;
     hasOpenned: boolean;
+    selectedTab: 'wallet' | 'activity';
+    activityFilters: {
+      type?: string;
+      status?: string;
+    };
   };
 };
 
@@ -34,7 +40,13 @@ const store = new StoreLib<Store>({
   shared: {
     isReceiveModalOpen: false,
     profile: {
-      hasOpenned: false
+      isOpen: false,
+      hasOpenned: false,
+      selectedTab: 'wallet',
+      activityFilters: {
+        status: undefined,
+        type: undefined
+      }
     }
   },
   bridge: {
@@ -53,3 +65,4 @@ const store = new StoreLib<Store>({
 });
 
 export { store };
+export type { SharedStore };
