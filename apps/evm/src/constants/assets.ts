@@ -335,7 +335,7 @@ const sepoliaAssets: RawToken[] = [
   wstETH[ChainId.SEPOLIA]
 ];
 
-const bobAssets: RawToken[] = [
+export const bobAssets: RawToken[] = [
   ETH[ChainId.BOB],
   {
     chainId: ChainId.BOB,
