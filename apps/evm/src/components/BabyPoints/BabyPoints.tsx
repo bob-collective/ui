@@ -2,12 +2,12 @@
 
 import { Babylon } from '@gobob/icons';
 
-import { AnimantedAmount, AnimantedAmountProps } from '../AnimantedAmount';
+import { AnimatedAmount, AnimatedAmountProps } from '../AnimatedAmount';
 
-type BabyPointsProps = Omit<AnimantedAmountProps, 'icon'>;
+type BabyPointsProps = Omit<AnimatedAmountProps, 'icon'>;
 
 const BabyPoints = (props: BabyPointsProps) => (
-  <AnimantedAmount
+  <AnimatedAmount
     shouldRoundDown
     icon={<Babylon style={{ width: '1em', height: '1em' }} />}
     maximumFractionDigits={2}

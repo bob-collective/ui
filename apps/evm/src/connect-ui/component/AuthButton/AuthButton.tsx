@@ -8,7 +8,7 @@ import { useLingui } from '@lingui/react';
 import { useIsClient } from 'usehooks-ts';
 import { useAccount, useSwitchChain } from 'wagmi';
 
-import { useConnectModal } from '../..';
+import { useConnectModal, WalletType } from '../..';
 
 type Props = {
   chain?: ChainId;
@@ -41,7 +41,7 @@ const AuthButton = ({
   const isClient = useIsClient();
   const { i18n } = useLingui();
 
-  const { open, type: connectType } = useConnectModal();
+  const { open } = useConnectModal();
 
   const inferredProps = { onPress, onClick, disabled, children, type, ...props };
 
@@ -56,58 +56,50 @@ const AuthButton = ({
   }
 
   // Comes first because if the connection includes evm, the priority is always evm
-  if (connectType === 'evm' || connectType === 'both') {
-    if (!address && isEvmAuthRequired) {
-      const buttonProps = {
-        onPress: () => open(),
-        children: t(i18n)`Connect Wallet`,
-        ...props,
-        loading: false
-      };
+  if (!address && isEvmAuthRequired) {
+    const buttonProps = {
+      onPress: () => open({ type: WalletType.EVM }),
+      children: t(i18n)`Connect Wallet`,
+      ...props,
+      loading: false
+    };
 
-      return <Button {...buttonProps} />;
-    }
-
-    if (isEvmAuthRequired && chainProp && chain?.id !== chainProp) {
-      const name = getChainName(chainProp);
-      const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
-
-      const buttonProps = {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onPress: async (e: any) => {
-          await switchChainAsync?.({ chainId: chainProp });
-
-          if (shouldPressAfterSwitch) {
-            onPress?.(e);
-          }
-        },
-        children: isSilentSwitch ? children : t(i18n)`Switch to ${capitalizedName}`,
-        loading: isSwitchNetworkLoading,
-        ...props
-      };
-
-      return <Button {...buttonProps} />;
-    }
-    if (connectType === 'both' && isBtcAuthRequired && !btcAddress) {
-      const buttonProps = {
-        onPress: () => open(),
-        children: t(i18n)`Connect BTC Wallet`,
-        ...props,
-        loading: false
-      };
-
-      return <Button {...buttonProps} />;
-    }
-
-    return <Button {...inferredProps} />;
+    return <Button {...buttonProps} />;
   }
 
-  const buttonProps =
-    isBtcAuthRequired && !btcAddress
-      ? { onPress: () => open(), children: t(i18n)`Connect BTC Wallet`, ...props, loading: false }
-      : inferredProps;
+  if (isEvmAuthRequired && chainProp && chain?.id !== chainProp) {
+    const name = getChainName(chainProp);
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
 
-  return <Button {...buttonProps} />;
+    const buttonProps = {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onPress: async (e: any) => {
+        await switchChainAsync?.({ chainId: chainProp });
+
+        if (shouldPressAfterSwitch) {
+          onPress?.(e);
+        }
+      },
+      children: isSilentSwitch ? children : t(i18n)`Switch to ${capitalizedName}`,
+      loading: isSwitchNetworkLoading,
+      ...props
+    };
+
+    return <Button {...buttonProps} />;
+  }
+
+  if (isBtcAuthRequired && !btcAddress) {
+    const buttonProps = {
+      onPress: () => open({ type: WalletType.BTC }),
+      children: t(i18n)`Connect BTC Wallet`,
+      ...props,
+      loading: false
+    };
+
+    return <Button {...buttonProps} />;
+  }
+
+  return <Button {...inferredProps} />;
 };
 
 export { AuthButton };
