@@ -59,8 +59,8 @@ type ProfileTokenListItemProps = {
   balance?: string | number;
   amountUSD?: number;
   currency: Currency;
-  onPressBridge?: () => void;
-  onPressStake?: () => void;
+  onPressBridge?: (currency: ERC20Token) => void;
+  onPressStake?: (currency: ERC20Token) => void;
   onPressExplorer?: (address: Address) => void;
   onPressAddErc20?: (currency: ERC20Token) => void;
 };
@@ -155,7 +155,9 @@ const ProfileTokenListItem = ({
             </PopoverOptions>
           )}
           {onPressBridge && (
-            <PopoverOptions onPress={chainFn(onPressBridge, () => handleClose())}>
+            <PopoverOptions
+              onPress={currency.isToken ? chainFn(() => onPressBridge(currency), handleClose) : handleClose}
+            >
               {otherChainId ? <ChainLogo chainId={otherChainId} /> : <BOBLogo />}
               <P>
                 {otherChainName ? <Trans>Bridge to {otherChainName}</Trans> : <Trans>Bridge to {chainL2.name}</Trans>}
