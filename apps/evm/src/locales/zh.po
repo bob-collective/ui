@@ -181,9 +181,13 @@ msgstr ""
 #~ msgid "An exclusive quest campaign."
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:185
-msgid "and that you have read and understood our"
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:219
+msgid "and"
 msgstr ""
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:185
+#~ msgid "and that you have read and understood our"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:180
 msgid "Apply"
@@ -394,11 +398,11 @@ msgstr ""
 msgid "bridge network"
 msgstr ""
 
-#: src/components/Profile/ProfileTokenListItem.tsx:161
+#: src/components/Profile/ProfileTokenListItem.tsx:163
 msgid "Bridge to {0}"
 msgstr ""
 
-#: src/components/Profile/ProfileTokenListItem.tsx:161
+#: src/components/Profile/ProfileTokenListItem.tsx:163
 msgid "Bridge to {otherChainName}"
 msgstr ""
 
@@ -428,18 +432,18 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:13
 msgid "BTC LST Lending"
-msgstr "BTC LST借贷<<<<<<< HEAD"
+msgstr "BTC LST借贷"
 
-#: src/app/[lang]/(bridge)/stake/Stake.tsx:70
-#~ msgid "BTC Strategies"
-#~ msgstr ""
-
-#: src/components/Profile/Profile.tsx:93
+#: src/components/Profile/Profile.tsx:99
 msgid "Buy"
 msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:181
-msgid "By clicking ‘Connect’ you acknowledge and agree to the"
+#~ msgid "By clicking ‘Connect’ you acknowledge and agree to the"
+#~ msgstr ""
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:215
+msgid "By connecting your wallet, you confirm that you've read and agree to our"
 msgstr ""
 
 #: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:79
@@ -631,10 +635,6 @@ msgstr "将高优先级资产部署到高优先级DeFi协议中，以最大化�
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 msgid "Deposit"
 msgstr ""
-
-#: src/app/[lang]/(bridge)/stake/Stake.tsx:73
-#~ msgid "Deposit and earn yield on your BTC by using the market's most sophisticated strategies"
-#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:29
 msgid "Deposit any eligible BTC LSTs into a lending market on BOB."
@@ -1384,8 +1384,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:175
-msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
-msgstr ""
+#~ msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:68
 msgid "Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest."
@@ -1415,6 +1415,10 @@ msgstr ""
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:188
 msgid "Output"
 msgstr ""
+
+#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:74
+#~ msgid "Output Token"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/Quests/Quests.tsx:12
 msgid "Participate in the event, learn, and get up to 10,000 Spice Points at the end of the event"
@@ -1465,7 +1469,7 @@ msgstr "比特币 + 以太坊共同驱动"
 msgid "Preparing..."
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:187
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:221
 msgid "Privacy policy"
 msgstr "隐私政策"
 
@@ -1515,7 +1519,7 @@ msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting S
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
-#: src/components/Profile/Profile.tsx:107
+#: src/components/Profile/Profile.tsx:113
 msgid "Receive"
 msgstr "接收"
 
@@ -1991,7 +1995,7 @@ msgstr "条款与条件"
 msgid "Take em home"
 msgstr "回到主页"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:183
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:217
 msgid "Terms of Service"
 msgstr ""
 
@@ -2204,7 +2208,6 @@ msgstr ""
 msgid "TVL"
 msgstr "总锁仓价值（TVL）"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyModal/StrategyModal.tsx:110
 #~ msgid "TVL (on BOB)"
 #~ msgstr ""
 
@@ -2511,7 +2514,7 @@ msgstr "请密切关注你的仓位，尤其是当设定的价格范围较窄时
 msgid "You will receive"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:133
+#: src/app/[lang]/(bridge)/stake/components/StakeForm/BtcStakeForm.tsx:101
 #~ msgid "You will stake"
 #~ msgstr ""
 

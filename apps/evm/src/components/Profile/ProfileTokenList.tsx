@@ -1,18 +1,22 @@
+import { useMemo } from 'react';
 import { ERC20Token } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { useRouter } from 'next/navigation';
 import { Address, Chain } from 'viem';
 import { useAccount, useWatchAsset } from 'wagmi';
-import { getCapitalizedChainName } from '@gobob/chains';
+import { ChainId, getCapitalizedChainName } from '@gobob/chains';
 import { Avatar } from '@gobob/ui';
 
 import { ChainAsset } from '../ChainAsset';
 
 import { ProfileTokenListItem } from './ProfileTokenListItem';
+import { StyledMissingImageLogo } from './Profile.style';
 
 import { L2_CHAIN, RoutesPath } from '@/constants';
 import { TokenData, useBalances } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
+import { useBlockscoutTokens } from '@/hooks/useBlockscoutTokens';
+import { useBlockscoutBalances } from '@/hooks/useBlockscoutBalances';
 
 type ProfileTokenListProps = {
   items?: TokenData[];
@@ -28,11 +32,21 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
 
   const { connector } = useAccount();
 
-  const { getBalance: getBalance } = useBalances(currentChain.id);
+  const { getBalance } = useBalances(currentChain.id);
 
+  const { data: blockscoutTokens = [] } = useBlockscoutTokens();
+  const { getBlockscoutBalance } = useBlockscoutBalances();
   const { getPrice } = usePrices();
 
-  const list = items?.map((token) => ({ token, balance: getBalance(token.currency.symbol) }));
+  const tokens = useMemo(() => {
+    const trackedTokenList = items?.map((token) => ({ token, balance: getBalance(token.currency.symbol) })) || [];
+    const blockscoutTokensList = blockscoutTokens.map((blockscoutToken) => ({
+      token: blockscoutToken,
+      balance: getBlockscoutBalance(blockscoutToken.currency.symbol)
+    }));
+
+    return [...trackedTokenList, ...(currentChain.id === ChainId.BOB ? blockscoutTokensList : [])];
+  }, [blockscoutTokens, currentChain.id, getBalance, getBlockscoutBalance, items]);
 
   const handlePressExplorer = (address: Address) => {
     window.open(`${currentChain?.blockExplorers?.default.url}/address/${address}`, '_blank', 'noreferrer');
@@ -40,27 +54,27 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
 
   const otherChainName = getCapitalizedChainName(otherChain.id);
 
-  return list?.map((item) => {
+  const handlePressAddErc20 = (currency: ERC20Token) => {
+    watchAsset({
+      type: 'ERC20',
+      options: { address: currency.address, decimals: currency.decimals, symbol: currency.symbol }
+    });
+  };
+
+  const handlePressBridge = (currency: ERC20Token) => {
+    if (currentChain.id === L2_CHAIN) {
+      router.push(`${RoutesPath.BRIDGE}?type=withdraw&network=ethereum&receive=${currency.symbol}`);
+    } else {
+      router.push(`${RoutesPath.BRIDGE}?type=deposit&network=ethereum&receive=${currency.symbol}`);
+    }
+
+    onPressNavigate?.();
+  };
+
+  return tokens?.map((item) => {
     if (!item.balance?.greaterThan(0)) {
       return undefined;
     }
-
-    const handlePressBridge = () => {
-      if (currentChain.id === L2_CHAIN) {
-        router.push(`${RoutesPath.BRIDGE}?type=withdraw&network=ethereum&receive=${item.token.currency.symbol}`);
-      } else {
-        router.push(`${RoutesPath.BRIDGE}?type=deposit&network=ethereum&receive=${item.token.currency.symbol}`);
-      }
-
-      onPressNavigate?.();
-    };
-
-    const handlePressAddErc20 = (currency: ERC20Token) => {
-      watchAsset({
-        type: 'ERC20',
-        options: { address: currency.address, decimals: currency.decimals, symbol: currency.symbol }
-      });
-    };
 
     return (
       <ProfileTokenListItem
@@ -71,7 +85,13 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
         currency={item.token.currency}
         logo={
           <ChainAsset
-            asset={<Avatar alt={item.token.raw.name} size='5xl' src={item.token.raw.logoUrl} />}
+            asset={
+              item.token.raw.logoUrl ? (
+                <Avatar alt={item.token.raw.name} size='5xl' src={item.token.raw.logoUrl} />
+              ) : (
+                <StyledMissingImageLogo>{item.token.raw.symbol.toUpperCase().slice(0, 3)}</StyledMissingImageLogo>
+              )
+            }
             chainId={item.token.raw.chainId}
             chainProps={{ size: 'xs' }}
           />

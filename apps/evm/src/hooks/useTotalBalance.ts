@@ -44,15 +44,17 @@ const useTotalBalance = () => {
       )
     );
 
+  const intlFormat = (balance: number) =>
+    Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(balance);
+
   return {
     isPending:
       (evmAddress ? isEvmL1BalancePending || isEvmL2BalancePending : false) ||
       (btcAddress ? isBtcBalancePending : false),
     formatted: format(total.toNumber()),
-    compact: Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
-      total.toNumber()
-    ),
-    amount: total
+    compact: intlFormat(total.toNumber()),
+    amount: total,
+    format
   };
 };
 

@@ -13,13 +13,14 @@ type Props = {
   showAnimation?: boolean;
   shouldRoundDown?: boolean;
   maximumFractionDigits?: number;
+  format?: (amount: number) => string;
 };
 
 type InheritAttrs = Omit<SpanProps, keyof Props>;
 
-type AnimantedAmountProps = Props & InheritAttrs;
+type AnimatedAmountProps = Props & InheritAttrs;
 
-const AnimantedAmount = ({
+const AnimatedAmount = ({
   amount,
   compact,
   icon,
@@ -28,20 +29,22 @@ const AnimantedAmount = ({
   showAnimation,
   shouldRoundDown,
   maximumFractionDigits = 0,
+  format,
   ...props
-}: AnimantedAmountProps) => {
+}: AnimatedAmountProps) => {
   const [start, setStart] = useState(0);
   const { locale } = useLocale();
 
   const formatter = useCallback(
     (value: number) =>
-      Intl.NumberFormat(locale, {
-        notation: compact ? 'compact' : undefined,
-        roundingMode: shouldRoundDown ? 'floor' : undefined,
-        maximumFractionDigits
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any).format(value),
-    [compact, shouldRoundDown, maximumFractionDigits, locale]
+      format
+        ? format(value)
+        : Intl.NumberFormat(locale, {
+            notation: compact ? 'compact' : undefined,
+            roundingMode: shouldRoundDown ? 'floor' : undefined,
+            maximumFractionDigits
+          } as unknown as Intl.NumberFormatOptions).format(value),
+    [format, locale, compact, shouldRoundDown, maximumFractionDigits]
   );
 
   const { value, reset } = useCountUp({
@@ -66,5 +69,5 @@ const AnimantedAmount = ({
   );
 };
 
-export { AnimantedAmount };
-export type { AnimantedAmountProps };
+export { AnimatedAmount };
+export type { AnimatedAmountProps };

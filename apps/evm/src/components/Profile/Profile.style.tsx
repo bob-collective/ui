@@ -20,4 +20,14 @@ const StyledTokenListItem = styled(Card)<StyledTokenListItemProps>`
   ${({ theme, $isFocused }) => $isFocused && theme.list.item.selected}
 `;
 
-export { StyledTokenListItem, StyledWalletCard };
+const StyledMissingImageLogo = styled.div`
+  border-radius: ${({ theme }) => theme.rounded('full')};
+  width: ${({ theme }) => theme.spacing('5xl')};
+  height: ${({ theme }) => theme.spacing('5xl')};
+  background-color: ${({ theme }) => theme.color('primary-800')};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export { StyledTokenListItem, StyledWalletCard, StyledMissingImageLogo };
