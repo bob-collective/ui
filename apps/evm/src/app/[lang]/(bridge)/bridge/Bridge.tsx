@@ -1,7 +1,7 @@
 'use client';
 
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
-import { Card, Flex, Spinner, Tabs, TabsItem, Span, SolidClock, Button } from '@gobob/ui';
+import { Card, Flex, Spinner, Tabs, TabsItem, Span, SolidClock, Button, Skeleton } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
@@ -56,7 +56,7 @@ interface Props {
 const Bridge = ({ searchParams }: Props) => {
   const router = useRouter();
 
-  const { txPendingUserAction } = useGetBridgeTransactions();
+  const { txPendingUserAction, isPending } = useGetBridgeTransactions();
   const { open } = useConnectModal();
 
   const { address: evmAddress } = useAccount();
@@ -130,7 +130,7 @@ const Bridge = ({ searchParams }: Props) => {
   const handleOpenProfile = () => {
     store.setState((state) => ({
       ...state,
-      shared: { ...state.shared, profile: { isOpen: true, selectedTab: 'activity' } }
+      shared: { ...state.shared, profile: { ...state.shared.profile, isOpen: true, selectedTab: 'activity' } }
     }));
   };
 
@@ -166,7 +166,9 @@ const Bridge = ({ searchParams }: Props) => {
           <Flex justifyContent='flex-end'>
             <Button size='s' style={{ gap: 4, alignItems: 'center' }} onPress={handleActivity}>
               <SolidClock />
-              {txPendingUserAction && txPendingUserAction > 0 ? (
+              {isPending ? (
+                <Skeleton height='1.5rem' width='5rem' />
+              ) : txPendingUserAction && txPendingUserAction > 0 ? (
                 <Card
                   alignItems='center'
                   background='primary-500'

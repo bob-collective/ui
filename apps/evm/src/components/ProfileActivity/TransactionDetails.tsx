@@ -1,11 +1,11 @@
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { Avatar, Card, Flex, P } from '@gobob/ui';
+import { Avatar, Card, Flex, P, Span } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
 import { useParams } from 'next/navigation';
 
-import { AmountLabel, ChainAsset, ChainLogo } from '@/components';
+import { ChainAsset, ChainLogo } from '@/components';
 import { TransactionDirection } from '@/types';
 import { getLocale } from '@/utils';
 
@@ -41,7 +41,7 @@ const TransactionDetails = ({
       ) : (
         <Card background='grey-700' padding='2xl' rounded='full' />
       )}
-      <Flex direction='column' flex={1}>
+      <Flex direction='column' flex={1} style={{ overflow: 'hidden' }}>
         <Flex alignItems='center' justifyContent='space-between'>
           <P color='grey-50' size='xs' weight='semibold'>
             <Trans>
@@ -57,7 +57,12 @@ const TransactionDetails = ({
           {isPending ? (
             <Trans>Pending</Trans>
           ) : amount ? (
-            <AmountLabel hidePrice amount={amount} />
+            <Flex wrap elementType='span'>
+              <Span size='inherit' style={{ marginRight: 4 }}>
+                {amount.toExact()}
+              </Span>
+              <Span size='inherit'>{amount.currency.symbol}</Span>
+            </Flex>
           ) : (
             <Trans>Unknown</Trans>
           )}

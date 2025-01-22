@@ -8,9 +8,11 @@ type SharedStore = {
     isOpen: boolean;
     hasOpenned: boolean;
     selectedTab: 'wallet' | 'activity';
-    activityFilters: {
-      type?: string;
-      status?: string;
+    transactions: {
+      filters: {
+        type?: string;
+        status?: string;
+      };
     };
   };
 };
@@ -43,9 +45,11 @@ const store = new StoreLib<Store>({
       isOpen: false,
       hasOpenned: false,
       selectedTab: 'wallet',
-      activityFilters: {
-        status: undefined,
-        type: undefined
+      transactions: {
+        filters: {
+          status: undefined,
+          type: undefined
+        }
       }
     }
   },

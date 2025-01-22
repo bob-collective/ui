@@ -1,12 +1,17 @@
 import { Flex, P, Skeleton } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { useEffect, useMemo, useRef } from 'react';
-import { useConfig } from 'wagmi';
 import { useStore } from '@tanstack/react-store';
 import { watchAccount } from '@wagmi/core';
+import { useEffect, useMemo, useRef } from 'react';
+import { useConfig } from 'wagmi';
 
 import { StyledTransactionList } from './ProfileActivity.style';
-import { ProfileActivityFilter, StatusFilterOption, TransactionTypeFilterOption } from './ProfileActivityFilter';
+import {
+  ProfileActivityFilters,
+  ProfileActivityFiltersData,
+  ProfileActivityStatusFilterOption,
+  ProfileActivityTypeFilterOption
+} from './ProfileActivityFilters';
 import { TransactionItem } from './TransactionItem';
 
 import { useGetBridgeTransactions, useGetGatewayTransactions } from '@/hooks';
@@ -14,10 +19,7 @@ import { store } from '@/lib/store';
 import { BridgeTransactionStatus, GatewayTransactionType, TransactionType } from '@/types';
 
 const ProfileActivity = (): JSX.Element => {
-  const { status = StatusFilterOption.ANY_STATUS, type = TransactionTypeFilterOption.ALL_TRANSACTIONS } = useStore(
-    store,
-    (state) => state.shared.profile.activityFilters
-  );
+  const { filters } = useStore(store, (state) => state.shared.profile.transactions);
 
   const config = useConfig();
 
@@ -56,38 +58,38 @@ const ProfileActivity = (): JSX.Element => {
   }, [isInitialLoading, isLoading]);
 
   const dataByType = useMemo(() => {
-    switch (type) {
-      case TransactionTypeFilterOption.BTC_BRIDGE:
+    switch (filters.type) {
+      case ProfileActivityTypeFilterOption.BTC_BRIDGE:
         return gateway.data?.filter((item) => item.subType === GatewayTransactionType.BRIDGE) || [];
-      case TransactionTypeFilterOption.STRATEGIES:
+      case ProfileActivityTypeFilterOption.STRATEGIES:
         return gateway.data?.filter((item) => item.subType === GatewayTransactionType.STRATEGY) || [];
-      case TransactionTypeFilterOption.NATIVE_BRIDGE:
+      case ProfileActivityTypeFilterOption.NATIVE_BRIDGE:
         return bridge.data;
       default:
-      case TransactionTypeFilterOption.ALL_TRANSACTIONS:
+      case ProfileActivityTypeFilterOption.ALL_TRANSACTIONS:
         return [...bridge.data, ...(gateway?.data || [])];
     }
-  }, [bridge.data, gateway.data, type]);
+  }, [bridge.data, gateway.data, filters.type]);
 
   const dataByStatus = useMemo(() => {
-    switch (status) {
-      case StatusFilterOption.PENDING:
+    switch (filters.status) {
+      case ProfileActivityStatusFilterOption.PENDING:
         return dataByType.filter((item) =>
           item.type === TransactionType.Bridge
             ? item.status !== BridgeTransactionStatus.RELAYED
             : item.status !== 'l2-confirmation'
         );
-      case StatusFilterOption.COMPLETE:
+      case ProfileActivityStatusFilterOption.COMPLETE:
         return dataByType.filter((item) =>
           item.type === TransactionType.Bridge
             ? item.status === BridgeTransactionStatus.RELAYED
             : item.status === 'l2-confirmation'
         );
-      case StatusFilterOption.FAILED:
+      case ProfileActivityStatusFilterOption.FAILED:
         return dataByType.filter((item) =>
           item.type === TransactionType.Bridge ? item.status === BridgeTransactionStatus.FAILED_L1_TO_L2_MESSAGE : false
         );
-      case StatusFilterOption.NEEDED_ACTION:
+      case ProfileActivityStatusFilterOption.NEEDED_ACTION:
         return dataByType.filter((item) =>
           item.type === TransactionType.Bridge
             ? item.status === BridgeTransactionStatus.READY_TO_PROVE ||
@@ -96,10 +98,10 @@ const ProfileActivity = (): JSX.Element => {
         );
 
       default:
-      case StatusFilterOption.ANY_STATUS:
+      case ProfileActivityStatusFilterOption.ANY_STATUS:
         return dataByType;
     }
-  }, [dataByType, status]);
+  }, [dataByType, filters.status]);
 
   const sortedData = useMemo(() => {
     return dataByStatus?.sort((a, b) => b.date.getTime() - a.date.getTime());
@@ -108,16 +110,8 @@ const ProfileActivity = (): JSX.Element => {
   return (
     <Flex direction='column' marginTop='md'>
       <Flex wrap gap='s' justifyContent='flex-end'>
-        <ProfileActivityFilter<StatusFilterOption>
-          label={<Trans>Status</Trans>}
-          options={[
-            { children: <Trans>Any Status</Trans>, key: StatusFilterOption.ANY_STATUS },
-            { children: <Trans>Pending</Trans>, key: StatusFilterOption.PENDING },
-            { children: <Trans>Needed Action</Trans>, key: StatusFilterOption.NEEDED_ACTION },
-            { children: <Trans>Complete</Trans>, key: StatusFilterOption.COMPLETE },
-            { children: <Trans>Failed</Trans>, key: StatusFilterOption.FAILED }
-          ]}
-          value={status as StatusFilterOption}
+        <ProfileActivityFilters
+          value={filters as ProfileActivityFiltersData}
           onSelectionChange={(value) =>
             store.setState((state) => ({
               ...state,
@@ -125,36 +119,17 @@ const ProfileActivity = (): JSX.Element => {
                 ...state.shared,
                 profile: {
                   ...state.shared.profile,
-                  activityFilters: { ...state.shared.profile.activityFilters, status: value }
-                }
-              }
-            }))
-          }
-        />
-        <ProfileActivityFilter<TransactionTypeFilterOption>
-          label={<Trans>Transaction type</Trans>}
-          options={[
-            { children: <Trans>Any Transaction</Trans>, key: TransactionTypeFilterOption.ALL_TRANSACTIONS },
-            { children: <Trans>Native Bridge</Trans>, key: TransactionTypeFilterOption.NATIVE_BRIDGE },
-            { children: <Trans>BTC Bridge</Trans>, key: TransactionTypeFilterOption.BTC_BRIDGE },
-            { children: <Trans>Staking</Trans>, key: TransactionTypeFilterOption.STRATEGIES }
-          ]}
-          value={type as TransactionTypeFilterOption}
-          onSelectionChange={(value) =>
-            store.setState((state) => ({
-              ...state,
-              shared: {
-                ...state.shared,
-                profile: {
-                  ...state.shared.profile,
-                  activityFilters: { ...state.shared.profile.activityFilters, type: value }
+                  transactions: {
+                    ...state.shared.profile.transactions,
+                    filters: value
+                  }
                 }
               }
             }))
           }
         />
       </Flex>
-      <StyledTransactionList direction='column' elementType='ul' flex={1} gap='md' marginTop='md'>
+      <StyledTransactionList direction='column' elementType='ul' flex={1} marginTop='md'>
         {isInitialLoading ? (
           Array(8)
             .fill(undefined)

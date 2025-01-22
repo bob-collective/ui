@@ -89,10 +89,10 @@ const Header = (): JSX.Element => {
                     <Trans>Multisig</Trans>
                   </NavItem>
                 </Nav>
+                <SocialsGroup hidden={isMobile} variant='ghost' />
               </PopoverBody>
             </PopoverContent>
           </Popover>
-          <SocialsGroup hidden={isMobile} variant='ghost' />
         </Flex>
       </Flex>
       <Flex alignItems='center' gap='xl'>
