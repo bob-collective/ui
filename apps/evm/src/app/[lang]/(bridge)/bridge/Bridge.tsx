@@ -1,23 +1,24 @@
 'use client';
 
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
-import { Card, Flex, Spinner, Tabs, TabsItem, Span, SolidClock, Button, Skeleton } from '@gobob/ui';
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { Button, Card, Flex, Skeleton, SolidClock, Span, Spinner, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAccount } from 'wagmi';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
-import { Layout } from '../components';
+import { BannerCarousel } from '../components/BannerCarousel';
 
 import { StyledCard } from './Bridge.style';
 import { BridgeForm } from './components';
 
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
-import { TransactionDirection } from '@/types';
+import { Main } from '@/components';
 import { useConnectModal } from '@/connect-ui';
-import { store } from '@/lib/store';
+import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { useGetBridgeTransactions } from '@/hooks';
+import { store } from '@/lib/store';
+import { TransactionDirection } from '@/types';
 
 const externalUnsupportedTokens = ['LBTC'];
 
@@ -160,9 +161,9 @@ const Bridge = ({ searchParams }: Props) => {
   const tabsDisabledKeys = isWithdrawTabDisabled ? [Type.Withdraw] : undefined;
 
   return (
-    <Layout>
-      <Flex justifyContent='center' marginTop='4xl'>
-        <Flex direction='column' gap='md'>
+    <Main maxWidth='lg' padding='md'>
+      <Flex justifyContent='center' style={{ width: '100%' }}>
+        <Flex direction='column' gap='md' style={{ width: '100%' }}>
           <Flex justifyContent='flex-end'>
             <Button size='s' style={{ gap: 4, alignItems: 'center' }} onPress={handleActivity}>
               <SolidClock />
@@ -224,7 +225,8 @@ const Bridge = ({ searchParams }: Props) => {
           </StyledCard>
         </Flex>
       </Flex>
-    </Layout>
+      <BannerCarousel hasImgOpacity marginTop='2xl' />
+    </Main>
   );
 };
 

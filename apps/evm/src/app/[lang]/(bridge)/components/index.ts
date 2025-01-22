@@ -1,5 +1,5 @@
-export * from './Layout';
+export * from './BannerCarousel';
 export * from './BtcTokenInput';
 export * from './GatewayGasSwitch';
-export * from './TransactionModal';
 export * from './GatewayTransactionDetails';
+export * from './TransactionModal';
