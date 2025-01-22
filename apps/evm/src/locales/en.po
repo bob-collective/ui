@@ -105,6 +105,10 @@ msgstr "About Babylon Campaign"
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 
+#: src/components/Profile/ProfileTokenListItem.tsx:153
+msgid "Add to {0}"
+msgstr "Add to {0}"
+
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:279
 msgid "Additional Information"
 msgstr "Additional Information"
@@ -2039,6 +2043,10 @@ msgstr "You are one of the top 100 Spice holders in BOB Fusion"
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:42
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "You can change your votes at any time before the end of the weekly voting period"
+
+#: src/components/ReceiveModal/ReceiveModal.tsx:192
+msgid "You can receive tokens on our supported networks"
+msgstr "You can receive tokens on our supported networks"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:111
 msgid "You Have 0 Envelopes"

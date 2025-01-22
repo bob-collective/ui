@@ -130,6 +130,10 @@ msgstr ""
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr ""
 
+#: src/components/Profile/ProfileTokenListItem.tsx:153
+msgid "Add to {0}"
+msgstr ""
+
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:279
 msgid "Additional Information"
 msgstr ""
@@ -2469,6 +2473,10 @@ msgstr ""
 msgid "You can change your votes at any time before the end of the weekly voting period"
 msgstr "你可以在每周投票期结束前随时更改你的投票"
 
+#: src/components/ReceiveModal/ReceiveModal.tsx:192
+msgid "You can receive tokens on our supported networks"
+msgstr ""
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:111
 msgid "You Have 0 Envelopes"
 msgstr ""
@@ -2477,7 +2485,7 @@ msgstr ""
 #~ msgid "You Have 0 Tickets"
 #~ msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:67
+#: src/app/[lang]/nested-providers.tsx:68
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 msgstr ""
 
