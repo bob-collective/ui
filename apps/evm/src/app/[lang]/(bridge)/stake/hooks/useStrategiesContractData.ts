@@ -253,7 +253,7 @@ const useStrategiesContractData = (
               },
               {
                 address: strategy.contract.outputToken.address as Address,
-                abi: erc20Abi,
+                abi: erc20WithUnderlying,
                 functionName: 'decimals'
               },
               {
@@ -545,7 +545,7 @@ const useStrategiesContractData = (
                 balanceOf > 0n
                   ? {
                       amount: depositAmount,
-                      usd: new Big(depositAmount.toExact()).mul(underlyingPrice).toNumber()
+                      usd: new Big(depositAmount.toExact()).div(5).mul(underlyingPrice).toNumber()
                     }
                   : undefined
             };
