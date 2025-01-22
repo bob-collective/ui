@@ -8,6 +8,8 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { Key, useCallback, useMemo, useState } from 'react';
 import { useChainId } from 'wagmi';
+import { sendGAEvent } from '@next/third-parties/google';
+import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -76,6 +78,7 @@ const BridgeForm = ({
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
+  const { connector } = useSatsAccount();
 
   const { refetch: refetchTransactions, addPlaceholderTransaction } = useGetTransactions();
 
@@ -140,6 +143,13 @@ const BridgeForm = ({
     refetchTransactions.gateway();
 
     setGatewayModalState({ isOpen: true, data });
+
+    sendGAEvent('event', 'btc_bridge', {
+      asset: data.assetName,
+      amount: data.amount?.toExact(),
+      tx_id: data.txId,
+      wallet: connector?.name
+    });
   };
 
   const handleCloseGatewayModal = () => {

@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Bars3,
   Button,
   Card,
@@ -30,6 +29,7 @@ import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import { Babylon } from '@gobob/icons';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -164,9 +164,7 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
                         background='dark'
                         endAdornment={<SolidInformationCircle size='xs' />}
                         size='s'
-                        startAdornment={
-                          <Avatar size='xl' src='https://avatars.githubusercontent.com/u/106378782?s=200&v=4' />
-                        }
+                        startAdornment={<Babylon style={{ width: '1.5em', height: '1.5em' }} />}
                       >
                         <Trans>Babylon Campaign</Trans>
                       </Chip>

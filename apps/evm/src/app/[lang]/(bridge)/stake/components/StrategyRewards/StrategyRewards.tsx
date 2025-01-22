@@ -1,9 +1,9 @@
-import { Flex, Avatar, Chip, FlexProps } from '@gobob/ui';
+import { Babylon, PellNetwork, Spice } from '@gobob/icons';
+import { Avatar, Chip, Flex, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
-import { PellNetwork, Spice } from '@gobob/icons';
 
-import { stakingInfo, Incentive } from '../../../utils/stakeData';
+import { StrategyIncentive } from '../../constants';
 
 const SpiceRewards = () => (
   <Chip background='primary-500' size='s' startAdornment={<Spice size='xs' />}>
@@ -42,11 +42,7 @@ const SegmentPoints = () => (
 );
 
 const BabylonPoints = () => (
-  <Chip
-    background='dark'
-    size='s'
-    startAdornment={<Avatar size='xl' src='https://avatars.githubusercontent.com/u/106378782?s=200&v=4' />}
-  >
+  <Chip background='dark' size='s' startAdornment={<Babylon size='xs' />}>
     <Trans>Points</Trans>
   </Chip>
 );
@@ -67,28 +63,39 @@ const SupplyApr = () => (
   </Chip>
 );
 
-const incentivesMap: Record<Incentive, () => ReactNode> = {
-  [Incentive.babylon]: BabylonPoints,
-  [Incentive.bedrock]: BedrockDiamond,
-  [Incentive.pell]: PellPoints,
-  [Incentive.segment]: SegmentPoints,
-  [Incentive.solv]: SolvXP,
-  [Incentive.spice]: SpiceRewards,
-  [Incentive.supply]: SupplyApr
+const AvalonPoints = () => (
+  <Chip
+    background='dark'
+    size='s'
+    startAdornment={<Avatar size='xl' src='https://static.gobob.xyz/logos/Untitled.png' />}
+  >
+    <Trans>Points</Trans>
+  </Chip>
+);
+
+const incentivesMap: Record<StrategyIncentive, () => ReactNode> = {
+  [StrategyIncentive.Babylon]: BabylonPoints,
+  [StrategyIncentive.Bedrock]: BedrockDiamond,
+  [StrategyIncentive.Pell]: PellPoints,
+  [StrategyIncentive.Segment]: SegmentPoints,
+  [StrategyIncentive.Solv]: SolvXP,
+  [StrategyIncentive.Spice]: SpiceRewards,
+  [StrategyIncentive.Supply]: SupplyApr,
+  [StrategyIncentive.Avalon]: AvalonPoints
 };
 
 type Props = {
-  slug: string;
+  incentives: StrategyIncentive[];
 };
 
 type InheritAttrs = Omit<FlexProps, keyof Props>;
 
-type StakeRewardsProps = Props & InheritAttrs;
+type StrategyRewardsProps = Props & InheritAttrs;
 
-const StakeRewards = ({ slug, ...props }: StakeRewardsProps) => (
-  <Flex gap='xs' {...props}>
+const StrategyRewards = ({ incentives, ...props }: StrategyRewardsProps) => (
+  <Flex wrap gap='xs' {...props}>
     <SpiceRewards />
-    {stakingInfo[slug]?.incentives.map((incentive, key) => {
+    {incentives.map((incentive, key) => {
       const Comp = incentivesMap[incentive];
 
       return <Comp key={key} />;
@@ -96,4 +103,4 @@ const StakeRewards = ({ slug, ...props }: StakeRewardsProps) => (
   </Flex>
 );
 
-export { StakeRewards };
+export { StrategyRewards };

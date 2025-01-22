@@ -2,7 +2,8 @@ import { Chip, Flex, H2, P, Skeleton, SolidClock, Span } from '@gobob/ui';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useParams } from 'next/navigation';
-import lottery from '@public/assets/lottery.png';
+import lunarLotteryEN from '@public/assets/lunar_lottery_en.webp';
+import lunarLotteryCN from '@public/assets/lunar_lottery_cn.webp';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useIsClient } from 'usehooks-ts';
@@ -13,6 +14,11 @@ import { StyledButton, StyledCard } from './LotterySections.style';
 import { useTimeToNextDraw } from './hooks';
 
 import { useGetUser, useLotteryStats } from '@/hooks';
+
+const lotteryBannerMapping = {
+  en: lunarLotteryEN,
+  zh: lunarLotteryCN
+};
 
 const LotterySection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,10 +41,10 @@ const LotterySection = () => {
           padding='none'
         >
           <Image
-            alt={t(i18n)`Lottery`}
+            alt={t(i18n)`Lunar lottery`}
             placeholder='blur'
             sizes='100vw'
-            src={lottery}
+            src={lotteryBannerMapping[lang as keyof typeof lotteryBannerMapping]! || lunarLotteryEN}
             style={{
               width: '100%',
               height: 'auto'
@@ -52,12 +58,12 @@ const LotterySection = () => {
             </Chip>
             <H2 size='4xl'>
               {!isClient || (!address && isClient) || !user || isError || isLoading ? (
-                <Trans>Lottery</Trans>
+                <Trans>Lunar New Year Lottery</Trans>
               ) : (
                 <Trans>
                   <Span color='primary-500' size='unset'>
                     {lotteryStatsData?.rollsRemaining ?? 0}{' '}
-                    <Plural one='Ticket' other='Tickets' value={lotteryStatsData?.rollsRemaining || 0} />{' '}
+                    <Plural one='Envelope' other='Envelopes' value={lotteryStatsData?.rollsRemaining || 0} />{' '}
                   </Span>
                   Remaining
                 </Trans>
@@ -65,9 +71,12 @@ const LotterySection = () => {
             </H2>
             <P color='grey-50'>
               <Trans>
-                Feeling lucky? Try your luck with the daily lottery!
+                Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.
                 <br />
-                Participate in Fusion voting to receive 3 lottery tickets each day.
+                Participate in Fusion voting to receive 3 envelopes daily until January 29th.
+                <br />
+                Win 888, 168 or 88 Spice with every envelope. Then share your winnings on X and follow the campaign
+                rules for a chance to win an extra 100,000 Spice.
               </Trans>
             </P>
           </Flex>

@@ -38,7 +38,7 @@ describe('useGateway', () => {
     const { result } = renderHook(
       () =>
         useGateway({
-          params: { type: GatewayTransactionType.STAKE, assetName: 'BTC' }
+          params: { type: GatewayTransactionType.STRATEGY, assetName: 'BTC' }
         }),
       {
         wrapper
@@ -54,7 +54,7 @@ describe('useGateway', () => {
     const { result } = renderHook(
       () =>
         useGateway({
-          params: { type: GatewayTransactionType.STAKE, assetName: 'BTC' }
+          params: { type: GatewayTransactionType.STRATEGY, assetName: 'BTC' }
         }),
       {
         wrapper
@@ -72,7 +72,7 @@ describe('useGateway', () => {
     const { result } = renderHook(
       () =>
         useGateway({
-          params: { type: GatewayTransactionType.STAKE, assetName: 'BTC' }
+          params: { type: GatewayTransactionType.STRATEGY, assetName: 'BTC' }
         }),
       {
         wrapper
@@ -94,7 +94,7 @@ describe('useGateway', () => {
     const { result } = renderHook(
       () =>
         useGateway({
-          params: { type: GatewayTransactionType.STAKE, assetName: 'BTC' },
+          params: { type: GatewayTransactionType.STRATEGY, assetName: 'BTC' },
           onError: mockFeeEstimateQueryResult
         }),
       {

@@ -7,7 +7,7 @@ enum PriceCurrency {
   EUR = 'eur'
 }
 
-export enum CurrencyTickers {
+export enum CurrencyTicker {
   ALEX = 'ALEX',
   DAI = 'DAI',
   DLLR = 'DLLR',
@@ -48,22 +48,22 @@ const COINGECKO_IDS = [
 ] as const;
 
 const COINGECKO_ID_BY_CURRENCY_TICKER: Record<string, (typeof COINGECKO_IDS)[number]> = {
-  [CurrencyTickers.ALEX]: 'alexgo',
-  [CurrencyTickers.DAI]: 'dai',
-  [CurrencyTickers.DLLR]: 'sovryn-dollar',
-  [CurrencyTickers.ESOV]: 'sovryn',
-  [CurrencyTickers.ETH]: 'ethereum',
-  [CurrencyTickers.RETH]: 'rocket-pool-eth',
-  [CurrencyTickers.STONE]: 'stakestone-ether',
-  [CurrencyTickers.TBTC]: 'tbtc',
-  [CurrencyTickers.USDC]: 'usd-coin',
-  [CurrencyTickers.USDT]: 'tether',
-  [CurrencyTickers.WBTC]: 'wrapped-bitcoin',
-  [CurrencyTickers.WSTETH]: 'wrapped-steth',
-  [CurrencyTickers.BTC]: 'bitcoin',
-  [CurrencyTickers['SolvBTC.BBN']]: 'solv-protocol-solvbtc-bbn',
-  [CurrencyTickers.UNIBTC]: 'universal-btc',
-  [CurrencyTickers.LBTC]: 'lombard-staked-btc'
+  [CurrencyTicker.ALEX]: 'alexgo',
+  [CurrencyTicker.DAI]: 'dai',
+  [CurrencyTicker.DLLR]: 'sovryn-dollar',
+  [CurrencyTicker.ESOV]: 'sovryn',
+  [CurrencyTicker.ETH]: 'ethereum',
+  [CurrencyTicker.RETH]: 'rocket-pool-eth',
+  [CurrencyTicker.STONE]: 'stakestone-ether',
+  [CurrencyTicker.TBTC]: 'tbtc',
+  [CurrencyTicker.USDC]: 'usd-coin',
+  [CurrencyTicker.USDT]: 'tether',
+  [CurrencyTicker.WBTC]: 'wrapped-bitcoin',
+  [CurrencyTicker.WSTETH]: 'wrapped-steth',
+  [CurrencyTicker.BTC]: 'bitcoin',
+  [CurrencyTicker['SolvBTC.BBN']]: 'solv-protocol-solvbtc-bbn',
+  [CurrencyTicker.UNIBTC]: 'universal-btc',
+  [CurrencyTicker.LBTC]: 'lombard-staked-btc'
 };
 
 type PricesData = Record<string, Record<PriceCurrency, number>>;

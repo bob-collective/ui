@@ -63,7 +63,7 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
           totalConfirmations: order.txProofDifficultyFactor,
           status,
           type: TransactionType.Gateway,
-          subType: order.strategyAddress ? GatewayTransactionType.STAKE : GatewayTransactionType.BRIDGE,
+          subType: order.strategyAddress ? GatewayTransactionType.STRATEGY : GatewayTransactionType.BRIDGE,
           isPending,
           order
         };

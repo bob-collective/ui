@@ -1,4 +1,4 @@
-export const seTokenAbi = [
+export const erc20WithUnderlying = [
   {
     inputs: [],
     stateMutability: 'nonpayable',

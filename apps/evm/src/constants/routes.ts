@@ -4,7 +4,7 @@ const RoutesPath = {
   APPS: '/apps',
   FUSION: '/fusion',
   BRIDGE: '/bridge',
-  STAKE: '/stake',
+  STRATEGIES: '/stake',
   LEADERBOARD: '/leaderboard',
   GEOBLOCK: '/geoblock',
   NOT_FOUND: '/404'

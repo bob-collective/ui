@@ -18,9 +18,10 @@ import {
 } from '@gobob/ui';
 import { Plural, Trans } from '@lingui/macro';
 import { useParams } from 'next/navigation';
+import Lottie from 'lottie-react';
 
-import { Ticket } from '../icons';
-import confettiAnimationData from '../lotties/confettie.json';
+import foreworksAnimationData from '../lotties/fireworks.json';
+import envelopeAnimationData from '../lotties/envelope.json';
 import { useTimeToNextDraw } from '../hooks';
 
 import { StyledButton, StyledLottie, StyledPoints } from './LotteryModal.style';
@@ -35,8 +36,14 @@ type LotteryModalProps = LotteryStats & {
 };
 
 const MAX_TICKETS = 3;
-const getPrefilledXText = (refCode: string | undefined) =>
-  `I just won Spice in the @build_on_bob Fusion Lottery!%0A%0AJoin me in the Final Season and explore the Hybrid L2 ecosystem.%0A%0AHere's my referral link https://app.gobob.xyz/?refCode=${refCode || ''}`;
+
+const prefilledTextsMapping = {
+  en: "I just got a Red Envelope 🧧 from @build_on_bob's fusion lottery.%0A%0AWelcome the Year of Snake 🐍%0A%0AGet yours",
+  zh: '我剛從 @build_on_bob 那裡領取了一個紅包 🧧%0A%0A喜迎蛇年 🐍%0A%0A快來領取你的紅包吧'
+};
+
+const getPrefilledXText = (lang: 'en' | 'zh', refCode: string | undefined) =>
+  `${prefilledTextsMapping[lang]} https://app.gobob.xyz/?refCode=${refCode || ''}`;
 
 const LotteryModal = ({
   isOpen,
@@ -67,15 +74,16 @@ const LotteryModal = ({
         <ModalBody padding='2xl'>
           <Flex alignItems='center' direction='column' gap='5xl'>
             <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-              <Trans>new tickets drop in {timeToNextDraw}</Trans>
+              <Trans>New envelopes drop in {timeToNextDraw}</Trans>
             </Chip>
             <H3 align='center' size='2xl'>
               <Trans>
-                You need at least {Intl.NumberFormat(locale).format(minPointsToRoll)} Spice to participate in Lottery.
+                You need at least {Intl.NumberFormat(locale).format(minPointsToRoll)} Spice to participate in Lunar New
+                Year Lottery.
               </Trans>
             </H3>
             <P align='center' color='grey-50' size='s'>
-              <Trans>Harvest {pointsMissing} more Spice to play</Trans>
+              <Trans>Harvest {pointsMissing.toFixed(2)} more Spice to play</Trans>
             </P>
           </Flex>
         </ModalBody>
@@ -100,7 +108,7 @@ const LotteryModal = ({
   const isNotWinner = lotteryRollData !== undefined && lotteryRollData.winningPackageId === null;
 
   const getHeaderText = () => {
-    if (allRollsUsed && !lotteryRollData) return <Trans>You Have 0 Tickets</Trans>;
+    if (allRollsUsed && !lotteryRollData) return <Trans>You Have 0 Envelopes</Trans>;
 
     return (
       <>
@@ -118,7 +126,7 @@ const LotteryModal = ({
           <Span color='primary-500' size='unset'>
             {rollsRemaining}/3
           </Span>{' '}
-          <Plural one='Ticket' other='Tickets' value={rollsRemaining || 0} /> Remaining
+          <Plural one='Envelope' other='Envelopes' value={rollsRemaining || 0} /> Remaining
         </Trans>
       </>
     );
@@ -128,45 +136,46 @@ const LotteryModal = ({
     if (votesNotUsed)
       return (
         <Trans>
-          Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost
-          your chances.
+          Each envelope is your chance to win big! Vote for your favourite app to receive 3 new envelopes daily and
+          boost your chances.
         </Trans>
       );
 
     if (allTicketsUsed)
       return (
         <Trans>
-          You&apos;ve used all your tickets for today, new tickets will be available once the timer resets! Remember to
-          participate in Weekly Fusion Voting to be eligible for daily tickets.
+          You&apos;ve used all your envelopes for today, new envelopes will be available once the timer resets! Remember
+          to participate in Weekly Fusion Voting to be eligible for daily envelopes.
         </Trans>
       );
 
     return (
       <Trans>
-        Maximize your chances by using all your tickets before the countdown resets. Don&apos;t forget to participate in
-        Weekly Fusion Voting to claim your 3 Lottery tickets daily.
+        Maximize your chances by using all your envelopes before the countdown resets. Don&apos;t forget to participate
+        in Weekly Fusion Voting to claim your 3 Lottery envelopes daily.
       </Trans>
     );
   };
 
   return (
     <Modal isDismissable isOpen={isOpen} size='s' onClose={onClose}>
-      <StyledLottie
-        key={lotteryRollData?.rollsRemaining}
-        autoplay
-        animationData={confettiAnimationData}
-        hidden={!isWinner}
-      />
+      {isWinner && <StyledLottie autoplay animationData={structuredClone(foreworksAnimationData)} />}
       <ModalBody padding='2xl'>
         <Flex alignItems='center' direction='column' gap='5xl'>
           <Chip background='grey-500' borderColor='grey-200' startAdornment={<SolidClock size='s' />}>
-            <Trans>new tickets drop in {timeToNextDraw}</Trans>
+            <Trans>New envelopes drop in {timeToNextDraw}</Trans>
           </Chip>
           <H3 align='center' size='2xl'>
             {getHeaderText()}
           </H3>
           {rollsNotUsed || votesNotUsed || notPlayed ? (
-            <Ticket size='3xl' />
+            <Lottie
+              key={lotteryRollData?.rollsRemaining}
+              autoplay
+              animationData={envelopeAnimationData}
+              loop={false}
+              style={{ position: 'relative', left: 10 }}
+            />
           ) : (
             <StyledPoints>
               <Spice size='3xl' /> {Intl.NumberFormat(locale).format(lotteryRollData?.prize || 0)}
@@ -174,7 +183,7 @@ const LotteryModal = ({
           )}
           {isWinner && (
             <H4 align='center' size='lg'>
-              Share it on X with your referral link!
+              Share it on X with your referral link.
             </H4>
           )}
           <P align='center' color='grey-50' size='s'>
@@ -186,7 +195,7 @@ const LotteryModal = ({
         <Flex alignItems='stretch' gap='xl' justifyContent='space-between'>
           {!allVotesUsed && (
             <StyledButton elementType={Link} variant='outline' {...{ href: `/${lang}${RoutesPath.APPS}` }}>
-              <Trans>Get tickets</Trans>
+              <Trans>Get envelopes</Trans>
             </StyledButton>
           )}
           {allRollsUsed && (
@@ -198,7 +207,9 @@ const LotteryModal = ({
             <StyledButton
               elementType={Link}
               variant='outline'
-              {...{ href: `https://x.com/intent/tweet?text=${getPrefilledXText(user?.referral_code)}` }}
+              {...{
+                href: `https://x.com/intent/tweet?text=${getPrefilledXText(lang as Parameters<typeof getPrefilledXText>[0], user?.referral_code)}`
+              }}
             >
               <Trans>Share on X</Trans>
             </StyledButton>
