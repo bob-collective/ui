@@ -14,54 +14,45 @@ import {
 import { Trans } from '@lingui/macro';
 import { useEffect, useId, useState } from 'react';
 
-enum ProfileActivityStatusFilterOption {
-  ANY_STATUS = 'default',
-  PENDING = 'pending',
-  NEEDED_ACTION = 'needed-action',
-  COMPLETE = 'complete',
-  FAILED = 'failed'
-}
-
-enum ProfileActivityTypeFilterOption {
-  ALL_TRANSACTIONS = 'default',
-  NATIVE_BRIDGE = 'native-bridge',
-  BTC_BRIDGE = 'btc-bridge',
-  STRATEGIES = 'strategies'
-}
+import { SharedStoreProfileTxStatus, SharedStoreProfileTxType } from '@/lib/store';
 
 const statusFilterOptions = [
-  { children: <Trans>Any Status</Trans>, key: ProfileActivityStatusFilterOption.ANY_STATUS },
-  { children: <Trans>Pending</Trans>, key: ProfileActivityStatusFilterOption.PENDING },
-  { children: <Trans>Needed Action</Trans>, key: ProfileActivityStatusFilterOption.NEEDED_ACTION },
-  { children: <Trans>Complete</Trans>, key: ProfileActivityStatusFilterOption.COMPLETE },
-  { children: <Trans>Failed</Trans>, key: ProfileActivityStatusFilterOption.FAILED }
+  { children: <Trans>Any Status</Trans>, key: SharedStoreProfileTxStatus.ANY_STATUS },
+  { children: <Trans>Pending</Trans>, key: SharedStoreProfileTxStatus.PENDING },
+  { children: <Trans>Needed Action</Trans>, key: SharedStoreProfileTxStatus.NEEDED_ACTION },
+  { children: <Trans>Complete</Trans>, key: SharedStoreProfileTxStatus.COMPLETE },
+  { children: <Trans>Failed</Trans>, key: SharedStoreProfileTxStatus.FAILED }
 ];
 
 const typeFilterOptions = [
-  { children: <Trans>Any Transaction</Trans>, key: ProfileActivityTypeFilterOption.ALL_TRANSACTIONS },
-  { children: <Trans>Native Bridge</Trans>, key: ProfileActivityTypeFilterOption.NATIVE_BRIDGE },
-  { children: <Trans>BTC Bridge</Trans>, key: ProfileActivityTypeFilterOption.BTC_BRIDGE },
-  { children: <Trans>Staking</Trans>, key: ProfileActivityTypeFilterOption.STRATEGIES }
+  { children: <Trans>Any Transaction</Trans>, key: SharedStoreProfileTxType.ALL_TRANSACTIONS },
+  { children: <Trans>Native Bridge</Trans>, key: SharedStoreProfileTxType.NATIVE_BRIDGE },
+  { children: <Trans>BTC Bridge</Trans>, key: SharedStoreProfileTxType.BTC_BRIDGE },
+  { children: <Trans>Staking</Trans>, key: SharedStoreProfileTxType.STRATEGIES }
 ];
 
-type ProfileActivityFiltersData = { type: ProfileActivityTypeFilterOption; status: ProfileActivityStatusFilterOption };
+type ProfileActivityFiltersData = { type?: SharedStoreProfileTxType; status?: SharedStoreProfileTxStatus };
 
 type ProfileActivityFiltersProps = {
+  isFiltering: boolean;
   value: ProfileActivityFiltersData;
   onSelectionChange: (filters: ProfileActivityFiltersData) => void;
 };
 
-const ProfileActivityFilters = ({ value, onSelectionChange }: ProfileActivityFiltersProps): JSX.Element => {
+const ProfileActivityFilters = ({
+  isFiltering,
+  value,
+  onSelectionChange
+}: ProfileActivityFiltersProps): JSX.Element => {
   const statusLabelId = useId();
   const typeLabelId = useId();
 
-  const [state, setState] = useState<ProfileActivityFiltersData>({
-    status: value.status || ProfileActivityStatusFilterOption.ANY_STATUS,
-    type: value.type || ProfileActivityTypeFilterOption.ALL_TRANSACTIONS
-  });
+  const [state, setState] = useState<ProfileActivityFiltersData>(value);
   const [isOpen, setOpen] = useState(false);
 
-  useEffect(() => {}, [isOpen]);
+  useEffect(() => {
+    setState(value);
+  }, [value]);
 
   const handleApply = () => {
     onSelectionChange(state);
@@ -78,8 +69,8 @@ const ProfileActivityFilters = ({ value, onSelectionChange }: ProfileActivityFil
 
   const handleClear = () => {
     const clearState = {
-      status: ProfileActivityStatusFilterOption.ANY_STATUS,
-      type: ProfileActivityTypeFilterOption.ALL_TRANSACTIONS
+      status: undefined,
+      type: undefined
     };
 
     setState(clearState);
@@ -88,15 +79,11 @@ const ProfileActivityFilters = ({ value, onSelectionChange }: ProfileActivityFil
     setOpen(false);
   };
 
-  const isFiltering =
-    (value.status && value.status !== ProfileActivityStatusFilterOption.ANY_STATUS) ||
-    (value.type && value.type !== ProfileActivityTypeFilterOption.ALL_TRANSACTIONS);
-
   const statusLabel = statusFilterOptions.find(
-    (item) => item.key === (value.status || ProfileActivityStatusFilterOption.ANY_STATUS)
+    (item) => item.key === (value.status || SharedStoreProfileTxStatus.ANY_STATUS)
   )?.children;
   const typeLabel = typeFilterOptions.find(
-    (item) => item.key === (value.type || ProfileActivityTypeFilterOption.ALL_TRANSACTIONS)
+    (item) => item.key === (value.type || SharedStoreProfileTxType.ALL_TRANSACTIONS)
   )?.children;
 
   return (
@@ -138,12 +125,18 @@ const ProfileActivityFilters = ({ value, onSelectionChange }: ProfileActivityFil
               </Span>
               <List
                 aria-labelledby={statusLabelId}
-                selectedKeys={state.status ? [state.status] : undefined}
+                selectedKeys={state.status ? [state.status] : [SharedStoreProfileTxStatus.ANY_STATUS]}
                 selectionMode='single'
                 onSelectionChange={(key) => {
                   const [selectedKey] = [...key];
 
-                  setState((s) => ({ ...s, status: selectedKey as ProfileActivityStatusFilterOption }));
+                  setState((s) => ({
+                    ...s,
+                    status:
+                      selectedKey === SharedStoreProfileTxStatus.ANY_STATUS
+                        ? undefined
+                        : (selectedKey as SharedStoreProfileTxStatus)
+                  }));
                 }}
               >
                 {statusFilterOptions.map((option) => (
@@ -159,12 +152,18 @@ const ProfileActivityFilters = ({ value, onSelectionChange }: ProfileActivityFil
               </Span>
               <List
                 aria-labelledby={typeLabelId}
-                selectedKeys={state.type ? [state.type] : undefined}
+                selectedKeys={state.type ? [state.type] : [SharedStoreProfileTxType.ALL_TRANSACTIONS]}
                 selectionMode='single'
                 onSelectionChange={(key) => {
                   const [selectedKey] = [...key];
 
-                  setState((s) => ({ ...s, type: selectedKey as ProfileActivityTypeFilterOption }));
+                  setState((s) => ({
+                    ...s,
+                    type:
+                      selectedKey === SharedStoreProfileTxType.ALL_TRANSACTIONS
+                        ? undefined
+                        : (selectedKey as SharedStoreProfileTxType)
+                  }));
                 }}
               >
                 {typeFilterOptions.map((option) => (
@@ -189,5 +188,5 @@ const ProfileActivityFilters = ({ value, onSelectionChange }: ProfileActivityFil
   );
 };
 
-export { ProfileActivityFilters, ProfileActivityStatusFilterOption, ProfileActivityTypeFilterOption };
+export { ProfileActivityFilters };
 export type { ProfileActivityFiltersData };

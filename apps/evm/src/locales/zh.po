@@ -125,7 +125,7 @@ msgstr "关于"
 msgid "About Babylon Campaign"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:182
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:199
 msgid "Action needed"
 msgstr ""
 
@@ -134,9 +134,10 @@ msgstr ""
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:187
-#: src/components/Profile/Profile.tsx:150
-#: src/components/Profile/Profile.tsx:154
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:204
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:278
+#: src/components/Profile/Profile.tsx:151
+#: src/components/Profile/Profile.tsx:155
 msgid "Activity"
 msgstr ""
 
@@ -183,7 +184,7 @@ msgstr "已经在收获？"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:478
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:228
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:251
 msgid "Amount"
 msgstr ""
 
@@ -203,16 +204,16 @@ msgstr ""
 #~ msgid "and that you have read and understood our"
 #~ msgstr ""
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:33
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:20
 msgid "Any Status"
 msgstr ""
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:41
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:28
 msgid "Any Transaction"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/GatewayTransactionDetails/GatewayFeeSettingsModal.tsx:180
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:183
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:182
 msgid "Apply"
 msgstr ""
 
@@ -267,7 +268,7 @@ msgstr "审计"
 #~ msgid "Authorize Wallet"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:32
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:35
 #: src/app/[lang]/fusion/Fusion.tsx:209
 msgid "Babylon campaign"
 msgstr ""
@@ -332,7 +333,7 @@ msgstr ""
 #~ msgid "BOB Ecosystem on OKX Cryptopedia"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
+#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:23
 #: src/app/[lang]/fusion/Fusion.tsx:132
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
@@ -449,7 +450,7 @@ msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已�
 msgid "Bringing Bitcoin DeFi to the Superchain"
 msgstr "将比特币 DeFi 引入OP超级链"
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:43
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:30
 msgid "BTC Bridge"
 msgstr ""
 
@@ -461,7 +462,7 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
-#: src/components/Profile/Profile.tsx:100
+#: src/components/Profile/Profile.tsx:106
 msgid "Buy"
 msgstr ""
 
@@ -511,8 +512,12 @@ msgstr "选择任何现有的流动性质押提供商来铸造你的BTC LST。"
 msgid "Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.<0/>Participate in Fusion voting to receive 3 envelopes daily until January 29th.<1/>Win 888, 168 or 88 Spice with every envelope. Then share your winnings on X and follow the campaign rules for a chance to win an extra 100,000 Spice."
 msgstr "BOB蛇年大礼包等你来领!一键获得 Spice积分奖励, 与BOB一起喜迎蛇年🐍<0/>參加Fushion投票，每天可獲得3個紅包，活動舉行至1月29日。<1/>每個紅包可分別獲得888、168或88香料。只要你在推特上分享你的獲獎喜訊，便有機會贏取額外的100,000香料。"
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:180
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:179
 msgid "Clear"
+msgstr ""
+
+#: src/components/ProfileActivity/ProfileActivity.tsx:182
+msgid "Clear Filters"
 msgstr ""
 
 #: src/app/[lang]/apps/components/HeroBanner/VotingInfoModal.tsx:34
@@ -530,7 +535,7 @@ msgstr ""
 #~ msgid "close drawer"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:22
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:23
 #: src/app/[lang]/fusion/Fusion.tsx:198
 msgid "Collect Babylon Points on BOB"
 msgstr ""
@@ -561,7 +566,7 @@ msgstr "社区投票"
 msgid "Community Voting Information"
 msgstr "社区投票信息"
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:36
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:23
 msgid "Complete"
 msgstr ""
 
@@ -599,7 +604,7 @@ msgstr ""
 msgid "Connect request is already pending"
 msgstr ""
 
-#: src/components/ConnectButton/ConnectButton.tsx:74
+#: src/components/ConnectButton/ConnectButton.tsx:95
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:171
 msgid "Connect Wallet"
@@ -666,7 +671,7 @@ msgstr ""
 msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
 msgstr "将高优先级资产部署到高优先级DeFi协议中，以最大化你的Spice收获。"
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:199
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:216
 msgid "Deposit"
 msgstr ""
 
@@ -715,7 +720,7 @@ msgstr ""
 #~ msgid "disconnect wallet(s)"
 #~ msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:61
+#: src/app/[lang]/nested-providers.tsx:60
 msgid "Disconnected"
 msgstr ""
 
@@ -803,7 +808,7 @@ msgstr ""
 msgid "Exclusive Spice Bonus For Superchain Users"
 msgstr ""
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:37
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:24
 msgid "Failed"
 msgstr ""
 
@@ -873,7 +878,7 @@ msgstr ""
 #~ msgid "Fetching staking strategies..."
 #~ msgstr ""
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:127
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:114
 msgid "Filter by"
 msgstr ""
 
@@ -889,7 +894,7 @@ msgstr ""
 msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
+#: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:19
 msgid "Follow us on X"
 msgstr ""
 
@@ -915,7 +920,7 @@ msgstr "FUSION"
 msgid "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
 msgstr "Fusion第3季是你收获Spice的最后机会。质押比特币获得最高倍数，并通过推荐朋友赚取他们Spice收获的分成。"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:30
+#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:32
 msgid "Fusion season three"
 msgstr ""
 
@@ -965,7 +970,7 @@ msgstr "返回"
 msgid "Go to Explorer"
 msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:76
+#: src/app/[lang]/nested-providers.tsx:75
 msgid "Got it!"
 msgstr ""
 
@@ -1033,7 +1038,7 @@ msgstr "热门策略"
 msgid "How to vote:"
 msgstr "如何投票："
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:29
+#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:32
 msgid "Hybrid L2"
 msgstr ""
 
@@ -1281,7 +1286,7 @@ msgstr ""
 msgid "Name"
 msgstr "名称"
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:42
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:29
 msgid "Native Bridge"
 msgstr ""
 
@@ -1309,7 +1314,7 @@ msgstr ""
 msgid "navigate to discord"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:73
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:74
 msgid "navigate to ecosystem section in fusion page"
 msgstr ""
 
@@ -1337,7 +1342,7 @@ msgstr ""
 msgid "Need support? Enter our Discord."
 msgstr ""
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:35
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:22
 msgid "Needed Action"
 msgstr ""
 
@@ -1397,11 +1402,11 @@ msgstr "新紅包即將發放{timeToNextDraw}"
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "目前暂无新目标。请保持关注更新！"
 
-#: src/components/ProfileActivity/ProfileActivity.tsx:162
+#: src/components/ProfileActivity/ProfileActivity.tsx:174
 msgid "No operations found"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:300
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:330
 msgid "No strategies to display"
 msgstr ""
 
@@ -1478,7 +1483,7 @@ msgstr ""
 msgid "Participate in the event, learn, and get up to 10,000 Spice Points at the end of the event"
 msgstr ""
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:34
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:21
 #: src/components/ProfileActivity/TransactionDetails.tsx:58
 msgid "Pending"
 msgstr ""
@@ -1528,7 +1533,7 @@ msgstr ""
 msgid "Privacy policy"
 msgstr "隐私政策"
 
-#: src/components/ConnectButton/ConnectButton.tsx:99
+#: src/components/ConnectButton/ConnectButton.tsx:124
 msgid "Profile"
 msgstr ""
 
@@ -1561,7 +1566,7 @@ msgstr "完成的任务"
 msgid "Quests Only"
 msgstr "仅任务"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:26
+#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:27
 msgid "Read it now."
 msgstr ""
 
@@ -1569,12 +1574,12 @@ msgstr ""
 msgid "Read more here"
 msgstr "点此了解更多"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:26
+#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:27
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
-#: src/components/Profile/Profile.tsx:114
+#: src/components/Profile/Profile.tsx:120
 msgid "Receive"
 msgstr "接收"
 
@@ -1604,7 +1609,7 @@ msgstr ""
 msgid "Referred by"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:22
+#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:23
 msgid "Released: BOB's Hybrid L2 vision paper"
 msgstr ""
 
@@ -1625,7 +1630,7 @@ msgstr ""
 #~ msgid "Restaking"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:107
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:110
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:226
 #: src/app/[lang]/apps/components/AppsList/AppCard.tsx:131
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:107
@@ -1919,15 +1924,15 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesCategories.tsx:9
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:44
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:31
 msgid "Staking"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:257
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:287
 msgid "Staking list"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:292
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:322
 msgid "Staking table"
 msgstr ""
 
@@ -1950,7 +1955,7 @@ msgstr "开始收获"
 msgid "Start Harvesting Spice"
 msgstr "开始收获Spice"
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:137
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:124
 msgid "Status"
 msgstr ""
 
@@ -1970,7 +1975,7 @@ msgstr "第二步"
 msgid "Steps"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:87
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:90
 msgid "Strategy"
 msgstr ""
 
@@ -2201,7 +2206,7 @@ msgstr ""
 msgid "To cast your vote, please log in"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:26
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:27
 #: src/app/[lang]/fusion/Fusion.tsx:201
 msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
 msgstr ""
@@ -2214,13 +2219,13 @@ msgstr ""
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more >"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
+#: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:23
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
 #: src/components/Profile/ProfileTokens.tsx:57
-msgid "Tokens"
-msgstr ""
+#~ msgid "Tokens"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:38
 msgid "Top 100 spice user"
@@ -2270,7 +2275,7 @@ msgstr ""
 msgid "Transfer time"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:95
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:98
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:236
 #: src/app/[lang]/fusion/components/UserInfo/Barometer.tsx:67
 msgid "TVL"
@@ -2279,11 +2284,11 @@ msgstr "总锁仓价值（TVL）"
 #~ msgid "TVL (on BOB)"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:97
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:100
 msgid "TVL on BOB"
 msgstr ""
 
-#: src/components/ProfileActivity/ProfileActivityFilters.tsx:158
+#: src/components/ProfileActivity/ProfileActivityFilters.tsx:151
 msgid "Type"
 msgstr ""
 
@@ -2442,7 +2447,7 @@ msgstr ""
 msgid "Waiting for confirmation"
 msgstr ""
 
-#: src/components/Profile/Profile.tsx:142
+#: src/components/Profile/Profile.tsx:143
 msgid "Wallet"
 msgstr "钱包"
 
@@ -2491,7 +2496,7 @@ msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计�
 msgid "withdraw"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:204
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:221
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:37
 msgid "Withdraw"
 msgstr ""
@@ -2510,7 +2515,7 @@ msgstr "提取锁定资产"
 msgid "Withdraw to L1 failed. Please try again."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:207
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:224
 msgid "Withdrawals back to BTC are currently not supported"
 msgstr ""
 
@@ -2555,7 +2560,7 @@ msgstr ""
 #~ msgid "You Have 0 Tickets"
 #~ msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:68
+#: src/app/[lang]/nested-providers.tsx:67
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
 msgstr ""
 
@@ -2645,7 +2650,7 @@ msgstr ""
 msgid "Your available balance may differ from your wallet balance due to network fees and available liquidity"
 msgstr ""
 
-#: src/app/[lang]/nested-providers.tsx:65
+#: src/app/[lang]/nested-providers.tsx:64
 msgid "Your funds are safe!"
 msgstr ""
 
