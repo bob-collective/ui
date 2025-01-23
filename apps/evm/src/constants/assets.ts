@@ -504,7 +504,7 @@ export const bobAssets: RawToken[] = [
     name: 'Universal BTC',
     symbol: 'uniBTC',
     decimals: 8,
-    logoUrl: 'https://assets.coingecko.com/coins/images/39599/standard/uniBTC_200px.png',
+    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/uniBTC.svg',
     apiId: 'universal-btc'
   }
 ];
