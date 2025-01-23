@@ -13,7 +13,7 @@ import {
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 import { useMediaQuery } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
@@ -40,11 +40,29 @@ const ConnectButton = (): JSX.Element => {
   const otherChain = currentChain.id === chainL2.id ? chainL1 : chainL2;
 
   const isReceiveModalOpen = useStore(store, (state) => state.shared.isReceiveModalOpen);
+  const hasOpenned = useStore(store, (state) => state.shared.profile.hasOpenned);
+
   const { isOpen: isConnectModalOpen } = useConnectModal();
 
   const { open } = useConnectModal();
 
   const isLoggedIn = !!(evmAddress || btcAddress);
+
+  useEffect(() => {
+    if (!isProfileDrawerOpen && hasOpenned) return;
+
+    store.setState((state) => ({
+      ...state,
+      shared: {
+        ...state.shared,
+        profile: {
+          ...state.shared.profile,
+          hasOpenned: true
+        }
+      }
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isProfileDrawerOpen]);
 
   if (!isLoggedIn) {
     const handleConnect = () => {
@@ -80,7 +98,7 @@ const ConnectButton = (): JSX.Element => {
           <DrawerTitle hidden>
             <Trans>Profile</Trans>
           </DrawerTitle>
-          <Profile currentChain={currentChain} otherChain={otherChain} onClose={handleClose} />
+          <Profile currentChain={currentChain} hasOpenned={hasOpenned} otherChain={otherChain} onClose={handleClose} />
         </DrawerContent>
       </DrawerPortal>
     </DrawerRoot>
