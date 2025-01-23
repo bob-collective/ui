@@ -178,7 +178,8 @@ const Bridge = ({ searchParams }: Props) => {
 
   return (
     <Main maxWidth='lg' padding='md'>
-      <Flex justifyContent='center' style={{ width: '100%' }}>
+      <BannerCarousel hasImgOpacity />
+      <Flex justifyContent='center' marginTop='2xl' style={{ width: '100%' }}>
         <Flex direction='column' gap='md' style={{ width: '100%' }}>
           <Flex justifyContent='flex-end'>
             <Button size='s' style={{ gap: 4, alignItems: 'center' }} onPress={handleActivity}>
@@ -241,7 +242,6 @@ const Bridge = ({ searchParams }: Props) => {
           </StyledCard>
         </Flex>
       </Flex>
-      <BannerCarousel hasImgOpacity marginTop='2xl' />
     </Main>
   );
 };
