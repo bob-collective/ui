@@ -497,7 +497,16 @@ export const bobAssets: RawToken[] = [
     logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
     apiId: 'tellor-tributes'
   },
-  wstETH[ChainId.BOB]
+  wstETH[ChainId.BOB],
+  {
+    chainId: ChainId.BOB,
+    address: '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894',
+    name: 'Universal BTC',
+    symbol: 'uniBTC',
+    decimals: 8,
+    logoUrl: 'https://assets.coingecko.com/coins/images/39599/standard/uniBTC_200px.png',
+    apiId: 'universal-btc'
+  }
 ];
 
 const bobSepoliaAssets: RawToken[] = [
