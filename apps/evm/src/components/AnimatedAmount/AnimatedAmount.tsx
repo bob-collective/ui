@@ -13,6 +13,7 @@ type Props = {
   showAnimation?: boolean;
   shouldRoundDown?: boolean;
   maximumFractionDigits?: number;
+  start?: number;
   format?: (amount: number) => string;
 };
 
@@ -30,9 +31,10 @@ const AnimatedAmount = ({
   shouldRoundDown,
   maximumFractionDigits = 0,
   format,
+  start: startProp = 0,
   ...props
 }: AnimatedAmountProps) => {
-  const [start, setStart] = useState(0);
+  const [start, setStart] = useState(startProp);
   const { locale } = useLocale();
 
   const formatter = useCallback(

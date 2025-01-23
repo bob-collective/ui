@@ -4,6 +4,9 @@ import { BridgeTransaction } from '../types';
 
 type SharedStore = {
   isReceiveModalOpen: boolean;
+  profile: {
+    hasOpenned: boolean;
+  };
 };
 
 type BridgeStore = {
@@ -29,7 +32,10 @@ type Store = {
 
 const store = new StoreLib<Store>({
   shared: {
-    isReceiveModalOpen: false
+    isReceiveModalOpen: false,
+    profile: {
+      hasOpenned: false
+    }
   },
   bridge: {
     transactions: {

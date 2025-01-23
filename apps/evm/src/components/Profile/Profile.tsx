@@ -24,9 +24,10 @@ type ProfileProps = {
   onClose: () => void;
   currentChain: Chain;
   otherChain: Chain;
+  hasOpenned?: boolean;
 };
 
-const Profile = ({ currentChain, otherChain, onClose }: ProfileProps): JSX.Element => {
+const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps): JSX.Element => {
   const { amount, format, isPending: isBalancePending } = useTotalBalance();
   const { disconnect: evmWalletDisconnect } = useDisconnect();
   const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
@@ -81,6 +82,7 @@ const Profile = ({ currentChain, otherChain, onClose }: ProfileProps): JSX.Eleme
           className={chakraPetch.className}
           format={format}
           size='3xl'
+          start={hasOpenned ? amount.toNumber() : undefined}
           weight='bold'
         />
       )}
