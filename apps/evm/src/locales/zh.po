@@ -438,8 +438,17 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
+<<<<<<< HEAD
 #: src/app/[lang]/(bridge)/stake/Stake.tsx:70
 #~ msgid "BTC Strategies"
+=======
+#: src/components/Profile/Profile.tsx:100
+msgid "Buy"
+msgstr ""
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:181
+#~ msgid "By clicking ‘Connect’ you acknowledge and agree to the"
+>>>>>>> 2193d044 (feat: place blockscout under others  section)
 #~ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:263
@@ -560,9 +569,15 @@ msgstr ""
 msgid "Connect request is already pending"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:63
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:225
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:30
+=======
+#: src/components/ConnectButton/ConnectButton.tsx:74
+#: src/connect-ui/component/AuthButton/AuthButton.tsx:62
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:171
+>>>>>>> 2193d044 (feat: place blockscout under others  section)
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
@@ -1412,6 +1427,10 @@ msgstr "可选：可以多次重复步骤2-4。"
 msgid "or"
 msgstr "或"
 
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:55
+msgid "Others"
+msgstr ""
+
 #: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:54
 msgid "OtterSec auditor"
 msgstr ""
@@ -1479,7 +1498,7 @@ msgstr ""
 msgid "Privacy policy"
 msgstr "隐私政策"
 
-#: src/components/ConnectButton/ConnectButton.tsx:81
+#: src/components/ConnectButton/ConnectButton.tsx:99
 msgid "Profile"
 msgstr ""
 
@@ -1524,7 +1543,12 @@ msgstr "点此了解更多"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
+=======
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
+#: src/components/Profile/Profile.tsx:114
+>>>>>>> 2193d044 (feat: place blockscout under others  section)
 msgid "Receive"
 msgstr "接收"
 
@@ -1683,6 +1707,10 @@ msgstr "与朋友分享此链接，当他们注册时，你将获得他们Spice�
 
 #: src/components/Layout/Header.tsx:68
 msgid "Show secondary navigation"
+msgstr ""
+
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:52
+msgid "show/hide other tokens list"
 msgstr ""
 
 #: src/app/[lang]/sign-up/page.tsx:14
@@ -2151,7 +2179,7 @@ msgstr ""
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
-#: src/components/Profile/ProfileTokens.tsx:48
+#: src/components/Profile/ProfileTokens.tsx:57
 msgid "Tokens"
 msgstr ""
 

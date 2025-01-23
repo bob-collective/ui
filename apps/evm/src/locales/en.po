@@ -1193,6 +1193,10 @@ msgstr "Optional: It's possible to repeat steps 2-4 multiple times."
 msgid "or"
 msgstr "or"
 
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:55
+msgid "Others"
+msgstr "Others"
+
 #: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:54
 msgid "OtterSec auditor"
 msgstr "OtterSec auditor"
@@ -1252,7 +1256,7 @@ msgstr "Preparing..."
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: src/components/ConnectButton/ConnectButton.tsx:81
+#: src/components/ConnectButton/ConnectButton.tsx:99
 msgid "Profile"
 msgstr "Profile"
 
@@ -1436,6 +1440,10 @@ msgstr "Share this link with a friend and when they sign up, you will receive 15
 #: src/components/Layout/Header.tsx:68
 msgid "Show secondary navigation"
 msgstr "Show secondary navigation"
+
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:52
+msgid "show/hide other tokens list"
+msgstr "show/hide other tokens list"
 
 #: src/app/[lang]/sign-up/page.tsx:14
 msgid "Sign-Up"
@@ -1789,7 +1797,7 @@ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP ex
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
-#: src/components/Profile/ProfileTokens.tsx:48
+#: src/components/Profile/ProfileTokens.tsx:57
 msgid "Tokens"
 msgstr "Tokens"
 

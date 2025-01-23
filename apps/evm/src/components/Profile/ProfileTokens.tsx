@@ -1,5 +1,6 @@
 import { CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
+import { BTC } from '@gobob/icons';
 import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { Card, Flex, H3, Wallet } from '@gobob/ui';
@@ -7,17 +8,18 @@ import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
 import { useId } from 'react';
 import { Chain } from 'viem';
-import { BTC } from '@gobob/icons';
+import { useAccount } from 'wagmi';
 
 import { ChainAsset } from '../ChainAsset';
 
 import { ProfileTokenList } from './ProfileTokenList';
 import { ProfileTokenListItem, ProfileTokensListItemSkeleton } from './ProfileTokenListItem';
+import { ProfileBlockscoutTokenList } from './ProfileBlockscoutTokenList';
 
-import { L1_CHAIN, L2_CHAIN, RoutesPath } from '@/constants';
-import { useTokens } from '@/hooks';
-import { calculateAmountUSD } from '@/utils';
 import { WalletIcon } from '@/connect-ui';
+import { L1_CHAIN, L2_CHAIN, RoutesPath } from '@/constants';
+import { useBalances, useTokens } from '@/hooks';
+import { calculateAmountUSD } from '@/utils';
 
 type ProfileTokensProps = {
   currentChain: Chain;
@@ -30,15 +32,22 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
 
   const headerId = useId();
 
-  const { address: btcAddress, connector: btcConnector } = useSatsAccount();
+  const { address: evmAddress } = useAccount();
 
   const { isPending: isl1TokensPending, data: l1Tokens } = useTokens(L1_CHAIN);
   const { isPending: isl2TokensPending, data: l2Tokens } = useTokens(L2_CHAIN);
 
-  const { data: btcBalance } = useSatsBalance();
+  const { isPending: isL1BalancesPending } = useBalances(L1_CHAIN);
+  const { isPending: isL2BalancesPending } = useBalances(L2_CHAIN);
+
+  const { address: btcAddress, connector: btcConnector } = useSatsAccount();
+  const { data: btcBalance, isPending: isSatsBalancePending } = useSatsBalance();
+
   const { getPrice } = usePrices();
 
-  const isTokensPending = isl1TokensPending || isl2TokensPending;
+  const isTokensPending =
+    (evmAddress && (isl1TokensPending || isl2TokensPending || isL1BalancesPending || isL2BalancesPending)) ||
+    (btcAddress && isSatsBalancePending);
 
   return (
     <Flex direction='column' flex={1}>
@@ -84,18 +93,23 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
                 onPressNavigate?.();
               }}
             />
-            <ProfileTokenList
-              currentChain={currentChain}
-              items={currentChain.id === L1_CHAIN ? l1Tokens : l2Tokens}
-              otherChain={otherChain}
-              onPressNavigate={onPressNavigate}
-            />
-            <ProfileTokenList
-              currentChain={otherChain}
-              items={currentChain.id === L1_CHAIN ? l2Tokens : l1Tokens}
-              otherChain={currentChain}
-              onPressNavigate={onPressNavigate}
-            />
+            {evmAddress && (
+              <>
+                <ProfileTokenList
+                  currentChain={currentChain}
+                  items={currentChain.id === L1_CHAIN ? l1Tokens : l2Tokens}
+                  otherChain={otherChain}
+                  onPressNavigate={onPressNavigate}
+                />
+                <ProfileTokenList
+                  currentChain={otherChain}
+                  items={currentChain.id === L1_CHAIN ? l2Tokens : l1Tokens}
+                  otherChain={currentChain}
+                  onPressNavigate={onPressNavigate}
+                />
+                {!isTokensPending && <ProfileBlockscoutTokenList />}
+              </>
+            )}
           </>
         )}
       </Flex>
