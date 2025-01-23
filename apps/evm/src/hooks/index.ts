@@ -1,4 +1,5 @@
 export * from './allowance';
+export * from './blockscout';
 export * from './useBalances';
 export * from './useBridgeTokens';
 export * from './useFeatureFlag';

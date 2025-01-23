@@ -332,7 +332,7 @@ msgstr "BTC bridge is currently unavailable. This may be due to: {0}. Please try
 msgid "BTC LST Lending"
 msgstr "BTC LST Lending<<<<<<< HEAD"
 
-#: src/components/Profile/Profile.tsx:99
+#: src/components/Profile/Profile.tsx:100
 msgid "Buy"
 msgstr "Buy"
 
@@ -433,7 +433,7 @@ msgstr "Connect EVM Wallet"
 msgid "Connect request is already pending"
 msgstr "Connect request is already pending"
 
-#: src/components/ConnectButton/ConnectButton.tsx:56
+#: src/components/ConnectButton/ConnectButton.tsx:74
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:171
 msgid "Connect Wallet"
@@ -1119,6 +1119,10 @@ msgstr "Optional: It's possible to repeat steps 2-4 multiple times."
 msgid "or"
 msgstr "or"
 
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:55
+msgid "Others"
+msgstr "Others"
+
 #: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:54
 msgid "OtterSec auditor"
 msgstr "OtterSec auditor"
@@ -1176,7 +1180,7 @@ msgstr "Preparing..."
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: src/components/ConnectButton/ConnectButton.tsx:81
+#: src/components/ConnectButton/ConnectButton.tsx:99
 msgid "Profile"
 msgstr "Profile"
 
@@ -1222,7 +1226,7 @@ msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting S
 msgstr "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
-#: src/components/Profile/Profile.tsx:113
+#: src/components/Profile/Profile.tsx:114
 msgid "Receive"
 msgstr "Receive"
 
@@ -1349,6 +1353,10 @@ msgstr "Share this link with a friend and when they sign up, you will receive 15
 #: src/components/Layout/Header.tsx:68
 msgid "Show secondary navigation"
 msgstr "Show secondary navigation"
+
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:52
+msgid "show/hide other tokens list"
+msgstr "show/hide other tokens list"
 
 #: src/app/[lang]/sign-up/page.tsx:14
 msgid "Sign-Up"
@@ -1694,7 +1702,7 @@ msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP ex
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
-#: src/components/Profile/ProfileTokens.tsx:48
+#: src/components/Profile/ProfileTokens.tsx:57
 msgid "Tokens"
 msgstr "Tokens"
 

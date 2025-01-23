@@ -3,8 +3,9 @@ import { useCallback } from 'react';
 import { ChainId } from '@gobob/chains';
 import { Address } from 'viem';
 
+import { TokenData } from '../useTokens';
+
 import { useBlockscoutAddressTokens } from './useBlockscoutAddressTokens';
-import { TokenData } from './useTokens';
 
 import { RawToken, bobAssets } from '@/constants';
 import { BlockscoutTokenInfo } from '@/utils';

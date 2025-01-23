@@ -41,7 +41,6 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
 
   const handleConnectEvmWallet = () => {
     open();
-    onClose();
   };
 
   const handleConnectBtcWallet = () => {

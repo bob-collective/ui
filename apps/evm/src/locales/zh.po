@@ -438,7 +438,7 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
-#: src/components/Profile/Profile.tsx:99
+#: src/components/Profile/Profile.tsx:100
 msgid "Buy"
 msgstr ""
 
@@ -568,7 +568,7 @@ msgstr ""
 msgid "Connect request is already pending"
 msgstr ""
 
-#: src/components/ConnectButton/ConnectButton.tsx:56
+#: src/components/ConnectButton/ConnectButton.tsx:74
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:171
 msgid "Connect Wallet"
@@ -1412,6 +1412,10 @@ msgstr "可选：可以多次重复步骤2-4。"
 msgid "or"
 msgstr "或"
 
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:55
+msgid "Others"
+msgstr ""
+
 #: src/app/[lang]/sign-up/components/Auditors/Auditors.tsx:54
 msgid "OtterSec auditor"
 msgstr ""
@@ -1477,7 +1481,7 @@ msgstr ""
 msgid "Privacy policy"
 msgstr "隐私政策"
 
-#: src/components/ConnectButton/ConnectButton.tsx:81
+#: src/components/ConnectButton/ConnectButton.tsx:99
 msgid "Profile"
 msgstr ""
 
@@ -1523,7 +1527,7 @@ msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting S
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
-#: src/components/Profile/Profile.tsx:113
+#: src/components/Profile/Profile.tsx:114
 msgid "Receive"
 msgstr "接收"
 
@@ -1686,6 +1690,10 @@ msgstr "与朋友分享此链接，当他们注册时，你将获得他们Spice�
 
 #: src/components/Layout/Header.tsx:68
 msgid "Show secondary navigation"
+msgstr ""
+
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:52
+msgid "show/hide other tokens list"
 msgstr ""
 
 #: src/app/[lang]/sign-up/page.tsx:14
@@ -2154,7 +2162,7 @@ msgstr ""
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
-#: src/components/Profile/ProfileTokens.tsx:48
+#: src/components/Profile/ProfileTokens.tsx:57
 msgid "Tokens"
 msgstr ""
 
