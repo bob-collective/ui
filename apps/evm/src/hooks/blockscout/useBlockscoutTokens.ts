@@ -1,7 +1,7 @@
 import { ERC20Token } from '@gobob/currency';
 import { useCallback } from 'react';
 import { ChainId } from '@gobob/chains';
-import { Address } from 'viem';
+import { Address, getAddress } from 'viem';
 
 import { TokenData } from '../useTokens';
 
@@ -12,7 +12,7 @@ import { BlockscoutTokenInfo } from '@/utils';
 
 const addressToBobAssetsMapping = bobAssets.reduce(
   (acc, cur) => {
-    acc[cur.address] = cur;
+    acc[getAddress(cur.address)] = cur;
 
     return acc;
   },
@@ -24,7 +24,7 @@ const useBlockscoutTokens = () => {
     return (
       data
         // exclude known tokens
-        .filter((token) => !addressToBobAssetsMapping[token.token.address])
+        .filter((token) => !addressToBobAssetsMapping[getAddress(token.token.address)])
         .map((blockscoutToken) => ({
           raw: {
             ...blockscoutToken.token,
