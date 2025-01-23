@@ -17,7 +17,7 @@ import { Main } from '@/components';
 import { useConnectModal } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { useGetBridgeTransactions } from '@/hooks';
-import { store } from '@/lib/store';
+import { SharedStoreProfileTxStatus, SharedStoreProfileTxType, store } from '@/lib/store';
 import { TransactionDirection } from '@/types';
 
 const externalUnsupportedTokens = ['LBTC'];
@@ -128,10 +128,26 @@ const Bridge = ({ searchParams }: Props) => {
     urlSearchParams.set('network', network);
   };
 
+  const hasPendingTx = txPendingUserAction && txPendingUserAction > 0;
+
   const handleOpenProfile = () => {
     store.setState((state) => ({
       ...state,
-      shared: { ...state.shared, profile: { ...state.shared.profile, isOpen: true, selectedTab: 'activity' } }
+      shared: {
+        ...state.shared,
+        profile: {
+          ...state.shared.profile,
+          isOpen: true,
+          selectedTab: 'activity',
+          transactions: {
+            filters: {
+              ...state.shared.profile.transactions.filters,
+              status: hasPendingTx ? SharedStoreProfileTxStatus.NEEDED_ACTION : undefined,
+              type: SharedStoreProfileTxType.NATIVE_BRIDGE
+            }
+          }
+        }
+      }
     }));
   };
 
@@ -167,7 +183,7 @@ const Bridge = ({ searchParams }: Props) => {
           <Flex justifyContent='flex-end'>
             <Button size='s' style={{ gap: 4, alignItems: 'center' }} onPress={handleActivity}>
               <SolidClock />
-              {isPending ? (
+              {isLoggedIn && isPending ? (
                 <Skeleton height='1.5rem' width='5rem' />
               ) : txPendingUserAction && txPendingUserAction > 0 ? (
                 <Card

@@ -26,10 +26,14 @@ import { StyledCloseButton } from './ConnectButton.style';
 import { useConnectModal } from '@/connect-ui';
 import { chainL1, chainL2, isValidChain } from '@/constants';
 import { store } from '@/lib/store';
+import { useUserAgent } from '@/user-agent';
 
 const ConnectButton = (): JSX.Element => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('s'));
+  const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
+  const { isMobile: isMobileUserAgent } = useUserAgent();
+
+  const isMobile = isMobileViewport || isMobileUserAgent;
 
   const isProfileDrawerOpen = useStore(store, (state) => state.shared.profile.isOpen);
 
@@ -61,6 +65,23 @@ const ConnectButton = (): JSX.Element => {
         }
       }
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isProfileDrawerOpen]);
+
+  // temporary fix (https://github.com/emilkowalski/vaul/issues/492)
+  useEffect(() => {
+    if (!isProfileDrawerOpen || isMobile) return;
+
+    const originalPointerEvents = document.body.style.pointerEvents;
+
+    const raf = window.requestAnimationFrame(() => {
+      document.body.style.pointerEvents = 'auto';
+    });
+
+    return () => {
+      window.cancelAnimationFrame(raf);
+      document.body.style.pointerEvents = originalPointerEvents;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProfileDrawerOpen]);
 

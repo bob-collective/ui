@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   Card,
   Dd,
   Dl,
@@ -12,6 +13,7 @@ import {
   P,
   Selection,
   Skeleton,
+  SolidClock,
   Span,
   Table,
   Tooltip,
@@ -34,6 +36,7 @@ import { StrategiesCategories } from './StrategiesCategories';
 import { AmountLabel } from '@/components';
 import { RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
+import { SharedStoreProfileTxType, store } from '@/lib/store';
 
 const getSkeletons = () =>
   Array(8)
@@ -219,6 +222,26 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
     handleStrategyNavigate(slug as string);
   };
 
+  const handlePressActivity = () => {
+    store.setState((state) => ({
+      ...state,
+      shared: {
+        ...state.shared,
+        profile: {
+          ...state.shared.profile,
+          isOpen: true,
+          selectedTab: 'activity',
+          transactions: {
+            filters: {
+              ...state.shared.profile.transactions.filters,
+              type: SharedStoreProfileTxType.STRATEGIES
+            }
+          }
+        }
+      }
+    }));
+  };
+
   const columns = useMemo(
     () =>
       filter === StrategiesFilterOption.MyDeposits
@@ -250,7 +273,14 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
     <Flex direction='column' gap='md' marginTop='2xl'>
       <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'flex-start', s: 'space-between' }}>
         <StrategiesFilter value={filter} onSelectionChange={handleFilterChange} />
-        <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
+        <Flex alignItems='center' gap='s'>
+          <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
+          <Tooltip label={<Trans>Activity</Trans>}>
+            <Button isIconOnly style={{ width: '2.75rem', height: '2.75rem' }} onPress={handlePressActivity}>
+              <SolidClock />
+            </Button>
+          </Tooltip>
+        </Flex>
       </Flex>
       {isMobile ? (
         <List
