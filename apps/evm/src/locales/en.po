@@ -330,7 +330,7 @@ msgstr "BTC bridge is currently unavailable. This may be due to: {0}. Please try
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:13
 msgid "BTC LST Lending"
-msgstr "BTC LST Lending<<<<<<< HEAD"
+msgstr "BTC LST Lending"
 
 #: src/components/Profile/Profile.tsx:100
 msgid "Buy"
