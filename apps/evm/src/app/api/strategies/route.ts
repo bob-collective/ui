@@ -179,7 +179,7 @@ export async function GET(request: Request) {
   const getPrice = (ticker: string, versusCurrency: PriceCurrency = PriceCurrency.USD) => {
     const cgId = COINGECKO_ID_BY_CURRENCY_TICKER[ticker];
 
-    return prices.data?.[cgId!]?.[versusCurrency] || 0;
+    return prices?.[cgId!]?.[versusCurrency] || 0;
   };
 
   const segmentTokensWithUnderlyingCall = publicClientL2.multicall({
