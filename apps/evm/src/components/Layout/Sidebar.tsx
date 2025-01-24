@@ -2,15 +2,13 @@
 
 import {
   Bars3,
-  Button,
   DrawerButton,
   DrawerContent,
   DrawerOverlay,
   DrawerPortal,
   DrawerRoot,
   DrawerTitle,
-  Flex,
-  XMark
+  Flex
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -44,13 +42,8 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }): JSX.Element | null => {
             </DrawerTitle>
             <Flex direction='column' elementType='nav' style={{ height: '100%' }}>
               <Flex direction='column' flex={1} gap='4xl'>
-                <Flex alignItems='center' justifyContent='space-between'>
-                  <Logo href={RoutesPath.HOME} onPress={handleClose} />
-                  <Button isIconOnly variant='ghost' onPress={handleClose}>
-                    <XMark size='s' />
-                  </Button>
-                </Flex>
-                <Flex direction='column' flex={1} justifyContent='space-between'>
+                <Logo href={RoutesPath.HOME} onPress={handleClose} />
+                <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
                   <Nav direction='column' gap='3xl'>
                     <NavItem href={RoutesPath.BRIDGE} onPress={handleClose}>
                       <Trans>Bridge</Trans>

@@ -8,9 +8,10 @@ import { BannerTitle } from './BannerTitle';
 
 type XBannerProps = {
   onPress?: () => void;
+  hasImgOpacity?: boolean;
 };
 
-const XBanner = ({ onPress }: XBannerProps) => (
+const XBanner = ({ hasImgOpacity, onPress }: XBannerProps) => (
   <Banner isPressable direction='column' justifyContent='center' onPress={onPress}>
     <StyledBannerContent direction='column'>
       <Flex alignItems='center'>
@@ -22,7 +23,7 @@ const XBanner = ({ onPress }: XBannerProps) => (
         <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
       </P>
     </StyledBannerContent>
-    <StyledImg alt='x' height='134' placeholder='blur' src={x} width='365' />
+    <StyledImg $hasImgOpacity={hasImgOpacity} alt='x' height='134' placeholder='blur' src={x} width='365' />
   </Banner>
 );
 

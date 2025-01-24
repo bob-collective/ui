@@ -1,8 +1,8 @@
 import { Flex, FlexProps } from '@gobob/ui';
 
-import { GatewayTransaction } from '../../hooks';
-
 import { GatewayStep } from './GatewayStep';
+
+import { GatewayTransaction } from '@/types';
 
 type Props = { data: GatewayTransaction; isExpanded: boolean };
 
@@ -16,7 +16,7 @@ const GatewayStatus = ({ data, isExpanded }: GatewayStatusProps): JSX.Element =>
   }
 
   return (
-    <Flex direction='column' gap='s'>
+    <Flex direction='column' gap='xs'>
       <GatewayStep data={data} step='btc-confirmation' />
       <GatewayStep data={data} step='l2-processing' />
     </Flex>

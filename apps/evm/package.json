@@ -37,7 +37,6 @@
     "@sentry/nextjs": "catalog:",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-store": "catalog:",
-    "@tanstack/react-virtual": "catalog:",
     "@vercel/kv": "catalog:",
     "@wagmi/core": "catalog:",
     "big.js": "catalog:",

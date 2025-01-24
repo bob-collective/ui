@@ -2,10 +2,33 @@ import { Store as StoreLib } from '@tanstack/react-store';
 
 import { BridgeTransaction } from '../types';
 
+enum SharedStoreProfileTxStatus {
+  ANY_STATUS = 'default',
+  PENDING = 'pending',
+  NEEDED_ACTION = 'needed-action',
+  COMPLETE = 'complete',
+  FAILED = 'failed'
+}
+
+enum SharedStoreProfileTxType {
+  ALL_TRANSACTIONS = 'default',
+  NATIVE_BRIDGE = 'native-bridge',
+  BTC_BRIDGE = 'btc-bridge',
+  STRATEGIES = 'strategies'
+}
+
 type SharedStore = {
   isReceiveModalOpen: boolean;
   profile: {
+    isOpen: boolean;
     hasOpenned: boolean;
+    selectedTab: 'wallet' | 'activity';
+    transactions: {
+      filters: {
+        type?: SharedStoreProfileTxType;
+        status?: SharedStoreProfileTxStatus;
+      };
+    };
   };
 };
 
@@ -34,7 +57,15 @@ const store = new StoreLib<Store>({
   shared: {
     isReceiveModalOpen: false,
     profile: {
-      hasOpenned: false
+      isOpen: false,
+      hasOpenned: false,
+      selectedTab: 'wallet',
+      transactions: {
+        filters: {
+          status: undefined,
+          type: undefined
+        }
+      }
     }
   },
   bridge: {
@@ -52,4 +83,5 @@ const store = new StoreLib<Store>({
   }
 });
 
-export { store };
+export { store, SharedStoreProfileTxStatus, SharedStoreProfileTxType };
+export type { SharedStore };

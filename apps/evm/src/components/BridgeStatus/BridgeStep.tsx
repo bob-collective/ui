@@ -2,11 +2,16 @@ import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { Address } from 'viem';
 
-import { BridgeTransaction } from '../../hooks';
 import { StatusChip } from '../StatusChip';
 
-import { BridgeSteps, BridgeStepStatus, BridgeTransactionStatus, TransactionDirection } from '@/types';
 import { chainL1, chainL2 } from '@/constants';
+import {
+  BridgeSteps,
+  BridgeStepStatus,
+  BridgeTransaction,
+  BridgeTransactionStatus,
+  TransactionDirection
+} from '@/types';
 
 const getOngoingBridgeStep = (status: BridgeTransactionStatus, direction: TransactionDirection): BridgeSteps => {
   switch (status) {

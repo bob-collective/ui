@@ -17,10 +17,9 @@ import {
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 
-import { useGetGatewayTransactions } from '../../hooks';
-
 import { AmountLabel, Chain } from '@/components';
 import { L2_CHAIN } from '@/constants';
+import { useGetGatewayTransactions } from '@/hooks';
 import { InitGatewayTransaction } from '@/types';
 
 type Props = { data: InitGatewayTransaction };

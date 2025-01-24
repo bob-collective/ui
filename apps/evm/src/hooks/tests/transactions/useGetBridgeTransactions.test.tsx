@@ -5,7 +5,7 @@ import request from 'graphql-request';
 import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import { useAccount } from 'wagmi';
 
-import { BridgeTransaction, useGetBridgeTransactions } from '../useGetBridgeTransactions';
+import { BridgeTransaction, useGetBridgeTransactions } from '../../transactions';
 
 import { wrapper } from '@/test-utils';
 import { BridgeTransactionStatus, TransactionDirection, TransactionType } from '@/types';
@@ -71,7 +71,8 @@ describe('useGetBridgeTransactions', () => {
       l1Token: '0xtestl1',
       l2Token: '0xtestl2',
       date: new Date(),
-      direction: TransactionDirection.L1_TO_L2
+      direction: TransactionDirection.L1_TO_L2,
+      logoUrl: ''
     };
 
     const { result } = renderHook(() => useGetBridgeTransactions(), { wrapper });

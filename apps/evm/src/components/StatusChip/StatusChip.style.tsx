@@ -23,6 +23,8 @@ const StyledChip = styled(Link)<StyledChipProps>`
         : $status === 'failed'
           ? theme.color('red-800')
           : theme.color('grey-600')};
+  border: ${({ theme, $status }) =>
+    $status === 'complete' || $status === 'idle' ? `1px solid ${theme.color('grey-200')}` : '1px solid transparent'};
   opacity: ${({ $status }) => ($status === 'idle' ? '.7' : '1')};
   color: ${({ $status, theme }) => ($status === 'ongoing' ? theme.color('dark') : theme.color('light'))};
 
