@@ -73,17 +73,17 @@ const COINGECKO_ID_BY_CURRENCY_TICKER: Record<string, (typeof COINGECKO_IDS)[num
   [CurrencyTicker.LBTC]: 'lombard-staked-btc'
 };
 
-type StrategyDepositData = {
-  token: {
-    chainId: ChainId;
-    address: Address;
-    decimals: number;
-    name: CurrencyTicker | string;
-    symbol: CurrencyTicker | string;
-    value: string;
-  };
-  usd: number;
-};
+// type StrategyDepositData = {
+//   token: {
+//     chainId: ChainId;
+//     address: Address;
+//     decimals: number;
+//     name: CurrencyTicker | string;
+//     symbol: CurrencyTicker | string;
+//     value: string;
+//   };
+//   usd: number;
+// };
 
 const segmentTokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
   seSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN'],
@@ -467,170 +467,157 @@ export async function GET(request: Request) {
     {} as Record<keyof typeof tokenToIdMapping, bigint>
   );
 
-  const strategiesData = strategies?.reduce(
-    (acc, strategy) => {
-      const symbol = strategy.outputToken?.symbol;
-      const address = strategy.outputToken?.address;
+  const strategiesData = strategies?.map((strategy) => {
+    const symbol = strategy.outputToken?.symbol;
+    const address = strategy.outputToken?.address;
 
-      if (
-        isSegmentToken(symbol) &&
-        segmentTokensWithUnderlyingContractDataSelector?.[symbol] &&
-        segmentTokenUnderlyingContractDataSelector?.[symbol]
-      ) {
-        // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
-        // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-        const [exchangeRateStored, totalSupply, balanceOf, decimals] =
-          segmentTokensWithUnderlyingContractDataSelector[symbol]!;
-        const underlyingDecimals = segmentTokenUnderlyingContractDataSelector[symbol]!;
+    if (
+      isSegmentToken(symbol) &&
+      segmentTokensWithUnderlyingContractDataSelector?.[symbol] &&
+      segmentTokenUnderlyingContractDataSelector?.[symbol]
+    ) {
+      // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
+      // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
+      const [exchangeRateStored, totalSupply, balanceOf, decimals] =
+        segmentTokensWithUnderlyingContractDataSelector[symbol]!;
+      const underlyingDecimals = segmentTokenUnderlyingContractDataSelector[symbol]!;
 
-        const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
-        const underlyingTicker = segmentTokenToUnderlyingMapping[symbol];
-        const underlyingPrice = getPrice(underlyingTicker!);
-        const depositAmount = CurrencyAmount.fromRawAmount(
-          new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-          balanceOf
-        );
+      const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
+      const underlyingTicker = segmentTokenToUnderlyingMapping[symbol];
+      const underlyingPrice = getPrice(underlyingTicker!);
+      const depositAmount = CurrencyAmount.fromRawAmount(
+        new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+        balanceOf
+      );
 
-        acc[strategy.id] = {
-          tvl: new Big(totalSupplyInUnderlyingAsset.toString())
+      return {
+        ...strategy,
+        tvl: new Big(totalSupplyInUnderlyingAsset.toString())
+          .mul(underlyingPrice)
+          .div(1e18)
+          .div(10 ** underlyingDecimals)
+          .toNumber(),
+        deposit: {
+          token: {
+            chainId: ChainId.BOB,
+            address: address as Address,
+            decimals,
+            symbol,
+            name: symbol,
+            value: balanceOf.toString()
+          },
+          usd: new Big(depositAmount.toExact())
             .mul(underlyingPrice)
-            .div(1e18)
+            .mul(exchangeRateStored.toString())
             .div(10 ** underlyingDecimals)
-            .toNumber(),
-          deposit:
-            balanceOf > 0n
-              ? {
-                  token: {
-                    chainId: ChainId.BOB,
-                    address: address as Address,
-                    decimals,
-                    symbol,
-                    name: symbol,
-                    value: balanceOf.toString()
-                  },
-                  usd: new Big(depositAmount.toExact())
-                    .mul(underlyingPrice)
-                    .mul(exchangeRateStored.toString())
-                    .div(10 ** underlyingDecimals)
-                    .div(1e10)
-                    .toNumber()
-                }
-              : undefined
-        };
-      }
+            .div(1e10)
+            .toNumber()
+        }
+      };
+    }
 
-      if (
-        isIonicToken(symbol) &&
-        ionicTokensWithUnderlyingContractDataSelector?.[symbol] &&
-        ionicTokenUnderlyingContractDataSelector?.[symbol]
-      ) {
-        const [balanceOf, decimals] = ionicTokensWithUnderlyingContractDataSelector[symbol]!;
-        const [underlyingBalanceOf, underlyingDecimals] = ionicTokenUnderlyingContractDataSelector[symbol]!;
+    if (
+      isIonicToken(symbol) &&
+      ionicTokensWithUnderlyingContractDataSelector?.[symbol] &&
+      ionicTokenUnderlyingContractDataSelector?.[symbol]
+    ) {
+      const [balanceOf, decimals] = ionicTokensWithUnderlyingContractDataSelector[symbol]!;
+      const [underlyingBalanceOf, underlyingDecimals] = ionicTokenUnderlyingContractDataSelector[symbol]!;
 
-        const underlyingTicker = ionicTokenToUnderlyingMapping[symbol];
-        const underlyingPrice = getPrice(underlyingTicker!);
-        const depositAmount = CurrencyAmount.fromRawAmount(
-          new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-          balanceOf
-        );
+      const underlyingTicker = ionicTokenToUnderlyingMapping[symbol];
+      const underlyingPrice = getPrice(underlyingTicker!);
+      const depositAmount = CurrencyAmount.fromRawAmount(
+        new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+        balanceOf
+      );
 
-        acc[strategy.id] = {
-          tvl: new Big(underlyingBalanceOf.toString())
-            .mul(underlyingPrice)
-            .div(10 ** underlyingDecimals)
-            .toNumber(),
-          deposit:
-            balanceOf > 0n
-              ? {
-                  token: {
-                    chainId: ChainId.BOB,
-                    address: address as Address,
-                    decimals,
-                    symbol,
-                    name: symbol,
-                    value: balanceOf.toString()
-                  },
-                  usd: new Big(depositAmount.toExact()).div(5).mul(underlyingPrice).toNumber()
-                }
-              : undefined
-        };
-      }
+      return {
+        ...strategy,
+        tvl: new Big(underlyingBalanceOf.toString())
+          .mul(underlyingPrice)
+          .div(10 ** underlyingDecimals)
+          .toNumber(),
+        deposit: {
+          token: {
+            chainId: ChainId.BOB,
+            address: address as Address,
+            decimals,
+            symbol,
+            name: symbol,
+            value: balanceOf.toString()
+          },
+          usd: new Big(depositAmount.toExact()).div(5).mul(underlyingPrice).toNumber()
+        }
+      };
+    }
 
-      if (hasCGId(symbol) && tokensContractDataSelector?.[symbol]) {
-        const [totalSupply, decimals, balanceOf] = tokensContractDataSelector[symbol]!;
-        const ticker = tokenToIdMapping[symbol]!;
-        const price = getPrice(ticker!);
-        const depositAmount = CurrencyAmount.fromRawAmount(
-          new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-          balanceOf
-        );
+    if (hasCGId(symbol) && tokensContractDataSelector?.[symbol]) {
+      const [totalSupply, decimals, balanceOf] = tokensContractDataSelector[symbol]!;
+      const ticker = tokenToIdMapping[symbol]!;
+      const price = getPrice(ticker!);
+      const depositAmount = CurrencyAmount.fromRawAmount(
+        new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
+        balanceOf
+      );
 
-        acc[strategy.id] = {
-          tvl: new Big(totalSupply.toString())
-            .mul(price)
-            .div(10 ** decimals)
-            .toNumber(),
-          deposit:
-            balanceOf > 0n
-              ? {
-                  token: {
-                    chainId: ChainId.BOB,
-                    address: address as Address,
-                    decimals,
-                    symbol: ticker,
-                    name: ticker,
-                    value: balanceOf.toString()
-                  },
-                  usd: new Big(depositAmount.toExact()).mul(price).toNumber()
-                }
-              : undefined
-        };
-      }
+      return {
+        ...strategy,
+        tvl: new Big(totalSupply.toString())
+          .mul(price)
+          .div(10 ** decimals)
+          .toNumber(),
+        deposit: {
+          token: {
+            chainId: ChainId.BOB,
+            address: address as Address,
+            decimals,
+            symbol: ticker,
+            name: ticker,
+            value: balanceOf.toString()
+          },
+          usd: new Big(depositAmount.toExact()).mul(price).toNumber()
+        }
+      };
+    }
 
-      const strategyAddress = strategy.address;
+    const strategyAddress = strategy.address;
 
-      if (
-        hasNoOutputToken(strategyAddress) &&
-        noOuputTokenContractSharesToUnderlyingDataSelector?.[strategyAddress] &&
-        noOuputTokenContractDataSelector?.[strategyAddress]
-      ) {
-        const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingDataSelector[strategyAddress]!;
-        const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
-        const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
-        const [, balanceOf] = noOuputTokenContractDataSelector[strategyAddress]!;
-        const price = getPrice(ticker!);
-        const depositAmount = CurrencyAmount.fromRawAmount(
-          // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
-          new Token(ChainId.BOB, address, decimals, ticker, ticker),
-          balanceOf
-        );
+    if (
+      hasNoOutputToken(strategyAddress) &&
+      noOuputTokenContractSharesToUnderlyingDataSelector?.[strategyAddress] &&
+      noOuputTokenContractDataSelector?.[strategyAddress]
+    ) {
+      const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingDataSelector[strategyAddress]!;
+      const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
+      const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
+      const [, balanceOf] = noOuputTokenContractDataSelector[strategyAddress]!;
+      const price = getPrice(ticker!);
+      const depositAmount = CurrencyAmount.fromRawAmount(
+        // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
+        new Token(ChainId.BOB, address, decimals, ticker, ticker),
+        balanceOf
+      );
 
-        acc[strategy.id] = {
-          tvl: new Big(totalSharesToUnderlying.toString())
-            .mul(price)
-            .div(10 ** decimals)
-            .toNumber(),
-          deposit:
-            balanceOf > 0n
-              ? {
-                  token: {
-                    chainId: ChainId.BOB,
-                    address,
-                    decimals,
-                    symbol: ticker,
-                    name: ticker,
-                    value: balanceOf.toString()
-                  },
-                  usd: new Big(depositAmount.toExact()).mul(price).toNumber()
-                }
-              : undefined
-        };
-      }
-
-      return acc;
-    },
-    {} as Record<string, { tvl?: number; deposit?: StrategyDepositData }>
-  );
+      return {
+        ...strategy,
+        tvl: new Big(totalSharesToUnderlying.toString())
+          .mul(price)
+          .div(10 ** decimals)
+          .toNumber(),
+        deposit: {
+          token: {
+            chainId: ChainId.BOB,
+            address,
+            decimals,
+            symbol: ticker,
+            name: ticker,
+            value: balanceOf.toString()
+          },
+          usd: new Big(depositAmount.toExact()).mul(price).toNumber()
+        }
+      };
+    }
+  });
 
   return Response.json(
     { data: strategiesData },
