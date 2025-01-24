@@ -1,8 +1,7 @@
-import { GatewayTransaction } from '../../hooks';
 import { StatusChip } from '../StatusChip';
 
 import { mempoolUrl } from '@/constants';
-import { GatewaySteps } from '@/types';
+import { GatewaySteps, GatewayTransaction } from '@/types';
 
 const getLabel = (status: GatewaySteps, confirmations: number, totalConfirmations: number) => {
   switch (status) {

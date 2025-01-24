@@ -57,6 +57,7 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
 
         return {
           amount,
+          logoUrl: gatewayToken?.logoURI,
           btcTxId: order.txid,
           date: new Date(order.timestamp * 1000),
           confirmations: orderStatus.data.confirmations,
@@ -97,4 +98,3 @@ const useGetGatewayTransactions = ({ query }: UseFeeRateProps = {}) => {
 };
 
 export { useGetGatewayTransactions };
-export type { GatewayTransaction, GetGatewayTransactionsReturnType };

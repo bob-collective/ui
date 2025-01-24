@@ -2,7 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { Mock, vi } from 'vitest';
 import { useAccount } from 'wagmi';
 
-import { useGetGatewayTransactions } from '../useGetGatewayTransactions';
+import { useGetGatewayTransactions } from '../../transactions';
 
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { wrapper } from '@/test-utils';

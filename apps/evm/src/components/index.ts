@@ -7,6 +7,7 @@ export * from './Geoblock';
 export * from './Layout';
 export * from './LoginButton';
 export * from './LoginSection';
+export * from './ReceiveModal';
 export * from './SignUpButton';
 export * from './SpiceAmount';
 export * from './Trapezoid';

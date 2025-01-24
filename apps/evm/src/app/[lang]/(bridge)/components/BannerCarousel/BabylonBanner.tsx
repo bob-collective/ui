@@ -9,9 +9,10 @@ import { BannerTitle } from './BannerTitle';
 
 type FusionBannerProps = {
   onPress?: () => void;
+  hasImgOpacity?: boolean;
 };
 
-const BabylonBanner = ({ onPress }: FusionBannerProps) => {
+const BabylonBanner = ({ hasImgOpacity, onPress }: FusionBannerProps) => {
   const { i18n } = useLingui();
 
   return (
@@ -29,7 +30,14 @@ const BabylonBanner = ({ onPress }: FusionBannerProps) => {
           </Trans>
         </P>
       </StyledBannerContent>
-      <StyledImg alt={t(i18n)`Babylon campaign`} height='134' placeholder='blur' src={babylon} width='312' />
+      <StyledImg
+        $hasImgOpacity={hasImgOpacity}
+        alt={t(i18n)`Babylon campaign`}
+        height='134'
+        placeholder='blur'
+        src={babylon}
+        width='312'
+      />
     </Banner>
   );
 };

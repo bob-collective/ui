@@ -208,7 +208,8 @@ const BobBridgeForm = ({
         to: recipient,
         l1Token: l1Address,
         l2Token: l2Address,
-        type: TransactionType.Bridge
+        type: TransactionType.Bridge,
+        logoUrl: selectedToken.l1Token.logoUrl
       };
 
       const to = recipient || address!;
@@ -300,7 +301,8 @@ const BobBridgeForm = ({
         to: recipient,
         l1Token: l1Address,
         l2Token: l2Address,
-        type: TransactionType.Bridge
+        type: TransactionType.Bridge,
+        logoUrl: selectedToken.l2Token.logoUrl
       };
 
       const to = recipient || address!;

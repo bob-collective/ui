@@ -1,12 +1,9 @@
-import { Card, Flex } from '@gobob/ui';
+import { Card } from '@gobob/ui';
 import styled from 'styled-components';
-
-const StyledFlex = styled(Flex)`
-  width: 100%;
-`;
 
 const StyledCard = styled(Card)`
   width: 100%;
+  min-width: 100%;
 `;
 
-export { StyledCard, StyledFlex };
+export { StyledCard };

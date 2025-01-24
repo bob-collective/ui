@@ -8,16 +8,15 @@ import { useMemo } from 'react';
 import { getWithdrawals } from 'viem/op-stack';
 import { useAccount } from 'wagmi';
 
-import { BridgeTransaction } from '../../hooks';
-
 import { BridgeStep, getOngoingBridgeStep } from './BridgeStep';
 import { ProveStep } from './ProveStep';
 import { RelayStep } from './RelayStep';
 import { TimeStep } from './TimeStep';
 
+import { publicClientL1, publicClientL2 } from '@/constants';
 import { useWalletClientL1, useWalletClientL2 } from '@/hooks';
 import { bridgeKeys } from '@/lib/react-query';
-import { publicClientL1, publicClientL2 } from '@/constants';
+import { BridgeTransaction } from '@/types';
 
 type Props = { data: BridgeTransaction; isExpanded: boolean; onProveSuccess?: () => void; onRelaySuccess?: () => void };
 
@@ -149,7 +148,7 @@ const WithdrawStatus = ({ data, isExpanded, onProveSuccess, onRelaySuccess }: Wi
   }
 
   return (
-    <Flex direction='column' flex={1} gap='s'>
+    <Flex direction='column' flex={1} gap='xs'>
       <BridgeStep data={data} step='withdraw' />
       <TimeStep currentStep={currentStep} data={data} step='state-root-published' />
       <ProveStep

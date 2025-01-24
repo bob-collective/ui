@@ -1,11 +1,9 @@
 import { FlexProps } from '@gobob/ui';
 
-import { BridgeTransaction } from '../../hooks';
-
 import { DepositStatus } from './DepositStatus';
 import { WithdrawStatus } from './WithdrawStatus';
 
-import { TransactionDirection } from '@/types';
+import { BridgeTransaction, TransactionDirection } from '@/types';
 
 type Props = { data: BridgeTransaction; isExpanded: boolean; onProveSuccess?: () => void; onRelaySuccess?: () => void };
 
