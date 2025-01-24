@@ -85,6 +85,7 @@ const ConnectButton = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProfileDrawerOpen]);
 
+  // track if the drawer has been open
   useEffect(() => {
     if (!isProfileDrawerOpen && !isLoggedIn) return;
 
@@ -101,6 +102,8 @@ const ConnectButton = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProfileDrawerOpen]);
 
+  // ensure that if isProfileDrawerOpen is set to true, that we show the
+  // connect modal instead in case the user wallet is not connected
   useEffect(() => {
     if (!isLoggedIn && isProfileDrawerOpen) {
       return open();

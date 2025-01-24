@@ -17,12 +17,17 @@ enum SharedStoreProfileTxType {
   STRATEGIES = 'strategies'
 }
 
+enum ShareStoreProfileTabs {
+  WALLET,
+  ACTIVITY
+}
+
 type SharedStore = {
   isReceiveModalOpen: boolean;
   profile: {
     isOpen: boolean;
     hasOpenned: boolean;
-    selectedTab: 'wallet' | 'activity';
+    selectedTab: ShareStoreProfileTabs;
     transactions: {
       filters: {
         type?: SharedStoreProfileTxType;
@@ -59,7 +64,7 @@ const store = new StoreLib<Store>({
     profile: {
       isOpen: false,
       hasOpenned: false,
-      selectedTab: 'wallet',
+      selectedTab: ShareStoreProfileTabs.WALLET,
       transactions: {
         filters: {
           status: undefined,
@@ -83,5 +88,4 @@ const store = new StoreLib<Store>({
   }
 });
 
-export { store, SharedStoreProfileTxStatus, SharedStoreProfileTxType };
-export type { SharedStore };
+export { store, ShareStoreProfileTabs, SharedStoreProfileTxStatus, SharedStoreProfileTxType };

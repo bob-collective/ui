@@ -1,4 +1,4 @@
-import { Card } from '@gobob/ui';
+import { Card, Flex } from '@gobob/ui';
 import styled from 'styled-components';
 
 type StyledTokenListItemProps = {
@@ -30,4 +30,11 @@ const StyledMissingImageLogo = styled.div`
   justify-content: center;
 `;
 
-export { StyledTokenListItem, StyledWalletCard, StyledMissingImageLogo };
+const StyledEthAvatarOverlay = styled(Flex)`
+  inset: 0;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 99999;
+`;
+
+export { StyledTokenListItem, StyledEthAvatarOverlay, StyledWalletCard, StyledMissingImageLogo };

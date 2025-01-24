@@ -2,7 +2,7 @@
 
 import { getCapitalizedChainName } from '@gobob/chains';
 import { ETH } from '@gobob/icons';
-import { ArrowPath, Flex, Tooltip, UnstyledButton } from '@gobob/ui';
+import { ArrowPath, Tooltip, UnstyledButton } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
 import { useHover } from '@react-aria/interactions';
@@ -13,6 +13,7 @@ import { useAccount, useSwitchChain } from 'wagmi';
 import { ChainAsset } from '../ChainAsset';
 
 import { ProfileWallet, ProfileWalletProps } from './ProfileWallet';
+import { StyledEthAvatarOverlay } from './Profile.style';
 
 import { WalletIcon } from '@/connect-ui';
 import { useBalances } from '@/hooks';
@@ -42,18 +43,9 @@ const ProfileEvmWallet = ({ currentChain, otherChain, onPressConnect }: ProfileE
                   <div style={{ position: 'relative' }}>
                     <ETH size='xl' />
                     {isHovered && (
-                      <Flex
-                        alignItems='center'
-                        justifyContent='center'
-                        style={{
-                          inset: 0,
-                          position: 'absolute',
-                          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                          borderRadius: 99999
-                        }}
-                      >
+                      <StyledEthAvatarOverlay alignItems='center' justifyContent='center'>
                         <ArrowPath size='s' />
-                      </Flex>
+                      </StyledEthAvatarOverlay>
                     )}
                   </div>
                 }

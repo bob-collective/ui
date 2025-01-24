@@ -6,6 +6,7 @@ import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
 import { Chain } from 'viem';
 import { useDisconnect } from 'wagmi';
+import { Key } from 'react';
 
 import { ProfileActivity } from '../ProfileActivity';
 import { ProfileTag } from '../ProfileTag';
@@ -20,7 +21,7 @@ import { chakraPetch } from '@/app/fonts';
 import { useConnectModal, WalletType } from '@/connect-ui';
 import { ExternalLinks } from '@/constants';
 import { useGetBridgeTransactions, useTotalBalance } from '@/hooks';
-import { SharedStore, store } from '@/lib/store';
+import { ShareStoreProfileTabs, store } from '@/lib/store';
 
 type ProfileProps = {
   onClose: () => void;
@@ -71,6 +72,15 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
   const handleUnlinkBtc = async () => {
     btcWalletDisconnect();
   };
+
+  const handleTabsSelectionChange = (key: Key) =>
+    store.setState((state) => ({
+      ...state,
+      shared: {
+        ...state.shared,
+        profile: { ...state.shared.profile, selectedTab: key as ShareStoreProfileTabs }
+      }
+    }));
 
   return (
     <Flex direction='column' flex={1} gap='xl' style={{ height: '100%' }}>
@@ -125,35 +135,17 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
         <ProfileEvmWallet currentChain={currentChain} otherChain={otherChain} onPressConnect={handleConnectEvmWallet} />
         <ProfileBtcWallet onPressConnect={handleConnectBtcWallet} onUnlink={handleUnlinkBtc} />
       </Flex>
-      <Tabs
-        fullHeight
-        fullWidth
-        selectedKey={selectedTab}
-        size='s'
-        onSelectionChange={(key) =>
-          store.setState((state) => ({
-            ...state,
-            shared: {
-              ...state.shared,
-              profile: { ...state.shared.profile, selectedTab: key as SharedStore['profile']['selectedTab'] }
-            }
-          }))
-        }
-      >
-        <TabsItem key='wallet' title={<Trans>Wallet</Trans>}>
+      <Tabs fullHeight fullWidth selectedKey={selectedTab} size='s' onSelectionChange={handleTabsSelectionChange}>
+        <TabsItem key={ShareStoreProfileTabs.WALLET} title={<Trans>Wallet</Trans>}>
           <ProfileTokens currentChain={currentChain} otherChain={otherChain} onPressNavigate={onClose} />
         </TabsItem>
         <TabsItem
-          key='activity'
+          key={ShareStoreProfileTabs.ACTIVITY}
           title={
-            txPendingUserAction && txPendingUserAction > 0 ? (
-              <Flex alignItems='center' elementType='span' gap='s'>
-                <Trans>Activity</Trans>
-                <Spinner color='default' size='16' thickness={2} />
-              </Flex>
-            ) : (
+            <Flex alignItems='center' elementType='span' gap='s'>
               <Trans>Activity</Trans>
-            )
+              {txPendingUserAction && txPendingUserAction > 0 && <Spinner color='default' size='16' thickness={2} />}
+            </Flex>
           }
         >
           <ProfileActivity />
