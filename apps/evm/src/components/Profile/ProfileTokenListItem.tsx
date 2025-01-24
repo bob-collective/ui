@@ -59,7 +59,8 @@ type ProfileTokenListItemProps = {
   balance?: string | number;
   amountUSD?: number;
   currency: Currency;
-  onPressBridge?: (currency: ERC20Token) => void;
+  hidePrice?: boolean;
+  onPressBridge?: (currency: Currency) => void;
   onPressStake?: (currency: ERC20Token) => void;
   onPressExplorer?: (address: Address) => void;
   onPressAddErc20?: (currency: ERC20Token) => void;
@@ -74,6 +75,7 @@ const ProfileTokenListItem = ({
   logo,
   name,
   currency,
+  hidePrice,
   onPressBridge,
   onPressStake,
   onPressExplorer,
@@ -106,11 +108,13 @@ const ProfileTokenListItem = ({
             </P>
             {balance !== undefined && amountUSD !== undefined ? (
               <P color='grey-50' rows={1} size='s' style={{ whiteSpace: 'normal' }}>
-                {balance} {currency.symbol} (
-                {Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(
-                  amountUSD
-                )}
-                )
+                {balance} {currency.symbol}{' '}
+                {!hidePrice &&
+                  `(${Intl.NumberFormat(locale, {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 2
+                  }).format(amountUSD)})`}
               </P>
             ) : (
               <Skeleton height='1rem' width='80%' />
@@ -155,9 +159,7 @@ const ProfileTokenListItem = ({
             </PopoverOptions>
           )}
           {onPressBridge && (
-            <PopoverOptions
-              onPress={currency.isToken ? chainFn(() => onPressBridge(currency), handleClose) : handleClose}
-            >
+            <PopoverOptions onPress={chainFn(() => onPressBridge(currency), handleClose)}>
               {otherChainId ? <ChainLogo chainId={otherChainId} /> : <BOBLogo />}
               <P>
                 {otherChainName ? <Trans>Bridge to {otherChainName}</Trans> : <Trans>Bridge to {chainL2.name}</Trans>}

@@ -16,7 +16,7 @@ const StyledTrigger = styled(Drawer.Trigger)<UnstyledButtonProps>`
   ${(props) => unstyledButtonCSS(props)}
 `;
 
-const StyledButton = styled(Drawer.Trigger)<StyledButtonProps>`
+const StyledButton = styled(Drawer.Trigger)<StyledButtonProps & UnstyledButtonProps>`
   ${(props) => unstyledButtonCSS(props)}
   ${(props) => buttonCSS(props)}
 `;

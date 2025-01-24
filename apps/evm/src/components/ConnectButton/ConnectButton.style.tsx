@@ -10,7 +10,7 @@ const StyledCloseButton = styled(DrawerClose)<StyledCloseButtonProps>`
   border: 0;
   border-top-left-radius: ${({ theme }) => theme.rounded('lg')};
   border-bottom-left-radius: ${({ theme }) => theme.rounded('lg')};
-  width: 3.5rem;
+  width: 4rem;
   height: 100%;
   position: absolute;
   left: 0;
