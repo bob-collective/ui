@@ -42,7 +42,7 @@ const useSignUp = () => {
       await apiClient.signUp(message, signature);
     },
     onSuccess: (_, { address, referralCode }) => {
-      sendGAEvent('event', 'signup', { address: JSON.stringify(address), referral_code: referralCode });
+      sendGAEvent('event', 'signup', { evm_address: JSON.stringify(address), referral_code: referralCode });
       setTimeout(() => refetchUser(), 100);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

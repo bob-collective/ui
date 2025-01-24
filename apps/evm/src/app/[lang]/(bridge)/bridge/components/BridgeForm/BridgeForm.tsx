@@ -78,8 +78,8 @@ const BridgeForm = ({
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
-  const { connector: satsConnector } = useSatsAccount();
-  const { connector } = useAccount();
+  const { connector: satsConnector, address: btcAddress } = useSatsAccount();
+  const { connector, address } = useAccount();
 
   const { refetch: refetchTransactions, addPlaceholderTransaction } = useGetTransactions();
 
@@ -149,6 +149,8 @@ const BridgeForm = ({
       asset: data.assetName,
       amount: data.amount?.toExact(),
       tx_id: data.txId,
+      evm_address: address,
+      btc_address: btcAddress,
       btc_wallet: satsConnector?.name,
       evm_wallet: connector?.name
     });
