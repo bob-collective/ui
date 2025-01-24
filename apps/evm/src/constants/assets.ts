@@ -505,7 +505,28 @@ export const bobAssets: RawToken[] = [
     symbol: 'uniBTC',
     decimals: 8,
     logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/uniBTC.svg',
-    apiId: 'universal-btc'
+    apiId: 'universal-btc',
+    bridgeDisabled: true
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0x541FD749419CA806a8bc7da8ac23D346f2dF8B77',
+    name: 'Solv Protocol SolvBTC',
+    symbol: 'SolvBTC',
+    decimals: 18,
+    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/solvBTC.svg',
+    apiId: 'solv-protocol-solvbtc',
+    bridgeDisabled: true
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0xCC0966D8418d412c599A6421b760a847eB169A8c',
+    name: 'Solv Protocol SolvBTC.BBN',
+    symbol: 'SolvBTC.BBN',
+    decimals: 18,
+    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/solvBTC.BBN.svg',
+    apiId: 'solv-protocol-solvbtc-bbn',
+    bridgeDisabled: true
   }
 ];
 
