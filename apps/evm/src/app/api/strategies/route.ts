@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Token } from '@gobob/currency';
+import { CurrencyAmount, Token } from '@gobob/currency';
 import Big from 'big.js';
 import { Address, erc20Abi, isAddress, zeroAddress } from 'viem';
 import { ChainId } from '@gobob/chains';
@@ -73,7 +73,17 @@ const COINGECKO_ID_BY_CURRENCY_TICKER: Record<string, (typeof COINGECKO_IDS)[num
   [CurrencyTicker.LBTC]: 'lombard-staked-btc'
 };
 
-type StrategyDepositData = { amount: CurrencyAmount<Currency>; usd: number };
+type StrategyDepositData = {
+  token: {
+    chainId: ChainId;
+    address: Address;
+    decimals: number;
+    name: CurrencyTicker | string;
+    symbol: CurrencyTicker | string;
+    value: string;
+  };
+  usd: number;
+};
 
 const segmentTokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
   seSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN'],
@@ -490,7 +500,14 @@ export async function GET(request: Request) {
           deposit:
             balanceOf > 0n
               ? {
-                  amount: depositAmount,
+                  token: {
+                    chainId: ChainId.BOB,
+                    address: address as Address,
+                    decimals,
+                    symbol,
+                    name: symbol,
+                    value: balanceOf.toString()
+                  },
                   usd: new Big(depositAmount.toExact())
                     .mul(underlyingPrice)
                     .mul(exchangeRateStored.toString())
@@ -525,7 +542,14 @@ export async function GET(request: Request) {
           deposit:
             balanceOf > 0n
               ? {
-                  amount: depositAmount,
+                  token: {
+                    chainId: ChainId.BOB,
+                    address: address as Address,
+                    decimals,
+                    symbol,
+                    name: symbol,
+                    value: balanceOf.toString()
+                  },
                   usd: new Big(depositAmount.toExact()).div(5).mul(underlyingPrice).toNumber()
                 }
               : undefined
@@ -549,7 +573,14 @@ export async function GET(request: Request) {
           deposit:
             balanceOf > 0n
               ? {
-                  amount: depositAmount,
+                  token: {
+                    chainId: ChainId.BOB,
+                    address: address as Address,
+                    decimals,
+                    symbol: ticker,
+                    name: ticker,
+                    value: balanceOf.toString()
+                  },
                   usd: new Big(depositAmount.toExact()).mul(price).toNumber()
                 }
               : undefined
@@ -582,7 +613,14 @@ export async function GET(request: Request) {
           deposit:
             balanceOf > 0n
               ? {
-                  amount: depositAmount,
+                  token: {
+                    chainId: ChainId.BOB,
+                    address,
+                    decimals,
+                    symbol: ticker,
+                    name: ticker,
+                    value: balanceOf.toString()
+                  },
                   usd: new Big(depositAmount.toExact()).mul(price).toNumber()
                 }
               : undefined
