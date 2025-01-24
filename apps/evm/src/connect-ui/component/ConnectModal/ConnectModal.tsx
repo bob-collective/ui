@@ -172,7 +172,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 
           sendGAEvent('event', 'btc_connect', {
             btc_address: btcAddress.address,
-            btc_wallet: btcWalletConnector?.name
+            btc_wallet: satsConnector?.name
           });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
@@ -189,7 +189,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
 
         return handleClose();
       },
-      [satsConnectors, handleClose, satsConnectAsync, btcWalletConnector?.name]
+      [satsConnectors, handleClose, satsConnectAsync]
     );
 
     const modalHeader =
