@@ -53,7 +53,7 @@ const ConnectButton = (): JSX.Element => {
   const isLoggedIn = !!(evmAddress || btcAddress);
 
   useEffect(() => {
-    if (!isProfileDrawerOpen && hasOpenned) return;
+    if (!isProfileDrawerOpen && !isLoggedIn && hasOpenned) return;
 
     store.setState((state) => ({
       ...state,
@@ -82,6 +82,30 @@ const ConnectButton = (): JSX.Element => {
       window.cancelAnimationFrame(raf);
       document.body.style.pointerEvents = originalPointerEvents;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isProfileDrawerOpen]);
+
+  useEffect(() => {
+    if (!isProfileDrawerOpen && !isLoggedIn) return;
+
+    store.setState((state) => ({
+      ...state,
+      shared: {
+        ...state.shared,
+        profile: {
+          ...state.shared.profile,
+          hasOpenned: true
+        }
+      }
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isProfileDrawerOpen]);
+
+  useEffect(() => {
+    if (!isLoggedIn && isProfileDrawerOpen) {
+      return open();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProfileDrawerOpen]);
 

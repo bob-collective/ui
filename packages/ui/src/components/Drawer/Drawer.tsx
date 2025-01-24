@@ -1,17 +1,19 @@
 'use client';
 
-import { ContentProps, Drawer, ContentProps as DrawerContentProps, DialogProps as DrawerRootProps } from 'vaul';
 import { forwardRef } from 'react';
+import { ContentProps, Drawer, ContentProps as DrawerContentProps, DialogProps as DrawerRootProps } from 'vaul';
+import { useFocusRing } from '@react-aria/focus';
+import { mergeProps } from '@react-aria/utils';
 
 import { ButtonProps } from '../Button';
 
 import {
+  StyledButton,
   StyledContent,
+  StyledDragIndicator,
   StyledInnerContent,
   StyledOverlay,
-  StyledButton,
-  StyledTrigger,
-  StyledDragIndicator
+  StyledTrigger
 } from './Drawer.style';
 
 const DrawerOverlay = StyledOverlay;
@@ -44,16 +46,21 @@ const DrawerButton = ({
   fullWidth,
   isIconOnly,
   ...props
-}: ButtonProps) => (
-  <StyledButton
-    $color={color}
-    $fullWidth={fullWidth}
-    $isIconOnly={isIconOnly}
-    $size={size}
-    $variant={variant}
-    {...props}
-  />
-);
+}: ButtonProps) => {
+  const { focusProps, isFocusVisible } = useFocusRing(props);
+
+  return (
+    <StyledButton
+      $color={color}
+      $fullWidth={fullWidth}
+      $isFocusVisible={isFocusVisible}
+      $isIconOnly={isIconOnly}
+      $size={size}
+      $variant={variant}
+      {...mergeProps(props, focusProps)}
+    />
+  );
+};
 
 export {
   DrawerButton,

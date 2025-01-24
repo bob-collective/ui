@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   Card,
   Dd,
   Dl,
@@ -13,7 +12,6 @@ import {
   P,
   Selection,
   Skeleton,
-  SolidClock,
   Span,
   Table,
   Tooltip,
@@ -28,15 +26,15 @@ import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import { useGetStrategies } from '../../hooks';
+import { ActivityButton } from '../ActivityButton';
 import { StrategyRewards } from '../StrategyRewards';
 
-import { StrategiesFilter, StrategiesFilterOption } from './StrategiesFilter';
 import { StrategiesCategories } from './StrategiesCategories';
+import { StrategiesFilter, StrategiesFilterOption } from './StrategiesFilter';
 
 import { AmountLabel } from '@/components';
 import { RoutesPath } from '@/constants';
 import { useUserAgent } from '@/user-agent';
-import { SharedStoreProfileTxType, store } from '@/lib/store';
 
 const getSkeletons = () =>
   Array(8)
@@ -222,26 +220,6 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
     handleStrategyNavigate(slug as string);
   };
 
-  const handlePressActivity = () => {
-    store.setState((state) => ({
-      ...state,
-      shared: {
-        ...state.shared,
-        profile: {
-          ...state.shared.profile,
-          isOpen: true,
-          selectedTab: 'activity',
-          transactions: {
-            filters: {
-              ...state.shared.profile.transactions.filters,
-              type: SharedStoreProfileTxType.STRATEGIES
-            }
-          }
-        }
-      }
-    }));
-  };
-
   const columns = useMemo(
     () =>
       filter === StrategiesFilterOption.MyDeposits
@@ -275,11 +253,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
         <StrategiesFilter value={filter} onSelectionChange={handleFilterChange} />
         <Flex alignItems='center' gap='s'>
           <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
-          <Tooltip label={<Trans>Activity</Trans>}>
-            <Button isIconOnly style={{ width: '2.75rem', height: '2.75rem' }} onPress={handlePressActivity}>
-              <SolidClock />
-            </Button>
-          </Tooltip>
+          <ActivityButton />
         </Flex>
       </Flex>
       {isMobile ? (

@@ -64,6 +64,7 @@ const ProfileBlockscoutTokenList = () => {
       {(isExpanded ? list : []).map((item) => (
         <ProfileTokenListItem
           key={`${item.token.raw.address}${item.token.currency.chainId}`}
+          hidePrice
           amountUSD={item.balance && calculateAmountUSD(item.balance, getPrice(item.balance!.currency.symbol))}
           balance={item.balance && item.balance.toSignificant()}
           connectorName={connector?.name}

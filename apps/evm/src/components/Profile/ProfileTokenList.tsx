@@ -1,5 +1,5 @@
 import { getCapitalizedChainName } from '@gobob/chains';
-import { ERC20Token } from '@gobob/currency';
+import { Currency, ERC20Token } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { Avatar } from '@gobob/ui';
 import { useRouter } from 'next/navigation';
@@ -48,7 +48,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
     });
   };
 
-  const handlePressBridge = (currency: ERC20Token) => {
+  const handlePressBridge = (currency: Currency) => {
     if (currentChain.id === L2_CHAIN) {
       router.push(`${RoutesPath.BRIDGE}?type=withdraw&network=ethereum&receive=${currency.symbol}`);
     } else {
@@ -87,7 +87,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
         otherChainId={otherChain.id}
         otherChainName={otherChainName}
         onPressAddErc20={handlePressAddErc20}
-        onPressBridge={handlePressBridge}
+        onPressBridge={item.token.raw.bridgeDisabled ? undefined : handlePressBridge}
         onPressExplorer={handlePressExplorer}
       />
     );

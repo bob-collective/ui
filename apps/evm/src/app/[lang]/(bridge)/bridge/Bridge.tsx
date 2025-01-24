@@ -1,23 +1,18 @@
 'use client';
 
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { Button, Card, Flex, Skeleton, SolidClock, Span, Spinner, Tabs, TabsItem } from '@gobob/ui';
+import { Flex, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
 import { Key, useCallback, useEffect, useMemo, useState } from 'react';
-import { useAccount } from 'wagmi';
 
 import { BannerCarousel } from '../components/BannerCarousel';
 
 import { StyledCard } from './Bridge.style';
-import { BridgeForm } from './components';
+import { ActivityButton, BridgeForm } from './components';
 
 import { Main } from '@/components';
-import { useConnectModal } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
-import { useGetBridgeTransactions } from '@/hooks';
-import { SharedStoreProfileTxStatus, SharedStoreProfileTxType, store } from '@/lib/store';
 import { TransactionDirection } from '@/types';
 
 const externalUnsupportedTokens = ['LBTC'];
@@ -56,14 +51,6 @@ interface Props {
 
 const Bridge = ({ searchParams }: Props) => {
   const router = useRouter();
-
-  const { txPendingUserAction, isPending } = useGetBridgeTransactions();
-  const { open } = useConnectModal();
-
-  const { address: evmAddress } = useAccount();
-  const { address: btcAddress } = useSatsAccount();
-
-  const isLoggedIn = !!(evmAddress || btcAddress);
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
@@ -128,37 +115,6 @@ const Bridge = ({ searchParams }: Props) => {
     urlSearchParams.set('network', network);
   };
 
-  const hasPendingTx = txPendingUserAction && txPendingUserAction > 0;
-
-  const handleOpenProfile = () => {
-    store.setState((state) => ({
-      ...state,
-      shared: {
-        ...state.shared,
-        profile: {
-          ...state.shared.profile,
-          isOpen: true,
-          selectedTab: 'activity',
-          transactions: {
-            filters: {
-              ...state.shared.profile.transactions.filters,
-              status: hasPendingTx ? SharedStoreProfileTxStatus.NEEDED_ACTION : undefined,
-              type: SharedStoreProfileTxType.NATIVE_BRIDGE
-            }
-          }
-        }
-      }
-    }));
-  };
-
-  const handleActivity = () => {
-    if (!isLoggedIn) {
-      return open({ onConnectBtc: handleOpenProfile, onConnectEvm: handleOpenProfile });
-    }
-
-    handleOpenProfile();
-  };
-
   useEffect(() => {
     const chain = getChain();
 
@@ -182,29 +138,7 @@ const Bridge = ({ searchParams }: Props) => {
       <Flex justifyContent='center' marginTop='2xl' style={{ width: '100%' }}>
         <Flex direction='column' gap='md' style={{ width: '100%' }}>
           <Flex justifyContent='flex-end'>
-            <Button size='s' style={{ gap: 4, alignItems: 'center' }} onPress={handleActivity}>
-              <SolidClock />
-              {isLoggedIn && isPending ? (
-                <Skeleton height='1.5rem' width='5rem' />
-              ) : txPendingUserAction && txPendingUserAction > 0 ? (
-                <Card
-                  alignItems='center'
-                  background='primary-500'
-                  direction='row'
-                  gap='s'
-                  paddingX='md'
-                  paddingY='xs'
-                  rounded='s'
-                >
-                  <Span size='xs'>
-                    <Trans>Action needed</Trans>
-                  </Span>
-                  <Spinner color='default' size='12' thickness={2} />
-                </Card>
-              ) : (
-                <Trans>Activity</Trans>
-              )}
-            </Button>
+            <ActivityButton />
           </Flex>
           <StyledCard>
             <Tabs

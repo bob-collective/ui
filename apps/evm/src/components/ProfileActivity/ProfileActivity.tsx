@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
 import { watchAccount } from '@wagmi/core';
 import { useEffect, useMemo, useRef } from 'react';
-import { useConfig } from 'wagmi';
+import { useAccount, useConfig } from 'wagmi';
 
 import { StyledTransactionList } from './ProfileActivity.style';
 import { ProfileActivityFilters, ProfileActivityFiltersData } from './ProfileActivityFilters';
@@ -70,6 +70,8 @@ const filterByStatus = (data: Array<BridgeTransaction | GatewayTransaction>, sta
 
 const ProfileActivity = (): JSX.Element => {
   const { filters } = useStore(store, (state) => state.shared.profile.transactions);
+
+  const { address: evmAddress } = useAccount();
 
   const config = useConfig();
 
@@ -169,10 +171,22 @@ const ProfileActivity = (): JSX.Element => {
                 />
               ))
             ) : (
-              <Flex alignItems='center' direction='column' gap='xl' justifyContent='center' marginY='8xl'>
-                <P align='center' size='s'>
-                  <Trans>No operations found</Trans>
-                </P>
+              <Flex alignItems='center' direction='column' gap='xl' justifyContent='center' marginY='4xl'>
+                <Flex direction='column' gap='s'>
+                  <P align='center' size='s'>
+                    <Trans>No transactions found</Trans>
+                  </P>
+                  {!evmAddress && (
+                    <P color='grey-50' size='s'>
+                      <Trans>Connect your EVM wallet to see your transactions</Trans>
+                    </P>
+                  )}
+                  {isFiltering && (
+                    <P color='grey-50' size='s'>
+                      <Trans>Try adjusting your filters</Trans>
+                    </P>
+                  )}
+                </Flex>
                 {isFiltering && (
                   <Button
                     color='light'
