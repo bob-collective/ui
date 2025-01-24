@@ -125,7 +125,10 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector
           });
 
-          sendGAEvent('event', 'evm_connect', { evm_address: connectData.accounts, evm_wallet: connector.name });
+          sendGAEvent('event', 'evm_connect', {
+            evm_address: JSON.stringify(connectData.accounts),
+            evm_wallet: connector.name
+          });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);
