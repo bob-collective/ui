@@ -31,8 +31,12 @@ type QuestsProps = {
   id: string;
 };
 
+const isComplete = true;
+
 const Quests = ({ id }: QuestsProps) => {
   const { i18n } = useLingui();
+
+  if (isComplete) return undefined;
 
   return (
     <Flex direction='column' gap='3xl' id={id} style={{ width: '100%' }}>
