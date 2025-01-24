@@ -7,7 +7,7 @@ import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { Key, useCallback, useMemo, useState } from 'react';
-import { useChainId } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
@@ -78,7 +78,8 @@ const BridgeForm = ({
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
-  const { connector } = useSatsAccount();
+  const { connector: satsConnector } = useSatsAccount();
+  const { connector } = useAccount();
 
   const { refetch: refetchTransactions, addPlaceholderTransaction } = useGetTransactions();
 
@@ -148,7 +149,8 @@ const BridgeForm = ({
       asset: data.assetName,
       amount: data.amount?.toExact(),
       tx_id: data.txId,
-      wallet: connector?.name
+      btc_wallet: satsConnector?.name,
+      evm_wallet: connector?.name
     });
   };
 

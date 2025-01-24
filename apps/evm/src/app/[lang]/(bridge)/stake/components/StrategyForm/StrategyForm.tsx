@@ -50,7 +50,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       asset: data.assetName,
       amount: data.amount?.toExact(),
       tx_id: data.txId,
-      wallet: connector?.name
+      btc_wallet: connector?.name
     });
   };
 

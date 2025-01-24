@@ -125,7 +125,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector
           });
 
-          sendGAEvent('event', 'evm_connect', { address: connectData.accounts, wallet: connector.name });
+          sendGAEvent('event', 'evm_connect', { address: connectData.accounts, evm_wallet: connector.name });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);
@@ -167,7 +167,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector: satsConnector
           });
 
-          sendGAEvent('event', 'btc_connect', { address: btcAddress.address, wallet: btcWalletConnector?.name });
+          sendGAEvent('event', 'btc_connect', { address: btcAddress.address, btc_wallet: btcWalletConnector?.name });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingSatsConnector(undefined);
