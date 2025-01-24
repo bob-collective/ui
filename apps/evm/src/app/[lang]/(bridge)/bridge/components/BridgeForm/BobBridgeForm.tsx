@@ -14,6 +14,7 @@ import { useEffect, useMemo } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 import { useAccount, usePublicClient } from 'wagmi';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -82,7 +83,7 @@ const BobBridgeForm = ({
   const bridgeChainId = direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN;
 
   const publicClient = usePublicClient();
-  const { address } = useAccount();
+  const { address, connector } = useAccount();
 
   const { getPrice } = usePrices();
   const { getBalance, refetch: refetchBalances } = useBalances(bridgeChainId);
@@ -144,6 +145,13 @@ const BobBridgeForm = ({
     setAmount('');
 
     refetchBalances();
+
+    sendGAEvent('event', 'evm_bridge', {
+      l1Token: data.l1Token,
+      amount: data.amount?.toExact(),
+      tx_id: data.transactionHash,
+      evm_wallet: connector?.name
+    });
   };
 
   const isBridgeDisabled =

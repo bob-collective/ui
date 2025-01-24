@@ -24,7 +24,7 @@ import { useLingui } from '@lingui/react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from 'wagmi';
 import { Address } from 'viem';
-import { sendGTMEvent } from '@next/third-parties/google';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { ConnectType, WalletType } from '../../types';
 
@@ -125,7 +125,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector
           });
 
-          sendGTMEvent({ event: 'evm_connect', address: connectData.accounts, wallet: connector.name });
+          sendGAEvent('event', 'evm_connect', { evm_address: connectData.accounts, evm_wallet: connector.name });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);
@@ -167,7 +167,10 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector: satsConnector
           });
 
-          sendGTMEvent({ event: 'btc_connect', address: btcAddress.address, wallet: btcWalletConnector?.name });
+          sendGAEvent('event', 'btc_connect', {
+            btc_address: btcAddress.address,
+            btc_wallet: btcWalletConnector?.name
+          });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingSatsConnector(undefined);
