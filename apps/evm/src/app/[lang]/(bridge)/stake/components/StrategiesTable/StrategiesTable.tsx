@@ -24,6 +24,7 @@ import { useLingui } from '@lingui/react';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'styled-components';
+import { CurrencyAmount, Token } from '@gobob/currency';
 
 import { useGetStrategies } from '../../hooks';
 import { StrategyRewards } from '../StrategyRewards';
@@ -144,13 +145,13 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
     const base =
       filter === StrategiesFilterOption.AllStrategies
         ? strategies
-        : strategies.filter((strategy) => !!strategy.deposit);
+        : strategies.filter((strategy) => !!strategy.contract.deposit.usd);
 
     return category ? base.filter((strategy) => strategy.meta.type === category) : base;
   }, [filter, category, strategies]);
 
   const sortedStrategies = useMemo(() => {
-    return [...filteredStrategies].sort((a, b) => (b?.tvl || 0) - (a?.tvl || 0));
+    return [...filteredStrategies].sort((a, b) => (b?.contract.tvl || 0) - (a?.contract.tvl || 0));
   }, [filteredStrategies]);
 
   useEffect(() => {
@@ -180,22 +181,34 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
           ),
           [StrategiesTableColumns.AMOUNT]: (
             <Flex direction='column'>
-              <AmountLabel hidePrice amount={strategy.deposit?.amount} />
-              {strategy.deposit?.usd && (
+              <AmountLabel
+                hidePrice
+                amount={CurrencyAmount.fromRawAmount(
+                  new Token(
+                    strategy.contract.deposit.token.chainId,
+                    strategy.contract.deposit.token.address,
+                    strategy.contract.deposit.token.decimals,
+                    strategy.contract.deposit.token.symbol,
+                    strategy.contract.deposit.token.name
+                  ),
+                  strategy.contract.deposit.token.value
+                )}
+              />
+              {strategy.contract.deposit.usd && (
                 <P color='grey-50' size='s'>
-                  {format(strategy.deposit.usd)}
+                  {format(strategy.contract.deposit.usd)}
                 </P>
               )}
             </Flex>
           ),
           [StrategiesTableColumns.REWARDS]: <StrategyRewards incentives={strategy.info.incentives} />,
-          [StrategiesTableColumns.TVL]: strategy?.tvl
+          [StrategiesTableColumns.TVL]: strategy.contract.tvl
             ? Intl.NumberFormat(locale, {
                 style: 'currency',
                 currency: 'USD',
                 maximumFractionDigits: 0,
                 notation: 'compact'
-              }).format(strategy.tvl)
+              }).format(strategy.contract.tvl)
             : '-'
         };
       }),

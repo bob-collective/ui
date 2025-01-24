@@ -73,18 +73,6 @@ const COINGECKO_ID_BY_CURRENCY_TICKER: Record<string, (typeof COINGECKO_IDS)[num
   [CurrencyTicker.LBTC]: 'lombard-staked-btc'
 };
 
-// type StrategyDepositData = {
-//   token: {
-//     chainId: ChainId;
-//     address: Address;
-//     decimals: number;
-//     name: CurrencyTicker | string;
-//     symbol: CurrencyTicker | string;
-//     value: string;
-//   };
-//   usd: number;
-// };
-
 const segmentTokenToUnderlyingMapping: Record<string, CurrencyTicker> = {
   seSOLVBTCBBN: CurrencyTicker['SolvBTC.BBN'],
   seUNIBTC: CurrencyTicker.UNIBTC,
@@ -619,11 +607,8 @@ export async function GET(request: Request) {
     }
   });
 
-  return Response.json(
-    { data: strategiesData },
-    {
-      status: 200,
-      headers
-    }
-  );
+  return Response.json(strategiesData, {
+    status: 200,
+    headers
+  });
 }

@@ -25,6 +25,7 @@ import { t, Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 import { Address } from 'viem';
 import { useLingui } from '@lingui/react';
+import { CurrencyAmount, Token } from '@gobob/currency';
 
 import { StrategyCurrency } from '../../constants';
 import { StrategyData } from '../../hooks';
@@ -201,7 +202,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   return (
     <Dl direction='column' flex='1.2 0 0%' gap='xl'>
-      {strategy?.deposit && (
+      {strategy?.contract.deposit && (
         <Card alignItems='flex-start' direction='column'>
           <Dt color='grey-50' size='s'>
             {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
@@ -209,13 +210,25 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
           <Flex wrap elementType='dd' gap='s'>
             <Span color='light' size='lg' weight='semibold'>
               {strategy ? (
-                <AmountLabel hidePrice amount={strategy.deposit.amount} />
+                <AmountLabel
+                  hidePrice
+                  amount={CurrencyAmount.fromRawAmount(
+                    new Token(
+                      strategy.contract.deposit.token.chainId,
+                      strategy.contract.deposit.token.address,
+                      strategy.contract.deposit.token.decimals,
+                      strategy.contract.deposit.token.symbol,
+                      strategy.contract.deposit.token.name
+                    ),
+                    strategy.contract.deposit.token.value
+                  )}
+                />
               ) : (
                 <Skeleton height='4xl' rounded='full' width='4xl' />
               )}
             </Span>
             <Span color='grey-50' size='lg' weight='semibold'>
-              ({format(strategy.deposit.usd)})
+              ({format(strategy.contract.deposit.usd)})
             </Span>
           </Flex>
         </Card>
@@ -236,7 +249,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
             <Trans>TVL</Trans>
           </Dt>
           <Dd color='light' size='lg' weight='semibold'>
-            {strategy?.tvl ? format(strategy.tvl) : '-'}
+            {strategy?.contract.tvl ? format(strategy.contract.tvl) : '-'}
           </Dd>
         </Card>
       </Flex>
