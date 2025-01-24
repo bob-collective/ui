@@ -149,7 +149,7 @@ const BridgeForm = ({
       asset: data.assetName,
       amount: data.amount?.toExact(),
       tx_id: data.txId,
-      evm_address: address,
+      evm_address: JSON.stringify(address),
       btc_address: btcAddress,
       btc_wallet: satsConnector?.name,
       evm_wallet: connector?.name
