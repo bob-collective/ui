@@ -13,7 +13,6 @@ export * from './useLogin';
 export * from './useLogout';
 export * from './useLotteryRoll';
 export * from './useLotteryStats';
-export * from './usePublicClient';
 export * from './useSignUp';
 export * from './useTokens';
 export * from './useTotalBalance';

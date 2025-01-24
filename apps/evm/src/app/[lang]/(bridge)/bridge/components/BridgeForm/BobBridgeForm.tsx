@@ -20,7 +20,7 @@ import { BridgeAlert } from './BridgeAlert';
 import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
 import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
 import { AuthButton } from '@/connect-ui';
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { L1_CHAIN, L2_CHAIN, publicClientL1, publicClientL2 } from '@/constants';
 import { bridgeContracts } from '@/constants/bridge';
 import {
   BridgeToken,
@@ -28,8 +28,6 @@ import {
   useBalances,
   useBridgeTokens,
   useIsContract,
-  usePublicClientL1,
-  usePublicClientL2,
   useSubscribeBalances,
   useWalletClientL1,
   useWalletClientL2
@@ -90,9 +88,6 @@ const BobBridgeForm = ({
   useSubscribeBalances(bridgeChainId);
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
-
-  const publicClientL1 = usePublicClientL1();
-  const publicClientL2 = usePublicClientL2();
 
   const walletClientL1 = useWalletClientL1();
   const walletClientL2 = useWalletClientL2();

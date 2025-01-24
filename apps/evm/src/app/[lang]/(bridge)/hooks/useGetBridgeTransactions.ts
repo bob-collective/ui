@@ -9,8 +9,8 @@ import { Address, TransactionReceipt, decodeAbiParameters, isAddressEqual, parse
 import { GetWithdrawalStatusReturnType, getL2TransactionHashes, getWithdrawals } from 'viem/op-stack';
 import { useAccount } from 'wagmi';
 
-import { ETH, INTERVAL, L1_CHAIN, L2_CHAIN, wstETH } from '@/constants';
-import { useBridgeTokens, usePublicClientL1, usePublicClientL2 } from '@/hooks';
+import { ETH, INTERVAL, L1_CHAIN, L2_CHAIN, publicClientL1, publicClientL2, wstETH } from '@/constants';
+import { useBridgeTokens } from '@/hooks';
 import { bridgeKeys } from '@/lib/react-query';
 import { store } from '@/lib/store';
 import { BridgeTransaction, BridgeTransactionStatus, TransactionDirection, TransactionType } from '@/types';
@@ -193,8 +193,6 @@ const getWithdrawRefetchInterval = ((query: any) => {
 const useGetBridgeTransactions = () => {
   const { address } = useAccount();
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
-  const publicClientL1 = usePublicClientL1();
-  const publicClientL2 = usePublicClientL2();
 
   const queryClient = useQueryClient();
 
@@ -221,7 +219,7 @@ const useGetBridgeTransactions = () => {
 
       return receipt;
     },
-    [publicClientL1, publicClientL2, queryClient]
+    [queryClient]
   );
 
   const getDepositStatus = useCallback(
@@ -299,7 +297,7 @@ const useGetBridgeTransactions = () => {
 
       return remainingTime ? new Date(remainingTime) : undefined;
     },
-    [address, publicClientL1, publicClientL2.chain, queryClient]
+    [address, queryClient]
   );
 
   const getWithdrawStatus = useCallback(
@@ -339,7 +337,7 @@ const useGetBridgeTransactions = () => {
         statusEndDate
       };
     },
-    [getTxReceipt, address, publicClientL1, getStatusEndDate, queryClient]
+    [getTxReceipt, address, getStatusEndDate, queryClient]
   );
 
   const getEthDeposit = useCallback(
