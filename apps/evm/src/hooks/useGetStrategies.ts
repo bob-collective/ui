@@ -9,7 +9,7 @@ import { INTERVAL } from '@/constants';
 import { bridgeKeys } from '@/lib/react-query';
 
 type StrategyOnchainData = {
-  tvl?: number;
+  tvl: number;
   deposit: {
     token: {
       chainId: ChainId;

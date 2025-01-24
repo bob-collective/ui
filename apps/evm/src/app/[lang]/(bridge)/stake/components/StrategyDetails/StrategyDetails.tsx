@@ -25,7 +25,6 @@ import { t, Trans } from '@lingui/macro';
 import { useTheme } from 'styled-components';
 import { Address } from 'viem';
 import { useLingui } from '@lingui/react';
-import { CurrencyAmount, Token } from '@gobob/currency';
 
 import { StrategyCurrency } from '../../constants';
 import { StrategyData } from '../../hooks';
@@ -210,19 +209,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
           <Flex wrap elementType='dd' gap='s'>
             <Span color='light' size='lg' weight='semibold'>
               {strategy ? (
-                <AmountLabel
-                  hidePrice
-                  amount={CurrencyAmount.fromRawAmount(
-                    new Token(
-                      strategy.contract.deposit.token.chainId,
-                      strategy.contract.deposit.token.address,
-                      strategy.contract.deposit.token.decimals,
-                      strategy.contract.deposit.token.symbol,
-                      strategy.contract.deposit.token.name
-                    ),
-                    strategy.contract.deposit.token.value
-                  )}
-                />
+                <AmountLabel hidePrice amount={strategy.contract.deposit.amount} />
               ) : (
                 <Skeleton height='4xl' rounded='full' width='4xl' />
               )}

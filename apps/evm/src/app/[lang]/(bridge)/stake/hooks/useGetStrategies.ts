@@ -1,6 +1,6 @@
 import { GatewayStrategyContract } from '@gobob/bob-sdk';
 import { ChainId } from '@gobob/chains';
-import { ERC20Token, Token } from '@gobob/currency';
+import { CurrencyAmount, ERC20Token, Token } from '@gobob/currency';
 import { useCallback } from 'react';
 
 import { strategiesInfo, StrategyInfo } from '../constants';
@@ -9,14 +9,19 @@ import { StrategyOnchainData, useGetStrategies as useGetSdkStrategies } from '@/
 
 type StrategyData = {
   meta: GatewayStrategyContract['integration'];
-  contract: GatewayStrategyContract & StrategyOnchainData;
+  contract: GatewayStrategyContract &
+    StrategyOnchainData & {
+      deposit: Pick<StrategyOnchainData['deposit'], 'usd'> & {
+        amount: CurrencyAmount<Token>;
+      };
+    };
   info: StrategyInfo;
   currency?: ERC20Token;
 };
 
 const useGetStrategies = () => {
   const selectStrategyData = useCallback(
-    (strategies: GatewayStrategyContract[]) =>
+    (strategies: (GatewayStrategyContract & StrategyOnchainData)[]) =>
       strategies
         .map((strategy) => {
           const info = strategiesInfo[strategy.integration.slug];
@@ -25,7 +30,22 @@ const useGetStrategies = () => {
 
           return {
             meta: strategy.integration,
-            contract: strategy,
+            contract: {
+              ...strategy,
+              deposit: {
+                ...strategy.deposit,
+                amount: CurrencyAmount.fromRawAmount(
+                  new Token(
+                    strategy.deposit.token.chainId,
+                    strategy.deposit.token.address,
+                    strategy.deposit.token.decimals,
+                    strategy.deposit.token.symbol,
+                    strategy.deposit.token.name
+                  ),
+                  strategy.deposit.token.value
+                )
+              }
+            },
             info: info,
             currency: strategy.outputToken
               ? new Token(

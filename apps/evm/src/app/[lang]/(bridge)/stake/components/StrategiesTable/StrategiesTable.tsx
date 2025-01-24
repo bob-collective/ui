@@ -24,7 +24,6 @@ import { useLingui } from '@lingui/react';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'styled-components';
-import { CurrencyAmount, Token } from '@gobob/currency';
 
 import { useGetStrategies } from '../../hooks';
 import { StrategyRewards } from '../StrategyRewards';
@@ -181,19 +180,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
           ),
           [StrategiesTableColumns.AMOUNT]: (
             <Flex direction='column'>
-              <AmountLabel
-                hidePrice
-                amount={CurrencyAmount.fromRawAmount(
-                  new Token(
-                    strategy.contract.deposit.token.chainId,
-                    strategy.contract.deposit.token.address,
-                    strategy.contract.deposit.token.decimals,
-                    strategy.contract.deposit.token.symbol,
-                    strategy.contract.deposit.token.name
-                  ),
-                  strategy.contract.deposit.token.value
-                )}
-              />
+              <AmountLabel hidePrice amount={strategy.contract.deposit.amount} />
               {strategy.contract.deposit.usd && (
                 <P color='grey-50' size='s'>
                   {format(strategy.contract.deposit.usd)}
