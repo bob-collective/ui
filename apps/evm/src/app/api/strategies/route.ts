@@ -173,8 +173,9 @@ export async function GET(request: Request) {
   ]);
 
   // cache the data for 120 seconds
-  // eslint-disable-next-line no-console
-  kv.set(cache_key, strategies, { ex: 120 }).catch((err: Error) => console.error('Unable to cache data', err));
+  if (!cachedStrategies)
+    // eslint-disable-next-line no-console
+    kv.set(cache_key, strategies, { ex: 120 }).catch((err: Error) => console.error('Unable to cache data', err));
 
   const getPrice = (ticker: string, versusCurrency: PriceCurrency = PriceCurrency.USD) => {
     const cgId = COINGECKO_ID_BY_CURRENCY_TICKER[ticker];
@@ -184,7 +185,7 @@ export async function GET(request: Request) {
 
   const segmentTokensWithUnderlyingCall = publicClientL2.multicall({
     allowFailure: false,
-    contracts: strategies?.flatMap((strategy) =>
+    contracts: strategies.flatMap((strategy) =>
       isSegmentToken(strategy.outputToken?.symbol)
         ? ([
             {
@@ -220,7 +221,7 @@ export async function GET(request: Request) {
 
   const ionicTokensWithUnderlyingCall = publicClientL2.multicall({
     allowFailure: false,
-    contracts: strategies?.flatMap((strategy) =>
+    contracts: strategies.flatMap((strategy) =>
       isIonicToken(strategy.outputToken?.symbol)
         ? ([
             {
@@ -246,7 +247,7 @@ export async function GET(request: Request) {
 
   const tokensCall = publicClientL2.multicall({
     allowFailure: false,
-    contracts: strategies?.flatMap((strategy) =>
+    contracts: strategies.flatMap((strategy) =>
       hasCGId(strategy.outputToken?.symbol)
         ? ([
             {
@@ -272,7 +273,7 @@ export async function GET(request: Request) {
 
   const noOuputTokenCall = publicClientL2.multicall({
     allowFailure: false,
-    contracts: strategies?.flatMap((strategy) =>
+    contracts: strategies.flatMap((strategy) =>
       hasNoOutputToken(strategy.address)
         ? ([
             {
@@ -374,7 +375,7 @@ export async function GET(request: Request) {
   ] = await Promise.all([
     publicClientL2.multicall({
       allowFailure: false,
-      contracts: strategies?.flatMap((strategy) =>
+      contracts: strategies.flatMap((strategy) =>
         isSegmentToken(strategy.outputToken?.symbol)
           ? ([
               {
@@ -390,7 +391,7 @@ export async function GET(request: Request) {
     }),
     publicClientL2.multicall({
       allowFailure: false,
-      contracts: strategies?.flatMap((strategy) =>
+      contracts: strategies.flatMap((strategy) =>
         isIonicToken(strategy.outputToken?.symbol) &&
         ionicTokensWithUnderlyingContractTransformedData?.[strategy.outputToken?.symbol]?.[2]
           ? ([
@@ -415,7 +416,7 @@ export async function GET(request: Request) {
     }),
     publicClientL2.multicall({
       allowFailure: false,
-      contracts: strategies?.flatMap((strategy) =>
+      contracts: strategies.flatMap((strategy) =>
         hasNoOutputToken(strategy.address) && noOuputTokenContractTransformedData?.[strategy.address]
           ? ([
               {
@@ -471,7 +472,7 @@ export async function GET(request: Request) {
     {} as Record<keyof typeof tokenToIdMapping, bigint>
   );
 
-  const strategiesData = strategies?.map((strategy) => {
+  const strategiesData = strategies.map((strategy) => {
     const symbol = strategy.outputToken?.symbol;
     const address = strategy.outputToken?.address;
 
