@@ -63,7 +63,7 @@ export const bridgeKeys = {
     'deposit'
   ],
   btcTokens: () => ['btc-tokens'],
-  strategies: () => ['strategies'],
+  strategies: (address?: Address | undefined) => ['strategies', address] as string[],
   deposit: (address: Address | undefined) => ['bridge-deposit', address],
   withdraw: (address: Address | undefined) => ['bridge-withdraw', address]
 };

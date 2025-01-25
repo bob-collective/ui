@@ -45,7 +45,7 @@ const useGetStrategies = <T>(
   const { address } = useAccount();
 
   return useQuery({
-    queryKey: bridgeKeys.strategies(),
+    queryKey: bridgeKeys.strategies(address),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     gcTime: INTERVAL.HOUR,
