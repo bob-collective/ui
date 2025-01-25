@@ -2,6 +2,8 @@ import { CurrencyAmount, Token } from '@gobob/currency';
 import Big from 'big.js';
 import { Address, erc20Abi, isAddress, zeroAddress } from 'viem';
 import { ChainId } from '@gobob/chains';
+import { kv } from '@vercel/kv';
+import { GatewayStrategyContract } from '@gobob/bob-sdk';
 
 import { erc20WithUnderlying } from '@/abis/erc20WithUnderlying.abi';
 import { strategyBaseTVLLimitAbi } from '@/abis/StrategyBaseTVL.abi';
@@ -160,9 +162,19 @@ const getPrices = async (_url: string) => {
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
+  const cache_key = url.toString();
   const address = url.searchParams.get('address');
 
-  const [strategies, prices] = await Promise.all([gatewaySDK.getStrategies(), getPrices(request.url)]);
+  const cachedStrategies = await kv.get<GatewayStrategyContract[]>(cache_key);
+
+  const [strategies, prices] = await Promise.all([
+    cachedStrategies || gatewaySDK.getStrategies(),
+    getPrices(request.url)
+  ]);
+
+  // cache the data for 120 seconds
+  // eslint-disable-next-line no-console
+  kv.set(cache_key, strategies, { ex: 120 }).catch((err: Error) => console.error('Unable to cache data', err));
 
   const getPrice = (ticker: string, versusCurrency: PriceCurrency = PriceCurrency.USD) => {
     const cgId = COINGECKO_ID_BY_CURRENCY_TICKER[ticker];
