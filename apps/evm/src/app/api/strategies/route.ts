@@ -287,7 +287,7 @@ export async function GET(request: Request) {
   ] = await Promise.all([segmentTokensWithUnderlyingCall, ionicTokensWithUnderlyingCall, tokensCall, noOuputTokenCall]);
 
   // segment tokens contract data
-  const segmentTokensWithUnderlyingContractDataSelector = strategies.reduce(
+  const segmentTokensWithUnderlyingContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (isSegmentToken(strategy.outputToken?.symbol)) {
         const idx = Object.keys(acc).length * 5;
@@ -308,7 +308,7 @@ export async function GET(request: Request) {
   );
 
   // ionic tokens contract data
-  const ionicTokensWithUnderlyingContractDataSelector = strategies.reduce(
+  const ionicTokensWithUnderlyingContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (isIonicToken(strategy.outputToken?.symbol)) {
         const idx = Object.keys(acc).length * 3;
@@ -326,7 +326,7 @@ export async function GET(request: Request) {
   );
 
   // erc20 tokens contract data
-  const tokensContractDataSelector = strategies.reduce(
+  const tokensContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (hasCGId(strategy.outputToken?.symbol)) {
         const idx = Object.keys(acc).length * 3;
@@ -340,7 +340,7 @@ export async function GET(request: Request) {
   );
 
   // no output token strategies contract data
-  const noOuputTokenContractDataSelector = strategies.reduce(
+  const noOuputTokenContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (hasNoOutputToken(strategy.address)) {
         const idx = Object.keys(acc).length * 2;
@@ -366,7 +366,7 @@ export async function GET(request: Request) {
         isSegmentToken(strategy.outputToken?.symbol)
           ? ([
               {
-                address: segmentTokensWithUnderlyingContractDataSelector?.[
+                address: segmentTokensWithUnderlyingContractTransformedData?.[
                   strategy.outputToken?.symbol
                 ]?.[4] as Address,
                 abi: erc20Abi,
@@ -380,16 +380,20 @@ export async function GET(request: Request) {
       allowFailure: false,
       contracts: strategies?.flatMap((strategy) =>
         isIonicToken(strategy.outputToken?.symbol) &&
-        ionicTokensWithUnderlyingContractDataSelector?.[strategy.outputToken?.symbol]?.[2]
+        ionicTokensWithUnderlyingContractTransformedData?.[strategy.outputToken?.symbol]?.[2]
           ? ([
               {
-                address: ionicTokensWithUnderlyingContractDataSelector?.[strategy.outputToken?.symbol]?.[2] as Address,
+                address: ionicTokensWithUnderlyingContractTransformedData?.[
+                  strategy.outputToken?.symbol
+                ]?.[2] as Address,
                 abi: erc20Abi,
                 functionName: 'balanceOf',
                 args: [strategy.outputToken.address]
               },
               {
-                address: ionicTokensWithUnderlyingContractDataSelector?.[strategy.outputToken?.symbol]?.[2] as Address,
+                address: ionicTokensWithUnderlyingContractTransformedData?.[
+                  strategy.outputToken?.symbol
+                ]?.[2] as Address,
                 abi: erc20Abi,
                 functionName: 'decimals'
               }
@@ -400,13 +404,13 @@ export async function GET(request: Request) {
     publicClientL2.multicall({
       allowFailure: false,
       contracts: strategies?.flatMap((strategy) =>
-        hasNoOutputToken(strategy.address) && noOuputTokenContractDataSelector?.[strategy.address]
+        hasNoOutputToken(strategy.address) && noOuputTokenContractTransformedData?.[strategy.address]
           ? ([
               {
                 address: strategyToLimitsMapping[strategy.address] as Address,
                 abi: strategyBaseTVLLimitAbi,
                 functionName: 'sharesToUnderlyingView',
-                args: [noOuputTokenContractDataSelector[strategy.address]?.[0]]
+                args: [noOuputTokenContractTransformedData[strategy.address]?.[0]]
               }
             ] as const)
           : ([] as const)
@@ -415,7 +419,7 @@ export async function GET(request: Request) {
   ]);
 
   // segment tokens underlying contract data
-  const segmentTokenUnderlyingContractDataSelector = strategies.reduce(
+  const segmentTokenUnderlyingContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (isSegmentToken(strategy.outputToken?.symbol)) {
         const idx = Object.keys(acc).length;
@@ -429,7 +433,7 @@ export async function GET(request: Request) {
   );
 
   // ionic tokens underlying contract data
-  const ionicTokenUnderlyingContractDataSelector = strategies.reduce(
+  const ionicTokenUnderlyingContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (isIonicToken(strategy.outputToken?.symbol)) {
         const idx = Object.keys(acc).length * 2;
@@ -442,7 +446,7 @@ export async function GET(request: Request) {
     {} as Record<keyof typeof ionicTokenToUnderlyingMapping, [bigint, number]>
   );
 
-  const noOuputTokenContractSharesToUnderlyingDataSelector = strategies.reduce(
+  const noOuputTokenContractSharesToUnderlyingTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (hasNoOutputToken(strategy.address)) {
         const idx = Object.keys(acc).length;
@@ -461,14 +465,14 @@ export async function GET(request: Request) {
 
     if (
       isSegmentToken(symbol) &&
-      segmentTokensWithUnderlyingContractDataSelector?.[symbol] &&
-      segmentTokenUnderlyingContractDataSelector?.[symbol]
+      segmentTokensWithUnderlyingContractTransformedData?.[symbol] &&
+      segmentTokenUnderlyingContractTransformedData?.[symbol]
     ) {
       // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
       // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
       const [exchangeRateStored, totalSupply, balanceOf, decimals] =
-        segmentTokensWithUnderlyingContractDataSelector[symbol]!;
-      const underlyingDecimals = segmentTokenUnderlyingContractDataSelector[symbol]!;
+        segmentTokensWithUnderlyingContractTransformedData[symbol]!;
+      const underlyingDecimals = segmentTokenUnderlyingContractTransformedData[symbol]!;
 
       const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
       const underlyingTicker = segmentTokenToUnderlyingMapping[symbol];
@@ -506,11 +510,11 @@ export async function GET(request: Request) {
 
     if (
       isIonicToken(symbol) &&
-      ionicTokensWithUnderlyingContractDataSelector?.[symbol] &&
-      ionicTokenUnderlyingContractDataSelector?.[symbol]
+      ionicTokensWithUnderlyingContractTransformedData?.[symbol] &&
+      ionicTokenUnderlyingContractTransformedData?.[symbol]
     ) {
-      const [balanceOf, decimals] = ionicTokensWithUnderlyingContractDataSelector[symbol]!;
-      const [underlyingBalanceOf, underlyingDecimals] = ionicTokenUnderlyingContractDataSelector[symbol]!;
+      const [balanceOf, decimals] = ionicTokensWithUnderlyingContractTransformedData[symbol]!;
+      const [underlyingBalanceOf, underlyingDecimals] = ionicTokenUnderlyingContractTransformedData[symbol]!;
 
       const underlyingTicker = ionicTokenToUnderlyingMapping[symbol];
       const underlyingPrice = getPrice(underlyingTicker!);
@@ -539,8 +543,8 @@ export async function GET(request: Request) {
       };
     }
 
-    if (hasCGId(symbol) && tokensContractDataSelector?.[symbol]) {
-      const [totalSupply, decimals, balanceOf] = tokensContractDataSelector[symbol]!;
+    if (hasCGId(symbol) && tokensContractTransformedData?.[symbol]) {
+      const [totalSupply, decimals, balanceOf] = tokensContractTransformedData[symbol]!;
       const ticker = tokenToIdMapping[symbol]!;
       const price = getPrice(ticker!);
       const depositAmount = CurrencyAmount.fromRawAmount(
@@ -572,13 +576,13 @@ export async function GET(request: Request) {
 
     if (
       hasNoOutputToken(strategyAddress) &&
-      noOuputTokenContractSharesToUnderlyingDataSelector?.[strategyAddress] &&
-      noOuputTokenContractDataSelector?.[strategyAddress]
+      noOuputTokenContractSharesToUnderlyingTransformedData?.[strategyAddress] &&
+      noOuputTokenContractTransformedData?.[strategyAddress]
     ) {
-      const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingDataSelector[strategyAddress]!;
+      const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingTransformedData[strategyAddress]!;
       const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
       const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
-      const [, balanceOf] = noOuputTokenContractDataSelector[strategyAddress]!;
+      const [, balanceOf] = noOuputTokenContractTransformedData[strategyAddress]!;
       const price = getPrice(ticker!);
       const depositAmount = CurrencyAmount.fromRawAmount(
         // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
