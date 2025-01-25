@@ -149,7 +149,7 @@ const BobBridgeForm = ({
     sendGAEvent('event', 'evm_bridge', {
       l1Token: data.l1Token,
       amount: data.amount?.toExact(),
-      tx_id: data.transactionHash,
+      tx_id: JSON.stringify(data.transactionHash),
       evm_wallet: connector?.name
     });
   };
