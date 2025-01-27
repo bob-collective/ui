@@ -15,8 +15,9 @@ import { ProveStep } from './ProveStep';
 import { RelayStep } from './RelayStep';
 import { TimeStep } from './TimeStep';
 
-import { usePublicClientL1, usePublicClientL2, useWalletClientL1, useWalletClientL2 } from '@/hooks';
+import { useWalletClientL1, useWalletClientL2 } from '@/hooks';
 import { bridgeKeys } from '@/lib/react-query';
+import { publicClientL1, publicClientL2 } from '@/constants';
 
 type Props = { data: BridgeTransaction; isExpanded: boolean; onProveSuccess?: () => void; onRelaySuccess?: () => void };
 
@@ -25,9 +26,6 @@ type InheritAttrs = Omit<FlexProps, keyof Props | 'children'>;
 type WithdrawStatusProps = Props & InheritAttrs;
 
 const WithdrawStatus = ({ data, isExpanded, onProveSuccess, onRelaySuccess }: WithdrawStatusProps): JSX.Element => {
-  const publicClientL1 = usePublicClientL1();
-  const publicClientL2 = usePublicClientL2();
-
   const walletClientL1 = useWalletClientL1();
   const walletClientL2 = useWalletClientL2();
 

@@ -1,10 +1,9 @@
 'use client';
 
 import { SatsConnector, useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { Avatar, Button, ButtonProps, Flex, Skeleton, Span } from '@gobob/ui';
+import { Avatar, Button, ButtonProps, Flex, Span } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { chain } from '@react-aria/utils';
-import { useIsClient } from 'usehooks-ts';
 import { Connector, useAccount, useConnect } from 'wagmi';
 import { Address } from 'viem';
 
@@ -28,10 +27,6 @@ const Label = ({
   btcConnector?: SatsConnector;
   connectType: ConnectType;
 }) => {
-  const isClient = useIsClient();
-
-  if (!isClient) return <Skeleton height='3xl' width='9xl' />;
-
   if (!evmConnector && !btcConnector) return <Trans>Connect Wallet</Trans>;
 
   if (isPending) return <Trans>Authorize Wallet</Trans>;
