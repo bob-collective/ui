@@ -344,8 +344,8 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/Quests/Quests.tsx:11
 #: src/app/[lang]/fusion/components/Quests/Quests.tsx:17
-msgid "BOB: The Home of Bitcoin DeFi"
-msgstr ""
+#~ msgid "BOB: The Home of Bitcoin DeFi"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:54
 #~ msgid "Book a call"
@@ -569,6 +569,14 @@ msgstr "复制推荐URL"
 msgid "Create Account"
 msgstr "创建账户"
 
+#: src/app/[lang]/fusion/components/Quests/Quests.tsx:11
+msgid "CUBEs on BOB"
+msgstr ""
+
+#: src/app/[lang]/fusion/components/Quests/Quests.tsx:12
+msgid "CUBEs, a.k.a. Credentials to Unify Blockchain Events, are the new key to the Layer3 economy."
+msgstr ""
+
 #: src/components/Layout/FusionPopover.tsx:77
 msgid "Current Harvest"
 msgstr "当前收获"
@@ -656,8 +664,8 @@ msgid "Discover All Apps"
 msgstr "探索全部应用"
 
 #: src/app/[lang]/fusion/components/Quests/Quests.tsx:24
-msgid "Discover BOB, the first hybrid Layer 2 in the Superchain!"
-msgstr ""
+#~ msgid "Discover BOB, the first hybrid Layer 2 in the Superchain!"
+#~ msgstr ""
 
 #: src/components/SocialsGroup/SocialsGroup.tsx:31
 msgid "Docs"
@@ -1371,8 +1379,8 @@ msgid "Output"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/Quests/Quests.tsx:12
-msgid "Participate in the event, learn, and get up to 10,000 Spice Points at the end of the event"
-msgstr ""
+#~ msgid "Participate in the event, learn, and get up to 10,000 Spice Points at the end of the event"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:65
 msgid "Pending"
@@ -1442,7 +1450,7 @@ msgid "Provide liquidity into Oku DEX"
 msgstr "为Oku DEX提供流动性"
 
 #: src/app/[lang]/fusion/components/Leaderboard/Leaderboard.tsx:80
-#: src/app/[lang]/fusion/components/Quests/Quests.tsx:44
+#: src/app/[lang]/fusion/components/Quests/Quests.tsx:28
 msgid "Quests"
 msgstr "任务"
 
@@ -1873,8 +1881,8 @@ msgid "Superchain Eco"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/Quests/Quests.tsx:23
-msgid "Superchain Mastery: BOB"
-msgstr ""
+#~ msgid "Superchain Mastery: BOB"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:112
 msgid "supply"
@@ -2101,8 +2109,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/fusion/components/Quests/Quests.tsx:18
-msgid "Total 10,000 Spice up for grabs"
-msgstr ""
+#~ msgid "Total 10,000 Spice up for grabs"
+#~ msgstr ""
 
 #: src/app/[lang]/wallet/Wallet.tsx:39
 #~ msgid "Total Assets"
