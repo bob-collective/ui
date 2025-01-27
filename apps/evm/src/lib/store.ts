@@ -18,8 +18,8 @@ enum SharedStoreProfileTxType {
 }
 
 enum ShareStoreProfileTabs {
-  WALLET,
-  ACTIVITY
+  WALLET = 'wallet',
+  ACTIVITY = 'activity'
 }
 
 type SharedStore = {

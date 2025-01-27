@@ -144,7 +144,7 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
           title={
             <Flex alignItems='center' elementType='span' gap='s'>
               <Trans>Activity</Trans>
-              {txPendingUserAction && txPendingUserAction > 0 && <Spinner color='default' size='16' thickness={2} />}
+              {!!txPendingUserAction && txPendingUserAction > 0 && <Spinner color='default' size='16' thickness={2} />}
             </Flex>
           }
         >

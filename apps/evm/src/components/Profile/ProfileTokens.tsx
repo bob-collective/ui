@@ -82,23 +82,19 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
               onPressNavigate?.();
             }}
           />
-          {evmAddress && (
-            <>
-              <ProfileTokenList
-                currentChain={currentChain}
-                items={currentChain.id === L1_CHAIN ? l1Tokens : l2Tokens}
-                otherChain={otherChain}
-                onPressNavigate={onPressNavigate}
-              />
-              <ProfileTokenList
-                currentChain={otherChain}
-                items={currentChain.id === L1_CHAIN ? l2Tokens : l1Tokens}
-                otherChain={currentChain}
-                onPressNavigate={onPressNavigate}
-              />
-              {!isTokensPending && <ProfileBlockscoutTokenList />}
-            </>
-          )}
+          <ProfileTokenList
+            currentChain={currentChain}
+            items={currentChain.id === L1_CHAIN ? l1Tokens : l2Tokens}
+            otherChain={otherChain}
+            onPressNavigate={onPressNavigate}
+          />
+          <ProfileTokenList
+            currentChain={otherChain}
+            items={currentChain.id === L1_CHAIN ? l2Tokens : l1Tokens}
+            otherChain={currentChain}
+            onPressNavigate={onPressNavigate}
+          />
+          {!isTokensPending && <ProfileBlockscoutTokenList />}
         </>
       )}
     </Flex>
