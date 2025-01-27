@@ -1,4 +1,3 @@
-import { CurrencyAmount, Token } from '@gobob/currency';
 import Big from 'big.js';
 import { Address, erc20Abi, isAddress, zeroAddress } from 'viem';
 import { ChainId } from '@gobob/chains';
@@ -490,10 +489,6 @@ export async function GET(request: Request) {
       const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
       const underlyingTicker = segmentTokenToUnderlyingMapping[symbol];
       const underlyingPrice = getPrice(underlyingTicker!);
-      const depositAmount = CurrencyAmount.fromRawAmount(
-        new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-        balanceOf
-      );
 
       return {
         ...strategy,
@@ -511,7 +506,8 @@ export async function GET(request: Request) {
             name: symbol,
             value: balanceOf.toString()
           },
-          usd: new Big(depositAmount.toExact())
+          usd: new Big(balanceOf.toString())
+            .div(10 ** decimals)
             .mul(underlyingPrice)
             .mul(exchangeRateStored.toString())
             .div(10 ** underlyingDecimals)
@@ -531,10 +527,6 @@ export async function GET(request: Request) {
 
       const underlyingTicker = ionicTokenToUnderlyingMapping[symbol];
       const underlyingPrice = getPrice(underlyingTicker!);
-      const depositAmount = CurrencyAmount.fromRawAmount(
-        new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-        balanceOf
-      );
 
       return {
         ...strategy,
@@ -551,7 +543,11 @@ export async function GET(request: Request) {
             name: symbol,
             value: balanceOf.toString()
           },
-          usd: new Big(depositAmount.toExact()).div(5).mul(underlyingPrice).toNumber()
+          usd: new Big(balanceOf.toString())
+            .div(10 ** decimals)
+            .div(5)
+            .mul(underlyingPrice)
+            .toNumber()
         }
       };
     }
@@ -560,10 +556,6 @@ export async function GET(request: Request) {
       const [totalSupply, decimals, balanceOf] = tokensContractTransformedData[symbol]!;
       const ticker = tokenToIdMapping[symbol]!;
       const price = getPrice(ticker!);
-      const depositAmount = CurrencyAmount.fromRawAmount(
-        new Token(ChainId.BOB, address as Address, decimals, symbol, symbol),
-        balanceOf
-      );
 
       return {
         ...strategy,
@@ -580,7 +572,10 @@ export async function GET(request: Request) {
             name: symbol,
             value: balanceOf.toString()
           },
-          usd: new Big(depositAmount.toExact()).mul(price).toNumber()
+          usd: new Big(balanceOf.toString())
+            .div(10 ** decimals)
+            .mul(price)
+            .toNumber()
         }
       };
     }
@@ -597,11 +592,6 @@ export async function GET(request: Request) {
       const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
       const [, balanceOf] = noOuputTokenContractTransformedData[strategyAddress]!;
       const price = getPrice(ticker!);
-      const depositAmount = CurrencyAmount.fromRawAmount(
-        // NOTE: ticker is incorrect but we will use it anyway because the strategy has no output token
-        new Token(ChainId.BOB, address, decimals, ticker, ticker),
-        balanceOf
-      );
 
       return {
         ...strategy,
@@ -614,11 +604,14 @@ export async function GET(request: Request) {
             chainId: ChainId.BOB,
             address,
             decimals,
-            symbol,
-            name: symbol,
+            symbol: ticker,
+            name: ticker,
             value: balanceOf.toString()
           },
-          usd: new Big(depositAmount.toExact()).mul(price).toNumber()
+          usd: new Big(balanceOf.toString())
+            .div(10 ** decimals)
+            .mul(price)
+            .toNumber()
         }
       };
     }
