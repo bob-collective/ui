@@ -201,7 +201,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   return (
     <Dl direction='column' flex='1.2 0 0%' gap='xl'>
-      {strategy?.contract.deposit && (
+      {strategy?.contract.deposit.amount.greaterThan(0) && (
         <Card alignItems='flex-start' direction='column'>
           <Dt color='grey-50' size='s'>
             {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
