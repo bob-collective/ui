@@ -1,9 +1,9 @@
-import { Button, Card, Skeleton, SolidClock, Span, Spinner } from '@gobob/ui';
+import { Button, Card, Flex, Skeleton, SolidClock, Span, Spinner } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useAccount } from 'wagmi';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
-import { SharedStoreProfileTxStatus, SharedStoreProfileTxType, store } from '@/lib/store';
+import { SharedStoreProfileTxStatus, SharedStoreProfileTxType, ShareStoreProfileTabs, store } from '@/lib/store';
 import { useGetBridgeTransactions } from '@/hooks';
 import { useConnectModal } from '@/connect-ui';
 
@@ -21,7 +21,7 @@ const ActivityButton = (): JSX.Element => {
         profile: {
           ...state.shared.profile,
           isOpen: true,
-          selectedTab: 'activity',
+          selectedTab: ShareStoreProfileTabs.ACTIVITY,
           transactions: {
             filters: {
               ...state.shared.profile.transactions.filters,
@@ -57,27 +57,29 @@ const ActivityButton = (): JSX.Element => {
 
   return (
     <Button size='s' style={{ gap: 4, alignItems: 'center' }} onPress={handleOpenProfile}>
-      <SolidClock />
-      {isBridgeTxPending ? (
-        <Skeleton height='1.5rem' width='5rem' />
-      ) : hasPendingTx ? (
-        <Card
-          alignItems='center'
-          background='primary-500'
-          direction='row'
-          gap='s'
-          paddingX='md'
-          paddingY='xxs'
-          rounded='s'
-        >
-          <Span size='xs'>
-            <Trans>Action needed</Trans>
-          </Span>
-          <Spinner color='default' size='12' thickness={2} />
-        </Card>
-      ) : (
-        <Trans>Activity</Trans>
-      )}
+      <Flex elementType='span' gap='s'>
+        <SolidClock />
+        {isBridgeTxPending ? (
+          <Skeleton height='1.5rem' width='5rem' />
+        ) : hasPendingTx ? (
+          <Card
+            alignItems='center'
+            background='primary-500'
+            direction='row'
+            gap='s'
+            paddingX='md'
+            paddingY='xxs'
+            rounded='s'
+          >
+            <Span size='xs'>
+              <Trans>Action needed</Trans>
+            </Span>
+            <Spinner color='default' size='12' thickness={2} />
+          </Card>
+        ) : (
+          <Trans>Activity</Trans>
+        )}
+      </Flex>
     </Button>
   );
 };
