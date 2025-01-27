@@ -4,7 +4,7 @@ import { useAccount } from 'wagmi';
 import { Trans } from '@lingui/macro';
 
 import { useConnectModal } from '@/connect-ui';
-import { SharedStoreProfileTxType, store } from '@/lib/store';
+import { SharedStoreProfileTxType, ShareStoreProfileTabs, store } from '@/lib/store';
 
 const ActivityButton = (): JSX.Element => {
   const { address: evmAddress } = useAccount();
@@ -19,7 +19,7 @@ const ActivityButton = (): JSX.Element => {
         profile: {
           ...state.shared.profile,
           isOpen: true,
-          selectedTab: 'activity',
+          selectedTab: ShareStoreProfileTabs.ACTIVITY,
           transactions: {
             filters: {
               ...state.shared.profile.transactions.filters,
