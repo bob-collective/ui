@@ -5,6 +5,7 @@ import { Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
 import { Key, useEffect, useMemo, useState } from 'react';
+import { useFeatureFlagVariantKey } from 'posthog-js/react';
 
 import { Layout, TransactionList } from '../components';
 
@@ -59,6 +60,8 @@ const Bridge = ({ searchParams }: Props) => {
 
   const router = useRouter();
 
+  const variant = useFeatureFlagVariantKey('bridge-form');
+
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
   const direction = type === Type.Deposit ? TransactionDirection.L1_TO_L2 : TransactionDirection.L2_TO_L1;
@@ -66,13 +69,17 @@ const Bridge = ({ searchParams }: Props) => {
   const initialChain = useMemo(() => {
     const network = urlSearchParams.get('network');
 
-    if (!network || network === 'bitcoin') {
+    if (!network) {
+      return variant === 'evm' ? L1_CHAIN : 'BTC';
+    }
+
+    if (network === 'bitcoin') {
       return 'BTC';
     }
 
     return getChainIdByChainName(network) || L1_CHAIN;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [variant]);
 
   const [chain, setChain] = useState<ChainId | 'BTC'>(initialChain);
 
