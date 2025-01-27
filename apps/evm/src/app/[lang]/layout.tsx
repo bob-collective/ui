@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
+import { Chakra_Petch, Inter } from 'next/font/google';
 import { headers } from 'next/headers';
 import Script from 'next/script';
 import { userAgentFromString } from 'next/server';
@@ -17,8 +18,12 @@ import { ExternalLinks, isProd } from '@/constants';
 import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
 import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
+import { PostHogProvider } from '@/lib/posthog/provider';
 import { getConfig } from '@/lib/wagmi';
 import { UserAgentProvider } from '@/user-agent/provider';
+
+const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }));
@@ -73,11 +78,13 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       <body>
         <div id='root'>
-          <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
-            <UserAgentProvider userAgent={userAgent}>
-              <Providers initialState={initialState}>{children}</Providers>
-            </UserAgentProvider>
-          </LinguiClientProvider>
+          <PostHogProvider>
+            <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
+              <UserAgentProvider userAgent={userAgent}>
+                <Providers initialState={initialState}>{children}</Providers>
+              </UserAgentProvider>
+            </LinguiClientProvider>
+          </PostHogProvider>
         </div>
         {/* <!-- Fathom - beautiful, simple website analytics --> */}
         <Script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />
