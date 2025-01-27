@@ -185,7 +185,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
       <Flex direction='column' style={{ overflow: 'hidden' }}>
         <Flex alignItems='center' gap='xs' justifyContent='space-between'>
           <Span color='grey-50' size='xs'>
-            <Trans>Output</Trans>
+            {strategy.contract.outputToken && <Trans>Output</Trans>}
           </Span>
           <ArrowTopRightOnSquare color='grey-50' size='xxs' />
         </Flex>
