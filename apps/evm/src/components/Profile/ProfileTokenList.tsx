@@ -59,7 +59,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
   };
 
   return list?.map((item) => {
-    if (!item.balance?.greaterThan(0)) {
+    if (item.token.currency.isToken && !item.balance?.greaterThan(0)) {
       return undefined;
     }
 
