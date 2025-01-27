@@ -576,8 +576,8 @@ export async function GET(request: Request) {
             chainId: ChainId.BOB,
             address: address as Address,
             decimals,
-            symbol: ticker,
-            name: ticker,
+            symbol,
+            name: symbol,
             value: balanceOf.toString()
           },
           usd: new Big(depositAmount.toExact()).mul(price).toNumber()
@@ -614,8 +614,8 @@ export async function GET(request: Request) {
             chainId: ChainId.BOB,
             address,
             decimals,
-            symbol: ticker,
-            name: ticker,
+            symbol,
+            name: symbol,
             value: balanceOf.toString()
           },
           usd: new Big(depositAmount.toExact()).mul(price).toNumber()
