@@ -1,0 +1,1 @@
+export { ProfileTag } from './ProfileTag';

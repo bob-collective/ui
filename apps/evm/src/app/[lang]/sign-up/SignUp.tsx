@@ -18,6 +18,7 @@ import { L1_CHAIN, L2_CHAIN, RoutesPath, isValidChain } from '@/constants';
 import { useGetUser, useSignUp } from '@/hooks';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
+import { chakraPetch } from '@/app/fonts';
 
 const SignUp = (): JSX.Element | null => {
   const { address, chain } = useAccount();
@@ -95,7 +96,7 @@ const SignUp = (): JSX.Element | null => {
             paddingY={{ base: '4xl', md: '6xl' }}
           >
             <Flex alignItems='center' direction='column' gap='2xl' justifyContent='center'>
-              <StyledH1 align='center' fontFamily='eurostar' weight='bold'>
+              <StyledH1 align='center' style={chakraPetch.style} weight='bold'>
                 <Trans>THE FIRST HYBRID L2</Trans>
                 <br />
                 <HighlightText display='block'>

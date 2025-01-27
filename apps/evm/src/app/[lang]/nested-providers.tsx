@@ -10,7 +10,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { isAddressEqual } from 'viem';
 import { useAccount, useAccountEffect, useChainId, useConfig, useSwitchChain } from 'wagmi';
 
-import { Header, Layout, Sidebar } from '@/components';
+import { Footer, Header, Layout, ReceiveModal } from '@/components';
 import { ConnectProvider } from '@/connect-ui';
 import { isClient, L2_CHAIN, LocalStorageKey } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
@@ -136,16 +136,17 @@ export function NestedProviders({ children }: PropsWithChildren) {
   return (
     <StyledComponentsRegistry>
       <BOBUIProvider navigate={router.push}>
-        <ConnectProvider type='both'>
+        <ConnectProvider>
           <CSSReset />
           <ScrollToTop />
           <Suspense>
             <AuthCheck />
           </Suspense>
+          <ReceiveModal />
           <Layout>
-            <Sidebar />
             <Header />
             {children}
+            <Footer />
           </Layout>
         </ConnectProvider>
       </BOBUIProvider>

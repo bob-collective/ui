@@ -1,31 +1,61 @@
-import { ChainId } from '@gobob/chains';
+import { CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
+import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
+import { BITCOIN } from '@gobob/tokens';
 import { useCurrencyFormatter, useLocale } from '@gobob/ui';
 import Big from 'big.js';
-import { useMemo } from 'react';
+import { useAccount } from 'wagmi';
 
 import { useBalances } from './useBalances';
 
-const useTotalBalance = (chainId: ChainId) => {
+import { calculateAmountUSD } from '@/utils';
+import { L1_CHAIN, L2_CHAIN } from '@/constants';
+
+const useTotalBalance = () => {
   const { getPrice } = usePrices();
-  const { balances } = useBalances(chainId);
+  const { balances: l1Balances, isPending: isEvmL1BalancePending } = useBalances(L1_CHAIN);
+  const { balances: l2Balances, isPending: isEvmL2BalancePending } = useBalances(L2_CHAIN);
+
+  const { data: btcBalance, isPending: isBtcBalancePending } = useSatsBalance();
+  const { address: evmAddress } = useAccount();
+  const { address: btcAddress } = useSatsAccount();
+
   const format = useCurrencyFormatter();
   const { locale } = useLocale();
 
-  return useMemo(() => {
-    const total = Object.values(balances).reduce(
-      (total, balance) => total.plus(new Big(balance.toExact()).mul(getPrice(balance.currency.symbol) || 0).toNumber()),
-      new Big(0)
+  const l1Total = Object.values(l1Balances).reduce(
+    (total, balance) => total.plus(calculateAmountUSD(balance, getPrice(balance.currency.symbol) || 0)),
+    new Big(0)
+  );
+
+  const l2Total = Object.values(l2Balances).reduce(
+    (total, balance) => total.plus(calculateAmountUSD(balance, getPrice(balance.currency.symbol) || 0)),
+    new Big(0)
+  );
+
+  const total = l1Total
+    .plus(l2Total)
+    .plus(
+      new Big(
+        calculateAmountUSD(
+          CurrencyAmount.fromRawAmount(BITCOIN, btcBalance?.total.toString() || 0),
+          getPrice(BITCOIN.symbol)
+        )
+      )
     );
 
-    return {
-      formatted: format(total.toNumber()),
-      compact: Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(
-        total.toNumber()
-      ),
-      amount: total
-    };
-  }, [balances, format, getPrice, locale]);
+  const intlFormat = (balance: number) =>
+    Intl.NumberFormat(locale, { notation: 'compact', style: 'currency', currency: 'USD' }).format(balance);
+
+  return {
+    isPending:
+      (evmAddress ? isEvmL1BalancePending || isEvmL2BalancePending : false) ||
+      (btcAddress ? isBtcBalancePending : false),
+    formatted: format(total.toNumber()),
+    compact: intlFormat(total.toNumber()),
+    amount: total,
+    format
+  };
 };
 
 export { useTotalBalance };

@@ -3,7 +3,12 @@ import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['raw.githubusercontent.com'] // Add the allowed hostname here
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com'
+      }
+    ] // Add the allowed hostname here
   },
   compiler: {
     styledComponents: true
@@ -33,6 +38,10 @@ const nextConfig = {
       {
         source: '/btc-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_BTC_API_URL}/:path*`
+      },
+      {
+        source: '/blockscout-api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BLOCKSCOUT_API_URL}/api/v2/:path*`
       }
     ];
   },

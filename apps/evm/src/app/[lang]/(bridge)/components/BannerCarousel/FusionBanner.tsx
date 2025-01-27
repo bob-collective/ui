@@ -9,9 +9,10 @@ import { BannerTitle } from './BannerTitle';
 
 type FusionBannerProps = {
   onPress?: () => void;
+  hasImgOpacity?: boolean;
 };
 
-const FusionBanner = ({ onPress }: FusionBannerProps) => {
+const FusionBanner = ({ onPress, hasImgOpacity }: FusionBannerProps) => {
   const { i18n } = useLingui();
 
   return (
@@ -27,6 +28,7 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => {
         </P>
       </StyledBannerContent>
       <StyledImg
+        $hasImgOpacity={hasImgOpacity}
         alt={t(i18n)`Fusion season three`}
         height='134'
         placeholder='blur'

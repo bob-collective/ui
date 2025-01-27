@@ -26,10 +26,11 @@ import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import { useGetStrategies } from '../../hooks';
+import { ActivityButton } from '../ActivityButton';
 import { StrategyRewards } from '../StrategyRewards';
 
-import { StrategiesFilter, StrategiesFilterOption } from './StrategiesFilter';
 import { StrategiesCategories } from './StrategiesCategories';
+import { StrategiesFilter, StrategiesFilterOption } from './StrategiesFilter';
 
 import { AmountLabel } from '@/components';
 import { RoutesPath } from '@/constants';
@@ -247,10 +248,13 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
   );
 
   return (
-    <Flex direction='column' gap='md'>
+    <Flex direction='column' gap='md' marginTop='2xl'>
       <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'flex-start', s: 'space-between' }}>
         <StrategiesFilter value={filter} onSelectionChange={handleFilterChange} />
-        <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
+        <Flex alignItems='center' gap='s'>
+          <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
+          <ActivityButton />
+        </Flex>
       </Flex>
       {isMobile ? (
         <List

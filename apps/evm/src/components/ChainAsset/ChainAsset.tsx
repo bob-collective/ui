@@ -2,8 +2,7 @@ import { ChainId } from '@gobob/chains';
 import { FlexProps } from '@gobob/ui';
 import { ReactNode } from 'react';
 
-import { ChainLogo } from '../ChainLogo';
-import { ChainLogoProps } from '../ChainLogo/ChainLogo';
+import { ChainLogo, ChainLogoProps } from '../ChainLogo';
 
 import { StyledChain, StyledWrapper } from './ChainAsset.style';
 

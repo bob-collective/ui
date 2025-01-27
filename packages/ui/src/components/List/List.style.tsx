@@ -1,6 +1,6 @@
 import styled, { CSSProperties, css } from 'styled-components';
 
-import { Color } from '../../theme';
+import { Color, Rounded } from '../../theme';
 import { Flex } from '../Flex';
 
 type StyledListProps = {
@@ -17,6 +17,7 @@ type StyledListItemProps = {
   $isInteractable: boolean;
   $isFocusVisible: boolean;
   $backgroundColor?: Color;
+  $rounded?: Rounded;
 };
 
 const StyledListItem = styled.div<StyledListItemProps>`
@@ -28,9 +29,10 @@ const StyledListItem = styled.div<StyledListItemProps>`
   white-space: nowrap;
   background-color: ${({ $backgroundColor, theme }) => $backgroundColor && theme.color($backgroundColor)};
 
-  ${({ theme, $isHovered }) => {
+  ${({ theme, $rounded, $isHovered }) => {
     return css`
       ${theme.list.item.base}
+      border-radius: ${$rounded && theme.rounded($rounded)};
       ${$isHovered && theme.list.item.hover}
 
       &[aria-selected='true'] {

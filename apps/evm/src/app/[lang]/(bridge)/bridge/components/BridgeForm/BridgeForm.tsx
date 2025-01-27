@@ -13,7 +13,6 @@ import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
-import { useGetTransactions } from '../../hooks';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
 
@@ -22,7 +21,7 @@ import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
 import { INTERVAL, L1_CHAIN, L2_CHAIN } from '@/constants';
-import { TokenData } from '@/hooks';
+import { TokenData, useGetBridgeTransactions, useGetGatewayTransactions } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
@@ -81,7 +80,9 @@ const BridgeForm = ({
   const { connector: satsConnector, address: btcAddress } = useSatsAccount();
   const { connector, address } = useAccount();
 
-  const { refetch: refetchTransactions, addPlaceholderTransaction } = useGetTransactions();
+  const { refetch: refetchBridgeTransactions, addPlaceholderTransaction: addBridgePlaceholderTransaction } =
+    useGetBridgeTransactions();
+  const { refetch: refetchGatewayTransactions } = useGetGatewayTransactions();
 
   const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
     isOpen: false,
@@ -121,9 +122,9 @@ const BridgeForm = ({
   };
 
   const handleBridgeSuccess = (data: BridgeTransaction) => {
-    addPlaceholderTransaction.bridge(data);
+    addBridgePlaceholderTransaction(data);
 
-    refetchTransactions.bridge();
+    refetchBridgeTransactions();
 
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
   };
@@ -141,7 +142,7 @@ const BridgeForm = ({
   };
 
   const handleGatewaySuccess = (data: InitGatewayTransaction) => {
-    refetchTransactions.gateway();
+    refetchGatewayTransactions();
 
     setGatewayModalState({ isOpen: true, data });
 

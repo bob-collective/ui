@@ -22,6 +22,7 @@ type Props = {
   disabledKeys?: Key[];
   panel?: React.ReactNode;
   fullWidth?: boolean;
+  fullHeight?: boolean;
   size?: TabsSize;
   align?: AlignItems;
   variant?: TabsVariant;
@@ -39,6 +40,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       style,
       panel,
       fullWidth = false,
+      fullHeight = false,
       size = 'md',
       align = 'flex-start',
       variant = 'solid',
@@ -79,7 +81,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     });
 
     return (
-      <StyledTabs className={className} style={style}>
+      <StyledTabs $fullHeight={fullHeight} className={className} style={style}>
         <TabList
           ref={tabsListRef}
           $align={align}
@@ -109,7 +111,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
             />
           ))}
         </TabList>
-        <TabPanel key={state.selectedItem?.key} state={state}>
+        <TabPanel key={state.selectedItem?.key} fullHeight={fullHeight} state={state}>
           {panel}
         </TabPanel>
       </StyledTabs>

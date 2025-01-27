@@ -335,7 +335,7 @@ const sepoliaAssets: RawToken[] = [
   wstETH[ChainId.SEPOLIA]
 ];
 
-const bobAssets: RawToken[] = [
+export const bobAssets: RawToken[] = [
   ETH[ChainId.BOB],
   {
     chainId: ChainId.BOB,
@@ -497,7 +497,37 @@ const bobAssets: RawToken[] = [
     logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
     apiId: 'tellor-tributes'
   },
-  wstETH[ChainId.BOB]
+  wstETH[ChainId.BOB],
+  {
+    chainId: ChainId.BOB,
+    address: '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894',
+    name: 'Universal BTC',
+    symbol: 'uniBTC',
+    decimals: 8,
+    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/uniBTC.svg',
+    apiId: 'universal-btc',
+    bridgeDisabled: true
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0x541FD749419CA806a8bc7da8ac23D346f2dF8B77',
+    name: 'Solv Protocol SolvBTC',
+    symbol: 'SolvBTC',
+    decimals: 18,
+    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/solvBTC.svg',
+    apiId: 'solv-protocol-solvbtc',
+    bridgeDisabled: true
+  },
+  {
+    chainId: ChainId.BOB,
+    address: '0xCC0966D8418d412c599A6421b760a847eB169A8c',
+    name: 'Solv Protocol SolvBTC.BBN',
+    symbol: 'SolvBTC.BBN',
+    decimals: 18,
+    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/solvBTC.BBN.svg',
+    apiId: 'solv-protocol-solvbtc-bbn',
+    bridgeDisabled: true
+  }
 ];
 
 const bobSepoliaAssets: RawToken[] = [
