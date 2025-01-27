@@ -185,7 +185,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
       <Flex direction='column' style={{ overflow: 'hidden' }}>
         <Flex alignItems='center' gap='xs' justifyContent='space-between'>
           <Span color='grey-50' size='xs'>
-            <Trans>Output</Trans>
+            {strategy.contract.outputToken && <Trans>Output</Trans>}
           </Span>
           <ArrowTopRightOnSquare color='grey-50' size='xxs' />
         </Flex>
@@ -201,7 +201,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   return (
     <Dl direction='column' flex='1.2 0 0%' gap='xl'>
-      {strategy?.contract.deposit && (
+      {strategy?.contract.deposit.amount.greaterThan(0) && (
         <Card alignItems='flex-start' direction='column'>
           <Dt color='grey-50' size='s'>
             {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
