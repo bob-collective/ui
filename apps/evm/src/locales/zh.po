@@ -99,11 +99,19 @@ msgstr "{0, plural, one {紅包} other {紅包}} <0>{rollsRemaining}/3</0>剩餘
 msgid "<0>Stake your BTC with 1-click</0> and receive BTC LSTs on BOB."
 msgstr "<0>一键质押你的BTC</0> 并在BOB上接收BTC LSTs。"
 
+#: src/components/Profile/Profile.tsx:100
+#~ msgid "======="
+#~ msgstr ""
+
+#: src/components/Profile/Profile.tsx:106
+#~ msgid ">>>>>>> d5cf7a29 (feat(evm): add activity section (#395))"
+#~ msgstr ""
+
 #: src/components/BridgeStatus/TimeStep.tsx:46
 msgid "2 hours"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:228
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:229
 msgid "3rd Party"
 msgstr ""
 
@@ -125,7 +133,7 @@ msgstr "关于"
 msgid "About Babylon Campaign"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:199
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:75
 msgid "Action needed"
 msgstr ""
 
@@ -134,14 +142,14 @@ msgstr ""
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:204
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:278
-#: src/components/Profile/Profile.tsx:151
-#: src/components/Profile/Profile.tsx:155
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:51
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:80
+#: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:46
+#: src/components/Profile/Profile.tsx:146
 msgid "Activity"
 msgstr ""
 
-#: src/components/Profile/ProfileTokenListItem.tsx:153
+#: src/components/Profile/ProfileTokenListItem.tsx:157
 msgid "Add to {0}"
 msgstr ""
 
@@ -182,9 +190,9 @@ msgstr ""
 msgid "Already harvesting?"
 msgstr "已经在收获？"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:482
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:251
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:229
 msgid "Amount"
 msgstr ""
 
@@ -196,8 +204,8 @@ msgstr ""
 #~ msgid "An exclusive quest campaign."
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:271
-msgid "and that you have read and understood our"
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:225
+msgid "and"
 msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:185
@@ -217,7 +225,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:458
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:466
 msgid "Approve"
 msgstr "通过"
 
@@ -265,8 +273,8 @@ msgid "Audited by"
 msgstr "审计"
 
 #: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:32
-msgid "Authorize Wallet"
-msgstr ""
+#~ msgid "Authorize Wallet"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:35
 #: src/app/[lang]/fusion/Fusion.tsx:209
@@ -321,7 +329,7 @@ msgstr "以下是你从各个应用中收获的Spice。继续参与以增加你�
 msgid "BOB"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:225
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:226
 msgid "BOB Bridge"
 msgstr ""
 
@@ -400,7 +408,7 @@ msgstr ""
 msgid "Bridge"
 msgstr "桥"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:459
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:467
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
 msgid "Bridge Asset"
 msgstr ""
@@ -414,19 +422,19 @@ msgstr "跨链资产"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "将BTC LSTs跨链到BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:454
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:462
 msgid "Bridge Disabled"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:218
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:219
 msgid "bridge network"
 msgstr ""
 
-#: src/components/Profile/ProfileTokenListItem.tsx:163
+#: src/components/Profile/ProfileTokenListItem.tsx:165
 msgid "Bridge to {0}"
 msgstr ""
 
-#: src/components/Profile/ProfileTokenListItem.tsx:163
+#: src/components/Profile/ProfileTokenListItem.tsx:165
 msgid "Bridge to {otherChainName}"
 msgstr ""
 
@@ -460,27 +468,26 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:13
 msgid "BTC LST Lending"
-msgstr "BTC LST借贷"
+msgstr "BTC LST借贷<<<<<<< HEAD<<<<<<< HEAD"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 #: src/app/[lang]/(bridge)/stake/Stake.tsx:70
-#~ msgid "BTC Strategies"
-=======
-#: src/components/Profile/Profile.tsx:100
-=======
-#: src/components/Profile/Profile.tsx:106
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#~ msgid "BTC Strategies======="
+#~ msgstr ""
+
+#: src/components/Profile/Profile.tsx:116
 msgid "Buy"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:181
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:263
 #~ msgid "By clicking ‘Connect’ you acknowledge and agree to the"
->>>>>>> 2193d044 (feat: place blockscout under others  section)
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:263
-msgid "By clicking ‘Connect’ you acknowledge and agree to the"
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:181
+#~ msgid "By clicking ‘Connect’ you acknowledge and agree to the>>>>>>> 2193d044 (feat: place blockscout under others  section)"
+#~ msgstr ""
+
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:221
+msgid "By connecting your wallet, you confirm that you've read and agree to our"
 msgstr ""
 
 #: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:79
@@ -498,13 +505,9 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:36
 #~ msgid "Category"
-#~ msgstr ""
+#~ msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:456
-=======
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:460
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:464
 msgid "Checking Allowance"
 msgstr ""
 
@@ -529,7 +532,7 @@ msgstr "BOB蛇年大礼包等你来领!一键获得 Spice积分奖励, 与BOB一
 msgid "Clear"
 msgstr ""
 
-#: src/components/ProfileActivity/ProfileActivity.tsx:182
+#: src/components/ProfileActivity/ProfileActivity.tsx:196
 msgid "Clear Filters"
 msgstr ""
 
@@ -609,32 +612,30 @@ msgstr "连接比特币钱包"
 msgid "Connect BTC wallet to access fee rate settings."
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:141
-msgid "Connect request is already pending"
+#: src/components/Profile/ProfileEvmWallet.tsx:62
+msgid "Connect EVM Wallet"
 msgstr ""
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-#: src/connect-ui/component/AuthButton/AuthButton.tsx:63
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:225
-#: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:30
-=======
-#: src/components/ConnectButton/ConnectButton.tsx:74
-=======
-#: src/components/ConnectButton/ConnectButton.tsx:95
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
+msgid "Connect request is already pending"
+msgstr "<<<<<<< HEAD<<<<<<< HEAD"
+
+#: src/components/ConnectButton/ConnectButton.tsx:122
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:171
->>>>>>> 2193d044 (feat: place blockscout under others  section)
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:177
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:307
-msgid "Connect your Bitcoin Wallet (Optional)"
-msgstr ""
+#~ msgid "Connect your Bitcoin Wallet (Optional)"
+#~ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:292
-msgid "Connect your EVM Wallet (Mandatory)"
+#~ msgid "Connect your EVM Wallet (Mandatory)"
+#~ msgstr ""
+
+#: src/components/ProfileActivity/ProfileActivity.tsx:181
+msgid "Connect your EVM wallet to see your transactions"
 msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectedWalletSection.tsx:37
@@ -698,7 +699,7 @@ msgstr ""
 msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
 msgstr "将高优先级资产部署到高优先级DeFi协议中，以最大化你的Spice收获。"
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:216
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:151
 msgid "Deposit"
 msgstr ""
 
@@ -799,15 +800,10 @@ msgstr ""
 
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
 #~ msgid "Enter Address"
-#~ msgstr ""
+#~ msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:485
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:493
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-=======
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:489
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:159
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:131
 msgid "Enter destination address"
 msgstr ""
@@ -838,19 +834,14 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:33
 msgid "Exclusive Spice Bonus For Superchain Users"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:144
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:185
-=======
 #: src/components/ProfileActivity/ProfileActivityFilters.tsx:24
 msgid "Failed"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:138
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:103
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:144
 msgid "Failed to connect to {0}"
 msgstr ""
 
@@ -992,8 +983,8 @@ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:200
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:214
-msgid "go back"
-msgstr ""
+#~ msgid "go back"
+#~ msgstr ""
 
 #: src/app/[lang]/404/NotFound.tsx:30
 msgid "Go Back"
@@ -1003,7 +994,7 @@ msgstr "返回"
 #~ msgid "Go to explorer"
 #~ msgstr ""
 
-#: src/components/Profile/ProfileTokenListItem.tsx:140
+#: src/components/Profile/ProfileTokenListItem.tsx:144
 msgid "Go to Explorer"
 msgstr ""
 
@@ -1349,13 +1340,9 @@ msgstr ""
 
 #: src/components/SocialsGroup/SocialsGroup.tsx:41
 msgid "navigate to discord"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:75
-=======
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:74
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:76
 msgid "navigate to ecosystem section in fusion page"
 msgstr ""
 
@@ -1444,16 +1431,20 @@ msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "目前暂无新目标。请保持关注更新！"
 
 #: src/components/ProfileActivity/ProfileActivity.tsx:174
-msgid "No operations found"
-msgstr ""
+#~ msgid "No operations found"
+#~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:330
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:304
 msgid "No strategies to display"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:52
 #~ msgid "No Thanks"
 #~ msgstr ""
+
+#: src/components/ProfileActivity/ProfileActivity.tsx:177
+msgid "No transactions found"
+msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:50
 #~ msgid "Not enough spice"
@@ -1480,8 +1471,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:257
-msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
-msgstr ""
+#~ msgid "On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality, it's advised to connect wallets from both networks."
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:68
 msgid "Once complete, your season 3 score will be added to seasons 1 and 2 to calculate your final Spice harvest."
@@ -1570,13 +1561,11 @@ msgstr "比特币 + 以太坊共同驱动"
 msgid "Preparing..."
 msgstr ""
 
-#: src/components/Layout/Header.tsx:115
-#: src/components/Layout/Sidebar.tsx:73
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:277
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:227
 msgid "Privacy policy"
 msgstr "隐私政策"
 
-#: src/components/ConnectButton/ConnectButton.tsx:124
+#: src/components/ConnectButton/ConnectButton.tsx:151
 msgid "Profile"
 msgstr ""
 
@@ -1619,18 +1608,10 @@ msgstr "点此了解更多"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:27
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
-=======
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:136
-<<<<<<< HEAD
-#: src/components/Profile/Profile.tsx:114
->>>>>>> 2193d044 (feat: place blockscout under others  section)
-=======
-#: src/components/Profile/Profile.tsx:120
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/components/Profile/Profile.tsx:130
 msgid "Receive"
 msgstr "接收"
 
@@ -1640,19 +1621,14 @@ msgstr "接收"
 
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:93
 #~ msgid "Receive {ticker}"
-#~ msgstr "接收 {ticker}"
+#~ msgstr "接收 {ticker}<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-=======
 #: src/components/ReceiveModal/ReceiveModal.tsx:70
 msgid "Receive crypto"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:488
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:159
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:492
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:130
 msgid "Recipient"
 msgstr ""
@@ -1686,7 +1662,7 @@ msgstr ""
 #~ msgid "Restaking"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:110
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:108
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:226
 #: src/app/[lang]/apps/components/AppsList/AppCard.tsx:131
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:107
@@ -1731,16 +1707,16 @@ msgid "Security Review by Bitcoin Layers"
 msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:222
-msgid "Select Bitcoin Wallet"
-msgstr ""
+#~ msgid "Select Bitcoin Wallet"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesCategories.tsx:30
 msgid "Select Category"
 msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:208
-msgid "Select EVM Wallet"
-msgstr ""
+#~ msgid "Select EVM Wallet"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesFilter.tsx:28
 msgid "Select Filter"
@@ -1752,21 +1728,13 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/ChainSelect/ChainSelect.tsx:20
 msgid "Select Network"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:188
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:189
 msgid "select network to bridge from"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:198
-=======
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:185
-msgid "select network to bridge from"
-msgstr ""
-
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:195
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:199
 msgid "select network to bridge to"
 msgstr ""
 
@@ -1828,7 +1796,7 @@ msgstr ""
 #~ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:129
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:130
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:67
 #: src/hooks/useLogin.ts:50
 #: src/hooks/useSignUp.ts:53
@@ -1926,7 +1894,7 @@ msgstr ""
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
 #: src/components/Layout/Sidebar.tsx:55
-#: src/components/Profile/ProfileTokenListItem.tsx:127
+#: src/components/Profile/ProfileTokenListItem.tsx:131
 msgid "Stake"
 msgstr "質押"
 
@@ -1992,11 +1960,11 @@ msgstr ""
 msgid "Staking"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:287
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:261
 msgid "Staking list"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:322
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:296
 msgid "Staking table"
 msgstr ""
 
@@ -2039,39 +2007,27 @@ msgstr "第二步"
 msgid "Steps"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:90
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:88
 msgid "Strategy"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:256
 msgid "Strategy Breakdown"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:42
+#: src/components/BridgeStatus/WithdrawStatus.tsx:41
 msgid "Submission failed. Please disable any wallets other than the one connected to this dApp. If the issue persists, please contact us."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:109
-=======
-#: src/components/BridgeStatus/WithdrawStatus.tsx:43
-msgid "Submission failed. Please disable any wallets other than the one connected to this dApp. If the issue persists, please contact us."
-msgstr ""
-
-#: src/components/BridgeStatus/WithdrawStatus.tsx:110
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/components/BridgeStatus/WithdrawStatus.tsx:108
 msgid "Successfully finalized transaction"
 msgstr ""
 
 #: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:150
 #~ msgid "Successfully sent {amount} {0}"
-#~ msgstr ""
+#~ msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:76
-=======
-#: src/components/BridgeStatus/WithdrawStatus.tsx:77
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/components/BridgeStatus/WithdrawStatus.tsx:75
 msgid "Successfully submitted ${0} proof"
 msgstr ""
 
@@ -2127,7 +2083,7 @@ msgstr "将新铸造的satUSD供应到 <0>BOB上的借贷协议</0> 。"
 msgid "Support your favourite BOB apps"
 msgstr "支持你喜爱的BOB应用"
 
-#: src/components/Profile/ProfileEvmWallet.tsx:38
+#: src/components/Profile/ProfileEvmWallet.tsx:39
 msgid "Switch to {0}"
 msgstr ""
 
@@ -2144,7 +2100,7 @@ msgstr "条款与条件"
 msgid "Take em home"
 msgstr "回到主页"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:269
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:223
 msgid "Terms of Service"
 msgstr ""
 
@@ -2351,7 +2307,11 @@ msgstr ""
 msgid "Transfer time"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:98
+#: src/components/ProfileActivity/ProfileActivity.tsx:186
+msgid "Try adjusting your filters"
+msgstr ""
+
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:96
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:236
 #: src/app/[lang]/fusion/components/UserInfo/Barometer.tsx:67
 msgid "TVL"
@@ -2360,7 +2320,7 @@ msgstr "总锁仓价值（TVL）"
 #~ msgid "TVL (on BOB)"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:100
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:98
 msgid "TVL on BOB"
 msgstr ""
 
@@ -2442,18 +2402,14 @@ msgstr "在应用中使用你跨链的资产以最大化你的Spice收获。<0/>
 msgid "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将每周公布。"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:127
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:137
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:128
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:51
 msgid "User rejected the request"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/components/BridgeStatus/WithdrawStatus.tsx:37
-=======
-#: src/components/BridgeStatus/WithdrawStatus.tsx:38
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/components/BridgeStatus/WithdrawStatus.tsx:36
 msgid "User rejected the request."
 msgstr ""
 
@@ -2463,13 +2419,9 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:23
 msgid "Username"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:233
-=======
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:230
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:234
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr ""
 
@@ -2529,13 +2481,9 @@ msgstr ""
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:52
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:39
 msgid "Waiting for confirmation"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-<<<<<<< HEAD
-#: src/connect-ui/component/ConnectWallet/ConnectWallet.tsx:55
-=======
-#: src/components/Profile/Profile.tsx:143
->>>>>>> d5cf7a29 (feat(evm): add activity section (#395))
+#: src/components/Profile/Profile.tsx:139
 msgid "Wallet"
 msgstr "钱包"
 
@@ -2584,7 +2532,7 @@ msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计�
 msgid "withdraw"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:221
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:156
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:37
 msgid "Withdraw"
 msgstr ""
@@ -2603,7 +2551,7 @@ msgstr "提取锁定资产"
 msgid "Withdraw to L1 failed. Please try again."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:224
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:159
 msgid "Withdrawals back to BTC are currently not supported"
 msgstr ""
 

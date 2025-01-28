@@ -10,7 +10,7 @@ import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 import { useAccount, usePublicClient } from 'wagmi';
@@ -98,6 +98,7 @@ const BobBridgeForm = ({
   const initialToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
 
   const symbol = symbolProp || initialToken.symbol;
+  const [prevSymbol, setPrevSymbol] = useState(symbol);
 
   const [amount, setAmount] = useDebounceValue('', 300);
 
@@ -425,10 +426,10 @@ const BobBridgeForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [direction]);
 
-  useEffect(() => {
-    form.resetForm({ values: { ...initialValues, [BRIDGE_ASSET]: symbol } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [symbol]);
+  if (symbol !== prevSymbol) {
+    setPrevSymbol(symbol);
+    form.setFieldValue(BRIDGE_ASSET, symbol, true);
+  }
 
   const handleChangeSymbol = (currency: Currency) => {
     onChangeSymbol?.(currency.symbol as string);
