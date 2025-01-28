@@ -321,8 +321,8 @@ msgstr ""
 #~ msgid "BOB Gateway is live!"
 #~ msgstr ""
 
-#: src/app/[lang]/layout.tsx:35
-#: src/app/[lang]/layout.tsx:54
+#: src/app/[lang]/layout.tsx:36
+#: src/app/[lang]/layout.tsx:55
 msgid "BOB is a hybrid L2 that combines the security of Bitcoin with the versatility of Ethereum"
 msgstr ""
 
@@ -609,7 +609,7 @@ msgstr ""
 msgid "Deploy high priority assets into high priority DeFi protocols to maximize your Spice harvest."
 msgstr "将高优先级资产部署到高优先级DeFi协议中，以最大化你的Spice收获。"
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:141
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:148
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 msgid "Deposit"
 msgstr ""
@@ -2358,7 +2358,7 @@ msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计�
 msgid "withdraw"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:146
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:153
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionDetails.tsx:41
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:36
 msgid "Withdraw"
@@ -2378,7 +2378,7 @@ msgstr "提取锁定资产"
 msgid "Withdraw to L1 failed. Please try again."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:149
+#: src/app/[lang]/(bridge)/bridge/Bridge.tsx:156
 msgid "Withdrawals back to BTC are currently not supported"
 msgstr ""
 

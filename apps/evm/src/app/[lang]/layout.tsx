@@ -17,7 +17,7 @@ import { isProd } from '@/constants';
 import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
 import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
-import { PostHogProvider } from '@/lib/posthog/provider';
+import { PostHogProvider } from '@/lib/posthog';
 import { getConfig } from '@/lib/wagmi';
 import { UserAgentProvider } from '@/user-agent/provider';
 
