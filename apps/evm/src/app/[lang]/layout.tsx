@@ -18,7 +18,6 @@ import { ExternalLinks, isProd } from '@/constants';
 import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
 import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
-import { PostHogProvider } from '@/lib/posthog/provider';
 import { getConfig } from '@/lib/wagmi';
 import { UserAgentProvider } from '@/user-agent/provider';
 
@@ -78,13 +77,11 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       <body>
         <div id='root'>
-          <PostHogProvider>
-            <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
-              <UserAgentProvider userAgent={userAgent}>
-                <Providers initialState={initialState}>{children}</Providers>
-              </UserAgentProvider>
-            </LinguiClientProvider>
-          </PostHogProvider>
+          <LinguiClientProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
+            <UserAgentProvider userAgent={userAgent}>
+              <Providers initialState={initialState}>{children}</Providers>
+            </UserAgentProvider>
+          </LinguiClientProvider>
         </div>
         {/* <!-- Fathom - beautiful, simple website analytics --> */}
         <Script defer data-site='EFSKBSSL' src='https://cdn.usefathom.com/script.js' />
