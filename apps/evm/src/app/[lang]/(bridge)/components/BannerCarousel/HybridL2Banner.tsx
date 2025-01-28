@@ -9,10 +9,9 @@ import { BannerTitle } from './BannerTitle';
 
 type HybridL2BannerProps = {
   onPress?: () => void;
-  hasImgOpacity?: boolean;
 };
 
-const HybridL2Banner = ({ hasImgOpacity, onPress }: HybridL2BannerProps) => {
+const HybridL2Banner = ({ onPress }: HybridL2BannerProps) => {
   const { i18n } = useLingui();
 
   return (
@@ -23,18 +22,11 @@ const HybridL2Banner = ({ hasImgOpacity, onPress }: HybridL2BannerProps) => {
             <Trans>Released: BOB&apos;s Hybrid L2 vision paper</Trans>
           </BannerTitle>
         </Flex>
-        <P color='grey-50'>
+        <P color='grey-50' rows={2}>
           <Trans>Read it now.</Trans>
         </P>
       </StyledBannerContent>
-      <StyledImg
-        $hasImgOpacity={hasImgOpacity}
-        alt={t(i18n)`Hybrid L2`}
-        height='134'
-        placeholder='blur'
-        src={hybridL2Banner}
-        width='311'
-      />
+      <StyledImg alt={t(i18n)`Hybrid L2`} height='134' placeholder='blur' src={hybridL2Banner} width='311' />
     </Banner>
   );
 };

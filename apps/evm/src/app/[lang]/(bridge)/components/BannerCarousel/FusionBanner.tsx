@@ -9,10 +9,9 @@ import { BannerTitle } from './BannerTitle';
 
 type FusionBannerProps = {
   onPress?: () => void;
-  hasImgOpacity?: boolean;
 };
 
-const FusionBanner = ({ onPress, hasImgOpacity }: FusionBannerProps) => {
+const FusionBanner = ({ onPress }: FusionBannerProps) => {
   const { i18n } = useLingui();
 
   return (
@@ -23,12 +22,11 @@ const FusionBanner = ({ onPress, hasImgOpacity }: FusionBannerProps) => {
             <Trans>BOB Fusion: The Final Season</Trans>
           </BannerTitle>
         </Flex>
-        <P color='grey-50'>
+        <P color='grey-50' rows={2}>
           <Trans>Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now.</Trans>
         </P>
       </StyledBannerContent>
       <StyledImg
-        $hasImgOpacity={hasImgOpacity}
         alt={t(i18n)`Fusion season three`}
         height='134'
         placeholder='blur'

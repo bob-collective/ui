@@ -276,7 +276,7 @@ msgstr "审计"
 #~ msgid "Authorize Wallet"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:35
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:32
 #: src/app/[lang]/fusion/Fusion.tsx:209
 msgid "Babylon campaign"
 msgstr ""
@@ -325,7 +325,7 @@ msgstr "以下是你从各个应用中收获的Spice。继续参与以增加你�
 #~ msgid "Bitcoin Staking with Binance"
 #~ msgstr ""
 
-#: src/components/Logo/Logo.tsx:37
+#: src/components/Logo/Logo.tsx:35
 msgid "BOB"
 msgstr ""
 
@@ -341,7 +341,7 @@ msgstr ""
 #~ msgid "BOB Ecosystem on OKX Cryptopedia"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:23
+#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:132
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
@@ -551,7 +551,7 @@ msgstr ""
 #~ msgid "close drawer"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:23
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:198
 msgid "Collect Babylon Points on BOB"
 msgstr ""
@@ -922,7 +922,7 @@ msgstr ""
 msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:19
+#: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
 msgid "Follow us on X"
 msgstr ""
 
@@ -941,14 +941,14 @@ msgid "Fusion"
 msgstr "Fusion"
 
 #: src/components/Logo/Logo.tsx:41
-msgid "FUSION"
-msgstr "FUSION"
+#~ msgid "FUSION"
+#~ msgstr "FUSION"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:43
 msgid "Fusion season 3 is your last ever chance to harvest Spice. Stake your Bitcoin for the highest multipliers and refer a friend to receive a share of all the Spice they collect."
 msgstr "Fusion第3季是你收获Spice的最后机会。质押比特币获得最高倍数，并通过推荐朋友赚取他们Spice收获的分成。"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:32
+#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:30
 msgid "Fusion season three"
 msgstr ""
 
@@ -1066,7 +1066,7 @@ msgstr "热门策略"
 msgid "How to vote:"
 msgstr "如何投票："
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:32
+#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:29
 msgid "Hybrid L2"
 msgstr ""
 
@@ -1342,11 +1342,11 @@ msgstr ""
 msgid "navigate to discord"
 msgstr "<<<<<<< HEAD"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:76
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:75
 msgid "navigate to ecosystem section in fusion page"
 msgstr ""
 
-#: src/components/Logo/Logo.tsx:30
+#: src/components/Logo/Logo.tsx:28
 msgid "navigate to home page"
 msgstr ""
 
@@ -1598,7 +1598,7 @@ msgstr "完成的任务"
 msgid "Quests Only"
 msgstr "仅任务"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:27
+#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:26
 msgid "Read it now."
 msgstr ""
 
@@ -1606,7 +1606,7 @@ msgstr ""
 msgid "Read more here"
 msgstr "点此了解更多"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:27
+#: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:26
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr "<<<<<<< HEAD"
 
@@ -1641,7 +1641,7 @@ msgstr ""
 msgid "Referred by"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:23
+#: src/app/[lang]/(bridge)/components/BannerCarousel/HybridL2Banner.tsx:22
 msgid "Released: BOB's Hybrid L2 vision paper"
 msgstr ""
 
@@ -2105,8 +2105,8 @@ msgid "Terms of Service"
 msgstr ""
 
 #: src/components/Logo/Logo.tsx:47
-msgid "Testnet"
-msgstr ""
+#~ msgid "Testnet"
+#~ msgstr ""
 
 #: src/app/[lang]/geoblock/Geoblock.tsx:32
 msgid "Thank you for your understanding and we hope to be able to serve you in a more decentralized future. The BOB L2 network itself is fully decentralized, cannot be censored and all code is open source."
@@ -2238,7 +2238,10 @@ msgstr ""
 msgid "To cast your vote, please log in"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:27
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:26
+msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi."
+msgstr ""
+
 #: src/app/[lang]/fusion/Fusion.tsx:201
 msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
 msgstr ""
@@ -2251,7 +2254,7 @@ msgstr ""
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more >"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:23
+#: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 

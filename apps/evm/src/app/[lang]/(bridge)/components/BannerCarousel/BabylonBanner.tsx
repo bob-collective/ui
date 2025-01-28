@@ -9,10 +9,9 @@ import { BannerTitle } from './BannerTitle';
 
 type FusionBannerProps = {
   onPress?: () => void;
-  hasImgOpacity?: boolean;
 };
 
-const BabylonBanner = ({ hasImgOpacity, onPress }: FusionBannerProps) => {
+const BabylonBanner = ({ onPress }: FusionBannerProps) => {
   const { i18n } = useLingui();
 
   return (
@@ -23,21 +22,14 @@ const BabylonBanner = ({ hasImgOpacity, onPress }: FusionBannerProps) => {
             <Trans>Collect Babylon Points on BOB</Trans>
           </BannerTitle>
         </Flex>
-        <P color='grey-50'>
+        <P color='grey-50' rows={2}>
           <Trans>
             To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in
-            DeFi. Read more &gt;
+            DeFi.
           </Trans>
         </P>
       </StyledBannerContent>
-      <StyledImg
-        $hasImgOpacity={hasImgOpacity}
-        alt={t(i18n)`Babylon campaign`}
-        height='134'
-        placeholder='blur'
-        src={babylon}
-        width='312'
-      />
+      <StyledImg alt={t(i18n)`Babylon campaign`} height='134' placeholder='blur' src={babylon} width='312' />
     </Banner>
   );
 };

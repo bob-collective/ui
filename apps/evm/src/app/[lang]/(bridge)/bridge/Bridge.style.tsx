@@ -1,4 +1,4 @@
-import { Card } from '@gobob/ui';
+import { Card, Flex } from '@gobob/ui';
 import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
@@ -6,4 +6,9 @@ const StyledCard = styled(Card)`
   min-width: 100%;
 `;
 
-export { StyledCard };
+const StyledWrapper = styled(Flex)`
+  width: 100%;
+  max-width: ${({ theme }) => theme.maxWidth('lg')};
+`;
+
+export { StyledCard, StyledWrapper };

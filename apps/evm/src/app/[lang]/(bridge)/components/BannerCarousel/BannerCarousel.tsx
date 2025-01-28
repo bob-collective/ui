@@ -1,6 +1,6 @@
 'use client';
 
-import { CardProps, useMediaQuery } from '@gobob/ui';
+import { useMediaQuery } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useCallback, useMemo } from 'react';
@@ -8,15 +8,13 @@ import 'react-multi-carousel/lib/styles.css';
 import { useTheme } from 'styled-components';
 import { useIsClient } from 'usehooks-ts';
 
-import { BabylonBanner } from './BabylonBanner';
 import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
 import { FusionBanner } from './FusionBanner';
-import { HybridL2Banner } from './HybridL2Banner';
 import { XBanner } from './XBanner';
+import { HybridL2Banner } from './HybridL2Banner';
+import { BabylonBanner } from './BabylonBanner';
 
-type BannerCarouselProps = Omit<CardProps, 'padding'> & { hasImgOpacity?: boolean };
-
-const BannerCarousel = ({ hasImgOpacity, ...props }: BannerCarouselProps) => {
+const BannerCarousel = () => {
   const { i18n } = useLingui();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
@@ -73,7 +71,11 @@ const BannerCarousel = ({ hasImgOpacity, ...props }: BannerCarouselProps) => {
   );
 
   return (
-    <StyledCarouselWrapper {...props} aria-label={t(i18n)`navigate to ecosystem section in fusion page`} padding='none'>
+    <StyledCarouselWrapper
+      aria-label={t(i18n)`navigate to ecosystem section in fusion page`}
+      paddingX='none'
+      paddingY='none'
+    >
       {isCleint ? (
         <StyledCarousel
           autoPlay
@@ -87,10 +89,10 @@ const BannerCarousel = ({ hasImgOpacity, ...props }: BannerCarouselProps) => {
           swipeable={false}
           transitionDuration={500}
         >
-          <BabylonBanner hasImgOpacity={hasImgOpacity} onPress={onPressBabylonBanner} />
-          <HybridL2Banner hasImgOpacity={hasImgOpacity} onPress={onPressHybridL2Banner} />
-          <XBanner hasImgOpacity={hasImgOpacity} onPress={onPressXBanner} />
-          <FusionBanner hasImgOpacity={hasImgOpacity} onPress={onPressFusionBanner} />
+          <BabylonBanner onPress={onPressBabylonBanner} />
+          <HybridL2Banner onPress={onPressHybridL2Banner} />
+          <XBanner onPress={onPressXBanner} />
+          <FusionBanner onPress={onPressFusionBanner} />
         </StyledCarousel>
       ) : (
         <BabylonBanner onPress={onPressBabylonBanner} />

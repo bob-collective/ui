@@ -3,10 +3,6 @@ import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import styled, { css } from 'styled-components';
 
-type StyledImgProps = {
-  $hasImgOpacity?: boolean;
-};
-
 const StyledCarouselWrapper = styled(Card)`
   position: relative;
   text-decoration: none;
@@ -68,15 +64,13 @@ const StyledBannerTitle = styled(H1)`
   text-overflow: ellipsis;
 `;
 
-const StyledImg = styled(Image)<StyledImgProps>`
-  ${({ theme, $hasImgOpacity }) => {
+const StyledImg = styled(Image)`
+  ${({ theme }) => {
     return css`
       position: absolute;
       top: 50%;
       right: 0;
       transform: translateY(-50%);
-      opacity: ${$hasImgOpacity && 0.2};
-
       @media ${theme.breakpoints.down('md')} {
         opacity: 0.2;
       }

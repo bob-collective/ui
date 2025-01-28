@@ -8,7 +8,7 @@ import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { BannerCarousel } from '../components/BannerCarousel';
 
-import { StyledCard } from './Bridge.style';
+import { StyledCard, StyledWrapper } from './Bridge.style';
 import { ActivityButton, BridgeForm } from './components';
 
 import { Main } from '@/components';
@@ -133,10 +133,10 @@ const Bridge = ({ searchParams }: Props) => {
   const tabsDisabledKeys = isWithdrawTabDisabled ? [Type.Withdraw] : undefined;
 
   return (
-    <Main maxWidth='lg' padding='md'>
-      <BannerCarousel hasImgOpacity />
+    <Main maxWidth='5xl' padding='md'>
+      <BannerCarousel />
       <Flex justifyContent='center' marginTop='2xl' style={{ width: '100%' }}>
-        <Flex direction='column' gap='md' style={{ width: '100%' }}>
+        <StyledWrapper direction='column' gap='md'>
           <Flex justifyContent='flex-end'>
             <ActivityButton />
           </Flex>
@@ -174,7 +174,7 @@ const Bridge = ({ searchParams }: Props) => {
               onChangeSymbol={handleChangeSymbol}
             />
           </StyledCard>
-        </Flex>
+        </StyledWrapper>
       </Flex>
     </Main>
   );
