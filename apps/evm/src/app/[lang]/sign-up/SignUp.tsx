@@ -5,6 +5,7 @@ import { Button, Divider, Flex, P, toast } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useMutation } from '@tanstack/react-query';
+import { useStore } from '@tanstack/react-store';
 import { useParams, useRouter } from 'next/navigation';
 import { FormEventHandler, Suspense, useEffect, useState } from 'react';
 import { useAccount, useSwitchChain } from 'wagmi';
@@ -12,13 +13,14 @@ import { useAccount, useSwitchChain } from 'wagmi';
 import { Auditors, HighlightText, ReferralInput } from './components';
 import { StyledAuthCard, StyledH1 } from './SignUp.style';
 
+import { chakraPetch } from '@/app/fonts';
 import { Geoblock, LoginSection, Main } from '@/components';
 import { useConnectModal } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN, RoutesPath, isValidChain } from '@/constants';
 import { useGetUser, useSignUp } from '@/hooks';
 import { fusionKeys } from '@/lib/react-query';
+import { store } from '@/lib/store';
 import { apiClient } from '@/utils';
-import { chakraPetch } from '@/app/fonts';
 
 const SignUp = (): JSX.Element | null => {
   const { address, chain } = useAccount();
@@ -30,9 +32,20 @@ const SignUp = (): JSX.Element | null => {
   const params = useParams();
   const { data: user } = useGetUser();
 
+  const { token: turnstileToken } = useStore(store, (state) => state.shared.turnstile);
+
   const [referralCode, setReferralCode] = useState('');
 
-  const { mutate: signUp, isPending: isLoadingSignUp } = useSignUp();
+  const { mutate: signUp, isPending: isLoadingSignUp } = useSignUp({
+    onSuccess: () =>
+      store.setState((s) => ({
+        ...s,
+        shared: {
+          ...s.shared,
+          turnstile: { isOpen: false }
+        }
+      }))
+  });
 
   const {
     mutateAsync: validateReferralCodeAsync,
@@ -74,7 +87,17 @@ const SignUp = (): JSX.Element | null => {
             }
           }
 
-          return signUp({ address });
+          if (!turnstileToken) {
+            return store.setState((s) => ({
+              ...s,
+              shared: {
+                ...s.shared,
+                turnstile: { isOpen: true, onSuccess: (token) => signUp({ address, turnstileToken: token }) }
+              }
+            }));
+          }
+
+          return signUp({ address, turnstileToken });
         }
       });
     }
@@ -83,7 +106,17 @@ const SignUp = (): JSX.Element | null => {
       await switchChainAsync({ chainId: L1_CHAIN });
     }
 
-    return signUp({ address, referralCode });
+    if (!turnstileToken) {
+      return store.setState((s) => ({
+        ...s,
+        shared: {
+          ...s.shared,
+          turnstile: { isOpen: true, onSuccess: (token) => signUp({ address, turnstileToken: token }) }
+        }
+      }));
+    }
+
+    return signUp({ address, turnstileToken });
   };
 
   return (

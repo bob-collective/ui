@@ -1516,13 +1516,13 @@ msgstr "Solv XP"
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:130
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/hooks/useLogin.ts:50
-#: src/hooks/useSignUp.ts:53
+#: src/hooks/useSignUp.ts:65
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
 #: src/app/[lang]/sign-up/SignUp.tsx:73
 #: src/components/LoginButton/LoginButton.tsx:29
-#: src/components/SignUpButton/SignUpButton.tsx:29
+#: src/components/SignUpButton/SignUpButton.tsx:42
 msgid "Something went wrong. Please try connecting your wallet again."
 msgstr "Something went wrong. Please try connecting your wallet again."
 
@@ -1983,7 +1983,7 @@ msgstr "Use your Spice total to support your favourite BOB builders. Winners wil
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:128
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
 #: src/hooks/useLogin.ts:48
-#: src/hooks/useSignUp.ts:51
+#: src/hooks/useSignUp.ts:63
 msgid "User rejected the request"
 msgstr "User rejected the request"
 

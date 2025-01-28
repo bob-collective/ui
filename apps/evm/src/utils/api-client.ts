@@ -445,14 +445,14 @@ class ApiClient {
     return this.handleResponse(response);
   }
 
-  async signUp(message: SiweMessage, signature: Address) {
+  async signUp(message: SiweMessage, turnstileToken: string, signature: Address) {
     const response = await fetch(`${this.baseUrl}/sign-up`, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message, signature })
+      body: JSON.stringify({ message, signature, 'cf-turnstile-response': turnstileToken })
     });
 
     return this.handleResponse(response);

@@ -1760,13 +1760,13 @@ msgstr ""
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:130
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/hooks/useLogin.ts:50
-#: src/hooks/useSignUp.ts:53
+#: src/hooks/useSignUp.ts:65
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
 #: src/app/[lang]/sign-up/SignUp.tsx:73
 #: src/components/LoginButton/LoginButton.tsx:29
-#: src/components/SignUpButton/SignUpButton.tsx:29
+#: src/components/SignUpButton/SignUpButton.tsx:42
 msgid "Something went wrong. Please try connecting your wallet again."
 msgstr ""
 
@@ -2364,7 +2364,7 @@ msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将�
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:128
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
 #: src/hooks/useLogin.ts:48
-#: src/hooks/useSignUp.ts:51
+#: src/hooks/useSignUp.ts:63
 msgid "User rejected the request"
 msgstr ""
 
@@ -2391,6 +2391,10 @@ msgstr ""
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:223
 #~ msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge."
 #~ msgstr ""
+
+#: src/components/TurnstileModal/TurnstileModal.tsx:23
+msgid "Verify You're Human"
+msgstr ""
 
 #: src/app/[lang]/wallet/Wallet.tsx:29
 #~ msgid "View a summary of your wallet on the BOB network. DeFi positions may not be tracked."
