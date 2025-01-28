@@ -483,7 +483,7 @@ msgstr ""
 msgid "Collect Babylon Points on BOB"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:106
+#: src/app/[lang]/sign-up/SignUp.tsx:139
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
@@ -997,7 +997,7 @@ msgstr ""
 #~ msgid "Input Token"
 #~ msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:115
+#: src/app/[lang]/sign-up/SignUp.tsx:148
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr ""
 
@@ -1418,7 +1418,7 @@ msgstr "请注意："
 msgid "Points"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:102
+#: src/app/[lang]/sign-up/SignUp.tsx:135
 msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
@@ -1650,13 +1650,13 @@ msgstr ""
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:129
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:67
 #: src/hooks/useLogin.ts:50
-#: src/hooks/useSignUp.ts:53
+#: src/hooks/useSignUp.ts:65
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:72
+#: src/app/[lang]/sign-up/SignUp.tsx:85
 #: src/components/LoginButton/LoginButton.tsx:29
-#: src/components/SignUpButton/SignUpButton.tsx:29
+#: src/components/SignUpButton/SignUpButton.tsx:42
 msgid "Something went wrong. Please try connecting your wallet again."
 msgstr ""
 
@@ -1832,7 +1832,7 @@ msgstr "开始收获"
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:55
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:392
-#: src/app/[lang]/sign-up/SignUp.tsx:127
+#: src/app/[lang]/sign-up/SignUp.tsx:160
 msgid "Start Harvesting Spice"
 msgstr "开始收获Spice"
 
@@ -1974,7 +1974,7 @@ msgstr ""
 msgid "The final season"
 msgstr "最终季 - 不容错过！"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:99
+#: src/app/[lang]/sign-up/SignUp.tsx:132
 msgid "THE FIRST HYBRID L2"
 msgstr "首个混合型二层"
 
@@ -2231,7 +2231,7 @@ msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将�
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:127
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:137
 #: src/hooks/useLogin.ts:48
-#: src/hooks/useSignUp.ts:51
+#: src/hooks/useSignUp.ts:63
 msgid "User rejected the request"
 msgstr ""
 
@@ -2258,6 +2258,10 @@ msgstr ""
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:223
 #~ msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd Party bridge."
 #~ msgstr ""
+
+#: src/components/TurnstileModal/TurnstileModal.tsx:23
+msgid "Verify You're Human"
+msgstr ""
 
 #: src/app/[lang]/wallet/Wallet.tsx:29
 #~ msgid "View a summary of your wallet on the BOB network. DeFi positions may not be tracked."
