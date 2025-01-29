@@ -678,7 +678,7 @@ msgstr "enable ETH top-up for transaction fees on BOB network"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:485
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:131
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:139
 msgid "Enter destination address"
 msgstr "Enter destination address"
 
@@ -937,7 +937,7 @@ msgstr "Leaderboard"
 msgid "Learn More"
 msgstr "Learn More"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
 msgid "Lend"
 msgstr "Lend"
 
@@ -1295,7 +1295,7 @@ msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
 msgid "Preparing..."
 msgstr "Preparing..."
 
@@ -1367,7 +1367,7 @@ msgstr "Receive crypto"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:130
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:138
 msgid "Recipient"
 msgstr "Recipient"
 
@@ -1567,13 +1567,13 @@ msgstr "Spice rewards (Medium)"
 msgid "Spice styled background"
 msgstr "Spice styled background"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:112
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:120
 msgid "stake"
 msgstr "stake"
 
 #: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:25
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:36
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
 #: src/components/Layout/Sidebar.tsx:55
@@ -1646,7 +1646,7 @@ msgstr "Staking list"
 msgid "Staking table"
 msgstr "Staking table"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:143
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:151
 msgid "Staking to {0} is temporarily unavailable."
 msgstr "Staking to {0} is temporarily unavailable."
 
@@ -1709,7 +1709,7 @@ msgstr "Superchain Eco"
 #~ msgid "Superchain Mastery: BOB"
 #~ msgstr "Superchain Mastery: BOB"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:112
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:120
 msgid "supply"
 msgstr "supply"
 
@@ -2154,7 +2154,7 @@ msgstr "You need at least {0} Spice to participate in Lottery."
 msgid "You still have assets locked in Season One. Please redeem your funds"
 msgstr "You still have assets locked in Season One. Please redeem your funds"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:136
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:144
 msgid "You will {action}"
 msgstr "You will {action}"
 

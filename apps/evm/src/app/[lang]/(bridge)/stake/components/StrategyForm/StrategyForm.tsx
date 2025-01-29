@@ -6,6 +6,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { sendGAEvent } from '@next/third-parties/google';
 import { chain, mergeProps } from '@react-aria/utils';
+import posthog from 'posthog-js';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -20,6 +21,7 @@ import { StrategyData } from '../../hooks';
 
 import { AuthButton } from '@/connect-ui';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
+import { PosthogEvents } from '@/lib/posthog';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
 type GatewayTransactionModalState = {
@@ -41,9 +43,11 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
 
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
+
+    posthog.capture(PosthogEvents.STRATEGY_STARTED);
   };
 
-  const handleGatewaySuccess = (data: InitGatewayTransaction) => {
+  const handleSuccessGateway = (data: InitGatewayTransaction) => {
     onSuccess?.();
     setGatewayModalState({ isOpen: true, data });
     sendGAEvent('event', 'btc_stake', {
@@ -52,10 +56,14 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       tx_id: data.txId,
       btc_wallet: connector?.name
     });
+    posthog.capture(PosthogEvents.STRATEGY_COMPLETED);
   };
 
-  const handleCloseGatewayModal = () => {
-    setGatewayModalState((s) => ({ ...s, isOpen: false }));
+  const handleCloseGatewayModal = () => setGatewayModalState((s) => ({ ...s, isOpen: false }));
+
+  const handleFailedGateway = () => {
+    handleCloseGatewayModal();
+    posthog.capture(PosthogEvents.STRATEGY_FAILED);
   };
 
   const { i18n } = useLingui();
@@ -75,9 +83,9 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       strategyAddress: strategy?.contract.address,
       assetName: strategy?.contract.integration.name
     },
-    onError: handleCloseGatewayModal,
+    onError: handleFailedGateway,
     onMutate: handleStartGateway,
-    onSuccess: chain(handleGatewaySuccess, handleSuccess)
+    onSuccess: chain(handleSuccessGateway, handleSuccess)
   });
 
   const handleSubmit = async (data: BridgeFormValues) => {
