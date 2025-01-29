@@ -1,6 +1,5 @@
 'use client';
 
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { useForm } from '@gobob/ui';
 import Big from 'big.js';
 import { useEffect } from 'react';
@@ -8,7 +7,7 @@ import { useAccount } from 'wagmi';
 
 import { UseGatewayQueryDataReturnType } from './useGateway';
 
-import { useIsContract } from '@/hooks';
+import { useBtcAccount, useIsContract } from '@/hooks';
 import {
   BRIDGE_AMOUNT,
   BRIDGE_ASSET,
@@ -34,7 +33,7 @@ const useGatewayForm = ({ type, query, defaultAsset, onSubmit }: UseGatewayFormP
 
   const { isContract: isSmartAccount } = useIsContract({ address: evmAddress });
 
-  const { address: btcAddress } = useSatsAccount();
+  const { address: btcAddress } = useBtcAccount();
 
   useEffect(() => {
     if (!query.fee.estimate.data || !form.values[BRIDGE_AMOUNT]) return;

@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import { Inter, Chakra_Petch } from 'next/font/google';
-import { PropsWithChildren } from 'react';
 import { t } from '@lingui/macro';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
-import { cookieToInitialState } from 'wagmi';
+import { Metadata } from 'next';
+import { Chakra_Petch, Inter } from 'next/font/google';
 import { headers } from 'next/headers';
+import { PropsWithChildren } from 'react';
+import { cookieToInitialState } from 'wagmi';
 
 import linguiConfig from '../../../lingui.config';
 
@@ -15,8 +15,8 @@ import { allMessages, getI18nInstance } from '@/i18n/appRouterI18n';
 import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
 
-const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
 
 export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }));
@@ -65,7 +65,7 @@ export default withLinguiLayout(function LangLayout({ children, params: { lang }
   const initialState = cookieToInitialState(config, headers().get('cookie'));
 
   return (
-    <html className={`${chakraPetch.className} ${inter.className}`} lang={lang}>
+    <html className={`${inter.className} ${chakraPetch.className}`} lang={lang}>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       <body>

@@ -1,6 +1,8 @@
 'use client';
 
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { isBitcoinWallet } from '@dynamic-labs/bitcoin';
+import { isEthereumWallet } from '@dynamic-labs/ethereum';
+import { useDynamicContext, useDynamicEvents, useIsLoggedIn, useSwitchWallet } from '@dynamic-labs/sdk-react-core';
 import {
   Button,
   ChevronDoubleRight,
@@ -23,8 +25,8 @@ import { ProfileTag } from '../ProfileTag';
 
 import { StyledCloseButton } from './ConnectButton.style';
 
-import { useConnectModal } from '@/connect-ui';
 import { chainL1, chainL2, isValidChain } from '@/constants';
+import { useDynamicWallets } from '@/hooks';
 import { store } from '@/lib/store';
 import { useUserAgent } from '@/user-agent';
 
@@ -37,8 +39,13 @@ const ConnectButton = (): JSX.Element => {
 
   const isProfileDrawerOpen = useStore(store, (state) => state.shared.profile.isOpen);
 
-  const { address: evmAddress, chain } = useAccount();
-  const { address: btcAddress } = useSatsAccount();
+  const { chain } = useAccount();
+
+  const { setShowAuthFlow, handleUnlinkWallet } = useDynamicContext();
+  const switchWallet = useSwitchWallet();
+  const isLoggedIn = useIsLoggedIn();
+
+  const { btcWallet, evmWallet } = useDynamicWallets();
 
   const currentChain = chain && isValidChain(chain.id) ? chain : chainL2;
   const otherChain = currentChain.id === chainL2.id ? chainL1 : chainL2;
@@ -46,11 +53,34 @@ const ConnectButton = (): JSX.Element => {
   const isReceiveModalOpen = useStore(store, (state) => state.shared.isReceiveModalOpen);
   const hasOpenned = useStore(store, (state) => state.shared.profile.hasOpenned);
 
-  const { isOpen: isConnectModalOpen } = useConnectModal();
+  const isLoading = isLoggedIn && !(btcWallet || evmWallet);
 
-  const { open } = useConnectModal();
+  useDynamicEvents('walletAdded', async (newWallet, userWallets) => {
+    const otherWallets = userWallets.filter((wallet) => wallet.id !== newWallet.id);
 
-  const isLoggedIn = !!(evmAddress || btcAddress);
+    // Only newWallet is conencted
+    if (!otherWallets.length) return;
+
+    if (isEthereumWallet(newWallet)) {
+      await switchWallet(newWallet.id);
+
+      const evmWallet = otherWallets.find((wallet) => isEthereumWallet(wallet));
+
+      // unlink if there is another evm wallet
+      if (evmWallet) {
+        handleUnlinkWallet(evmWallet.id);
+      }
+    }
+
+    if (isBitcoinWallet(newWallet)) {
+      const btcWallet = otherWallets.find((wallet) => isBitcoinWallet(wallet) && wallet.id !== newWallet.id);
+
+      // unlink if there is another btc wallet
+      if (btcWallet) {
+        handleUnlinkWallet(btcWallet.id);
+      }
+    }
+  });
 
   useEffect(() => {
     if (!isProfileDrawerOpen && !isLoggedIn && hasOpenned) return;
@@ -106,7 +136,7 @@ const ConnectButton = (): JSX.Element => {
   // connect modal instead in case the user wallet is not connected
   useEffect(() => {
     if (!isLoggedIn && isProfileDrawerOpen) {
-      return open();
+      return setShowAuthFlow(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,7 +144,7 @@ const ConnectButton = (): JSX.Element => {
 
   if (!isLoggedIn) {
     const handleConnect = () => {
-      open();
+      setShowAuthFlow(true);
     };
 
     return (
@@ -133,12 +163,12 @@ const ConnectButton = (): JSX.Element => {
   return (
     <DrawerRoot
       direction={isMobile ? 'bottom' : 'right'}
-      dismissible={!(isReceiveModalOpen || isConnectModalOpen)}
+      dismissible={!isReceiveModalOpen}
       modal={isMobile}
       open={isProfileDrawerOpen}
       onOpenChange={handleOpenChange}
     >
-      <DrawerButton variant='ghost'>
+      <DrawerButton disabled={isLoading} variant='ghost'>
         <ProfileTag chain={currentChain} hideAddress={isMobile} size='s' />
       </DrawerButton>
       <DrawerPortal>

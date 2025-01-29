@@ -1,5 +1,6 @@
 'use client';
 
+import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { getCapitalizedChainName } from '@gobob/chains';
 import { ETH } from '@gobob/icons';
 import { ArrowPath, Tooltip, UnstyledButton } from '@gobob/ui';
@@ -12,11 +13,10 @@ import { useAccount, useSwitchChain } from 'wagmi';
 
 import { ChainAsset } from '../ChainAsset';
 
-import { ProfileWallet, ProfileWalletProps } from './ProfileWallet';
 import { StyledEthAvatarOverlay } from './Profile.style';
+import { ProfileWallet, ProfileWalletProps } from './ProfileWallet';
 
-import { WalletIcon } from '@/connect-ui';
-import { useBalances } from '@/hooks';
+import { useBalances, useDynamicWallets } from '@/hooks';
 
 type ProfileEvmWalletProps = Pick<ProfileWalletProps, 'onPressConnect'> & {
   currentChain: Chain;
@@ -25,8 +25,8 @@ type ProfileEvmWalletProps = Pick<ProfileWalletProps, 'onPressConnect'> & {
 
 const ProfileEvmWallet = ({ currentChain, otherChain, onPressConnect }: ProfileEvmWalletProps): JSX.Element | null => {
   const { getBalance } = useBalances(currentChain.id);
-  const { address, connector } = useAccount();
-
+  const { address } = useAccount();
+  const { evmWallet } = useDynamicWallets();
   const { switchChain } = useSwitchChain();
 
   const { hoverProps, isHovered } = useHover({ isDisabled: !address });
@@ -61,8 +61,8 @@ const ProfileEvmWallet = ({ currentChain, otherChain, onPressConnect }: ProfileE
       balance={getBalance('ETH')}
       connectLabel={<Trans>Connect EVM Wallet</Trans>}
       truncatedAddress={truncateEthAddress(address || '')}
-      walletAvatar={connector && <WalletIcon name={connector.name} style={{ height: '1rem', width: '1rem' }} />}
-      walletId={connector?.id}
+      walletAvatar={evmWallet && <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={evmWallet.key} />}
+      walletId={evmWallet?.key}
       onPressConnect={onPressConnect}
     />
   );

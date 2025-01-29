@@ -5,11 +5,10 @@ import { Token } from '@gobob/currency';
 import { Alert, ArrowRight, Divider, Flex, RadioGroup } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { sendGAEvent } from '@next/third-parties/google';
 import { useQuery } from '@tanstack/react-query';
 import { Key, useCallback, useMemo, useState } from 'react';
 import { useAccount, useChainId } from 'wagmi';
-import { sendGAEvent } from '@next/third-parties/google';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -21,7 +20,7 @@ import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
 import { INTERVAL, L1_CHAIN, L2_CHAIN } from '@/constants';
-import { TokenData, useGetBridgeTransactions, useGetGatewayTransactions } from '@/hooks';
+import { TokenData, useBtcAccount, useGetBridgeTransactions, useGetGatewayTransactions } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
@@ -77,8 +76,8 @@ const BridgeForm = ({
   onChangeChain
 }: BridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
-  const { connector: satsConnector, address: btcAddress } = useSatsAccount();
   const { connector, address } = useAccount();
+  const { address: btcAddress, connector: btcConnector } = useBtcAccount();
 
   const { refetch: refetchBridgeTransactions, addPlaceholderTransaction: addBridgePlaceholderTransaction } =
     useGetBridgeTransactions();
@@ -152,7 +151,7 @@ const BridgeForm = ({
       tx_id: data.txId,
       evm_address: JSON.stringify(address),
       btc_address: btcAddress,
-      btc_wallet: satsConnector?.name,
+      btc_wallet: btcConnector?.name,
       evm_wallet: connector?.name
     });
   };

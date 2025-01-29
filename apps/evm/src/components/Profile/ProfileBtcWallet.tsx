@@ -2,15 +2,15 @@
 
 import { CurrencyAmount } from '@gobob/currency';
 import { BTC } from '@gobob/icons';
-import { useBalance, useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { truncateBtcAddress } from '@gobob/utils';
 import { Trans } from '@lingui/macro';
 import { useAccount } from 'wagmi';
+import { WalletIcon } from '@dynamic-labs/wallet-book';
 
 import { ProfileWallet } from './ProfileWallet';
 
-import { WalletIcon } from '@/connect-ui';
+import { useBtcAccount, useBtcBalance } from '@/hooks';
 
 type ProfileBtcWalletProps = {
   onPressConnect: () => void;
@@ -18,9 +18,9 @@ type ProfileBtcWalletProps = {
 };
 
 const ProfileBtcWallet = ({ onPressConnect, onUnlink }: ProfileBtcWalletProps): JSX.Element | null => {
-  const { data: btcBalance } = useBalance();
+  const { data: btcBalance } = useBtcBalance();
   const { address } = useAccount();
-  const { address: btcAddress, connector: btcConnector } = useSatsAccount();
+  const { address: btcAddress, connector: btcConnector } = useBtcAccount();
 
   return (
     <ProfileWallet
@@ -30,8 +30,10 @@ const ProfileBtcWallet = ({ onPressConnect, onUnlink }: ProfileBtcWalletProps): 
       connectLabel={<Trans>Connect BTC Wallet</Trans>}
       isRemovable={!!address}
       truncatedAddress={truncateBtcAddress(btcAddress || '')}
-      walletAvatar={btcConnector && <WalletIcon name={btcConnector.name} style={{ height: '1rem', width: '1rem' }} />}
-      walletId={btcConnector?.id}
+      walletAvatar={
+        btcConnector && <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={btcConnector.key} />
+      }
+      walletId={btcConnector?.key}
       onPressConnect={onPressConnect}
       onUnlink={onUnlink}
     />

@@ -1,29 +1,28 @@
 'use client';
 
-import { ChainId } from '@gobob/chains';
-import { Button, Divider, Flex, P, toast } from '@gobob/ui';
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { Button, Divider, Flex, P } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useMutation } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { FormEventHandler, Suspense, useEffect, useState } from 'react';
-import { useAccount, useSwitchChain } from 'wagmi';
+import { useAccount, useAccountEffect } from 'wagmi';
 
 import { Auditors, HighlightText, ReferralInput } from './components';
 import { StyledAuthCard, StyledH1 } from './SignUp.style';
 
+import { chakraPetch } from '@/app/fonts';
 import { Geoblock, LoginSection, Main } from '@/components';
-import { useConnectModal } from '@/connect-ui';
-import { L1_CHAIN, L2_CHAIN, RoutesPath, isValidChain } from '@/constants';
+import { RoutesPath } from '@/constants';
 import { useGetUser, useSignUp } from '@/hooks';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
-import { chakraPetch } from '@/app/fonts';
 
 const SignUp = (): JSX.Element | null => {
-  const { address, chain } = useAccount();
-  const { switchChainAsync } = useSwitchChain();
-  const { open } = useConnectModal();
+  const { address } = useAccount();
+
+  const { setShowAuthFlow, setSelectedTabIndex } = useDynamicContext();
   const { i18n } = useLingui();
 
   const router = useRouter();
@@ -31,6 +30,8 @@ const SignUp = (): JSX.Element | null => {
   const { data: user } = useGetUser();
 
   const [referralCode, setReferralCode] = useState('');
+
+  const [isConnecting, setConnecting] = useState(false);
 
   const { mutate: signUp, isPending: isLoadingSignUp } = useSignUp();
 
@@ -55,6 +56,16 @@ const SignUp = (): JSX.Element | null => {
     setReferralCode(code);
   };
 
+  useAccountEffect({
+    onConnect: () => {
+      if (isConnecting && address) {
+        signUp({ address });
+
+        setConnecting(false);
+      }
+    }
+  });
+
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
 
@@ -63,24 +74,12 @@ const SignUp = (): JSX.Element | null => {
     }
 
     if (!address) {
-      return open({
-        onConnectEvm: async ({ address, connector }) => {
-          if (!address) return;
-          if (!isValidChain((await connector?.getChainId()) as ChainId)) {
-            const chain = await connector?.switchChain?.({ chainId: L2_CHAIN });
+      setSelectedTabIndex(1);
+      setShowAuthFlow(true);
 
-            if (!chain) {
-              return toast.error(<Trans>Something went wrong. Please try connecting your wallet again.</Trans>);
-            }
-          }
+      setConnecting(true);
 
-          return signUp({ address });
-        }
-      });
-    }
-
-    if (!chain || (chain && !isValidChain(chain?.id))) {
-      await switchChainAsync({ chainId: L1_CHAIN });
+      return;
     }
 
     return signUp({ address, referralCode });

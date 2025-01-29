@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 import { isAddressEqual } from 'viem';
 import { useAccount, usePublicClient, useWriteContract } from 'wagmi';
 
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
 import { contracts, ContractType, L1_CHAIN } from '@/constants';
 import { useLockedTokens } from '@/hooks';
 
