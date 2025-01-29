@@ -387,27 +387,6 @@ interface TotalHarvesters {
   count: number;
 }
 
-export interface QuestS3Response {
-  questBreakdown: QuestBreakdown[];
-}
-
-interface QuestBreakdown {
-  quest_id: string;
-  total_received_xp: string;
-  available_xp: string;
-  total_received_spice: string;
-  available_spice: string;
-  quest_name: string;
-  quest_completed: boolean;
-  url: string;
-  description: string;
-  is_active: boolean;
-  is_featured: boolean;
-  start_date: string;
-  end_date: string;
-  questing_platform_referral_code: string;
-}
-
 export interface LotteryStats {
   rollsRemaining: number;
   votesRemaining: number;
@@ -622,12 +601,6 @@ class ApiClient {
     const response = await fetch(`${this.baseUrl}/leaderboards-s3?limit=${limit}&offset=${offset}`);
 
     return this.handleResponse<LeaderboardS3Response>(response);
-  }
-
-  async getQuestsS3(): Promise<QuestS3Response> {
-    const response = await fetch(`${this.baseUrl}/get-quests-s3`);
-
-    return this.handleResponse<QuestS3Response>(response);
   }
 
   async getTotalHarvesters(): Promise<TotalHarvesters> {
