@@ -40,7 +40,7 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }): JSX.Element | null => {
             <DrawerTitle hidden>
               <Trans>Navigation</Trans>
             </DrawerTitle>
-            <Flex direction='column' elementType='nav' style={{ height: '100%' }}>
+            <Flex direction='column' elementType='nav' style={{ height: 'calc(100% - 2rem)' }}>
               <Flex direction='column' flex={1} gap='4xl'>
                 <Logo href={RoutesPath.HOME} onPress={handleClose} />
                 <Flex direction='column' flex={1} gap='lg' justifyContent='space-between'>
