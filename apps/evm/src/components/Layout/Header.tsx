@@ -88,11 +88,14 @@ const Header = (): JSX.Element => {
                   <NavItem isExternal href={ExternalLinks.SAFE} size='s'>
                     <Trans>Multisig</Trans>
                   </NavItem>
+                  <NavItem isExternal href={ExternalLinks.DOCS} size='s'>
+                    <Trans>Docs</Trans>
+                  </NavItem>
                 </Nav>
-                <SocialsGroup hidden={isMobile} variant='ghost' />
               </PopoverBody>
             </PopoverContent>
           </Popover>
+          <SocialsGroup hidden={isMobile} variant='ghost' />
         </Flex>
       </Flex>
       <Flex alignItems='center' gap='xl'>
