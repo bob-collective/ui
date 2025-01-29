@@ -10,6 +10,7 @@ import { Key, useCallback, useMemo, useState } from 'react';
 import { useAccount, useChainId } from 'wagmi';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import posthog from 'posthog-js';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -25,6 +26,7 @@ import { TokenData, useGetBridgeTransactions, useGetGatewayTransactions } from '
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
+import { PosthogEvents } from '@/lib/posthog';
 
 type TransactionModalState = {
   isOpen: boolean;
@@ -119,29 +121,50 @@ const BridgeForm = ({
 
   const handleStartBridge = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
+
+    posthog.capture(PosthogEvents.EVM_BRIDGE_INITIATED);
   };
 
-  const handleBridgeSuccess = (data: BridgeTransaction) => {
+  const handleSuccessfulBridge = (data: BridgeTransaction) => {
     addBridgePlaceholderTransaction(data);
 
     refetchBridgeTransactions();
 
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
+
+    sendGAEvent('event', 'evm_bridge', {
+      l1Token: data.l1Token,
+      amount: data.amount?.toExact(),
+      tx_id: JSON.stringify(data.transactionHash),
+      evm_wallet: connector?.name
+    });
+
+    posthog.capture(PosthogEvents.EVM_BRIDGE_COMPLETED);
   };
 
-  const handleStartApproval = (data: InitBridgeTransaction) => {
+  const handleStartBridgeApproval = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'approval' });
+
+    posthog.capture(PosthogEvents.EVM_BRIDGE_APPROVAL);
   };
 
   const handleCloseBridgeModal = () => {
     setBridgeModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleStartGateway = (data: InitGatewayTransaction) => {
-    setGatewayModalState({ isOpen: true, data });
+  const handleFailedBridge = () => {
+    handleCloseBridgeModal();
+
+    posthog.capture(PosthogEvents.EVM_BRIDGE_FAILED);
   };
 
-  const handleGatewaySuccess = (data: InitGatewayTransaction) => {
+  const handleStartGateway = (data: InitGatewayTransaction) => {
+    setGatewayModalState({ isOpen: true, data });
+
+    posthog.capture(PosthogEvents.BTC_BRIDGE_INITIATED);
+  };
+
+  const handleSuccessfulGateway = (data: InitGatewayTransaction) => {
     refetchGatewayTransactions();
 
     setGatewayModalState({ isOpen: true, data });
@@ -155,10 +178,18 @@ const BridgeForm = ({
       btc_wallet: satsConnector?.name,
       evm_wallet: connector?.name
     });
+
+    posthog.capture(PosthogEvents.BTC_BRIDGE_COMPLETED);
   };
 
   const handleCloseGatewayModal = () => {
     setGatewayModalState((s) => ({ ...s, isOpen: false }));
+  };
+
+  const handleFailedGateway = () => {
+    handleCloseGatewayModal();
+
+    posthog.capture(PosthogEvents.BTC_BRIDGE_FAILED);
   };
 
   const handleChangeChain = useCallback(
@@ -244,18 +275,18 @@ const BridgeForm = ({
               availableTokens={btcTokens}
               symbol={symbol}
               onChangeSymbol={onChangeSymbol}
-              onError={handleCloseGatewayModal}
+              onError={handleFailedGateway}
               onStart={handleStartGateway}
-              onSuccess={handleGatewaySuccess}
+              onSuccess={handleSuccessfulGateway}
             />
           ) : (
             <BobBridgeForm
               direction={direction}
               symbol={symbol}
-              onBridgeSuccess={handleBridgeSuccess}
+              onBridgeSuccess={handleSuccessfulBridge}
               onChangeSymbol={onChangeSymbol}
-              onFailBridge={handleCloseBridgeModal}
-              onStartApproval={handleStartApproval}
+              onFailBridge={handleFailedBridge}
+              onStartApproval={handleStartBridgeApproval}
               onStartBridge={handleStartBridge}
             />
           )

@@ -1,14 +1,16 @@
 import { toast } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { sendGAEvent } from '@next/third-parties/google';
 import { useMutation } from '@tanstack/react-query';
+import posthog from 'posthog-js';
 import { SiweMessage } from 'siwe';
 import { Address } from 'viem';
 import { useAccount, useSignMessage } from 'wagmi';
-import { sendGAEvent } from '@next/third-parties/google';
 
 import { useGetUser } from './useGetUser';
 
+import { PosthogEvents } from '@/lib/posthog';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
 
@@ -55,6 +57,9 @@ const useSignUp = ({ onSuccess }: UseSignUpProps = {}) => {
     onSuccess: (_, { address, referralCode }) => {
       sendGAEvent('event', 'signup', { evm_address: JSON.stringify(address), referral_code: referralCode });
       onSuccess?.();
+      posthog.capture(PosthogEvents.FUSION_SIGN_UP, {
+        $set_once: { isFusionUser: true }
+      });
       setTimeout(() => refetchUser(), 100);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

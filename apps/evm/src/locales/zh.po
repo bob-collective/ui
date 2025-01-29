@@ -103,7 +103,7 @@ msgstr "<0>一键质押你的BTC</0> 并在BOB上接收BTC LSTs。"
 msgid "2 hours"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:229
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:260
 msgid "3rd Party"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Already harvesting?"
 msgstr "已经在收获？"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:482
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:229
 msgid "Amount"
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:466
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:458
 msgid "Approve"
 msgstr "通过"
 
@@ -321,7 +321,7 @@ msgstr "以下是你从各个应用中收获的Spice。继续参与以增加你�
 msgid "BOB"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:226
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:257
 msgid "BOB Bridge"
 msgstr ""
 
@@ -400,7 +400,7 @@ msgstr ""
 msgid "Bridge"
 msgstr "桥"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:467
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:459
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
 msgid "Bridge Asset"
 msgstr ""
@@ -414,11 +414,11 @@ msgstr "跨链资产"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "将BTC LSTs跨链到BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:462
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:454
 msgid "Bridge Disabled"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:219
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:250
 msgid "bridge network"
 msgstr ""
 
@@ -495,7 +495,7 @@ msgstr ""
 #~ msgid "Category"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:464
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:456
 msgid "Checking Allowance"
 msgstr ""
 
@@ -1588,7 +1588,7 @@ msgstr "接收"
 msgid "Receive crypto"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:492
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:130
 msgid "Recipient"
@@ -1691,11 +1691,11 @@ msgstr ""
 msgid "Select Network"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:189
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:220
 msgid "select network to bridge from"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:199
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:230
 msgid "select network to bridge to"
 msgstr ""
 
@@ -2361,7 +2361,7 @@ msgstr "在应用中使用你跨链的资产以最大化你的Spice收获。<0/>
 msgid "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将每周公布。"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:128
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:127
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:63
@@ -2380,7 +2380,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:234
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:265
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr ""
 

@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Metadata } from 'next';
-import { Chakra_Petch, Inter } from 'next/font/google';
 import { headers } from 'next/headers';
 import Script from 'next/script';
 import { userAgentFromString } from 'next/server';
@@ -20,9 +19,6 @@ import { LinguiClientProvider } from '@/i18n/provider';
 import { PageLangParam, withLinguiLayout } from '@/i18n/withLigui';
 import { getConfig } from '@/lib/wagmi';
 import { UserAgentProvider } from '@/user-agent/provider';
-
-const chakraPetch = Chakra_Petch({ subsets: ['latin'], display: 'swap', weight: '700' });
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }));
