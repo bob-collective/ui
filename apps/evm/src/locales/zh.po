@@ -50,7 +50,7 @@ msgstr "距离投票轮结束还有{0}"
 #~ msgid "{0}Share this link with a friend and when they sign up, you will receive {1} of their Spice harvest as a bonus, plus {2} of the Spice harvest of anyone they refer"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:57
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:51
 msgid "{timeToNextDraw} until next draw"
 msgstr "{timeToNextDraw} 直到下一次抽獎"
 
@@ -66,25 +66,17 @@ msgstr ""
 #~ msgid "< 1 minute"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:63
-msgid "<0>{0} {1, plural, one {Envelope} other {Envelopes}} </0>Remaining"
-msgstr "<0>{1, plural, one {紅包} other {紅包}} {0}</0>剩餘"
-
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:63
-#~ msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
-#~ msgstr ""
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:57
+msgid "<0>{0} {1, plural, one {Ticket} other {Tickets}} </0>Remaining"
+msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:87
 #~ msgid "<0>{rollsRemaining}/{MAX_TICKETS}</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:125
-msgid "<0>{rollsRemaining}/3</0> {0, plural, one {Envelope} other {Envelopes}} Remaining"
-msgstr "{0, plural, one {紅包} other {紅包}} <0>{rollsRemaining}/3</0>剩餘"
-
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:118
-#~ msgid "<0>{rollsRemaining}/3</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
-#~ msgstr ""
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:117
+msgid "<0>{rollsRemaining}/3</0> {0, plural, one {Ticket} other {Tickets}} Remaining"
+msgstr ""
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:54
 #~ msgid "<0>Enhanced Referral Bonuses: </0>Earn even more from your network by sharing your unique referral link."
@@ -525,8 +517,8 @@ msgstr "选择任何现有的流动性质押提供商来铸造你的BTC LST。"
 #~ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:73
-msgid "Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.<0/>Participate in Fusion voting to receive 3 envelopes daily until January 29th.<1/>Win 888, 168 or 88 Spice with every envelope. Then share your winnings on X and follow the campaign rules for a chance to win an extra 100,000 Spice."
-msgstr "BOB蛇年大礼包等你来领!一键获得 Spice积分奖励, 与BOB一起喜迎蛇年🐍<0/>參加Fushion投票，每天可獲得3個紅包，活動舉行至1月29日。<1/>每個紅包可分別獲得888、168或88香料。只要你在推特上分享你的獲獎喜訊，便有機會贏取額外的100,000香料。"
+#~ msgid "Claim your red envelope to win Spice and celebrate the Lunar New Year with BOB.<0/>Participate in Fusion voting to receive 3 envelopes daily until January 29th.<1/>Win 888, 168 or 88 Spice with every envelope. Then share your winnings on X and follow the campaign rules for a chance to win an extra 100,000 Spice."
+#~ msgstr "BOB蛇年大礼包等你来领!一键获得 Spice积分奖励, 与BOB一起喜迎蛇年🐍<0/>參加Fushion投票，每天可獲得3個紅包，活動舉行至1月29日。<1/>每個紅包可分別獲得888、168或88香料。只要你在推特上分享你的獲獎喜訊，便有機會贏取額外的100,000香料。"
 
 #: src/components/ProfileActivity/ProfileActivityFilters.tsx:179
 msgid "Clear"
@@ -542,8 +534,8 @@ msgstr "点击 <0/> 你喜爱应用旁边的图标"
 
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:108
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:93
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:93
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:203
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:85
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:194
 msgid "Close"
 msgstr ""
 
@@ -590,7 +582,6 @@ msgstr ""
 #~ msgid "Complete a variety of on- and off-chain quests using Intract and the BOB Stake Portal to harvest an additional 62,500 Spice."
 #~ msgstr "完成各种链上和链下任务，使用Intract和BOB Stake来额外收获62,500 Spice。"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:118
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:73
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr ""
@@ -599,7 +590,7 @@ msgstr ""
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:118
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:110
 msgid "Congratulations you won!<0/>Take a screenshot to share with your friends!"
 msgstr ""
 
@@ -775,17 +766,13 @@ msgstr "想要退出？你可以将资金从合约中提取到以太坊钱包。
 msgid "Don't show this message again"
 msgstr "不再显示此消息"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:138
-msgid "Each envelope is your chance to win big! Vote for your favourite app to receive 3 new envelopes daily and boost your chances."
-msgstr ""
-
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:100
 #~ msgid "Each ticket is your chance to win big! Vote for your favourite app to receive {MAX_TICKETS} new tickets daily and boost your chances."
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:131
-#~ msgid "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
-#~ msgstr ""
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:130
+msgid "Each ticket is your chance to win big! Vote for your favourite app to receive 3 new tickets daily and boost your chances."
+msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:26
 msgid "Earned Spice"
@@ -879,13 +866,9 @@ msgstr "特色资产"
 msgid "Fee"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:73
-#~ msgid "Feeling lucky? Claim your Red envelope to get Spice and celebrate the Lunar New Year with BOB<0/>Participate in Fusion voting to receive 3 lottery tickets each day."
-#~ msgstr ""
-
 #: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:67
-#~ msgid "Feeling lucky? Try your luck with the daily lottery!<0/>Participate in Fusion voting to receive 3 lottery tickets each day."
-#~ msgstr ""
+msgid "Feeling lucky? Try your luck with the daily lottery!<0/>Participate in Fusion voting to receive 3 lottery tickets each day."
+msgstr ""
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:104
 #~ msgid "Fetching {0} operations..."
@@ -971,16 +954,16 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:198
-msgid "Get envelopes"
-msgstr ""
+#~ msgid "Get envelopes"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/GatewayGasSwitch/GatewayGasSwitch.tsx:30
 msgid "Get ETH for transaction fees on BOB"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:190
-#~ msgid "Get tickets"
-#~ msgstr ""
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:189
+msgid "Get tickets"
+msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:200
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:214
@@ -1007,7 +990,7 @@ msgstr ""
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "抓住最后收获Spice的机会！加入第3季！"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:86
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:78
 msgid "Harvest {0} more Spice to play"
 msgstr ""
 
@@ -1226,7 +1209,7 @@ msgstr "登录"
 msgid "Log in to View Dashboard"
 msgstr "登录查看仪表板"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:88
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:79
 msgid "Login to play"
 msgstr "登錄以參加遊戲"
 
@@ -1234,9 +1217,10 @@ msgstr "登錄以參加遊戲"
 msgid "Login with wallet"
 msgstr "使用钱包登录"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:61
-#~ msgid "Lottery"
-#~ msgstr ""
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:38
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:55
+msgid "Lottery"
+msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:33
 #~ msgid "Lottery ticket"
@@ -1249,25 +1233,13 @@ msgstr "使用钱包登录"
 msgid "LST provider points"
 msgstr "LST 项目方积分"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:44
-msgid "Lunar lottery"
-msgstr ""
-
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:61
-msgid "Lunar New Year Lottery"
-msgstr "農曆新年彩票"
-
 #: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:104
 #~ msgid "Manage"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:153
-msgid "Maximize your chances by using all your envelopes before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery envelopes daily."
-msgstr "在倒計時重置之前，使用所有紅包以增加你的獲勝機會。別忘了每週參加 Fushion投票，就可以天天領3個彩票紅包。"
-
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:146
-#~ msgid "Maximize your chances by using all your tickets before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery tickets daily."
-#~ msgstr ""
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:145
+msgid "Maximize your chances by using all your tickets before the countdown resets. Don't forget to participate in Weekly Fusion Voting to claim your 3 Lottery tickets daily."
+msgstr ""
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:148
 msgid "Maximum points will be received by providing BTC LST liquidity."
@@ -1394,8 +1366,8 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:77
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:166
-msgid "New envelopes drop in {timeToNextDraw}"
-msgstr "新紅包即將發放{timeToNextDraw}"
+#~ msgid "New envelopes drop in {timeToNextDraw}"
+#~ msgstr "新紅包即將發放{timeToNextDraw}"
 
 #: src/app/[lang]/fusion/components/Quest/Quest.tsx:72
 #~ msgid "New Quests Coming Soon"
@@ -1406,10 +1378,10 @@ msgstr "新紅包即將發放{timeToNextDraw}"
 #~ msgid "new tickets drop in {0}"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:71
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:164
-#~ msgid "new tickets drop in {timeToNextDraw}"
-#~ msgstr ""
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:70
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:163
+msgid "new tickets drop in {timeToNextDraw}"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:132
 #~ msgid "No {0} operations found"
@@ -1463,7 +1435,7 @@ msgstr ""
 #~ msgid "Not found"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:116
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
 msgid "Not your lucky day... yet!"
 msgstr ""
 
@@ -1521,8 +1493,8 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:219
-#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:88
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:208
+#: src/app/[lang]/fusion/components/LotterySections/LotterySections.tsx:79
 msgid "Play"
 msgstr "開始遊戲"
 
@@ -1765,7 +1737,7 @@ msgstr ""
 #~ msgid "Send {ticker}"
 #~ msgstr "发送 {ticker}"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:214
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:203
 msgid "Share on X"
 msgstr ""
 
@@ -1798,7 +1770,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:130
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:67
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/hooks/useLogin.ts:50
 #: src/hooks/useSignUp.ts:53
 msgid "Something went wrong. Please try again later."
@@ -1951,7 +1923,6 @@ msgstr ""
 msgid "Staked Amount"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StakeTable/StakeTable.tsx:123
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:90
 #~ msgid "staking"
 #~ msgstr ""
@@ -2592,13 +2563,9 @@ msgstr "你可以在每周投票期结束前随时更改你的投票"
 msgid "You can receive tokens on our supported networks"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:111
-msgid "You Have 0 Envelopes"
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:103
+msgid "You Have 0 Tickets"
 msgstr ""
-
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:104
-#~ msgid "You Have 0 Tickets"
-#~ msgstr ""
 
 #: src/app/[lang]/nested-providers.tsx:67
 msgid "You have switched your account mid session. Simply switch back the original account and login to have access to your funds again."
@@ -2608,12 +2575,8 @@ msgstr ""
 #~ msgid "You maximise Babylon points by maximising your Spice harvest. Babylon points are distributed for 45 days starting on [x date] calculated on a daily basis as:"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:74
-#~ msgid "You need at least {0} Spice to participate in Lottery."
-#~ msgstr ""
-
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:80
-msgid "You need at least {0} Spice to participate in Lunar New Year Lottery."
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:73
+msgid "You need at least {0} Spice to participate in Lottery."
 msgstr ""
 
 #: src/components/WithdrawAlert/WithdrawAlert.tsx:30
@@ -2642,21 +2605,13 @@ msgstr ""
 #~ msgid "You will supply"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:115
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:107
 msgid "You're Ready to Play!"
 msgstr "你已準備好參與！"
 
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:139
-#~ msgid "You've used all your envelopes for today, new envelope will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily envelopes."
-#~ msgstr ""
-
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:146
-msgid "You've used all your envelopes for today, new envelopes will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily envelopes."
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:138
+msgid "You've used all your tickets for today, new tickets will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily tickets."
 msgstr ""
-
-#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:139
-#~ msgid "You've used all your tickets for today, new tickets will be available once the timer resets! Remember to participate in Weekly Fusion Voting to be eligible for daily tickets."
-#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:108
 #~ msgid "You've used all your tickets for today. New tickets will be available once the timer resets. Be sure to come back and vote daily to increase your chances of earning more Spice!"
