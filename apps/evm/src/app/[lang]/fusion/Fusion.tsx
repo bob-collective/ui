@@ -4,7 +4,6 @@ import { Card, Flex, H1, Link, P } from '@gobob/ui';
 import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import babylon from '@public/assets/babylon.png';
 import { useEffect, useId, useState } from 'react';
 import { useAccount } from 'wagmi';
 import superchainEco from '@public/assets/partners/superchain-eco.png';
@@ -94,12 +93,6 @@ const Fusion = () => {
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
-  const onPressBabylonBanner = () =>
-    window.open(
-      'https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2',
-      '_blank',
-      'noreferrer'
-    );
   const onPressOPBanner = () =>
     window.open('https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin', '_blank', 'noreferrer');
 
@@ -148,7 +141,7 @@ const Fusion = () => {
               </P>
             </Flex>
             <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
-            {isOpSuperuser ? (
+            {isOpSuperuser && (
               <Flex direction='column' marginTop='lg'>
                 <Card
                   isPressable
@@ -177,39 +170,6 @@ const Fusion = () => {
                     height='134'
                     placeholder='blur'
                     src={superchainEco}
-                    width='312'
-                  />
-                </Card>
-              </Flex>
-            ) : (
-              <Flex direction='column' marginTop='lg'>
-                <Card
-                  isPressable
-                  direction='column'
-                  justifyContent='center'
-                  paddingX='xl'
-                  paddingY='6xl'
-                  style={{ position: 'relative', maxHeight: '8.5rem' }}
-                  onPress={onPressBabylonBanner}
-                >
-                  <StyledBannerContent>
-                    <Flex direction='column'>
-                      <StyledBannerTitle size='2xl' weight='bold'>
-                        <Trans>Collect Babylon Points on BOB</Trans>
-                      </StyledBannerTitle>
-                      <P color='grey-50'>
-                        <Trans>
-                          To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using
-                          Babylon LSTs in DeFi. Read more &gt;
-                        </Trans>
-                      </P>
-                    </Flex>
-                  </StyledBannerContent>
-                  <StyledBannerImg
-                    alt={t(i18n)`Babylon campaign`}
-                    height='134'
-                    placeholder='blur'
-                    src={babylon}
                     width='312'
                   />
                 </Card>
