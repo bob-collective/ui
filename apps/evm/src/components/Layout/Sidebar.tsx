@@ -69,6 +69,9 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }): JSX.Element | null => {
                     <NavItem isExternal href={ExternalLinks.HOMEPAGE} onPress={handleClose}>
                       <Trans>About</Trans>
                     </NavItem>
+                    <NavItem isExternal href={ExternalLinks.DOCS} onPress={handleClose}>
+                      <Trans>Docs</Trans>
+                    </NavItem>
                   </Nav>
                   <SocialsGroup />
                 </Flex>

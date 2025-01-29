@@ -760,7 +760,8 @@ msgstr "探索全部应用"
 #~ msgid "Discover BOB, the first hybrid Layer 2 in the Superchain!"
 #~ msgstr ""
 
-#: src/components/SocialsGroup/SocialsGroup.tsx:31
+#: src/components/Layout/Header.tsx:92
+#: src/components/Layout/Sidebar.tsx:73
 msgid "Docs"
 msgstr ""
 
@@ -1338,7 +1339,7 @@ msgstr ""
 msgid "navigate to Common Prefix audit"
 msgstr ""
 
-#: src/components/SocialsGroup/SocialsGroup.tsx:41
+#: src/components/SocialsGroup/SocialsGroup.tsx:32
 msgid "navigate to discord"
 msgstr "<<<<<<< HEAD"
 
@@ -1358,7 +1359,7 @@ msgstr ""
 msgid "navigate to Trails of Bits audit"
 msgstr ""
 
-#: src/components/SocialsGroup/SocialsGroup.tsx:36
+#: src/components/SocialsGroup/SocialsGroup.tsx:27
 msgid "navigate to X social"
 msgstr ""
 

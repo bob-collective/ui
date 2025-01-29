@@ -646,7 +646,8 @@ msgstr "Discover All Apps"
 #~ msgid "Discover BOB, the first hybrid Layer 2 in the Superchain!"
 #~ msgstr "Discover BOB, the first hybrid Layer 2 in the Superchain!"
 
-#: src/components/SocialsGroup/SocialsGroup.tsx:31
+#: src/components/Layout/Header.tsx:92
+#: src/components/Layout/Sidebar.tsx:73
 msgid "Docs"
 msgstr "Docs"
 
@@ -1127,7 +1128,7 @@ msgstr "navigate to {owner} quest: {title}"
 msgid "navigate to Common Prefix audit"
 msgstr "navigate to Common Prefix audit"
 
-#: src/components/SocialsGroup/SocialsGroup.tsx:41
+#: src/components/SocialsGroup/SocialsGroup.tsx:32
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
@@ -1147,7 +1148,7 @@ msgstr "navigate to OtterSec audit"
 msgid "navigate to Trails of Bits audit"
 msgstr "navigate to Trails of Bits audit"
 
-#: src/components/SocialsGroup/SocialsGroup.tsx:36
+#: src/components/SocialsGroup/SocialsGroup.tsx:27
 msgid "navigate to X social"
 msgstr "navigate to X social"
 
