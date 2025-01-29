@@ -1,22 +1,21 @@
 import { CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { BTC } from '@gobob/icons';
-import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { Flex } from '@gobob/ui';
 import { useRouter } from 'next/navigation';
 import { Chain } from 'viem';
 import { useAccount } from 'wagmi';
+import { WalletIcon } from '@dynamic-labs/wallet-book';
 
 import { ChainAsset } from '../ChainAsset';
 
+import { ProfileBlockscoutTokenList } from './ProfileBlockscoutTokenList';
 import { ProfileTokenList } from './ProfileTokenList';
 import { ProfileTokenListItem, ProfileTokensListItemSkeleton } from './ProfileTokenListItem';
-import { ProfileBlockscoutTokenList } from './ProfileBlockscoutTokenList';
 
-import { WalletIcon } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN, RoutesPath } from '@/constants';
-import { useBalances, useTokens } from '@/hooks';
+import { useBalances, useBtcAccount, useBtcBalance, useTokens } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
 
 type ProfileTokensProps = {
@@ -36,8 +35,8 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
   const { isPending: isL1BalancesPending } = useBalances(L1_CHAIN);
   const { isPending: isL2BalancesPending } = useBalances(L2_CHAIN);
 
-  const { address: btcAddress, connector: btcConnector } = useSatsAccount();
-  const { data: btcBalance, isPending: isSatsBalancePending } = useSatsBalance();
+  const { address: btcAddress, connector: btcConnector } = useBtcAccount();
+  const { data: btcBalance, isPending: isSatsBalancePending } = useBtcBalance();
 
   const { getPrice } = usePrices();
 
@@ -68,7 +67,7 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
               <ChainAsset
                 asset={<BTC size='2xl' />}
                 chainLogo={
-                  btcConnector && <WalletIcon name={btcConnector.name} style={{ height: '1rem', width: '1rem' }} />
+                  btcConnector && <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={btcConnector.key} />
                 }
               />
             }

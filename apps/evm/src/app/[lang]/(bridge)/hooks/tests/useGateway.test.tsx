@@ -1,10 +1,10 @@
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { describe, expect, it, Mock, vi } from 'vitest';
 import { useAccount } from 'wagmi';
 
 import { useGateway } from '../useGateway';
 
+import { useBtcAccount } from '@/hooks/btc';
 import { wrapper } from '@/test-utils';
 import { GatewayTransactionType } from '@/types';
 
@@ -17,12 +17,12 @@ vi.mock(import('wagmi'), async (importOriginal) => {
   };
 });
 
-vi.mock(import('@gobob/sats-wagmi'), async (importOriginal) => {
+vi.mock(import('@/hooks/btc'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {
     ...actual,
-    useAccount: vi.fn()
+    useBtcAccount: vi.fn()
   };
 });
 
@@ -31,7 +31,7 @@ describe('useGateway', () => {
     vi.clearAllMocks();
 
     (useAccount as Mock).mockReturnValue({ address: '0x123456789abcdef' });
-    (useSatsAccount as Mock).mockReturnValue({ connector: vi.fn() });
+    (useBtcAccount as Mock).mockReturnValue({ connector: vi.fn() });
   });
 
   it('should initialize correctly with default settings', () => {

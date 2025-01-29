@@ -1,17 +1,14 @@
 import { Button, Card, Flex, Skeleton, SolidClock, Span, Spinner } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useAccount } from 'wagmi';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
+import { useBtcAccount, useGetBridgeTransactions } from '@/hooks';
 import { SharedStoreProfileTxStatus, SharedStoreProfileTxType, ShareStoreProfileTabs, store } from '@/lib/store';
-import { useGetBridgeTransactions } from '@/hooks';
-import { useConnectModal } from '@/connect-ui';
 
 const ActivityButton = (): JSX.Element => {
   const { address: evmAddress } = useAccount();
-  const { address: btcAddress } = useSatsAccount();
+  const { address: btcAddress } = useBtcAccount();
   const { txPendingUserAction, isPending: isBridgeTxPending } = useGetBridgeTransactions();
-  const { open } = useConnectModal();
 
   const handleOpenProfile = () => {
     store.setState((state) => ({
@@ -38,7 +35,9 @@ const ActivityButton = (): JSX.Element => {
 
   const handleActivity = () => {
     if (!isLoggedIn) {
-      return open({ onConnectBtc: handleOpenProfile, onConnectEvm: handleOpenProfile });
+      // FIXME:
+      return;
+      // return open({ onConnectBtc: handleOpenProfile, onConnectEvm: handleOpenProfile });
     }
 
     handleOpenProfile();

@@ -1,13 +1,17 @@
 'use client';
 
-import { SatsWagmiConfig } from '@gobob/sats-wagmi';
+import { BitcoinWalletConnectors } from '@dynamic-labs/bitcoin';
+import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
+import { BitcoinIcon, EthereumIcon } from '@dynamic-labs/iconic';
+import { DynamicContextProvider, FilterChain } from '@dynamic-labs/sdk-react-core';
+import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PropsWithChildren, useState } from 'react';
 import { State, WagmiProvider } from 'wagmi';
 
 import { NestedProviders } from './nested-providers';
 
-import { bitcoinNetwork, INTERVAL, isProd } from '@/constants';
+import { ExternalLinks, INTERVAL, isProd } from '@/constants';
 import { getConfig } from '@/lib/wagmi';
 import { FetchError } from '@/types/fetch';
 
@@ -38,15 +42,52 @@ export function Providers({ initialState, children }: PropsWithChildren<{ initia
         }
       })
   );
-  const [config] = useState(() => getConfig({ isProd }));
+  const [config] = useState(() => getConfig({ isProd, multiInjectedProviderDiscovery: false }));
 
   return (
-    <WagmiProvider config={config} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>
-        <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}>
-          <NestedProviders>{children}</NestedProviders>
-        </SatsWagmiConfig>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <DynamicContextProvider
+      settings={{
+        termsOfServiceUrl: ExternalLinks.TERMS_OF_SERVICE,
+        environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID as string,
+        walletConnectors: [BitcoinWalletConnectors, EthereumWalletConnectors],
+        overrides: {
+          multiWallet: true,
+          views: [
+            {
+              type: 'wallet-list',
+              tabs: {
+                items: [
+                  {
+                    label: { text: 'All chains' }
+                  },
+                  {
+                    label: { icon: <EthereumIcon /> },
+                    walletsFilter: FilterChain('EVM'),
+                    recommendedWallets: [
+                      {
+                        walletKey: 'okxwallet'
+                      }
+                    ]
+                  },
+                  {
+                    label: { icon: <BitcoinIcon /> },
+                    walletsFilter: FilterChain('BTC')
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }}
+      theme='dark'
+    >
+      <WagmiProvider config={config} initialState={initialState}>
+        <QueryClientProvider client={queryClient}>
+          <DynamicWagmiConnector>
+            <NestedProviders>{children}</NestedProviders>
+          </DynamicWagmiConnector>
+        </QueryClientProvider>
+      </WagmiProvider>
+    </DynamicContextProvider>
   );
 }

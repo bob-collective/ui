@@ -1,6 +1,6 @@
+import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { ChainId } from '@gobob/chains';
 import { BTC, ETH } from '@gobob/icons';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import {
   ArrowLeft,
   Button,
@@ -26,8 +26,8 @@ import { ChainAsset } from '../ChainAsset/ChainAsset';
 import { CopyAddress } from '../CopyAddress';
 import { CopyButton } from '../CopyButton';
 
-import { WalletIcon } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { useBtcAccount, useDynamicWallets } from '@/hooks';
 import { store } from '@/lib/store';
 
 enum ReceiveSteps {
@@ -40,8 +40,10 @@ const ReceiveModal = (): JSX.Element => {
   const isReceiveModalOpen = useStore(store, (state) => state.shared.isReceiveModalOpen);
 
   const [step, setStep] = useState(ReceiveSteps.Main);
-  const { address: evmAddress, connector: evmConnector } = useAccount();
-  const { address: btcAddress, connector: btcConnector } = useSatsAccount();
+  const { address: evmAddress } = useAccount();
+  const { evmWallet } = useDynamicWallets();
+
+  const { address: btcAddress, connector: btcConnector } = useBtcAccount();
 
   const address = (step === ReceiveSteps.EVM ? evmAddress : btcAddress) || '';
 
@@ -101,8 +103,8 @@ const ReceiveModal = (): JSX.Element => {
                       asset={<ETH size='xl' />}
                       chainId={ChainId.ETHEREUM}
                       chainLogo={
-                        evmConnector && (
-                          <WalletIcon name={evmConnector.name} style={{ height: '1rem', width: '1rem' }} />
+                        evmWallet && (
+                          <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={evmWallet.connector.key} />
                         )
                       }
                     />
@@ -140,7 +142,7 @@ const ReceiveModal = (): JSX.Element => {
                       chainId={ChainId.ETHEREUM}
                       chainLogo={
                         btcConnector && (
-                          <WalletIcon name={btcConnector.name} style={{ height: '1rem', width: '1rem' }} />
+                          <WalletIcon style={{ height: '1rem', width: '1rem' }} walletKey={btcConnector.key} />
                         )
                       }
                     />

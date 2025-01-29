@@ -4,10 +4,10 @@ import styled, { css } from 'styled-components';
 const StyledH1 = styled(H1)`
   ${({ theme }) => {
     return css`
-      ${theme.typography('2xl')}
+      ${theme.typography('3xl')}
 
       @media ${theme.breakpoints.up('s')} {
-        ${theme.typography('3xl')}
+        ${theme.typography('4xl')}
       }
     `;
   }}

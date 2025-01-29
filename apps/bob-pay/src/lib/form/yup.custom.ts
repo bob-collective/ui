@@ -2,7 +2,7 @@
 import Big from 'big.js';
 import * as yup from 'yup';
 import { AnyObject, Maybe } from 'yup/lib/types';
-import { isValidBTCAddress, BitcoinNetwork } from '@gobob/utils';
+import { validate, Network as BitcoinNetwork } from 'bitcoin-address-validation';
 import { isAddress } from 'viem';
 
 yup.addMethod<yup.StringSchema>(yup.string, 'requiredAmount', function (action: string, customMessage?: string) {
@@ -73,7 +73,7 @@ yup.addMethod<yup.StringSchema>(
 
 yup.addMethod<yup.StringSchema>(yup.string, 'btcAddress', function (network: BitcoinNetwork, customMessage?: string) {
   return this.test('btcAddress', (value, ctx) => {
-    if (!value || !isValidBTCAddress(value, network)) {
+    if (!value || !validate(value, network)) {
       const message = customMessage || 'Please enter a valid address';
 
       return ctx.createError({ message });
