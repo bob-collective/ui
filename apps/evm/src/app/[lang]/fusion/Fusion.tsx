@@ -1,13 +1,13 @@
 'use client';
 
 import { Card, Flex, H1, Link, P } from '@gobob/ui';
-import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import babylon from '@public/assets/babylon.png';
-import { useEffect, useId, useState } from 'react';
-import { useAccount } from 'wagmi';
 import superchainEco from '@public/assets/partners/superchain-eco.png';
+import { useId, useState } from 'react';
+import { useIsClient, useLocalStorage } from 'usehooks-ts';
+import { useAccount } from 'wagmi';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -18,10 +18,10 @@ import {
   OpSuperuserModal,
   Quests,
   Strategies,
+  TopUserModal,
   UserInfo,
   WelcomeBackModal,
-  WelcomeModal,
-  TopUserModal
+  WelcomeModal
 } from './components';
 import {
   StyledBackground,
@@ -35,19 +35,17 @@ import {
   StyledMain,
   StyledStrategiesWrapper
 } from './Fusion.style';
-import { useDismissOPSuperuserModal, useDismissTopUserModal, useGetQuests } from './hooks';
+import { useDismissOPSuperuserModal, useDismissTopUserModal } from './hooks';
 
 import { Geoblock } from '@/components';
 import { LocalStorageKey } from '@/constants';
 import { FeatureFlags, useFeatureFlag, useGetUser } from '@/hooks';
-import { SessionStorageKey } from '@/types';
 
 const Fusion = () => {
   const { i18n } = useLingui();
   const { address } = useAccount();
   const { data: user } = useGetUser();
   const { data: apps } = useGetApps();
-  const { data: quests } = useGetQuests();
   const { mutate: dismissTopUserModal } = useDismissTopUserModal();
   const { mutate: dismissOPSuperuserModal } = useDismissOPSuperuserModal();
   const isClient = useIsClient();
@@ -76,10 +74,6 @@ const Fusion = () => {
     if (shouldDismissOPSuperuserModal) dismissOPSuperuserModal();
   };
 
-  const [scrollQuests, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
-    initializeWithValue: isClient
-  });
-
   const [isHideFusionWelcomeBackModal, setHideFusionWelcomeBackModal] = useLocalStorage<boolean>(
     LocalStorageKey.HIDE_FUSION_WELCOME_BACK_MODAL,
     false,
@@ -102,13 +96,6 @@ const Fusion = () => {
     );
   const onPressOPBanner = () =>
     window.open('https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin', '_blank', 'noreferrer');
-
-  useEffect(() => {
-    if (scrollQuests) {
-      setScrollQuests(false);
-      document.getElementById(questsSectionId)?.scrollIntoView?.({ behavior: 'smooth' });
-    }
-  }, [questsSectionId, scrollQuests, setScrollQuests]);
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
@@ -147,7 +134,7 @@ const Fusion = () => {
                 </Link>
               </P>
             </Flex>
-            <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
+            <UserInfo apps={apps} isAuthenticated={isAuthenticated} user={user} />
             {isOpSuperuser ? (
               <Flex direction='column' marginTop='lg'>
                 <Card

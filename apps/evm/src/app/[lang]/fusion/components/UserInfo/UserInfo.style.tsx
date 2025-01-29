@@ -39,12 +39,12 @@ const StyledDl = styled(Dl)`
   display: grid;
 
   @media ${({ theme }) => theme.breakpoints.up('s')} {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 
   @media ${({ theme }) => theme.breakpoints.up('lg')} {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
 `;
@@ -53,11 +53,11 @@ const StyledMainInfo = styled(Card)`
   order: -1;
 
   @media ${({ theme }) => theme.breakpoints.up('s')} {
-    grid-column: span 3 / span 3;
+    grid-column: span 2 / span 2;
   }
 
   @media ${({ theme }) => theme.breakpoints.up('lg')} {
-    grid-column: span 5 / span 5;
+    grid-column: span 4 / span 4;
   }
 `;
 
@@ -65,7 +65,7 @@ const StyledMeterCard = styled(Card)`
   order: -1;
 
   @media ${({ theme }) => theme.breakpoints.up('s')} {
-    grid-column: span 3 / span 3;
+    grid-column: span 2 / span 2;
   }
 
   @media ${({ theme }) => theme.breakpoints.up('lg')} {
