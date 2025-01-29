@@ -88,9 +88,6 @@ const Header = (): JSX.Element => {
                   <NavItem isExternal href={ExternalLinks.SAFE} size='s'>
                     <Trans>Multisig</Trans>
                   </NavItem>
-                  <NavItem isExternal href={ExternalLinks.DOCS} size='s'>
-                    <Trans>Docs</Trans>
-                  </NavItem>
                 </Nav>
               </PopoverBody>
             </PopoverContent>

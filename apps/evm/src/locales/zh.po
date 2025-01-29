@@ -762,8 +762,8 @@ msgstr "探索全部应用"
 
 #: src/components/Layout/Header.tsx:92
 #: src/components/Layout/Sidebar.tsx:73
-msgid "Docs"
-msgstr ""
+#~ msgid "Docs"
+#~ msgstr ""
 
 #: src/components/WithdrawModal/WithdrawForm.tsx:196
 msgid "Don't believe in the Bitcoin Renaissance? You can withdraw your funds from the contract to your wallet on Ethereum. You will no longer earn Spice if you withdraw your assets. <0>You will keep the Spice harvested so far.</0>"
