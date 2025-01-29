@@ -4,13 +4,13 @@ import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 
-import { useGetGatewayTransactions } from '../../hooks';
 import { StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
 
 import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
 import { PageLangParam } from '@/i18n/withLigui';
+import { useGetGatewayTransactions } from '@/hooks';
 
 type Props = PageLangParam & {
   params: { slug: string };
@@ -22,7 +22,8 @@ enum Tab {
 }
 
 function Strategy({ params }: Props) {
-  const { refetch: refetchTransactions } = useGetGatewayTransactions({});
+  const { refetch: refetchTransactions } = useGetGatewayTransactions();
+
   const [tab, setTab] = useState<Tab>(Tab.Deposit);
 
   const { data: strategies = [] } = useGetStrategies();

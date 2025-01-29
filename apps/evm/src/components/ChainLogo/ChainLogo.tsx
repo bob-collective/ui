@@ -1,6 +1,6 @@
 import { ChainId } from '@gobob/chains';
 import { ArbitrumOne, BNB, BOBLogo, BTC, Base, Bitlayer, ETH, Merlin, Moonbeam, Optimism, Polygon } from '@gobob/icons';
-import { IconProps } from '@gobob/ui';
+import { Icon, IconProps } from '@gobob/ui';
 import { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 
 // TODO: temp
@@ -34,6 +34,10 @@ type ChainLogoProps = Props & InheritAttrs;
 
 const ChainLogo = ({ chainId, ...props }: ChainLogoProps) => {
   const Logo = chainId === 'BTC' ? BTC : chainLogo[chainId];
+
+  if (!Logo) {
+    return <Icon {...props} />;
+  }
 
   return <Logo {...props} />;
 };

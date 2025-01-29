@@ -1,4 +1,3 @@
-import { Span } from '@gobob/ui';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -9,11 +8,4 @@ const StyledLogo = styled(Link)`
   text-decoration: none;
 `;
 
-// TODO: Create UI badge component
-const StyledBadge = styled(Span)`
-  border-radius: ${({ theme }) => theme.rounded('3xl')};
-  background-color: ${({ theme }) => theme.color('grey-500')};
-  padding: ${({ theme }) => `${theme.spacing('xs')} ${theme.spacing('md')}`};
-`;
-
-export { StyledLogo, StyledBadge };
+export { StyledLogo };

@@ -1,17 +1,17 @@
 'use client';
 
 import { ChainId, getChainIdByChainName, getChainName } from '@gobob/chains';
-import { Tabs, TabsItem } from '@gobob/ui';
+import { Flex, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation';
-import { Key, useEffect, useMemo, useState } from 'react';
+import { Key, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Layout, TransactionList } from '../components';
+import { BannerCarousel } from '../components/BannerCarousel';
 
-import { StyledCard, StyledFlex } from './Bridge.style';
-import { BridgeForm } from './components';
-import { useGetTransactions } from './hooks';
+import { StyledCard, StyledWrapper } from './Bridge.style';
+import { ActivityButton, BridgeForm } from './components';
 
+import { Main } from '@/components';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
 import { TransactionDirection } from '@/types';
 
@@ -50,20 +50,15 @@ interface Props {
 }
 
 const Bridge = ({ searchParams }: Props) => {
-  const {
-    data: transactions,
-    isInitialLoading: isTransactionsInitialLoading,
-    refetch,
-    txPendingUserAction
-  } = useGetTransactions();
-
   const router = useRouter();
 
   const urlSearchParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const type = (urlSearchParams.get('type') as Type) || Type.Deposit;
   const direction = type === Type.Deposit ? TransactionDirection.L1_TO_L2 : TransactionDirection.L2_TO_L1;
 
-  const initialChain = useMemo(() => {
+  const symbol = urlSearchParams?.get('receive')?.toString();
+
+  const getChain = useCallback(() => {
     const network = urlSearchParams.get('network');
 
     if (!network || network === 'bitcoin') {
@@ -71,24 +66,23 @@ const Bridge = ({ searchParams }: Props) => {
     }
 
     return getChainIdByChainName(network) || L1_CHAIN;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [urlSearchParams]);
 
-  const [chain, setChain] = useState<ChainId | 'BTC'>(initialChain);
-
-  const [symbol, setSymbol] = useState<string | undefined>(urlSearchParams?.get('receive')?.toString());
+  const [chain, setChain] = useState<ChainId | 'BTC'>(getChain());
 
   const [bridgeOrigin, setBridgeOrigin] = useState<BridgeOrigin>(getOrigin(type, chain, symbol));
 
   const handleChangeTab = (key: Key) => {
     if (type === key.toString()) return;
 
+    urlSearchParams.set('type', key as string);
+
     const newChain = L1_CHAIN;
 
     setChain(newChain);
+    handleNetworkChange(chain);
     handleChangeOrigin(getOrigin(key as Type, newChain, symbol));
 
-    urlSearchParams.set('type', key as string);
     router.replace('?' + urlSearchParams);
   };
 
@@ -96,20 +90,16 @@ const Bridge = ({ searchParams }: Props) => {
 
   const handleChangeChain = (chain: ChainId | 'BTC') => {
     setChain(chain);
-    setSymbol(undefined);
+    handleNetworkChange(chain);
+
+    urlSearchParams.delete('receive');
+
     handleChangeOrigin(getOrigin(type, chain));
+
+    router.replace('?' + urlSearchParams);
   };
 
   const handleChangeSymbol = (symbol?: string) => {
-    setSymbol(symbol);
-  };
-
-  useEffect(() => {
-    const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
-
-    urlSearchParams.set('type', type);
-    urlSearchParams.set('network', network);
-
     if (symbol) {
       urlSearchParams.set('receive', symbol);
     } else {
@@ -117,7 +107,22 @@ const Bridge = ({ searchParams }: Props) => {
     }
 
     router.replace('?' + urlSearchParams);
-  }, [type, chain, router, symbol, urlSearchParams]);
+  };
+
+  const handleNetworkChange = (chain: ChainId | 'BTC') => {
+    const network = chain === 'BTC' ? 'bitcoin' : getChainName(chain);
+
+    urlSearchParams.set('network', network);
+  };
+
+  useEffect(() => {
+    const chain = getChain();
+
+    setChain(chain);
+
+    handleChangeOrigin(getOrigin(type, chain, symbol));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlSearchParams]);
 
   const isBobBridgeDisabled = !(chain === L1_CHAIN || chain === L2_CHAIN || chain === 'BTC');
 
@@ -128,51 +133,50 @@ const Bridge = ({ searchParams }: Props) => {
   const tabsDisabledKeys = isWithdrawTabDisabled ? [Type.Withdraw] : undefined;
 
   return (
-    <Layout>
-      <StyledFlex alignItems='flex-start' direction={{ base: 'column', md: 'row' }} gap='2xl' marginTop='xl'>
-        <StyledCard>
-          <Tabs
-            fullWidth
-            disabledKeys={tabsDisabledKeys}
-            selectedKey={type}
-            size='lg'
-            onSelectionChange={handleChangeTab}
-          >
-            <TabsItem key={Type.Deposit} title={<Trans>Deposit</Trans>}>
-              <></>
-            </TabsItem>
-            <TabsItem
-              key={Type.Withdraw}
-              title={<Trans>Withdraw</Trans>}
-              tooltipProps={{
-                isDisabled: !isWithdrawTabDisabled,
-                label: <Trans>Withdrawals back to BTC are currently not supported</Trans>
-              }}
+    <Main maxWidth='5xl' padding='md'>
+      <BannerCarousel />
+      <Flex justifyContent='center' marginTop='2xl' style={{ width: '100%' }}>
+        <StyledWrapper direction='column' gap='md'>
+          <Flex justifyContent='flex-end'>
+            <ActivityButton />
+          </Flex>
+          <StyledCard>
+            <Tabs
+              fullWidth
+              disabledKeys={tabsDisabledKeys}
+              selectedKey={type}
+              size='lg'
+              onSelectionChange={handleChangeTab}
             >
-              <></>
-            </TabsItem>
-          </Tabs>
-          <BridgeForm
-            bridgeOrigin={bridgeOrigin}
-            chain={chain}
-            direction={direction}
-            isBobBridgeDisabled={isBobBridgeDisabled}
-            isExternalBridgeDisabled={isExternalBridgeDisabled}
-            symbol={symbol}
-            onChangeChain={handleChangeChain}
-            onChangeOrigin={handleChangeOrigin}
-            onChangeSymbol={handleChangeSymbol}
-          />
-        </StyledCard>
-        <TransactionList
-          data={transactions}
-          isInitialLoading={isTransactionsInitialLoading}
-          txPendingUserAction={txPendingUserAction}
-          onProveSuccess={refetch.bridge}
-          onRelaySuccess={refetch.bridge}
-        />
-      </StyledFlex>
-    </Layout>
+              <TabsItem key={Type.Deposit} title={<Trans>Deposit</Trans>}>
+                <></>
+              </TabsItem>
+              <TabsItem
+                key={Type.Withdraw}
+                title={<Trans>Withdraw</Trans>}
+                tooltipProps={{
+                  isDisabled: !isWithdrawTabDisabled,
+                  label: <Trans>Withdrawals back to BTC are currently not supported</Trans>
+                }}
+              >
+                <></>
+              </TabsItem>
+            </Tabs>
+            <BridgeForm
+              bridgeOrigin={bridgeOrigin}
+              chain={chain}
+              direction={direction}
+              isBobBridgeDisabled={isBobBridgeDisabled}
+              isExternalBridgeDisabled={isExternalBridgeDisabled}
+              symbol={symbol}
+              onChangeChain={handleChangeChain}
+              onChangeOrigin={handleChangeOrigin}
+              onChangeSymbol={handleChangeSymbol}
+            />
+          </StyledCard>
+        </StyledWrapper>
+      </Flex>
+    </Main>
   );
 };
 

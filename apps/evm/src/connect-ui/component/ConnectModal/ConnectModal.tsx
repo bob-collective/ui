@@ -1,45 +1,27 @@
 'use client';
 
-import {
-  SatsConnector,
-  useAccount as useSatsAccount,
-  useConnect as useSatsConnect,
-  useDisconnect as useSatsDisconnect
-} from '@gobob/sats-wagmi';
-import {
-  ArrowLeft,
-  Button,
-  Flex,
-  Link,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalProps,
-  P,
-  toast
-} from '@gobob/ui';
-import { t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
-import { Connector, useAccount, useAccountEffect, useConnect, useDisconnect } from 'wagmi';
-import { Address } from 'viem';
+import { BTC, ETH } from '@gobob/icons';
+import { SatsConnector, useAccount as useSatsAccount, useConnect as useSatsConnect } from '@gobob/sats-wagmi';
+import { Flex, Link, Modal, ModalBody, ModalHeader, ModalProps, P, Span, Tabs, TabsItem, toast } from '@gobob/ui';
+import { Trans } from '@lingui/macro';
 import { sendGAEvent } from '@next/third-parties/google';
+import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { Address } from 'viem';
+import { Connector, useAccount, useAccountEffect, useConnect } from 'wagmi';
 
-import { ConnectType, WalletType } from '../../types';
+import { WalletType } from '../../types';
 
 import { BtcWalletList } from './BtcWalletList';
-import { ConnectedWalletSection } from './ConnectedWalletSection';
-import { ConnectWalletCard } from './ConnectWalletCard';
 import { EvmWalletList } from './EvmWalletList';
+
+import { ExternalLinks } from '@/constants';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
 type ConnectBtcHandler = ({ address }: { address?: string }) => void;
 
 type Props = {
-  step?: WalletType;
-  type?: ConnectType;
+  type?: WalletType;
   onConnectEvm?: ConnectEvmHandler;
   onConnectBtc?: ConnectBtcHandler;
 };
@@ -49,14 +31,10 @@ type InheritAttrs = Omit<ModalProps, keyof Props | 'children'>;
 type ConnectModalProps = Props & InheritAttrs;
 
 const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
-  ({ onClose, isOpen, step: stepProp, type = 'both', onConnectEvm, onConnectBtc, ...props }, ref) => {
-    const { i18n } = useLingui();
-    const { connector, address } = useAccount();
-    const { disconnect } = useDisconnect();
+  ({ onClose, isOpen, type, onConnectEvm, onConnectBtc, ...props }, ref) => {
+    const { connector } = useAccount();
     const { connectors, connectAsync } = useConnect();
-    const [step, setStep] = useState<WalletType | undefined>(stepProp);
-    const { address: btcWalletAddress, connector: btcWalletConnector } = useSatsAccount({ onConnect: onConnectBtc });
-    const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
+    const { connector: btcWalletConnector } = useSatsAccount({ onConnect: onConnectBtc });
     const { connectors: satsConnectors, connectAsync: satsConnectAsync } = useSatsConnect();
 
     const [pendingConnector, setPendingConnector] = useState<Connector>();
@@ -83,28 +61,9 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
       }
     });
 
-    const handleResetStep = () => setStep(undefined);
-
     const handleClose = useCallback(() => {
       onClose?.();
-
-      // avoid content shift before the modal close
-      setTimeout(() => handleResetStep(), 150);
     }, [onClose]);
-
-    const handleDisconnect = () => {
-      handleClose();
-
-      // avoid content shift before the modal close
-      setTimeout(() => disconnect(), 150);
-    };
-
-    const handleBtcWalletDisconnect = () => {
-      handleClose();
-
-      // avoid content shift before the modal close
-      return setTimeout(() => btcWalletDisconnect(), 150);
-    };
 
     const handleEvmWalletSelect = useCallback(
       async (key: Selection) => {
@@ -192,39 +151,6 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
       [satsConnectors, handleClose, satsConnectAsync]
     );
 
-    const modalHeader =
-      step === 'evm' ? (
-        <Flex alignItems='center' gap='xs'>
-          <Button
-            isIconOnly
-            aria-label={t(i18n)`go back`}
-            size='s'
-            style={{ height: '1.875rem', width: '1.875rem' }}
-            variant='ghost'
-            onPress={() => setStep(undefined)}
-          >
-            <ArrowLeft size='s' strokeWidth={2} />
-          </Button>
-          <Trans>Select EVM Wallet</Trans>
-        </Flex>
-      ) : step === 'btc' ? (
-        <Flex alignItems='center' gap='xs'>
-          <Button
-            isIconOnly
-            aria-label={t(i18n)`go back`}
-            size='s'
-            style={{ height: '1.875rem', width: '1.875rem' }}
-            variant='ghost'
-            onPress={() => setStep(undefined)}
-          >
-            <ArrowLeft size='s' strokeWidth={2} />
-          </Button>
-          <Trans>Select Bitcoin Wallet</Trans>
-        </Flex>
-      ) : (
-        <Trans>Connect Wallet</Trans>
-      );
-
     return (
       <Modal
         {...props}
@@ -248,95 +174,61 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
         onClose={handleClose}
       >
         <ModalHeader align='start' size='xl'>
-          {modalHeader}
+          <Trans>Connect Wallet</Trans>
         </ModalHeader>
-        <ModalBody gap='xl' padding={step && 'even'}>
-          {type === 'both' && !step && (
-            <>
-              <P size='s'>
-                <Trans>
-                  On BOB, you have the option to link both your EVM and BTC wallets. For optimal functionality,
-                  it&apos;s advised to connect wallets from both networks.
-                </Trans>
-              </P>
-              <P size='s'>
-                <Trans>By clicking &lsquo;Connect&rsquo; you acknowledge and agree to the </Trans>
-                <Link
-                  external
-                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/668eaca0c8c67436ee679ca0_GoBob%20-%20Terms%20of%20Service%20(LW%20draft%207-9)(149414568.5).pdf'
-                  size='inherit'
-                >
-                  <Trans>Terms of Service</Trans>
-                </Link>{' '}
-                <Trans>and that you have read and understood our </Trans>
-                <Link
-                  external
-                  href='https://cdn.prod.website-files.com/6620e8932695794632789d89/675872861db67a29ec01d237_BOB%20Foundation%20-%20Privacy%20Policy.pdf'
-                  size='inherit'
-                >
-                  <Trans>Privacy policy</Trans>
-                </Link>
-                .
-              </P>
-              <Flex direction='column' gap='lg'>
-                {connector && address ? (
-                  <ConnectedWalletSection
-                    address={address}
-                    icon={connector.icon}
-                    type='evm'
-                    wallet={connector.name}
-                    onDisconnect={handleDisconnect}
-                  />
-                ) : (
-                  <ConnectWalletCard
-                    label={<Trans>Connect your EVM Wallet (Mandatory)</Trans>}
-                    onPress={() => setStep('evm')}
-                  />
-                )}
-                {btcWalletConnector && btcWalletAddress ? (
-                  <ConnectedWalletSection
-                    address={btcWalletAddress}
-                    icon={btcWalletConnector.icon}
-                    type='btc'
-                    wallet={btcWalletConnector.name}
-                    onDisconnect={handleBtcWalletDisconnect}
-                  />
-                ) : (
-                  <ConnectWalletCard
-                    isDisabled={!connector || !address}
-                    label={<Trans>Connect your Bitcoin Wallet (Optional)</Trans>}
-                    onPress={() => setStep('btc')}
-                  />
-                )}
-              </Flex>
-            </>
-          )}
-          {(step === 'evm' || type === 'evm') && (
-            <EvmWalletList
-              connector={connector}
-              connectors={connectors}
-              pendingConnector={pendingConnector}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onSelectionChange={handleEvmWalletSelect as any}
-            />
-          )}
-          {(step === 'btc' || type === 'btc') && (
-            <BtcWalletList
-              connector={btcWalletConnector}
-              connectors={satsConnectors}
-              pendingConnector={pendingSatsConnector}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onSelectionChange={handleBtcWalletSelect as any}
-            />
-          )}
+        <ModalBody gap='xl' padding='even'>
+          <Tabs fullWidth defaultSelectedKey={type}>
+            <TabsItem
+              key={WalletType.EVM}
+              title={
+                <Flex alignItems='center' gap='md'>
+                  <ETH />
+                  <Span size='lg' weight='semibold'>
+                    ETH
+                  </Span>
+                </Flex>
+              }
+            >
+              <EvmWalletList
+                connector={connector}
+                connectors={connectors}
+                pendingConnector={pendingConnector}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onSelectionChange={handleEvmWalletSelect as any}
+              />
+            </TabsItem>
+            <TabsItem
+              key={WalletType.BTC}
+              title={
+                <Flex alignItems='center' gap='md'>
+                  <BTC />
+                  <Span size='lg' weight='semibold'>
+                    BTC
+                  </Span>
+                </Flex>
+              }
+            >
+              <BtcWalletList
+                connector={btcWalletConnector}
+                connectors={satsConnectors}
+                pendingConnector={pendingSatsConnector}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onSelectionChange={handleBtcWalletSelect as any}
+              />{' '}
+            </TabsItem>
+          </Tabs>
+          <P align='center' color='grey-50' size='xs'>
+            <Trans>By connecting your wallet, you confirm that you&apos;ve read and agree to our</Trans>{' '}
+            <Link external href={ExternalLinks.TERMS_OF_SERVICE} size='inherit' underlined='always'>
+              <Trans>Terms of Service</Trans>
+            </Link>{' '}
+            <Trans>and</Trans>{' '}
+            <Link external href={ExternalLinks.PRIVACY_POLICY} size='inherit' underlined='always'>
+              <Trans>Privacy policy</Trans>
+            </Link>
+            .
+          </P>
         </ModalBody>
-        {!step && (
-          <ModalFooter>
-            <Button color='primary' size='xl' onPress={onClose}>
-              Close
-            </Button>
-          </ModalFooter>
-        )}
       </Modal>
     );
   }

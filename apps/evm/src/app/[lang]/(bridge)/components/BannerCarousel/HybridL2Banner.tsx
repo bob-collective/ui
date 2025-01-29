@@ -22,7 +22,7 @@ const HybridL2Banner = ({ onPress }: HybridL2BannerProps) => {
             <Trans>Released: BOB&apos;s Hybrid L2 vision paper</Trans>
           </BannerTitle>
         </Flex>
-        <P color='grey-50'>
+        <P color='grey-50' rows={2}>
           <Trans>Read it now.</Trans>
         </P>
       </StyledBannerContent>

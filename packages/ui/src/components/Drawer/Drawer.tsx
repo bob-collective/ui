@@ -1,62 +1,75 @@
 'use client';
 
-import { forwardRef, useRef } from 'react';
+import { forwardRef } from 'react';
+import { ContentProps, Drawer, ContentProps as DrawerContentProps, DialogProps as DrawerRootProps } from 'vaul';
+import { useFocusRing } from '@react-aria/focus';
+import { mergeProps } from '@react-aria/utils';
 
-import { useDOMRef } from '../../hooks';
-import { DialogProps } from '../Dialog';
-import { Overlay } from '../Overlay';
-import { ElementTypeProp } from '../utils/types';
+import { ButtonProps } from '../Button';
 
-import { StyledDialog } from './Drawer.style';
-import { DrawerWrapper, DrawerWrapperProps } from './DrawerWrapper';
+import {
+  StyledButton,
+  StyledContent,
+  StyledDragIndicator,
+  StyledInnerContent,
+  StyledOverlay,
+  StyledTrigger
+} from './Drawer.style';
 
-type Props = {
-  container?: Element;
+const DrawerOverlay = StyledOverlay;
+
+const DrawerRoot = Drawer.Root;
+
+const DrawerTitle = Drawer.Title;
+
+const DrawerClose = Drawer.Close;
+
+const DrawerTrigger = StyledTrigger;
+
+const DrawerPortal = Drawer.Portal;
+
+const DrawerContent = forwardRef<HTMLDivElement, ContentProps>(({ children, ...props }, ref) => (
+  <StyledContent ref={ref} {...props}>
+    <StyledInnerContent>
+      <StyledDragIndicator aria-hidden />
+      {children}
+    </StyledInnerContent>
+  </StyledContent>
+));
+
+DrawerContent.displayName = 'DrawerContent';
+
+const DrawerButton = ({
+  variant = 'solid',
+  size = 'md',
+  color = 'default',
+  fullWidth,
+  isIconOnly,
+  ...props
+}: ButtonProps) => {
+  const { focusProps, isFocusVisible } = useFocusRing(props);
+
+  return (
+    <StyledButton
+      $color={color}
+      $fullWidth={fullWidth}
+      $isFocusVisible={isFocusVisible}
+      $isIconOnly={isIconOnly}
+      $size={size}
+      $variant={variant}
+      {...mergeProps(props, focusProps)}
+    />
+  );
 };
 
-type InheritAttrs = Omit<DrawerWrapperProps & DialogProps, keyof Props | 'size' | 'wrapperRef'>;
-
-type DrawerProps = Props & InheritAttrs & ElementTypeProp;
-
-const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
-  (
-    {
-      children,
-      isDismissable = true,
-      isKeyboardDismissDisabled,
-      shouldCloseOnBlur,
-      container,
-      isOpen,
-      elementType = 'div',
-      ...props
-    },
-    ref
-  ): JSX.Element | null => {
-    const domRef = useDOMRef(ref);
-    const { onClose } = props;
-    const wrapperRef = useRef<HTMLDivElement>(null);
-
-    return (
-      <Overlay container={container} isOpen={isOpen} nodeRef={wrapperRef}>
-        <DrawerWrapper
-          ref={domRef}
-          isDismissable={isDismissable}
-          isKeyboardDismissDisabled={isKeyboardDismissDisabled}
-          isOpen={isOpen}
-          shouldCloseOnBlur={shouldCloseOnBlur}
-          wrapperRef={wrapperRef}
-          onClose={onClose}
-        >
-          <StyledDialog $isOpen={isOpen} {...props} elementType={elementType} role={undefined} onClose={undefined}>
-            {children}
-          </StyledDialog>
-        </DrawerWrapper>
-      </Overlay>
-    );
-  }
-);
-
-Drawer.displayName = 'Drawer';
-
-export { Drawer };
-export type { DrawerProps };
+export {
+  DrawerButton,
+  DrawerClose,
+  DrawerContent,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerRoot,
+  DrawerTitle,
+  DrawerTrigger
+};
+export type { DrawerContentProps, DrawerRootProps };
