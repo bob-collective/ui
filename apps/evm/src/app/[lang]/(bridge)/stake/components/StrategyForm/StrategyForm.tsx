@@ -1,6 +1,5 @@
 'use client';
 
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { Alert, Flex, Input, P, Skeleton } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -18,7 +17,8 @@ import {
 import { useGateway, useGatewayForm } from '../../../hooks';
 import { StrategyData } from '../../hooks';
 
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
+import { useBtcAccount } from '@/hooks';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
 
@@ -34,7 +34,7 @@ type BtcBridgeFormProps = {
 };
 
 const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): JSX.Element => {
-  const { connector } = useSatsAccount();
+  const { connector } = useBtcAccount();
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false
   });

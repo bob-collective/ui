@@ -2,14 +2,6 @@
 
 import { GatewayQuoteParams } from '@gobob/bob-sdk';
 import { Bitcoin, CurrencyAmount, ERC20Token } from '@gobob/currency';
-import {
-  BtcAddressType,
-  FeeRateReturnType,
-  useAccount as useSatsAccount,
-  useBalance as useSatsBalance,
-  useFeeEstimate as useSatsFeeEstimate,
-  useFeeRate as useSatsFeeRate
-} from '@gobob/sats-wagmi';
 import { BITCOIN } from '@gobob/tokens';
 import { toast } from '@gobob/ui';
 import { t } from '@lingui/macro';
@@ -27,6 +19,7 @@ import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } f
 import { DebouncedState, useDebounceValue } from 'usehooks-ts';
 import { Address, isAddress } from 'viem';
 import { useAccount } from 'wagmi';
+import { AddressType } from 'bitcoin-address-validation';
 
 import { INTERVAL } from '@/constants';
 import { gatewaySDK } from '@/lib/bob-sdk';
@@ -39,6 +32,14 @@ import {
   InitGatewayTransaction,
   TransactionType
 } from '@/types';
+import {
+  BtcFeeRateReturnType,
+  useBtcAccount,
+  useBtcBalance,
+  useBtcFeeEstimate,
+  useBtcFeeRate,
+  useBtcSignAllInputs
+} from '@/hooks';
 
 const DUST_THRESHOLD = 100_000;
 
@@ -80,7 +81,7 @@ const getBalanceAmount = (
   return availableBalance;
 };
 
-const feeRatesSelect = ({ esplora, memPool }: FeeRateReturnType): GatewayTransactionSpeedData => {
+const feeRatesSelect = ({ esplora, memPool }: BtcFeeRateReturnType): GatewayTransactionSpeedData => {
   return {
     fastest: Math.ceil(Math.min(esplora[2], memPool.fastestFee)),
     fast: Math.ceil(Math.min(esplora[4], memPool.halfHourFee)),
@@ -170,8 +171,8 @@ const useGateway = ({
 
   const { address: evmAddress } = useAccount();
 
-  const { address: btcAddress, connector: satsConnector, addressType: btcAddressType } = useSatsAccount();
-  const { data: satsBalance, isPending: isSatsBalancePending } = useSatsBalance();
+  const { address: btcAddress, publicKey: btcPublicKey, addressType: btcAddressType } = useBtcAccount();
+  const { data: satsBalance, isPending: isSatsBalancePending } = useBtcBalance();
 
   const [isTopUpEnabled, setTopUpEnabled] = useState(true);
   const [selectedFee, setSelectedFee] = useState<GatewayTransactionFee>({ speed: GatewayTransactionSpeed.SLOW });
@@ -180,7 +181,7 @@ const useGateway = ({
 
   const minAmount = useMemo(() => getMinAmount(isTopUpEnabled), [isTopUpEnabled]);
 
-  const isTapRootAddress = btcAddressType === BtcAddressType.p2tr;
+  const isTapRootAddress = btcAddressType === AddressType.p2tr;
 
   const liquidityQueryEnabled = Boolean(
     params.toChain && params.toToken && params.type === GatewayTransactionType.STRATEGY ? params.strategyAddress : true
@@ -218,7 +219,7 @@ const useGateway = ({
     }
   });
 
-  const feeRatesQueryResult = useSatsFeeRate({
+  const feeRatesQueryResult = useBtcFeeRate({
     query: {
       select: feeRatesSelect
     }
@@ -229,12 +230,12 @@ const useGateway = ({
 
   const feeEstimateQueryEnabled = Boolean(satsBalance && satsBalance.total > 0n && evmAddress);
 
-  const feeEstimateQueryResult = useSatsFeeEstimate({
+  const feeEstimateQueryResult = useBtcFeeEstimate({
     opReturnData: evmAddress,
     feeRate: feeRate,
     query: {
       enabled: feeEstimateQueryEnabled,
-      select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount)
+      select: (data) => CurrencyAmount.fromRawAmount(BITCOIN, data.amount || 0)
     }
   });
 
@@ -315,6 +316,8 @@ const useGateway = ({
     }
   });
 
+  const { mutateAsync: signAllInputsAsync } = useBtcSignAllInputs();
+
   const mutation = useMutation({
     mutationKey: bridgeKeys.btcDeposit(evmAddress, btcAddress),
     mutationFn: async ({ evmAddress }: { evmAddress: Address | string }): Promise<InitGatewayTransaction> => {
@@ -322,7 +325,7 @@ const useGateway = ({
         throw new Error('Operation disabled');
       }
 
-      if (!satsConnector) {
+      if (!btcAddress || !btcPublicKey) {
         throw new Error('Connector missing');
       }
 
@@ -335,7 +338,7 @@ const useGateway = ({
       }
 
       if (!params.toChain) {
-        throw new Error('Something went wrong');
+        throw new Error('Missing toChain');
       }
 
       if (!isAddress(evmAddress)) {
@@ -358,14 +361,17 @@ const useGateway = ({
         ...DEFAULT_GATEWAY_QUOTE_PARAMS,
         toChain: params.toChain,
         toUserAddress: evmAddress,
-        fromUserAddress: satsConnector.paymentAddress!,
-        fromUserPublicKey: satsConnector.publicKey,
+        fromUserAddress: btcAddress,
+        fromUserPublicKey: btcPublicKey,
         gasRefill: isTopUpEnabled ? GAS_REFILL : 0,
         feeRate
       });
 
-      const bitcoinTxHex = await satsConnector.signAllInputs(psbtBase64!);
+      if (!psbtBase64) {
+        throw new Error('Failed to start order');
+      }
 
+      const bitcoinTxHex = await signAllInputsAsync(psbtBase64);
       // NOTE: user does not broadcast the tx, that is done by
       // the relayer after it is validated
       const txId = await gatewaySDK.finalizeOrder(uuid, bitcoinTxHex);

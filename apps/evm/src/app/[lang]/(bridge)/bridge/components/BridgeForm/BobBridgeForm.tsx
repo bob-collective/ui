@@ -7,6 +7,7 @@ import { USDC } from '@gobob/tokens';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { sendGAEvent } from '@next/third-parties/google';
 import { mergeProps } from '@react-aria/utils';
 import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
@@ -14,13 +15,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 import { useAccount, usePublicClient } from 'wagmi';
-import { sendGAEvent } from '@next/third-parties/google';
 
 import { BridgeAlert } from './BridgeAlert';
 
 import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
 import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
-import { AuthButton } from '@/connect-ui';
+import { AuthButton } from '@/components';
 import { L1_CHAIN, L2_CHAIN, publicClientL1, publicClientL2 } from '@/constants';
 import { bridgeContracts } from '@/constants/bridge';
 import {

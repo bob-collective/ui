@@ -1,15 +1,11 @@
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { useIsLoggedIn } from '@dynamic-labs/sdk-react-core';
 import { Button, SolidClock, Tooltip } from '@gobob/ui';
-import { useAccount } from 'wagmi';
 import { Trans } from '@lingui/macro';
 
-import { useConnectModal } from '@/connect-ui';
 import { SharedStoreProfileTxType, ShareStoreProfileTabs, store } from '@/lib/store';
 
 const ActivityButton = (): JSX.Element => {
-  const { address: evmAddress } = useAccount();
-  const { address: btcAddress } = useSatsAccount();
-  const { open } = useConnectModal();
+  const isLoggedIn = useIsLoggedIn();
 
   const handleOpenProfile = () => {
     store.setState((state) => ({
@@ -32,11 +28,12 @@ const ActivityButton = (): JSX.Element => {
     }));
   };
 
-  const isLoggedIn = !!(evmAddress || btcAddress);
-
   const handlePressActivity = () => {
     if (!isLoggedIn) {
-      return open({ onConnectBtc: handleOpenProfile, onConnectEvm: handleOpenProfile });
+      // FIXME:
+
+      // return open({ onConnectBtc: handleOpenProfile, onConnectEvm: handleOpenProfile });
+      return;
     }
 
     handleOpenProfile();

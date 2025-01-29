@@ -1,27 +1,27 @@
 'use client';
 
+import { WalletIcon } from '@dynamic-labs/wallet-book';
 import { Flex, Span, SpanProps } from '@gobob/ui';
 import { truncateBtcAddress, truncateEthAddress } from '@gobob/utils';
 import ProfileAvatar from 'boring-avatars';
-import { useAccount } from 'wagmi';
-import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { Chain } from 'viem';
+import { useAccount } from 'wagmi';
 
 import { ChainAsset } from '../ChainAsset';
 import { CopyAddress } from '../CopyAddress';
 
-import { WalletIcon } from '@/connect-ui';
+import { useBtcAccount, useDynamicWallets } from '@/hooks';
 
 const sizeMap = {
   s: {
     icon: '1.5rem',
     text: 's',
-    chain: 'xxs'
+    chain: '0.75rem'
   },
   md: {
     icon: '2rem',
     text: 'md',
-    chain: 'xs'
+    chain: '1rem'
   }
 } as const;
 
@@ -37,8 +37,9 @@ const ProfileTag = ({
   isCopyEnabled?: boolean;
   chain: Chain;
 }) => {
-  const { address: evmAddress, connector: evmConnector } = useAccount();
-  const { address: btcAddress, connector: btcConnector } = useSatsAccount();
+  const { address: evmAddress } = useAccount();
+  const { address: btcAddress, connector: btcConnector } = useBtcAccount();
+  const { evmWallet } = useDynamicWallets();
 
   const address = evmAddress || btcAddress;
 
@@ -54,10 +55,16 @@ const ProfileTag = ({
         <ChainAsset
           asset={<ProfileAvatar name={address} size={sizeMap[size].icon} />}
           chainLogo={
-            evmConnector ? (
-              <WalletIcon name={evmConnector.name} size={sizeMap[size].chain} />
+            evmWallet ? (
+              <WalletIcon
+                style={{ width: sizeMap[size].chain, height: sizeMap[size].chain }}
+                walletKey={evmWallet.key}
+              />
             ) : btcConnector ? (
-              <WalletIcon name={btcConnector.name} size={sizeMap[size].chain} />
+              <WalletIcon
+                style={{ width: sizeMap[size].chain, height: sizeMap[size].chain }}
+                walletKey={btcConnector.key}
+              />
             ) : undefined
           }
         />

@@ -39,6 +39,7 @@
     "@wagmi/core": "catalog:",
     "@yudiel/react-qr-scanner": "^2.0.4",
     "@zerodev/sdk": "^5.3.4",
+    "bitcoin-address-validation": "catalog:",
     "big.js": "catalog:",
     "date-fns": "catalog:",
     "graphql-request": "catalog:",

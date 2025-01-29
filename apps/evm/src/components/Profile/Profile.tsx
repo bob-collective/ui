@@ -1,16 +1,15 @@
 'use client';
 
-import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
+import { useDynamicContext, useDynamicModals, useSwitchWallet } from '@dynamic-labs/sdk-react-core';
 import { Card, Flex, P, Skeleton, SolidArrowDownCircle, SolidCreditCard, Spinner, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useStore } from '@tanstack/react-store';
-import { Chain } from 'viem';
-import { useDisconnect } from 'wagmi';
 import { Key } from 'react';
+import { Chain } from 'viem';
 
+import { AnimatedAmount } from '../AnimatedAmount';
 import { ProfileActivity } from '../ProfileActivity';
 import { ProfileTag } from '../ProfileTag';
-import { AnimatedAmount } from '../AnimatedAmount';
 
 import { DisconnectButton } from './DisconnectButton';
 import { ProfileBtcWallet } from './ProfileBtcWallet';
@@ -18,9 +17,8 @@ import { ProfileEvmWallet } from './ProfileEvmWallet';
 import { ProfileTokens } from './ProfileTokens';
 
 import { chakraPetch } from '@/app/fonts';
-import { useConnectModal, WalletType } from '@/connect-ui';
 import { ExternalLinks } from '@/constants';
-import { useGetBridgeTransactions, useTotalBalance } from '@/hooks';
+import { useDynamicWallets, useGetBridgeTransactions, useTotalBalance } from '@/hooks';
 import { ShareStoreProfileTabs, store } from '@/lib/store';
 
 type ProfileProps = {
@@ -31,27 +29,33 @@ type ProfileProps = {
 };
 
 const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps): JSX.Element => {
+  const { handleUnlinkWallet, setSelectedTabIndex, handleLogOut, primaryWallet } = useDynamicContext();
+  const switchWallet = useSwitchWallet();
+  const { setShowLinkNewWalletModal } = useDynamicModals();
+  const { evmWallet } = useDynamicWallets();
+
   const { amount, format, isPending: isBalancePending } = useTotalBalance();
-  const { disconnect: evmWalletDisconnect } = useDisconnect();
-  const { disconnect: btcWalletDisconnect } = useSatsDisconnect();
-  const { open } = useConnectModal();
 
   const { selectedTab } = useStore(store, (state) => state.shared.profile);
 
   const { txPendingUserAction } = useGetBridgeTransactions();
 
   const handleLogout = () => {
+    setSelectedTabIndex(0);
+    handleLogOut();
     onClose();
-    evmWalletDisconnect();
-    btcWalletDisconnect();
   };
 
   const handleConnectEvmWallet = () => {
-    open();
+    setSelectedTabIndex(1);
+    setShowLinkNewWalletModal(true);
+    onClose();
   };
 
   const handleConnectBtcWallet = () => {
-    open({ type: WalletType.BTC });
+    setSelectedTabIndex(2);
+    setShowLinkNewWalletModal(true);
+    onClose();
   };
 
   const handlePressBuy = () => {
@@ -69,8 +73,14 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
       }
     }));
 
-  const handleUnlinkBtc = async () => {
-    btcWalletDisconnect();
+  const handleUnlinkBtc = async (walletId: string) => {
+    if (!evmWallet || !primaryWallet) return;
+
+    if (walletId === primaryWallet?.id) {
+      await switchWallet(evmWallet.id);
+    }
+
+    handleUnlinkWallet(walletId);
   };
 
   const handleTabsSelectionChange = (key: Key) =>

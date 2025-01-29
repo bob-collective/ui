@@ -11,7 +11,6 @@ import { isAddressEqual } from 'viem';
 import { useAccount, useAccountEffect, useChainId, useConfig, useSwitchChain } from 'wagmi';
 
 import { Footer, Header, Layout, ReceiveModal } from '@/components';
-import { ConnectProvider } from '@/connect-ui';
 import { isClient, L2_CHAIN, LocalStorageKey } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
 import { StyledComponentsRegistry } from '@/lib/styled-components';
@@ -136,19 +135,17 @@ export function NestedProviders({ children }: PropsWithChildren) {
   return (
     <StyledComponentsRegistry>
       <BOBUIProvider navigate={router.push}>
-        <ConnectProvider>
-          <CSSReset />
-          <ScrollToTop />
-          <Suspense>
-            <AuthCheck />
-          </Suspense>
-          <ReceiveModal />
-          <Layout>
-            <Header />
-            {children}
-            <Footer />
-          </Layout>
-        </ConnectProvider>
+        <CSSReset />
+        <ScrollToTop />
+        <Suspense>
+          <AuthCheck />
+        </Suspense>
+        <ReceiveModal />
+        <Layout>
+          <Header />
+          {children}
+          <Footer />
+        </Layout>
       </BOBUIProvider>
     </StyledComponentsRegistry>
   );

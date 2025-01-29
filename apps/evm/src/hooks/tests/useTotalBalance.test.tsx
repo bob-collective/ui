@@ -3,14 +3,14 @@ import { useCurrencyFormatter, useLocale } from '@gobob/ui';
 import { renderHook } from '@testing-library/react-hooks';
 import Big from 'big.js';
 import { Mock, vi } from 'vitest';
-import { useAccount as useSatsAccount, useBalance as useSatsBalance } from '@gobob/sats-wagmi';
 import { useAccount } from 'wagmi';
 
 import { useBalances } from '../useBalances';
 import { useTotalBalance } from '../useTotalBalance';
 
-import { wrapper } from '@/test-utils';
 import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { useBtcAccount, useBtcBalance } from '@/hooks/btc';
+import { wrapper } from '@/test-utils';
 
 vi.mock('@gobob/hooks', () => ({
   usePrices: vi.fn()
@@ -39,13 +39,13 @@ vi.mock(import('wagmi'), async (importOriginal) => {
   };
 });
 
-vi.mock(import('@gobob/sats-wagmi'), async (importOriginal) => {
+vi.mock(import('@/hooks/btc'), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {
     ...actual,
-    useBalance: vi.fn(),
-    useAccount: vi.fn()
+    useBtcAccount: vi.fn(),
+    useBtcBalance: vi.fn()
   };
 });
 
@@ -55,8 +55,8 @@ describe('useTotalBalance', () => {
   const mockUseCurrencyFormatter = useCurrencyFormatter as Mock;
   const mockUseLocale = useLocale as Mock;
   const mockUseAccount = useAccount as Mock;
-  const mockUseSatsAccount = useSatsAccount as Mock;
-  const mockUseSatsBalance = useSatsBalance as Mock;
+  const mockUseSatsAccount = useBtcAccount as Mock;
+  const mockUseSatsBalance = useBtcBalance as Mock;
 
   beforeEach(() => {
     vi.clearAllMocks();

@@ -1,4 +1,5 @@
 export * from './AmountLabel';
+export * from './AuthButton';
 export * from './BabyPoints';
 export * from './Chain';
 export * from './ChainAsset';
