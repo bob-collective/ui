@@ -8,25 +8,21 @@ import { useParams, usePathname } from 'next/navigation';
 
 import { StyledAnchor, StyledNativeNavLink, StyledNavLink } from './Layout.style';
 
-import { useLayoutContext } from '.';
-
 type Props = {
   children: ReactNode;
   size?: TextProps['size'];
   isExternal?: boolean;
+  onPress?: () => void;
 };
 
 type InheritAttrs = Omit<LinkProps, keyof Props>;
 
 type NavItemProps = Props & InheritAttrs;
 
-const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): JSX.Element => {
+const NavItem = ({ children, size, isExternal, href, onPress, ...props }: NavItemProps): JSX.Element => {
   const ref = useRef(null);
-  const { setSidebarOpen } = useLayoutContext();
   const pathname = usePathname();
   const params = useParams();
-
-  const handlePress = () => setSidebarOpen(false);
 
   if (isExternal) {
     return (
@@ -40,8 +36,8 @@ const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): 
               href={href}
               rel='noreferrer'
               target='_blank'
-              onClick={handlePress}
-              onKeyDown={handlePress}
+              onClick={onPress}
+              onKeyDown={onPress}
             >
               {children}
             </StyledAnchor>
@@ -55,8 +51,8 @@ const NavItem = ({ children, size, isExternal, href, ...props }: NavItemProps): 
   const localizedHref = `/${params.lang}${href}`;
 
   return (
-    <li>
-      <StyledNativeNavLink {...props} ref={ref} href={localizedHref} onClick={handlePress} onKeyDown={handlePress}>
+    <li style={{ lineHeight: 1 }}>
+      <StyledNativeNavLink {...props} ref={ref} href={localizedHref} onClick={onPress} onKeyDown={onPress}>
         <StyledNavLink
           as={Span}
           color={pathname === localizedHref ? 'primary-500' : 'light'}

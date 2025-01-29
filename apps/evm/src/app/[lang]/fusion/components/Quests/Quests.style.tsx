@@ -23,36 +23,26 @@ const StyledCard = styled(Card)<StyledCardProps>`
 `;
 
 const StyledGrid = styled(Flex)`
-  display: grid;
   width: 100%;
 
-  grid-template-columns: 1fr;
-
-  grid-template-rows: 1fr 1fr;
-
   @media ${({ theme }) => theme.breakpoints.up('s')} {
+    display: grid;
+
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
 
     ${StyledCard} {
       grid-column: span 2 / span 2;
-
-      &:nth-of-type(3) {
-        grid-column-start: 2;
-      }
+      grid-column-start: 2;
     }
   }
 
   @media ${({ theme }) => theme.breakpoints.up('md')} {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
 
     ${StyledCard} {
       grid-column: span 1 / span 1;
-
-      &:nth-of-type(3) {
-        grid-column-start: unset;
-      }
+      grid-column-start: 2;
     }
   }
 `;

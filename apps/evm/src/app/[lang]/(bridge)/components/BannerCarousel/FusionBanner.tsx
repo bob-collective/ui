@@ -22,7 +22,7 @@ const FusionBanner = ({ onPress }: FusionBannerProps) => {
             <Trans>BOB Fusion: The Final Season</Trans>
           </BannerTitle>
         </Flex>
-        <P color='grey-50'>
+        <P color='grey-50' rows={2}>
           <Trans>Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now.</Trans>
         </P>
       </StyledBannerContent>

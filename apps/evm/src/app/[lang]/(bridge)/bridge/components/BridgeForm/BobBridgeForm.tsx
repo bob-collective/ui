@@ -10,17 +10,18 @@ import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
 import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 import { useAccount, usePublicClient } from 'wagmi';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { BridgeAlert } from './BridgeAlert';
 
 import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
 import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
 import { AuthButton } from '@/connect-ui';
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { L1_CHAIN, L2_CHAIN, publicClientL1, publicClientL2 } from '@/constants';
 import { bridgeContracts } from '@/constants/bridge';
 import {
   BridgeToken,
@@ -28,8 +29,6 @@ import {
   useBalances,
   useBridgeTokens,
   useIsContract,
-  usePublicClientL1,
-  usePublicClientL2,
   useSubscribeBalances,
   useWalletClientL1,
   useWalletClientL2
@@ -82,7 +81,7 @@ const BobBridgeForm = ({
   const bridgeChainId = direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN;
 
   const publicClient = usePublicClient();
-  const { address } = useAccount();
+  const { address, connector } = useAccount();
 
   const { getPrice } = usePrices();
   const { getBalance, refetch: refetchBalances } = useBalances(bridgeChainId);
@@ -90,9 +89,6 @@ const BobBridgeForm = ({
   useSubscribeBalances(bridgeChainId);
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
-
-  const publicClientL1 = usePublicClientL1();
-  const publicClientL2 = usePublicClientL2();
 
   const walletClientL1 = useWalletClientL1();
   const walletClientL2 = useWalletClientL2();
@@ -102,6 +98,7 @@ const BobBridgeForm = ({
   const initialToken = useMemo(() => Ether.onChain(bridgeChainId), [bridgeChainId]);
 
   const symbol = symbolProp || initialToken.symbol;
+  const [prevSymbol, setPrevSymbol] = useState(symbol);
 
   const [amount, setAmount] = useDebounceValue('', 300);
 
@@ -144,6 +141,13 @@ const BobBridgeForm = ({
     setAmount('');
 
     refetchBalances();
+
+    sendGAEvent('event', 'evm_bridge', {
+      l1Token: data.l1Token,
+      amount: data.amount?.toExact(),
+      tx_id: JSON.stringify(data.transactionHash),
+      evm_wallet: connector?.name
+    });
   };
 
   const isBridgeDisabled =
@@ -205,7 +209,8 @@ const BobBridgeForm = ({
         to: recipient,
         l1Token: l1Address,
         l2Token: l2Address,
-        type: TransactionType.Bridge
+        type: TransactionType.Bridge,
+        logoUrl: selectedToken.l1Token.logoUrl
       };
 
       const to = recipient || address!;
@@ -297,7 +302,8 @@ const BobBridgeForm = ({
         to: recipient,
         l1Token: l1Address,
         l2Token: l2Address,
-        type: TransactionType.Bridge
+        type: TransactionType.Bridge,
+        logoUrl: selectedToken.l2Token.logoUrl
       };
 
       const to = recipient || address!;
@@ -419,6 +425,11 @@ const BobBridgeForm = ({
     setAmount('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [direction]);
+
+  if (symbol !== prevSymbol) {
+    setPrevSymbol(symbol);
+    form.setFieldValue(BRIDGE_ASSET, symbol, true);
+  }
 
   const handleChangeSymbol = (currency: Currency) => {
     onChangeSymbol?.(currency.symbol as string);

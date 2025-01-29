@@ -5,6 +5,7 @@ import { Discord, Twitter } from '@gobob/icons';
 import { Trans } from '@lingui/macro';
 
 import { Main } from '@/components';
+import { ExternalLinks } from '@/constants';
 
 export function Geoblock(): JSX.Element {
   return (
@@ -35,14 +36,14 @@ export function Geoblock(): JSX.Element {
         </P>
         <Flex direction='column' gap='lg'>
           <Button asChild color='primary' variant='ghost'>
-            <a href='https://twitter.com/build_on_bob' rel='noreferrer' target='_blank'>
+            <a href={ExternalLinks.X} rel='noreferrer' target='_blank'>
               <Flex alignItems='center' elementType='span' gap='md'>
                 <Twitter color='light' /> <Trans>Follow us on X for updates</Trans>
               </Flex>
             </a>
           </Button>
           <Button asChild color='primary' variant='ghost'>
-            <a href='https://discord.gg/gobob' rel='noreferrer' target='_blank'>
+            <a href={ExternalLinks.DISCORD} rel='noreferrer' target='_blank'>
               <Flex alignItems='center' elementType='span' gap='md'>
                 <Discord color='light' /> <Trans>Need support? Enter our Discord.</Trans>
               </Flex>

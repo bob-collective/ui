@@ -26,10 +26,11 @@ import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import { useGetStrategies } from '../../hooks';
+import { ActivityButton } from '../ActivityButton';
 import { StrategyRewards } from '../StrategyRewards';
 
-import { StrategiesFilter, StrategiesFilterOption } from './StrategiesFilter';
 import { StrategiesCategories } from './StrategiesCategories';
+import { StrategiesFilter, StrategiesFilterOption } from './StrategiesFilter';
 
 import { AmountLabel } from '@/components';
 import { RoutesPath } from '@/constants';
@@ -144,13 +145,13 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
     const base =
       filter === StrategiesFilterOption.AllStrategies
         ? strategies
-        : strategies.filter((strategy) => !!strategy.deposit);
+        : strategies.filter((strategy) => !!strategy.contract.deposit.usd);
 
     return category ? base.filter((strategy) => strategy.meta.type === category) : base;
   }, [filter, category, strategies]);
 
   const sortedStrategies = useMemo(() => {
-    return [...filteredStrategies].sort((a, b) => (b?.tvl || 0) - (a?.tvl || 0));
+    return [...filteredStrategies].sort((a, b) => (b?.contract.tvl || 0) - (a?.contract.tvl || 0));
   }, [filteredStrategies]);
 
   useEffect(() => {
@@ -180,22 +181,22 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
           ),
           [StrategiesTableColumns.AMOUNT]: (
             <Flex direction='column'>
-              <AmountLabel hidePrice amount={strategy.deposit?.amount} />
-              {strategy.deposit?.usd && (
+              <AmountLabel hidePrice amount={strategy.contract.deposit.amount} />
+              {strategy.contract.deposit.usd && (
                 <P color='grey-50' size='s'>
-                  {format(strategy.deposit.usd)}
+                  {format(strategy.contract.deposit.usd)}
                 </P>
               )}
             </Flex>
           ),
           [StrategiesTableColumns.REWARDS]: <StrategyRewards incentives={strategy.info.incentives} />,
-          [StrategiesTableColumns.TVL]: strategy?.tvl
+          [StrategiesTableColumns.TVL]: strategy.contract.tvl
             ? Intl.NumberFormat(locale, {
                 style: 'currency',
                 currency: 'USD',
                 maximumFractionDigits: 0,
                 notation: 'compact'
-              }).format(strategy.tvl)
+              }).format(strategy.contract.tvl)
             : '-'
         };
       }),
@@ -247,10 +248,13 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
   );
 
   return (
-    <Flex direction='column' gap='md'>
+    <Flex direction='column' gap='md' marginTop='2xl'>
       <Flex wrap alignItems='center' gap='md' justifyContent={{ base: 'flex-start', s: 'space-between' }}>
         <StrategiesFilter value={filter} onSelectionChange={handleFilterChange} />
-        <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
+        <Flex alignItems='center' gap='s'>
+          <StrategiesCategories categories={categories} value={category} onSelectionChange={handleCategoryChange} />
+          <ActivityButton />
+        </Flex>
       </Flex>
       {isMobile ? (
         <List

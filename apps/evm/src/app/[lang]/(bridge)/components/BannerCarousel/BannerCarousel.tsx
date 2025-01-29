@@ -6,6 +6,7 @@ import { useLingui } from '@lingui/react';
 import { useCallback, useMemo } from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import { useTheme } from 'styled-components';
+import { useIsClient } from 'usehooks-ts';
 
 import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
 import { FusionBanner } from './FusionBanner';
@@ -17,6 +18,7 @@ const BannerCarousel = () => {
   const { i18n } = useLingui();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('s'));
+  const isCleint = useIsClient();
 
   const responsive = useMemo(
     () => ({
@@ -74,23 +76,27 @@ const BannerCarousel = () => {
       paddingX='none'
       paddingY='none'
     >
-      <StyledCarousel
-        autoPlay
-        infinite
-        showDots
-        ssr
-        arrows={isDesktop}
-        autoPlaySpeed={10000}
-        draggable={false}
-        responsive={responsive}
-        swipeable={false}
-        transitionDuration={500}
-      >
+      {isCleint ? (
+        <StyledCarousel
+          autoPlay
+          infinite
+          showDots
+          ssr
+          arrows={isDesktop}
+          autoPlaySpeed={10000}
+          draggable={false}
+          responsive={responsive}
+          swipeable={false}
+          transitionDuration={500}
+        >
+          <BabylonBanner onPress={onPressBabylonBanner} />
+          <HybridL2Banner onPress={onPressHybridL2Banner} />
+          <XBanner onPress={onPressXBanner} />
+          <FusionBanner onPress={onPressFusionBanner} />
+        </StyledCarousel>
+      ) : (
         <BabylonBanner onPress={onPressBabylonBanner} />
-        <HybridL2Banner onPress={onPressHybridL2Banner} />
-        <XBanner onPress={onPressXBanner} />
-        <FusionBanner onPress={onPressFusionBanner} />
-      </StyledCarousel>
+      )}
     </StyledCarouselWrapper>
   );
 };

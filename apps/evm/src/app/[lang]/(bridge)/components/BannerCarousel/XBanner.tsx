@@ -18,7 +18,7 @@ const XBanner = ({ onPress }: XBannerProps) => (
           <Trans>Follow us on X</Trans>
         </BannerTitle>
       </Flex>
-      <P color='grey-50'>
+      <P color='grey-50' rows={2}>
         <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
       </P>
     </StyledBannerContent>

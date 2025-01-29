@@ -2,7 +2,6 @@ import { renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
-import { gatewaySDK } from '../../lib/bob-sdk';
 import { useGetStrategies } from '../useGetStrategies';
 
 import { wrapper } from '@/test-utils';
@@ -14,12 +13,17 @@ vi.mock('../../lib/bob-sdk', () => ({
 }));
 
 describe('useGetStrategies hook', () => {
-  afterEach((gatewaySDK.getStrategies as Mock).mockClear);
+  beforeEach(() => {
+    global.fetch = vi.fn(global.fetch);
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
   it('should call useQuery with correct params', async () => {
     const mockData = [{ id: 1, integration: { name: 'Strategy 1' } }];
 
-    (gatewaySDK.getStrategies as Mock).mockResolvedValue(mockData);
+    (global.fetch as Mock).mockResolvedValue({ json: () => mockData });
 
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
       () => useGetStrategies(),
@@ -29,14 +33,13 @@ describe('useGetStrategies hook', () => {
     await waitFor(() => result.current.isSuccess);
 
     expect(result.current.data).toEqual(mockData);
-    expect(gatewaySDK.getStrategies).toHaveBeenCalledWith();
-    expect(gatewaySDK.getStrategies).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 
   it('should handle error state correctly', async () => {
     const mockError = new Error('Failed to fetch');
 
-    (gatewaySDK.getStrategies as Mock).mockRejectedValue(mockError);
+    (global.fetch as Mock).mockRejectedValue(mockError);
 
     const { result, waitFor } = renderHook<PropsWithChildren, ReturnType<typeof useGetStrategies>>(
       () => useGetStrategies({ retry: false }),
@@ -46,7 +49,7 @@ describe('useGetStrategies hook', () => {
     await waitFor(() => expect(result.current.isError).toEqual(true));
 
     expect(result.current.error).toEqual(mockError);
-    expect(gatewaySDK.getStrategies).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 
   it('should handle loading state correctly', () => {

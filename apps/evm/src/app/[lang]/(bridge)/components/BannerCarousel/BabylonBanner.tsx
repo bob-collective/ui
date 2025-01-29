@@ -22,10 +22,10 @@ const BabylonBanner = ({ onPress }: FusionBannerProps) => {
             <Trans>Collect Babylon Points on BOB</Trans>
           </BannerTitle>
         </Flex>
-        <P color='grey-50'>
+        <P color='grey-50' rows={2}>
           <Trans>
             To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in
-            DeFi. Read more &gt;
+            DeFi.
           </Trans>
         </P>
       </StyledBannerContent>

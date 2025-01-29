@@ -26,6 +26,7 @@ type BridgeTransaction = {
   l1Token: Address;
   l2Token: Address;
   amount: CurrencyAmount<EvmCurrencies>;
+  logoUrl: string;
   gasEstimate?: CurrencyAmount<EvmCurrencies>;
   data?: string;
   date: Date;
@@ -60,6 +61,7 @@ type GatewayTransaction = {
   totalConfirmations: number;
   btcTxId: string;
   amount?: CurrencyAmount<ERC20Token>;
+  logoUrl?: string;
   type: TransactionType.Gateway;
   subType: GatewayTransactionType;
   isPending: boolean;

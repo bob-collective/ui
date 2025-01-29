@@ -185,7 +185,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
       <Flex direction='column' style={{ overflow: 'hidden' }}>
         <Flex alignItems='center' gap='xs' justifyContent='space-between'>
           <Span color='grey-50' size='xs'>
-            <Trans>Output</Trans>
+            {strategy.contract.outputToken && <Trans>Output</Trans>}
           </Span>
           <ArrowTopRightOnSquare color='grey-50' size='xxs' />
         </Flex>
@@ -201,7 +201,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   return (
     <Dl direction='column' flex='1.2 0 0%' gap='xl'>
-      {strategy?.deposit && (
+      {strategy?.contract.deposit.amount.greaterThan(0) && (
         <Card alignItems='flex-start' direction='column'>
           <Dt color='grey-50' size='s'>
             {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
@@ -209,13 +209,13 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
           <Flex wrap elementType='dd' gap='s'>
             <Span color='light' size='lg' weight='semibold'>
               {strategy ? (
-                <AmountLabel hidePrice amount={strategy.deposit.amount} />
+                <AmountLabel hidePrice amount={strategy.contract.deposit.amount} />
               ) : (
                 <Skeleton height='4xl' rounded='full' width='4xl' />
               )}
             </Span>
             <Span color='grey-50' size='lg' weight='semibold'>
-              ({format(strategy.deposit.usd)})
+              ({format(strategy.contract.deposit.usd)})
             </Span>
           </Flex>
         </Card>
@@ -236,7 +236,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
             <Trans>TVL</Trans>
           </Dt>
           <Dd color='light' size='lg' weight='semibold'>
-            {strategy?.tvl ? format(strategy.tvl) : '-'}
+            {strategy?.contract.tvl ? format(strategy.contract.tvl) : '-'}
           </Dd>
         </Card>
       </Flex>
