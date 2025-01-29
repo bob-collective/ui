@@ -57,7 +57,7 @@ const ActivityButton = (): JSX.Element => {
 
   return (
     <Button size='s' style={{ gap: 4, alignItems: 'center' }} onPress={handleOpenProfile}>
-      <Flex elementType='span' gap='s'>
+      <Flex alignItems='center' elementType='span' gap='s'>
         <SolidClock />
         {isBridgeTxPending ? (
           <Skeleton height='1.5rem' width='5rem' />
