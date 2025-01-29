@@ -840,6 +840,10 @@ msgstr "Got it!"
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:78
+msgid "Harvest {0} more Spice to play"
+msgstr "Harvest {0} more Spice to play"
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:80
 #~ msgid "Harvest {pointsMissing} more Spice to participate"
 #~ msgstr "Harvest {pointsMissing} more Spice to participate"
@@ -849,8 +853,8 @@ msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 #~ msgstr "Harvest {pointsMissing} more SPICE to participate"
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:78
-msgid "Harvest {pointsMissing} more Spice to play"
-msgstr "Harvest {pointsMissing} more Spice to play"
+#~ msgid "Harvest {pointsMissing} more Spice to play"
+#~ msgstr "Harvest {pointsMissing} more Spice to play"
 
 #: src/app/[lang]/fusion/Fusion.tsx:136
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."

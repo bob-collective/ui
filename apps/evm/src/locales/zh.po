@@ -990,6 +990,10 @@ msgstr ""
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "抓住最后收获Spice的机会！加入第3季！"
 
+#: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:78
+msgid "Harvest {0} more Spice to play"
+msgstr ""
+
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:80
 #~ msgid "Harvest {pointsMissing} more Spice to participate"
 #~ msgstr ""
@@ -999,8 +1003,8 @@ msgstr "抓住最后收获Spice的机会！加入第3季！"
 #~ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:78
-msgid "Harvest {pointsMissing} more Spice to play"
-msgstr ""
+#~ msgid "Harvest {pointsMissing} more Spice to play"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:57
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to participate"

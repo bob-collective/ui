@@ -75,7 +75,7 @@ const LotteryModal = ({
               </Trans>
             </H3>
             <P align='center' color='grey-50' size='s'>
-              <Trans>Harvest {pointsMissing} more Spice to play</Trans>
+              <Trans>Harvest {pointsMissing.toFixed(2)} more Spice to play</Trans>
             </P>
           </Flex>
         </ModalBody>
