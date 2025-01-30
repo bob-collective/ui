@@ -137,7 +137,7 @@ msgstr ""
 #: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:51
 #: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:80
 #: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:46
-#: src/components/Profile/Profile.tsx:146
+#: src/components/Profile/Profile.tsx:150
 msgid "Activity"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "Babylon points"
 msgstr "Babylon积分"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:51
 #: src/components/ReceiveModal/ReceiveModal.tsx:76
 msgid "Back"
 msgstr ""
@@ -462,7 +462,7 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
-#: src/components/Profile/Profile.tsx:116
+#: src/components/Profile/Profile.tsx:120
 msgid "Buy"
 msgstr ""
 
@@ -548,7 +548,7 @@ msgstr ""
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
-#: src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:123
+#: src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:124
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:210
 msgid "Coming Soon"
 msgstr "即将推出"
@@ -582,7 +582,7 @@ msgstr ""
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:85
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:91
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr ""
 
@@ -1572,7 +1572,7 @@ msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting S
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:117
-#: src/components/Profile/Profile.tsx:130
+#: src/components/Profile/Profile.tsx:134
 msgid "Receive"
 msgstr "接收"
 
@@ -1855,7 +1855,7 @@ msgid "stake"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:25
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:36
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:38
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:162
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
@@ -2004,7 +2004,7 @@ msgstr ""
 msgid "supply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:36
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:38
 msgid "Supply"
 msgstr ""
 
@@ -2313,11 +2313,11 @@ msgstr ""
 msgid "Unlink wallet"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:35
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:37
 msgid "unstake"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:37
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:39
 msgid "Unstake"
 msgstr ""
 
@@ -2451,7 +2451,7 @@ msgstr ""
 msgid "Waiting for confirmation"
 msgstr ""
 
-#: src/components/Profile/Profile.tsx:139
+#: src/components/Profile/Profile.tsx:143
 msgid "Wallet"
 msgstr "钱包"
 
@@ -2496,12 +2496,12 @@ msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计�
 #~ msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:35
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:37
 msgid "withdraw"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:156
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:37
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:39
 msgid "Withdraw"
 msgstr ""
 

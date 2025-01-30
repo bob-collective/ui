@@ -3,6 +3,7 @@
 import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
+import posthog from 'posthog-js';
 
 import { StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
@@ -11,6 +12,7 @@ import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
 import { PageLangParam } from '@/i18n/withLigui';
 import { useGetGatewayTransactions } from '@/hooks';
+import { PosthogEvents } from '@/lib/posthog';
 
 type Props = PageLangParam & {
   params: { slug: string };
@@ -35,6 +37,10 @@ function Strategy({ params }: Props) {
   const action = isLending ? <Trans>withdraw</Trans> : <Trans>unstake</Trans>;
   const depositTitle = isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>;
   const withdrawTitle = isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>;
+
+  const handleNavigateWidthdraw = () => {
+    posthog.capture(PosthogEvents.STRATEGY_WITHDRAW_EXTERNAL);
+  };
 
   return (
     <Layout>
@@ -87,7 +93,7 @@ function Strategy({ params }: Props) {
                     </Trans>
                   </P>
                   <Button asChild color='primary'>
-                    <Link external href={strategy?.info.links.manage}>
+                    <Link external href={strategy?.info.links.manage} onPress={handleNavigateWidthdraw}>
                       Go to {strategy?.info.protocol} Dapp
                     </Link>
                   </Button>

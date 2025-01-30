@@ -7,6 +7,7 @@ import { useStore } from '@tanstack/react-store';
 import { Chain } from 'viem';
 import { useDisconnect } from 'wagmi';
 import { Key } from 'react';
+import posthog from 'posthog-js';
 
 import { ProfileActivity } from '../ProfileActivity';
 import { ProfileTag } from '../ProfileTag';
@@ -22,6 +23,7 @@ import { useConnectModal, WalletType } from '@/connect-ui';
 import { ExternalLinks } from '@/constants';
 import { useGetBridgeTransactions, useTotalBalance } from '@/hooks';
 import { ShareStoreProfileTabs, store } from '@/lib/store';
+import { PosthogEvents } from '@/lib/posthog';
 
 type ProfileProps = {
   onClose: () => void;
@@ -58,6 +60,8 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
     window.open(ExternalLinks.BANXA, '_blank', 'noreferrer');
 
     onClose();
+
+    posthog.capture(PosthogEvents.DRAWER_BUY);
   };
 
   const handlePressReceive = () =>

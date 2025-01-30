@@ -44,7 +44,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
 
-    posthog.capture(PosthogEvents.STRATEGY_INITIATED);
+    posthog.capture(PosthogEvents.STRATEGY_DEPOSIT_INITIATED);
   };
 
   const handleSuccessGateway = (data: InitGatewayTransaction) => {
@@ -56,14 +56,14 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       tx_id: data.txId,
       btc_wallet: connector?.name
     });
-    posthog.capture(PosthogEvents.STRATEGY_COMPLETED);
+    posthog.capture(PosthogEvents.STRATEGY_DEPOSIT_COMPLETED);
   };
 
   const handleCloseGatewayModal = () => setGatewayModalState((s) => ({ ...s, isOpen: false }));
 
   const handleFailedGateway = () => {
     handleCloseGatewayModal();
-    posthog.capture(PosthogEvents.STRATEGY_FAILED);
+    posthog.capture(PosthogEvents.STRATEGY_DEPOSIT_FAILED);
   };
 
   const { i18n } = useLingui();
@@ -110,7 +110,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   useEffect(() => {
     if (!form.dirty) return;
 
-    posthog.capture(PosthogEvents.STRATEGY_FORM_TOUCHED);
+    posthog.capture(PosthogEvents.STRATEGY_DEPOSIT_FORM_TOUCHED);
   }, [form.dirty]);
 
   const isDisabled =

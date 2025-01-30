@@ -92,11 +92,11 @@ const bridges: Record<
   }
 };
 
-type Props = { direction: TransactionDirection; bridge: ExternalBridges };
+type Props = { direction: TransactionDirection; bridge: ExternalBridges; onPress: () => void };
 
 type ExternalBridgeCardProps = Props;
 
-const ExternalBridgeCard = ({ direction, bridge }: ExternalBridgeCardProps): JSX.Element => {
+const ExternalBridgeCard = ({ direction, bridge, onPress }: ExternalBridgeCardProps): JSX.Element => {
   const { href, name, icon: Icon, disabled } = bridges[bridge];
   const typeHref = typeof href === 'string' ? href : href[direction];
 
@@ -112,6 +112,7 @@ const ExternalBridgeCard = ({ direction, bridge }: ExternalBridgeCardProps): JSX
       justifyContent='space-between'
       padding='lg'
       rounded='md'
+      onPress={onPress}
     >
       <Flex alignItems='center' gap='s'>
         {typeof Icon === 'string' ? <Avatar src={Icon} /> : <Icon size='xl' />}
