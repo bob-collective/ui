@@ -28,6 +28,7 @@
     "@gobob/utils": "workspace:^",
     "@lingui/core": "catalog:",
     "@lingui/react": "catalog:",
+    "@marsidev/react-turnstile": "^1.1.0",
     "@next/third-parties": "catalog:",
     "@react-aria/button": "catalog:",
     "@react-aria/focus": "catalog:",

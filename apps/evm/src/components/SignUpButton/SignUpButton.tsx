@@ -3,10 +3,12 @@ import { Button, ButtonProps, toast } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { mergeProps } from '@react-aria/utils';
 import { useAccount, useSwitchChain } from 'wagmi';
+import { useStore } from '@tanstack/react-store';
 
 import { useConnectModal } from '@/connect-ui';
 import { L2_CHAIN, isValidChain } from '@/constants';
 import { useSignUp } from '@/hooks';
+import { store } from '@/lib/store';
 
 type SignUpButtonProps = ButtonProps;
 
@@ -15,7 +17,18 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
   const { open } = useConnectModal();
   const { address, chain } = useAccount();
 
-  const { mutate: signUp, isPending: isSigningUp } = useSignUp();
+  const { token: turnstileToken } = useStore(store, (state) => state.shared.turnstile);
+
+  const { mutate: signUp, isPending: isSigningUp } = useSignUp({
+    onSuccess: () =>
+      store.setState((s) => ({
+        ...s,
+        shared: {
+          ...s.shared,
+          turnstile: { isOpen: false }
+        }
+      }))
+  });
 
   const handlePress = async () => {
     if (!address) {
@@ -30,7 +43,17 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
             }
           }
 
-          return signUp({ address });
+          if (!turnstileToken) {
+            return store.setState((s) => ({
+              ...s,
+              shared: {
+                ...s.shared,
+                turnstile: { isOpen: true, onSuccess: (token) => signUp({ address, turnstileToken: token }) }
+              }
+            }));
+          }
+
+          return signUp({ address, turnstileToken });
         }
       });
     }
@@ -39,7 +62,17 @@ const SignUpButton = (props: SignUpButtonProps): JSX.Element => {
       await switchChainAsync({ chainId: L2_CHAIN });
     }
 
-    return signUp({ address });
+    if (!turnstileToken) {
+      return store.setState((s) => ({
+        ...s,
+        shared: {
+          ...s.shared,
+          turnstile: { isOpen: true, onSuccess: (token) => signUp({ address, turnstileToken: token }) }
+        }
+      }));
+    }
+
+    return signUp({ address, turnstileToken });
   };
 
   return <Button loading={isSigningUp} {...mergeProps(props, { onPress: handlePress })} />;

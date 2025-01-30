@@ -446,7 +446,7 @@ msgstr "Close"
 msgid "Collect Babylon Points on BOB"
 msgstr "Collect Babylon Points on BOB"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:107
+#: src/app/[lang]/sign-up/SignUp.tsx:140
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 
@@ -908,7 +908,7 @@ msgstr "If you already own BTC LSTs on other chains, you can bridge them over to
 msgid "Input"
 msgstr "Input"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:116
+#: src/app/[lang]/sign-up/SignUp.tsx:149
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr "Invalid referral code. You can try again, or proceed without one."
 
@@ -1290,7 +1290,7 @@ msgstr "Please note:"
 msgid "Points"
 msgstr "Points"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:103
+#: src/app/[lang]/sign-up/SignUp.tsx:136
 msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
@@ -1516,13 +1516,13 @@ msgstr "Solv XP"
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:130
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/hooks/useLogin.ts:50
-#: src/hooks/useSignUp.ts:53
+#: src/hooks/useSignUp.ts:65
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
-#: src/app/[lang]/sign-up/SignUp.tsx:73
+#: src/app/[lang]/sign-up/SignUp.tsx:86
 #: src/components/LoginButton/LoginButton.tsx:29
-#: src/components/SignUpButton/SignUpButton.tsx:29
+#: src/components/SignUpButton/SignUpButton.tsx:42
 msgid "Something went wrong. Please try connecting your wallet again."
 msgstr "Something went wrong. Please try connecting your wallet again."
 
@@ -1657,7 +1657,7 @@ msgstr "Start Harvesting"
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:55
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:376
-#: src/app/[lang]/sign-up/SignUp.tsx:128
+#: src/app/[lang]/sign-up/SignUp.tsx:161
 msgid "Start Harvesting Spice"
 msgstr "Start Harvesting Spice"
 
@@ -1771,7 +1771,7 @@ msgstr "The campaign will run until 1st February."
 msgid "The final season"
 msgstr "The final season"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:100
+#: src/app/[lang]/sign-up/SignUp.tsx:133
 msgid "THE FIRST HYBRID L2"
 msgstr "THE FIRST HYBRID L2"
 
@@ -1983,7 +1983,7 @@ msgstr "Use your Spice total to support your favourite BOB builders. Winners wil
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:128
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
 #: src/hooks/useLogin.ts:48
-#: src/hooks/useSignUp.ts:51
+#: src/hooks/useSignUp.ts:63
 msgid "User rejected the request"
 msgstr "User rejected the request"
 
@@ -1998,6 +1998,10 @@ msgstr "Username"
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:234
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
+
+#: src/components/TurnstileModal/TurnstileModal.tsx:23
+msgid "Verify you are human"
+msgstr "Verify you are human"
 
 #: src/app/[lang]/(bridge)/components/TransactionList/TransactionList.tsx:133
 #~ msgid "View All Transactions"

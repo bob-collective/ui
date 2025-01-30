@@ -12,7 +12,11 @@ import { useGetUser } from './useGetUser';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
 
-const useSignUp = () => {
+type UseSignUpProps = {
+  onSuccess?: () => void;
+};
+
+const useSignUp = ({ onSuccess }: UseSignUpProps = {}) => {
   const { signMessageAsync } = useSignMessage();
   const { chain } = useAccount();
 
@@ -22,7 +26,14 @@ const useSignUp = () => {
 
   return useMutation({
     mutationKey: fusionKeys.signUp(),
-    mutationFn: async ({ address }: { address: Address; referralCode?: string }) => {
+    mutationFn: async ({
+      address,
+      turnstileToken
+    }: {
+      address: Address;
+      turnstileToken: string;
+      referralCode?: string;
+    }) => {
       const nonce = await apiClient.getNonce();
 
       const message = new SiweMessage({
@@ -39,10 +50,11 @@ const useSignUp = () => {
         message: message.prepareMessage()
       });
 
-      await apiClient.signUp(message, signature);
+      await apiClient.signUp(message, turnstileToken, signature);
     },
     onSuccess: (_, { address, referralCode }) => {
       sendGAEvent('event', 'signup', { evm_address: JSON.stringify(address), referral_code: referralCode });
+      onSuccess?.();
       setTimeout(() => refetchUser(), 100);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
