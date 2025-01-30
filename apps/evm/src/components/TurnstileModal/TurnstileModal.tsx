@@ -20,10 +20,14 @@ const TurnstileModal = () => {
       onClose={() => store.setState((s) => ({ ...s, shared: { ...s.shared, turnstile: { isOpen: false } } }))}
     >
       <ModalHeader>
-        <Trans>Verify You&apos;re Human</Trans>
+        <Trans>Verify you are human</Trans>
       </ModalHeader>
-      <ModalBody padding='even'>
-        <Turnstile siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY} onSuccess={handleSuccess} />
+      <ModalBody>
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          onSuccess={handleSuccess}
+        />
       </ModalBody>
     </Modal>
   );

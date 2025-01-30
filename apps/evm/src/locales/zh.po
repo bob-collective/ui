@@ -544,7 +544,7 @@ msgstr ""
 msgid "Collect Babylon Points on BOB"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:107
+#: src/app/[lang]/sign-up/SignUp.tsx:140
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
@@ -1078,7 +1078,7 @@ msgstr ""
 #~ msgid "Input Token"
 #~ msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:116
+#: src/app/[lang]/sign-up/SignUp.tsx:149
 msgid "Invalid referral code. You can try again, or proceed without one."
 msgstr ""
 
@@ -1513,7 +1513,7 @@ msgstr "请注意："
 msgid "Points"
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:103
+#: src/app/[lang]/sign-up/SignUp.tsx:136
 msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
@@ -1764,7 +1764,7 @@ msgstr ""
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
-#: src/app/[lang]/sign-up/SignUp.tsx:73
+#: src/app/[lang]/sign-up/SignUp.tsx:86
 #: src/components/LoginButton/LoginButton.tsx:29
 #: src/components/SignUpButton/SignUpButton.tsx:42
 msgid "Something went wrong. Please try connecting your wallet again."
@@ -1943,7 +1943,7 @@ msgstr "开始收获"
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:55
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:376
-#: src/app/[lang]/sign-up/SignUp.tsx:128
+#: src/app/[lang]/sign-up/SignUp.tsx:161
 msgid "Start Harvesting Spice"
 msgstr "开始收获Spice"
 
@@ -2089,7 +2089,7 @@ msgstr ""
 msgid "The final season"
 msgstr "最终季 - 不容错过！"
 
-#: src/app/[lang]/sign-up/SignUp.tsx:100
+#: src/app/[lang]/sign-up/SignUp.tsx:133
 msgid "THE FIRST HYBRID L2"
 msgstr "首个混合型二层"
 
@@ -2393,7 +2393,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/TurnstileModal/TurnstileModal.tsx:23
-msgid "Verify You're Human"
+msgid "Verify you are human"
 msgstr ""
 
 #: src/app/[lang]/wallet/Wallet.tsx:29
