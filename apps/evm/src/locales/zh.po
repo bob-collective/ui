@@ -460,11 +460,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:13
 msgid "BTC LST Lending"
-msgstr "BTC LST借贷<<<<<<< HEAD<<<<<<< HEAD"
-
-#: src/app/[lang]/(bridge)/stake/Stake.tsx:70
-#~ msgid "BTC Strategies======="
-#~ msgstr ""
+msgstr "BTC LST借贷"
 
 #: src/components/Profile/Profile.tsx:116
 msgid "Buy"
@@ -497,7 +493,7 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetailsModal/StrategyDetailsModal.tsx:36
 #~ msgid "Category"
-#~ msgstr "<<<<<<< HEAD"
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:464
 msgid "Checking Allowance"
@@ -609,7 +605,7 @@ msgstr ""
 
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
 msgid "Connect request is already pending"
-msgstr "<<<<<<< HEAD<<<<<<< HEAD"
+msgstr ""
 
 #: src/components/ConnectButton/ConnectButton.tsx:122
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
@@ -782,14 +778,6 @@ msgstr ""
 msgid "enable ETH top-up for transaction fees on BOB network"
 msgstr ""
 
-#: src/app/[lang]/wallet/components/ReceiveTokenModal/ReceiveTokenModal.tsx:59
-#~ msgid "Ensure that you are transferring from the BOB Network to avoid any loss of funds."
-#~ msgstr ""
-
-#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:225
-#~ msgid "Enter Address"
-#~ msgstr "<<<<<<< HEAD"
-
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:493
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:131
@@ -822,7 +810,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:33
 msgid "Exclusive Spice Bonus For Superchain Users"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/components/ProfileActivity/ProfileActivityFilters.tsx:24
 msgid "Failed"
@@ -1313,7 +1301,7 @@ msgstr ""
 
 #: src/components/SocialsGroup/SocialsGroup.tsx:32
 msgid "navigate to discord"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:75
 msgid "navigate to ecosystem section in fusion page"
@@ -1581,7 +1569,7 @@ msgstr "点此了解更多"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:26
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
 #: src/components/Profile/Profile.tsx:130
@@ -1594,7 +1582,7 @@ msgstr "接收"
 
 #: src/app/[lang]/wallet/components/TokenTable/ButtonGroup.tsx:93
 #~ msgid "Receive {ticker}"
-#~ msgstr "接收 {ticker}<<<<<<< HEAD"
+#~ msgstr "接收 {ticker}"
 
 #: src/components/ReceiveModal/ReceiveModal.tsx:70
 msgid "Receive crypto"
@@ -1701,7 +1689,7 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/ChainSelect/ChainSelect.tsx:20
 msgid "Select Network"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:189
 msgid "select network to bridge from"
@@ -1985,7 +1973,7 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:256
 msgid "Strategy Breakdown"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/components/BridgeStatus/WithdrawStatus.tsx:41
 msgid "Submission failed. Please disable any wallets other than the one connected to this dApp. If the issue persists, please contact us."
@@ -1994,10 +1982,6 @@ msgstr ""
 #: src/components/BridgeStatus/WithdrawStatus.tsx:108
 msgid "Successfully finalized transaction"
 msgstr ""
-
-#: src/app/[lang]/wallet/components/SendTokenModal/SendTokenModal.tsx:150
-#~ msgid "Successfully sent {amount} {0}"
-#~ msgstr "<<<<<<< HEAD"
 
 #: src/components/BridgeStatus/WithdrawStatus.tsx:75
 msgid "Successfully submitted ${0} proof"
@@ -2382,7 +2366,7 @@ msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将�
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:51
 msgid "User rejected the request"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/components/BridgeStatus/WithdrawStatus.tsx:36
 msgid "User rejected the request."
@@ -2394,7 +2378,7 @@ msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserReferralModal.tsx:23
 msgid "Username"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:234
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
@@ -2456,7 +2440,7 @@ msgstr ""
 #: src/app/[lang]/(bridge)/components/TransactionModal/BridgeTransactionModal.tsx:52
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:39
 msgid "Waiting for confirmation"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/components/Profile/Profile.tsx:139
 msgid "Wallet"
