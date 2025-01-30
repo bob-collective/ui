@@ -41,22 +41,6 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         btc_address: btcAddress,
         btc_wallet: btcConnector?.name
       });
-
-      posthog.capture(PosthogEvents.CONNECT_EVM_WALLET, {
-        btc_address: btcAddress,
-        btc_wallet: btcConnector?.name,
-        $set_once: {
-          initial_evm_wallet: data.connector.name,
-          initial_btc_wallet: btcConnector?.name,
-          is_smart_contract: isSmartAccount
-        },
-        $set: {
-          evm_address: data.address,
-          evm_wallet: data.connector.name,
-          btc_address: btcAddress,
-          btc_wallet: btcConnector?.name
-        }
-      });
     },
     onDisconnect: () => {
       posthog.reset();
