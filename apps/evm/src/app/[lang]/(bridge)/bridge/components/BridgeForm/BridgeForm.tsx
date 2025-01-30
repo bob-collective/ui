@@ -10,7 +10,6 @@ import { Key, useCallback, useMemo, useState } from 'react';
 import { useAccount, useChainId } from 'wagmi';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import posthog from 'posthog-js';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -26,7 +25,7 @@ import { TokenData, useGetBridgeTransactions, useGetGatewayTransactions } from '
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
-import { PosthogEvents } from '@/lib/posthog';
+import { posthogEvents } from '@/lib/posthog';
 
 type TransactionModalState = {
   isOpen: boolean;
@@ -82,6 +81,8 @@ const BridgeForm = ({
   const { connector: satsConnector, address: btcAddress } = useSatsAccount();
   const { connector, address } = useAccount();
 
+  const evmBridgePosthogEvents = direction === TransactionDirection.L1_TO_L2 ? 'deposit' : 'withdraw';
+
   const { refetch: refetchBridgeTransactions, addPlaceholderTransaction: addBridgePlaceholderTransaction } =
     useGetBridgeTransactions();
   const { refetch: refetchGatewayTransactions } = useGetGatewayTransactions();
@@ -122,7 +123,10 @@ const BridgeForm = ({
   const handleStartBridge = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
 
-    posthog.capture(PosthogEvents.EVM_BRIDGE_INITIATED);
+    posthogEvents.bridge.evm.initiated(evmBridgePosthogEvents, {
+      ticker: data.amount.currency.symbol,
+      amount: data.amount.toExact()
+    });
   };
 
   const handleSuccessfulBridge = (data: BridgeTransaction) => {
@@ -139,13 +143,16 @@ const BridgeForm = ({
       evm_wallet: connector?.name
     });
 
-    posthog.capture(PosthogEvents.EVM_BRIDGE_COMPLETED);
+    posthogEvents.bridge.evm.completed(evmBridgePosthogEvents);
   };
 
   const handleStartBridgeApproval = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'approval' });
 
-    posthog.capture(PosthogEvents.EVM_BRIDGE_APPROVAL);
+    posthogEvents.bridge.evm.approval(evmBridgePosthogEvents, {
+      ticker: data.amount.currency.symbol,
+      amount: data.amount.toExact()
+    });
   };
 
   const handleCloseBridgeModal = () => {
@@ -155,13 +162,16 @@ const BridgeForm = ({
   const handleFailedBridge = () => {
     handleCloseBridgeModal();
 
-    posthog.capture(PosthogEvents.EVM_BRIDGE_FAILED);
+    posthogEvents.bridge.evm.failed(evmBridgePosthogEvents);
   };
 
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
 
-    posthog.capture(PosthogEvents.BTC_BRIDGE_INITIATED);
+    posthogEvents.bridge.btc.initiated('deposit', {
+      ticker: data.amount?.currency.symbol as string,
+      amount: data.amount?.toExact() as string
+    });
   };
 
   const handleSuccessfulGateway = (data: InitGatewayTransaction) => {
@@ -179,7 +189,7 @@ const BridgeForm = ({
       evm_wallet: connector?.name
     });
 
-    posthog.capture(PosthogEvents.BTC_BRIDGE_COMPLETED);
+    posthogEvents.bridge.btc.completed('deposit');
   };
 
   const handleCloseGatewayModal = () => {
@@ -189,7 +199,7 @@ const BridgeForm = ({
   const handleFailedGateway = () => {
     handleCloseGatewayModal();
 
-    posthog.capture(PosthogEvents.BTC_BRIDGE_FAILED);
+    posthogEvents.bridge.btc.failed('deposit');
   };
 
   const handleChangeChain = useCallback(

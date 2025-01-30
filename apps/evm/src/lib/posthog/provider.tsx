@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { useAccount, useAccountEffect } from 'wagmi';
 
 import PageView from './PageView';
-import { PosthogEvents } from './events';
 
 import { useIsContract } from '@/hooks';
 
@@ -36,11 +35,14 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
 
   useAccountEffect({
     onConnect: (data) => {
-      posthog.identify(data.address);
-
-      posthog.capture(PosthogEvents.CONNECT_EVM_WALLET, {
+      posthog.identify(data.address, undefined, {
         evm_address: data.address,
         evm_wallet: data.connector.name,
+        btc_address: btcAddress,
+        btc_wallet: btcConnector?.name
+      });
+
+      posthog.capture(PosthogEvents.CONNECT_EVM_WALLET, {
         btc_address: btcAddress,
         btc_wallet: btcConnector?.name,
         $set_once: {

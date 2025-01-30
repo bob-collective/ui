@@ -8,17 +8,16 @@ import { chain, mergeProps } from '@react-aria/utils';
 import { Optional } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
 import { useAccount } from 'wagmi';
-import posthog from 'posthog-js';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
-import { PosthogEvents } from '../../../../../../lib/posthog';
 
 import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
 import { TokenData } from '@/hooks';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
+import { posthogEvents } from '@/lib/posthog';
 
 type BtcBridgeFormProps = {
   availableTokens?: TokenData[];
@@ -90,7 +89,10 @@ const BtcBridgeForm = ({
   useEffect(() => {
     if (!form.dirty) return;
 
-    posthog.capture(PosthogEvents.BTC_BRIDGE_FORM_TOUCHED);
+    posthogEvents.bridge.evm.formTouched('deposit', {
+      ticker: symbol!
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.dirty]);
 
   const isDisabled = isSubmitDisabled || gateway.isDisabled || !gateway.isReady || gateway.query.quote.isPending;

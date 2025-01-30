@@ -15,6 +15,7 @@ import { BtcWalletList } from './BtcWalletList';
 import { EvmWalletList } from './EvmWalletList';
 
 import { ExternalLinks } from '@/constants';
+import { posthogEvents } from '@/lib/posthog';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
@@ -88,6 +89,9 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             evm_address: JSON.stringify(connectData.accounts),
             evm_wallet: connector.name
           });
+
+          posthogEvents.connect.evm({ evm_address: connectData.accounts });
+
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingConnector(undefined);

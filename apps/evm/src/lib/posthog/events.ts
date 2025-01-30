@@ -1,30 +1,54 @@
-enum PosthogEvents {
-  FUSION_SIGN_UP = 'user_fusion_sign_up',
-  FUSION_SIGN_IN = 'user_fusion_sign_in',
+import posthog from 'posthog-js';
 
-  CONNECT_EVM_WALLET = 'connect_evm_wallet',
-  CONNECT_BTC_WALLET = 'connect_btc_wallet',
+const bridgeEvmEvents = {
+  formTouched: (type: 'deposit' | 'withdraw', properties: { ticker: string }) =>
+    posthog.capture(`bridge_evm_${type}_form_touched`, properties),
+  approval: (type: 'deposit' | 'withdraw', properties: { amount: string; ticker: string }) =>
+    posthog.capture(`bridge_evm_${type}_approval`, properties),
+  initiated: (type: 'deposit' | 'withdraw', properties: { amount: string; ticker: string }) =>
+    posthog.capture(`bridge_evm_${type}_initiated`, properties),
+  completed: (type: 'deposit' | 'withdraw') => posthog.capture(`bridge_evm_${type}_completed`),
+  failed: (type: 'deposit' | 'withdraw') => posthog.capture(`bridge_evm_${type}_failed`),
+  external: (properties: { bridge: string }) => posthog.capture('evm_external_bridge', properties)
+};
 
-  EVM_BRIDGE_FORM_TOUCHED = 'evm_bridge_form_touched',
-  EVM_BRIDGE_APPROVAL = 'evm_bridge_approval',
-  EVM_BRIDGE_INITIATED = 'evm_bridge_initiated',
-  EVM_BRIDGE_COMPLETED = 'evm_bridge_completed',
-  EVM_BRIDGE_FAILED = 'evm_bridge_failed',
+const bridgeBtcEvents = {
+  formTouched: (type: 'deposit', properties: { ticker: string }) =>
+    posthog.capture(`bridge_btc_${type}_form_touched`, properties),
+  initiated: (type: 'deposit', properties: { amount: string; ticker: string }) =>
+    posthog.capture(`bridge_btc_${type}_initiated`, properties),
+  completed: (type: 'deposit') => posthog.capture(`bridge_btc_${type}_completed`),
+  failed: (type: 'deposit') => posthog.capture(`bridge_btc_${type}_failed`)
+};
 
-  EVM_EXTERNAL_BRIDGE = 'evm_external_bridge',
+const strategyEvents = {
+  formTouched: (type: 'deposit', properties: { asset_name: string }) =>
+    posthog.capture(`bridge_btc_${type}_form_touched`, properties),
+  initiated: (type: 'deposit', properties: { amount: string; asset_name: string }) =>
+    posthog.capture(`bridge_btc_${type}_initiated`, properties),
+  completed: (type: 'deposit') => posthog.capture(`bridge_btc_${type}_completed`),
+  failed: (type: 'deposit') => posthog.capture(`bridge_btc_${type}_failed`)
+};
 
-  BTC_BRIDGE_FORM_TOUCHED = 'btc_bridge_form_touched',
-  BTC_BRIDGE_INITIATED = 'btc_bridge_initiated',
-  BTC_BRIDGE_COMPLETED = 'btc_bridge_completed',
-  BTC_BRIDGE_FAILED = 'btc_bridge_failed',
+const posthogEvents = {
+  fusion: {
+    signUp: () => posthog.capture('user_fusion_sign_up', {}, { $set_once: { fusion_user: true } }),
+    signIn: () => posthog.capture('user_fusion_sign_in', {}, { $set_once: { fusion_user: true } })
+  },
+  connect: {
+    evm: (properties: { evm_address: string; wallet_name: string }) =>
+      posthog.capture('connect_evm_wallet', properties, { $set: properties }),
+    btc: (properties: { btc_address: string; wallet_name: string }) =>
+      posthog.capture('connect_btc_wallet', properties, { $set: properties })
+  },
+  bridge: {
+    evm: bridgeEvmEvents,
+    btc: bridgeBtcEvents
+  },
+  strategy: strategyEvents,
+  drawer: {
+    buy: () => posthog.capture('drawer_buy')
+  }
+};
 
-  STRATEGY_DEPOSIT_FORM_TOUCHED = 'strategy_deposit_form_touched',
-  STRATEGY_DEPOSIT_INITIATED = 'strategy_deposit_initiated',
-  STRATEGY_DEPOSIT_COMPLETED = 'strategy_deposit_completed',
-  STRATEGY_DEPOSIT_FAILED = 'strategy_deposit_failed',
-  STRATEGY_WITHDRAW_EXTERNAL = 'strategy_withdraw_external',
-
-  DRAWER_BUY = 'drawer_buy'
-}
-
-export { PosthogEvents };
+export { posthogEvents };

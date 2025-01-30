@@ -6,7 +6,6 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { sendGAEvent } from '@next/third-parties/google';
 import { chain, mergeProps } from '@react-aria/utils';
-import posthog from 'posthog-js';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -21,8 +20,8 @@ import { StrategyData } from '../../hooks';
 
 import { AuthButton } from '@/connect-ui';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
-import { PosthogEvents } from '@/lib/posthog';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
+import { posthogEvents } from '@/lib/posthog';
 
 type GatewayTransactionModalState = {
   isOpen: boolean;
@@ -44,7 +43,10 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
 
-    posthog.capture(PosthogEvents.STRATEGY_DEPOSIT_INITIATED);
+    posthogEvents.strategy.initiated('deposit', {
+      amount: data.btcAmount.toExact(),
+      assetName: strategy?.contract.integration.name as string
+    });
   };
 
   const handleSuccessGateway = (data: InitGatewayTransaction) => {
@@ -56,14 +58,15 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       tx_id: data.txId,
       btc_wallet: connector?.name
     });
-    posthog.capture(PosthogEvents.STRATEGY_DEPOSIT_COMPLETED);
+
+    posthogEvents.strategy.completed('deposit');
   };
 
   const handleCloseGatewayModal = () => setGatewayModalState((s) => ({ ...s, isOpen: false }));
 
   const handleFailedGateway = () => {
     handleCloseGatewayModal();
-    posthog.capture(PosthogEvents.STRATEGY_DEPOSIT_FAILED);
+    posthogEvents.strategy.failed('deposit');
   };
 
   const { i18n } = useLingui();
@@ -110,7 +113,10 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   useEffect(() => {
     if (!form.dirty) return;
 
-    posthog.capture(PosthogEvents.STRATEGY_DEPOSIT_FORM_TOUCHED);
+    posthogEvents.strategy.formTouched('deposit', {
+      assetName: strategy?.contract.integration.name as string
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.dirty]);
 
   const isDisabled =

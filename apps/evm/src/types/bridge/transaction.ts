@@ -71,6 +71,7 @@ type GatewayTransaction = {
 type InitGatewayTransaction = {
   txId?: string;
   type: TransactionType.Gateway;
+  btcAmount: CurrencyAmount<Bitcoin>;
   amount?: CurrencyAmount<ERC20Token>;
   assetName?: string;
   fee: CurrencyAmount<Bitcoin>;
