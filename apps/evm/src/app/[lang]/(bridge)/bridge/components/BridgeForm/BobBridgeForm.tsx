@@ -14,6 +14,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 import { useAccount, usePublicClient } from 'wagmi';
+import posthog from 'posthog-js';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -52,6 +53,7 @@ import {
   TransactionType
 } from '@/types';
 import { calculateAmountUSD } from '@/utils';
+import { PosthogEvents } from '@/lib/posthog';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
@@ -410,6 +412,12 @@ const BobBridgeForm = ({
     onSubmit: handleSubmit,
     hideErrors: 'untouched'
   });
+
+  useEffect(() => {
+    if (!form.dirty) return;
+
+    posthog.capture(PosthogEvents.EVM_BRIDGE_FORM_TOUCHED);
+  }, [form.dirty]);
 
   // Reseting form but keeping the symbol between Deposit and Withdraw
   useEffect(() => {

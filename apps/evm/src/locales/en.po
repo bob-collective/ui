@@ -145,7 +145,7 @@ msgstr "All Strategies"
 msgid "Already harvesting?"
 msgstr "Already harvesting?"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:482
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:229
 msgid "Amount"
@@ -180,7 +180,7 @@ msgstr "Any Transaction"
 msgid "Apply"
 msgstr "Apply"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:458
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:466
 msgid "Approve"
 msgstr "Approve"
 
@@ -310,8 +310,8 @@ msgstr "Book a call with the founders"
 msgid "Bridge"
 msgstr "Bridge"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:459
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:467
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:152
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
 
@@ -324,7 +324,7 @@ msgstr "Bridge Assets"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "Bridge BTC LSTs to BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:454
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:462
 msgid "Bridge Disabled"
 msgstr "Bridge Disabled"
 
@@ -401,7 +401,7 @@ msgstr "By connecting your wallet, you confirm that you've read and agree to our
 #~ msgid "Category"
 #~ msgstr "Category"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:456
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:464
 msgid "Checking Allowance"
 msgstr "Checking Allowance"
 
@@ -676,9 +676,9 @@ msgstr "enable ETH top-up for transaction fees on BOB network"
 #~ msgid "Enter Address"
 #~ msgstr "Enter Address"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:485
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:139
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:493
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:140
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:145
 msgid "Enter destination address"
 msgstr "Enter destination address"
 
@@ -937,7 +937,7 @@ msgstr "Leaderboard"
 msgid "Learn More"
 msgstr "Learn More"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:162
 msgid "Lend"
 msgstr "Lend"
 
@@ -1294,8 +1294,8 @@ msgstr "Points"
 msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:152
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:162
 msgid "Preparing..."
 msgstr "Preparing..."
 
@@ -1348,7 +1348,7 @@ msgstr "Read more here"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:117
 #: src/components/Profile/Profile.tsx:130
 msgid "Receive"
 msgstr "Receive"
@@ -1365,9 +1365,9 @@ msgstr "Receive"
 msgid "Receive crypto"
 msgstr "Receive crypto"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:138
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:492
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:140
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:144
 msgid "Recipient"
 msgstr "Recipient"
 
@@ -1513,7 +1513,7 @@ msgstr "Solv XP"
 #~ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 #~ msgstr "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:130
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:131
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
 #: src/hooks/useLogin.ts:50
 #: src/hooks/useSignUp.ts:65
@@ -1567,13 +1567,13 @@ msgstr "Spice rewards (Medium)"
 msgid "Spice styled background"
 msgstr "Spice styled background"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:120
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:126
 msgid "stake"
 msgstr "stake"
 
 #: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:25
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:36
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:162
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
 #: src/components/Layout/Sidebar.tsx:55
@@ -1646,7 +1646,7 @@ msgstr "Staking list"
 msgid "Staking table"
 msgstr "Staking table"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:151
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:157
 msgid "Staking to {0} is temporarily unavailable."
 msgstr "Staking to {0} is temporarily unavailable."
 
@@ -1709,7 +1709,7 @@ msgstr "Superchain Eco"
 #~ msgid "Superchain Mastery: BOB"
 #~ msgstr "Superchain Mastery: BOB"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:120
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:126
 msgid "supply"
 msgstr "supply"
 
@@ -1824,7 +1824,7 @@ msgstr "This is often done to comply with local laws and regulations. Website ho
 msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
 msgstr "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:137
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:145
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 msgstr "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 
@@ -1980,7 +1980,7 @@ msgstr "Use your bridged assets in apps to maximise your Spice harvest.<0/>TIP: 
 msgid "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 msgstr "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:127
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:129
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:63
@@ -2154,7 +2154,7 @@ msgstr "You need at least {0} Spice to participate in Lottery."
 msgid "You still have assets locked in Season One. Please redeem your funds"
 msgstr "You still have assets locked in Season One. Please redeem your funds"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:144
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:150
 msgid "You will {action}"
 msgstr "You will {action}"
 
@@ -2162,7 +2162,7 @@ msgstr "You will {action}"
 msgid "You will need to actively monitor your position, especially if it has a small range."
 msgstr "You will need to actively monitor your position, especially if it has a small range."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:143
 #: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:71
 msgid "You will receive"

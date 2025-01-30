@@ -9,8 +9,11 @@ import { useAccount, useAccountEffect } from 'wagmi';
 import PageView from './PageView';
 import { PosthogEvents } from './events';
 
+import { useIsContract } from '@/hooks';
+
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
-  const { address: evmAddress } = useAccount();
+  const { address: evmAddress, chainId } = useAccount();
+  const { isContract: isSmartAccount } = useIsContract({ address: evmAddress, chainId });
   const { address: btcAddress, connector: btcConnector } = useSatsAccount();
 
   useEffect(() => {
@@ -24,22 +27,34 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!btcAddress || !evmAddress) return;
 
+    // only captures btc wallet event if evm is connected
     posthog.capture(PosthogEvents.CONNECT_BTC_WALLET, {
-      $set: { btcAddress, btcWallet: btcConnector?.name }
+      $set: { btc_address: btcAddress, btc_wallet: btcConnector?.name }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [btcAddress, btcConnector?.name]);
 
   useAccountEffect({
     onConnect: (data) => {
-      posthog.identify(data.address, {
-        evmAddress: data.address,
-        evmWallet: data.connector.name,
-        btcAddress: btcAddress,
-        btcWallet: btcConnector?.name
-      });
+      posthog.identify(data.address);
 
-      posthog.capture(PosthogEvents.CONNECT_EVM_WALLET);
+      posthog.capture(PosthogEvents.CONNECT_EVM_WALLET, {
+        evm_address: data.address,
+        evm_wallet: data.connector.name,
+        btc_address: btcAddress,
+        btc_wallet: btcConnector?.name,
+        $set_once: {
+          initial_evm_wallet: data.connector.name,
+          initial_btc_wallet: btcConnector?.name,
+          is_smart_contract: isSmartAccount
+        },
+        $set: {
+          evm_address: data.address,
+          evm_wallet: data.connector.name,
+          btc_address: btcAddress,
+          btc_wallet: btcConnector?.name
+        }
+      });
     },
     onDisconnect: () => {
       posthog.reset();

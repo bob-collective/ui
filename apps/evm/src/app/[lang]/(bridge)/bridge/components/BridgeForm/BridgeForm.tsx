@@ -133,7 +133,7 @@ const BridgeForm = ({
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
 
     sendGAEvent('event', 'evm_bridge', {
-      l1Token: data.l1Token,
+      l1_token: data.l1Token,
       amount: data.amount?.toExact(),
       tx_id: JSON.stringify(data.transactionHash),
       evm_wallet: connector?.name

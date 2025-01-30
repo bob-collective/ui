@@ -182,7 +182,7 @@ msgstr ""
 msgid "Already harvesting?"
 msgstr "已经在收获？"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:482
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:229
 msgid "Amount"
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:458
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:466
 msgid "Approve"
 msgstr "通过"
 
@@ -400,8 +400,8 @@ msgstr ""
 msgid "Bridge"
 msgstr "桥"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:459
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:467
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:152
 msgid "Bridge Asset"
 msgstr ""
 
@@ -414,7 +414,7 @@ msgstr "跨链资产"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "将BTC LSTs跨链到BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:454
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:462
 msgid "Bridge Disabled"
 msgstr ""
 
@@ -495,7 +495,7 @@ msgstr ""
 #~ msgid "Category"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:456
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:464
 msgid "Checking Allowance"
 msgstr ""
 
@@ -779,8 +779,8 @@ msgid "enable ETH top-up for transaction fees on BOB network"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:493
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:139
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:140
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:145
 msgid "Enter destination address"
 msgstr ""
 
@@ -1115,7 +1115,7 @@ msgstr "了解更多"
 #~ msgid "Learn more about {0}"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:162
 msgid "Lend"
 msgstr ""
 
@@ -1517,8 +1517,8 @@ msgstr ""
 msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:152
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:162
 msgid "Preparing..."
 msgstr ""
 
@@ -1571,7 +1571,7 @@ msgstr "点此了解更多"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:117
 #: src/components/Profile/Profile.tsx:130
 msgid "Receive"
 msgstr "接收"
@@ -1588,9 +1588,9 @@ msgstr "接收"
 msgid "Receive crypto"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:484
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:138
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:492
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:140
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:144
 msgid "Recipient"
 msgstr ""
 
@@ -1757,10 +1757,15 @@ msgstr ""
 #~ msgid "SolvBTC.BBN is a yield-bearing token that represents staked SolvBTC plus all future Babylon staking rewards and Solv Points."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:130
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:131
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
+<<<<<<< HEAD
 #: src/hooks/useLogin.ts:50
 #: src/hooks/useSignUp.ts:65
+=======
+#: src/hooks/useLogin.ts:55
+#: src/hooks/useSignUp.ts:58
+>>>>>>> 15767a17 (feat: add more events)
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
@@ -1845,13 +1850,13 @@ msgstr "Spice积分（中等）"
 msgid "Spice styled background"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:120
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:126
 msgid "stake"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:25
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:36
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:162
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
 #: src/components/Layout/Sidebar.tsx:55
@@ -1928,7 +1933,7 @@ msgstr ""
 msgid "Staking table"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:151
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:157
 msgid "Staking to {0} is temporarily unavailable."
 msgstr ""
 
@@ -1995,7 +2000,7 @@ msgstr ""
 #~ msgid "Superchain Mastery: BOB"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:120
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:126
 msgid "supply"
 msgstr ""
 
@@ -2170,7 +2175,7 @@ msgstr ""
 msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:137
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:145
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 msgstr ""
 
@@ -2361,7 +2366,7 @@ msgstr "在应用中使用你跨链的资产以最大化你的Spice收获。<0/>
 msgid "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将每周公布。"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:127
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:129
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
 #: src/hooks/useLogin.ts:48
 #: src/hooks/useSignUp.ts:63
@@ -2571,7 +2576,7 @@ msgstr ""
 msgid "You still have assets locked in Season One. Please redeem your funds"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:144
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:150
 msgid "You will {action}"
 msgstr ""
 
@@ -2579,7 +2584,7 @@ msgstr ""
 msgid "You will need to actively monitor your position, especially if it has a small range."
 msgstr "请密切关注你的仓位，尤其是当设定的价格范围较窄时。"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:143
 #: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:71
 msgid "You will receive"

@@ -7,7 +7,7 @@ import { useLingui } from '@lingui/react';
 import { sendGAEvent } from '@next/third-parties/google';
 import { chain, mergeProps } from '@react-aria/utils';
 import posthog from 'posthog-js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 
 import {
@@ -44,7 +44,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
 
-    posthog.capture(PosthogEvents.STRATEGY_STARTED);
+    posthog.capture(PosthogEvents.STRATEGY_INITIATED);
   };
 
   const handleSuccessGateway = (data: InitGatewayTransaction) => {
@@ -106,6 +106,12 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
     defaultAsset: strategy?.contract.integration.slug,
     onSubmit: handleSubmit
   });
+
+  useEffect(() => {
+    if (!form.dirty) return;
+
+    posthog.capture(PosthogEvents.STRATEGY_FORM_TOUCHED);
+  }, [form.dirty]);
 
   const isDisabled =
     isSubmitDisabled ||

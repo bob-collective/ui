@@ -6,11 +6,13 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
 import { Optional } from '@tanstack/react-query';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAccount } from 'wagmi';
+import posthog from 'posthog-js';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
 import { useGateway, useGatewayForm } from '../../../hooks';
+import { PosthogEvents } from '../../../../../../lib/posthog';
 
 import { AuthButton } from '@/connect-ui';
 import { isProd } from '@/constants';
@@ -84,6 +86,12 @@ const BtcBridgeForm = ({
     onSubmit: handleSubmit,
     type: GatewayTransactionType.BRIDGE
   });
+
+  useEffect(() => {
+    if (!form.dirty) return;
+
+    posthog.capture(PosthogEvents.BTC_BRIDGE_FORM_TOUCHED);
+  }, [form.dirty]);
 
   const isDisabled = isSubmitDisabled || gateway.isDisabled || !gateway.isReady || gateway.query.quote.isPending;
 
