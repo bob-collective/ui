@@ -8,6 +8,7 @@ import { sendGAEvent } from '@next/third-parties/google';
 
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
+import { gaEvents } from '@/lib/third-parties';
 
 const useLogin = () => {
   const { signMessageAsync } = useSignMessage();
@@ -39,7 +40,7 @@ const useLogin = () => {
       await apiClient.verify(message, signature);
     },
     onSuccess: async (_, address) => {
-      sendGAEvent('event', 'login', { evm_address: JSON.stringify(address) });
+      sendGAEvent('event', gaEvents.login, { evm_address: JSON.stringify(address) });
       setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

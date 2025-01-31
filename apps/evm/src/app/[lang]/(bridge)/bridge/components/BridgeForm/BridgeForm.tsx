@@ -25,6 +25,7 @@ import { TokenData, useGetBridgeTransactions, useGetGatewayTransactions } from '
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
+import { gaEvents } from '@/lib/third-parties';
 
 type TransactionModalState = {
   isOpen: boolean;
@@ -146,7 +147,7 @@ const BridgeForm = ({
 
     setGatewayModalState({ isOpen: true, data });
 
-    sendGAEvent('event', 'btc_bridge', {
+    sendGAEvent('event', gaEvents.btcBridge, {
       asset: data.assetName,
       amount: data.amount?.toExact(),
       tx_id: data.txId,

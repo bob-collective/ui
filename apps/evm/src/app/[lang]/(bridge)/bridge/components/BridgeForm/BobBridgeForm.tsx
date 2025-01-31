@@ -53,6 +53,7 @@ import {
   TransactionType
 } from '@/types';
 import { calculateAmountUSD } from '@/utils';
+import { gaEvents } from '@/lib/third-parties';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
@@ -142,7 +143,7 @@ const BobBridgeForm = ({
 
     refetchBalances();
 
-    sendGAEvent('event', 'evm_bridge', {
+    sendGAEvent('event', gaEvents.evmBridge, {
       l1Token: data.l1Token,
       amount: data.amount?.toExact(),
       tx_id: JSON.stringify(data.transactionHash),

@@ -11,6 +11,7 @@ import { useGetUser } from './useGetUser';
 
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
+import { gaEvents } from '@/lib/third-parties';
 
 type UseSignUpProps = {
   onSuccess?: () => void;
@@ -53,7 +54,7 @@ const useSignUp = ({ onSuccess }: UseSignUpProps = {}) => {
       await apiClient.signUp(message, turnstileToken, signature);
     },
     onSuccess: (_, { address, referralCode }) => {
-      sendGAEvent('event', 'signup', { evm_address: JSON.stringify(address), referral_code: referralCode });
+      sendGAEvent('event', gaEvents.signup, { evm_address: JSON.stringify(address), referral_code: referralCode });
       onSuccess?.();
       setTimeout(() => refetchUser(), 100);
     },

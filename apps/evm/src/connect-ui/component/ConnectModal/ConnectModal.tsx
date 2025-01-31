@@ -15,6 +15,7 @@ import { BtcWalletList } from './BtcWalletList';
 import { EvmWalletList } from './EvmWalletList';
 
 import { ExternalLinks } from '@/constants';
+import { gaEvents } from '@/lib/third-parties';
 
 type ConnectEvmHandler = ({ address }: { address?: Address; connector?: Connector; isReconnected: boolean }) => void;
 
@@ -84,7 +85,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector
           });
 
-          sendGAEvent('event', 'evm_connect', {
+          sendGAEvent('event', gaEvents.evmConnect, {
             evm_address: JSON.stringify(connectData.accounts),
             evm_wallet: connector.name
           });
@@ -129,7 +130,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             connector: satsConnector
           });
 
-          sendGAEvent('event', 'btc_connect', {
+          sendGAEvent('event', gaEvents.btcConnect, {
             btc_address: btcAddress.address,
             btc_wallet: satsConnector?.name
           });
