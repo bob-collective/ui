@@ -449,8 +449,8 @@ importers:
         specifier: 1.2.4-alpha.0
         version: 1.2.4-alpha.0(bufferutil@4.0.8)(ts-node@10.9.2(@types/node@20.14.2)(typescript@5.4.5))(utf-8-validate@5.0.10)(viem@2.21.40(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.23.8))(wagmi@2.12.30(@tanstack/query-core@5.44.0)(@tanstack/react-query@5.44.0(react@18.3.1))(@types/node@20.14.2)(@types/react@18.3.3)(@vercel/kv@3.0.0)(bufferutil@4.0.8)(jsdom@25.0.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(terser@5.31.1)(typescript@5.4.5)(utf-8-validate@5.0.10)(viem@2.21.40(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8))
       '@gobob/bob-sdk':
-        specifier: ^3.1.2
-        version: 3.1.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        specifier: ^3.1.4
+        version: 3.1.4(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@gobob/chains':
         specifier: workspace:^
         version: link:../../packages/chains
@@ -686,8 +686,8 @@ importers:
   packages/sats-wagmi:
     dependencies:
       '@gobob/sats-wagmi':
-        specifier: ^0.3.19
-        version: 0.3.19(@tanstack/react-query@5.44.0(react@18.3.1))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
+        specifier: ^0.3.20
+        version: 0.3.20(@tanstack/react-query@5.44.0(react@18.3.1))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)
 
   packages/test-utils:
     dependencies:
@@ -2470,11 +2470,11 @@ packages:
   '@foundry-rs/easy-foundryup@0.1.3':
     resolution: {integrity: sha512-Funb4hrSBeikKCmccFT/d3Ud5o92tlIZHTJeMCVk5b54/+CHZHr4g7MmtvO5xrGhxrOebQ0L+ojIj+VixgW7ug==}
 
-  '@gobob/bob-sdk@3.1.2':
-    resolution: {integrity: sha512-N175L7/bWvGyVRoyQHIMby57xNCfiz99IadzcrDJoGn2Nt9p1wwwTnOEugJ8m9BxtxfpACfC2oBxHEIGWnjbAA==}
+  '@gobob/bob-sdk@3.1.4':
+    resolution: {integrity: sha512-qW5P9VC/XMgGG0vuDAay8i94aGbY++dMD1zaSsnuf81nQCUHGJPnF0tMDmZozPQOp5krBrA+DGipEcNTnkARUw==}
 
-  '@gobob/sats-wagmi@0.3.19':
-    resolution: {integrity: sha512-zdGWaXxpaSVRmoNpDgyfOEFO3awKc7UNjG2wXNdX3tEZwy86eVteJgkPUmv4S1/pcuNL6n96ZtoQx604hHWuLg==}
+  '@gobob/sats-wagmi@0.3.20':
+    resolution: {integrity: sha512-My3yOygP22Ys83diTnBbOLfdICHVgeGEsUOo3rgqZQbGQZcsphC3YjJhBrQwu9FwICLQihqzYuTvkygZwEWhqw==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
       react: ^18.2.0
@@ -2831,6 +2831,9 @@ packages:
 
   '@lit/reactive-element@1.6.3':
     resolution: {integrity: sha512-QuTgnG52Poic7uM1AN5yJ09QMe0O28e10XzSvWDz02TJiiKee4stsiownEIadWm8nYzyDAyT+gKzUoZmiWQtsQ==}
+
+  '@magiceden-oss/runestone-lib@1.0.2':
+    resolution: {integrity: sha512-C4XoE7tHxxaWQNzovBIEndXGrTesotshnKQA8DXlnoVDvriD6G26ezUoj9AlEb2UAPbEijSga4Dtwd86Z0a1jg==}
 
   '@marsidev/react-turnstile@1.1.0':
     resolution: {integrity: sha512-X7bP9ZYutDd+E+klPYF+/BJHqEyyVkN4KKmZcNRr84zs3DcMoftlMAuoKqNSnqg0HE7NQ1844+TLFSJoztCdSA==}
@@ -14390,7 +14393,7 @@ snapshots:
       '@types/node': 20.5.1
       chalk: 4.1.2
       cosmiconfig: 8.3.6(typescript@5.4.5)
-      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.4.5))(ts-node@10.9.2(@types/node@20.14.2)(typescript@5.4.5))(typescript@5.4.5)
+      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.4.5))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.4.5))(typescript@5.4.5)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -15288,8 +15291,9 @@ snapshots:
       command-exists: 1.2.9
       ts-interface-checker: 0.1.13
 
-  '@gobob/bob-sdk@3.1.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@gobob/bob-sdk@3.1.4(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
+      '@magiceden-oss/runestone-lib': 1.0.2
       '@scure/base': 1.1.9
       '@scure/btc-signer': 1.3.2
       bitcoin-address-validation: 2.2.3
@@ -15299,10 +15303,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@gobob/sats-wagmi@0.3.19(@tanstack/react-query@5.44.0(react@18.3.1))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
+  '@gobob/sats-wagmi@0.3.20(@tanstack/react-query@5.44.0(react@18.3.1))(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(utf-8-validate@5.0.10)':
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
-      '@gobob/bob-sdk': 3.1.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@gobob/bob-sdk': 3.1.4(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@metamask/providers': 12.0.0
       '@scure/base': 1.1.9
       '@scure/btc-signer': 1.3.2
@@ -15744,6 +15748,8 @@ snapshots:
   '@lit/reactive-element@1.6.3':
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.2.0
+
+  '@magiceden-oss/runestone-lib@1.0.2': {}
 
   '@marsidev/react-turnstile@1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -22215,7 +22221,7 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.4.5))(ts-node@10.9.2(@types/node@20.14.2)(typescript@5.4.5))(typescript@5.4.5):
+  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.4.5))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.4.5))(typescript@5.4.5):
     dependencies:
       '@types/node': 20.5.1
       cosmiconfig: 8.3.6(typescript@5.4.5)
@@ -23141,7 +23147,7 @@ snapshots:
       '@typescript-eslint/parser': 7.13.0(eslint@8.57.0)(typescript@5.4.5)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0))(eslint@8.57.0)
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.57.0)
       eslint-plugin-react: 7.34.2(eslint@8.57.0)
@@ -23165,13 +23171,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0):
+  eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.3.7(supports-color@8.1.1)
       enhanced-resolve: 5.17.0
       eslint: 8.57.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.8.1
       is-bun-module: 1.2.1
@@ -23184,14 +23190,14 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       debug: 3.2.7(supports-color@8.1.1)
     optionalDependencies:
       '@typescript-eslint/parser': 7.13.0(eslint@8.57.0)(typescript@5.4.5)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0))(eslint@8.57.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -23205,7 +23211,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.13.1
       is-glob: 4.0.3
