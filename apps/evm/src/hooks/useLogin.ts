@@ -41,7 +41,7 @@ const useLogin = () => {
     },
     onSuccess: async (_, address) => {
       sendGAEvent('event', 'login', { evm_address: JSON.stringify(address) });
-      posthogEvents.fusion.signIn();
+      posthogEvents.fusion.login();
 
       setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);
     },

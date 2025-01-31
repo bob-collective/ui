@@ -16,6 +16,7 @@ import { chainL2 } from '@/constants';
 import { useBlockscoutBalances } from '@/hooks/blockscout/useBlockscoutBalances';
 import { useBlockscoutTokens } from '@/hooks/blockscout/useBlockscoutTokens';
 import { calculateAmountUSD } from '@/utils';
+import { posthogEvents } from '@/lib/posthog';
 
 const ProfileBlockscoutTokenList = () => {
   const { i18n } = useLingui();
@@ -47,9 +48,14 @@ const ProfileBlockscoutTokenList = () => {
     });
   };
 
+  const handleExpand = () => {
+    setExpanded((s) => !s);
+    posthogEvents.wallet.drawer.tokens.others();
+  };
+
   return (
     <>
-      <UnstyledButton aria-label={t(i18n)`show/hide other tokens list`} onPress={() => setExpanded((s) => !s)}>
+      <UnstyledButton aria-label={t(i18n)`show/hide other tokens list`} onPress={handleExpand}>
         <Flex alignItems='center' gap='md' justifyContent='space-between' paddingX='s' paddingY='lg'>
           <Span color='grey-50' size='s'>
             <Trans>Others</Trans> ({list.length})

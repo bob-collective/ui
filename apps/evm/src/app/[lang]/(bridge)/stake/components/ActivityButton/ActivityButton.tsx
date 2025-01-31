@@ -5,6 +5,7 @@ import { Trans } from '@lingui/macro';
 
 import { useConnectModal } from '@/connect-ui';
 import { SharedStoreProfileTxType, ShareStoreProfileTabs, store } from '@/lib/store';
+import { posthogEvents } from '@/lib/posthog';
 
 const ActivityButton = (): JSX.Element => {
   const { address: evmAddress } = useAccount();
@@ -30,6 +31,8 @@ const ActivityButton = (): JSX.Element => {
         }
       }
     }));
+
+    posthogEvents.wallet.drawer.activity('strategies');
   };
 
   const isLoggedIn = !!(evmAddress || btcAddress);
