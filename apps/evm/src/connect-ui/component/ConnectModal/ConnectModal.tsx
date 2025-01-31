@@ -90,7 +90,7 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             evm_wallet: connector.name
           });
 
-          posthogEvents.connect.evm({ evm_address: connectData.accounts });
+          posthogEvents.wallet.evm.connect({ evm_address: connectData.accounts[0], wallet_name: connector.name });
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
@@ -137,6 +137,11 @@ const ConnectModal = forwardRef<HTMLDivElement, ConnectModalProps>(
             btc_address: btcAddress.address,
             btc_wallet: satsConnector?.name
           });
+          posthogEvents.wallet.btc.connect({
+            btc_address: btcAddress.address as string,
+            wallet_name: satsConnector?.name
+          });
+
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
           setPendingSatsConnector(undefined);

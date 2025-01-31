@@ -1,11 +1,10 @@
 import { ChainId } from '@gobob/chains';
 import { Flex } from '@gobob/ui';
-import posthog from 'posthog-js';
 
 import { ExternalBridgeCard, ExternalBridges } from './ExternalBridgeCard';
 
 import { TransactionDirection } from '@/types';
-import { PosthogEvents } from '@/lib/posthog';
+import { posthogEvents } from '@/lib/posthog';
 
 type ExternalBridgeFormProps = {
   direction: TransactionDirection;
@@ -32,7 +31,7 @@ const ExternalBridgeForm = ({ direction, chain }: ExternalBridgeFormProps): JSX.
   const bridges = availableBridges[chain] || defaultBridges;
 
   const handlePress = (bridge: ExternalBridges) => {
-    posthog.capture(PosthogEvents.EVM_EXTERNAL_BRIDGE, { bridge });
+    posthogEvents.bridge.evm.external({ bridge });
   };
 
   return (

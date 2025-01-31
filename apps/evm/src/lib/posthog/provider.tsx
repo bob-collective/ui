@@ -23,23 +23,14 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  useEffect(() => {
-    if (!btcAddress || !evmAddress) return;
-
-    // only captures btc wallet event if evm is connected
-    posthog.capture(PosthogEvents.CONNECT_BTC_WALLET, {
-      $set: { btc_address: btcAddress, btc_wallet: btcConnector?.name }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [btcAddress, btcConnector?.name]);
-
   useAccountEffect({
     onConnect: (data) => {
-      posthog.identify(data.address, undefined, {
+      posthog.identify(data.address, {
         evm_address: data.address,
         evm_wallet: data.connector.name,
         btc_address: btcAddress,
-        btc_wallet: btcConnector?.name
+        btc_wallet: btcConnector?.name,
+        smart_account: isSmartAccount
       });
     },
     onDisconnect: () => {

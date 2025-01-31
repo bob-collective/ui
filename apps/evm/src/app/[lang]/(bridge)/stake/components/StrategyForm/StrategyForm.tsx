@@ -43,9 +43,9 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
 
-    posthogEvents.strategy.initiated('deposit', {
+    posthogEvents.strategies.strategy.initiated('deposit', {
       amount: data.btcAmount.toExact(),
-      assetName: strategy?.contract.integration.name as string
+      asset_name: strategy?.contract.integration.name as string
     });
   };
 
@@ -59,14 +59,14 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       btc_wallet: connector?.name
     });
 
-    posthogEvents.strategy.completed('deposit');
+    posthogEvents.strategies.strategy.completed('deposit');
   };
 
   const handleCloseGatewayModal = () => setGatewayModalState((s) => ({ ...s, isOpen: false }));
 
   const handleFailedGateway = () => {
     handleCloseGatewayModal();
-    posthogEvents.strategy.failed('deposit');
+    posthogEvents.strategies.strategy.failed('deposit');
   };
 
   const { i18n } = useLingui();
@@ -113,8 +113,8 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   useEffect(() => {
     if (!form.dirty) return;
 
-    posthogEvents.strategy.formTouched('deposit', {
-      assetName: strategy?.contract.integration.name as string
+    posthogEvents.strategies.strategy.interacted('deposit', {
+      asset_name: strategy?.contract.integration.name as string
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.dirty]);

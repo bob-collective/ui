@@ -3,7 +3,6 @@
 import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
-import posthog from 'posthog-js';
 
 import { StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
@@ -12,7 +11,7 @@ import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
 import { PageLangParam } from '@/i18n/withLigui';
 import { useGetGatewayTransactions } from '@/hooks';
-import { PosthogEvents } from '@/lib/posthog';
+import { posthogEvents } from '@/lib/posthog';
 
 type Props = PageLangParam & {
   params: { slug: string };
@@ -39,7 +38,7 @@ function Strategy({ params }: Props) {
   const withdrawTitle = isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>;
 
   const handleNavigateWidthdraw = () => {
-    posthog.capture(PosthogEvents.STRATEGY_WITHDRAW_EXTERNAL);
+    posthogEvents.strategies.strategy.externalWithdraw({ asset_name: strategy?.contract.integration.name as string });
   };
 
   return (

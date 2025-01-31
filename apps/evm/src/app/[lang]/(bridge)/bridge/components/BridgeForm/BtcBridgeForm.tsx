@@ -89,7 +89,7 @@ const BtcBridgeForm = ({
   useEffect(() => {
     if (!form.dirty) return;
 
-    posthogEvents.bridge.evm.formTouched('deposit', {
+    posthogEvents.bridge.evm.interacted('deposit', {
       ticker: symbol!
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

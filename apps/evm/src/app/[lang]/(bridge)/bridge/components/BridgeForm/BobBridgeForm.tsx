@@ -415,8 +415,8 @@ const BobBridgeForm = ({
   useEffect(() => {
     if (!form.dirty) return;
 
-    posthogEvents.bridge.evm.formTouched(direction === TransactionDirection.L1_TO_L2 ? 'deposit' : 'withdraw', {
-      symbol
+    posthogEvents.bridge.evm.interacted(direction === TransactionDirection.L1_TO_L2 ? 'deposit' : 'withdraw', {
+      ticker: symbol
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.dirty]);
