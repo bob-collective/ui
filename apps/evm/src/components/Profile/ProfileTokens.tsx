@@ -18,6 +18,7 @@ import { WalletIcon } from '@/connect-ui';
 import { L1_CHAIN, L2_CHAIN, RoutesPath } from '@/constants';
 import { useBalances, useTokens } from '@/hooks';
 import { calculateAmountUSD } from '@/utils';
+import { posthogEvents } from '@/lib/posthog';
 
 type ProfileTokensProps = {
   currentChain: Chain;
@@ -44,6 +45,11 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
   const isTokensPending =
     (evmAddress && (isl1TokensPending || isl2TokensPending || isL1BalancesPending || isL2BalancesPending)) ||
     (btcAddress && isSatsBalancePending);
+
+  const handleTokensNavigate = (symbol: string) => {
+    onPressNavigate?.();
+    posthogEvents.wallet.drawer.tokens.navigate({ ticker: symbol, to: 'bridge' });
+  };
 
   return (
     <Flex direction='column' elementType='ul' flex={1} marginTop='md'>
@@ -76,23 +82,25 @@ const ProfileTokens = ({ currentChain, otherChain, onPressNavigate }: ProfileTok
             onPressBridge={() => {
               router.push(`${RoutesPath.BRIDGE}?type=deposit&network=bitcoin`);
               onPressNavigate?.();
+              posthogEvents.wallet.drawer.tokens.navigate({ ticker: 'BTC', to: 'bridge' });
             }}
             onPressStake={() => {
               router.push(RoutesPath.STRATEGIES);
               onPressNavigate?.();
+              posthogEvents.wallet.drawer.tokens.navigate({ ticker: 'BTC', to: 'stake' });
             }}
           />
           <ProfileTokenList
             currentChain={currentChain}
             items={currentChain.id === L1_CHAIN ? l1Tokens : l2Tokens}
             otherChain={otherChain}
-            onPressNavigate={onPressNavigate}
+            onPressNavigate={handleTokensNavigate}
           />
           <ProfileTokenList
             currentChain={otherChain}
             items={currentChain.id === L1_CHAIN ? l2Tokens : l1Tokens}
             otherChain={currentChain}
-            onPressNavigate={onPressNavigate}
+            onPressNavigate={handleTokensNavigate}
           />
           {!isTokensPending && <ProfileBlockscoutTokenList />}
         </>

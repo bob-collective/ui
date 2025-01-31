@@ -47,6 +47,7 @@
     "lottie-react": "^2.4.0",
     "negotiator": "catalog:",
     "next": "catalog:",
+    "posthog-js": "^1.210.2",
     "react": "catalog:",
     "react-calendly": "^4.3.1",
     "react-dom": "catalog:",

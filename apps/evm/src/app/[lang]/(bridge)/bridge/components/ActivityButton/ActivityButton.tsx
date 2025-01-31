@@ -6,6 +6,7 @@ import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 import { SharedStoreProfileTxStatus, SharedStoreProfileTxType, ShareStoreProfileTabs, store } from '@/lib/store';
 import { useGetBridgeTransactions } from '@/hooks';
 import { useConnectModal } from '@/connect-ui';
+import { posthogEvents } from '@/lib/posthog';
 
 const ActivityButton = (): JSX.Element => {
   const { address: evmAddress } = useAccount();
@@ -32,6 +33,8 @@ const ActivityButton = (): JSX.Element => {
         }
       }
     }));
+
+    posthogEvents.wallet.drawer.activity('bridge');
   };
 
   const isLoggedIn = !!(evmAddress || btcAddress);

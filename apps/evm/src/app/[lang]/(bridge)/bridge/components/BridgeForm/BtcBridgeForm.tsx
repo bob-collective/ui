@@ -6,7 +6,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { chain, mergeProps } from '@react-aria/utils';
 import { Optional } from '@tanstack/react-query';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { BtcTokenInput, GatewayGasSwitch, GatewayTransactionDetails } from '../../../components';
@@ -17,6 +17,7 @@ import { isProd } from '@/constants';
 import { TokenData } from '@/hooks';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
+import { posthogEvents } from '@/lib/posthog';
 
 type BtcBridgeFormProps = {
   availableTokens?: TokenData[];
@@ -84,6 +85,15 @@ const BtcBridgeForm = ({
     onSubmit: handleSubmit,
     type: GatewayTransactionType.BRIDGE
   });
+
+  useEffect(() => {
+    if (!form.dirty) return;
+
+    posthogEvents.bridge.evm.interacted('deposit', {
+      ticker: symbol!
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.dirty]);
 
   const isDisabled = isSubmitDisabled || gateway.isDisabled || !gateway.isReady || gateway.query.quote.isPending;
 

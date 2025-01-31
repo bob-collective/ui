@@ -1,11 +1,12 @@
 import { toast } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { sendGAEvent } from '@next/third-parties/google';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
 import { useChainId, useSignMessage } from 'wagmi';
-import { sendGAEvent } from '@next/third-parties/google';
 
+import { posthogEvents } from '@/lib/posthog';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
 
@@ -40,6 +41,8 @@ const useLogin = () => {
     },
     onSuccess: async (_, address) => {
       sendGAEvent('event', 'login', { evm_address: JSON.stringify(address) });
+      posthogEvents.fusion.login();
+
       setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

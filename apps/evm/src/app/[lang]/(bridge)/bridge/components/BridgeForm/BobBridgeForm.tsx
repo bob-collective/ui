@@ -14,7 +14,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
 import { useAccount, usePublicClient } from 'wagmi';
-import { sendGAEvent } from '@next/third-parties/google';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -53,6 +52,7 @@ import {
   TransactionType
 } from '@/types';
 import { calculateAmountUSD } from '@/utils';
+import { posthogEvents } from '@/lib/posthog';
 
 const getBridgeContract = (currency: Ether | ERC20Token) =>
   currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
@@ -81,7 +81,7 @@ const BobBridgeForm = ({
   const bridgeChainId = direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN;
 
   const publicClient = usePublicClient();
-  const { address, connector } = useAccount();
+  const { address } = useAccount();
 
   const { getPrice } = usePrices();
   const { getBalance, refetch: refetchBalances } = useBalances(bridgeChainId);
@@ -141,13 +141,6 @@ const BobBridgeForm = ({
     setAmount('');
 
     refetchBalances();
-
-    sendGAEvent('event', 'evm_bridge', {
-      l1Token: data.l1Token,
-      amount: data.amount?.toExact(),
-      tx_id: JSON.stringify(data.transactionHash),
-      evm_wallet: connector?.name
-    });
   };
 
   const isBridgeDisabled =
@@ -418,6 +411,15 @@ const BobBridgeForm = ({
     onSubmit: handleSubmit,
     hideErrors: 'untouched'
   });
+
+  useEffect(() => {
+    if (!form.dirty) return;
+
+    posthogEvents.bridge.evm.interacted(direction === TransactionDirection.L1_TO_L2 ? 'deposit' : 'withdraw', {
+      ticker: symbol
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.dirty]);
 
   // Reseting form but keeping the symbol between Deposit and Withdraw
   useEffect(() => {
