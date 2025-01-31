@@ -7,7 +7,7 @@ import { USDC } from '@gobob/tokens';
 import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import { mergeProps } from '@react-aria/utils';
+import { chain, mergeProps } from '@react-aria/utils';
 import { useMutation } from '@tanstack/react-query';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
@@ -30,6 +30,7 @@ import {
   useBridgeTokens,
   useIsContract,
   useSubscribeBalances,
+  useTokens,
   useWalletClientL1,
   useWalletClientL2
 } from '@/hooks';
@@ -85,8 +86,15 @@ const BobBridgeForm = ({
 
   const { getPrice } = usePrices();
   const { getBalance, refetch: refetchBalances } = useBalances(bridgeChainId);
+  const { data: l1Tokens = [] } = useTokens(L1_CHAIN);
+  const { data: l2Tokens = [] } = useTokens(L2_CHAIN);
+  const { refetch: l1Refetch } = useBalances(L1_CHAIN);
+  const { refetch: l2Refetch } = useBalances(L2_CHAIN);
 
-  useSubscribeBalances(bridgeChainId);
+  useSubscribeBalances(
+    [...l1Tokens.map((token) => token.raw), ...l2Tokens.map((token) => token.raw)],
+    chain(l1Refetch, l2Refetch)
+  );
 
   const { data: tokens } = useBridgeTokens(L1_CHAIN, L2_CHAIN);
 
