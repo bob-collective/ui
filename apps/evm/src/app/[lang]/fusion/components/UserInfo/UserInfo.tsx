@@ -234,10 +234,6 @@ const UserInfo = ({ apps, user, isAuthenticated }: UserInfoProps) => {
               <Flex alignItems='center' elementType='dd' gap='xs'>
                 <Flex wrap alignItems='center' elementType='span' gap='s'>
                   <SpiceAmount showAnimation amount={spicePerDay || 0} />
-                  <Flex gap='s'>
-                    <Span style={{ lineHeight: 1.2 }}>+</Span>
-                    <BabyPoints showAnimation amount={user?.baby.daily || 0} />
-                  </Flex>
                 </Flex>
               </Flex>
             </DlGroup>

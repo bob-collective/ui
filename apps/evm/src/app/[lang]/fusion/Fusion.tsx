@@ -3,13 +3,13 @@
 import { Card, Flex, H1, Link, P } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import babylon from '@public/assets/babylon.png';
 import superchainEco from '@public/assets/partners/superchain-eco.png';
 import { useId, useState } from 'react';
 import { useIsClient, useLocalStorage } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 import { useGetApps } from '../apps/hooks';
+import { XBanner } from '../(bridge)/components/BannerCarousel/XBanner';
 
 import {
   CommunityVoting,
@@ -88,12 +88,8 @@ const Fusion = () => {
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
-  const onPressBabylonBanner = () =>
-    window.open(
-      'https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2',
-      '_blank',
-      'noreferrer'
-    );
+  const onPressXBanner = () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
+
   const onPressOPBanner = () =>
     window.open('https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin', '_blank', 'noreferrer');
 
@@ -169,38 +165,7 @@ const Fusion = () => {
                 </Card>
               </Flex>
             ) : (
-              <Flex direction='column' marginTop='lg'>
-                <Card
-                  isPressable
-                  direction='column'
-                  justifyContent='center'
-                  paddingX='xl'
-                  paddingY='6xl'
-                  style={{ position: 'relative', maxHeight: '8.5rem' }}
-                  onPress={onPressBabylonBanner}
-                >
-                  <StyledBannerContent>
-                    <Flex direction='column'>
-                      <StyledBannerTitle size='2xl' weight='bold'>
-                        <Trans>Collect Babylon Points on BOB</Trans>
-                      </StyledBannerTitle>
-                      <P color='grey-50'>
-                        <Trans>
-                          To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using
-                          Babylon LSTs in DeFi. Read more &gt;
-                        </Trans>
-                      </P>
-                    </Flex>
-                  </StyledBannerContent>
-                  <StyledBannerImg
-                    alt={t(i18n)`Babylon campaign`}
-                    height='134'
-                    placeholder='blur'
-                    src={babylon}
-                    width='312'
-                  />
-                </Card>
-              </Flex>
+              <XBanner onPress={onPressXBanner} />
             )}
             <LotterySection />
           </StyledHeroSection>
