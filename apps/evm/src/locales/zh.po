@@ -895,6 +895,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
+#: src/app/[lang]/fusion/Fusion.tsx:178
 msgid "Follow us on X"
 msgstr ""
 
@@ -2211,6 +2212,7 @@ msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exc
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
+#: src/app/[lang]/fusion/Fusion.tsx:181
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 

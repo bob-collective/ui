@@ -1,15 +1,15 @@
 'use client';
 
-import { Card, Flex, H1, Link, P } from '@gobob/ui';
+import { Card, Flex, H1, H2, Link, P } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import superchainEco from '@public/assets/partners/superchain-eco.png';
+import x from '@public/assets/x.png';
 import { useId, useState } from 'react';
 import { useIsClient, useLocalStorage } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 import { useGetApps } from '../apps/hooks';
-import { XBanner } from '../(bridge)/components/BannerCarousel/XBanner';
 
 import {
   CommunityVoting,
@@ -165,7 +165,24 @@ const Fusion = () => {
                 </Card>
               </Flex>
             ) : (
-              <XBanner onPress={onPressXBanner} />
+              <Flex direction='column' marginTop='lg'>
+                <Card
+                  isPressable
+                  justifyContent='center'
+                  paddingX='xl'
+                  paddingY='6xl'
+                  style={{ position: 'relative', maxHeight: '8.5rem' }}
+                  onPress={onPressXBanner}
+                >
+                  <H2 size='2xl' weight='bold'>
+                    <Trans>Follow us on X</Trans>
+                  </H2>
+                  <P color='grey-50'>
+                    <Trans>To stay up-to date with the BOB ecosystem follow @build_on_bob.</Trans>
+                  </P>
+                  <StyledBannerImg alt='x' height='134' placeholder='blur' src={x} width='365' />
+                </Card>
+              </Flex>
             )}
             <LotterySection />
           </StyledHeroSection>
