@@ -35,6 +35,11 @@ type SharedStore = {
       };
     };
   };
+  turnstile: {
+    isOpen: boolean;
+    token?: string;
+    onSuccess?: (token: string) => void;
+  };
 };
 
 type BridgeStore = {
@@ -71,6 +76,9 @@ const store = new StoreLib<Store>({
           type: undefined
         }
       }
+    },
+    turnstile: {
+      isOpen: false
     }
   },
   bridge: {

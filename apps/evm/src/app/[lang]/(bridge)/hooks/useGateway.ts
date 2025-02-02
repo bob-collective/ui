@@ -347,6 +347,7 @@ const useGateway = ({
       const data: InitGatewayTransaction = {
         type: TransactionType.Gateway,
         fee: protocolFee.add(feeEstimateQueryResult.data),
+        btcAmount: quoteAmount,
         ...(params.type === GatewayTransactionType.BRIDGE
           ? { amount: params.token ? CurrencyAmount.fromBaseAmount(params.token, quoteAmount.toExact()) : undefined }
           : { assetName: params.assetName })

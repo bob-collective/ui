@@ -10,7 +10,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { isAddressEqual } from 'viem';
 import { useAccount, useAccountEffect, useChainId, useConfig, useSwitchChain } from 'wagmi';
 
-import { Footer, Header, Layout, ReceiveModal } from '@/components';
+import { Footer, Header, Layout, ReceiveModal, TurnstileModal } from '@/components';
 import { ConnectProvider } from '@/connect-ui';
 import { isClient, L2_CHAIN, LocalStorageKey } from '@/constants';
 import { useBalances, useGetUser, useLogout, useTokens } from '@/hooks';
@@ -148,6 +148,7 @@ export function NestedProviders({ children }: PropsWithChildren) {
             {children}
             <Footer />
           </Layout>
+          <TurnstileModal />
         </ConnectProvider>
       </BOBUIProvider>
     </StyledComponentsRegistry>

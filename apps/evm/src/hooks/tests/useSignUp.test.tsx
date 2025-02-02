@@ -53,6 +53,7 @@ describe('useSignUp', () => {
   it('calls refetchUser on successful sign-up', async () => {
     vi.useFakeTimers();
     const mockAddress = '0x123';
+    const mockTurnstileToken = '0x12345';
     const mockChainId = 1;
     const mockNonce = 'mock-nonce';
     const mockRefetchUser = vi.fn();
@@ -69,13 +70,13 @@ describe('useSignUp', () => {
       wrapper
     });
 
-    await act(() => result.current.mutate({ address: mockAddress }));
+    await act(() => result.current.mutate({ address: mockAddress, turnstileToken: mockTurnstileToken }));
 
     vi.runAllTimers();
 
     expect(apiClient.getNonce).toHaveBeenCalled();
     expect(mockSignMessageAsync).toHaveBeenCalledWith({ message: 'Message for 0x123' });
-    expect(apiClient.signUp).toHaveBeenCalledWith(expect.any(Object), 'mock-signature');
+    expect(apiClient.signUp).toHaveBeenCalledWith(expect.any(Object), mockTurnstileToken, 'mock-signature');
     expect(mockRefetchUser).toHaveBeenCalled();
   });
 
@@ -91,7 +92,7 @@ describe('useSignUp', () => {
       wrapper
     });
 
-    await act(() => result.current.mutate({ address: mockAddress }));
+    await act(() => result.current.mutate({ address: mockAddress, turnstileToken: '' }));
 
     expect(toast.error).toHaveBeenCalledWith('User rejected the request');
   });
@@ -108,7 +109,7 @@ describe('useSignUp', () => {
       wrapper
     });
 
-    await act(() => result.current.mutate({ address: mockAddress }));
+    await act(() => result.current.mutate({ address: mockAddress, turnstileToken: '' }));
 
     expect(toast.error).toHaveBeenCalledWith('Network error');
   });

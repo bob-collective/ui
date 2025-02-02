@@ -12,3 +12,4 @@ export * from './SignUpButton';
 export * from './SpiceAmount';
 export * from './Trapezoid';
 export * from './WithdrawAlert';
+export * from './TurnstileModal';

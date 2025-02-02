@@ -1,3 +1,4 @@
+import { Babylon } from '@gobob/icons';
 import {
   Bars3,
   Button,
@@ -28,8 +29,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useCopyToClipboard, useLocalStorage, useSessionStorage } from 'usehooks-ts';
-import { Babylon } from '@gobob/icons';
+import { useCopyToClipboard, useLocalStorage } from 'usehooks-ts';
 
 import { Barometer } from './Barometer';
 import { MultipliersModal } from './MultipliersModal';
@@ -53,23 +53,18 @@ import { BabyPoints, LoginSection, SignUpButton, SpiceAmount } from '@/component
 import { INTERVAL, isClient, LocalStorageKey, RoutesPath } from '@/constants';
 import { FeatureFlags, useFeatureFlag } from '@/hooks';
 import { fusionKeys } from '@/lib/react-query';
-import { SessionStorageKey } from '@/types';
-import { apiClient, QuestS3Response, UserResponse } from '@/utils';
+import { apiClient, UserResponse } from '@/utils';
 
 type UserInfoProps = {
   user?: UserResponse;
   apps: AppData[] | undefined;
-  quests: QuestS3Response | undefined;
   isAuthenticated?: boolean;
 };
 
-const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
+const UserInfo = ({ apps, user, isAuthenticated }: UserInfoProps) => {
   const { locale } = useLocale();
 
   const { i18n } = useLingui();
-  const [, setScrollQuests] = useSessionStorage(SessionStorageKey.SCROLL_QUESTS, false, {
-    initializeWithValue: isClient
-  });
   const [, setShowTopUserModal] = useLocalStorage(LocalStorageKey.SHOW_TOP_USER_MODAL, true, {
     initializeWithValue: isClient
   });
@@ -98,8 +93,6 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
   const spicePerDay = user?.season3Data.oneDayLeaderboardEntry[0]?.total_points;
 
   const harvestedApps = apps?.filter((app) => app.userHarvest);
-
-  const completedQuestsCount = quests?.questBreakdown.filter((quest) => quest.quest_completed).length;
 
   const hasReferrals = Number(user?.season3Data.s3LeaderboardData[0]?.ref_points) > 0;
 
@@ -293,15 +286,6 @@ const UserInfo = ({ apps, user, quests, isAuthenticated }: UserInfoProps) => {
               onClose={() => setUserAppsModalOpen(false)}
             />
           )}
-        </UserInfoCard>
-        <UserInfoCard
-          description={completedQuestsCount || 0}
-          title={t(i18n)`Quests Completed`}
-          tooltipLabel={t(i18n)`The number of Intract and Galxe quests that you have completed`}
-        >
-          <Button fullWidth disabled={!isAuthenticated} variant='outline' onPress={() => setScrollQuests(true)}>
-            <Trans>View Quests</Trans>
-          </Button>
         </UserInfoCard>
         <UserInfoCard
           description={user?.referral_code}

@@ -1,18 +1,23 @@
 import { toast } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import { sendGAEvent } from '@next/third-parties/google';
 import { useMutation } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
 import { Address } from 'viem';
 import { useAccount, useSignMessage } from 'wagmi';
-import { sendGAEvent } from '@next/third-parties/google';
 
 import { useGetUser } from './useGetUser';
 
+import { posthogEvents } from '@/lib/posthog';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
 
-const useSignUp = () => {
+type UseSignUpProps = {
+  onSuccess?: () => void;
+};
+
+const useSignUp = ({ onSuccess }: UseSignUpProps = {}) => {
   const { signMessageAsync } = useSignMessage();
   const { chain } = useAccount();
 
@@ -22,7 +27,14 @@ const useSignUp = () => {
 
   return useMutation({
     mutationKey: fusionKeys.signUp(),
-    mutationFn: async ({ address }: { address: Address; referralCode?: string }) => {
+    mutationFn: async ({
+      address,
+      turnstileToken
+    }: {
+      address: Address;
+      turnstileToken: string;
+      referralCode?: string;
+    }) => {
       const nonce = await apiClient.getNonce();
 
       const message = new SiweMessage({
@@ -39,10 +51,13 @@ const useSignUp = () => {
         message: message.prepareMessage()
       });
 
-      await apiClient.signUp(message, signature);
+      await apiClient.signUp(message, turnstileToken, signature);
     },
     onSuccess: (_, { address, referralCode }) => {
       sendGAEvent('event', 'signup', { evm_address: JSON.stringify(address), referral_code: referralCode });
+      onSuccess?.();
+      posthogEvents.fusion.signUp();
+
       setTimeout(() => refetchUser(), 100);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
