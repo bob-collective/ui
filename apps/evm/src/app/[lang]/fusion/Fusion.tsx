@@ -9,6 +9,7 @@ import { useAccount } from 'wagmi';
 import superchainEco from '@public/assets/partners/superchain-eco.png';
 
 import { useGetApps } from '../apps/hooks';
+import { XBanner } from '../(bridge)/components/BannerCarousel/XBanner';
 
 import {
   CommunityVoting,
@@ -93,6 +94,8 @@ const Fusion = () => {
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
+  const onPressXBanner = () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
+
   const onPressOPBanner = () =>
     window.open('https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin', '_blank', 'noreferrer');
 
@@ -141,7 +144,7 @@ const Fusion = () => {
               </P>
             </Flex>
             <UserInfo apps={apps} isAuthenticated={isAuthenticated} quests={quests} user={user} />
-            {isOpSuperuser && (
+            {isOpSuperuser ? (
               <Flex direction='column' marginTop='lg'>
                 <Card
                   isPressable
@@ -174,6 +177,8 @@ const Fusion = () => {
                   />
                 </Card>
               </Flex>
+            ) : (
+              <XBanner onPress={onPressXBanner} />
             )}
             <LotterySection />
           </StyledHeroSection>
