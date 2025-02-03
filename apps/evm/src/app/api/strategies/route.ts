@@ -209,6 +209,17 @@ export async function GET(request: Request) {
               functionName: 'decimals'
             },
             {
+              address: strategy.inputToken.address as Address,
+              abi: erc20Abi,
+              functionName: 'balanceOf',
+              args: isAddress(address ?? '') ? [address] : [zeroAddress]
+            },
+            {
+              address: strategy.inputToken.address as Address,
+              abi: erc20Abi,
+              functionName: 'decimals'
+            },
+            {
               address: strategy.outputToken.address as Address,
               abi: erc20WithUnderlying,
               functionName: 'underlying'
@@ -235,6 +246,17 @@ export async function GET(request: Request) {
               functionName: 'decimals'
             },
             {
+              address: strategy.inputToken.address as Address,
+              abi: erc20Abi,
+              functionName: 'balanceOf',
+              args: isAddress(address ?? '') ? [address] : [zeroAddress]
+            },
+            {
+              address: strategy.inputToken.address as Address,
+              abi: erc20Abi,
+              functionName: 'decimals'
+            },
+            {
               address: strategy.outputToken.address as Address,
               abi: erc20WithUnderlying,
               functionName: 'underlying'
@@ -257,13 +279,24 @@ export async function GET(request: Request) {
             {
               address: strategy.outputToken.address as Address,
               abi: erc20Abi,
-              functionName: 'decimals'
+              functionName: 'balanceOf',
+              args: isAddress(address ?? '') ? [address] : [zeroAddress]
             },
             {
               address: strategy.outputToken.address as Address,
               abi: erc20Abi,
+              functionName: 'decimals'
+            },
+            {
+              address: strategy.inputToken.address as Address,
+              abi: erc20Abi,
               functionName: 'balanceOf',
               args: isAddress(address ?? '') ? [address] : [zeroAddress]
+            },
+            {
+              address: strategy.inputToken.address as Address,
+              abi: erc20Abi,
+              functionName: 'decimals'
             }
           ] as const)
         : ([] as const)
@@ -285,6 +318,17 @@ export async function GET(request: Request) {
               abi: strategyBaseTVLLimitAbi,
               functionName: 'shares',
               args: isAddress(address ?? '') ? [address] : [zeroAddress]
+            },
+            {
+              address: strategy.inputToken.address as Address,
+              abi: erc20Abi,
+              functionName: 'balanceOf',
+              args: isAddress(address ?? '') ? [address] : [zeroAddress]
+            },
+            {
+              address: strategy.inputToken.address as Address,
+              abi: erc20Abi,
+              functionName: 'decimals'
             }
           ] as const)
         : ([] as const)
@@ -302,12 +346,14 @@ export async function GET(request: Request) {
   const segmentTokensWithUnderlyingContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (isSegmentToken(strategy.outputToken?.symbol)) {
-        const idx = Object.keys(acc).length * 5;
+        const idx = Object.keys(acc).length * 7;
 
         // for each se* token we need tulpes of 5 call results
-        acc[strategy.outputToken?.symbol] = segmentTokensWithUnderlyingContractData.slice(idx, idx + 5) as [
+        acc[strategy.outputToken?.symbol] = segmentTokensWithUnderlyingContractData.slice(idx, idx + 7) as [
           bigint,
           bigint,
+          bigint,
+          number,
           bigint,
           number,
           Address
@@ -316,16 +362,21 @@ export async function GET(request: Request) {
 
       return acc;
     },
-    {} as Record<keyof typeof segmentTokenToUnderlyingMapping, [bigint, bigint, bigint, number, Address]>
+    {} as Record<
+      keyof typeof segmentTokenToUnderlyingMapping,
+      [bigint, bigint, bigint, number, bigint, number, Address]
+    >
   );
 
   // ionic tokens contract data
   const ionicTokensWithUnderlyingContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (isIonicToken(strategy.outputToken?.symbol)) {
-        const idx = Object.keys(acc).length * 3;
+        const idx = Object.keys(acc).length * 5;
 
-        acc[strategy.outputToken?.symbol] = ionicTokensWithUnderlyingContractData.slice(idx, idx + 3) as [
+        acc[strategy.outputToken?.symbol] = ionicTokensWithUnderlyingContractData.slice(idx, idx + 5) as [
+          bigint,
+          number,
           bigint,
           number,
           Address
@@ -334,38 +385,42 @@ export async function GET(request: Request) {
 
       return acc;
     },
-    {} as Record<keyof typeof ionicTokenToUnderlyingMapping, [bigint, number, Address]>
+    {} as Record<keyof typeof ionicTokenToUnderlyingMapping, [bigint, number, bigint, number, Address]>
   );
 
   // erc20 tokens contract data
   const tokensContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (hasCGId(strategy.outputToken?.symbol)) {
-        const idx = Object.keys(acc).length * 3;
+        const idx = Object.keys(acc).length * 5;
 
-        acc[strategy.outputToken?.symbol] = tokensContractData.slice(idx, idx + 3) as [bigint, number, bigint];
+        acc[strategy.outputToken?.symbol] = tokensContractData.slice(idx, idx + 5) as [
+          bigint,
+          bigint,
+          number,
+          bigint,
+          number
+        ];
       }
 
       return acc;
     },
-    {} as Record<keyof typeof tokenToIdMapping, [bigint, number, bigint]>
+    {} as Record<keyof typeof tokenToIdMapping, [bigint, bigint, number, bigint, number]>
   );
 
   // no output token strategies contract data
   const noOuputTokenContractTransformedData = strategies.reduce(
     (acc, strategy) => {
       if (hasNoOutputToken(strategy.address)) {
-        const idx = Object.keys(acc).length * 2;
+        const idx = Object.keys(acc).length * 4;
 
-        acc[strategy.address] = noOuputTokenContractData.slice(idx, idx + 2) as [bigint, bigint];
+        acc[strategy.address] = noOuputTokenContractData.slice(idx, idx + 4) as [bigint, bigint, bigint, number];
       }
 
       return acc;
     },
-    {} as Record<keyof typeof tokenToIdMapping, [bigint, bigint]>
+    {} as Record<keyof typeof tokenToIdMapping, [bigint, bigint, bigint, number]>
   );
-
-  // ========
 
   const [
     segmentTokenUnderlyingContractData,
@@ -380,7 +435,7 @@ export async function GET(request: Request) {
               {
                 address: segmentTokensWithUnderlyingContractTransformedData?.[
                   strategy.outputToken?.symbol
-                ]?.[4] as Address,
+                ]?.[6] as Address,
                 abi: erc20Abi,
                 functionName: 'decimals'
               }
@@ -392,12 +447,12 @@ export async function GET(request: Request) {
       allowFailure: false,
       contracts: strategies.flatMap((strategy) =>
         isIonicToken(strategy.outputToken?.symbol) &&
-        ionicTokensWithUnderlyingContractTransformedData?.[strategy.outputToken?.symbol]?.[2]
+        ionicTokensWithUnderlyingContractTransformedData?.[strategy.outputToken?.symbol]?.[4]
           ? ([
               {
                 address: ionicTokensWithUnderlyingContractTransformedData?.[
                   strategy.outputToken?.symbol
-                ]?.[2] as Address,
+                ]?.[4] as Address,
                 abi: erc20Abi,
                 functionName: 'balanceOf',
                 args: [strategy.outputToken.address]
@@ -405,7 +460,7 @@ export async function GET(request: Request) {
               {
                 address: ionicTokensWithUnderlyingContractTransformedData?.[
                   strategy.outputToken?.symbol
-                ]?.[2] as Address,
+                ]?.[4] as Address,
                 abi: erc20Abi,
                 functionName: 'decimals'
               }
@@ -472,23 +527,32 @@ export async function GET(request: Request) {
   );
 
   const strategiesData = strategies.map((strategy) => {
-    const symbol = strategy.outputToken?.symbol;
-    const address = strategy.outputToken?.address;
+    const outputTokenSymbol = strategy.outputToken?.symbol;
+    const outputTokenAddress = strategy.outputToken?.address;
+    const inputTokenSymbol = strategy.inputToken.symbol;
+    const inputTokenAddress = strategy.inputToken.address;
 
     if (
-      isSegmentToken(symbol) &&
-      segmentTokensWithUnderlyingContractTransformedData?.[symbol] &&
-      segmentTokenUnderlyingContractTransformedData?.[symbol]
+      isSegmentToken(outputTokenSymbol) &&
+      segmentTokensWithUnderlyingContractTransformedData?.[outputTokenSymbol] &&
+      segmentTokenUnderlyingContractTransformedData?.[outputTokenSymbol]
     ) {
       // `(totalCash + totalBorrows - totalReserves)` is multiplied by 1e18 to perform uint division
       // exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply
-      const [exchangeRateStored, totalSupply, balanceOf, decimals] =
-        segmentTokensWithUnderlyingContractTransformedData[symbol]!;
-      const underlyingDecimals = segmentTokenUnderlyingContractTransformedData[symbol]!;
+      const [
+        exchangeRateStored,
+        totalSupply,
+        outputTokenBalanceOf,
+        outputTokenDecimals,
+        inputTokenBalanceOf,
+        inputTokenDecimals
+      ] = segmentTokensWithUnderlyingContractTransformedData[outputTokenSymbol]!;
+      const underlyingDecimals = segmentTokenUnderlyingContractTransformedData[outputTokenSymbol]!;
 
       const totalSupplyInUnderlyingAsset = exchangeRateStored * totalSupply;
-      const underlyingTicker = segmentTokenToUnderlyingMapping[symbol];
+      const underlyingTicker = segmentTokenToUnderlyingMapping[outputTokenSymbol];
       const underlyingPrice = getPrice(underlyingTicker!);
+      const inputTokenPrice = getPrice(inputTokenSymbol);
 
       return {
         ...strategy,
@@ -500,14 +564,28 @@ export async function GET(request: Request) {
         deposit: {
           token: {
             chainId: ChainId.BOB,
-            address: address as Address,
-            decimals,
-            symbol,
-            name: symbol,
-            value: balanceOf.toString()
+            address: inputTokenAddress as Address,
+            decimals: inputTokenDecimals,
+            symbol: inputTokenSymbol,
+            name: inputTokenSymbol,
+            value: inputTokenBalanceOf.toString()
           },
-          usd: new Big(balanceOf.toString())
-            .div(10 ** decimals)
+          usd: new Big(inputTokenBalanceOf.toString())
+            .div(10 ** inputTokenDecimals)
+            .mul(inputTokenPrice)
+            .toNumber()
+        },
+        withdraw: {
+          token: {
+            chainId: ChainId.BOB,
+            address: outputTokenAddress as Address,
+            decimals: outputTokenDecimals,
+            symbol: outputTokenSymbol,
+            name: outputTokenSymbol,
+            value: outputTokenBalanceOf.toString()
+          },
+          usd: new Big(outputTokenBalanceOf.toString())
+            .div(10 ** outputTokenDecimals)
             .mul(underlyingPrice)
             .mul(exchangeRateStored.toString())
             .div(10 ** underlyingDecimals)
@@ -518,15 +596,17 @@ export async function GET(request: Request) {
     }
 
     if (
-      isIonicToken(symbol) &&
-      ionicTokensWithUnderlyingContractTransformedData?.[symbol] &&
-      ionicTokenUnderlyingContractTransformedData?.[symbol]
+      isIonicToken(outputTokenSymbol) &&
+      ionicTokensWithUnderlyingContractTransformedData?.[outputTokenSymbol] &&
+      ionicTokenUnderlyingContractTransformedData?.[outputTokenSymbol]
     ) {
-      const [balanceOf, decimals] = ionicTokensWithUnderlyingContractTransformedData[symbol]!;
-      const [underlyingBalanceOf, underlyingDecimals] = ionicTokenUnderlyingContractTransformedData[symbol]!;
+      const [outputTokenBalanceOf, outputTokenDecimals, inputTokenBalanceOf, inputTokenDecimals] =
+        ionicTokensWithUnderlyingContractTransformedData[outputTokenSymbol]!;
+      const [underlyingBalanceOf, underlyingDecimals] = ionicTokenUnderlyingContractTransformedData[outputTokenSymbol]!;
 
-      const underlyingTicker = ionicTokenToUnderlyingMapping[symbol];
+      const underlyingTicker = ionicTokenToUnderlyingMapping[outputTokenSymbol];
       const underlyingPrice = getPrice(underlyingTicker!);
+      const inputTokenPrice = getPrice(inputTokenSymbol);
 
       return {
         ...strategy,
@@ -537,14 +617,28 @@ export async function GET(request: Request) {
         deposit: {
           token: {
             chainId: ChainId.BOB,
-            address: address as Address,
-            decimals,
-            symbol,
-            name: symbol,
-            value: balanceOf.toString()
+            address: inputTokenAddress as Address,
+            decimals: inputTokenDecimals,
+            symbol: inputTokenSymbol,
+            name: inputTokenSymbol,
+            value: inputTokenBalanceOf.toString()
           },
-          usd: new Big(balanceOf.toString())
-            .div(10 ** decimals)
+          usd: new Big(inputTokenBalanceOf.toString())
+            .div(10 ** inputTokenDecimals)
+            .mul(inputTokenPrice)
+            .toNumber()
+        },
+        withdraw: {
+          token: {
+            chainId: ChainId.BOB,
+            address: outputTokenAddress as Address,
+            decimals: outputTokenDecimals,
+            symbol: outputTokenSymbol,
+            name: outputTokenSymbol,
+            value: outputTokenBalanceOf.toString()
+          },
+          usd: new Big(outputTokenBalanceOf.toString())
+            .div(10 ** outputTokenDecimals)
             .div(5)
             .mul(underlyingPrice)
             .toNumber()
@@ -552,29 +646,45 @@ export async function GET(request: Request) {
       };
     }
 
-    if (hasCGId(symbol) && tokensContractTransformedData?.[symbol]) {
-      const [totalSupply, decimals, balanceOf] = tokensContractTransformedData[symbol]!;
-      const ticker = tokenToIdMapping[symbol]!;
-      const price = getPrice(ticker!);
+    if (hasCGId(outputTokenSymbol) && tokensContractTransformedData?.[outputTokenSymbol]) {
+      const [totalSupply, outputTokenBalanceOf, outputTokenDecimals, inputTokenBalanceOf, inputTokenDecimals] =
+        tokensContractTransformedData[outputTokenSymbol]!;
+      const ticker = tokenToIdMapping[outputTokenSymbol]!;
+      const outputTokenPrice = getPrice(ticker!);
+      const inputTokenPrice = getPrice(inputTokenSymbol);
 
       return {
         ...strategy,
         tvl: new Big(totalSupply.toString())
-          .mul(price)
-          .div(10 ** decimals)
+          .mul(outputTokenPrice)
+          .div(10 ** outputTokenDecimals)
           .toNumber(),
         deposit: {
           token: {
             chainId: ChainId.BOB,
-            address: address as Address,
-            decimals,
-            symbol,
-            name: symbol,
-            value: balanceOf.toString()
+            address: inputTokenAddress as Address,
+            decimals: inputTokenDecimals,
+            symbol: inputTokenSymbol,
+            name: inputTokenSymbol,
+            value: inputTokenBalanceOf.toString()
           },
-          usd: new Big(balanceOf.toString())
-            .div(10 ** decimals)
-            .mul(price)
+          usd: new Big(inputTokenBalanceOf.toString())
+            .div(10 ** inputTokenDecimals)
+            .mul(inputTokenPrice)
+            .toNumber()
+        },
+        withdraw: {
+          token: {
+            chainId: ChainId.BOB,
+            address: outputTokenAddress as Address,
+            decimals: outputTokenDecimals,
+            symbol: outputTokenSymbol,
+            name: outputTokenSymbol,
+            value: outputTokenBalanceOf.toString()
+          },
+          usd: new Big(outputTokenBalanceOf.toString())
+            .div(10 ** outputTokenDecimals)
+            .mul(outputTokenPrice)
             .toNumber()
         }
       };
@@ -589,28 +699,44 @@ export async function GET(request: Request) {
     ) {
       const totalSharesToUnderlying = noOuputTokenContractSharesToUnderlyingTransformedData[strategyAddress]!;
       const limitsContractAddress = strategyToLimitsMapping[strategyAddress]!;
-      const [ticker, address, decimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
-      const [, balanceOf] = noOuputTokenContractTransformedData[strategyAddress]!;
-      const price = getPrice(ticker!);
+      const [ticker, underlyingAddress, underlyingTokenDecimals] = limitsToUnderlyingMapping[limitsContractAddress]!;
+      const [, outputTokenShares, inputTokenBalanceOf, inputTokenDecimals] =
+        noOuputTokenContractTransformedData[strategyAddress]!;
+      const underlyingPrice = getPrice(ticker!);
+      const inputTokenPrice = getPrice(inputTokenSymbol);
 
       return {
         ...strategy,
         tvl: new Big(totalSharesToUnderlying.toString())
-          .mul(price)
-          .div(10 ** decimals)
+          .mul(underlyingPrice)
+          .div(10 ** underlyingTokenDecimals)
           .toNumber(),
         deposit: {
           token: {
             chainId: ChainId.BOB,
-            address,
-            decimals,
+            address: inputTokenAddress as Address,
+            decimals: inputTokenDecimals,
+            symbol: inputTokenSymbol,
+            name: inputTokenSymbol,
+            value: inputTokenBalanceOf.toString()
+          },
+          usd: new Big(inputTokenBalanceOf.toString())
+            .div(10 * inputTokenDecimals)
+            .mul(inputTokenPrice)
+            .toNumber()
+        },
+        withdraw: {
+          token: {
+            chainId: ChainId.BOB,
+            address: underlyingAddress,
+            decimals: underlyingTokenDecimals,
             symbol: ticker,
             name: ticker,
-            value: balanceOf.toString()
+            value: outputTokenShares.toString()
           },
-          usd: new Big(balanceOf.toString())
-            .div(10 ** decimals)
-            .mul(price)
+          usd: new Big(outputTokenShares.toString())
+            .div(10 ** underlyingTokenDecimals)
+            .mul(underlyingPrice)
             .toNumber()
         }
       };

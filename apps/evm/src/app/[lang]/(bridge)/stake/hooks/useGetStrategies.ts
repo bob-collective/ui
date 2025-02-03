@@ -14,6 +14,9 @@ type StrategyData = {
       deposit: Pick<StrategyOnchainData['deposit'], 'usd'> & {
         amount: CurrencyAmount<Token>;
       };
+      withdraw: Pick<StrategyOnchainData['withdraw'], 'usd'> & {
+        amount: CurrencyAmount<Token>;
+      };
     };
   info: StrategyInfo;
   currency?: ERC20Token;
@@ -43,6 +46,19 @@ const useGetStrategies = () => {
                     strategy.deposit.token.name
                   ),
                   strategy.deposit.token.value
+                )
+              },
+              withdraw: {
+                ...strategy.withdraw,
+                amount: CurrencyAmount.fromRawAmount(
+                  new Token(
+                    strategy.withdraw.token.chainId,
+                    strategy.withdraw.token.address,
+                    strategy.withdraw.token.decimals,
+                    strategy.withdraw.token.symbol,
+                    strategy.withdraw.token.name
+                  ),
+                  strategy.withdraw.token.value
                 )
               }
             },
