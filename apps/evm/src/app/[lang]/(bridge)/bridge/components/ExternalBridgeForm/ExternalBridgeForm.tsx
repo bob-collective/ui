@@ -4,6 +4,7 @@ import { Flex } from '@gobob/ui';
 import { ExternalBridgeCard, ExternalBridges } from './ExternalBridgeCard';
 
 import { TransactionDirection } from '@/types';
+import { posthogEvents } from '@/lib/posthog';
 
 type ExternalBridgeFormProps = {
   direction: TransactionDirection;
@@ -29,11 +30,15 @@ const availableBridges: Partial<Record<ChainId | 'BTC', ExternalBridges[]>> = {
 const ExternalBridgeForm = ({ direction, chain }: ExternalBridgeFormProps): JSX.Element => {
   const bridges = availableBridges[chain] || defaultBridges;
 
+  const handlePress = (bridge: ExternalBridges) => {
+    posthogEvents.bridge.evm.external({ bridge });
+  };
+
   return (
     <Flex direction='column' gap='xl' marginTop='2xl'>
       <Flex direction='column' gap='md'>
         {bridges.map((bridge) => (
-          <ExternalBridgeCard key={bridge} bridge={bridge} direction={direction} />
+          <ExternalBridgeCard key={bridge} bridge={bridge} direction={direction} onPress={() => handlePress(bridge)} />
         ))}
       </Flex>
     </Flex>

@@ -11,6 +11,7 @@ import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
 import { PageLangParam } from '@/i18n/withLigui';
 import { useGetGatewayTransactions } from '@/hooks';
+import { posthogEvents } from '@/lib/posthog';
 
 type Props = PageLangParam & {
   params: { slug: string };
@@ -35,6 +36,10 @@ function Strategy({ params }: Props) {
   const action = isLending ? <Trans>withdraw</Trans> : <Trans>unstake</Trans>;
   const depositTitle = isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>;
   const withdrawTitle = isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>;
+
+  const handleNavigateWidthdraw = () => {
+    posthogEvents.strategies.strategy.externalWithdraw({ asset_name: strategy?.contract.integration.name as string });
+  };
 
   return (
     <Layout>
@@ -87,7 +92,7 @@ function Strategy({ params }: Props) {
                     </Trans>
                   </P>
                   <Button asChild color='primary'>
-                    <Link external href={strategy?.info.links.manage}>
+                    <Link external href={strategy?.info.links.manage} onPress={handleNavigateWidthdraw}>
                       Go to {strategy?.info.protocol} Dapp
                     </Link>
                   </Button>

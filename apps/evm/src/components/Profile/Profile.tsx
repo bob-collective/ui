@@ -22,6 +22,7 @@ import { useConnectModal, WalletType } from '@/connect-ui';
 import { ExternalLinks } from '@/constants';
 import { useGetBridgeTransactions, useTotalBalance } from '@/hooks';
 import { ShareStoreProfileTabs, store } from '@/lib/store';
+import { posthogEvents } from '@/lib/posthog';
 
 type ProfileProps = {
   onClose: () => void;
@@ -44,6 +45,9 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
     onClose();
     evmWalletDisconnect();
     btcWalletDisconnect();
+
+    posthogEvents.wallet.evm.disconnect();
+    posthogEvents.wallet.btc.disconnect();
   };
 
   const handleConnectEvmWallet = () => {
@@ -58,6 +62,8 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
     window.open(ExternalLinks.BANXA, '_blank', 'noreferrer');
 
     onClose();
+
+    posthogEvents.wallet.drawer.buy();
   };
 
   const handlePressReceive = () =>

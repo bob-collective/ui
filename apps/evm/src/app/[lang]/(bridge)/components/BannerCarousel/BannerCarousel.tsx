@@ -13,7 +13,6 @@ import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
 import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
 import { HybridL2Banner } from './HybridL2Banner';
-import { BabylonBanner } from './BabylonBanner';
 
 import { gaEvents } from '@/lib/third-parties';
 
@@ -111,13 +110,12 @@ const BannerCarousel = () => {
           swipeable={false}
           transitionDuration={500}
         >
-          <BabylonBanner onPress={onPressBabylonBanner} />
           <HybridL2Banner onPress={onPressHybridL2Banner} />
           <XBanner onPress={onPressXBanner} />
           <FusionBanner onPress={onPressFusionBanner} />
         </StyledCarousel>
       ) : (
-        <BabylonBanner onPress={onPressBabylonBanner} />
+        <HybridL2Banner onPress={onPressBabylonBanner} />
       )}
     </StyledCarouselWrapper>
   );

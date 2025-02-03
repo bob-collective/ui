@@ -26,6 +26,7 @@ import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
 import { gaEvents } from '@/lib/third-parties';
+import { posthogEvents } from '@/lib/posthog';
 
 type TransactionModalState = {
   isOpen: boolean;
@@ -81,6 +82,8 @@ const BridgeForm = ({
   const { connector: satsConnector, address: btcAddress } = useSatsAccount();
   const { connector, address } = useAccount();
 
+  const evmBridgePosthogEvents = direction === TransactionDirection.L1_TO_L2 ? 'deposit' : 'withdraw';
+
   const { refetch: refetchBridgeTransactions, addPlaceholderTransaction: addBridgePlaceholderTransaction } =
     useGetBridgeTransactions();
   const { refetch: refetchGatewayTransactions } = useGetGatewayTransactions();
@@ -120,29 +123,59 @@ const BridgeForm = ({
 
   const handleStartBridge = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
+
+    posthogEvents.bridge.evm.initiated(evmBridgePosthogEvents, {
+      ticker: data.amount.currency.symbol,
+      amount: data.amount.toExact()
+    });
   };
 
-  const handleBridgeSuccess = (data: BridgeTransaction) => {
+  const handleSuccessfulBridge = (data: BridgeTransaction) => {
     addBridgePlaceholderTransaction(data);
 
     refetchBridgeTransactions();
 
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
+
+    sendGAEvent('event', 'evm_bridge', {
+      l1_token: data.l1Token,
+      amount: data.amount?.toExact(),
+      tx_id: JSON.stringify(data.transactionHash),
+      evm_wallet: connector?.name
+    });
+
+    posthogEvents.bridge.evm.completed(evmBridgePosthogEvents);
   };
 
-  const handleStartApproval = (data: InitBridgeTransaction) => {
+  const handleStartBridgeApproval = (data: InitBridgeTransaction) => {
     setBridgeModalState({ isOpen: true, data, step: 'approval' });
+
+    posthogEvents.bridge.evm.approval(evmBridgePosthogEvents, {
+      ticker: data.amount.currency.symbol,
+      amount: data.amount.toExact()
+    });
   };
 
   const handleCloseBridgeModal = () => {
     setBridgeModalState((s) => ({ ...s, isOpen: false }));
   };
 
-  const handleStartGateway = (data: InitGatewayTransaction) => {
-    setGatewayModalState({ isOpen: true, data });
+  const handleFailedBridge = () => {
+    handleCloseBridgeModal();
+
+    posthogEvents.bridge.evm.failed(evmBridgePosthogEvents);
   };
 
-  const handleGatewaySuccess = (data: InitGatewayTransaction) => {
+  const handleStartGateway = (data: InitGatewayTransaction) => {
+    setGatewayModalState({ isOpen: true, data });
+
+    posthogEvents.bridge.btc.initiated('deposit', {
+      ticker: data.amount?.currency.symbol as string,
+      amount: data.amount?.toExact() as string
+    });
+  };
+
+  const handleSuccessfulGateway = (data: InitGatewayTransaction) => {
     refetchGatewayTransactions();
 
     setGatewayModalState({ isOpen: true, data });
@@ -156,10 +189,18 @@ const BridgeForm = ({
       btc_wallet: satsConnector?.name,
       evm_wallet: connector?.name
     });
+
+    posthogEvents.bridge.btc.completed('deposit');
   };
 
   const handleCloseGatewayModal = () => {
     setGatewayModalState((s) => ({ ...s, isOpen: false }));
+  };
+
+  const handleFailedGateway = () => {
+    handleCloseGatewayModal();
+
+    posthogEvents.bridge.btc.failed('deposit');
   };
 
   const handleChangeChain = useCallback(
@@ -245,18 +286,18 @@ const BridgeForm = ({
               availableTokens={btcTokens}
               symbol={symbol}
               onChangeSymbol={onChangeSymbol}
-              onError={handleCloseGatewayModal}
+              onError={handleFailedGateway}
               onStart={handleStartGateway}
-              onSuccess={handleGatewaySuccess}
+              onSuccess={handleSuccessfulGateway}
             />
           ) : (
             <BobBridgeForm
               direction={direction}
               symbol={symbol}
-              onBridgeSuccess={handleBridgeSuccess}
+              onBridgeSuccess={handleSuccessfulBridge}
               onChangeSymbol={onChangeSymbol}
-              onFailBridge={handleCloseBridgeModal}
-              onStartApproval={handleStartApproval}
+              onFailBridge={handleFailedBridge}
+              onStartApproval={handleStartBridgeApproval}
               onStartBridge={handleStartBridge}
             />
           )

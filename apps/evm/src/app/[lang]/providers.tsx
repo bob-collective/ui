@@ -10,6 +10,7 @@ import { NestedProviders } from './nested-providers';
 import { bitcoinNetwork, INTERVAL, isProd } from '@/constants';
 import { getConfig } from '@/lib/wagmi';
 import { FetchError } from '@/types/fetch';
+import { PostHogProvider } from '@/lib/posthog';
 
 export function Providers({ initialState, children }: PropsWithChildren<{ initialState: State | undefined }>) {
   // Instead do this, which ensures each request has its own cache:
@@ -44,7 +45,9 @@ export function Providers({ initialState, children }: PropsWithChildren<{ initia
     <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
         <SatsWagmiConfig network={bitcoinNetwork} queryClient={queryClient}>
-          <NestedProviders>{children}</NestedProviders>
+          <PostHogProvider>
+            <NestedProviders>{children}</NestedProviders>
+          </PostHogProvider>
         </SatsWagmiConfig>
       </QueryClientProvider>
     </WagmiProvider>
