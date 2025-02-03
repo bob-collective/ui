@@ -141,7 +141,7 @@ msgstr "All Spice you harvest between 9 December 2024 and 12 January 2025 will r
 msgid "All Strategies"
 msgstr "All Strategies"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:97
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:98
 msgid "Already got BTC on BOB?"
 msgstr "Already got BTC on BOB?"
 
@@ -219,7 +219,7 @@ msgstr "Audited by"
 #~ msgstr "Authorize Wallet"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:32
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:109
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:112
 #: src/app/[lang]/fusion/Fusion.tsx:196
 msgid "Babylon campaign"
 msgstr "Babylon campaign"
@@ -239,7 +239,7 @@ msgstr "Babylon Campaign"
 msgid "Babylon points"
 msgstr "Babylon points"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:62
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:63
 #: src/components/ReceiveModal/ReceiveModal.tsx:76
 msgid "Back"
 msgstr "Back"
@@ -489,7 +489,7 @@ msgstr "Complete"
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr "Complete your {0} by accessing {1} Dapp using the button bellow"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:135
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:138
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr "Complete your {action} by accessing {0} Dapp using the button bellow"
 
@@ -837,9 +837,13 @@ msgstr "Get tickets"
 msgid "Go Back"
 msgstr "Go Back"
 
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:102
+msgid "Go directly to {0} to {bannerAction} your BTC."
+msgstr "Go directly to {0} to {bannerAction} your BTC."
+
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:101
-msgid "Go directly to {0} to stake your BTC."
-msgstr "Go directly to {0} to stake your BTC."
+#~ msgid "Go directly to {0} to stake your BTC."
+#~ msgstr "Go directly to {0} to stake your BTC."
 
 #: src/components/Profile/ProfileTokenListItem.tsx:144
 msgid "Go to Explorer"
@@ -949,6 +953,10 @@ msgstr "Leaderboard"
 #: src/app/[lang]/fusion/Fusion.tsx:133
 msgid "Learn More"
 msgstr "Learn More"
+
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
+msgid "lend"
+msgstr "lend"
 
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
 msgid "Lend"
@@ -1580,6 +1588,7 @@ msgstr "Spice rewards (Medium)"
 msgid "Spice styled background"
 msgstr "Spice styled background"
 
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:112
 msgid "stake"
 msgstr "stake"

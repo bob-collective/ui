@@ -43,6 +43,7 @@ function Strategy({ params }: Props) {
   const action = isLending ? <Trans>withdraw</Trans> : <Trans>unstake</Trans>;
   const depositTitle = isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>;
   const withdrawTitle = isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>;
+  const bannerAction = isLending ? <Trans>lend</Trans> : <Trans>stake</Trans>;
 
   const handlePressBOBStake = () => {
     sendGAEvent('event', 'bob_stake', {
@@ -98,7 +99,9 @@ function Strategy({ params }: Props) {
                 </StyledBannerTitle>
                 <P color='grey-50'>
                   {strategy ? (
-                    <Trans>Go directly to {strategy.meta.name.split(' ').at(0)} to stake your BTC.</Trans>
+                    <Trans>
+                      Go directly to {strategy.meta.name.split(' ').at(0)} to {bannerAction} your BTC.
+                    </Trans>
                   ) : (
                     <Skeleton height='xl' width='30ch' />
                   )}
