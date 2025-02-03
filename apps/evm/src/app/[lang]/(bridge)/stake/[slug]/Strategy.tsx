@@ -56,7 +56,7 @@ function Strategy({ params }: Props) {
 
   return (
     <Layout>
-      <Main maxWidth='5xl' padding='lg'>
+      <Main maxWidth='5xl' padding='md'>
         <Link href={RoutesPath.STRATEGIES}>
           <Flex alignItems='center' gap='s'>
             <ArrowLeft size='xs' />
