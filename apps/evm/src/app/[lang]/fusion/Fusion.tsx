@@ -8,6 +8,7 @@ import x from '@public/assets/x.png';
 import { useId, useState } from 'react';
 import { useIsClient, useLocalStorage } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -40,6 +41,7 @@ import { useDismissOPSuperuserModal, useDismissTopUserModal } from './hooks';
 import { Geoblock } from '@/components';
 import { LocalStorageKey } from '@/constants';
 import { FeatureFlags, useFeatureFlag, useGetUser } from '@/hooks';
+import { gaEvents } from '@/lib/third-parties';
 
 const Fusion = () => {
   const { i18n } = useLingui();
@@ -88,10 +90,19 @@ const Fusion = () => {
 
   const [isFusionWelcomeModalOpen, setFusionWelcomeModalOpen] = useState(!isHideFusionWelcomeModal);
 
-  const onPressXBanner = () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
+  const onPressXBanner = () => {
+    sendGAEvent('event', gaEvents.bannerClick, {
+      banner: 'fusion X'
+    });
+    window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
+  };
 
-  const onPressOPBanner = () =>
+  const onPressOPBanner = () => {
+    sendGAEvent('event', gaEvents.bannerClick, {
+      banner: 'fusion OP'
+    });
     window.open('https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin', '_blank', 'noreferrer');
+  };
 
   const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;

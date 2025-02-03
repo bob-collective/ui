@@ -43,25 +43,10 @@ const BannerCarousel = () => {
     [theme.breakpoints]
   );
 
-  const onPressBabylonBanner = useCallback(
-    () => {
-      sendGAEvent('event', gaEvents.bannerClick, {
-        banner: 'babylon'
-      });
-      window.open(
-        'https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2',
-        '_blank',
-        'noreferrer'
-      );
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
   const onPressFusionBanner = useCallback(
     () => {
       sendGAEvent('event', gaEvents.bannerClick, {
-        banner: 'fusion'
+        banner: 'fusion final season'
       });
       window.open('https://blog.gobob.xyz/posts/bob-fusion-the-final-season', '_blank', 'noreferrer');
     },
@@ -115,7 +100,7 @@ const BannerCarousel = () => {
           <FusionBanner onPress={onPressFusionBanner} />
         </StyledCarousel>
       ) : (
-        <HybridL2Banner onPress={onPressBabylonBanner} />
+        <HybridL2Banner onPress={onPressHybridL2Banner} />
       )}
     </StyledCarouselWrapper>
   );
