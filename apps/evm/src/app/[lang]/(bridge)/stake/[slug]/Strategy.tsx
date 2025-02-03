@@ -1,11 +1,27 @@
 'use client';
 
-import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton, Tabs, TabsItem } from '@gobob/ui';
+import {
+  Alert,
+  ArrowLeft,
+  Avatar,
+  Button,
+  Card,
+  Flex,
+  H1,
+  H2,
+  Link,
+  P,
+  Skeleton,
+  Tabs,
+  TabsItem,
+  useMediaQuery
+} from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 import Image from 'next/image';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount } from 'wagmi';
+import { useTheme } from 'styled-components';
 
 import { StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
@@ -30,6 +46,8 @@ enum Tab {
 function Strategy({ params }: Props) {
   const { refetch: refetchTransactions } = useGetGatewayTransactions();
   const { address } = useAccount();
+  const theme = useTheme();
+  const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
 
   const [tab, setTab] = useState<Tab>(Tab.Deposit);
 
@@ -129,6 +147,7 @@ function Strategy({ params }: Props) {
                 height={25}
                 src={strategy?.info.breakdown.at(-1)?.logoUrl ?? ''}
                 style={{
+                  opacity: isMobileViewport ? 0.2 : 1,
                   position: 'absolute',
                   bottom: 20,
                   right: 170,
@@ -143,6 +162,7 @@ function Strategy({ params }: Props) {
                 height={25}
                 src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
                 style={{
+                  opacity: isMobileViewport ? 0.2 : 1,
                   position: 'absolute',
                   top: 30,
                   right: 200,
@@ -157,6 +177,7 @@ function Strategy({ params }: Props) {
                 height={50}
                 src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
                 style={{
+                  opacity: isMobileViewport ? 0.2 : 1,
                   position: 'absolute',
                   top: -10,
                   right: 0,
@@ -170,7 +191,13 @@ function Strategy({ params }: Props) {
                 alt={strategy?.info.breakdown.at(0)?.currency.symbol ?? ''}
                 height={90}
                 src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
-                style={{ position: 'absolute', top: '50%', right: 80, transform: 'translateY(-50%)' }}
+                style={{
+                  opacity: isMobileViewport ? 0.2 : 1,
+                  position: 'absolute',
+                  top: '50%',
+                  right: 80,
+                  transform: 'translateY(-50%)'
+                }}
                 width={90}
               />
             )}
@@ -179,7 +206,13 @@ function Strategy({ params }: Props) {
                 alt={strategy?.info.breakdown.at(-1)?.currency.symbol ?? ''}
                 height={90}
                 src={strategy?.info.breakdown.at(-1)?.logoUrl ?? ''}
-                style={{ position: 'absolute', top: '50%', right: 10, transform: 'translateY(-50%)' }}
+                style={{
+                  opacity: isMobileViewport ? 0.2 : 1,
+                  position: 'absolute',
+                  top: '50%',
+                  right: 10,
+                  transform: 'translateY(-50%)'
+                }}
                 width={90}
               />
             )}
