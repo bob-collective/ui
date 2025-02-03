@@ -22,9 +22,9 @@ import {
 } from '@gobob/ui';
 import { truncateEthAddress } from '@gobob/utils';
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { useTheme } from 'styled-components';
 import { Address } from 'viem';
-import { useLingui } from '@lingui/react';
 
 import { StrategyCurrency } from '../../constants';
 import { StrategyData } from '../../hooks';
@@ -35,6 +35,7 @@ import { StyledAddressButton } from './StrategyDetails.style';
 
 import { AmountLabel, ChainAsset } from '@/components';
 import { chainL2, L2_CHAIN } from '@/constants';
+import { useGetStrategies, useSubscribeBalances } from '@/hooks';
 import { useUserAgent } from '@/user-agent';
 
 const MiddleNodeCard = ({
@@ -124,12 +125,15 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
   const isMobile = isMobileViewport || isMobileUserAgent;
 
   const format = useCurrencyFormatter();
+  const { refetch } = useGetStrategies();
+
+  useSubscribeBalances([strategy?.contract.deposit.token, strategy?.contract.withdraw.token], refetch);
 
   const middleNodes = Boolean(strategy?.info.breakdown.length) ? strategy!.info.breakdown.slice(0, -1) : [];
 
   const hasTooManyMiddleNodes = middleNodes.length >= 3;
 
-  const lastNode = strategy?.info.breakdown[strategy?.info.breakdown.length - 1];
+  const lastNode = strategy?.info.breakdown.at(-1);
 
   const btcNode = (
     <Card
@@ -185,7 +189,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
       <Flex direction='column' style={{ overflow: 'hidden' }}>
         <Flex alignItems='center' gap='xs' justifyContent='space-between'>
           <Span color='grey-50' size='xs'>
-            {strategy.contract.outputToken && <Trans>Output</Trans>}
+            {strategy?.contract.outputToken && <Trans>Output</Trans>}
           </Span>
           <ArrowTopRightOnSquare color='grey-50' size='xxs' />
         </Flex>
@@ -201,21 +205,21 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
 
   return (
     <Dl direction='column' flex='1.2 0 0%' gap='xl'>
-      {strategy?.contract.deposit.amount.greaterThan(0) && (
-        <Card alignItems='flex-start' direction='column'>
+      {strategy?.contract.withdraw.amount.greaterThan(0) && (
+        <Card alignItems='flex-start' direction='column' flex='1'>
           <Dt color='grey-50' size='s'>
             {isLending ? <Trans>Lent Amount</Trans> : <Trans>Staked Amount</Trans>}
           </Dt>
           <Flex wrap elementType='dd' gap='s'>
             <Span color='light' size='lg' weight='semibold'>
               {strategy ? (
-                <AmountLabel hidePrice amount={strategy.contract.deposit.amount} />
+                <AmountLabel hidePrice amount={strategy.contract.withdraw.amount} />
               ) : (
                 <Skeleton height='4xl' rounded='full' width='4xl' />
               )}
             </Span>
             <Span color='grey-50' size='lg' weight='semibold'>
-              ({format(strategy.contract.deposit.usd)})
+              ({format(strategy.contract.withdraw.usd)})
             </Span>
           </Flex>
         </Card>

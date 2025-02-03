@@ -145,7 +145,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
     const base =
       filter === StrategiesFilterOption.AllStrategies
         ? strategies
-        : strategies.filter((strategy) => !!strategy.contract.deposit.usd);
+        : strategies.filter((strategy) => !!strategy.contract.withdraw.usd);
 
     return category ? base.filter((strategy) => strategy.meta.type === category) : base;
   }, [filter, category, strategies]);
@@ -181,10 +181,10 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
           ),
           [StrategiesTableColumns.AMOUNT]: (
             <Flex direction='column'>
-              <AmountLabel hidePrice amount={strategy.contract.deposit.amount} />
-              {strategy.contract.deposit.usd && (
+              <AmountLabel hidePrice amount={strategy.contract.withdraw.amount} />
+              {strategy.contract.withdraw.usd && (
                 <P color='grey-50' size='s'>
-                  {format(strategy.contract.deposit.usd)}
+                  {format(strategy.contract.withdraw.usd)}
                 </P>
               )}
             </Flex>

@@ -8,17 +8,23 @@ import { CurrencyTicker } from '@gobob/hooks';
 import { INTERVAL } from '@/constants';
 import { bridgeKeys } from '@/lib/react-query';
 
+type Token = {
+  chainId: ChainId;
+  address: Address;
+  decimals: number;
+  name: CurrencyTicker | string;
+  symbol: CurrencyTicker | string;
+  value: string;
+};
+
 type StrategyOnchainData = {
   tvl: number;
   deposit: {
-    token: {
-      chainId: ChainId;
-      address: Address;
-      decimals: number;
-      name: CurrencyTicker | string;
-      symbol: CurrencyTicker | string;
-      value: string;
-    };
+    token: Token;
+    usd: number;
+  };
+  withdraw: {
+    token: Token;
     usd: number;
   };
 };
@@ -31,9 +37,8 @@ const getStrategies = async (address: Address | undefined) => {
   const url = '/api/strategies?' + searchParams;
 
   const response = await fetch(url);
-  const json = await response.json();
 
-  return json;
+  return response.json();
 };
 
 const useGetStrategies = <T>(
