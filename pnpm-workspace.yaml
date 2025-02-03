@@ -41,7 +41,7 @@ catalog:
   yup: ^0.32.11
 
   wagmi: ^2.8.1
-  viem: ^2.21.35
+  viem: ^2.22.19
   '@wagmi/core': ^2.11.0
 
   '@tanstack/react-store': ^0.5.6
