@@ -1,11 +1,17 @@
 'use client';
 
 import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton, Tabs, TabsItem } from '@gobob/ui';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
+import { useLingui } from '@lingui/react';
+import babylon from '@public/assets/babylon.png';
+import { sendGAEvent } from '@next/third-parties/google';
+import { useAccount } from 'wagmi';
 
 import { StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
+
+import { StyledBannerImg, StyledBannerContent, StyledBannerTitle } from './Strategy.styles';
 
 import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
@@ -22,7 +28,9 @@ enum Tab {
 }
 
 function Strategy({ params }: Props) {
+  const { i18n } = useLingui();
   const { refetch: refetchTransactions } = useGetGatewayTransactions();
+  const { address } = useAccount();
 
   const [tab, setTab] = useState<Tab>(Tab.Deposit);
 
@@ -35,6 +43,15 @@ function Strategy({ params }: Props) {
   const action = isLending ? <Trans>withdraw</Trans> : <Trans>unstake</Trans>;
   const depositTitle = isLending ? <Trans>Supply</Trans> : <Trans>Stake</Trans>;
   const withdrawTitle = isLending ? <Trans>Withdraw</Trans> : <Trans>Unstake</Trans>;
+
+  const handlePressBOBStake = () => {
+    sendGAEvent('event', 'bob_stake', {
+      evm_address: address,
+      asset: strategy?.contract.inputToken.symbol,
+      amount: strategy?.contract.deposit.amount
+    });
+    window.open(strategy?.info.links.manage, '_blank', 'noreferrer');
+  };
 
   return (
     <Layout>
@@ -64,6 +81,39 @@ function Strategy({ params }: Props) {
             {strategy?.info.warningMessage}
           </Alert>
         )}
+        <Flex direction='column' marginTop='lg'>
+          <Card
+            isPressable
+            direction='column'
+            justifyContent='center'
+            paddingX='xl'
+            paddingY='6xl'
+            style={{ position: 'relative', maxHeight: '8.5rem' }}
+            onPress={handlePressBOBStake}
+          >
+            <StyledBannerContent>
+              <Flex direction='column'>
+                <StyledBannerTitle size='2xl' weight='bold'>
+                  <Trans>Already got BTC on BOB?</Trans>
+                </StyledBannerTitle>
+                <P color='grey-50'>
+                  {strategy ? (
+                    <Trans>Go directly to {strategy.meta.name.split(' ').at(0)} to stake your BTC.</Trans>
+                  ) : (
+                    <Skeleton height='xl' width='30ch' />
+                  )}
+                </P>
+              </Flex>
+            </StyledBannerContent>
+            <StyledBannerImg
+              alt={t(i18n)`Babylon campaign`}
+              height='134'
+              placeholder='blur'
+              src={babylon}
+              width='312'
+            />
+          </Card>
+        </Flex>
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
           <Card flex='1 0 0%' style={{ height: 'max-content' }}>
             <Tabs fullWidth selectedKey={tab} size='lg' onSelectionChange={(key) => setTab(key as Tab)}>

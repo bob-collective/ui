@@ -3,7 +3,6 @@
 import {
   ArrowTopRightOnSquare,
   Avatar,
-  Button,
   Card,
   Dd,
   Divider,
@@ -26,8 +25,6 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useTheme } from 'styled-components';
 import { Address } from 'viem';
-import { sendGAEvent } from '@next/third-parties/google';
-import { useAccount } from 'wagmi';
 
 import { StrategyCurrency } from '../../constants';
 import { StrategyData } from '../../hooks';
@@ -124,7 +121,6 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
   const theme = useTheme();
   const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
   const { isMobile: isMobileUserAgent } = useUserAgent();
-  const { address } = useAccount();
 
   const isMobile = isMobileViewport || isMobileUserAgent;
 
@@ -138,13 +134,6 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
   const hasTooManyMiddleNodes = middleNodes.length >= 3;
 
   const lastNode = strategy?.info.breakdown.at(-1);
-
-  const handlePressBOBStake = () =>
-    sendGAEvent('event', 'bob_stake', {
-      evm_address: address,
-      asset: strategy?.contract.inputToken.symbol,
-      amount: strategy?.contract.deposit.amount
-    });
 
   const btcNode = (
     <Card
@@ -233,36 +222,6 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
               ({format(strategy.contract.withdraw.usd)})
             </Span>
           </Flex>
-        </Card>
-      )}
-      {strategy?.contract.deposit.amount.greaterThan(0) && (
-        <Card alignItems='flex-start' direction='row' flex='1' justifyContent='space-between'>
-          <Flex direction='column'>
-            <Dt color='grey-50' size='s'>
-              <Trans>BOB {strategy.contract.inputToken.symbol} Balance</Trans>
-            </Dt>
-            <Flex wrap elementType='dd' gap='s'>
-              <Span color='light' size='lg' weight='semibold'>
-                {strategy ? (
-                  <AmountLabel hidePrice amount={strategy.contract.deposit.amount} />
-                ) : (
-                  <Skeleton height='4xl' rounded='full' width='4xl' />
-                )}
-              </Span>
-              <Span color='grey-50' size='lg' weight='semibold'>
-                ({format(strategy.contract.deposit.usd)})
-              </Span>
-            </Flex>
-          </Flex>
-          <Button
-            elementType={Link}
-            size='xl'
-            {...{ href: strategy.info.links.manage, external: true }}
-            color='primary'
-            onPress={handlePressBOBStake}
-          >
-            {isLending ? <Trans>Lend</Trans> : <Trans>Stake</Trans>}
-          </Button>
         </Card>
       )}
       <Flex direction={{ base: 'column', s: 'row' }} gap='xl' style={{ width: '100%' }}>
