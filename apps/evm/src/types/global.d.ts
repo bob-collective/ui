@@ -18,6 +18,9 @@ declare global {
       NEXT_PUBLIC_TRACES_SAMPLE_RATE: `${number}`;
       NEXT_PUBLIC_TURNSTILE_SITE_KEY: string;
 
+      NEXT_PUBLIC_POSTHOG_KEY: string;
+      NEXT_PUBLIC_POSTHOG_HOST: string;
+
       SENTRY_AUTH_TOKEN: string;
       NEXT_PUBLIC_FEATURE_FLAG_OP_SUPERUSER: 'enabled' | 'disabled';
       NEXT_PUBLIC_FEATURE_FLAG_TOP_100_SPICE_USERS: 'enabled' | 'disabled';

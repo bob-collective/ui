@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@binance/w3w-wagmi-connector-v2": "1.2.4-alpha.0",
-    "@gobob/bob-sdk": "^3.1.2",
+    "@gobob/bob-sdk": "^3.1.4",
     "@gobob/chains": "workspace:^",
     "@gobob/currency": "workspace:^",
     "@gobob/hooks": "workspace:^",
@@ -47,6 +47,7 @@
     "lottie-react": "^2.4.0",
     "negotiator": "catalog:",
     "next": "catalog:",
+    "posthog-js": "^1.210.2",
     "react": "catalog:",
     "react-calendly": "^4.3.1",
     "react-dom": "catalog:",

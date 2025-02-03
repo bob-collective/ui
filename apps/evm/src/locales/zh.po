@@ -103,7 +103,7 @@ msgstr "<0>一键质押你的BTC</0> 并在BOB上接收BTC LSTs。"
 msgid "2 hours"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:229
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:270
 msgid "3rd Party"
 msgstr ""
 
@@ -125,19 +125,19 @@ msgstr "关于"
 msgid "About Babylon Campaign"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:75
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:78
 msgid "Action needed"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:299
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:295
 #: src/components/Layout/FusionPopover.tsx:110
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:51
-#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:80
-#: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:46
-#: src/components/Profile/Profile.tsx:146
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:54
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:83
+#: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:49
+#: src/components/Profile/Profile.tsx:152
 msgid "Activity"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "All Strategies"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:98
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:103
 msgid "Already got BTC on BOB?"
 msgstr ""
 
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Already harvesting?"
 msgstr "已经在收获？"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:490
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:492
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:229
 msgid "Amount"
@@ -200,7 +200,7 @@ msgstr ""
 #~ msgid "An exclusive quest campaign."
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:225
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:234
 msgid "and"
 msgstr ""
 
@@ -221,7 +221,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:476
 msgid "Approve"
 msgstr "通过"
 
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Apps leaderboard hero"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:265
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:261
 msgid "Apps Used"
 msgstr "已体验的应用"
 
@@ -272,11 +272,9 @@ msgstr "审计"
 #~ msgid "Authorize Wallet"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:32
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:112
-#: src/app/[lang]/fusion/Fusion.tsx:196
-msgid "Babylon campaign"
-msgstr ""
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:117
+#~ msgid "Babylon campaign"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:162
 msgid "Babylon Campaign"
@@ -293,7 +291,7 @@ msgstr ""
 msgid "Babylon points"
 msgstr "Babylon积分"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:63
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:68
 #: src/components/ReceiveModal/ReceiveModal.tsx:76
 msgid "Back"
 msgstr ""
@@ -326,11 +324,7 @@ msgstr "以下是你从各个应用中收获的Spice。继续参与以增加你�
 msgid "BOB"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:242
-#~ msgid "BOB {0} Balance"
-#~ msgstr ""
-
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:226
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:267
 msgid "BOB Bridge"
 msgstr ""
 
@@ -343,7 +337,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:119
+#: src/app/[lang]/fusion/Fusion.tsx:115
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion：最终季"
 
@@ -368,7 +362,11 @@ msgstr ""
 msgid "BOB is bringing Bitcoin DeFi to the Superchain, and to celebrate, active Superchain ecosystem users like you have unlocked an exclusive BOB Spice bonus."
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:352
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:116
+msgid "BOB stake"
+msgstr ""
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:348
 msgid "BOB TVL Progress"
 msgstr "BOB TVL进度"
 
@@ -409,12 +407,12 @@ msgstr ""
 msgid "Bridge"
 msgstr "桥"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:475
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:477
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:154
 msgid "Bridge Asset"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:258
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:254
 msgid "Bridge Assets"
 msgstr "跨链资产"
 
@@ -423,11 +421,11 @@ msgstr "跨链资产"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "将BTC LSTs跨链到BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:470
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:472
 msgid "Bridge Disabled"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:219
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:260
 msgid "bridge network"
 msgstr ""
 
@@ -455,7 +453,7 @@ msgstr "将你的资产跨链到BOB以开始收获Spice。<0/>提示：某些资
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "由于 Alex Lab 遭受了涉及 XLink 桥接的攻击，桥接 ALEX 已被禁用。有关更多信息，请参阅此 <0>公告</0>。"
 
-#: src/app/[lang]/fusion/Fusion.tsx:152
+#: src/app/[lang]/fusion/Fusion.tsx:148
 msgid "Bringing Bitcoin DeFi to the Superchain"
 msgstr "将比特币 DeFi 引入OP超级链"
 
@@ -471,7 +469,7 @@ msgstr ""
 msgid "BTC LST Lending"
 msgstr "BTC LST借贷"
 
-#: src/components/Profile/Profile.tsx:116
+#: src/components/Profile/Profile.tsx:122
 msgid "Buy"
 msgstr ""
 
@@ -483,7 +481,7 @@ msgstr ""
 #~ msgid "By clicking ‘Connect’ you acknowledge and agree to the>>>>>>> 2193d044 (feat: place blockscout under others  section)"
 #~ msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:221
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:230
 msgid "By connecting your wallet, you confirm that you've read and agree to our"
 msgstr ""
 
@@ -504,7 +502,7 @@ msgstr ""
 #~ msgid "Category"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:472
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
 msgid "Checking Allowance"
 msgstr ""
 
@@ -549,15 +547,15 @@ msgstr ""
 #~ msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:185
-msgid "Collect Babylon Points on BOB"
-msgstr ""
+#: src/app/[lang]/fusion/Fusion.tsx:198
+#~ msgid "Collect Babylon Points on BOB"
+#~ msgstr ""
 
 #: src/app/[lang]/sign-up/SignUp.tsx:140
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "结合比特币和以太坊的流动性和安全性。= 主网已上线！。"
 
-#: src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:123
+#: src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:124
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:210
 msgid "Coming Soon"
 msgstr "即将推出"
@@ -591,7 +589,7 @@ msgstr ""
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:138
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:137
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr ""
 
@@ -612,13 +610,13 @@ msgstr ""
 msgid "Connect EVM Wallet"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:104
 msgid "Connect request is already pending"
 msgstr ""
 
 #: src/components/ConnectButton/ConnectButton.tsx:122
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:177
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:186
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
@@ -647,7 +645,7 @@ msgstr ""
 #~ msgid "Copy Address"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:319
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:315
 msgid "Copy referral URL"
 msgstr "复制推荐URL"
 
@@ -675,7 +673,7 @@ msgstr "当前排行榜排名"
 msgid "Current Spice"
 msgstr "当前Spice"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:391
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:387
 msgid "Current TVL:"
 msgstr ""
 
@@ -787,9 +785,9 @@ msgstr ""
 msgid "enable ETH top-up for transaction fees on BOB network"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:501
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:131
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:503
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:142
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:151
 msgid "Enter destination address"
 msgstr ""
 
@@ -825,8 +823,8 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:103
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:144
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:107
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:153
 msgid "Failed to connect to {0}"
 msgstr ""
 
@@ -904,6 +902,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "按照 <0>本指南</0> 的步骤为Oku上的DEX池提供流动性。"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
+#: src/app/[lang]/fusion/Fusion.tsx:178
 msgid "Follow us on X"
 msgstr ""
 
@@ -934,7 +933,7 @@ msgid "Fusion season three"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:133
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:383
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:379
 msgid "Fusion Users:"
 msgstr ""
 
@@ -971,7 +970,7 @@ msgstr ""
 msgid "Go Back"
 msgstr "返回"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:102
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:107
 msgid "Go directly to {0} to {bannerAction} your BTC."
 msgstr ""
 
@@ -991,7 +990,7 @@ msgstr ""
 msgid "Got it!"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:373
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:369
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "抓住最后收获Spice的机会！加入第3季！"
 
@@ -1019,7 +1018,7 @@ msgstr ""
 #~ msgid "Harvest {pointsMissing} more SPICE to your account to play"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:123
+#: src/app/[lang]/fusion/Fusion.tsx:119
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "通过存入BOB应用、投票和完成任务来收获Spice。密切关注特别活动"
 
@@ -1035,7 +1034,7 @@ msgstr "这里展示了你推荐的活跃用户及他们为你赚取的Spice。�
 msgid "Hero banner"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:112
+#: src/app/[lang]/fusion/Fusion.tsx:108
 msgid "Hero dots"
 msgstr ""
 
@@ -1124,7 +1123,7 @@ msgid "Leaderboard"
 msgstr "排行榜"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:133
+#: src/app/[lang]/fusion/Fusion.tsx:129
 msgid "Learn More"
 msgstr "了解更多"
 
@@ -1132,11 +1131,11 @@ msgstr "了解更多"
 #~ msgid "Learn more about {0}"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:47
 msgid "lend"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:168
 msgid "Lend"
 msgstr ""
 
@@ -1214,7 +1213,7 @@ msgstr "锁定资本明细"
 msgid "Log in"
 msgstr "登录"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:369
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:365
 msgid "Log in to View Dashboard"
 msgstr "登录查看仪表板"
 
@@ -1324,7 +1323,7 @@ msgstr ""
 msgid "navigate to discord"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:75
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:74
 msgid "navigate to ecosystem section in fusion page"
 msgstr ""
 
@@ -1408,7 +1407,7 @@ msgstr ""
 #~ msgid "No bridging operations found"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:355
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:351
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "目前暂无新目标。请保持关注更新！"
 
@@ -1477,7 +1476,7 @@ msgstr "可选：可以多次重复步骤2-4。"
 msgid "or"
 msgstr "或"
 
-#: src/components/Profile/ProfileBlockscoutTokenList.tsx:55
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:61
 msgid "Others"
 msgstr ""
 
@@ -1538,12 +1537,12 @@ msgstr ""
 msgid "POWERED BY BTC & ETH"
 msgstr "比特币 + 以太坊共同驱动"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:154
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:168
 msgid "Preparing..."
 msgstr ""
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:227
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:236
 msgid "Privacy policy"
 msgstr "隐私政策"
 
@@ -1572,7 +1571,7 @@ msgstr "为Oku DEX提供流动性"
 msgid "Quests"
 msgstr "任务"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:303
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:299
 #~ msgid "Quests Completed"
 #~ msgstr "完成的任务"
 
@@ -1592,8 +1591,8 @@ msgstr "点此了解更多"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
-#: src/components/Profile/Profile.tsx:130
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:119
+#: src/components/Profile/Profile.tsx:136
 msgid "Receive"
 msgstr "接收"
 
@@ -1609,9 +1608,9 @@ msgstr "接收"
 msgid "Receive crypto"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:500
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:130
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:502
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:142
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:150
 msgid "Recipient"
 msgstr ""
 
@@ -1660,7 +1659,7 @@ msgstr "Satoshi协议积分"
 msgid "Season 1 & 2 (Completed)"
 msgstr "第1季和第2季（已完成）"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:246
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:242
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "第1季和第2季总Spice（已完成）："
 
@@ -1712,11 +1711,11 @@ msgstr ""
 msgid "Select Network"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:189
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:230
 msgid "select network to bridge from"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:199
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:240
 msgid "select network to bridge to"
 msgstr ""
 
@@ -1750,7 +1749,7 @@ msgstr ""
 msgid "Share on X"
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:302
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:298
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "与朋友分享此链接，当他们注册时，你将获得他们Spice收获的15%作为奖励，以及他们推荐的任何人的Spice收获的7%"
 
@@ -1762,7 +1761,7 @@ msgstr ""
 msgid "Show secondary navigation"
 msgstr ""
 
-#: src/components/Profile/ProfileBlockscoutTokenList.tsx:52
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:58
 msgid "show/hide other tokens list"
 msgstr ""
 
@@ -1780,8 +1779,8 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:138
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
-#: src/hooks/useLogin.ts:50
-#: src/hooks/useSignUp.ts:65
+#: src/hooks/useLogin.ts:53
+#: src/hooks/useSignUp.ts:68
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
@@ -1866,14 +1865,14 @@ msgstr "Spice积分（中等）"
 msgid "Spice styled background"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:112
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:47
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:132
 msgid "stake"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:25
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:168
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
 #: src/components/Layout/Sidebar.tsx:55
@@ -1950,7 +1949,7 @@ msgstr ""
 msgid "Staking table"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:143
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:163
 msgid "Staking to {0} is temporarily unavailable."
 msgstr ""
 
@@ -1964,7 +1963,7 @@ msgid "Start Harvesting"
 msgstr "开始收获"
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:55
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:376
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:372
 #: src/app/[lang]/sign-up/SignUp.tsx:161
 msgid "Start Harvesting Spice"
 msgstr "开始收获Spice"
@@ -2009,7 +2008,7 @@ msgstr ""
 msgid "Successfully submitted ${0} proof"
 msgstr ""
 
-#: src/app/[lang]/fusion/Fusion.tsx:163
+#: src/app/[lang]/fusion/Fusion.tsx:159
 msgid "Superchain Eco"
 msgstr ""
 
@@ -2017,11 +2016,11 @@ msgstr ""
 #~ msgid "Superchain Mastery: BOB"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:112
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:132
 msgid "supply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
 msgid "Supply"
 msgstr ""
 
@@ -2078,7 +2077,7 @@ msgstr "条款与条件"
 msgid "Take em home"
 msgstr "回到主页"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:223
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:232
 msgid "Terms of Service"
 msgstr ""
 
@@ -2123,11 +2122,11 @@ msgstr ""
 msgid "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:266
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:262
 msgid "The number of BOB ecosystem apps that you have harvested Spice with"
 msgstr "你已经使用过的BOB生态系统应用数量"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:304
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:300
 #~ msgid "The number of Intract and Galxe quests that you have completed"
 #~ msgstr "在Intract和Galxe上完成的任务"
 
@@ -2192,7 +2191,7 @@ msgstr ""
 msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:137
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 msgstr ""
 
@@ -2217,22 +2216,23 @@ msgid "To cast your vote, please log in"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:26
-msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi."
-msgstr ""
+#~ msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi."
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/Fusion.tsx:188
-msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
-msgstr ""
+#~ msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/Fusion.tsx:164
 #~ msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. <0>Learn more</0>"
 #~ msgstr "为庆祝 BOB 加入”超级链”，您已符合资格获得 OP 专属奖励：2024 年 12 月 9 日至 2025 年 1 月 12 日期间收获的所有 Spice 可享额外 50% 奖励。<0>了解更多</0>"
 
-#: src/app/[lang]/fusion/Fusion.tsx:155
+#: src/app/[lang]/fusion/Fusion.tsx:151
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more >"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
+#: src/app/[lang]/fusion/Fusion.tsx:181
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr ""
 
@@ -2330,11 +2330,11 @@ msgstr ""
 msgid "Unlink wallet"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:43
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
 msgid "unstake"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
 msgid "Unstake"
 msgstr ""
 
@@ -2358,7 +2358,7 @@ msgstr ""
 msgid "Use any of the <0>supported bridges</0>."
 msgstr "使用任何 <0>支持的跨链桥</0>。"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:282
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:278
 msgid "Use Apps"
 msgstr "体验应用"
 
@@ -2384,9 +2384,9 @@ msgid "Use your Spice total to support your favourite BOB builders. Winners will
 msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将每周公布。"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:136
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
-#: src/hooks/useLogin.ts:48
-#: src/hooks/useSignUp.ts:63
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
+#: src/hooks/useLogin.ts:51
+#: src/hooks/useSignUp.ts:66
 msgid "User rejected the request"
 msgstr ""
 
@@ -2402,7 +2402,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:234
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:275
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr ""
 
@@ -2430,11 +2430,11 @@ msgstr ""
 #~ msgid "View Intract"
 #~ msgstr ""
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:255
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:251
 msgid "View Multipliers"
 msgstr "查看倍数"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:307
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:303
 #~ msgid "View Quests"
 #~ msgstr "查看任务"
 
@@ -2468,7 +2468,7 @@ msgstr ""
 msgid "Waiting for confirmation"
 msgstr ""
 
-#: src/components/Profile/Profile.tsx:139
+#: src/components/Profile/Profile.tsx:145
 msgid "Wallet"
 msgstr "钱包"
 
@@ -2513,12 +2513,12 @@ msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计�
 #~ msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:43
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
 msgid "withdraw"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:156
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
 msgid "Withdraw"
 msgstr ""
 
@@ -2553,7 +2553,7 @@ msgid "You"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:49
-#: src/app/[lang]/fusion/Fusion.tsx:117
+#: src/app/[lang]/fusion/Fusion.tsx:113
 msgid "You are one of the top 100 Spice holders in BOB Fusion"
 msgstr ""
 
@@ -2593,7 +2593,7 @@ msgstr ""
 msgid "You still have assets locked in Season One. Please redeem your funds"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:136
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
 msgid "You will {action}"
 msgstr ""
 
@@ -2601,7 +2601,7 @@ msgstr ""
 msgid "You will need to actively monitor your position, especially if it has a small range."
 msgstr "请密切关注你的仓位，尤其是当设定的价格范围较窄时。"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:145
 #: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:71
 msgid "You will receive"
@@ -2663,7 +2663,7 @@ msgstr ""
 msgid "Your performance in seasons 1 & 2"
 msgstr "你在第1季和第2季的表现"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:296
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:292
 msgid "Your Referral Code"
 msgstr "你的推荐码"
 

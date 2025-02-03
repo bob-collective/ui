@@ -4,7 +4,7 @@ import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton
 import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { useLingui } from '@lingui/react';
-import babylon from '@public/assets/babylon.png';
+import x from '@public/assets/x.png';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount } from 'wagmi';
 
@@ -17,6 +17,7 @@ import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
 import { PageLangParam } from '@/i18n/withLigui';
 import { useGetGatewayTransactions } from '@/hooks';
+import { posthogEvents } from '@/lib/posthog';
 
 type Props = PageLangParam & {
   params: { slug: string };
@@ -52,6 +53,10 @@ function Strategy({ params }: Props) {
       amount: strategy?.contract.deposit.amount
     });
     window.open(strategy?.info.links.manage, '_blank', 'noreferrer');
+  };
+
+  const handleNavigateWidthdraw = () => {
+    posthogEvents.strategies.strategy.externalWithdraw({ asset_name: strategy?.contract.integration.name as string });
   };
 
   return (
@@ -108,13 +113,7 @@ function Strategy({ params }: Props) {
                 </P>
               </Flex>
             </StyledBannerContent>
-            <StyledBannerImg
-              alt={t(i18n)`Babylon campaign`}
-              height='134'
-              placeholder='blur'
-              src={babylon}
-              width='312'
-            />
+            <StyledBannerImg alt={t(i18n)`BOB stake`} height='134' placeholder='blur' src={x} width='365' />
           </Card>
         </Flex>
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
@@ -140,7 +139,7 @@ function Strategy({ params }: Props) {
                     </Trans>
                   </P>
                   <Button asChild color='primary'>
-                    <Link external href={strategy?.info.links.manage}>
+                    <Link external href={strategy?.info.links.manage} onPress={handleNavigateWidthdraw}>
                       Go to {strategy?.info.protocol} Dapp
                     </Link>
                   </Button>

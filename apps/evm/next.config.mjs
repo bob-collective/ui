@@ -42,9 +42,24 @@ const nextConfig = {
       {
         source: '/blockscout-api/:path*',
         destination: `${process.env.NEXT_PUBLIC_BLOCKSCOUT_API_URL}/api/v2/:path*`
+      },
+      // POSTHOG reverse proxy
+      {
+        source: '/ingest/static/:path*',
+        destination: 'https://eu-assets.i.posthog.com/static/:path*'
+      },
+      {
+        source: '/ingest/:path*',
+        destination: 'https://eu.i.posthog.com/:path*'
+      },
+      {
+        source: '/ingest/decide',
+        destination: 'https://eu.i.posthog.com/decide'
       }
     ];
   },
+  // This is required to support PostHog trailing slash API requests
+  skipTrailingSlashRedirect: true,
   webpack: (config) => {
     config.externals.push('pino-pretty', 'encoding');
     config.module.rules.push({

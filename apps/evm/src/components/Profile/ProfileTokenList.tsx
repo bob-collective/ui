@@ -19,7 +19,7 @@ type ProfileTokenListProps = {
   items?: TokenData[];
   currentChain: Chain;
   otherChain: Chain;
-  onPressNavigate?: () => void;
+  onPressNavigate?: (symbol: string) => void;
 };
 
 const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: ProfileTokenListProps) => {
@@ -55,7 +55,7 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
       router.push(`${RoutesPath.BRIDGE}?type=deposit&network=ethereum&receive=${currency.symbol}`);
     }
 
-    onPressNavigate?.();
+    onPressNavigate?.(currency.symbol);
   };
 
   return list?.map((item) => {

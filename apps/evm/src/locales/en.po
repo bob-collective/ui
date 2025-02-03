@@ -70,7 +70,7 @@ msgstr "<0>Stake your BTC with 1-click</0> and receive BTC LSTs on BOB."
 msgid "2 hours"
 msgstr "2 hours"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:229
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:270
 msgid "3rd Party"
 msgstr "3rd Party"
 
@@ -92,19 +92,19 @@ msgstr "About"
 msgid "About Babylon Campaign"
 msgstr "About Babylon Campaign"
 
-#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:75
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:78
 msgid "Action needed"
 msgstr "Action needed"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:299
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:295
 #: src/components/Layout/FusionPopover.tsx:110
 msgid "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 msgstr "Active Superchain users who have received any of the five OP Airdrops qualify for an exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. The bonus will be applied at the end of the campaign."
 
-#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:51
-#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:80
-#: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:46
-#: src/components/Profile/Profile.tsx:146
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:54
+#: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:83
+#: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:49
+#: src/components/Profile/Profile.tsx:152
 msgid "Activity"
 msgstr "Activity"
 
@@ -141,7 +141,7 @@ msgstr "All Spice you harvest between 9 December 2024 and 12 January 2025 will r
 msgid "All Strategies"
 msgstr "All Strategies"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:98
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:103
 msgid "Already got BTC on BOB?"
 msgstr "Already got BTC on BOB?"
 
@@ -149,7 +149,7 @@ msgstr "Already got BTC on BOB?"
 msgid "Already harvesting?"
 msgstr "Already harvesting?"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:490
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:492
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:38
 #: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:229
 msgid "Amount"
@@ -163,7 +163,7 @@ msgstr "Amount"
 #~ msgid "An exclusive quest campaign."
 #~ msgstr "An exclusive quest campaign."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:225
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:234
 msgid "and"
 msgstr "and"
 
@@ -184,7 +184,7 @@ msgstr "Any Transaction"
 msgid "Apply"
 msgstr "Apply"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:476
 msgid "Approve"
 msgstr "Approve"
 
@@ -198,7 +198,7 @@ msgstr "Apps"
 msgid "Apps leaderboard hero"
 msgstr "Apps leaderboard hero"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:265
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:261
 msgid "Apps Used"
 msgstr "Apps Used"
 
@@ -218,11 +218,9 @@ msgstr "Audited by"
 #~ msgid "Authorize Wallet"
 #~ msgstr "Authorize Wallet"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:32
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:112
-#: src/app/[lang]/fusion/Fusion.tsx:196
-msgid "Babylon campaign"
-msgstr "Babylon campaign"
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:117
+#~ msgid "Babylon campaign"
+#~ msgstr "Babylon campaign"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:162
 msgid "Babylon Campaign"
@@ -239,7 +237,7 @@ msgstr "Babylon Campaign"
 msgid "Babylon points"
 msgstr "Babylon points"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:63
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:68
 #: src/components/ReceiveModal/ReceiveModal.tsx:76
 msgid "Back"
 msgstr "Back"
@@ -260,11 +258,7 @@ msgstr "Below is the Spice you've harvested from apps. Keep participating to inc
 msgid "BOB"
 msgstr "BOB"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:242
-#~ msgid "BOB {0} Balance"
-#~ msgstr "BOB {0} Balance"
-
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:226
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:267
 msgid "BOB Bridge"
 msgstr "BOB Bridge"
 
@@ -273,7 +267,7 @@ msgid "BOB co-founder, <0>Alexei Zamyatin</0>, would like to invite you to a pri
 msgstr "BOB co-founder, <0>Alexei Zamyatin</0>, would like to invite you to a private 1-to-1 call to hear your thoughts on BOB and Bitcoin DeFi. If you are interested, please click the button below to book a call at a time that suits you."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/FusionBanner.tsx:22
-#: src/app/[lang]/fusion/Fusion.tsx:119
+#: src/app/[lang]/fusion/Fusion.tsx:115
 msgid "BOB Fusion: The Final Season"
 msgstr "BOB Fusion: The Final Season"
 
@@ -290,7 +284,11 @@ msgstr "BOB is a hybrid L2 that combines the security of Bitcoin with the versat
 msgid "BOB is bringing Bitcoin DeFi to the Superchain, and to celebrate, active Superchain ecosystem users like you have unlocked an exclusive BOB Spice bonus."
 msgstr "BOB is bringing Bitcoin DeFi to the Superchain, and to celebrate, active Superchain ecosystem users like you have unlocked an exclusive BOB Spice bonus."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:352
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:116
+msgid "BOB stake"
+msgstr "BOB stake"
+
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:348
 msgid "BOB TVL Progress"
 msgstr "BOB TVL Progress"
 
@@ -319,12 +317,12 @@ msgstr "Book a call with the founders"
 msgid "Bridge"
 msgstr "Bridge"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:475
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:477
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:154
 msgid "Bridge Asset"
 msgstr "Bridge Asset"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:258
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:254
 msgid "Bridge Assets"
 msgstr "Bridge Assets"
 
@@ -333,11 +331,11 @@ msgstr "Bridge Assets"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "Bridge BTC LSTs to BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:470
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:472
 msgid "Bridge Disabled"
 msgstr "Bridge Disabled"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:219
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:260
 msgid "bridge network"
 msgstr "bridge network"
 
@@ -361,7 +359,7 @@ msgstr "Bridge your assets to BOB to start harvesting Spice.<0/>TIP: Some assets
 msgid "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 msgstr "Bridging ALEX is disabled because Alex Lab suffered an exploit involving the XLink bridge. For more information, kindly refer to this <0>announcement</0>."
 
-#: src/app/[lang]/fusion/Fusion.tsx:152
+#: src/app/[lang]/fusion/Fusion.tsx:148
 msgid "Bringing Bitcoin DeFi to the Superchain"
 msgstr "Bringing Bitcoin DeFi to the Superchain"
 
@@ -381,7 +379,7 @@ msgstr "BTC LST Lending"
 #~ msgid "BTC Strategies"
 #~ msgstr "BTC Strategies"
 
-#: src/components/Profile/Profile.tsx:116
+#: src/components/Profile/Profile.tsx:122
 msgid "Buy"
 msgstr "Buy"
 
@@ -389,7 +387,7 @@ msgstr "Buy"
 #~ msgid "By clicking ‘Connect’ you acknowledge and agree to the"
 #~ msgstr "By clicking ‘Connect’ you acknowledge and agree to the"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:221
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:230
 msgid "By connecting your wallet, you confirm that you've read and agree to our"
 msgstr "By connecting your wallet, you confirm that you've read and agree to our"
 
@@ -410,7 +408,7 @@ msgstr "By connecting your wallet, you confirm that you've read and agree to our
 #~ msgid "Category"
 #~ msgstr "Category"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:472
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
 msgid "Checking Allowance"
 msgstr "Checking Allowance"
 
@@ -452,14 +450,14 @@ msgstr "Close"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:22
 #: src/app/[lang]/fusion/Fusion.tsx:185
-msgid "Collect Babylon Points on BOB"
-msgstr "Collect Babylon Points on BOB"
+#~ msgid "Collect Babylon Points on BOB"
+#~ msgstr "Collect Babylon Points on BOB"
 
 #: src/app/[lang]/sign-up/SignUp.tsx:140
 msgid "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 msgstr "Combining liquidity and security from Bitcoin and Ethereum. Mainnet live!"
 
-#: src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:123
+#: src/app/[lang]/(bridge)/bridge/components/ExternalBridgeForm/ExternalBridgeCard.tsx:124
 #: src/app/[lang]/fusion/components/Strategies/Strategies.tsx:210
 msgid "Coming Soon"
 msgstr "Coming Soon"
@@ -489,7 +487,7 @@ msgstr "Complete"
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr "Complete your {0} by accessing {1} Dapp using the button bellow"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:138
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:137
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr "Complete your {action} by accessing {0} Dapp using the button bellow"
 
@@ -510,13 +508,13 @@ msgstr "Connect BTC wallet to access fee rate settings."
 msgid "Connect EVM Wallet"
 msgstr "Connect EVM Wallet"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:104
 msgid "Connect request is already pending"
 msgstr "Connect request is already pending"
 
 #: src/components/ConnectButton/ConnectButton.tsx:122
 #: src/connect-ui/component/AuthButton/AuthButton.tsx:62
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:177
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:186
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
@@ -541,7 +539,7 @@ msgstr "Connect your EVM wallet to see your transactions"
 msgid "Copied"
 msgstr "Copied"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:319
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:315
 msgid "Copy referral URL"
 msgstr "Copy referral URL"
 
@@ -569,7 +567,7 @@ msgstr "Current Leaderboard Rank"
 msgid "Current Spice"
 msgstr "Current Spice"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:391
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:387
 msgid "Current TVL:"
 msgstr "Current TVL:"
 
@@ -685,9 +683,9 @@ msgstr "enable ETH top-up for transaction fees on BOB network"
 #~ msgid "Enter Address"
 #~ msgstr "Enter Address"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:501
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:131
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:503
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:142
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:151
 msgid "Enter destination address"
 msgstr "Enter destination address"
 
@@ -719,8 +717,8 @@ msgstr "Exclusive Spice Bonus For Superchain Users"
 msgid "Failed"
 msgstr "Failed"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:103
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:144
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:107
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:153
 msgid "Failed to connect to {0}"
 msgstr "Failed to connect to {0}"
 
@@ -770,6 +768,7 @@ msgid "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool 
 msgstr "Follow the steps of <0>this guide</0> to provide liquity into a DEX pool on Oku."
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:18
+#: src/app/[lang]/fusion/Fusion.tsx:178
 msgid "Follow us on X"
 msgstr "Follow us on X"
 
@@ -800,7 +799,7 @@ msgid "Fusion season three"
 msgstr "Fusion season three"
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:133
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:383
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:379
 msgid "Fusion Users:"
 msgstr "Fusion Users:"
 
@@ -837,7 +836,7 @@ msgstr "Get tickets"
 msgid "Go Back"
 msgstr "Go Back"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:102
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:107
 msgid "Go directly to {0} to {bannerAction} your BTC."
 msgstr "Go directly to {0} to {bannerAction} your BTC."
 
@@ -853,7 +852,7 @@ msgstr "Go to Explorer"
 msgid "Got it!"
 msgstr "Got it!"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:373
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:369
 msgid "Grab the final opportunity to harvest Spice. Join Season 3."
 msgstr "Grab the final opportunity to harvest Spice. Join Season 3."
 
@@ -873,7 +872,7 @@ msgstr "Harvest {0} more Spice to play"
 #~ msgid "Harvest {pointsMissing} more Spice to play"
 #~ msgstr "Harvest {pointsMissing} more Spice to play"
 
-#: src/app/[lang]/fusion/Fusion.tsx:123
+#: src/app/[lang]/fusion/Fusion.tsx:119
 msgid "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 msgstr "Harvest Spice by depositing into BOB apps, voting, and solving quests. Keep an eye out for special events."
 
@@ -889,7 +888,7 @@ msgstr "Here are your active referrals and the Spice they're currently earning f
 msgid "Hero banner"
 msgstr "Hero banner"
 
-#: src/app/[lang]/fusion/Fusion.tsx:112
+#: src/app/[lang]/fusion/Fusion.tsx:108
 msgid "Hero dots"
 msgstr "Hero dots"
 
@@ -950,15 +949,15 @@ msgid "Leaderboard"
 msgstr "Leaderboard"
 
 #: src/app/[lang]/fusion/components/WelcomeBackModal/WelcomeBackModal.tsx:81
-#: src/app/[lang]/fusion/Fusion.tsx:133
+#: src/app/[lang]/fusion/Fusion.tsx:129
 msgid "Learn More"
 msgstr "Learn More"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:47
 msgid "lend"
 msgstr "lend"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:168
 msgid "Lend"
 msgstr "Lend"
 
@@ -1027,7 +1026,7 @@ msgstr "Locked Capital Breakdown"
 msgid "Log in"
 msgstr "Log in"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:369
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:365
 msgid "Log in to View Dashboard"
 msgstr "Log in to View Dashboard"
 
@@ -1125,7 +1124,7 @@ msgstr "navigate to Common Prefix audit"
 msgid "navigate to discord"
 msgstr "navigate to discord"
 
-#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:75
+#: src/app/[lang]/(bridge)/components/BannerCarousel/BannerCarousel.tsx:74
 msgid "navigate to ecosystem section in fusion page"
 msgstr "navigate to ecosystem section in fusion page"
 
@@ -1193,7 +1192,7 @@ msgstr "Network Fee Rate"
 msgid "new tickets drop in {timeToNextDraw}"
 msgstr "new tickets drop in {timeToNextDraw}"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:355
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:351
 msgid "No new goal at the moment. Stay tuned for updates!"
 msgstr "No new goal at the moment. Stay tuned for updates!"
 
@@ -1262,7 +1261,7 @@ msgstr "Optional: It's possible to repeat steps 2-4 multiple times."
 msgid "or"
 msgstr "or"
 
-#: src/components/Profile/ProfileBlockscoutTokenList.tsx:55
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:61
 msgid "Others"
 msgstr "Others"
 
@@ -1315,12 +1314,12 @@ msgstr "Points"
 msgid "POWERED BY BTC & ETH"
 msgstr "POWERED BY BTC & ETH"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:144
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:154
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:168
 msgid "Preparing..."
 msgstr "Preparing..."
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:227
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:236
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
@@ -1369,8 +1368,8 @@ msgstr "Read more here"
 msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 msgstr "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:109
-#: src/components/Profile/Profile.tsx:130
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:119
+#: src/components/Profile/Profile.tsx:136
 msgid "Receive"
 msgstr "Receive"
 
@@ -1386,9 +1385,9 @@ msgstr "Receive"
 msgid "Receive crypto"
 msgstr "Receive crypto"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:500
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:132
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:130
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:502
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:142
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:150
 msgid "Recipient"
 msgstr "Recipient"
 
@@ -1424,7 +1423,7 @@ msgstr "Satoshi protocol points"
 msgid "Season 1 & 2 (Completed)"
 msgstr "Season 1 & 2 (Completed)"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:246
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:242
 msgid "Season 1 & 2 Total Spice (Completed):"
 msgstr "Season 1 & 2 Total Spice (Completed):"
 
@@ -1472,11 +1471,11 @@ msgstr "select gas token"
 msgid "Select Network"
 msgstr "Select Network"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:189
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:230
 msgid "select network to bridge from"
 msgstr "select network to bridge from"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:199
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:240
 msgid "select network to bridge to"
 msgstr "select network to bridge to"
 
@@ -1506,7 +1505,7 @@ msgstr "Select Token"
 msgid "Share on X"
 msgstr "Share on X"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:302
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:298
 msgid "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 msgstr "Share this link with a friend and when they sign up, you will receive 15% of their Spice harvest as a bonus, plus 7% of the Spice harvest of anyone they refer"
 
@@ -1518,7 +1517,7 @@ msgstr "Show less"
 msgid "Show secondary navigation"
 msgstr "Show secondary navigation"
 
-#: src/components/Profile/ProfileBlockscoutTokenList.tsx:52
+#: src/components/Profile/ProfileBlockscoutTokenList.tsx:58
 msgid "show/hide other tokens list"
 msgstr "show/hide other tokens list"
 
@@ -1536,8 +1535,8 @@ msgstr "Solv XP"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:138
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
-#: src/hooks/useLogin.ts:50
-#: src/hooks/useSignUp.ts:65
+#: src/hooks/useLogin.ts:53
+#: src/hooks/useSignUp.ts:68
 msgid "Something went wrong. Please try again later."
 msgstr "Something went wrong. Please try again later."
 
@@ -1588,14 +1587,14 @@ msgstr "Spice rewards (Medium)"
 msgid "Spice styled background"
 msgstr "Spice styled background"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:112
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:47
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:132
 msgid "stake"
 msgstr "stake"
 
 #: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:25
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:148
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:168
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
 #: src/components/Layout/Sidebar.tsx:55
@@ -1668,7 +1667,7 @@ msgstr "Staking list"
 msgid "Staking table"
 msgstr "Staking table"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:143
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:163
 msgid "Staking to {0} is temporarily unavailable."
 msgstr "Staking to {0} is temporarily unavailable."
 
@@ -1678,7 +1677,7 @@ msgid "Start Harvesting"
 msgstr "Start Harvesting"
 
 #: src/app/[lang]/fusion/components/OpSuperuserModal/OpSuperuserModal.tsx:55
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:376
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:372
 #: src/app/[lang]/sign-up/SignUp.tsx:161
 msgid "Start Harvesting Spice"
 msgstr "Start Harvesting Spice"
@@ -1723,7 +1722,7 @@ msgstr "Successfully finalized transaction"
 msgid "Successfully submitted ${0} proof"
 msgstr "Successfully submitted ${0} proof"
 
-#: src/app/[lang]/fusion/Fusion.tsx:163
+#: src/app/[lang]/fusion/Fusion.tsx:159
 msgid "Superchain Eco"
 msgstr "Superchain Eco"
 
@@ -1731,11 +1730,11 @@ msgstr "Superchain Eco"
 #~ msgid "Superchain Mastery: BOB"
 #~ msgstr "Superchain Mastery: BOB"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:112
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:132
 msgid "supply"
 msgstr "supply"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
 msgid "Supply"
 msgstr "Supply"
 
@@ -1768,7 +1767,7 @@ msgstr "T&Cs"
 msgid "Take em home"
 msgstr "Take em home"
 
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:223
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:232
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
@@ -1805,7 +1804,7 @@ msgstr "The leaderboard resets for the new season"
 msgid "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 msgstr "The Network Fee is paid to Bitcoin miners for including your transaction in a block and confirming it on the blockchain. A higher fee increases the chances of faster confirmation, while a lower fee may delay or even prevent timely inclusion."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:266
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:262
 msgid "The number of BOB ecosystem apps that you have harvested Spice with"
 msgstr "The number of BOB ecosystem apps that you have harvested Spice with"
 
@@ -1846,7 +1845,7 @@ msgstr "This is often done to comply with local laws and regulations. Website ho
 msgid "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
 msgstr "This is the amount of spice you have harvested in the last 24 hours. It is updated every 15 minutes. Babylon points update every 24 hours."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:137
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:147
 msgid "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 msgstr "This is the final amount you will receive after deducting the Protocol fees from your input amount."
 
@@ -1867,18 +1866,19 @@ msgid "To cast your vote, please log in"
 msgstr "To cast your vote, please log in"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/BabylonBanner.tsx:26
-msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi."
-msgstr "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi."
+#~ msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi."
+#~ msgstr "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi."
 
 #: src/app/[lang]/fusion/Fusion.tsx:188
-msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
-msgstr "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
+#~ msgid "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
+#~ msgstr "To celebrate BOB becoming a Bitcoin-Secured Network, collect extra Babylon Points by using Babylon LSTs in DeFi. Read more >"
 
-#: src/app/[lang]/fusion/Fusion.tsx:155
+#: src/app/[lang]/fusion/Fusion.tsx:151
 msgid "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more >"
 msgstr "To celebrate BOB joining the Superchain, you have qualified for an OP exclusive 50% bonus on all Spice harvested between 9 December 2024 and 12 January 2025. Learn more >"
 
 #: src/app/[lang]/(bridge)/components/BannerCarousel/XBanner.tsx:22
+#: src/app/[lang]/fusion/Fusion.tsx:181
 msgid "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 msgstr "To stay up-to date with the BOB ecosystem follow @build_on_bob."
 
@@ -1957,11 +1957,11 @@ msgstr "Unknown"
 msgid "Unlink wallet"
 msgstr "Unlink wallet"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:43
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
 msgid "unstake"
 msgstr "unstake"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
 msgid "Unstake"
 msgstr "Unstake"
 
@@ -1977,7 +1977,7 @@ msgstr "USDT can only be withdrawn to Ethereum. When bridging to BOB, you will b
 msgid "Use any of the <0>supported bridges</0>."
 msgstr "Use any of the <0>supported bridges</0>."
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:282
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:278
 msgid "Use Apps"
 msgstr "Use Apps"
 
@@ -2003,9 +2003,9 @@ msgid "Use your Spice total to support your favourite BOB builders. Winners will
 msgstr "Use your Spice total to support your favourite BOB builders. Winners will be announced each week."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:136
-#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:96
-#: src/hooks/useLogin.ts:48
-#: src/hooks/useSignUp.ts:63
+#: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
+#: src/hooks/useLogin.ts:51
+#: src/hooks/useSignUp.ts:66
 msgid "User rejected the request"
 msgstr "User rejected the request"
 
@@ -2017,7 +2017,7 @@ msgstr "User rejected the request."
 msgid "Username"
 msgstr "Username"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:234
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:275
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 
@@ -2029,7 +2029,7 @@ msgstr "Verify you are human"
 #~ msgid "View All Transactions"
 #~ msgstr "View All Transactions"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:255
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:251
 msgid "View Multipliers"
 msgstr "View Multipliers"
 
@@ -2067,7 +2067,7 @@ msgstr "Waiting for approval"
 msgid "Waiting for confirmation"
 msgstr "Waiting for confirmation"
 
-#: src/components/Profile/Profile.tsx:139
+#: src/components/Profile/Profile.tsx:145
 msgid "Wallet"
 msgstr "Wallet"
 
@@ -2100,12 +2100,12 @@ msgstr "When you vote for a project, your Spice total is added to their vote tot
 msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 msgstr "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:43
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
 msgid "withdraw"
 msgstr "withdraw"
 
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:156
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
 msgid "Withdraw"
 msgstr "Withdraw"
 
@@ -2140,7 +2140,7 @@ msgid "You"
 msgstr "You"
 
 #: src/app/[lang]/fusion/components/TopUserModal/TopUserModal.tsx:49
-#: src/app/[lang]/fusion/Fusion.tsx:117
+#: src/app/[lang]/fusion/Fusion.tsx:113
 msgid "You are one of the top 100 Spice holders in BOB Fusion"
 msgstr "You are one of the top 100 Spice holders in BOB Fusion"
 
@@ -2176,7 +2176,7 @@ msgstr "You need at least {0} Spice to participate in Lottery."
 msgid "You still have assets locked in Season One. Please redeem your funds"
 msgstr "You still have assets locked in Season One. Please redeem your funds"
 
-#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:136
+#: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:156
 msgid "You will {action}"
 msgstr "You will {action}"
 
@@ -2184,7 +2184,7 @@ msgstr "You will {action}"
 msgid "You will need to actively monitor your position, especially if it has a small range."
 msgstr "You will need to actively monitor your position, especially if it has a small range."
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:135
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:145
 #: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:71
 msgid "You will receive"
@@ -2230,7 +2230,7 @@ msgstr "Your funds are safe!"
 msgid "Your performance in seasons 1 & 2"
 msgstr "Your performance in seasons 1 & 2"
 
-#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:296
+#: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:292
 msgid "Your Referral Code"
 msgstr "Your Referral Code"
 

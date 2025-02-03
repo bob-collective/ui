@@ -6,7 +6,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { sendGAEvent } from '@next/third-parties/google';
 import { chain, mergeProps } from '@react-aria/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 
 import {
@@ -21,6 +21,7 @@ import { StrategyData } from '../../hooks';
 import { AuthButton } from '@/connect-ui';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
+import { posthogEvents } from '@/lib/posthog';
 
 type GatewayTransactionModalState = {
   isOpen: boolean;
@@ -41,9 +42,14 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
 
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
+
+    posthogEvents.strategies.strategy.initiated('deposit', {
+      amount: data.btcAmount.toExact(),
+      asset_name: strategy?.contract.integration.name as string
+    });
   };
 
-  const handleGatewaySuccess = (data: InitGatewayTransaction) => {
+  const handleSuccessGateway = (data: InitGatewayTransaction) => {
     onSuccess?.();
     setGatewayModalState({ isOpen: true, data });
     sendGAEvent('event', 'btc_stake', {
@@ -52,10 +58,15 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       tx_id: data.txId,
       btc_wallet: connector?.name
     });
+
+    posthogEvents.strategies.strategy.completed('deposit');
   };
 
-  const handleCloseGatewayModal = () => {
-    setGatewayModalState((s) => ({ ...s, isOpen: false }));
+  const handleCloseGatewayModal = () => setGatewayModalState((s) => ({ ...s, isOpen: false }));
+
+  const handleFailedGateway = () => {
+    handleCloseGatewayModal();
+    posthogEvents.strategies.strategy.failed('deposit');
   };
 
   const { i18n } = useLingui();
@@ -75,9 +86,9 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
       strategyAddress: strategy?.contract.address,
       assetName: strategy?.contract.integration.name
     },
-    onError: handleCloseGatewayModal,
+    onError: handleFailedGateway,
     onMutate: handleStartGateway,
-    onSuccess: chain(handleGatewaySuccess, handleSuccess)
+    onSuccess: chain(handleSuccessGateway, handleSuccess)
   });
 
   const handleSubmit = async (data: BridgeFormValues) => {
@@ -98,6 +109,15 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
     defaultAsset: strategy?.contract.integration.slug,
     onSubmit: handleSubmit
   });
+
+  useEffect(() => {
+    if (!form.dirty) return;
+
+    posthogEvents.strategies.strategy.interacted('deposit', {
+      asset_name: strategy?.contract.integration.name as string
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.dirty]);
 
   const isDisabled =
     isSubmitDisabled ||
