@@ -141,7 +141,7 @@ msgstr "All Spice you harvest between 9 December 2024 and 12 January 2025 will r
 msgid "All Strategies"
 msgstr "All Strategies"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:126
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:127
 msgid "Already got {0} on BOB?"
 msgstr "Already got {0} on BOB?"
 
@@ -241,7 +241,7 @@ msgstr "Babylon Campaign"
 msgid "Babylon points"
 msgstr "Babylon points"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:84
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:85
 #: src/components/ReceiveModal/ReceiveModal.tsx:76
 msgid "Back"
 msgstr "Back"
@@ -491,7 +491,7 @@ msgstr "Complete"
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr "Complete your {0} by accessing {1} Dapp using the button bellow"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:239
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:240
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr "Complete your {action} by accessing {0} Dapp using the button bellow"
 
@@ -840,7 +840,7 @@ msgstr "Get tickets"
 msgid "Go Back"
 msgstr "Go Back"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:134
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:135
 msgid "Go directly to {0} to {bannerAction} your {1}."
 msgstr "Go directly to {0} to {bannerAction} your {1}."
 
@@ -961,7 +961,7 @@ msgstr "Leaderboard"
 msgid "Learn More"
 msgstr "Learn More"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:63
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:64
 msgid "lend"
 msgstr "lend"
 
@@ -1595,13 +1595,13 @@ msgstr "Spice rewards (Medium)"
 msgid "Spice styled background"
 msgstr "Spice styled background"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:63
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:64
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:133
 msgid "stake"
 msgstr "stake"
 
 #: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:25
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:61
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:62
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:169
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
@@ -1742,7 +1742,7 @@ msgstr "Superchain Eco"
 msgid "supply"
 msgstr "supply"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:61
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:62
 msgid "Supply"
 msgstr "Supply"
 
@@ -1965,11 +1965,11 @@ msgstr "Unknown"
 msgid "Unlink wallet"
 msgstr "Unlink wallet"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:60
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:61
 msgid "unstake"
 msgstr "unstake"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:62
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:63
 msgid "Unstake"
 msgstr "Unstake"
 
@@ -2108,12 +2108,12 @@ msgstr "When you vote for a project, your Spice total is added to their vote tot
 msgid "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 msgstr "When you vote, you do not give away any of your harvest. Your Spice total is simply used to calculate the weight of your vote."
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:60
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:61
 msgid "withdraw"
 msgstr "withdraw"
 
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:156
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:62
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:63
 msgid "Withdraw"
 msgstr "Withdraw"
 
@@ -2160,7 +2160,7 @@ msgstr "You can change your votes at any time before the end of the weekly votin
 msgid "You can receive tokens on our supported networks"
 msgstr "You can receive tokens on our supported networks"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:121
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:122
 msgid "You have {0} {1} on BOB"
 msgstr "You have {0} {1} on BOB"
 

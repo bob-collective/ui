@@ -33,6 +33,7 @@ import { RoutesPath } from '@/constants';
 import { PageLangParam } from '@/i18n/withLigui';
 import { useGetGatewayTransactions } from '@/hooks';
 import { posthogEvents } from '@/lib/posthog';
+import { gaEvents } from '@/lib/third-parties';
 
 type Props = PageLangParam & {
   params: { slug: string };
@@ -63,9 +64,9 @@ function Strategy({ params }: Props) {
   const bannerAction = isLending ? <Trans>lend</Trans> : <Trans>stake</Trans>;
 
   const handlePressBOBStake = () => {
-    sendGAEvent('event', 'bob_stake', {
+    sendGAEvent('event', gaEvents.bobStake, {
       evm_address: address,
-      asset: strategy?.contract.inputToken.symbol,
+      strategy: strategy?.contract.integration.slug,
       amount: strategy?.contract.deposit.amount
     });
     window.open(strategy?.info.links.manage, '_blank', 'noreferrer');
