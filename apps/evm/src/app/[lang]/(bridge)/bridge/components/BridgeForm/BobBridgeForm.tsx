@@ -4,23 +4,36 @@
 import { Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
 import { USDC } from '@gobob/tokens';
-import { Flex, Input, TokenInput, TokenSelectItemProps, toast, useForm } from '@gobob/ui';
-import { t } from '@lingui/macro';
+import {
+  Card,
+  Flex,
+  Input,
+  P,
+  SolidClock,
+  TokenInput,
+  TokenSelectItemProps,
+  toast,
+  useCurrencyFormatter,
+  useForm,
+  useLocale
+} from '@gobob/ui';
+import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { mergeProps } from '@react-aria/utils';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
 import { Address } from 'viem';
-import { useAccount, usePublicClient } from 'wagmi';
+import { useAccount, useGasPrice, usePublicClient } from 'wagmi';
+import { FuelStation } from '@gobob/icons';
 
 import { BridgeAlert } from './BridgeAlert';
 
 import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
 import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
 import { AuthButton } from '@/connect-ui';
-import { L1_CHAIN, L2_CHAIN, publicClientL1, publicClientL2 } from '@/constants';
+import { chainL2, L1_CHAIN, L2_CHAIN, publicClientL1, publicClientL2 } from '@/constants';
 import { bridgeContracts } from '@/constants/bridge';
 import {
   BridgeToken,
@@ -78,7 +91,10 @@ const BobBridgeForm = ({
   onChangeSymbol
 }: BobBridgeFormProps): JSX.Element => {
   const { i18n } = useLingui();
+  const format = useCurrencyFormatter();
+  const { locale } = useLocale();
   const bridgeChainId = direction === TransactionDirection.L1_TO_L2 ? L1_CHAIN : L2_CHAIN;
+  const { data: gasPrice } = useGasPrice();
 
   const publicClient = usePublicClient();
   const { address } = useAccount();
@@ -171,6 +187,78 @@ const BobBridgeForm = ({
           ? bridgeContract.l1Bridge
           : bridgeContract.l2Bridge
         : undefined
+  });
+
+  const gasEstimate = useQuery({
+    enabled: Boolean(
+      !isBridgeDisabled && address && selectedToken && gasPrice && currencyAmount && currencyAmount.greaterThan(0)
+    ),
+    queryKey: bridgeKeys.gasEstimate(direction, address),
+    queryFn: async () => {
+      if (!selectedToken || !currencyAmount || !bridgeContract || !gasPrice) return;
+
+      const l1Address = selectedToken.l1Token.address;
+      const l2Address = selectedToken.l2Token.address;
+
+      const to = address!;
+      const amount = BigInt(currencyAmount.numerator);
+
+      if (direction === TransactionDirection.L1_TO_L2) {
+        if (currencyAmount.currency.isNative) {
+          // simulate deposit
+          const args = await publicClientL2.buildDepositTransaction({
+            account: address!,
+            mint: amount,
+            to
+          });
+
+          const gas = await publicClientL1.estimateDepositTransactionGas({
+            account: address!,
+            request: args.request,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            targetChain: chainL2 as any
+          });
+
+          return CurrencyAmount.fromRawAmount(initialToken, gas).multiply(gasPrice);
+        }
+
+        const { request } = await publicClientL1.simulateContract({
+          account: address,
+          abi: l1StandardBridgeAbi,
+          address: bridgeContract.l1Bridge,
+          functionName: 'depositERC20To',
+          args: [l1Address, l2Address, to, amount, 0, '0x']
+        });
+
+        return CurrencyAmount.fromRawAmount(initialToken, request.gas || 0n).multiply(gasPrice);
+      }
+
+      if (currencyAmount.currency.isNative) {
+        // simulate withdrawal
+        const args = await publicClientL1.buildInitiateWithdrawal({
+          account: address!,
+          value: amount,
+          to
+        });
+
+        const gas = await publicClientL2.estimateInitiateWithdrawalGas({
+          account: address!,
+          request: args.request
+        });
+
+        return CurrencyAmount.fromRawAmount(initialToken, gas).multiply(gasPrice);
+      }
+
+      const { request } = await publicClientL2.simulateContract({
+        account: address,
+        abi: l2StandardBridgeAbi,
+        address: bridgeContract.l2Bridge,
+        functionName: 'withdrawTo',
+        args: [l2Address, to, amount, 0, '0x']
+      });
+
+      return CurrencyAmount.fromRawAmount(initialToken, request.gas || 0n).multiply(gasPrice);
+    }
   });
 
   const depositMutation = useMutation({
@@ -412,6 +500,17 @@ const BobBridgeForm = ({
     hideErrors: 'untouched'
   });
 
+  // useEffect(() => {
+  //   if (!currencyAmount?.greaterThan(0) || !selectedToken) return;
+  //   const recipient = (form.values[BRIDGE_RECIPIENT] as Address) || undefined;
+
+  //   if (direction === TransactionDirection.L1_TO_L2) {
+  //     return gasEstimate.mutate({ currencyAmount, recipient, selectedToken });
+  //   }
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [amount, selectedToken]);
+
   useEffect(() => {
     if (!form.dirty) return;
 
@@ -468,7 +567,7 @@ const BobBridgeForm = ({
         ? t(i18n)`Approve`
         : t(i18n)`Bridge Asset`;
 
-  const isLoading = isCheckingAllowance || isApproving || isBridgingLoading;
+  const isLoading = isCheckingAllowance || isApproving || isBridgingLoading || gasEstimate.isLoading;
 
   const balance = tokenBalance?.toExact() || '0';
 
@@ -497,6 +596,66 @@ const BobBridgeForm = ({
         />
       )}
       {isBridgeDisabled && selectedToken && <BridgeAlert token={selectedToken} />}
+      {gasEstimate.data && currencyAmount?.greaterThan(0) && (
+        <Card wrap background='grey-600' direction='row' gap='s' justifyContent='space-between' padding='lg'>
+          <Flex alignItems='center' gap='s'>
+            <FuelStation color='grey-50' size='xxs' />
+            <P color='grey-50' size='s'>
+              {Intl.NumberFormat(locale, { minimumFractionDigits: 3, maximumFractionDigits: 6 }).format(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                gasEstimate.data.toExact() as any
+              )}{' '}
+              ({format(calculateAmountUSD(gasEstimate.data, getPrice(gasEstimate.data.currency.symbol)))})
+            </P>
+          </Flex>
+          <Flex alignItems='center' gap='xxs'>
+            <P color='grey-50' size='s'>
+              {direction === TransactionDirection.L1_TO_L2 ? <Trans>~3 min</Trans> : <Trans>~8 days</Trans>}
+            </P>
+            <SolidClock color='grey-50' size='xs' />
+          </Flex>
+        </Card>
+      )}
+      {/* {gasEstimate.data && currencyAmount?.greaterThan(0) && (
+        <Card background='grey-600' gap='s' padding='lg'>
+          <P size='s' weight='bold'>
+            <Trans>Get on {direction === TransactionDirection.L1_TO_L2 ? chainL2.name : chainL1.name}</Trans>
+          </P>
+          <Flex alignItems='center' gap='md'>
+            <ChainAsset
+              asset={<Avatar alt={selectedToken?.l1Token.name} size='5xl' src={selectedToken?.l1Token.logoUrl || ''} />}
+              chainId={direction === TransactionDirection.L1_TO_L2 ? chainL2.id : chainL1.id}
+              chainProps={{ size: 'xs' }}
+            />
+            <Flex direction='column' flex={1}>
+              <P lineHeight='1.2' rows={1} size='lg' style={{ whiteSpace: 'normal' }} weight='semibold'>
+                {amount} {initialToken.symbol}
+              </P>
+              <P color='grey-50' lineHeight='1.2' rows={1} size='s' style={{ whiteSpace: 'normal' }}>
+                {format(valueUSD)}
+              </P>
+            </Flex>
+          </Flex>
+          <Flex wrap justifyContent='space-between'>
+            <Flex alignItems='center' gap='s'>
+              <FuelStation color='grey-50' size='xxs' />
+              <P color='grey-50' size='s'>
+                {Intl.NumberFormat(locale, { minimumFractionDigits: 3, maximumFractionDigits: 6 }).format(
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  gasEstimate.data.toExact() as any
+                )}{' '}
+                ({format(calculateAmountUSD(gasEstimate.data, getPrice(gasEstimate.data.currency.symbol)))})
+              </P>
+            </Flex>
+            <Flex alignItems='center' gap='xxs'>
+              <P color='grey-50' size='s'>
+                {direction === TransactionDirection.L1_TO_L2 ? <Trans>~3 min</Trans> : <Trans>~8 days</Trans>}
+              </P>
+              <SolidClock color='grey-50' size='xs' />
+            </Flex>
+          </Flex>
+        </Card>
+      )} */}
       <AuthButton
         chain={bridgeChainId}
         color='primary'
