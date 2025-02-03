@@ -100,12 +100,24 @@ function Strategy({ params }: Props) {
             <StyledBannerContent>
               <Flex direction='column'>
                 <StyledBannerTitle size='2xl' weight='bold'>
-                  <Trans>Already got BTC on BOB?</Trans>
+                  {strategy ? (
+                    strategy?.contract.deposit.amount.greaterThan(0) ? (
+                      <Trans>
+                        You have {strategy.contract.deposit.amount.toSignificant(2)}{' '}
+                        {strategy.contract.deposit.token.symbol} on BOB
+                      </Trans>
+                    ) : (
+                      <Trans>Already got {strategy?.contract.inputToken.symbol} on BOB?</Trans>
+                    )
+                  ) : (
+                    <Skeleton height='3xl' width='30ch' />
+                  )}
                 </StyledBannerTitle>
                 <P color='grey-50'>
                   {strategy ? (
                     <Trans>
-                      Go directly to {strategy.meta.name.split(' ').at(0)} to {bannerAction} your BTC.
+                      Go directly to {strategy.meta.name.split(' ').at(0)} to {bannerAction} your{' '}
+                      {strategy?.contract.inputToken.symbol}.
                     </Trans>
                   ) : (
                     <Skeleton height='xl' width='30ch' />

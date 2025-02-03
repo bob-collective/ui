@@ -178,9 +178,13 @@ msgstr ""
 msgid "All Strategies"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:103
-msgid "Already got BTC on BOB?"
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:110
+msgid "Already got {0} on BOB?"
 msgstr ""
+
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:103
+#~ msgid "Already got BTC on BOB?"
+#~ msgstr ""
 
 #: src/components/LoginSection/LoginSection.tsx:11
 msgid "Already harvesting?"
@@ -362,7 +366,7 @@ msgstr ""
 msgid "BOB is bringing Bitcoin DeFi to the Superchain, and to celebrate, active Superchain ecosystem users like you have unlocked an exclusive BOB Spice bonus."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:116
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:128
 msgid "BOB stake"
 msgstr ""
 
@@ -589,7 +593,7 @@ msgstr ""
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:137
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:149
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr ""
 
@@ -970,9 +974,13 @@ msgstr ""
 msgid "Go Back"
 msgstr "返回"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:107
-msgid "Go directly to {0} to {bannerAction} your BTC."
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:118
+msgid "Go directly to {0} to {bannerAction} your {1}."
 msgstr ""
+
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:107
+#~ msgid "Go directly to {0} to {bannerAction} your BTC."
+#~ msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:101
 #~ msgid "Go directly to {0} to stake your BTC."
@@ -2571,6 +2579,10 @@ msgstr "你可以在每周投票期结束前随时更改你的投票"
 
 #: src/components/ReceiveModal/ReceiveModal.tsx:192
 msgid "You can receive tokens on our supported networks"
+msgstr ""
+
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:105
+msgid "You have {0} {1} on BOB"
 msgstr ""
 
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:103
