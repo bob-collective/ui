@@ -1,17 +1,16 @@
 'use client';
 
 import { Alert, ArrowLeft, Avatar, Button, Card, Flex, H1, H2, Link, P, Skeleton, Tabs, TabsItem } from '@gobob/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useState } from 'react';
-import { useLingui } from '@lingui/react';
-import x from '@public/assets/x.png';
+import Image from 'next/image';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount } from 'wagmi';
 
 import { StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
 
-import { StyledBannerImg, StyledBannerContent, StyledBannerTitle } from './Strategy.styles';
+import { StyledBannerContent, StyledBannerTitle } from './Strategy.styles';
 
 import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
@@ -29,7 +28,6 @@ enum Tab {
 }
 
 function Strategy({ params }: Props) {
-  const { i18n } = useLingui();
   const { refetch: refetchTransactions } = useGetGatewayTransactions();
   const { address } = useAccount();
 
@@ -125,7 +123,66 @@ function Strategy({ params }: Props) {
                 </P>
               </Flex>
             </StyledBannerContent>
-            <StyledBannerImg alt={t(i18n)`BOB stake`} height='134' placeholder='blur' src={x} width='365' />
+            {strategy && (
+              <Image
+                alt={strategy?.info.breakdown.at(-1)?.currency.symbol ?? ''}
+                height={25}
+                src={strategy?.info.breakdown.at(-1)?.logoUrl ?? ''}
+                style={{
+                  position: 'absolute',
+                  bottom: 20,
+                  right: 170,
+                  filter: 'blur(2px)'
+                }}
+                width={25}
+              />
+            )}
+            {strategy && (
+              <Image
+                alt={strategy?.info.breakdown.at(0)?.currency.symbol ?? ''}
+                height={25}
+                src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
+                style={{
+                  position: 'absolute',
+                  top: 30,
+                  right: 200,
+                  filter: 'blur(2px)'
+                }}
+                width={25}
+              />
+            )}
+            {strategy && (
+              <Image
+                alt={strategy?.info.breakdown.at(0)?.currency.symbol ?? ''}
+                height={50}
+                src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
+                style={{
+                  position: 'absolute',
+                  top: -10,
+                  right: 0,
+                  filter: 'blur(2px)'
+                }}
+                width={50}
+              />
+            )}
+            {strategy && (
+              <Image
+                alt={strategy?.info.breakdown.at(0)?.currency.symbol ?? ''}
+                height={90}
+                src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
+                style={{ position: 'absolute', top: '50%', right: 80, transform: 'translateY(-50%)' }}
+                width={90}
+              />
+            )}
+            {strategy && (
+              <Image
+                alt={strategy?.info.breakdown.at(-1)?.currency.symbol ?? ''}
+                height={90}
+                src={strategy?.info.breakdown.at(-1)?.logoUrl ?? ''}
+                style={{ position: 'absolute', top: '50%', right: 10, transform: 'translateY(-50%)' }}
+                width={90}
+              />
+            )}
           </Card>
         </Flex>
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>

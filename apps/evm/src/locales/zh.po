@@ -178,7 +178,7 @@ msgstr ""
 msgid "All Strategies"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:110
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:108
 msgid "Already got {0} on BOB?"
 msgstr ""
 
@@ -295,7 +295,7 @@ msgstr ""
 msgid "Babylon points"
 msgstr "Babylon积分"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:68
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:66
 #: src/components/ReceiveModal/ReceiveModal.tsx:76
 msgid "Back"
 msgstr ""
@@ -367,8 +367,8 @@ msgid "BOB is bringing Bitcoin DeFi to the Superchain, and to celebrate, active 
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:128
-msgid "BOB stake"
-msgstr ""
+#~ msgid "BOB stake"
+#~ msgstr ""
 
 #: src/app/[lang]/fusion/components/UserInfo/UserInfo.tsx:348
 msgid "BOB TVL Progress"
@@ -593,7 +593,7 @@ msgstr ""
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:149
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:206
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr ""
 
@@ -974,7 +974,7 @@ msgstr ""
 msgid "Go Back"
 msgstr "返回"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:118
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:116
 msgid "Go directly to {0} to {bannerAction} your {1}."
 msgstr ""
 
@@ -1139,7 +1139,7 @@ msgstr "了解更多"
 #~ msgid "Learn more about {0}"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:47
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
 msgid "lend"
 msgstr ""
 
@@ -1873,13 +1873,13 @@ msgstr "Spice积分（中等）"
 msgid "Spice styled background"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:47
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:132
 msgid "stake"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/stake/[slug]/page.tsx:25
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:43
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:168
 #: src/app/[lang]/(bridge)/stake/page.tsx:14
 #: src/components/Layout/Header.tsx:58
@@ -2028,7 +2028,7 @@ msgstr ""
 msgid "supply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:45
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:43
 msgid "Supply"
 msgstr ""
 
@@ -2338,11 +2338,11 @@ msgstr ""
 msgid "Unlink wallet"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:42
 msgid "unstake"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
 msgid "Unstake"
 msgstr ""
 
@@ -2521,12 +2521,12 @@ msgstr "投票时，你不会失去任何收获。你的Spice总数仅用于计�
 #~ msgid "Where total_qualified_spice is the total spice earned by all users that qualify for Babylon points, i.e., had LST in their wallet at some points and are registered in Fusion."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:42
 msgid "withdraw"
 msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/Bridge.tsx:156
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:46
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:44
 msgid "Withdraw"
 msgstr ""
 
@@ -2581,7 +2581,7 @@ msgstr "你可以在每周投票期结束前随时更改你的投票"
 msgid "You can receive tokens on our supported networks"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:105
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:103
 msgid "You have {0} {1} on BOB"
 msgstr ""
 
