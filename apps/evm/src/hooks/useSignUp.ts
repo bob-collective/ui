@@ -2,12 +2,10 @@ import { toast } from '@gobob/ui';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { sendGAEvent } from '@next/third-parties/google';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SiweMessage } from 'siwe';
 import { Address } from 'viem';
 import { useAccount, useSignMessage } from 'wagmi';
-
-import { useGetUser } from './useGetUser';
 
 import { posthogEvents } from '@/lib/posthog';
 import { fusionKeys } from '@/lib/react-query';
@@ -21,9 +19,9 @@ const useSignUp = ({ onSuccess }: UseSignUpProps = {}) => {
   const { signMessageAsync } = useSignMessage();
   const { chain } = useAccount();
 
-  const { refetch: refetchUser } = useGetUser();
-
   const { i18n } = useLingui();
+
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: fusionKeys.signUp(),
@@ -51,14 +49,18 @@ const useSignUp = ({ onSuccess }: UseSignUpProps = {}) => {
         message: message.prepareMessage()
       });
 
-      await apiClient.signUp(message, turnstileToken, signature);
+      const result = await apiClient.signUp(message, turnstileToken, signature);
+
+      if (!result.ok) throw new Error();
+
+      return result.data;
     },
-    onSuccess: (_, { address, referralCode }) => {
+    onSuccess: (user, { address, referralCode }) => {
+      queryClient.setQueryData(fusionKeys.user(), user);
+
       sendGAEvent('event', 'signup', { evm_address: JSON.stringify(address), referral_code: referralCode });
       onSuccess?.();
       posthogEvents.fusion.signUp();
-
-      setTimeout(() => refetchUser(), 100);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (e: any) => {

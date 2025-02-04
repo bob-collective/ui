@@ -37,13 +37,17 @@ const useLogin = () => {
         message: message.prepareMessage()
       });
 
-      await apiClient.verify(message, signature);
+      const result = await apiClient.verify(message, signature);
+
+      if (!result.ok) throw new Error();
+
+      return result.data;
     },
-    onSuccess: async (_, address) => {
+    onSuccess: async (user, address) => {
+      queryClient.setQueryData(fusionKeys.user(), user);
+
       sendGAEvent('event', 'login', { evm_address: JSON.stringify(address) });
       posthogEvents.fusion.login();
-
-      setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (e: any) => {
