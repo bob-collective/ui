@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { t, Trans } from '@lingui/macro';
 import Image from 'next/image';
 import { useLingui } from '@lingui/react';
-import heroBanner from '@public/assets/apps-leaderboard-hero.png';
+import heroBanner from '@public/assets/apps-leaderboard-hero.webp';
 
 import { VotingInfoModal } from './VotingInfoModal';
 import {
