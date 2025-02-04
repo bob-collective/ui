@@ -840,7 +840,7 @@ msgstr "Get tickets"
 msgid "Go Back"
 msgstr "Go Back"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:135
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:136
 msgid "Go directly to {0} to {bannerAction} your {1}."
 msgstr "Go directly to {0} to {bannerAction} your {1}."
 

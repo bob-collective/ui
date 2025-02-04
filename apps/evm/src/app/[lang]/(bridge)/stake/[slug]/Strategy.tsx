@@ -26,7 +26,7 @@ import { useTheme } from 'styled-components';
 import { StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
 
-import { StyledBannerContent, StyledBannerTitle } from './Strategy.styles';
+import { StyledBannerContent } from './Strategy.styles';
 
 import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
@@ -114,9 +114,9 @@ function Strategy({ params }: Props) {
             style={{ position: 'relative', maxHeight: '8.5rem' }}
             onPress={handlePressBOBStake}
           >
-            <StyledBannerContent>
-              <Flex direction='column'>
-                <StyledBannerTitle size='2xl' weight='bold'>
+            <StyledBannerContent direction='column'>
+              <Flex alignItems='center'>
+                <H2 size='2xl' weight='bold'>
                   {strategy ? (
                     strategy?.contract.deposit.amount.greaterThan(0) ? (
                       <Trans>
@@ -129,18 +129,18 @@ function Strategy({ params }: Props) {
                   ) : (
                     <Skeleton height='3xl' width='30ch' />
                   )}
-                </StyledBannerTitle>
-                <P color='grey-50'>
-                  {strategy ? (
-                    <Trans>
-                      Go directly to {strategy.meta.name.split(' ').at(0)} to {bannerAction} your{' '}
-                      {strategy?.contract.inputToken.symbol}.
-                    </Trans>
-                  ) : (
-                    <Skeleton height='xl' width='30ch' />
-                  )}
-                </P>
+                </H2>
               </Flex>
+              <P color='grey-50'>
+                {strategy ? (
+                  <Trans>
+                    Go directly to {strategy.meta.name.split(' ').at(0)} to {bannerAction} your{' '}
+                    {strategy?.contract.inputToken.symbol}.
+                  </Trans>
+                ) : (
+                  <Skeleton height='xl' width='30ch' />
+                )}
+              </P>
             </StyledBannerContent>
             {strategy && (
               <Image
