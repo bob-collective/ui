@@ -6,12 +6,12 @@ export const mainnet = defineChain({
   rpcUrls: {
     ...wagmiMainnet.rpcUrls,
     default: {
-      http: ['https://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT'],
-      webSocket: ['wss://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT']
+      // NOTE: fixes sentry `All promises were rejected`
+      // override rpc url if needed
+      http: ['https://ethereum-rpc.publicnode.com']
     },
     public: {
-      http: ['https://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT'],
-      webSocket: ['wss://mainnet.gateway.tenderly.co/5A7aWXjtAfjXN4ocRgxzgT']
+      http: ['https://ethereum-rpc.publicnode.com']
     }
   },
   contracts: {
