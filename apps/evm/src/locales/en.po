@@ -491,7 +491,7 @@ msgstr "Complete"
 #~ msgid "Complete your {0} by accessing {1} Dapp using the button bellow"
 #~ msgstr "Complete your {0} by accessing {1} Dapp using the button bellow"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:240
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:242
 msgid "Complete your {action} by accessing {0} Dapp using the button bellow"
 msgstr "Complete your {action} by accessing {0} Dapp using the button bellow"
 
@@ -840,7 +840,7 @@ msgstr "Get tickets"
 msgid "Go Back"
 msgstr "Go Back"
 
-#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:136
+#: src/app/[lang]/(bridge)/stake/[slug]/Strategy.tsx:138
 msgid "Go directly to {0} to {bannerAction} your {1}."
 msgstr "Go directly to {0} to {bannerAction} your {1}."
 

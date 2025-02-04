@@ -116,20 +116,22 @@ function Strategy({ params }: Props) {
           >
             <StyledBannerContent direction='column'>
               <Flex alignItems='center'>
-                <H2 size='2xl' weight='bold'>
-                  {strategy ? (
-                    strategy?.contract.deposit.amount.greaterThan(0) ? (
+                {strategy ? (
+                  <H2 size='2xl' weight='bold'>
+                    {strategy?.contract.deposit.amount.greaterThan(0) ? (
                       <Trans>
                         You have {strategy.contract.deposit.amount.toSignificant(2)}{' '}
                         {strategy.contract.deposit.token.symbol} on BOB
                       </Trans>
                     ) : (
                       <Trans>Already got {strategy?.contract.inputToken.symbol} on BOB?</Trans>
-                    )
-                  ) : (
-                    <Skeleton height='3xl' width='30ch' />
-                  )}
-                </H2>
+                    )}
+                  </H2>
+                ) : (
+                  <P color='grey-50'>
+                    <Skeleton height='3xl' width='35ch' />
+                  </P>
+                )}
               </Flex>
               <P color='grey-50'>
                 {strategy ? (
