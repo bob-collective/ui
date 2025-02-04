@@ -1,19 +1,12 @@
 import { fontWeight, rounded, spacing, typography } from '../../core';
 import { AccordionTheme } from '../../components';
 
-import { color } from './colors';
-
 const accordion: AccordionTheme = {
   base: {
-    borderRadius: rounded('md'),
-    border: `1px solid ${color('grey-300')}`
+    borderRadius: rounded('md')
   },
   item: {
-    base: {
-      '&:not(:last-of-type)': {
-        borderBottom: `1px solid ${color('grey-300')}`
-      }
-    },
+    base: {},
     button: {
       padding: spacing('xl')
     },

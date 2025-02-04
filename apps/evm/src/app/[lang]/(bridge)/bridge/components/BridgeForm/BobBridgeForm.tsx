@@ -33,7 +33,7 @@ import { BridgeAlert } from './BridgeAlert';
 import { l1StandardBridgeAbi } from '@/abis/L1StandardBridge.abi';
 import { l2StandardBridgeAbi } from '@/abis/L2StandardBridge.abi';
 import { AuthButton } from '@/connect-ui';
-import { chainL2, L1_CHAIN, L2_CHAIN, publicClientL1, publicClientL2 } from '@/constants';
+import { chainL2, INTERVAL, L1_CHAIN, L2_CHAIN, publicClientL1, publicClientL2 } from '@/constants';
 import { bridgeContracts } from '@/constants/bridge';
 import {
   BridgeToken,
@@ -193,7 +193,12 @@ const BobBridgeForm = ({
     enabled: Boolean(
       !isBridgeDisabled && address && selectedToken && gasPrice && currencyAmount && currencyAmount.greaterThan(0)
     ),
-    queryKey: bridgeKeys.gasEstimate(direction, address),
+    queryKey: bridgeKeys.gasEstimate(
+      direction,
+      address,
+      selectedToken?.l1Token.address,
+      selectedToken?.l2Token.address
+    ),
     queryFn: async () => {
       if (!selectedToken || !currencyAmount || !bridgeContract || !gasPrice) return;
 
@@ -230,7 +235,9 @@ const BobBridgeForm = ({
           args: [l1Address, l2Address, to, amount, 0, '0x']
         });
 
-        return CurrencyAmount.fromRawAmount(initialToken, request.gas || 0n).multiply(gasPrice);
+        const gas = await publicClientL1.estimateContractGas(request);
+
+        return CurrencyAmount.fromRawAmount(initialToken, gas).multiply(gasPrice);
       }
 
       if (currencyAmount.currency.isNative) {
@@ -257,8 +264,11 @@ const BobBridgeForm = ({
         args: [l2Address, to, amount, 0, '0x']
       });
 
-      return CurrencyAmount.fromRawAmount(initialToken, request.gas || 0n).multiply(gasPrice);
-    }
+      const gas = await publicClientL2.estimateContractGas(request);
+
+      return CurrencyAmount.fromRawAmount(initialToken, gas).multiply(gasPrice);
+    },
+    refetchInterval: INTERVAL.SECONDS_30
   });
 
   const depositMutation = useMutation({
@@ -285,6 +295,7 @@ const BobBridgeForm = ({
 
       const data: InitBridgeTransaction = {
         amount: currencyAmount,
+        gasEstimate: gasEstimate.data,
         direction: TransactionDirection.L1_TO_L2,
         from: address!,
         to: recipient,
@@ -378,6 +389,7 @@ const BobBridgeForm = ({
 
       const data: InitBridgeTransaction = {
         amount: currencyAmount,
+        gasEstimate: gasEstimate.data,
         direction: TransactionDirection.L2_TO_L1,
         from: address!,
         to: recipient,
@@ -500,17 +512,6 @@ const BobBridgeForm = ({
     hideErrors: 'untouched'
   });
 
-  // useEffect(() => {
-  //   if (!currencyAmount?.greaterThan(0) || !selectedToken) return;
-  //   const recipient = (form.values[BRIDGE_RECIPIENT] as Address) || undefined;
-
-  //   if (direction === TransactionDirection.L1_TO_L2) {
-  //     return gasEstimate.mutate({ currencyAmount, recipient, selectedToken });
-  //   }
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [amount, selectedToken]);
-
   useEffect(() => {
     if (!form.dirty) return;
 
@@ -575,7 +576,7 @@ const BobBridgeForm = ({
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <Flex direction='column' elementType='form' gap='xl' marginTop='md' onSubmit={form.handleSubmit as any}>
+    <Flex direction='column' elementType='form' gap='md' marginTop='md' onSubmit={form.handleSubmit as any}>
       <TokenInput
         balance={balance}
         humanBalance={humanBalance}
@@ -597,20 +598,25 @@ const BobBridgeForm = ({
       )}
       {isBridgeDisabled && selectedToken && <BridgeAlert token={selectedToken} />}
       {gasEstimate.data && currencyAmount?.greaterThan(0) && (
-        <Card wrap background='grey-600' direction='row' gap='s' justifyContent='space-between' padding='lg'>
+        <Card
+          wrap
+          background='grey-600'
+          direction='row'
+          gap='s'
+          justifyContent='space-between'
+          padding='lg'
+          rounded='md'
+        >
           <Flex alignItems='center' gap='s'>
             <FuelStation color='grey-50' size='xxs' />
             <P color='grey-50' size='s'>
-              {Intl.NumberFormat(locale, { minimumFractionDigits: 3, maximumFractionDigits: 6 }).format(
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                gasEstimate.data.toExact() as any
-              )}{' '}
-              ({format(calculateAmountUSD(gasEstimate.data, getPrice(gasEstimate.data.currency.symbol)))})
+              {gasEstimate.data.toSignificant(3)} (
+              {format(calculateAmountUSD(gasEstimate.data, getPrice(gasEstimate.data.currency.symbol)))})
             </P>
           </Flex>
           <Flex alignItems='center' gap='xxs'>
             <P color='grey-50' size='s'>
-              {direction === TransactionDirection.L1_TO_L2 ? <Trans>~3 min</Trans> : <Trans>~8 days</Trans>}
+              {direction === TransactionDirection.L1_TO_L2 ? <Trans>~3 min</Trans> : <Trans>~7 days</Trans>}
             </P>
             <SolidClock color='grey-50' size='xs' />
           </Flex>
@@ -618,12 +624,22 @@ const BobBridgeForm = ({
       )}
       {/* {gasEstimate.data && currencyAmount?.greaterThan(0) && (
         <Card background='grey-600' gap='s' padding='lg'>
-          <P size='s' weight='bold'>
-            <Trans>Get on {direction === TransactionDirection.L1_TO_L2 ? chainL2.name : chainL1.name}</Trans>
-          </P>
+          <Flex gap='s' justifyContent='space-between'>
+            <P size='s' weight='bold'>
+              <Trans>Get on {direction === TransactionDirection.L1_TO_L2 ? chainL2.name : chainL1.name}</Trans>
+            </P>
+            <Flex alignItems='center'>
+              <ChainLogo chainId={direction === TransactionDirection.L1_TO_L2 ? chainL1.id : chainL2.id} size='xs' />
+              <ChainLogo
+                chainId={direction === TransactionDirection.L1_TO_L2 ? chainL2.id : chainL1.id}
+                size='xs'
+                style={{ marginLeft: '-4px' }}
+              />
+            </Flex>
+          </Flex>
           <Flex alignItems='center' gap='md'>
             <ChainAsset
-              asset={<Avatar alt={selectedToken?.l1Token.name} size='5xl' src={selectedToken?.l1Token.logoUrl || ''} />}
+              asset={<Avatar alt={selectedToken?.l1Token.name} size='6xl' src={selectedToken?.l1Token.logoUrl || ''} />}
               chainId={direction === TransactionDirection.L1_TO_L2 ? chainL2.id : chainL1.id}
               chainProps={{ size: 'xs' }}
             />
@@ -662,6 +678,7 @@ const BobBridgeForm = ({
         disabled={isSubmitDisabled}
         loading={isLoading}
         size='xl'
+        style={{ marginTop: '0.5rem' }}
         type='submit'
       >
         {btnLabel}

@@ -256,20 +256,22 @@ const BridgeForm = ({
           />
         </StyledChainsGrid>
         <Divider marginY='xl' />
-        <RadioGroup
-          aria-label={t(i18n)`bridge network`}
-          gap='md'
-          orientation='horizontal'
-          value={bridgeOrigin}
-          onValueChange={(value) => onChangeOrigin?.(value as BridgeOrigin)}
-        >
-          <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.Internal}>
-            <Trans>BOB Bridge</Trans>
-          </StyledRadio>
-          <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.External}>
-            <Trans>3rd Party</Trans>
-          </StyledRadio>
-        </RadioGroup>
+        {chain !== 'BTC' && (
+          <RadioGroup
+            aria-label={t(i18n)`bridge network`}
+            gap='md'
+            orientation='horizontal'
+            value={bridgeOrigin}
+            onValueChange={(value) => onChangeOrigin?.(value as BridgeOrigin)}
+          >
+            <StyledRadio isDisabled={isBobBridgeDisabled} value={BridgeOrigin.Internal}>
+              <Trans>BOB Bridge</Trans>
+            </StyledRadio>
+            <StyledRadio isDisabled={isExternalBridgeDisabled} value={BridgeOrigin.External}>
+              <Trans>3rd Party</Trans>
+            </StyledRadio>
+          </RadioGroup>
+        )}
         {direction === TransactionDirection.L2_TO_L1 && bridgeOrigin === BridgeOrigin.Internal && (
           <Alert marginBottom='s' marginTop='xl' status='info' variant='outlined'>
             <Trans>

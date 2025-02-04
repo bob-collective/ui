@@ -1,4 +1,4 @@
-import { Bitcoin, CurrencyAmount, ERC20Token, EvmCurrencies } from '@gobob/currency';
+import { Bitcoin, CurrencyAmount, ERC20Token, Ether, EvmCurrencies } from '@gobob/currency';
 import { Address, TransactionReceipt } from 'viem';
 import { GatewayOrder } from '@gobob/bob-sdk';
 
@@ -27,7 +27,7 @@ type BridgeTransaction = {
   l2Token: Address;
   amount: CurrencyAmount<EvmCurrencies>;
   logoUrl: string;
-  gasEstimate?: CurrencyAmount<EvmCurrencies>;
+  gasEstimate?: CurrencyAmount<Ether>;
   data?: string;
   date: Date;
   blockNumber?: number;

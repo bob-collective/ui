@@ -49,6 +49,7 @@ const AuthButton = ({
     const buttonProps = {
       onPress: () => open(),
       children: t(i18n)`Loading...`,
+      disabled: true,
       ...props
     };
 
