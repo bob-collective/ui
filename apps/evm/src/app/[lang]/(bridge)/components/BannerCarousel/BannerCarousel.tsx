@@ -7,11 +7,14 @@ import { useCallback, useMemo } from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import { useTheme } from 'styled-components';
 import { useIsClient } from 'usehooks-ts';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { StyledCarousel, StyledCarouselWrapper } from './BannerCarousel.style';
 import { FusionBanner } from './FusionBanner';
 import { XBanner } from './XBanner';
 import { HybridL2Banner } from './HybridL2Banner';
+
+import { gaEvents } from '@/lib/third-parties';
 
 const BannerCarousel = () => {
   const { i18n } = useLingui();
@@ -40,31 +43,35 @@ const BannerCarousel = () => {
     [theme.breakpoints]
   );
 
-  const onPressBabylonBanner = useCallback(
-    () =>
-      window.open(
-        'https://blog.gobob.xyz/posts/bob-integrates-with-babylon-to-become-a-bitcoin-secured-network-bringing-bitcoin-finality-to-the-hybrid-l2',
-        '_blank',
-        'noreferrer'
-      ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
   const onPressFusionBanner = useCallback(
-    () => window.open('https://blog.gobob.xyz/posts/bob-fusion-the-final-season', '_blank', 'noreferrer'),
+    () => {
+      sendGAEvent('event', gaEvents.bannerClick, {
+        banner: 'fusion final season'
+      });
+      window.open('https://blog.gobob.xyz/posts/bob-fusion-the-final-season', '_blank', 'noreferrer');
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const onPressXBanner = useCallback(
-    () => window.open('https://x.com/build_on_bob', '_blank', 'noreferrer'),
+    () => {
+      sendGAEvent('event', gaEvents.bannerClick, {
+        banner: 'X'
+      });
+      window.open('https://x.com/build_on_bob', '_blank', 'noreferrer');
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const onPressHybridL2Banner = useCallback(
-    () => window.open('https://blog.gobob.xyz/posts/the-hybrid-l2-paper', '_blank', 'noreferrer'),
+    () => {
+      sendGAEvent('event', gaEvents.bannerClick, {
+        banner: 'hybrid L2'
+      });
+      window.open('https://blog.gobob.xyz/posts/the-hybrid-l2-paper', '_blank', 'noreferrer');
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
@@ -93,7 +100,7 @@ const BannerCarousel = () => {
           <FusionBanner onPress={onPressFusionBanner} />
         </StyledCarousel>
       ) : (
-        <HybridL2Banner onPress={onPressBabylonBanner} />
+        <HybridL2Banner onPress={onPressHybridL2Banner} />
       )}
     </StyledCarouselWrapper>
   );

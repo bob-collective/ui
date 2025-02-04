@@ -21,6 +21,7 @@ import { StrategyData } from '../../hooks';
 import { AuthButton } from '@/connect-ui';
 import { BRIDGE_RECIPIENT, BridgeFormValues } from '@/lib/form/bridge';
 import { GatewayTransactionType, InitGatewayTransaction } from '@/types';
+import { gaEvents } from '@/lib/third-parties';
 import { posthogEvents } from '@/lib/posthog';
 
 type GatewayTransactionModalState = {
@@ -52,7 +53,7 @@ const StrategyForm = ({ strategy, isLending, onSuccess }: BtcBridgeFormProps): J
   const handleSuccessGateway = (data: InitGatewayTransaction) => {
     onSuccess?.();
     setGatewayModalState({ isOpen: true, data });
-    sendGAEvent('event', 'btc_stake', {
+    sendGAEvent('event', gaEvents.btcStake, {
       asset: data.assetName,
       amount: data.amount?.toExact(),
       tx_id: data.txId,

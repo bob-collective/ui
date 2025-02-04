@@ -26,13 +26,14 @@ import { useTheme } from 'styled-components';
 import { StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
 
-import { StyledBannerContent, StyledBannerTitle } from './Strategy.styles';
+import { StyledBannerContent } from './Strategy.styles';
 
 import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
 import { PageLangParam } from '@/i18n/withLigui';
 import { useGetGatewayTransactions } from '@/hooks';
 import { posthogEvents } from '@/lib/posthog';
+import { gaEvents } from '@/lib/third-parties';
 
 type Props = PageLangParam & {
   params: { slug: string };
@@ -63,9 +64,9 @@ function Strategy({ params }: Props) {
   const bannerAction = isLending ? <Trans>lend</Trans> : <Trans>stake</Trans>;
 
   const handlePressBOBStake = () => {
-    sendGAEvent('event', 'bob_stake', {
+    sendGAEvent('event', gaEvents.bobStake, {
       evm_address: address,
-      asset: strategy?.contract.inputToken.symbol,
+      strategy: strategy?.contract.integration.slug,
       amount: strategy?.contract.deposit.amount
     });
     window.open(strategy?.info.links.manage, '_blank', 'noreferrer');
@@ -113,33 +114,35 @@ function Strategy({ params }: Props) {
             style={{ position: 'relative', maxHeight: '8.5rem' }}
             onPress={handlePressBOBStake}
           >
-            <StyledBannerContent>
-              <Flex direction='column'>
-                <StyledBannerTitle size='2xl' weight='bold'>
-                  {strategy ? (
-                    strategy?.contract.deposit.amount.greaterThan(0) ? (
+            <StyledBannerContent direction='column'>
+              <Flex alignItems='center'>
+                {strategy ? (
+                  <H2 size='2xl' weight='bold'>
+                    {strategy?.contract.deposit.amount.greaterThan(0) ? (
                       <Trans>
                         You have {strategy.contract.deposit.amount.toSignificant(2)}{' '}
                         {strategy.contract.deposit.token.symbol} on BOB
                       </Trans>
                     ) : (
                       <Trans>Already got {strategy?.contract.inputToken.symbol} on BOB?</Trans>
-                    )
-                  ) : (
-                    <Skeleton height='3xl' width='30ch' />
-                  )}
-                </StyledBannerTitle>
-                <P color='grey-50'>
-                  {strategy ? (
-                    <Trans>
-                      Go directly to {strategy.meta.name.split(' ').at(0)} to {bannerAction} your{' '}
-                      {strategy?.contract.inputToken.symbol}.
-                    </Trans>
-                  ) : (
-                    <Skeleton height='xl' width='30ch' />
-                  )}
-                </P>
+                    )}
+                  </H2>
+                ) : (
+                  <P color='grey-50'>
+                    <Skeleton height='3xl' width='35ch' />
+                  </P>
+                )}
               </Flex>
+              <P color='grey-50'>
+                {strategy ? (
+                  <Trans>
+                    Go directly to {strategy.meta.name.split(' ').at(0)} to {bannerAction} your{' '}
+                    {strategy?.contract.inputToken.symbol}.
+                  </Trans>
+                ) : (
+                  <Skeleton height='xl' width='30ch' />
+                )}
+              </P>
             </StyledBannerContent>
             {strategy && (
               <Image

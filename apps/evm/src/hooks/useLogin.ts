@@ -9,6 +9,7 @@ import { useChainId, useSignMessage } from 'wagmi';
 import { posthogEvents } from '@/lib/posthog';
 import { fusionKeys } from '@/lib/react-query';
 import { apiClient } from '@/utils';
+import { gaEvents } from '@/lib/third-parties';
 
 const useLogin = () => {
   const { signMessageAsync } = useSignMessage();
@@ -40,7 +41,7 @@ const useLogin = () => {
       await apiClient.verify(message, signature);
     },
     onSuccess: async (_, address) => {
-      sendGAEvent('event', 'login', { evm_address: JSON.stringify(address) });
+      sendGAEvent('event', gaEvents.login, { evm_address: JSON.stringify(address) });
       posthogEvents.fusion.login();
 
       setTimeout(() => queryClient.refetchQueries({ queryKey: fusionKeys.user() }), 1000);

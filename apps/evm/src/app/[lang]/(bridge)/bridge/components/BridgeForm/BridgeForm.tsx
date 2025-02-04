@@ -25,6 +25,7 @@ import { TokenData, useGetBridgeTransactions, useGetGatewayTransactions } from '
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
+import { gaEvents } from '@/lib/third-parties';
 import { posthogEvents } from '@/lib/posthog';
 
 type TransactionModalState = {
@@ -136,8 +137,8 @@ const BridgeForm = ({
 
     setBridgeModalState({ isOpen: true, data, step: 'submitted' });
 
-    sendGAEvent('event', 'evm_bridge', {
-      l1_token: data.l1Token,
+    sendGAEvent('event', gaEvents.evmBridge, {
+      l1Token: data.l1Token,
       amount: data.amount?.toExact(),
       tx_id: JSON.stringify(data.transactionHash),
       evm_wallet: connector?.name
@@ -179,7 +180,7 @@ const BridgeForm = ({
 
     setGatewayModalState({ isOpen: true, data });
 
-    sendGAEvent('event', 'btc_bridge', {
+    sendGAEvent('event', gaEvents.btcBridge, {
       asset: data.assetName,
       amount: data.amount?.toExact(),
       tx_id: data.txId,

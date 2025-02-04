@@ -1,4 +1,4 @@
-import { Flex, H2 } from '@gobob/ui';
+import { Flex } from '@gobob/ui';
 import styled from 'styled-components';
 
 const StyledBannerContent = styled(Flex)`
@@ -6,10 +6,4 @@ const StyledBannerContent = styled(Flex)`
   z-index: 1;
 `;
 
-const StyledBannerTitle = styled(H2)`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-export { StyledBannerContent, StyledBannerTitle };
+export { StyledBannerContent };
