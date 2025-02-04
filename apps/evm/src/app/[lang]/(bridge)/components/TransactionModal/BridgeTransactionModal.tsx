@@ -1,7 +1,6 @@
+import { usePrices } from '@gobob/hooks';
 import {
-  ArrowLongRight,
   Button,
-  Card,
   Flex,
   Modal,
   ModalBody,
@@ -10,15 +9,18 @@ import {
   ModalProps,
   P,
   Span,
-  Spinner
+  Spinner,
+  useCurrencyFormatter
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
+import Avatar from 'boring-avatars';
 
-import { TransactionDetails } from '../TransactionDetails';
+import { BridgeTransactionDetails } from '../BridgeTransactionDetails';
 
+import { ChainAsset, ChainLogo } from '@/components';
+import { chainL1, chainL2 } from '@/constants';
 import { BridgeTransaction, InitBridgeTransaction, TransactionDirection } from '@/types';
-import { Chain } from '@/components';
-import { L1_CHAIN, L2_CHAIN } from '@/constants';
+import { calculateAmountUSD } from '@/utils';
 
 type Props =
   | {
@@ -41,7 +43,10 @@ const BridgeTransactionModal = ({
   step,
   ...props
 }: BridgeTransactionModalProps): JSX.Element => {
-  const { direction, amount, gasEstimate } = data;
+  const format = useCurrencyFormatter();
+  const { getPrice } = usePrices();
+
+  const { direction, amount, gasEstimate, logoUrl } = data;
 
   const isSubmitted = step === 'submitted';
 
@@ -57,21 +62,38 @@ const BridgeTransactionModal = ({
 
   const duration = direction === TransactionDirection.L1_TO_L2 ? '3 minutes' : '7 days';
 
+  const fromChain = data.direction === TransactionDirection.L1_TO_L2 ? chainL1 : chainL2;
+  const toChain = data.direction === TransactionDirection.L1_TO_L2 ? chainL2 : chainL1;
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>
       <ModalHeader align='start'>{title}</ModalHeader>
       <ModalBody alignItems='center' gap='lg' padding={isSubmitted ? undefined : 'even'}>
         {!isSubmitted && <Spinner size='42' thickness={4} />}
-        <Flex alignItems='center' gap='md'>
-          <Chain chainId={isL1ToL2 ? L1_CHAIN : L2_CHAIN} labelProps={{ size: 'xs' }} />
-          <ArrowLongRight size='lg' />
-          <Chain chainId={isL1ToL2 ? L2_CHAIN : L1_CHAIN} labelProps={{ size: 'xs' }} />
-        </Flex>
-        <Card background='grey-700' padding='s' rounded='xl'>
-          <P size='xs'>
-            {amount?.toExact()} {amount?.currency.symbol}
+        <Flex gap='s' justifyContent='space-between'>
+          <P size='s' weight='bold'>
+            <Trans>Get on {toChain.name}</Trans>
           </P>
-        </Card>
+          <Flex alignItems='center'>
+            <ChainLogo chainId={fromChain.id} size='xs' />
+            <ChainLogo chainId={toChain.id} size='xs' style={{ marginLeft: '-4px' }} />
+          </Flex>
+        </Flex>
+        <Flex alignItems='center' gap='md'>
+          <ChainAsset
+            asset={<Avatar alt={amount.currency.symbol} size='6xl' src={logoUrl} />}
+            chainId={toChain.id}
+            chainProps={{ size: 'xs' }}
+          />
+          <Flex direction='column' flex={1}>
+            <P lineHeight='1.2' rows={1} size='lg' style={{ whiteSpace: 'normal' }} weight='semibold'>
+              {amount.toSignificant(3)} {amount.currency.symbol}
+            </P>
+            <P color='grey-50' lineHeight='1.2' rows={1} size='s' style={{ whiteSpace: 'normal' }}>
+              {format(calculateAmountUSD(amount, getPrice(amount.currency.symbol)))}
+            </P>
+          </Flex>
+        </Flex>
         {isSubmitted ? (
           <Flex direction='column' gap='md'>
             <P size='xs'>
@@ -93,12 +115,7 @@ const BridgeTransactionModal = ({
                 <Trans>Please confirm allowance approval for {amount.currency.symbol} in your wallet</Trans>
               )}
             </P>
-            <TransactionDetails
-              amount={amount}
-              chainId={L1_CHAIN}
-              duration={`~ ${duration}`}
-              gasEstimate={gasEstimate}
-            />
+            <BridgeTransactionDetails direction={direction} gasEstimate={gasEstimate} />
           </Flex>
         )}
       </ModalBody>
