@@ -5,7 +5,7 @@ import { t, Trans } from '@lingui/macro';
 import { useIsClient } from 'usehooks-ts';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
-import appsLeaderboardHero from '@public/assets/apps-leaderboard-hero.png';
+import appsLeaderboardHero from '@public/assets/apps-leaderboard-hero.webp';
 import { useLingui } from '@lingui/react';
 
 import { StyledCard, StyledOpacityOverlay, StyledSpice } from './CommunityVoting.style';

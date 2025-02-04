@@ -32,16 +32,16 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
     icons: [
       {
         sizes: '16x16',
-        url: '/favicon-16x16.png'
+        url: '/favicon-16x16.webp'
       },
       {
         sizes: '32x32',
-        url: '/favicon-32x32.png'
+        url: '/favicon-32x32.webp'
       },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
-        url: '/apple-touch-icon.png'
+        url: '/apple-touch-icon.webp'
       }
     ],
     openGraph: {
@@ -51,7 +51,7 @@ export function generateMetadata({ params }: PageLangParam): Metadata {
       siteName: 'BOB',
       images: [
         {
-          url: 'https://app.gobob.xyz/assets/app-preview.png', // Must be an absolute URL
+          url: 'https://app.gobob.xyz/assets/app-preview.webp', // Must be an absolute URL
           width: 1200,
           height: 360
         }

@@ -2,7 +2,7 @@ import { Chip, Flex, H2, P, Skeleton, SolidClock, Span } from '@gobob/ui';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useParams } from 'next/navigation';
-import lottery from '@public/assets/lottery.png';
+import lottery from '@public/assets/lottery.webp';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useIsClient } from 'usehooks-ts';

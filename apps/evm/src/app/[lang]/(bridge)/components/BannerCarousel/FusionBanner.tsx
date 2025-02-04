@@ -1,7 +1,7 @@
 import { Flex, P } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import fusionSeasonThree from '@public/assets/fusion-season-three.png';
+import fusionSeasonThree from '@public/assets/fusion-season-three.webp';
 
 import { Banner } from './Banner';
 import { StyledBannerContent, StyledImg } from './BannerCarousel.style';

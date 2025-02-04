@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import Image from 'next/image';
-import optimismCity from '@public/assets/optimism-city.png';
+import optimismCity from '@public/assets/optimism-city.webp';
 
 type Props = { onClose: (hideForever: boolean) => void };
 
