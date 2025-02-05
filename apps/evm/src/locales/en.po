@@ -784,7 +784,7 @@ msgstr "Follow us on X for updates"
 msgid "Fund your wallet(s) by transferring crypto from another wallet or account."
 msgstr "Fund your wallet(s) by transferring crypto from another wallet or account."
 
-#: src/app/[lang]/fusion/page.tsx:16
+#: src/app/[lang]/fusion/page.tsx:17
 #: src/components/Layout/Header.tsx:61
 #: src/components/Layout/Sidebar.tsx:58
 msgid "Fusion"
