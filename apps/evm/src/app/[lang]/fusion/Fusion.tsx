@@ -41,7 +41,7 @@ import { Geoblock } from '@/components';
 import { LocalStorageKey } from '@/constants';
 import { FeatureFlags, useFeatureFlag, useGetUser } from '@/hooks';
 
-const Fusion = ({ authenticated }: { authenticated: boolean }) => {
+const Fusion = () => {
   const { i18n } = useLingui();
   const { address } = useAccount();
   const { data: user } = useGetUser();
@@ -93,7 +93,7 @@ const Fusion = ({ authenticated }: { authenticated: boolean }) => {
   const onPressOPBanner = () =>
     window.open('https://blog.gobob.xyz/posts/get-optimistic-on-bitcoin', '_blank', 'noreferrer');
 
-  const isAuthenticated = authenticated || Boolean(user && address);
+  const isAuthenticated = Boolean(user && address);
   const hasPastHarvest = user?.leaderboardRank && user.leaderboardRank.total_points > 0;
   const shouldDisplayOPSuperuserModal = isOPSuperusersEnabled && showOPSuperuserModal && user?.notices.showIsOpUser;
   const shouldDisplayTopUserModal = isTop100SpiceUsersEnabled && showTopUserModal && user?.notices.showIsFusionTopUser;
