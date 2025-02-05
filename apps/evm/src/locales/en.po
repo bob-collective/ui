@@ -104,7 +104,7 @@ msgstr "Active Superchain users who have received any of the five OP Airdrops qu
 #: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:54
 #: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:83
 #: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:49
-#: src/components/Profile/Profile.tsx:152
+#: src/components/Profile/Profile.tsx:154
 msgid "Activity"
 msgstr "Activity"
 
@@ -383,7 +383,7 @@ msgstr "BTC LST Lending"
 #~ msgid "BTC Strategies"
 #~ msgstr "BTC Strategies"
 
-#: src/components/Profile/Profile.tsx:122
+#: src/components/Profile/Profile.tsx:124
 msgid "Buy"
 msgstr "Buy"
 
@@ -1377,7 +1377,7 @@ msgid "Read the official Fusion Guide on the new BOB Blog and start harvesting S
 msgstr "Read the official Fusion Guide on the new BOB Blog and start harvesting Spice now."
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:119
-#: src/components/Profile/Profile.tsx:136
+#: src/components/Profile/Profile.tsx:138
 msgid "Receive"
 msgstr "Receive"
 
@@ -2075,7 +2075,7 @@ msgstr "Waiting for approval"
 msgid "Waiting for confirmation"
 msgstr "Waiting for confirmation"
 
-#: src/components/Profile/Profile.tsx:145
+#: src/components/Profile/Profile.tsx:147
 msgid "Wallet"
 msgstr "Wallet"
 

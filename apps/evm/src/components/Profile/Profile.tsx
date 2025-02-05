@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidatePath } from 'next/cache';
 import { useDisconnect as useSatsDisconnect } from '@gobob/sats-wagmi';
 import { Card, Flex, P, Skeleton, SolidArrowDownCircle, SolidCreditCard, Spinner, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
@@ -19,7 +20,7 @@ import { ProfileTokens } from './ProfileTokens';
 
 import { chakraPetch } from '@/app/fonts';
 import { useConnectModal, WalletType } from '@/connect-ui';
-import { ExternalLinks } from '@/constants';
+import { ExternalLinks, RoutesPath } from '@/constants';
 import { useGetBridgeTransactions, useTotalBalance } from '@/hooks';
 import { ShareStoreProfileTabs, store } from '@/lib/store';
 import { posthogEvents } from '@/lib/posthog';
@@ -45,6 +46,7 @@ const Profile = ({ currentChain, otherChain, hasOpenned, onClose }: ProfileProps
     onClose();
     evmWalletDisconnect();
     btcWalletDisconnect();
+    revalidatePath(RoutesPath.FUSION);
 
     posthogEvents.wallet.evm.disconnect();
     posthogEvents.wallet.btc.disconnect();
