@@ -64,6 +64,7 @@ export const bridgeKeys = {
   ],
   btcTokens: () => ['btc-tokens'],
   strategies: (address?: Address | undefined) => ['strategies', address] as string[],
+  approval: (address: Address | undefined) => ['bridge-approval', address],
   deposit: (address: Address | undefined) => ['bridge-deposit', address],
   gasEstimate: (
     direction: number,

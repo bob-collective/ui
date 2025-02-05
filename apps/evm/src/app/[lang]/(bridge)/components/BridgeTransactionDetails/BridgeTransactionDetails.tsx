@@ -10,7 +10,6 @@ type BridgeTransactionDetailsProps = {
   gasEstimate?: CurrencyAmount<Ether>;
 };
 
-// TODO: refresh gas estimate
 const BridgeTransactionDetails = ({ direction, gasEstimate }: BridgeTransactionDetailsProps) => (
   <Card background='grey-600' rounded='md'>
     <Dl direction='column' gap='none'>
@@ -22,7 +21,6 @@ const BridgeTransactionDetails = ({ direction, gasEstimate }: BridgeTransactionD
           {direction === TransactionDirection.L1_TO_L2 ? <Trans>~3 min</Trans> : <Trans>~7 days</Trans>}
         </Dd>
       </DlGroup>
-
       {gasEstimate && (
         <DlGroup wrap gap='xs' justifyContent='space-between'>
           <Dt color='grey-50' size='xs'>
@@ -31,7 +29,7 @@ const BridgeTransactionDetails = ({ direction, gasEstimate }: BridgeTransactionD
           <Dd size='xs'>
             <Flex alignItems='center' elementType='span' gap='s'>
               {false && <Spinner size='12' thickness={2} />}
-              <AmountLabel amount={gasEstimate} />
+              <AmountLabel amount={gasEstimate} significantDigits={2} />
             </Flex>
           </Dd>
         </DlGroup>

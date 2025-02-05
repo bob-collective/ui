@@ -7,12 +7,13 @@ import { calculateAmountUSD } from '@/utils';
 
 type Props = {
   amount?: CurrencyAmount<Currency>;
+  significantDigits?: number;
   hidePrice?: boolean;
 };
 
 type AmountLabelProps = Props;
 
-const AmountLabel = ({ amount, hidePrice }: AmountLabelProps): JSX.Element => {
+const AmountLabel = ({ amount, significantDigits, hidePrice }: AmountLabelProps): JSX.Element => {
   const format = useCurrencyFormatter();
 
   const { getPrice } = usePrices();
@@ -28,7 +29,7 @@ const AmountLabel = ({ amount, hidePrice }: AmountLabelProps): JSX.Element => {
 
   return (
     <>
-      {amount.toExact()} {amount.currency.symbol} {!hidePrice && `(${format(amountUSD || 0)})`}
+      {amount.toSignificant(significantDigits)} {amount.currency.symbol} {!hidePrice && `(${format(amountUSD || 0)})`}
     </>
   );
 };

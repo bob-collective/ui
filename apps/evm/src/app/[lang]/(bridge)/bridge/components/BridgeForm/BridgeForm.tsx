@@ -11,7 +11,7 @@ import { useAccount, useChainId } from 'wagmi';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
 
-import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
+import { GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
 import { ChainSelect } from '../ChainSelect';
 import { ExternalBridgeForm } from '../ExternalBridgeForm';
@@ -21,7 +21,7 @@ import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
 import { INTERVAL, L1_CHAIN, L2_CHAIN } from '@/constants';
-import { TokenData, useGetBridgeTransactions, useGetGatewayTransactions } from '@/hooks';
+import { TokenData, useGetGatewayTransactions } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
 import { BridgeTransaction, InitBridgeTransaction, InitGatewayTransaction, TransactionDirection } from '@/types';
@@ -81,16 +81,8 @@ const BridgeForm = ({
   const { connector: satsConnector, address: btcAddress } = useSatsAccount();
   const { connector, address } = useAccount();
 
-  const evmBridgePosthogEvents = direction === TransactionDirection.L1_TO_L2 ? 'deposit' : 'withdraw';
-
-  const { refetch: refetchBridgeTransactions, addPlaceholderTransaction: addBridgePlaceholderTransaction } =
-    useGetBridgeTransactions();
   const { refetch: refetchGatewayTransactions } = useGetGatewayTransactions();
 
-  const [bridgeModalState, setBridgeModalState] = useState<TransactionModalState>({
-    isOpen: false,
-    step: 'confirmation'
-  });
   const [gatewayModalState, setGatewayModalState] = useState<GatewayTransactionModalState>({
     isOpen: false
   });
@@ -119,51 +111,6 @@ const BridgeForm = ({
       }));
     }
   });
-
-  const handleStartBridge = (data: InitBridgeTransaction) => {
-    setBridgeModalState({ isOpen: true, data, step: 'confirmation' });
-
-    posthogEvents.bridge.evm.initiated(evmBridgePosthogEvents, {
-      ticker: data.amount.currency.symbol,
-      amount: data.amount.toExact()
-    });
-  };
-
-  const handleSuccessfulBridge = (data: BridgeTransaction) => {
-    addBridgePlaceholderTransaction(data);
-
-    refetchBridgeTransactions();
-
-    setBridgeModalState({ isOpen: true, data, step: 'submitted' });
-
-    sendGAEvent('event', 'evm_bridge', {
-      l1_token: data.l1Token,
-      amount: data.amount?.toExact(),
-      tx_id: JSON.stringify(data.transactionHash),
-      evm_wallet: connector?.name
-    });
-
-    posthogEvents.bridge.evm.completed(evmBridgePosthogEvents);
-  };
-
-  const handleStartBridgeApproval = (data: InitBridgeTransaction) => {
-    setBridgeModalState({ isOpen: true, data, step: 'approval' });
-
-    posthogEvents.bridge.evm.approval(evmBridgePosthogEvents, {
-      ticker: data.amount.currency.symbol,
-      amount: data.amount.toExact()
-    });
-  };
-
-  const handleCloseBridgeModal = () => {
-    setBridgeModalState((s) => ({ ...s, isOpen: false }));
-  };
-
-  const handleFailedBridge = () => {
-    handleCloseBridgeModal();
-
-    posthogEvents.bridge.evm.failed(evmBridgePosthogEvents);
-  };
 
   const handleStartGateway = (data: InitGatewayTransaction) => {
     setGatewayModalState({ isOpen: true, data });
@@ -292,29 +239,12 @@ const BridgeForm = ({
               onSuccess={handleSuccessfulGateway}
             />
           ) : (
-            <BobBridgeForm
-              direction={direction}
-              symbol={symbol}
-              onBridgeSuccess={handleSuccessfulBridge}
-              onChangeSymbol={onChangeSymbol}
-              onFailBridge={handleFailedBridge}
-              onStartApproval={handleStartBridgeApproval}
-              onStartBridge={handleStartBridge}
-            />
+            <BobBridgeForm direction={direction} symbol={symbol} onChangeSymbol={onChangeSymbol} />
           )
         ) : (
           <ExternalBridgeForm chain={chain} direction={direction} />
         )}
       </Flex>
-      {bridgeModalState.data && (
-        <BridgeTransactionModal
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          data={bridgeModalState.data as any}
-          isOpen={bridgeModalState.isOpen}
-          step={bridgeModalState.step}
-          onClose={handleCloseBridgeModal}
-        />
-      )}
       {gatewayModalState.data && (
         <GatewayTransactionModal
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

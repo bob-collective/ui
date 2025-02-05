@@ -27,6 +27,7 @@ type BridgeTransaction = {
   l2Token: Address;
   amount: CurrencyAmount<EvmCurrencies>;
   logoUrl: string;
+  approveGasEstimate?: CurrencyAmount<Ether>;
   gasEstimate?: CurrencyAmount<Ether>;
   data?: string;
   date: Date;

@@ -4,7 +4,6 @@ export * from './transactions';
 export * from './useBalances';
 export * from './useBridgeTokens';
 export * from './useFeatureFlag';
-export * from './useGasTokens';
 export * from './useGeoblock';
 export * from './useGetStrategies';
 export * from './useGetUser';

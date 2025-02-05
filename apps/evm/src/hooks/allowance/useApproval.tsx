@@ -175,6 +175,7 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
     refetch,
     isRevokeRequired,
     isApproveRequired,
+    isApproveSuccessful,
     isSigningApprove,
     isSigningRevoke,
     isApproving: isApproving || isSigningApprove,
@@ -184,6 +185,8 @@ const useApproval = ({ amount, spender, onApprovalSuccess }: UseApprovalProps) =
     allowance,
     approveAsync,
     approve,
+    approveResult,
+    approveSimulate,
     revokeAsync,
     revoke
   };
