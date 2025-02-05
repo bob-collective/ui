@@ -435,7 +435,7 @@ class ApiClient {
     return data.nonce;
   }
 
-  async verify(message: SiweMessage, signature: Address) {
+  async verify(message: SiweMessage, signature: Address): Promise<{ ok: boolean; data: UserResponse } | { ok: false }> {
     const response = await fetch(`${this.baseUrl}/verify`, {
       method: 'POST',
       credentials: 'include',
@@ -445,7 +445,11 @@ class ApiClient {
     return this.handleResponse(response);
   }
 
-  async signUp(message: SiweMessage, turnstileToken: string, signature: Address) {
+  async signUp(
+    message: SiweMessage,
+    turnstileToken: string,
+    signature: Address
+  ): Promise<{ ok: true; data: UserResponse } | { ok: false }> {
     const response = await fetch(`${this.baseUrl}/sign-up`, {
       method: 'POST',
       credentials: 'include',

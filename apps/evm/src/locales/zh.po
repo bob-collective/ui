@@ -1787,8 +1787,8 @@ msgstr ""
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:138
 #: src/app/[lang]/fusion/components/LotterySections/LotteryModal/LotteryModal.tsx:60
-#: src/hooks/useLogin.ts:53
-#: src/hooks/useSignUp.ts:68
+#: src/hooks/useLogin.ts:57
+#: src/hooks/useSignUp.ts:70
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
@@ -2393,8 +2393,8 @@ msgstr "用你的Spice总数来支持你最喜爱的BOB构建者。获胜者将�
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:136
 #: src/connect-ui/component/ConnectModal/ConnectModal.tsx:100
-#: src/hooks/useLogin.ts:51
-#: src/hooks/useSignUp.ts:66
+#: src/hooks/useLogin.ts:55
+#: src/hooks/useSignUp.ts:68
 msgid "User rejected the request"
 msgstr ""
 

@@ -11,7 +11,7 @@ import { FetchError } from '@/types/fetch';
 
 const useGetUser = (
   props: Omit<
-    UseQueryOptions<UserResponse | undefined, unknown, UserResponse | undefined, string[]>,
+    UseQueryOptions<UserResponse | undefined | null, unknown, UserResponse | undefined, string[]>,
     'queryKey' | 'queryFn' | 'refetchInterval'
   > = {}
 ) => {
@@ -25,7 +25,18 @@ const useGetUser = (
     queryKey: fusionKeys.user(),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    queryFn: () => apiClient.getMe(),
+    queryFn: async () => {
+      try {
+        // checks cookie set by siwe
+        // it could be set but not yet verified by backend
+        const result = await fetch('/api/fusion/check-cookie');
+        const data = await result.json();
+
+        return data.ok ? apiClient.getMe() : null;
+      } catch (e) {}
+
+      return apiClient.getMe();
+    },
     staleTime: INTERVAL.MINUTE,
     gcTime: INTERVAL.MINUTE * 5,
     refetchInterval: (query) =>

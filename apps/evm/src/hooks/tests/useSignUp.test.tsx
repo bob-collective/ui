@@ -3,8 +3,8 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { PropsWithChildren } from 'react';
 import { Mock, vi } from 'vitest';
 import { useAccount, useSignMessage } from 'wagmi';
+import { useQueryClient } from '@tanstack/react-query';
 
-import { useGetUser } from '../useGetUser';
 import { useSignUp } from '../useSignUp';
 
 import { wrapper } from '@/test-utils';
@@ -29,6 +29,16 @@ vi.mock(import('@gobob/ui'), async (importOriginal) => {
   };
 });
 
+vi.mock(import('@tanstack/react-query'), async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...actual,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    useQueryClient: vi.fn(() => ({ setQueryData: vi.fn() })) as any
+  };
+});
+
 vi.mock('siwe', () => ({
   SiweMessage: vi.fn().mockImplementation((messageData) => ({
     prepareMessage: () => `Message for ${messageData.address}`
@@ -40,9 +50,6 @@ vi.mock('@/utils', () => ({
     getNonce: vi.fn(),
     signUp: vi.fn()
   }
-}));
-vi.mock('../useGetUser', () => ({
-  useGetUser: vi.fn(() => ({ refetch: vi.fn() }))
 }));
 
 describe('useSignUp', () => {
@@ -56,7 +63,7 @@ describe('useSignUp', () => {
     const mockTurnstileToken = '0x12345';
     const mockChainId = 1;
     const mockNonce = 'mock-nonce';
-    const mockRefetchUser = vi.fn();
+    const mockSetQueryData = vi.fn();
     const mockSignMessageAsync = vi.fn().mockResolvedValue('mock-signature');
     const mockSignUpResponse = { ok: true };
 
@@ -64,7 +71,7 @@ describe('useSignUp', () => {
     (useSignMessage as Mock).mockReturnValue({ signMessageAsync: mockSignMessageAsync });
     (apiClient.getNonce as Mock).mockResolvedValue(mockNonce);
     (apiClient.signUp as Mock).mockResolvedValue(mockSignUpResponse);
-    (useGetUser as Mock).mockReturnValue({ refetch: mockRefetchUser });
+    (useQueryClient as Mock).mockReturnValue({ setQueryData: mockSetQueryData });
 
     const { result } = renderHook<PropsWithChildren, ReturnType<typeof useSignUp>>(() => useSignUp(), {
       wrapper
@@ -77,7 +84,7 @@ describe('useSignUp', () => {
     expect(apiClient.getNonce).toHaveBeenCalled();
     expect(mockSignMessageAsync).toHaveBeenCalledWith({ message: 'Message for 0x123' });
     expect(apiClient.signUp).toHaveBeenCalledWith(expect.any(Object), mockTurnstileToken, 'mock-signature');
-    expect(mockRefetchUser).toHaveBeenCalled();
+    expect(mockSetQueryData).toHaveBeenCalled();
   });
 
   it('shows error toast if user rejects the sign-up request', async () => {
