@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import { t } from '@lingui/macro';
 import { redirect } from 'next/navigation';
 
@@ -24,10 +25,11 @@ interface Props {
 
 export default withLinguiPage(function Page({ searchParams, params }: Props) {
   const refCode = searchParams?.refCode;
+  const sessionCookie = cookies().get('session');
 
   if (refCode) {
     redirect(`/${params.lang}${RoutesPath.SIGN_UP}?refCode=${refCode}`);
   }
 
-  return <Fusion />;
+  return <Fusion authenticated={Boolean(sessionCookie)} />;
 });
