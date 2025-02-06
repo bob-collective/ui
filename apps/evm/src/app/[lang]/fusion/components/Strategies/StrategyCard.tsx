@@ -4,7 +4,7 @@ import { Spice } from '@gobob/icons';
 import { t, Trans } from '@lingui/macro';
 import Image from 'next/image';
 import { useLingui } from '@lingui/react';
-import spiceShapedBackground from '@public/assets/spice-shape-background.jpg';
+import spiceShapedBackground from '@public/assets/spice-shape-background.webp';
 
 import { StyledBanner, StyledBannerWrapper, StyledCard, StyledTitle } from './Strategies.style';
 

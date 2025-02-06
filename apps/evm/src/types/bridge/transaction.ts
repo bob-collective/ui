@@ -1,6 +1,7 @@
 import { Bitcoin, CurrencyAmount, ERC20Token, EvmCurrencies } from '@gobob/currency';
 import { Address, TransactionReceipt } from 'viem';
 import { GatewayOrder } from '@gobob/bob-sdk';
+import { Icon } from '@gobob/ui';
 
 import { GatewaySteps } from './steps';
 
@@ -27,6 +28,7 @@ type BridgeTransaction = {
   l2Token: Address;
   amount: CurrencyAmount<EvmCurrencies>;
   logoUrl: string;
+  icon?: typeof Icon;
   gasEstimate?: CurrencyAmount<EvmCurrencies>;
   data?: string;
   date: Date;
@@ -62,6 +64,7 @@ type GatewayTransaction = {
   btcTxId: string;
   amount?: CurrencyAmount<ERC20Token>;
   logoUrl?: string;
+  icon?: typeof Icon;
   type: TransactionType.Gateway;
   subType: GatewayTransactionType;
   isPending: boolean;

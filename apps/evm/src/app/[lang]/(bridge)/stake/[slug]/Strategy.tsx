@@ -3,12 +3,12 @@
 import {
   Alert,
   ArrowLeft,
-  Avatar,
   Button,
   Card,
   Flex,
   H1,
   H2,
+  Icon,
   Link,
   P,
   Skeleton,
@@ -18,7 +18,6 @@ import {
 } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
-import Image from 'next/image';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount } from 'wagmi';
 import { useTheme } from 'styled-components';
@@ -75,6 +74,9 @@ function Strategy({ params }: Props) {
     posthogEvents.strategies.strategy.externalWithdraw({ asset_name: strategy?.contract.integration.name as string });
   };
 
+  const InputTokenIcon = strategy?.info.breakdown.at(0)?.icon as typeof Icon;
+  const OutputTokenIcon = strategy?.info.breakdown.at(-1)?.icon as typeof Icon;
+
   return (
     <Layout>
       <Main maxWidth='5xl' padding='md'>
@@ -86,8 +88,9 @@ function Strategy({ params }: Props) {
         </Link>
         <Flex alignItems='center' gap='lg' marginTop='4xl'>
           {strategy ? (
-            <Avatar size='4xl' src={strategy.info.logoUrl || strategy.meta.logo} />
+            <strategy.info.icon size='xl' />
           ) : (
+            // <Avatar size='4xl' src={strategy.info.logoUrl || strategy.meta.logo} />
             <Skeleton height='4xl' rounded='full' width='4xl' />
           )}
 
@@ -142,10 +145,8 @@ function Strategy({ params }: Props) {
               </Flex>
             </StyledBannerContent>
             {strategy && (
-              <Image
-                alt={strategy?.info.breakdown.at(-1)?.currency.symbol ?? ''}
+              <OutputTokenIcon
                 height={25}
-                src={strategy?.info.breakdown.at(-1)?.logoUrl ?? ''}
                 style={{
                   opacity: isMobileViewport ? 0.2 : 1,
                   position: 'absolute',
@@ -157,10 +158,8 @@ function Strategy({ params }: Props) {
               />
             )}
             {strategy && (
-              <Image
-                alt={strategy?.info.breakdown.at(0)?.currency.symbol ?? ''}
+              <InputTokenIcon
                 height={25}
-                src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
                 style={{
                   opacity: isMobileViewport ? 0.2 : 1,
                   position: 'absolute',
@@ -172,10 +171,8 @@ function Strategy({ params }: Props) {
               />
             )}
             {strategy && (
-              <Image
-                alt={strategy?.info.breakdown.at(0)?.currency.symbol ?? ''}
+              <InputTokenIcon
                 height={50}
-                src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
                 style={{
                   opacity: isMobileViewport ? 0.2 : 1,
                   position: 'absolute',
@@ -187,10 +184,8 @@ function Strategy({ params }: Props) {
               />
             )}
             {strategy && (
-              <Image
-                alt={strategy?.info.breakdown.at(0)?.currency.symbol ?? ''}
+              <InputTokenIcon
                 height={90}
-                src={strategy?.info.breakdown.at(0)?.logoUrl ?? ''}
                 style={{
                   opacity: isMobileViewport ? 0.2 : 1,
                   position: 'absolute',
@@ -202,10 +197,8 @@ function Strategy({ params }: Props) {
               />
             )}
             {strategy && (
-              <Image
-                alt={strategy?.info.breakdown.at(-1)?.currency.symbol ?? ''}
+              <OutputTokenIcon
                 height={90}
-                src={strategy?.info.breakdown.at(-1)?.logoUrl ?? ''}
                 style={{
                   opacity: isMobileViewport ? 0.2 : 1,
                   position: 'absolute',

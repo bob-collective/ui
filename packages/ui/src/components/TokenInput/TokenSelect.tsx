@@ -2,6 +2,7 @@ import { mergeProps } from '@react-aria/utils';
 import { Currency } from '@gobob/currency';
 
 import { Item, ModalSelectProps, Select } from '../Select';
+import { Icon } from '../Icon';
 
 import { StyledTokenSelect } from './TokenInput.style';
 import { TokenListItem } from './TokenListItem';
@@ -10,6 +11,7 @@ import { Token } from './Token';
 type TokenSelectItemProps = {
   currency: Currency;
   logoUrl: string;
+  icon?: typeof Icon;
   balance: string | number;
   balanceUSD: number;
 };
@@ -25,7 +27,7 @@ const TokenSelect = ({ modalProps, size, placeholder = 'Select token', ...props 
       modalProps={mergeProps({ title: 'Select Token', listProps: { maxHeight: '32rem' } }, modalProps)}
       placeholder={placeholder}
       renderValue={({ value }) =>
-        value ? <Token logoUrl={value.logoUrl} symbol={value.currency.symbol} /> : undefined
+        value ? <Token icon={value.icon} logoUrl={value.logoUrl} symbol={value.currency.symbol} /> : undefined
       }
       size={size === 'lg' ? 'md' : size}
       type='modal'

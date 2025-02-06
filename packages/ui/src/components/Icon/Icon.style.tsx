@@ -1,3 +1,5 @@
+'use client';
+
 import styled, { DefaultTheme } from 'styled-components';
 import { css } from 'styled-components';
 

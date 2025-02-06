@@ -2,7 +2,7 @@ function getImageUrl(name: string) {
   return `/assets/partners/${name.split(' ').join('').toLowerCase()}.png`;
 }
 
-const fallbackImg = '/assets/spice-shape-background.jpg';
+const fallbackImg = '/assets/spice-shape-background.webp';
 
 const getAppLogo = (
   name: string,

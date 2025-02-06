@@ -112,11 +112,6 @@ const StyledListItemUsd = styled(Span)`
   ${({ theme }) => theme.tokenInput.list.item.usd};
 `;
 
-const StyledListItemTokenImg = styled.img`
-  ${({ theme }) => theme.tokenInput.list.item.img}
-  border-radius: ${({ theme }) => theme.rounded('full')};
-`;
-
 const StyledListTokenWrapper = styled(Flex)`
   overflow: hidden;
 `;
@@ -134,6 +129,5 @@ export {
   StyledInputWrapper,
   StyledBottomWrapper,
   StyledDivider,
-  StyledListItemTokenImg,
   StyledFixedTokenAdornment
 };

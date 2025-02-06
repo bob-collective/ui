@@ -1,6 +1,6 @@
 import { ERC20Token } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
-import { Avatar, ChevronDown, Flex, Span, UnstyledButton } from '@gobob/ui';
+import { ChevronDown, Flex, Span, UnstyledButton } from '@gobob/ui';
 import { Address } from 'viem';
 import { useAccount, useWatchAsset } from 'wagmi';
 import { t, Trans } from '@lingui/macro';
@@ -78,8 +78,8 @@ const ProfileBlockscoutTokenList = () => {
           logo={
             <ChainAsset
               asset={
-                item.token.raw.logoUrl ? (
-                  <Avatar alt={item.token.raw.name} size='5xl' src={item.token.raw.logoUrl} />
+                item.token.raw.icon ? (
+                  <item.token.raw.icon size='2xl' />
                 ) : (
                   <StyledMissingImageLogo>{item.token.raw.symbol.toUpperCase().slice(0, 3)}</StyledMissingImageLogo>
                 )

@@ -1,6 +1,6 @@
 import { ChainId } from '@gobob/chains';
 import { Currency, CurrencyAmount } from '@gobob/currency';
-import { Avatar, Card, Flex, P, Span } from '@gobob/ui';
+import { Avatar, Card, Flex, Icon, P, Span } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { formatDistanceToNow } from 'date-fns';
 import { useParams } from 'next/navigation';
@@ -16,6 +16,7 @@ type TransactionDetailsProps = {
   toChainId: ChainId | 'BTC';
   amount?: CurrencyAmount<Currency>;
   logoUrl?: string;
+  icon?: typeof Icon;
   isPending?: boolean;
   isExpanded?: boolean;
 };
@@ -26,6 +27,7 @@ const TransactionDetails = ({
   toChainId,
   amount,
   logoUrl,
+  icon: Icon,
   isPending
 }: TransactionDetailsProps): JSX.Element => {
   const { lang } = useParams();
@@ -34,7 +36,7 @@ const TransactionDetails = ({
     <Flex alignItems='center' gap='lg'>
       {amount ? (
         <ChainAsset
-          asset={<Avatar alt={amount.currency.symbol} size='5xl' src={logoUrl} />}
+          asset={Icon ? <Icon size='2xl' /> : <Avatar alt={amount.currency.symbol} size='5xl' src={logoUrl} />}
           chainId={toChainId}
           chainProps={{ size: 'xs' }}
         />

@@ -1,5 +1,5 @@
 import {
-  Avatar,
+  Icon,
   Card,
   Dd,
   Dl,
@@ -17,7 +17,8 @@ import {
   Tooltip,
   useCurrencyFormatter,
   useLocale,
-  useMediaQuery
+  useMediaQuery,
+  Avatar
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -55,9 +56,19 @@ const getSkeletons = () =>
       [StrategiesTableColumns.TVL]: <Skeleton height='2xl' width='7xl' />
     }));
 
-const StrategyCell = ({ logo, name, protocol }: { logo: string; protocol: string; name: string }) => (
+const StrategyCell = ({
+  logo,
+  icon: _Icon,
+  name,
+  protocol
+}: {
+  icon?: typeof Icon;
+  logo: string;
+  protocol: string;
+  name: string;
+}) => (
   <Flex alignItems='center' gap='lg'>
-    <Avatar size='5xl' src={logo} />
+    {_Icon ? <_Icon size='2xl' /> : <Avatar size='5xl' src={logo} />}
     <Flex alignItems='flex-start' direction='column'>
       <Span rows={1} size='s' style={{ whiteSpace: 'normal' }} weight='bold'>
         {name}
@@ -174,6 +185,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
           id: strategy.meta.slug,
           [StrategiesTableColumns.STRATEGY]: (
             <StrategyCell
+              icon={strategy.info.icon}
               logo={strategy.info.logoUrl || strategy.meta.logo}
               name={strategy.info.name}
               protocol={strategy.info.protocol}

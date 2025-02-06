@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ChainId } from '@gobob/chains';
 import { Ether } from '@gobob/currency';
 import { PropsWithChildren } from 'react';
+import { ETH } from '@gobob/icons';
 
 import { useGasTokens } from '../useGasTokens';
 
@@ -49,7 +50,8 @@ describe('useGasTokens', () => {
           decimals: 18,
           symbol: 'ETH',
           name: 'Ether',
-          logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg'
+          logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
+          icon: ETH
         },
         currency: Ether.onChain(ChainId.ETHEREUM)
       }
@@ -73,7 +75,8 @@ describe('useGasTokens', () => {
           decimals: 18,
           symbol: 'ETH',
           name: 'Ether',
-          logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg'
+          logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
+          icon: ETH
         },
         currency: Ether.onChain(ChainId.SEPOLIA)
       }

@@ -1,6 +1,6 @@
 import { Flex, P } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import x from '@public/assets/x.png';
+import x from '@public/assets/x.webp';
 
 import { Banner } from './Banner';
 import { StyledBannerContent, StyledImg } from './BannerCarousel.style';
