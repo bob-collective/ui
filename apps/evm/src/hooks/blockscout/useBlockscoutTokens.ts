@@ -2,7 +2,6 @@ import { ERC20Token } from '@gobob/currency';
 import { useCallback } from 'react';
 import { ChainId } from '@gobob/chains';
 import { Address, getAddress } from 'viem';
-import { ETH } from '@gobob/icons';
 
 import { TokenData } from '../useTokens';
 
@@ -32,7 +31,6 @@ const useBlockscoutTokens = () => {
             decimals: Number(blockscoutToken.token.decimals),
             chainId: ChainId.BOB,
             logoUrl: '',
-            icon: ETH,
             apiId: ''
           },
           currency: new ERC20Token(
