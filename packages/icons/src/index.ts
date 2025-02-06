@@ -43,6 +43,7 @@ export { SFRAX } from './SFRAX';
 export { SfrxETH } from './SfrxETH';
 export { Shoebill } from './Shoebill';
 export { Solv } from './Solv';
+export { SolvRound } from './SolvRound';
 export { SolvBTC } from './SolvBTC';
 export { SolvBTCBBN } from './SolvBTCBBN';
 export { Spice } from './Spice';
