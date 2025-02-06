@@ -58,7 +58,7 @@ const getSkeletons = () =>
 
 const StrategyCell = ({
   logo,
-  icon: _Icon,
+  icon: IconComponent,
   name,
   protocol
 }: {
@@ -68,7 +68,7 @@ const StrategyCell = ({
   name: string;
 }) => (
   <Flex alignItems='center' gap='lg'>
-    {_Icon ? <_Icon size='2xl' /> : <Avatar size='5xl' src={logo} />}
+    {IconComponent ? <IconComponent size='2xl' /> : <Avatar size='5xl' src={logo} />}
     <Flex alignItems='flex-start' direction='column'>
       <Span rows={1} size='s' style={{ whiteSpace: 'normal' }} weight='bold'>
         {name}
