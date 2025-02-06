@@ -39,6 +39,7 @@ export { Polygon } from './Polygon';
 export { RabbyWallet } from './RabbyWallet';
 export { RETH } from './RETH';
 export { Segment } from './Segment';
+export { SegmentDieCut } from './SegmentDieCut';
 export { SFRAX } from './SFRAX';
 export { SfrxETH } from './SfrxETH';
 export { Shoebill } from './Shoebill';
