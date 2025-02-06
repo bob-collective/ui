@@ -4,19 +4,10 @@ import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
 import { Address, getAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
-import { INTERVAL, RawToken, tokens } from '@/constants';
+import { INTERVAL, tokenAddressToRawTokenMapping } from '@/constants';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { GatewaySteps, GatewayTransaction, GatewayTransactionType, TransactionType } from '@/types';
 import { esploraClient } from '@/utils';
-
-const tokenAddressToRawTokenMapping = tokens.reduce(
-  (acc, cur) => {
-    acc[getAddress(cur.address)] = cur;
-
-    return acc;
-  },
-  {} as Record<Address, RawToken>
-);
 
 const getGatewayTransactions = async (address: Address): Promise<GatewayTransaction[]> => {
   const [orders, latestHeight] = await Promise.all([gatewaySDK.getOrders(address), esploraClient.getLatestHeight()]);

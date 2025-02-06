@@ -70,7 +70,7 @@ msgstr "<0>Stake your BTC with 1-click</0> and receive BTC LSTs on BOB."
 msgid "2 hours"
 msgstr "2 hours"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:270
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:272
 msgid "3rd Party"
 msgstr "3rd Party"
 
@@ -262,7 +262,7 @@ msgstr "Below is the Spice you've harvested from apps. Keep participating to inc
 msgid "BOB"
 msgstr "BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:267
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:269
 msgid "BOB Bridge"
 msgstr "BOB Bridge"
 
@@ -339,7 +339,7 @@ msgstr "Bridge BTC LSTs to BOB"
 msgid "Bridge Disabled"
 msgstr "Bridge Disabled"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:260
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:262
 msgid "bridge network"
 msgstr "bridge network"
 
@@ -1479,11 +1479,11 @@ msgstr "select gas token"
 msgid "Select Network"
 msgstr "Select Network"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:230
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:232
 msgid "select network to bridge from"
 msgstr "select network to bridge from"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:240
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:242
 msgid "select network to bridge to"
 msgstr "select network to bridge to"
 
@@ -2025,7 +2025,7 @@ msgstr "User rejected the request."
 msgid "Username"
 msgstr "Username"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:275
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:277
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 

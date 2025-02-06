@@ -2,7 +2,7 @@ import { ChainId } from '@gobob/chains';
 import * as icons from '@gobob/icons';
 import { TBTC, USDC, USDT, WBTC } from '@gobob/tokens';
 import { Icon } from '@gobob/ui';
-import { Address } from 'viem';
+import { Address, getAddress } from 'viem';
 
 export type RawToken = {
   chainId: ChainId;
@@ -604,3 +604,12 @@ const bobSepoliaAssets: RawToken[] = [
 ];
 
 export const tokens: RawToken[] = [...ethereumAssets, ...sepoliaAssets, ...bobAssets, ...bobSepoliaAssets];
+
+export const tokenAddressToRawTokenMapping = tokens.reduce(
+  (acc, cur) => {
+    acc[getAddress(cur.address)] = cur;
+
+    return acc;
+  },
+  {} as Record<Address, RawToken>
+);
