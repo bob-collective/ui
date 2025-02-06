@@ -1,10 +1,10 @@
 import { ChainId } from '@gobob/chains';
 import { CurrencyAmount, ERC20Token, Token } from '@gobob/currency';
 import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
-import { Address } from 'viem';
+import { Address, getAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
-import { INTERVAL } from '@/constants';
+import { INTERVAL, tokenAddressToRawTokenMapping } from '@/constants';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { GatewaySteps, GatewayTransaction, GatewayTransactionType, TransactionType } from '@/types';
 import { esploraClient } from '@/utils';
@@ -28,7 +28,7 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
               name: gatewayToken.name,
               symbol: gatewayToken.symbol,
               decimals: gatewayToken.decimals,
-              logoUrl: gatewayToken.logoURI,
+              icon: tokenAddressToRawTokenMapping[getAddress(gatewayToken.address)]?.icon,
               apiId: ''
             },
             currency: new Token(
@@ -57,7 +57,8 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
 
         return {
           amount,
-          logoUrl: gatewayToken?.logoURI,
+          icon:
+            tokenAddressToRawTokenMapping[getAddress(gatewayToken?.address || '')]?.icon || gatewayToken?.logoURI || '',
           btcTxId: order.txid,
           date: new Date(order.timestamp * 1000),
           confirmations: orderStatus.data.confirmations,

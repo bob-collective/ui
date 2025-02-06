@@ -10,6 +10,7 @@ import { Key, useCallback, useMemo, useState } from 'react';
 import { useAccount, useChainId } from 'wagmi';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
+import { getAddress } from 'viem';
 
 import { BridgeTransactionModal, GatewayTransactionModal } from '../../../components';
 import { BridgeOrigin } from '../../Bridge';
@@ -20,7 +21,7 @@ import { BobBridgeForm } from './BobBridgeForm';
 import { StyledChainsGrid, StyledRadio } from './BridgeForm.style';
 import { BtcBridgeForm } from './BtcBridgeForm';
 
-import { INTERVAL, L1_CHAIN, L2_CHAIN } from '@/constants';
+import { INTERVAL, L1_CHAIN, L2_CHAIN, tokenAddressToRawTokenMapping } from '@/constants';
 import { TokenData, useGetBridgeTransactions, useGetGatewayTransactions } from '@/hooks';
 import { gatewaySDK } from '@/lib/bob-sdk';
 import { bridgeKeys } from '@/lib/react-query';
@@ -112,7 +113,7 @@ const BridgeForm = ({
           name: token.name,
           symbol: token.symbol,
           decimals: token.decimals,
-          logoUrl: token.logoURI,
+          icon: tokenAddressToRawTokenMapping[getAddress(token.address)]?.icon || token.logoURI,
           apiId: ''
         },
         currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.name)

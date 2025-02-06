@@ -1,5 +1,6 @@
 import { Bitcoin, CurrencyAmount } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
+import { BTC } from '@gobob/icons';
 import { BITCOIN } from '@gobob/tokens';
 import { TokenInput, TokenInputProps } from '@gobob/ui';
 import { t } from '@lingui/macro';
@@ -35,8 +36,8 @@ const BtcTokenInput = ({ amount, balance, ...props }: BtcTokenInputProps): JSX.E
         i18n
       )`Your available balance may differ from your wallet balance due to network fees and available liquidity`}
       currency={BITCOIN}
+      icon={BTC}
       label={t(i18n)`Amount`}
-      logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
       valueUSD={valueUSD}
       {...props}
     />

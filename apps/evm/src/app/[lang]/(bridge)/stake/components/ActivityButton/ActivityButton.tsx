@@ -1,5 +1,5 @@
 import { useAccount as useSatsAccount } from '@gobob/sats-wagmi';
-import { Button, SolidClock, Tooltip } from '@gobob/ui';
+import { Button, SolidClock } from '@gobob/ui';
 import { useAccount } from 'wagmi';
 import { Trans } from '@lingui/macro';
 
@@ -46,11 +46,10 @@ const ActivityButton = (): JSX.Element => {
   };
 
   return (
-    <Tooltip label={<Trans>Activity</Trans>}>
-      <Button isIconOnly style={{ width: '2.75rem', height: '2.75rem' }} onPress={handlePressActivity}>
-        <SolidClock />
-      </Button>
-    </Tooltip>
+    <Button onPress={handlePressActivity}>
+      <SolidClock />
+      <Trans>Activity</Trans>
+    </Button>
   );
 };
 

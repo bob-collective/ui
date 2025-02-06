@@ -72,7 +72,7 @@ describe('useGetBridgeTransactions', () => {
       l2Token: '0xtestl2',
       date: new Date(),
       direction: TransactionDirection.L1_TO_L2,
-      logoUrl: ''
+      icon: ''
     };
 
     const { result } = renderHook(() => useGetBridgeTransactions(), { wrapper });

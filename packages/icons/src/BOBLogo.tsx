@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef } from 'react';
 import { Icon, IconProps } from '@gobob/ui';
 import { useTheme } from 'styled-components';

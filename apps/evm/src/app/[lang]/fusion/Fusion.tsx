@@ -3,11 +3,12 @@
 import { Card, Flex, H1, H2, Link, P } from '@gobob/ui';
 import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import superchainEco from '@public/assets/partners/superchain-eco.png';
-import x from '@public/assets/x.png';
+import superchainEco from '@public/assets/partners/superchain-eco.webp';
+import x from '@public/assets/x.webp';
 import { useId, useState } from 'react';
 import { useIsClient, useLocalStorage } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
+import heroDots from '@public/assets/hero-dots.webp';
 
 import { useGetApps } from '../apps/hooks';
 
@@ -105,7 +106,7 @@ const Fusion = () => {
       <StyledMain padding='none'>
         <StyledHeroSectionWrapper direction='column' paddingBottom='9xl' paddingX='lg'>
           <StyledBackground />
-          <StyledBgDots alt={t(i18n)`Hero dots`} height='774' src='/assets/hero-dots.svg' width='1733' />
+          <StyledBgDots alt={t(i18n)`Hero dots`} height='774' placeholder='blur' src={heroDots} width='1733' />
           <StyledHeroSection direction='column'>
             <Flex direction='column' gap='lg'>
               <H1 size='4xl'>

@@ -2,7 +2,6 @@
 
 import {
   ArrowTopRightOnSquare,
-  Avatar,
   Card,
   Dd,
   Divider,
@@ -25,6 +24,7 @@ import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useTheme } from 'styled-components';
 import { Address } from 'viem';
+import { BTC } from '@gobob/icons';
 
 import { StrategyCurrency } from '../../constants';
 import { StrategyData } from '../../hooks';
@@ -86,12 +86,7 @@ const MiddleNodeCard = ({
       padding='md'
       onPress={hideSymbol ? undefined : onPress}
     >
-      <ChainAsset
-        asset={<Avatar alt={node.currency.symbol} size='4xl' src={node.logoUrl} />}
-        chainId={L2_CHAIN}
-        chainProps={{ size: 'xs' }}
-      />
-
+      <ChainAsset asset={<node.icon size='2xl' />} chainId={L2_CHAIN} chainProps={{ size: 'xs' }} />
       {!hideSymbol && infoEl}
     </Card>
   );
@@ -145,12 +140,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
       paddingX='lg'
       paddingY='s'
     >
-      <Avatar
-        alt='BTC'
-        size={{ base: '4xl', s: '5xl' }}
-        src='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
-      />
-
+      <BTC size='2xl' />
       <Flex direction='column' style={{ overflow: 'hidden' }}>
         <Span color='grey-50' size='xs'>
           <Trans>Input</Trans>
@@ -181,11 +171,7 @@ const StrategyDetails = ({ strategy, isLending }: StrategyDetailsProps) => {
       paddingY='s'
       onPress={() => handleContractNavigate(lastNode.currency.address)}
     >
-      <ChainAsset
-        asset={<Avatar alt={lastNode.currency.symbol} size={{ base: '4xl', s: '5xl' }} src={lastNode.logoUrl} />}
-        chainId={L2_CHAIN}
-        chainProps={{ size: 'xs' }}
-      />
+      <ChainAsset asset={<lastNode.icon size='2xl' />} chainId={L2_CHAIN} chainProps={{ size: 'xs' }} />
       <Flex direction='column' style={{ overflow: 'hidden' }}>
         <Flex alignItems='center' gap='xs' justifyContent='space-between'>
           <Span color='grey-50' size='xs'>

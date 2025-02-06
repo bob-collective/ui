@@ -47,7 +47,11 @@ const DepositedAssets = () => {
 
           return (
             <Flex key={key} alignItems='center' gap='md'>
-              <Avatar size='2xl' src={eth.raw.logoUrl} />
+              {typeof eth.raw.icon === 'string' ? (
+                <Avatar size='2xl' src={eth.raw.icon} />
+              ) : (
+                <eth.raw.icon size='2xl' />
+              )}
               <P size='xs' weight='semibold'>
                 {item.total_amount} {nativeToken.symbol} ({format(Number(item.total_usd))})
               </P>
@@ -64,7 +68,7 @@ const DepositedAssets = () => {
 
         return (
           <Flex key={key} alignItems='center' gap='md'>
-            <Avatar size='2xl' src={erc20.raw.logoUrl} />
+            {erc20.raw.icon && <erc20.raw.icon size='2xl' />}
             <P size='xs' weight='semibold'>
               {item.total_amount} {erc20.currency.symbol} ({format(Number(item.total_usd))})
             </P>

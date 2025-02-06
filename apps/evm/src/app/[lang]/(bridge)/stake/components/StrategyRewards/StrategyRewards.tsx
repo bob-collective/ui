@@ -1,5 +1,5 @@
-import { Babylon, PellNetwork, Spice } from '@gobob/icons';
-import { Avatar, Chip, Flex, FlexProps } from '@gobob/ui';
+import { Avalon, Babylon, PellNetwork, Segment, Solv, Spice, UniBTC } from '@gobob/icons';
+import { Chip, Flex, FlexProps } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 
@@ -18,25 +18,13 @@ const PellPoints = () => (
 );
 
 const BedrockDiamond = () => (
-  <Chip
-    background='blue-800'
-    size='s'
-    startAdornment={
-      <Avatar size='xl' src='https://raw.githubusercontent.com/bob-collective/bob/master/assets/uniBTC.svg' />
-    }
-  >
+  <Chip background='blue-800' size='s' startAdornment={<UniBTC size='s' />}>
     <Trans>Diamond</Trans>
   </Chip>
 );
 
 const SegmentPoints = () => (
-  <Chip
-    size='s'
-    startAdornment={
-      <Avatar size='xl' src='https://raw.githubusercontent.com/bob-collective/bob/master/assets/segment.svg' />
-    }
-    style={{ backgroundColor: '#2C3CFE' }}
-  >
+  <Chip size='s' startAdornment={<Segment size='s' />} style={{ backgroundColor: '#2C3CFE' }}>
     <Trans>Points</Trans>
   </Chip>
 );
@@ -48,11 +36,7 @@ const BabylonPoints = () => (
 );
 
 const SolvXP = () => (
-  <Chip
-    size='s'
-    startAdornment={<Avatar size='2xl' src='https://static.gobob.xyz/logos/SOLV%20LOGO%20purple.png' />}
-    style={{ backgroundColor: '#301F5E' }}
-  >
+  <Chip size='s' startAdornment={<Solv size='xs' />} style={{ backgroundColor: '#301F5E' }}>
     <Trans>Solv XP</Trans>
   </Chip>
 );
@@ -64,11 +48,7 @@ const SupplyApr = () => (
 );
 
 const AvalonPoints = () => (
-  <Chip
-    background='dark'
-    size='s'
-    startAdornment={<Avatar size='xl' src='https://static.gobob.xyz/logos/Untitled.png' />}
-  >
+  <Chip background='dark' size='s' startAdornment={<Avalon size='xs' />}>
     <Trans>Points</Trans>
   </Chip>
 );

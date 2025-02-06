@@ -3,7 +3,7 @@ import { Card, Chip, Flex } from '@gobob/ui';
 
 const StyledHarvestCard = styled(Card)`
   position: relative;
-  background-image: url(/assets/harvest_excavation.jpg);
+  background-image: url(/assets/harvest-excavation.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;

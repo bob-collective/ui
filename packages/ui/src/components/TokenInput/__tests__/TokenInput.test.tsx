@@ -10,7 +10,7 @@ import { TokenInput } from '..';
 describe('TokenInput', () => {
   it('should render correctly', () => {
     const { unmount } = render(
-      <TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />
+      <TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' />
     );
 
     expect(() => unmount()).not.toThrow();
@@ -19,36 +19,36 @@ describe('TokenInput', () => {
   it('ref should be forwarded', () => {
     const ref = createRef<HTMLInputElement>();
 
-    render(<TokenInput ref={ref} currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />);
+    render(<TokenInput ref={ref} currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' />);
     expect(ref.current).not.toBeNull();
   });
 
   it('should pass a11y', async () => {
-    await testA11y(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />);
+    await testA11y(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' />);
   });
 
   it('should render with placeholder', () => {
-    render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />);
+    render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' />);
 
     expect(screen.getByPlaceholderText('0.00')).toBeInTheDocument();
   });
 
   it('should render with usd value', () => {
-    render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' valueUSD={10} />);
+    render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' valueUSD={10} />);
 
     expect(screen.getByText('$10.00')).toBeInTheDocument();
   });
 
   it('should render with default value', () => {
     render(
-      <TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} defaultValue='10' label='label' logoUrl='' />
+      <TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} defaultValue='10' icon='' label='label' />
     );
 
     expect(screen.getByRole('textbox', { name: /label/i })).toHaveValue('10');
   });
 
   it('should display 0.01 when 0.0.1 is typed', async () => {
-    render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />);
+    render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' />);
 
     const input = screen.getByRole('textbox', { name: /label/i });
 
@@ -60,7 +60,7 @@ describe('TokenInput', () => {
   });
 
   it('should display max decimals', async () => {
-    render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />);
+    render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' />);
 
     const input = screen.getByRole('textbox', { name: /label/i });
 
@@ -80,8 +80,8 @@ describe('TokenInput', () => {
       return (
         <TokenInput
           currency={{ decimals: 6, symbol: 'BTC' } as Currency}
+          icon=''
           label='label'
-          logoUrl=''
           value={value}
           onValueChange={handleValueChange}
         />
@@ -106,8 +106,8 @@ describe('TokenInput', () => {
       <TokenInput
         currency={{ decimals: 6, symbol: 'BTC' } as Currency}
         description='Please select token'
+        icon=''
         label='label'
-        logoUrl=''
       />
     );
 
@@ -116,9 +116,7 @@ describe('TokenInput', () => {
 
   describe('balance', () => {
     it('should render human value', () => {
-      render(
-        <TokenInput balance='10' currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />
-      );
+      render(<TokenInput balance='10' currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' />);
 
       expect(screen.getByRole('button')).toHaveTextContent('10');
     });
@@ -132,8 +130,8 @@ describe('TokenInput', () => {
           balance='10'
           currency={{ decimals: 6, symbol: 'BTC' } as Currency}
           humanBalance='11'
+          icon=''
           label='label'
-          logoUrl=''
           onClickBalance={handleClickBalance}
           onValueChange={handleValueChange}
         />
@@ -159,8 +157,8 @@ describe('TokenInput', () => {
         <TokenInput
           balance='0.167345554041665262'
           currency={{ decimals: 18, symbol: 'ETH' } as Currency}
+          icon=''
           label='label'
-          logoUrl=''
           onClickBalance={handleClickBalance}
           onValueChange={handleValueChange}
         />
@@ -183,8 +181,8 @@ describe('TokenInput', () => {
         <TokenInput
           balance='0.167345554041665262'
           currency={{ decimals: 8, symbol: 'BTC' } as Currency}
+          icon=''
           label='label'
-          logoUrl=''
           onValueChange={handleValueChange}
         />
       );
@@ -206,8 +204,8 @@ describe('TokenInput', () => {
         <TokenInput
           balance='10'
           currency={{ decimals: 6, symbol: 'BTC' } as Currency}
+          icon=''
           label='label'
-          logoUrl=''
           onBlur={handleBlur}
           onClickBalance={handleClickBalance}
         />
@@ -240,8 +238,8 @@ describe('TokenInput', () => {
           balance='0'
           currency={{ decimals: 6, symbol: 'BTC' } as Currency}
           humanBalance={11}
+          icon=''
           label='label'
-          logoUrl=''
           onClickBalance={handleClickBalance}
         />
       );
@@ -257,8 +255,8 @@ describe('TokenInput', () => {
           isDisabled
           balance='10'
           currency={{ decimals: 6, symbol: 'BTC' } as Currency}
+          icon=''
           label='label'
-          logoUrl=''
           onClickBalance={handleClickBalance}
         />
       );
@@ -269,7 +267,7 @@ describe('TokenInput', () => {
 
   describe('fixed type', () => {
     it('should render with ticker adornment', () => {
-      render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} label='label' logoUrl='' />);
+      render(<TokenInput currency={{ decimals: 6, symbol: 'BTC' } as Currency} icon='' label='label' />);
 
       expect(screen.getByText(/btc/i)).toBeInTheDocument();
     });
@@ -279,8 +277,8 @@ describe('TokenInput', () => {
     const currencies = [{ decimals: 6, symbol: 'BTC' } as Currency, { decimals: 18, symbol: 'ETH' }];
 
     const items = [
-      { balance: 1, currency: currencies[0] as Currency, balanceUSD: 10000, logoUrl: '' },
-      { balance: 2, currency: currencies[1] as Currency, balanceUSD: 900, logoUrl: '' }
+      { balance: 1, currency: currencies[0] as Currency, balanceUSD: 10000, icon: '' },
+      { balance: 2, currency: currencies[1] as Currency, balanceUSD: 900, icon: '' }
     ];
 
     it('should render correctly', async () => {

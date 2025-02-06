@@ -1,7 +1,6 @@
 import { getCapitalizedChainName } from '@gobob/chains';
 import { Currency, ERC20Token } from '@gobob/currency';
 import { usePrices } from '@gobob/hooks';
-import { Avatar } from '@gobob/ui';
 import { useRouter } from 'next/navigation';
 import { Address, Chain } from 'viem';
 import { useAccount, useWatchAsset } from 'wagmi';
@@ -73,8 +72,8 @@ const ProfileTokenList = ({ items, currentChain, otherChain, onPressNavigate }: 
         logo={
           <ChainAsset
             asset={
-              item.token.raw.logoUrl ? (
-                <Avatar alt={item.token.raw.name} size='5xl' src={item.token.raw.logoUrl} />
+              item.token.raw.icon ? (
+                <item.token.raw.icon size='2xl' />
               ) : (
                 <StyledMissingImageLogo>{item.token.raw.symbol.toUpperCase().slice(0, 3)}</StyledMissingImageLogo>
               )

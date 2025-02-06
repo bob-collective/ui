@@ -1,5 +1,5 @@
 import {
-  Avatar,
+  Icon,
   Card,
   Dd,
   Dl,
@@ -17,7 +17,8 @@ import {
   Tooltip,
   useCurrencyFormatter,
   useLocale,
-  useMediaQuery
+  useMediaQuery,
+  Avatar
 } from '@gobob/ui';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -55,9 +56,17 @@ const getSkeletons = () =>
       [StrategiesTableColumns.TVL]: <Skeleton height='2xl' width='7xl' />
     }));
 
-const StrategyCell = ({ logo, name, protocol }: { logo: string; protocol: string; name: string }) => (
+const StrategyCell = ({
+  icon: IconComponent,
+  name,
+  protocol
+}: {
+  icon: typeof Icon | string;
+  protocol: string;
+  name: string;
+}) => (
   <Flex alignItems='center' gap='lg'>
-    <Avatar size='5xl' src={logo} />
+    {typeof IconComponent === 'string' ? <Avatar size='5xl' src={IconComponent} /> : <IconComponent size='2xl' />}
     <Flex alignItems='flex-start' direction='column'>
       <Span rows={1} size='s' style={{ whiteSpace: 'normal' }} weight='bold'>
         {name}
@@ -173,11 +182,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
         return {
           id: strategy.meta.slug,
           [StrategiesTableColumns.STRATEGY]: (
-            <StrategyCell
-              logo={strategy.info.logoUrl || strategy.meta.logo}
-              name={strategy.info.name}
-              protocol={strategy.info.protocol}
-            />
+            <StrategyCell icon={strategy.info.icon} name={strategy.info.name} protocol={strategy.info.protocol} />
           ),
           [StrategiesTableColumns.AMOUNT]: (
             <Flex direction='column'>

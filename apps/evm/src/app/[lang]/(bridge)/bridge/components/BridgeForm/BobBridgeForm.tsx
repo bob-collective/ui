@@ -211,7 +211,7 @@ const BobBridgeForm = ({
         l1Token: l1Address,
         l2Token: l2Address,
         type: TransactionType.Bridge,
-        logoUrl: selectedToken.l1Token.logoUrl
+        icon: selectedToken.l1Token.icon
       };
 
       const to = recipient || address!;
@@ -304,7 +304,7 @@ const BobBridgeForm = ({
         l1Token: l1Address,
         l2Token: l2Address,
         type: TransactionType.Bridge,
-        logoUrl: selectedToken.l2Token.logoUrl
+        icon: selectedToken.l2Token.icon
       };
 
       const to = recipient || address!;
@@ -455,7 +455,7 @@ const BobBridgeForm = ({
         return {
           balance: balance?.toExact() || 0,
           balanceUSD: balance ? calculateAmountUSD(balance, getPrice(token.l1Currency.symbol)) : 0,
-          logoUrl: token.l1Token.logoUrl,
+          icon: token.l1Token.icon,
           currency: token.l1Currency
         };
       }) || [],

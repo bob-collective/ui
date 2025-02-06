@@ -34,8 +34,8 @@ const BridgeTransactionItem = ({
           date={data.date}
           direction={data.direction}
           fromChainId={fromChaindId}
+          icon={data.icon}
           isExpanded={isExpanded}
-          logoUrl={data.logoUrl}
           toChainId={toChaindId}
         />
         <BridgeStatus
