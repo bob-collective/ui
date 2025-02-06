@@ -1,36 +1,20 @@
 'use client';
 
-import {
-  Alert,
-  ArrowLeft,
-  Button,
-  Card,
-  Flex,
-  H1,
-  H2,
-  Icon,
-  Link,
-  P,
-  Skeleton,
-  Tabs,
-  TabsItem,
-  useMediaQuery
-} from '@gobob/ui';
+import { Alert, ArrowLeft, Button, Card, Flex, H1, H2, Link, P, Skeleton, Tabs, TabsItem } from '@gobob/ui';
 import { Trans } from '@lingui/macro';
-import { useState } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useState } from 'react';
 import { useAccount } from 'wagmi';
-import { useTheme } from 'styled-components';
 
-import { StrategyDetails, StrategyForm } from '../components';
+import { BannerImage, StrategyDetails, StrategyForm } from '../components';
 import { useGetStrategies } from '../hooks';
 
 import { StyledBannerContent, StyledBannerTitle } from './Strategy.styles';
 
 import { Layout, Main } from '@/components';
 import { RoutesPath } from '@/constants';
-import { PageLangParam } from '@/i18n/withLigui';
 import { useGetGatewayTransactions } from '@/hooks';
+import { PageLangParam } from '@/i18n/withLigui';
 import { posthogEvents } from '@/lib/posthog';
 
 type Props = PageLangParam & {
@@ -45,8 +29,6 @@ enum Tab {
 function Strategy({ params }: Props) {
   const { refetch: refetchTransactions } = useGetGatewayTransactions();
   const { address } = useAccount();
-  const theme = useTheme();
-  const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'));
 
   const [tab, setTab] = useState<Tab>(Tab.Deposit);
 
@@ -74,9 +56,6 @@ function Strategy({ params }: Props) {
     posthogEvents.strategies.strategy.externalWithdraw({ asset_name: strategy?.contract.integration.name as string });
   };
 
-  const InputTokenIcon = strategy?.info.breakdown.at(0)?.icon as typeof Icon;
-  const OutputTokenIcon = strategy?.info.breakdown.at(-1)?.icon as typeof Icon;
-
   return (
     <Layout>
       <Main maxWidth='5xl' padding='md'>
@@ -87,12 +66,7 @@ function Strategy({ params }: Props) {
           </Flex>
         </Link>
         <Flex alignItems='center' gap='lg' marginTop='4xl'>
-          {strategy ? (
-            <strategy.info.icon size='xl' />
-          ) : (
-            // <Avatar size='4xl' src={strategy.info.logoUrl || strategy.meta.logo} />
-            <Skeleton height='4xl' rounded='full' width='4xl' />
-          )}
+          {strategy ? <strategy.info.icon size='xl' /> : <Skeleton height='4xl' rounded='full' width='4xl' />}
 
           <Flex alignItems='flex-start' direction='column'>
             <H1 size='lg'>{strategy ? strategy.info.name : <Skeleton height='xl' width='12rem' />}</H1>
@@ -144,71 +118,7 @@ function Strategy({ params }: Props) {
                 </P>
               </Flex>
             </StyledBannerContent>
-            {strategy && (
-              <OutputTokenIcon
-                height={25}
-                style={{
-                  opacity: isMobileViewport ? 0.2 : 1,
-                  position: 'absolute',
-                  bottom: 20,
-                  right: 170,
-                  filter: 'blur(2px)'
-                }}
-                width={25}
-              />
-            )}
-            {strategy && (
-              <InputTokenIcon
-                height={25}
-                style={{
-                  opacity: isMobileViewport ? 0.2 : 1,
-                  position: 'absolute',
-                  top: 30,
-                  right: 200,
-                  filter: 'blur(2px)'
-                }}
-                width={25}
-              />
-            )}
-            {strategy && (
-              <InputTokenIcon
-                height={50}
-                style={{
-                  opacity: isMobileViewport ? 0.2 : 1,
-                  position: 'absolute',
-                  top: -10,
-                  right: 0,
-                  filter: 'blur(2px)'
-                }}
-                width={50}
-              />
-            )}
-            {strategy && (
-              <InputTokenIcon
-                height={90}
-                style={{
-                  opacity: isMobileViewport ? 0.2 : 1,
-                  position: 'absolute',
-                  top: '50%',
-                  right: 80,
-                  transform: 'translateY(-50%)'
-                }}
-                width={90}
-              />
-            )}
-            {strategy && (
-              <OutputTokenIcon
-                height={90}
-                style={{
-                  opacity: isMobileViewport ? 0.2 : 1,
-                  position: 'absolute',
-                  top: '50%',
-                  right: 10,
-                  transform: 'translateY(-50%)'
-                }}
-                width={90}
-              />
-            )}
+            <BannerImage strategy={strategy} />
           </Card>
         </Flex>
         <Flex direction={{ base: 'column', md: 'row' }} gap='xl' marginTop='3xl' style={{ width: '100%' }}>
