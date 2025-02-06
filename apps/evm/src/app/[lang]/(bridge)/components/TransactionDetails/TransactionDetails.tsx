@@ -67,7 +67,6 @@ const TransactionDetails = ({
         return {
           balance: balance?.toExact() || 0,
           balanceUSD: balance ? calculateAmountUSD(balance, getPrice(balance.currency.symbol)) : 0,
-          logoUrl: token.raw.logoUrl,
           icon: token.raw.icon,
           currency: token.currency
         };

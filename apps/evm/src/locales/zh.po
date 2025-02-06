@@ -26,7 +26,7 @@ msgstr ""
 #~ msgid "{0}"
 #~ msgstr ""
 
-#: src/components/ProfileActivity/TransactionDetails.tsx:49
+#: src/components/ProfileActivity/TransactionDetails.tsx:53
 msgid "{0} ago"
 msgstr ""
 
@@ -103,7 +103,7 @@ msgstr "<0>一键质押你的BTC</0> 并在BOB上接收BTC LSTs。"
 msgid "2 hours"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:272
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:271
 msgid "3rd Party"
 msgstr ""
 
@@ -190,9 +190,9 @@ msgstr ""
 msgid "Already harvesting?"
 msgstr "已经在收获？"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:495
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:492
 #: src/app/[lang]/(bridge)/components/BtcTokenInput/BtcTokenInput.tsx:40
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:241
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:234
 msgid "Amount"
 msgstr ""
 
@@ -225,7 +225,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:479
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:476
 msgid "Approve"
 msgstr "通过"
 
@@ -328,7 +328,7 @@ msgstr "以下是你从各个应用中收获的Spice。继续参与以增加你�
 msgid "BOB"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:269
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:268
 msgid "BOB Bridge"
 msgstr ""
 
@@ -411,7 +411,7 @@ msgstr ""
 msgid "Bridge"
 msgstr "桥"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:480
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:477
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:154
 msgid "Bridge Asset"
 msgstr ""
@@ -425,11 +425,11 @@ msgstr "跨链资产"
 msgid "Bridge BTC LSTs to BOB"
 msgstr "将BTC LSTs跨链到BOB"
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:475
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:472
 msgid "Bridge Disabled"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:262
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:261
 msgid "bridge network"
 msgstr ""
 
@@ -506,7 +506,7 @@ msgstr ""
 #~ msgid "Category"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:477
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:474
 msgid "Checking Allowance"
 msgstr ""
 
@@ -789,7 +789,7 @@ msgstr ""
 msgid "enable ETH top-up for transaction fees on BOB network"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:506
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:503
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:142
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:151
 msgid "Enter destination address"
@@ -941,7 +941,7 @@ msgstr ""
 msgid "Fusion Users:"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:117
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:116
 msgid "Gas Token"
 msgstr ""
 
@@ -1147,27 +1147,27 @@ msgstr ""
 msgid "Lend"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:344
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:326
 msgid "Lend out tBTC on Avalon."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:301
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:286
 msgid "Lend out tBTC on Ionic."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:162
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:153
 msgid "Lend out tBTC on Segment."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:322
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:306
 msgid "Lend out wBTC on Avalon."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:280
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:266
 msgid "Lend out wBTC on Ionic."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:182
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:172
 msgid "Lend out wBTC on Segment."
 msgstr ""
 
@@ -1209,11 +1209,11 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: src/components/WithdrawModal/DepositedAssets.tsx:89
+#: src/components/WithdrawModal/DepositedAssets.tsx:93
 msgid "Locked Amount"
 msgstr "锁定金额"
 
-#: src/components/WithdrawModal/DepositedAssets.tsx:80
+#: src/components/WithdrawModal/DepositedAssets.tsx:84
 msgid "Locked Capital Breakdown"
 msgstr "锁定资本明细"
 
@@ -1423,7 +1423,7 @@ msgstr "目前暂无新目标。请保持关注更新！"
 #~ msgid "No operations found"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:316
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:309
 msgid "No strategies to display"
 msgstr ""
 
@@ -1505,7 +1505,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/ProfileActivity/ProfileActivityFilters.tsx:21
-#: src/components/ProfileActivity/TransactionDetails.tsx:60
+#: src/components/ProfileActivity/TransactionDetails.tsx:64
 msgid "Pending"
 msgstr ""
 
@@ -1616,7 +1616,7 @@ msgstr "接收"
 msgid "Receive crypto"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:505
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BobBridgeForm.tsx:502
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:142
 #: src/app/[lang]/(bridge)/stake/components/StrategyForm/StrategyForm.tsx:150
 msgid "Recipient"
@@ -1651,7 +1651,7 @@ msgstr ""
 #~ msgid "Restaking"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:119
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:117
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:216
 #: src/app/[lang]/apps/components/AppsList/AppCard.tsx:131
 #: src/app/[lang]/fusion/components/Strategies/StrategyCard.tsx:107
@@ -1711,7 +1711,7 @@ msgstr ""
 msgid "Select Filter"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:120
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:119
 msgid "select gas token"
 msgstr ""
 
@@ -1719,11 +1719,11 @@ msgstr ""
 msgid "Select Network"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:232
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:231
 msgid "select network to bridge from"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:242
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:241
 msgid "select network to bridge to"
 msgstr ""
 
@@ -1735,7 +1735,7 @@ msgstr ""
 msgid "Select the wrapped Bitcoin asset and the amount that you want to bridge."
 msgstr "选择你想跨链的BTC包装资产和数量。"
 
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:122
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:121
 msgid "Select Token"
 msgstr ""
 
@@ -1888,19 +1888,19 @@ msgstr ""
 msgid "Stake"
 msgstr "質押"
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:100
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:93
 msgid "Stake BTC into Babylon via Bedrock and receive liquid staking token uniBTC."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:145
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:137
 msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and deposit into Pell restaking."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:233
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:221
 msgid "Stake BTC into Babylon via Bedrock, get uniBTC liquid staking token, and lend it out on Segment."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:113
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:106
 msgid "Stake BTC into Babylon via Solv Protocol and receive liquid staking token solvBTC.BBN."
 msgstr ""
 
@@ -1908,7 +1908,7 @@ msgstr ""
 #~ msgid "Stake BTC into Babylon via Solv Protocol and receive liquid staking token SolvBTC.BBN."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:127
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:120
 msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and deposit into Pell."
 msgstr ""
 
@@ -1916,11 +1916,11 @@ msgstr ""
 #~ msgid "Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and deposit into Pell."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:367
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:347
 msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Avalon."
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:203
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:192
 msgid "Stake BTC into Babylon via Solv Protocol, get solvBTC.BBN liquid staking token, and lend it out on Segment."
 msgstr ""
 
@@ -1928,7 +1928,7 @@ msgstr ""
 #~ msgid "Stake BTC into Babylon via Solv Protocol, get SolvBTC.BBN liquid staking token, and lend it out on Segment."
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:261
+#: src/app/[lang]/(bridge)/stake/constants/strategies.tsx:248
 msgid "Stake BTC into Lombard and receive liquid staking token LBTC."
 msgstr ""
 
@@ -1949,11 +1949,11 @@ msgstr ""
 msgid "Staking"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:273
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:266
 msgid "Staking list"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:308
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:301
 msgid "Staking table"
 msgstr ""
 
@@ -1996,7 +1996,7 @@ msgstr "第二步"
 msgid "Steps"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:99
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:97
 msgid "Strategy"
 msgstr ""
 
@@ -2292,7 +2292,7 @@ msgstr ""
 msgid "Transaction Submitted"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:109
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:108
 msgid "Transfer time"
 msgstr ""
 
@@ -2300,7 +2300,7 @@ msgstr ""
 msgid "Try adjusting your filters"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:107
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:105
 #: src/app/[lang]/(bridge)/stake/components/StrategyDetails/StrategyDetails.tsx:226
 #: src/app/[lang]/fusion/components/UserInfo/Barometer.tsx:67
 msgid "TVL"
@@ -2309,7 +2309,7 @@ msgstr "总锁仓价值（TVL）"
 #~ msgid "TVL (on BOB)"
 #~ msgstr ""
 
-#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:109
+#: src/app/[lang]/(bridge)/stake/components/StrategiesTable/StrategiesTable.tsx:107
 msgid "TVL on BOB"
 msgstr ""
 
@@ -2330,7 +2330,7 @@ msgstr "很抱歉，目前智能账户还不能跨链到BOB。我们正在努力
 #~ msgstr ""
 
 #: src/components/BridgeStatus/BridgeStep.tsx:235
-#: src/components/ProfileActivity/TransactionDetails.tsx:69
+#: src/components/ProfileActivity/TransactionDetails.tsx:73
 msgid "Unknown"
 msgstr ""
 
@@ -2410,7 +2410,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:277
+#: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BridgeForm.tsx:276
 msgid "Using the official bridge usually takes 7 days. For faster withdrawals we recommend using a 3rd party bridge for supported tokens (ETH, WBTC, USDT, USDC)."
 msgstr ""
 
@@ -2614,7 +2614,7 @@ msgid "You will need to actively monitor your position, especially if it has a s
 msgstr "请密切关注你的仓位，尤其是当设定的价格范围较窄时。"
 
 #: src/app/[lang]/(bridge)/bridge/components/BridgeForm/BtcBridgeForm.tsx:145
-#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:87
+#: src/app/[lang]/(bridge)/components/TransactionDetails/TransactionDetails.tsx:86
 #: src/app/[lang]/(bridge)/components/TransactionModal/GatewayTransactionModal.tsx:71
 msgid "You will receive"
 msgstr ""

@@ -113,8 +113,7 @@ const BridgeForm = ({
           name: token.name,
           symbol: token.symbol,
           decimals: token.decimals,
-          logoUrl: token.logoURI,
-          icon: tokenAddressToRawTokenMapping[getAddress(token.address)]?.icon,
+          icon: tokenAddressToRawTokenMapping[getAddress(token.address)]?.icon || token.logoURI,
           apiId: ''
         },
         currency: new Token(ChainId.BOB, token.address as `0x${string}`, token.decimals, token.symbol, token.name)

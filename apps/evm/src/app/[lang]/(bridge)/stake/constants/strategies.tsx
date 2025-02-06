@@ -29,15 +29,14 @@ enum StrategyProtocol {
 }
 
 type StrategyCurrency =
-  | { currency: { symbol: string; address: Address }; logoUrl: string; icon: typeof Icon }
-  | { currency: ERC20Token; logoUrl: string; icon: typeof Icon };
+  | { currency: { symbol: string; address: Address }; icon: typeof Icon }
+  | { currency: ERC20Token; icon: typeof Icon };
 
 type StrategyInfo = {
   name: string;
   description: ReactNode;
   protocol: StrategyProtocol;
-  logoUrl?: string;
-  icon: typeof Icon;
+  icon: typeof Icon | string;
   incentives: StrategyIncentive[];
   isDisabled?: boolean;
   isHidden?: boolean;
@@ -54,8 +53,6 @@ const wBTC = {
   securityReview: 'https://www.bitcoinlayers.org/infrastructure/bitgo-wbtc',
   asset: {
     currency: tokens.WBTC![ChainId.BOB]!,
-    logoUrl:
-      'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png',
     icon: icons.WBTC
   } satisfies StrategyCurrency
 };
@@ -64,7 +61,6 @@ const tBTC = {
   securityReview: 'https://www.bitcoinlayers.org/infrastructure/threshold-tbtc',
   asset: {
     currency: tokens.TBTC![ChainId.BOB]!,
-    logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
     icon: icons.TBTC
   } satisfies StrategyCurrency
 };
@@ -73,7 +69,6 @@ const uniBTC = {
   securityReview: 'https://www.bitcoinlayers.org/infrastructure/bedrock-unibtc',
   asset: {
     currency: { symbol: 'uniBTC', address: '0x236f8c0a61dA474dB21B693fB2ea7AAB0c803894' as Address },
-    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/uniBTC.svg',
     icon: icons.UniBTC
   } satisfies StrategyCurrency
 };
@@ -83,12 +78,10 @@ const solvBTCSecurityReview = 'https://www.bitcoinlayers.org/infrastructure/solv
 const solvBTCPath = [
   {
     currency: { symbol: 'SolvBTC', address: '0x541fd749419ca806a8bc7da8ac23d346f2df8b77' },
-    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/solvBTC.svg',
     icon: icons.SolvBTC
   } satisfies StrategyCurrency,
   {
     currency: { symbol: 'SolvBTC.BBN', address: '0xcc0966d8418d412c599a6421b760a847eb169a8c' },
-    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/solvBTC.BBN.svg',
     icon: icons.SolvBTCBBN
   } satisfies StrategyCurrency
 ] as const;
@@ -130,7 +123,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ),
     protocol: StrategyProtocol.Pell,
     incentives: [StrategyIncentive.Pell, StrategyIncentive.Solv, StrategyIncentive.Babylon],
-    logoUrl: 'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true',
     icon: icons.PellNetwork,
     links: {
       securityReview: solvBTCSecurityReview,
@@ -148,7 +140,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ),
     protocol: StrategyProtocol.Pell,
     incentives: [StrategyIncentive.Pell, StrategyIncentive.Bedrock, StrategyIncentive.Babylon],
-    logoUrl: 'https://github.com/0xPellNetwork/pell_media_kit/blob/main/logos/500r_whiteblack.png?raw=true',
     icon: icons.PellNetwork,
     links: {
       securityReview: uniBTC.securityReview,
@@ -172,7 +163,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       tBTC.asset,
       {
         currency: { symbol: 'seTBTC', address: '0xD30288EA9873f376016A0250433b7eA375676077' },
-        logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/segment.svg',
         icon: icons.Segment
       }
     ]
@@ -192,7 +182,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       tBTC.asset,
       {
         currency: { symbol: 'seWBTC', address: '0x6265C05158f672016B771D6Fb7422823ed2CbcDd' },
-        logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/segment.svg',
         icon: icons.Segment
       }
     ]
@@ -222,7 +211,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       ...solvBTCPath,
       {
         currency: { symbol: 'seSOLVBTCBBN', address: '0x5EF2B8fbCc8aea2A9Dbe2729F0acf33E073Fa43e' },
-        logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/segment.svg',
         icon: icons.Segment
       }
     ]
@@ -250,7 +238,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       uniBTC.asset,
       {
         currency: { symbol: 'seUNIBTC', address: '0x7848F0775EebaBbF55cB74490ce6D3673E68773A' },
-        logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/segment.svg',
         icon: icons.Segment
       }
     ]
@@ -270,7 +257,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     breakdown: [
       {
         currency: { symbol: 'LBTC', address: '0x1010101010101010101010101010101010101010' },
-        logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
         icon: icons.LBTC
       }
     ]
@@ -291,7 +277,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       wBTC.asset,
       {
         currency: { symbol: 'ionWBTC', address: '0xEBc8a7EE7f1D6534eBF45Bd5311203BF0A17493c' },
-        logoUrl: wBTC.asset.logoUrl,
         icon: wBTC.asset.icon
       }
     ]
@@ -312,7 +297,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       tBTC.asset,
       {
         currency: { symbol: 'iontBTC', address: '0x68e0e4d875FDe34fc4698f40ccca0Db5b67e3693' },
-        logoUrl: tBTC.asset.logoUrl,
         icon: tBTC.asset.icon
       }
     ]
@@ -322,7 +306,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     description: <Trans>Lend out wBTC on Avalon.</Trans>,
     protocol: StrategyProtocol.Avalon,
     incentives: [StrategyIncentive.Avalon, StrategyIncentive.Supply],
-    logoUrl: 'https://static.gobob.xyz/logos/Untitled.png',
     icon: icons.Avalon,
     links: {
       securityReview: wBTC.securityReview,
@@ -334,7 +317,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       wBTC.asset,
       {
         currency: { symbol: 'aBOBWBTC', address: '0x4b6Ec2339822A1023b11e45E43DBaAbedeD0BC3B' },
-        logoUrl: tBTC.asset.logoUrl,
         icon: tBTC.asset.icon
       }
     ]
@@ -350,13 +332,11 @@ const strategiesInfo: Record<string, StrategyInfo> = {
         'https://app.avalonfinance.xyz/reserve-overview/?underlyingAsset=0xbba2ef945d523c4e2608c9e1214c2cc64d4fc2e2&marketName=proto_bob_v3',
       landingPage: 'https://www.avalonfinance.xyz/'
     },
-    logoUrl: 'https://static.gobob.xyz/logos/Untitled.png',
     icon: icons.Avalon,
     breakdown: [
       tBTC.asset,
       {
         currency: { symbol: 'aBOBTBTC', address: '0x1c7ab34f5f24e6947F6e4cABd37a50febA37bdE4' },
-        logoUrl: tBTC.asset.logoUrl,
         icon: tBTC.asset.icon
       }
     ]
@@ -370,7 +350,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
     ),
     protocol: StrategyProtocol.Avalon,
     incentives: [StrategyIncentive.Babylon, StrategyIncentive.Solv, StrategyIncentive.Avalon, StrategyIncentive.Supply],
-    logoUrl: 'https://static.gobob.xyz/logos/Untitled.png',
     icon: icons.Avalon,
     links: {
       securityReview: solvBTCSecurityReview,
@@ -383,7 +362,6 @@ const strategiesInfo: Record<string, StrategyInfo> = {
       ...solvBTCPath,
       {
         currency: { symbol: 'aBOBSOLVBTCBBN', address: '0x828B2b38154C62b5F6733A74126A0795d709e493' },
-        logoUrl: solvBTCPath[1].logoUrl,
         icon: solvBTCPath[1].icon
       }
     ]

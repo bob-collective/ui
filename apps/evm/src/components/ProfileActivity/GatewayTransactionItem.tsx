@@ -24,7 +24,6 @@ const GatewayTransactionItem = ({ data, isExpanded, onExpandChange }: GatewayTra
           fromChainId={fromChaindId}
           icon={data.icon}
           isPending={data.isPending}
-          logoUrl={data.logoUrl}
           toChainId={toChaindId}
         />
         <GatewayStatus data={data} isExpanded={isExpanded} />

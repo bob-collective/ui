@@ -10,8 +10,7 @@ import { Token } from './Token';
 
 type TokenSelectItemProps = {
   currency: Currency;
-  logoUrl: string;
-  icon?: typeof Icon;
+  icon: typeof Icon | string;
   balance: string | number;
   balanceUSD: number;
 };
@@ -26,9 +25,7 @@ const TokenSelect = ({ modalProps, size, placeholder = 'Select token', ...props 
       asSelectTrigger={StyledTokenSelect}
       modalProps={mergeProps({ title: 'Select Token', listProps: { maxHeight: '32rem' } }, modalProps)}
       placeholder={placeholder}
-      renderValue={({ value }) =>
-        value ? <Token icon={value.icon} logoUrl={value.logoUrl} symbol={value.currency.symbol} /> : undefined
-      }
+      renderValue={({ value }) => (value ? <Token icon={value.icon} symbol={value.currency.symbol} /> : undefined)}
       size={size === 'lg' ? 'md' : size}
       type='modal'
     >

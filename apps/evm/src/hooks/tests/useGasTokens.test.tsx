@@ -50,7 +50,6 @@ describe('useGasTokens', () => {
           decimals: 18,
           symbol: 'ETH',
           name: 'Ether',
-          logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
           icon: ETH
         },
         currency: Ether.onChain(ChainId.ETHEREUM)
@@ -75,7 +74,6 @@ describe('useGasTokens', () => {
           decimals: 18,
           symbol: 'ETH',
           name: 'Ether',
-          logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
           icon: ETH
         },
         currency: Ether.onChain(ChainId.SEPOLIA)

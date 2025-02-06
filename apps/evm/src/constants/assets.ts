@@ -10,8 +10,7 @@ export type RawToken = {
   name: string;
   symbol: string;
   decimals: number;
-  logoUrl: string;
-  icon?: typeof Icon;
+  icon: typeof Icon | string;
   apiId: string;
   bridgeDisabled?: boolean;
 };
@@ -24,7 +23,6 @@ export const ETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Chai
     symbol: 'ETH',
     decimals: 18,
     icon: icons.ETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     apiId: 'ethereum'
   },
   [ChainId.BOB]: {
@@ -34,7 +32,6 @@ export const ETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Chai
     symbol: 'ETH',
     decimals: 18,
     icon: icons.ETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     apiId: 'ethereum'
   },
   [ChainId.SEPOLIA]: {
@@ -44,7 +41,6 @@ export const ETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Chai
     symbol: 'ETH',
     decimals: 18,
     icon: icons.ETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     apiId: 'ethereum'
   },
   [ChainId.BOB_SEPOLIA]: {
@@ -54,7 +50,6 @@ export const ETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Chai
     symbol: 'ETH',
     decimals: 18,
     icon: icons.ETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     apiId: 'ethereum'
   }
 };
@@ -67,7 +62,6 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA, Ra
     symbol: 'wstETH',
     decimals: 18,
     icon: icons.WstETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
     apiId: 'wrapped-steth'
   },
   [ChainId.BOB]: {
@@ -77,7 +71,6 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA, Ra
     symbol: 'wstETH',
     decimals: 18,
     icon: icons.WstETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
     apiId: 'wrapped-steth'
   },
   [ChainId.SEPOLIA]: {
@@ -87,7 +80,6 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA, Ra
     symbol: 'wstETH',
     decimals: 18,
     icon: icons.WstETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
     apiId: 'wrapped-steth'
   }
   // [ChainId.BOB_SEPOLIA]: {
@@ -97,7 +89,6 @@ export const wstETH: Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA, Ra
   //   symbol: 'wstETH',
   //   decimals: 18,
   //   icon: icons.WstETH,
-  //   logoUrl: 'https://ethereum-optimism.github.io/data/wstETH/logo.svg',
 
   //   apiId: 'wrapped-steth'
   // },
@@ -112,7 +103,6 @@ const usdc: Partial<Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Ch
       symbol: USDC[ChainId.ETHEREUM].symbol,
       decimals: USDC[ChainId.ETHEREUM].decimals,
       icon: icons.USDC,
-      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
       apiId: 'usd-coin'
     }
   }),
@@ -124,7 +114,6 @@ const usdc: Partial<Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Ch
       symbol: USDC[ChainId.BOB].symbol!,
       decimals: USDC[ChainId.BOB].decimals,
       icon: icons.USDC,
-      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
       apiId: 'usd-coin'
     }
   }),
@@ -136,7 +125,6 @@ const usdc: Partial<Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Ch
       symbol: USDC[ChainId.SEPOLIA].symbol!,
       decimals: USDC[ChainId.SEPOLIA].decimals,
       icon: icons.USDC,
-      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
       apiId: 'usd-coin'
     }
   }),
@@ -148,7 +136,6 @@ const usdc: Partial<Record<ChainId.BOB | ChainId.ETHEREUM | ChainId.SEPOLIA | Ch
       symbol: USDC[ChainId.BOB_SEPOLIA].symbol!,
       decimals: USDC[ChainId.BOB_SEPOLIA].decimals,
       icon: icons.USDC,
-      logoUrl: 'https://ethereum-optimism.github.io/data/USDC/logo.png',
       apiId: 'usd-coin'
     }
   })
@@ -163,7 +150,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'LBTC',
     decimals: 8,
     icon: icons.LBTC,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
     apiId: 'lombard-staked-btc'
   },
   ...(WBTC?.[ChainId.ETHEREUM]
@@ -175,8 +161,6 @@ const ethereumAssets: RawToken[] = [
           symbol: WBTC[ChainId.ETHEREUM].symbol,
           decimals: WBTC[ChainId.ETHEREUM].decimals,
           icon: icons.WBTC,
-          logoUrl:
-            'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png',
           apiId: 'wrapped-btc'
         }
       ]
@@ -190,7 +174,6 @@ const ethereumAssets: RawToken[] = [
           symbol: TBTC[ChainId.ETHEREUM].symbol,
           decimals: TBTC[ChainId.ETHEREUM].decimals,
           icon: icons.TBTC,
-          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
           apiId: 'tbtc'
         }
       ]
@@ -204,7 +187,6 @@ const ethereumAssets: RawToken[] = [
           symbol: USDT[ChainId.ETHEREUM].symbol,
           decimals: USDT[ChainId.ETHEREUM].decimals,
           icon: icons.USDT,
-          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
           apiId: 'tether'
         }
       ]
@@ -217,7 +199,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'DAI',
     decimals: 18,
     icon: icons.DAI,
-    logoUrl: 'https://ethereum-optimism.github.io/data/DAI/logo.svg',
     apiId: 'dai'
   },
   {
@@ -227,8 +208,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'ALEX',
     decimals: 18,
     icon: icons.Alex,
-    logoUrl:
-      'https://images.ctfassets.net/frwmwlognk87/66AVnxb2drR9ofypuV3y2r/1f223e16a7236dfa0ea4b8e0259c35c8/alex.svg',
     apiId: 'alexgo',
     bridgeDisabled: true
   },
@@ -239,7 +218,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'DLLR',
     decimals: 18,
     icon: icons.DLLR,
-    logoUrl: 'https://assets.coingecko.com/coins/images/30947/standard/sovryn_dllr.jpg',
     apiId: 'sovryn-dollar'
   },
   {
@@ -249,7 +227,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'eSOV',
     decimals: 18,
     icon: icons.ESOV,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/exchanges/64x64/1407.png',
     apiId: 'sovryn'
   },
   {
@@ -259,7 +236,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'FRAX',
     decimals: 18,
     icon: icons.FRAX,
-    logoUrl: 'https://assets.coingecko.com/coins/images/13422/standard/FRAX_icon.png',
     apiId: 'frax'
   },
   {
@@ -269,7 +245,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'FXS',
     decimals: 18,
     icon: icons.FXS,
-    logoUrl: 'https://assets.coingecko.com/coins/images/13423/standard/Frax_Shares_icon.png',
     apiId: 'frax-share'
   },
   {
@@ -279,7 +254,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'rETH',
     decimals: 18,
     icon: icons.RETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/rETH/logo.svg',
     apiId: 'rocket-pool-eth'
   },
   {
@@ -289,7 +263,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'sFRAX',
     decimals: 18,
     icon: icons.SFRAX,
-    logoUrl: 'https://assets.coingecko.com/coins/images/35383/standard/sfrax.png',
     apiId: 'staked-frax'
   },
   {
@@ -299,7 +272,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'sfrxETH',
     decimals: 18,
     icon: icons.SfrxETH,
-    logoUrl: 'https://assets.coingecko.com/coins/images/28285/standard/sfrxETH_icon.png',
     apiId: 'staked-frax-ether'
   },
   {
@@ -309,7 +281,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'STONE',
     decimals: 18,
     icon: icons.STONE,
-    logoUrl: 'https://storage.googleapis.com/ks-setting-1d682dca/dee351e5-ff61-4a8f-994d-82f3078119661696785945490.png',
     apiId: 'stakestone-ether'
   },
   {
@@ -319,7 +290,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'T',
     decimals: 18,
     icon: icons.T,
-    logoUrl: 'https://assets.coingecko.com/coins/images/22228/standard/nFPNiSbL_400x400.jpg',
     apiId: 'threshold-network-token'
   },
   {
@@ -329,7 +299,6 @@ const ethereumAssets: RawToken[] = [
     symbol: 'TRB',
     decimals: 18,
     icon: icons.TRB,
-    logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
     apiId: 'tellor-tributes'
   },
   wstETH[ChainId.ETHEREUM]
@@ -346,7 +315,6 @@ const sepoliaAssets: RawToken[] = [
           symbol: USDT[ChainId.SEPOLIA].symbol!,
           decimals: USDT[ChainId.SEPOLIA].decimals,
           icon: icons.USDT,
-          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
           apiId: 'tether'
         }
       ]
@@ -360,7 +328,6 @@ const sepoliaAssets: RawToken[] = [
           symbol: TBTC[ChainId.SEPOLIA].symbol!,
           decimals: TBTC[ChainId.SEPOLIA].decimals,
           icon: icons.TBTC,
-          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
           apiId: 'tbtc'
         }
       ]
@@ -378,7 +345,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'LBTC',
     decimals: 8,
     icon: icons.LBTC,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/33652.png',
     apiId: 'lombard-staked-btc'
   },
   ...(WBTC?.[ChainId.BOB]
@@ -390,8 +356,6 @@ export const bobAssets: RawToken[] = [
           symbol: WBTC[ChainId.BOB].symbol,
           decimals: WBTC[ChainId.BOB].decimals,
           icon: icons.WBTC,
-          logoUrl:
-            'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png',
           apiId: 'wrapped-btc'
         }
       ]
@@ -405,7 +369,6 @@ export const bobAssets: RawToken[] = [
           symbol: TBTC[ChainId.BOB].symbol,
           decimals: TBTC[ChainId.BOB].decimals,
           icon: icons.TBTC,
-          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
           apiId: 'tbtc'
         }
       ]
@@ -420,7 +383,6 @@ export const bobAssets: RawToken[] = [
           symbol: USDT[ChainId.BOB].symbol,
           decimals: USDT[ChainId.BOB].decimals,
           icon: icons.USDT,
-          logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
           apiId: 'tether'
         }
       ]
@@ -432,7 +394,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'DAI',
     decimals: 18,
     icon: icons.DAI,
-    logoUrl: 'https://ethereum-optimism.github.io/data/DAI/logo.svg',
     apiId: 'dai'
   },
   {
@@ -442,8 +403,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'ALEX',
     decimals: 18,
     icon: icons.Alex,
-    logoUrl:
-      'https://images.ctfassets.net/frwmwlognk87/66AVnxb2drR9ofypuV3y2r/1f223e16a7236dfa0ea4b8e0259c35c8/alex.svg',
     apiId: 'alexgo',
     bridgeDisabled: true
   },
@@ -454,7 +413,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'DLLR',
     decimals: 18,
     icon: icons.DLLR,
-    logoUrl: 'https://assets.coingecko.com/coins/images/30947/standard/sovryn_dllr.jpg?1696529786',
     apiId: 'sovryn-dollar'
   },
   {
@@ -464,7 +422,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'eSOV',
     decimals: 18,
     icon: icons.ESOV,
-    logoUrl: 'https://s2.coinmarketcap.com/static/img/exchanges/64x64/1407.png',
     apiId: 'sovryn'
   },
   {
@@ -474,7 +431,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'FRAX',
     decimals: 18,
     icon: icons.FRAX,
-    logoUrl: 'https://assets.coingecko.com/coins/images/13422/standard/FRAX_icon.png',
     apiId: 'frax'
   },
   {
@@ -484,7 +440,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'FXS',
     decimals: 18,
     icon: icons.FXS,
-    logoUrl: 'https://assets.coingecko.com/coins/images/13423/standard/Frax_Shares_icon.png',
     apiId: 'frax-share'
   },
   {
@@ -494,7 +449,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'rETH',
     decimals: 18,
     icon: icons.RETH,
-    logoUrl: 'https://ethereum-optimism.github.io/data/rETH/logo.svg',
     apiId: 'rocket-pool-eth'
   },
   {
@@ -504,7 +458,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'sFRAX',
     decimals: 18,
     icon: icons.SFRAX,
-    logoUrl: 'https://assets.coingecko.com/coins/images/35383/standard/sfrax.png',
     apiId: 'staked-frax'
   },
   {
@@ -514,7 +467,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'sfrxETH',
     decimals: 18,
     icon: icons.SfrxETH,
-    logoUrl: 'https://assets.coingecko.com/coins/images/28285/standard/sfrxETH_icon.png',
     apiId: 'staked-frax-ether'
   },
   {
@@ -524,7 +476,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'STONE',
     decimals: 18,
     icon: icons.STONE,
-    logoUrl: 'https://storage.googleapis.com/ks-setting-1d682dca/dee351e5-ff61-4a8f-994d-82f3078119661696785945490.png',
     apiId: 'stakestone-ether'
   },
   {
@@ -534,7 +485,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'T',
     decimals: 18,
     icon: icons.T,
-    logoUrl: 'https://assets.coingecko.com/coins/images/22228/standard/nFPNiSbL_400x400.jpg',
     apiId: 'threshold-network-token'
   },
   {
@@ -544,7 +494,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'TRB',
     decimals: 18,
     icon: icons.TRB,
-    logoUrl: 'https://assets.coingecko.com/coins/images/9644/standard/Blk_icon_current.png',
     apiId: 'tellor-tributes'
   },
   wstETH[ChainId.BOB],
@@ -555,7 +504,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'uniBTC',
     decimals: 8,
     icon: icons.UniBTC,
-    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/uniBTC.svg',
     apiId: 'universal-btc',
     bridgeDisabled: true
   },
@@ -566,7 +514,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'SolvBTC',
     decimals: 18,
     icon: icons.SolvBTC,
-    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/solvBTC.svg',
     apiId: 'solv-protocol-solvbtc',
     bridgeDisabled: true
   },
@@ -577,7 +524,6 @@ export const bobAssets: RawToken[] = [
     symbol: 'SolvBTC.BBN',
     decimals: 18,
     icon: icons.SolvBTCBBN,
-    logoUrl: 'https://raw.githubusercontent.com/bob-collective/bob/master/assets/solvBTC.BBN.svg',
     apiId: 'solv-protocol-solvbtc-bbn',
     bridgeDisabled: true
   }
@@ -595,7 +541,6 @@ const bobSepoliaAssets: RawToken[] = [
           symbol: TBTC[ChainId.BOB_SEPOLIA].symbol!,
           decimals: TBTC[ChainId.BOB_SEPOLIA].decimals,
           icon: icons.TBTC,
-          logoUrl: 'https://ethereum-optimism.github.io/data/tBTC/logo.svg',
           apiId: 'tbtc'
         }
       ]

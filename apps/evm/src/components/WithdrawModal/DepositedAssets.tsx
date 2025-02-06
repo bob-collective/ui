@@ -47,7 +47,11 @@ const DepositedAssets = () => {
 
           return (
             <Flex key={key} alignItems='center' gap='md'>
-              {eth.raw.icon ? <eth.raw.icon size='2xl' /> : <Avatar size='2xl' src={eth.raw.logoUrl} />}
+              {typeof eth.raw.icon === 'string' ? (
+                <Avatar size='2xl' src={eth.raw.icon} />
+              ) : (
+                <eth.raw.icon size='2xl' />
+              )}
               <P size='xs' weight='semibold'>
                 {item.total_amount} {nativeToken.symbol} ({format(Number(item.total_usd))})
               </P>

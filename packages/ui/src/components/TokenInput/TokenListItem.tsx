@@ -7,13 +7,13 @@ import { TokenSelectItemProps } from './TokenSelect';
 
 type TokenListItemProps = TokenSelectItemProps;
 
-const TokenListItem = ({ balance, balanceUSD, currency, icon, logoUrl }: TokenListItemProps): JSX.Element => {
+const TokenListItem = ({ balance, balanceUSD, currency, icon }: TokenListItemProps): JSX.Element => {
   const format = useCurrencyFormatter();
 
   return (
     <>
       <StyledListTokenWrapper alignItems='center' flex='1' gap='md'>
-        <Token icon={icon} logoUrl={logoUrl} symbol={currency.symbol} />
+        <Token icon={icon} symbol={currency.symbol} />
       </StyledListTokenWrapper>
       <Flex alignItems='flex-end' direction='column' flex='0' gap='xs'>
         <StyledListItemLabel>{balance}</StyledListItemLabel>

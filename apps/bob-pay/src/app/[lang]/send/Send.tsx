@@ -347,7 +347,7 @@ const Send = ({ ticker: tickerProp = 'WBTC', recipient }: SendProps): JSX.Elemen
         return {
           balance: balance?.toExact() || 0,
           balanceUSD: balance ? calculateAmountUSD(balance, getPrice(token.currency.symbol)) : 0,
-          logoUrl: token.raw.logoUrl,
+          icon: token.raw.logoUrl,
           currency: token.currency
         };
       }) || [],

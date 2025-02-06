@@ -9,19 +9,19 @@ const items = [
   {
     balance: 2,
     currency: { symbol: 'ETH', decimals: 18 } as Currency,
-    logoUrl: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
+    icon: 'https://ethereum-optimism.github.io/data/ETH/logo.svg',
     balanceUSD: 900
   },
   {
     balance: 500,
     currency: { symbol: 'USDT', decimals: 6 } as Currency,
-    logoUrl: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
+    icon: 'https://ethereum-optimism.github.io/data/USDT/logo.png',
     balanceUSD: 500
   },
   {
     balance: 100,
     currency: { symbol: 'USDC', decimals: 6 } as Currency,
-    logoUrl: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
+    icon: 'https://ethereum-optimism.github.io/data/BridgedUSDC/logo.png',
     balanceUSD: 100
   }
 ];

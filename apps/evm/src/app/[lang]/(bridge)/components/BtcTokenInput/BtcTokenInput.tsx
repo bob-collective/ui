@@ -38,7 +38,6 @@ const BtcTokenInput = ({ amount, balance, ...props }: BtcTokenInputProps): JSX.E
       currency={BITCOIN}
       icon={BTC}
       label={t(i18n)`Amount`}
-      logoUrl='https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png'
       valueUSD={valueUSD}
       {...props}
     />

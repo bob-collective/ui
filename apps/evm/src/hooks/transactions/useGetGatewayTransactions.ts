@@ -28,7 +28,6 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
               name: gatewayToken.name,
               symbol: gatewayToken.symbol,
               decimals: gatewayToken.decimals,
-              logoUrl: gatewayToken.logoURI,
               icon: tokenAddressToRawTokenMapping[getAddress(gatewayToken.address)]?.icon,
               apiId: ''
             },
@@ -58,10 +57,8 @@ const getGatewayTransactions = async (address: Address): Promise<GatewayTransact
 
         return {
           amount,
-          logoUrl: gatewayToken?.logoURI,
-          icon: gatewayToken?.address
-            ? tokenAddressToRawTokenMapping[getAddress(gatewayToken.address)]?.icon
-            : undefined,
+          icon:
+            tokenAddressToRawTokenMapping[getAddress(gatewayToken?.address || '')]?.icon || gatewayToken?.logoURI || '',
           btcTxId: order.txid,
           date: new Date(order.timestamp * 1000),
           confirmations: orderStatus.data.confirmations,

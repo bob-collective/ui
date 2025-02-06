@@ -15,8 +15,7 @@ type TransactionDetailsProps = {
   fromChainId: ChainId | 'BTC';
   toChainId: ChainId | 'BTC';
   amount?: CurrencyAmount<Currency>;
-  logoUrl?: string;
-  icon?: typeof Icon;
+  icon: typeof Icon | string;
   isPending?: boolean;
   isExpanded?: boolean;
 };
@@ -26,7 +25,6 @@ const TransactionDetails = ({
   fromChainId,
   toChainId,
   amount,
-  logoUrl,
   icon: Icon,
   isPending
 }: TransactionDetailsProps): JSX.Element => {
@@ -36,7 +34,13 @@ const TransactionDetails = ({
     <Flex alignItems='center' gap='lg'>
       {amount ? (
         <ChainAsset
-          asset={Icon ? <Icon size='2xl' /> : <Avatar alt={amount.currency.symbol} size='5xl' src={logoUrl} />}
+          asset={
+            typeof Icon === 'string' ? (
+              <Avatar alt={amount.currency.symbol} size='5xl' src={Icon} />
+            ) : (
+              <Icon size='2xl' />
+            )
+          }
           chainId={toChainId}
           chainProps={{ size: 'xs' }}
         />

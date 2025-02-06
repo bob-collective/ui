@@ -57,18 +57,16 @@ const getSkeletons = () =>
     }));
 
 const StrategyCell = ({
-  logo,
   icon: IconComponent,
   name,
   protocol
 }: {
-  icon?: typeof Icon;
-  logo: string;
+  icon: typeof Icon | string;
   protocol: string;
   name: string;
 }) => (
   <Flex alignItems='center' gap='lg'>
-    {IconComponent ? <IconComponent size='2xl' /> : <Avatar size='5xl' src={logo} />}
+    {typeof IconComponent === 'string' ? <Avatar size='5xl' src={IconComponent} /> : <IconComponent size='2xl' />}
     <Flex alignItems='flex-start' direction='column'>
       <Span rows={1} size='s' style={{ whiteSpace: 'normal' }} weight='bold'>
         {name}
@@ -184,12 +182,7 @@ const StrategiesTable = ({ searchParams }: StrategiesTableProps) => {
         return {
           id: strategy.meta.slug,
           [StrategiesTableColumns.STRATEGY]: (
-            <StrategyCell
-              icon={strategy.info.icon}
-              logo={strategy.info.logoUrl || strategy.meta.logo}
-              name={strategy.info.name}
-              protocol={strategy.info.protocol}
-            />
+            <StrategyCell icon={strategy.info.icon} name={strategy.info.name} protocol={strategy.info.protocol} />
           ),
           [StrategiesTableColumns.AMOUNT]: (
             <Flex direction='column'>

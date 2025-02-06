@@ -30,7 +30,7 @@ const useBlockscoutTokens = () => {
             ...blockscoutToken.token,
             decimals: Number(blockscoutToken.token.decimals),
             chainId: ChainId.BOB,
-            logoUrl: '',
+            icon: '',
             apiId: ''
           },
           currency: new ERC20Token(
