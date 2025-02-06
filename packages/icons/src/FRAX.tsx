@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { Icon, IconProps } from '@gobob/ui';
 
 const FRAX = forwardRef<SVGSVGElement, IconProps>((props, ref) => (
-  <Icon ref={ref} fill='none' viewBox='0 0 283.46 283.46' xmlns='http://www.w3.org/2000/svg' {...props}>
+  <Icon ref={ref} viewBox='0 0 283.46 283.46' xmlns='http://www.w3.org/2000/svg' {...props}>
     <style type='text/css'>{`.st0{fill:#FFFFFF;}`}</style>
     <g>
       <g>
