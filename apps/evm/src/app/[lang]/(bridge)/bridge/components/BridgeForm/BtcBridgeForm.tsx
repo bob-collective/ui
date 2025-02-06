@@ -128,7 +128,7 @@ const BtcBridgeForm = ({
         {(data) => (
           <Item key={data.currency.symbol} textValue={data.currency.symbol}>
             <Flex alignItems='center' gap='s'>
-              {data.raw.icon ? <data.raw.icon size='xs' /> : <Avatar size='2xl' src={data.raw.logoUrl} />}
+              {data.raw.icon ? <data.raw.icon size='s' /> : <Avatar size='2xl' src={data.raw.logoUrl} />}
               <P style={{ color: 'inherit' }}>{data.currency.symbol}</P>
             </Flex>
           </Item>
