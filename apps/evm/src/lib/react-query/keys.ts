@@ -40,8 +40,8 @@ export const bridgeKeys = {
     status,
     'timeline'
   ],
-  proveTransaction: (address: Address | undefined, hash: Address) => [address, hash, 'prove'],
-  relayTransaction: (address: Address | undefined, hash: Address) => [address, hash, 'relay'],
+  proveTransaction: (address: Address | undefined, hash?: Address) => [address, hash, 'prove'],
+  relayTransaction: (address: Address | undefined, hash?: Address) => [address, hash, 'relay'],
   btc: (address: Address | undefined, btcAddress: string | undefined) => ['btc', address, btcAddress],
   btcQuote: (
     toToken?: string,

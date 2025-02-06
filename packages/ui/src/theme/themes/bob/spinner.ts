@@ -40,6 +40,9 @@ const spinner: SpinnerTheme = {
     },
     primary: {
       borderColor: `${color('primary-500')} ${color('primary-500')} ${'transparent'}`
+    },
+    secondary: {
+      borderColor: `${color('dark')} ${color('dark')} ${'transparent'}`
     }
   }
 };

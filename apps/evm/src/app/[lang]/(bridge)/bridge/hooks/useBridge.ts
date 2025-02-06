@@ -2,7 +2,7 @@
 
 import { Currency, CurrencyAmount, ERC20Token, Ether } from '@gobob/currency';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Address } from 'viem';
+import { Address, isAddress } from 'viem';
 import { useAccount, useGasPrice } from 'wagmi';
 import { USDC } from '@gobob/tokens';
 
@@ -20,9 +20,6 @@ import {
   TransactionType
 } from '@/types';
 import { bridgeContracts } from '@/constants/bridge';
-
-const getBridgeContract = (currency: Ether | ERC20Token) =>
-  currency.isToken ? bridgeContracts[currency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard : bridgeContracts.ETH;
 
 type UseBridgeProps = {
   direction: TransactionDirection;
@@ -45,14 +42,18 @@ const useBridge = ({
   onError,
   onSuccess
 }: UseBridgeProps) => {
-  const { address } = useAccount();
   const walletClientL1 = useWalletClientL1();
   const walletClientL2 = useWalletClientL2();
+
+  const { address } = useAccount();
   const { data: gasPrice } = useGasPrice();
 
   const evmBridgePosthogEvents = direction === TransactionDirection.L1_TO_L2 ? 'deposit' : 'withdraw';
 
-  const bridgeContract = selectedCurrency && getBridgeContract(selectedCurrency);
+  const bridgeContract =
+    selectedCurrency && selectedCurrency.isToken
+      ? bridgeContracts[selectedCurrency.symbol]?.[L2_CHAIN] || bridgeContracts.Standard
+      : bridgeContracts.ETH;
 
   const isFetchAllowanceRequired =
     !isBridgeDisabled &&
@@ -98,7 +99,7 @@ const useBridge = ({
 
       return CurrencyAmount.fromRawAmount(gasToken, gas).multiply(gasPrice);
     },
-    refetchInterval: INTERVAL.SECONDS_30
+    refetchInterval: INTERVAL.MINUTE
   });
 
   const gasEstimate = useQuery({
@@ -180,7 +181,7 @@ const useBridge = ({
 
       return CurrencyAmount.fromRawAmount(gasToken, gas).multiply(gasPrice);
     },
-    refetchInterval: INTERVAL.SECONDS_30
+    refetchInterval: INTERVAL.MINUTE
   });
 
   const deposit = useMutation({
@@ -192,7 +193,7 @@ const useBridge = ({
     }: {
       selectedToken: BridgeToken;
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
-      recipient: Address;
+      recipient?: string;
     }): Promise<BridgeTransaction> => {
       if (!(bridgeContract && bridgeContract.l1Bridge)) {
         throw new Error('Contract missing');
@@ -206,18 +207,23 @@ const useBridge = ({
       const l1Address = selectedToken.l1Token.address;
       const l2Address = selectedToken.l2Token.address;
 
+      if (recipient && !isAddress(recipient)) {
+        throw new Error('Invalid recipient');
+      }
+
+      const to = (recipient as Address) || address!;
+
       const data: InitBridgeTransaction = {
         amount: currencyAmount,
         direction: TransactionDirection.L1_TO_L2,
         from: address!,
-        to: recipient,
+        to,
         l1Token: l1Address,
         l2Token: l2Address,
         type: TransactionType.Bridge,
         logoUrl: selectedToken.l1Token.logoUrl
       };
 
-      const to = recipient || address!;
       const amount = BigInt(currencyAmount.numerator);
 
       if (currencyAmount.currency.isNative) {
@@ -268,7 +274,7 @@ const useBridge = ({
     }: {
       selectedToken: BridgeToken;
       currencyAmount: CurrencyAmount<ERC20Token | Ether>;
-      recipient: Address;
+      recipient?: string;
     }): Promise<BridgeTransaction> => {
       if (!(bridgeContract && bridgeContract.l1Bridge)) {
         throw new Error('Contract missing');
@@ -282,18 +288,23 @@ const useBridge = ({
       const l1Address = selectedToken.l1Token.address;
       const l2Address = selectedToken.l2Token.address;
 
+      if (recipient && !isAddress(recipient)) {
+        throw new Error('Invalid recipient');
+      }
+
+      const to = (recipient as Address) || address!;
+
       const data: InitBridgeTransaction = {
         amount: currencyAmount,
         direction: TransactionDirection.L2_TO_L1,
+        to,
         from: address!,
-        to: recipient,
         l1Token: l1Address,
         l2Token: l2Address,
         type: TransactionType.Bridge,
         logoUrl: selectedToken.l2Token.logoUrl
       };
 
-      const to = recipient || address!;
       const amount = BigInt(currencyAmount.numerator);
 
       if (currencyAmount.currency.isNative) {

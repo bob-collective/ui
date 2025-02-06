@@ -2,7 +2,7 @@ import { StyledObject } from 'styled-components/dist/types';
 
 type SpinnerSizes = 'xs' | 's' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
-type SpinnerColors = 'default' | 'primary';
+type SpinnerColors = 'default' | 'primary' | 'secondary';
 
 type SpinnerColorsParams = StyledObject<object>;
 

@@ -9,8 +9,8 @@ import {
   Flex,
   Input,
   P,
+  Skeleton,
   SolidClock,
-  Spinner,
   toast,
   TokenInput,
   TokenSelectItemProps,
@@ -24,11 +24,10 @@ import { mergeProps } from '@react-aria/utils';
 import Big from 'big.js';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
-import { Address } from 'viem';
 import { useAccount } from 'wagmi';
 
-import { BridgeTransactionModal } from '../../../components';
 import { useBridge } from '../../hooks';
+import { BridgeTransactionModal } from '../BridgeTransactionModal';
 
 import { BridgeAlert } from './BridgeAlert';
 
@@ -115,11 +114,7 @@ const BobBridgeForm = ({
 
     posthogEvents.bridge.evm.failed(evmBridgePosthogEvents);
 
-    if (error.code === 4001) {
-      toast.error(t(i18n)`User rejected the request`);
-    } else {
-      toast.error(t(i18n)`Something went wrong. Please try again later.`);
-    }
+    toast.error(error.shortMessage || t(i18n)`Something went wrong. Please try again later.`);
   };
 
   const handleSuccess = (data: BridgeTransaction) => {
@@ -158,26 +153,6 @@ const BobBridgeForm = ({
 
   const handleSubmit = async () => {
     setBridgeModalOpen(true);
-  };
-
-  const handleStartBridge = async () => {
-    if (!currencyAmount || !selectedToken || isBridgeDisabled) return;
-
-    const recipient = (form.values[BRIDGE_RECIPIENT] as Address) || undefined;
-
-    if (direction === TransactionDirection.L1_TO_L2) {
-      return deposit.mutate({
-        currencyAmount,
-        selectedToken,
-        recipient
-      });
-    }
-
-    return withdraw.mutate({
-      currencyAmount,
-      selectedToken,
-      recipient
-    });
   };
 
   const initialValues = useMemo(
@@ -281,48 +256,33 @@ const BobBridgeForm = ({
         />
       )}
       {isBridgeDisabled && selectedToken && <BridgeAlert token={selectedToken} />}
-      {(!isFormDisabled(form) || !!gasEstimate.data) && (
-        <Card
-          wrap
-          background='grey-600'
-          direction='row'
-          gap='s'
-          justifyContent='space-between'
-          padding='lg'
-          rounded='md'
-        >
-          {gasEstimate.isLoading || !gasEstimate.data ? (
-            <Flex alignItems='center' flex={1} gap='md' justifyContent='center'>
-              <Spinner size='16' thickness={2} />
-              <P align='center' size='s'>
-                <Trans>Loading</Trans>
-              </P>
-            </Flex>
+      <Card wrap background='grey-600' direction='row' gap='s' justifyContent='space-between' padding='lg' rounded='md'>
+        <Flex alignItems='center' gap='s' style={{ maxHeight: '1.25rem' }}>
+          <FuelStation color='grey-50' size='xxs' />
+          {(approval.isApproveRequired && approvalGasEstimate.isLoading) || gasEstimate.isLoading ? (
+            <Skeleton width='5rem' />
           ) : (
-            <>
-              <Flex alignItems='center' gap='s'>
-                <FuelStation color='grey-50' size='xxs' />
-                <P color='grey-50' size='s'>
-                  {gasEstimate.data.toSignificant(3)} (
-                  {format(
-                    calculateAmountUSD(
+            <P color='grey-50' size='s'>
+              {gasEstimate.data?.toSignificant(3) || '0.00'} (
+              {format(
+                gasEstimate.data
+                  ? calculateAmountUSD(
                       approvalGasEstimate.data ? gasEstimate.data.add(approvalGasEstimate.data) : gasEstimate.data,
                       getPrice(gasEstimate.data.currency.symbol)
                     )
-                  )}
-                  )
-                </P>
-              </Flex>
-              <Flex alignItems='center' gap='xxs'>
-                <P color='grey-50' size='s'>
-                  {direction === TransactionDirection.L1_TO_L2 ? <Trans>~3 min</Trans> : <Trans>~7 days</Trans>}
-                </P>
-                <SolidClock color='grey-50' size='xs' />
-              </Flex>
-            </>
+                  : 0
+              )}
+              )
+            </P>
           )}
-        </Card>
-      )}
+        </Flex>
+        <Flex alignItems='center' gap='xxs'>
+          <P color='grey-50' size='s'>
+            {direction === TransactionDirection.L1_TO_L2 ? <Trans>~3 min</Trans> : <Trans>~7 days</Trans>}
+          </P>
+          <SolidClock color='grey-50' size='xs' />
+        </Flex>
+      </Card>
       <AuthButton
         chain={bridgeChainId}
         color='primary'
@@ -335,21 +295,17 @@ const BobBridgeForm = ({
       </AuthButton>
       {currencyAmount && selectedToken && (
         <BridgeTransactionModal
-          amount={currencyAmount}
-          approveGasEstimate={approvalGasEstimate.data}
-          approveTx={approveResult}
+          approval={approval}
+          approvalGasEstimate={approvalGasEstimate}
+          currencyAmount={currencyAmount}
+          deposit={deposit}
           direction={direction}
-          gasEstimate={gasEstimate.data}
-          isApproving={isApproving}
+          gasEstimate={gasEstimate}
           isOpen={isBridgeModalOpen}
-          token={selectedToken}
-          onClose={() => {
-            setBridgeModalOpen(false);
-            withdraw.reset();
-            deposit.reset();
-          }}
-          onPressApprove={approve}
-          onPressStartBridge={handleStartBridge}
+          recipient={form.values[BRIDGE_RECIPIENT]}
+          selectedToken={selectedToken}
+          withdraw={withdraw}
+          onClose={() => setBridgeModalOpen(false)}
         />
       )}
     </Flex>
