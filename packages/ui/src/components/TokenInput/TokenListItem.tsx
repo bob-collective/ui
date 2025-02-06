@@ -14,7 +14,6 @@ const TokenListItem = ({ balance, balanceUSD, currency, icon, logoUrl }: TokenLi
     <>
       <StyledListTokenWrapper alignItems='center' flex='1' gap='md'>
         <Token icon={icon} logoUrl={logoUrl} symbol={currency.symbol} />
-        <StyledListItemLabel>{currency.symbol}</StyledListItemLabel>
       </StyledListTokenWrapper>
       <Flex alignItems='flex-end' direction='column' flex='0' gap='xs'>
         <StyledListItemLabel>{balance}</StyledListItemLabel>

@@ -356,6 +356,7 @@ const useGetBridgeTransactions = () => {
         ...depositData,
         amount,
         logoUrl: token.l1Token.logoUrl,
+        icon: token.l1Token.icon,
         status,
         l1Receipt,
         l2Receipt,
