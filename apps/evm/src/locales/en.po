@@ -103,7 +103,7 @@ msgstr "Active Superchain users who have received any of the five OP Airdrops qu
 
 #: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:54
 #: src/app/[lang]/(bridge)/bridge/components/ActivityButton/ActivityButton.tsx:83
-#: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:49
+#: src/app/[lang]/(bridge)/stake/components/ActivityButton/ActivityButton.tsx:51
 #: src/components/Profile/Profile.tsx:152
 msgid "Activity"
 msgstr "Activity"
